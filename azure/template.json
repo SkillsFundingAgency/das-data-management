@@ -75,5 +75,10 @@
             }
         }
     ],
-    "outputs": {}
+    "outputs": {
+        "StagingDatabaseName": {
+            "type": "string",
+            "value": "[concat(variables('resourceNamePrefix'), variables('databaseSuffixArray')[0])]"
+        }
+    }
 }

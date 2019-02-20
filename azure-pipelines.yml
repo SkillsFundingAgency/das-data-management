@@ -1,0 +1,48 @@
+trigger:
+  batch: true
+  branches:
+    include:
+      - "*"
+
+pr: none
+
+workspace:
+    clean: all
+
+variables:
+  buildConfiguration: 'release'
+  buildPlatform: 'anycpu'
+
+pool:
+  name: 'Continuous Integration 02 - SSD - 160ACU'
+  demands: 
+  - msbuild
+  - visualstudio
+
+steps:
+- task: gittools.gitversion.gitversion-task.GitVersion@3
+  displayName: GitVersion
+  inputs:
+    updateAssemblyInfo: true
+
+- task: VSBuild@1
+  displayName: 'Build DACPAC'
+  inputs:
+    solution: 'src\**\*.sqlproj'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+    msbuildArgs: '/p:PackageLocation="$(build.artifactstagingdirectory)/publish"'
+
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+  inputs:
+    Contents: |
+     azure\**
+     src\**\*.dacpac
+    TargetFolder: '$(build.artifactstagingdirectory)/publish'
+    OverWrite: true
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact'
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)/publish'

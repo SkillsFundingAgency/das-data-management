@@ -1,25 +1,27 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.28307.102
+VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SFA.DAS.DATA.MANAGEMENT", "SFA.DAS.DATA.MANAGEMENT.vbproj", "{0127753F-B4B6-4418-92B7-182297C29DA0}"
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SFA.DAS.Data.Management.Database", "SFA.DAS.DATA.MANAGEMENT\SFA.DAS.Data.Management.Database.sqlproj", "{6EB2AEBC-B162-4498-954D-A4996D860735}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|x86 = Debug|x86
-		Release|x86 = Release|x86
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0127753F-B4B6-4418-92B7-182297C29DA0}.Debug|x86.ActiveCfg = Debug|x86
-		{0127753F-B4B6-4418-92B7-182297C29DA0}.Debug|x86.Build.0 = Debug|x86
-		{0127753F-B4B6-4418-92B7-182297C29DA0}.Release|x86.ActiveCfg = Release|x86
-		{0127753F-B4B6-4418-92B7-182297C29DA0}.Release|x86.Build.0 = Release|x86
+		{6EB2AEBC-B162-4498-954D-A4996D860735}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EB2AEBC-B162-4498-954D-A4996D860735}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EB2AEBC-B162-4498-954D-A4996D860735}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{6EB2AEBC-B162-4498-954D-A4996D860735}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EB2AEBC-B162-4498-954D-A4996D860735}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EB2AEBC-B162-4498-954D-A4996D860735}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {07B494DF-5AF8-4CC2-B36C-28278F2E70AC}
+		SolutionGuid = {D77CA239-C38E-447E-9EFC-E8C54769D92D}
 	EndGlobalSection
 EndGlobal

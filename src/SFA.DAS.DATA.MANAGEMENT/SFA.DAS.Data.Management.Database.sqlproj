@@ -62,6 +62,7 @@
     <Folder Include="StoredProcedure" />
     <Folder Include="Views" />
     <Folder Include="Functions" />
+    <Folder Include="Schemas" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Stg_FIC_Feedback.sql" />
@@ -70,5 +71,9 @@
     <None Include="Database.publish.xml" />
     <None Include="StoredProcedure\Blank.txt" />
     <None Include="Views\Blank1.txt" />
+    <None Include="Schemas\Comt.sql" />
+    <None Include="Tables\Stg_Load_Commitments.sql" />
+    <None Include="Tables\Stg_Load_AssessmentOrganisation.sql" />
+    <None Include="Tables\Stg_Load_Apprenticeship.sql" />
   </ItemGroup>
 </Project>

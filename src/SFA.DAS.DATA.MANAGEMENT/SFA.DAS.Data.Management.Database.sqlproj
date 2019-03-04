@@ -75,5 +75,7 @@
     <None Include="Tables\Stg_Load_Commitments.sql" />
     <None Include="Tables\Stg_Load_AssessmentOrganisation.sql" />
     <None Include="Tables\Stg_Load_Apprenticeship.sql" />
+    <None Include="Views\vw_Apprenticeship_Commitments.sql" />
+    <None Include="Views\vw_CommitmentSummary.sql" />
   </ItemGroup>
 </Project>

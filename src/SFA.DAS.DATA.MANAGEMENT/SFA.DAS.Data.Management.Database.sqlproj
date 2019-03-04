@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -71,11 +71,11 @@
     <None Include="Database.publish.xml" />
     <None Include="StoredProcedure\Blank.txt" />
     <None Include="Views\Blank1.txt" />
-    <None Include="Schemas\Comt.sql" />
-    <None Include="Tables\Stg_Load_Commitments.sql" />
-    <None Include="Tables\Stg_Load_AssessmentOrganisation.sql" />
-    <None Include="Tables\Stg_Load_Apprenticeship.sql" />
-    <None Include="Views\vw_Apprenticeship_Commitments.sql" />
-    <None Include="Views\vw_CommitmentSummary.sql" />
+    <Build Include="Schemas\Comt.sql" />
+    <Build Include="Tables\Stg_Load_Commitments.sql" />
+    <Build Include="Tables\Stg_Load_AssessmentOrganisation.sql" />
+    <Build Include="Tables\Stg_Load_Apprenticeship.sql" />
+    <Build Include="Views\vw_Apprenticeship_Commitments.sql" />
+    <Build Include="Views\vw_CommitmentSummary.sql" />
   </ItemGroup>
 </Project>

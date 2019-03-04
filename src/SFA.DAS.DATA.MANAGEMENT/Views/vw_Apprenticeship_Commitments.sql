@@ -8,7 +8,6 @@ SELECT Comm.Id as CommitmentId
 	  ,Comm.LegalEntityName
 	  ,Comm.LegalEntityAddress
 	  ,Comm.CommitmentStatus
-	  ,App.TrainingName
 	  ,App.FirstName ApprenticeFirstName
 	  ,App.LastName ApprenticeLastName
 	  ,App.ULN
@@ -25,9 +24,9 @@ SELECT Comm.Id as CommitmentId
 			Else 'Unknown'
 		END AS PaymentStatus
 	  ,AO.Name AS EPAOName
-  FROM dbo.Apprenticeship App
-  JOIN dbo.Commitment Comm
+  FROM [Comt].[Stg_Load_Apprenticeship] App
+  JOIN [Comt].[Stg_Load_Commitment] Comm
     ON App.CommitmentId=comm.Id
-  JOIN dbo.AssessmentOrganisation AO
+  JOIN [Comt].[Stg_Load_AssessmentOrganisation] AO
     ON AO.EPAOrgId=APP.EPAOrgId
 Go

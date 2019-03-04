@@ -1,9 +1,10 @@
 ﻿
+
 CREATE TABLE [Comt].[Stg_Load_Commitment]
 (
 	[Id] BIGINT NOT NULL PRIMARY KEY , 
-    [Reference] NVARCHAR(100) NOT NULL, 
-    [EmployerAccountId] BIGINT NOT NULL, 
+    [Reference] NVARCHAR(100) MASKED WITH (FUNCTION='PARTIAL(1,"######",0)') NOT NULL, 
+    [EmployerAccountId] BIGINT MASKED WITH (FUNCTION='PARTIAL(2,"######",1)') NOT NULL, 
     [LegalEntityId] NVARCHAR(50) NOT NULL, 
     [LegalEntityName] NVARCHAR(100) NOT NULL, 
 	[LegalEntityAddress] NVARCHAR(256) NOT NULL,

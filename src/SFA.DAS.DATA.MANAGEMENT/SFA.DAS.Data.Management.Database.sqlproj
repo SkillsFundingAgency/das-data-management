@@ -63,6 +63,7 @@
     <Folder Include="Views" />
     <Folder Include="Functions" />
     <Folder Include="Schemas" />
+    <Folder Include="PostDeployment" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Stg_FIC_Feedback.sql" />
@@ -77,5 +78,6 @@
     <Build Include="Tables\Stg_Load_Apprenticeship.sql" />
     <Build Include="Views\vw_Apprenticeship_Commitments.sql" />
     <Build Include="Views\vw_CommitmentSummary.sql" />
+    <PostDeploy Include="PostDeployment\PostDeployment.sql" />
   </ItemGroup>
 </Project>

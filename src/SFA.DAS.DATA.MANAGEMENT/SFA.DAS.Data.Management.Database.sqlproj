@@ -79,5 +79,7 @@
     <Build Include="Views\vw_Apprenticeship_Commitments.sql" />
     <Build Include="Views\vw_CommitmentSummary.sql" />
     <PostDeploy Include="PostDeployment\PostDeployment.sql" />
+    <Build Include="StoredProcedure\UnitTest_1_RecordChecks.sql" />
+    <Build Include="Tables\Deployment_Audit.sql" />
   </ItemGroup>
 </Project>

@@ -5,5 +5,5 @@
 	Campaign_Metrics varchar(255) null,
 	CampaignStartDate datetime null,
 	CampaignEndDate datetime null,
-	Count Varchar(255) null
+	Count int null
 )

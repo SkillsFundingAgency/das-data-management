@@ -5,5 +5,8 @@
 
 EXEC dbo.USP_UnitTest1_CheckCounts
 
+ alter table dbo.stg_fiu_feedback
+  add Feedback_Id int identity(1,1)
+
   alter table dbo.stg_fiu_feedback
   add Created_Date date default(getdate())

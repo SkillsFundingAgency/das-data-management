@@ -4,3 +4,5 @@
 --DROP TABLE dbo.Stg_FIC_Feedback
 
 EXEC dbo.USP_UnitTest1_CheckCounts
+
+ALTER TABLE dbo.Stg_FIU_Feedback add Feedback_Id  int identity(1,1)

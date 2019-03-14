@@ -9,6 +9,8 @@ EXEC Mgmt.USP_UnitTest1_CheckCounts
 EXEC mgmt.usp_Manage_GA_Hierarchy_Metadata
 
 
-DROP PROCEDURE [dbo].[USP_UnitTest1_CheckCounts]
+--DROP PROCEDURE [dbo].[USP_UnitTest1_CheckCounts]
 
-DROP TABLE [dbo].[Deployment_Audit]
+--DROP TABLE [dbo].[Deployment_Audit]
+
+DROP TABLE [dbo].Stg_FIU_Feedback

@@ -1,4 +1,4 @@
-﻿ CREATE PROCEDURE dbo.USP_UnitTest1_CheckCounts
+﻿ CREATE PROCEDURE mgmt.uSP_UnitTest1_CheckCounts
  as
  -- =======================================================================================================
 -- Author:		Himabindu Uddaraju
@@ -12,7 +12,7 @@
  SET @COUNT=
  (
  SELECT count(*)
-   FROM dbo.Deployment_Audit
+   FROM mgmt.Deployment_Audit
   WHERE Source_Object_Count<>Target_Object_Count
     AND ExpectedToMatchCount=1
  )

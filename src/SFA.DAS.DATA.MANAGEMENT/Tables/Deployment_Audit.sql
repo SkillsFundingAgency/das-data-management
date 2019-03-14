@@ -1,4 +1,5 @@
-﻿CREATE TABLE dbo.Deployment_Audit
+﻿
+CREATE TABLE [Mgmt].[Deployment_Audit]
 (Deployment_Id int identity(1,1) PRIMARY KEY,
  Deployment_Start_Time datetime,
  Deployment_End_Time datetime,

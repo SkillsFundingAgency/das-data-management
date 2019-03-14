@@ -64,9 +64,10 @@
     <Folder Include="Functions" />
     <Folder Include="Schemas" />
     <Folder Include="PostDeployment" />
+    <Folder Include="PreDeployment" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Tables\Stg_FIU_Feedback.sql" />
+    <Build Include="Tables\Stg_FIU_GA_Feedback.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Database.publish.xml" />
@@ -79,7 +80,11 @@
     <Build Include="Views\vw_Apprenticeship_Commitments.sql" />
     <Build Include="Views\vw_CommitmentSummary.sql" />
     <PostDeploy Include="PostDeployment\PostDeployment.sql" />
-    <Build Include="StoredProcedure\UnitTest_1_RecordChecks.sql" />
+    <Build Include="StoredProcedure\uSP_UnitTest1_CheckCounts.sql" />
     <Build Include="Tables\Deployment_Audit.sql" />
+    <Build Include="StoredProcedure\uSP_Manage_GA_Hierarchy_Metadata.sql" />
+    <Build Include="Tables\Metadata_GA_Hierarchy.sql" />
+    <Build Include="Schemas\Mgmt.sql" />
+    <PreDeploy Include="PreDeployment\PreDeploymentPrepScript.sql" />
   </ItemGroup>
 </Project>

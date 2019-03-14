@@ -24,19 +24,20 @@ BEGIN
 	INSERT INTO Mgmt.Metadata_GA_Hierarchy
 	(Feedback_Category,
      Feedback_Action,
+	 Hierarchy_Grouping,
      Hierarchy)
 	VALUES 
-	('FIU','Sessions',1),
-	('FIU','Sessions>10 Sec',2),
-	('FIU','Register Interest',3),
-	('FAA','Sessions',1),
-	('FAA','FAA View Vacancy',2),
-	('FAA','FAA Start Apply',3),
-	('FAA','FAA Apply',4),
-	('FAT','Sessions',1),
-	('FAT','Standard Search',2),
-	('FAT','Provider Search',3),
-	('FAT','View Provider',4)
+	('FIU','Sessions','G1',1),
+	('FIU','Sessions>10 Sec','G1',2),
+	('FIU','Register Interest','G1',3),
+	('FAA','Sessions','G2',1),
+	('FAA','FAA View Vacancy','G2',2),
+	('FAA','FAA Start Apply','G2',3),
+	('FAA','FAA Apply','G2',4),
+	('FAT','Sessions','G3',1),
+	('FAT','Standard Search','G3',2),
+	('FAT','Provider Search','G3',3),
+	('FAT','View Provider','G3',4)
 
    
 END

@@ -24,9 +24,9 @@ SELECT Comm.Id as CommitmentId
 			Else 'Unknown'
 		END AS PaymentStatus
 	  ,AO.Name AS EPAOName
-  FROM [Comt].[Stg_Load_Apprenticeship] App
-  JOIN [Comt].[Stg_Load_Commitment] Comm
+  FROM [Comt].[Apprenticeship] App
+  JOIN [Comt].[Commitment] Comm
     ON App.CommitmentId=comm.Id
-  LEFT JOIN [Comt].[Stg_Load_AssessmentOrganisation] AO
+  LEFT JOIN [Comt].[AssessmentOrganisation] AO
     ON AO.EPAOrgId=APP.EPAOrgId
 Go

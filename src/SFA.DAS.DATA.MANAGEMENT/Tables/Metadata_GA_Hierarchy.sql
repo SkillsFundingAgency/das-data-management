@@ -1,4 +1,4 @@
-﻿Create Table mgmt.Metadata_GA_Hierarchy
+﻿Create Table mtd.Metadata_GA_Hierarchy
 (
 Id int Identity(1,1) not null,
 Feedback_Category varchar(100) not null,

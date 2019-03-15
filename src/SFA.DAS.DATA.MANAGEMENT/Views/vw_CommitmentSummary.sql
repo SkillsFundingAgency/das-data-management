@@ -28,7 +28,7 @@ AS (SELECT Id, CommitmentId, AgreementStatus,
 	END AS 'ProviderCanApproveApprenticeship'
 
 	FROM 
-		 [Comt].[Stg_Load_Apprenticeship] a
+		 [Comt].[Apprenticeship] a
 )
 SELECT c.*, 
 	COUNT(a.Id) AS ApprenticeshipCount,
@@ -48,9 +48,9 @@ SELECT c.*,
 	END AS ProviderCanApproveCommitment
 
 FROM 
-	 [Comt].[Stg_Load_Commitment] c
+	 [Comt].[Commitment] c
 LEFT JOIN 
-	 [Comt].[Stg_Load_Apprenticeship] a ON a.CommitmentId = c.Id
+	 [Comt].[Apprenticeship] a ON a.CommitmentId = c.Id
 
 GROUP BY 
 	c.Id, c.Reference, c.EmployerAccountId, c.LegalEntityId, c.LegalEntityName, c.ProviderId, c.ProviderName, c.CommitmentStatus, c.EditStatus, c.CreatedOn, c.LastAction, 

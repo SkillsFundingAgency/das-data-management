@@ -1,6 +1,6 @@
 ﻿
 
-CREATE TABLE [Comt].[Stg_Load_Commitment]
+CREATE TABLE [Comt].[Commitment]
 (
 	[Id] BIGINT NOT NULL PRIMARY KEY , 
     [Reference] NVARCHAR(100) MASKED WITH (FUNCTION='PARTIAL(1,"######",0)') NOT NULL, 
@@ -26,20 +26,23 @@ CREATE TABLE [Comt].[Stg_Load_Commitment]
 	[TransferApprovalActionedByEmployerEmail] NVARCHAR(255),
 	[TransferApprovalActionedOn] DATETIME2,
 	[AccountLegalEntityPublicHashedId] CHAR(6) NULL,
-	[Originator] TINYINT NOT NULL DEFAULT 0
+	[Originator] TINYINT NOT NULL DEFAULT 0,
+	[AsDm_Created_Date] datetime default(getdate()),
+	[AsDm_Updated_Date] datetime default(getdate()),
+	Load_Id int
 )
 GO
 
 
 CREATE NONCLUSTERED INDEX [IX_Commitment_ProviderId_CommitmentStatus]
-ON [Comt].[Stg_Load_Commitment] ([ProviderId], [CommitmentStatus]) 
+ON [Comt].[Commitment] ([ProviderId], [CommitmentStatus]) 
 INCLUDE ([AccountLegalEntityPublicHashedId], [CreatedOn], [EditStatus], [EmployerAccountId], [LastAction], [LastUpdatedByEmployerEmail], [LastUpdatedByEmployerName], [LastUpdatedByProviderEmail], [LastUpdatedByProviderName], [LegalEntityAddress], [LegalEntityId], [LegalEntityName], [LegalEntityOrganisationType], [ProviderName], [Reference], [TransferApprovalActionedByEmployerEmail], [TransferApprovalActionedByEmployerName], [TransferApprovalActionedOn], [TransferApprovalStatus], [TransferSenderId], [TransferSenderName]) WITH (ONLINE = ON)
 GO
 
 
 CREATE NONCLUSTERED INDEX [IX_Commitment_EmployerAccountId_CommitmentStatus]
-ON [Comt].[Stg_Load_Commitment] ([EmployerAccountId], [CommitmentStatus]) 
+ON [Comt].[Commitment] ([EmployerAccountId], [CommitmentStatus]) 
 GO
 
-CREATE NONCLUSTERED INDEX [IX_Commitment_TransferSenderId] ON [Comt].[Stg_Load_Commitment] ([TransferSenderId]) WHERE [TransferSenderId] IS NOT NULL 
+CREATE NONCLUSTERED INDEX [IX_Commitment_TransferSenderId] ON [Comt].[Commitment] ([TransferSenderId]) WHERE [TransferSenderId] IS NOT NULL 
 GO

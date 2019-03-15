@@ -1,6 +1,7 @@
 ﻿
 CREATE TABLE [Mgmt].[Deployment_Audit]
 (Deployment_Id int identity(1,1) PRIMARY KEY,
+ Load_Id int,
  Deployment_Start_Time datetime,
  Deployment_End_Time datetime,
  Object_Group varchar(255),

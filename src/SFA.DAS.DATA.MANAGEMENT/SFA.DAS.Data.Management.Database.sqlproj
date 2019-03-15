@@ -67,24 +67,36 @@
     <Folder Include="PreDeployment" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Tables\Stg_FIU_GA_Feedback.sql" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Database.publish.xml" />
     <None Include="StoredProcedure\Blank.txt" />
     <None Include="Views\Blank1.txt" />
     <Build Include="Schemas\Comt.sql" />
-    <Build Include="Tables\Stg_Load_Commitments.sql" />
-    <Build Include="Tables\Stg_Load_AssessmentOrganisation.sql" />
-    <Build Include="Tables\Stg_Load_Apprenticeship.sql" />
     <Build Include="Views\vw_Apprenticeship_Commitments.sql" />
     <Build Include="Views\vw_CommitmentSummary.sql" />
     <PostDeploy Include="PostDeployment\PostDeployment.sql" />
     <Build Include="StoredProcedure\uSP_UnitTest1_CheckCounts.sql" />
-    <Build Include="Tables\Deployment_Audit.sql" />
     <Build Include="StoredProcedure\uSP_Manage_GA_Hierarchy_Metadata.sql" />
-    <Build Include="Tables\Metadata_GA_Hierarchy.sql" />
     <Build Include="Schemas\Mgmt.sql" />
     <PreDeploy Include="PreDeployment\PreDeploymentPrepScript.sql" />
+    <Build Include="Schemas\Mtd.sql" />
+    <Build Include="Schemas\Fdb.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Tables\Commitments_Apprenticeship.sql" />
+    <Build Include="Tables\Commitments_ApprenticeshipUpdate.sql" />
+    <Build Include="Tables\Commitments_AssessmentOrganisation.sql" />
+    <Build Include="Tables\Commitments_BulkUpload.sql" />
+    <Build Include="Tables\Commitments_Commitment.sql" />
+    <Build Include="Tables\Commitments_CustomProviderPaymentPriority.sql" />
+    <Build Include="Tables\Commitments_DataLockStatus.sql" />
+    <Build Include="Tables\Commitments_History.sql" />
+    <Build Include="Tables\Commitments_IntegrationTestIds.sql" />
+    <Build Include="Tables\Commitments_JobProgress.sql" />
+    <Build Include="Tables\Commitments_Message.sql" />
+    <Build Include="Tables\Commitments_PriceHistory.sql" />
+    <Build Include="Tables\Commitments_TransferRequest.sql" />
+    <Build Include="Tables\Management_Deployment_Audit.sql" />
+    <Build Include="Tables\Feedback_Stg_FIU_GA_Feedback.sql" />
+    <Build Include="Tables\Metadata_GA_Hierarchy.sql" />
   </ItemGroup>
 </Project>

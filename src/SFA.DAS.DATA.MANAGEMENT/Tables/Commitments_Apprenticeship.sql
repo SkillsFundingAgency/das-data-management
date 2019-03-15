@@ -30,8 +30,8 @@
 	[AsDm_Created_Date] datetime default(getdate()),
 	[AsDm_Updated_Date] datetime default(getdate()),
 	[Load_Id] int,
-    CONSTRAINT [FK_Apprenticeship_Commitment] FOREIGN KEY ([CommitmentId]) REFERENCES [Comt].[Commitment]([Id]),
-	CONSTRAINT [FK_Apprenticeship_AssessmentOrganisation] FOREIGN KEY ([EPAOrgId]) REFERENCES [Comt].[AssessmentOrganisation]([EPAOrgId])
+    CONSTRAINT [FK_Apprenticeship_Commitments] FOREIGN KEY ([CommitmentId]) REFERENCES [Comt].[Commitment]([Id]),
+	CONSTRAINT [FK_Apprenticeship_AO] FOREIGN KEY ([EPAOrgId]) REFERENCES [Comt].[AssessmentOrganisation]([EPAOrgId])
 )
 GO
 

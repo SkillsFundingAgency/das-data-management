@@ -9,3 +9,6 @@ EXEC Mgmt.USP_UnitTest1_CheckCounts
 EXEC mgmt.usp_Manage_GA_Hierarchy_Metadata
 
 
+EXEC mgmt.usp_Manage_Commitments_Lookup
+
+

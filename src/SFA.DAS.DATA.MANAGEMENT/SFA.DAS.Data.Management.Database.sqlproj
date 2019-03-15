@@ -80,6 +80,9 @@
     <PreDeploy Include="PreDeployment\PreDeploymentPrepScript.sql" />
     <Build Include="Schemas\Mtd.sql" />
     <Build Include="Schemas\Fdb.sql" />
+    <None Include="Tables\DataLoad_Log.sql" />
+    <Build Include="Tables\Metadata_Commitments.sql" />
+    <Build Include="StoredProcedure\uSP_Manage_Commitments_Metadata.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Commitments_Apprenticeship.sql" />

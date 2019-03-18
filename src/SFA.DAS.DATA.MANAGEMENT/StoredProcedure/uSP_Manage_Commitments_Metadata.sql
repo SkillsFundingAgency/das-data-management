@@ -1,6 +1,6 @@
 ﻿
 
-CREATE PROCEDURE mgmt.usp_Manage_Commitments_Lookup
+CREATE PROCEDURE mtd.usp_Manage_Commitments_Lookup
 
 AS
 

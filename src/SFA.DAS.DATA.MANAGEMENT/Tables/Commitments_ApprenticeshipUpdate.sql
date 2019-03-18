@@ -21,7 +21,7 @@
 	[EffectiveToDate] DATETIME NULL,
 	[AsDm_Created_Date] DateTime default(getdate()),
 	[AsDm_Updated_Date] DateTime default(getdate()),
-	Load_Id int not null
+	Load_Id int null
 )
 GO
 

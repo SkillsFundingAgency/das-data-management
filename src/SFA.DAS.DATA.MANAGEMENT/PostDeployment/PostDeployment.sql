@@ -5,6 +5,9 @@
 
 
 
+CREATE USER [Sarah.Hopkins@citizenazuresfabisgov.onmicrosoft.com] FROM  EXTERNAL PROVIDER  WITH DEFAULT_SCHEMA=[dbo]
+GO
+
 
 
 EXEC Mgmt.USP_UnitTest1_CheckCounts
@@ -14,6 +17,8 @@ EXEC Mtd.usp_Manage_GA_Hierarchy_Metadata
 
 
 EXEC mtd.usp_Manage_Commitments_Lookup
+
+
 
 
 

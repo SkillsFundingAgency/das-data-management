@@ -38,9 +38,12 @@ SELECT c.Id,
 		c.ProviderId, 
 		c.ProviderName, 
 		c.CommitmentStatus, 
+		c.CommitmentStatusDesc,
 		c.EditStatus, 
+		c.EditStatusDesc,
 		c.CreatedOn, 
 		c.LastAction, 
+		c.LastActionDesc,
 	    c.LastUpdatedByEmployerEmail, 
 		c.LastUpdatedByProviderEmail, 
 		c.LastUpdatedByEmployerName, 
@@ -50,6 +53,7 @@ SELECT c.Id,
 		c.TransferSenderId, 
 		c.TransferSenderName, 
 		c.TransferApprovalStatus, 
+		c.TransferApprovalStatusDesc,
 		c.TransferApprovalActionedByEmployerEmail,
 	    c.TransferApprovalActionedByEmployerName, 
 		c.TransferApprovalActionedOn, 
@@ -77,7 +81,8 @@ LEFT JOIN
 	 [Comt].[Apprenticeship] a ON a.CommitmentId = c.Id
 
 GROUP BY 
-	c.Id, c.Reference, c.EmployerAccountId, c.LegalEntityId, c.LegalEntityName, c.ProviderId, c.ProviderName, c.CommitmentStatus, c.EditStatus, c.CreatedOn, c.LastAction, 
+	c.Id, c.Reference, c.EmployerAccountId, c.LegalEntityId, c.LegalEntityName, c.ProviderId, c.ProviderName, c.CommitmentStatus, c.CommitmentStatusDesc, c.EditStatus,
+	c.EditStatusDesc, c.CreatedOn, c.LastAction, c.LastActionDesc,
 	c.LastUpdatedByEmployerEmail, c.LastUpdatedByProviderEmail, c.LastUpdatedByEmployerName, c.LastUpdatedByProviderName, c.LegalEntityAddress, 
-	c.LegalEntityOrganisationType, c.TransferSenderId, c.TransferSenderName, c.TransferApprovalStatus, c.TransferApprovalActionedByEmployerEmail,
-	c.TransferApprovalActionedByEmployerName, c.TransferApprovalActionedOn, c.AccountLegalEntityPublicHashedId, c.Originator
+	c.LegalEntityOrganisationType, c.TransferSenderId, c.TransferSenderName, c.TransferApprovalStatus,c.TransferApprovalStatusDesc,
+	c.TransferApprovalActionedByEmployerEmail,c.TransferApprovalActionedByEmployerName, c.TransferApprovalActionedOn, c.AccountLegalEntityPublicHashedId, c.Originator

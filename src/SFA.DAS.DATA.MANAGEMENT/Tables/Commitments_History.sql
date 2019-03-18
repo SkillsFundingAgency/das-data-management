@@ -10,7 +10,7 @@
     [ChangeType] NVARCHAR(50) NOT NULL,
     [CreatedOn] DATETIME NOT NULL, 
 	[ProviderId] BIGINT NULL,
-	[EmployerAccountId] BIGINT MASKED WITH (FUNCTION='RANDOM(1,5)') NOT NULL,
+	[EmployerAccountId] BIGINT MASKED WITH (FUNCTION='RANDOM(1,5)')  NULL,
     [UpdatedByName] NVARCHAR(255) NULL, 
     [OriginalState] NVARCHAR(MAX) NULL, 
     [UpdatedState] NVARCHAR(MAX) NULL,

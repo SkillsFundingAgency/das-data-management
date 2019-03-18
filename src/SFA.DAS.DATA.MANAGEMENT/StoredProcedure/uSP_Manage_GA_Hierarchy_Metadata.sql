@@ -1,6 +1,6 @@
 ﻿
 
-CREATE PROCEDURE mgmt.usp_Manage_GA_Hierarchy_Metadata
+CREATE PROCEDURE mtd.usp_Manage_GA_Hierarchy_Metadata
 
 AS
 
@@ -17,11 +17,11 @@ BEGIN
 
 	/* Truncate Existing Metadata Table before re-loading */
 
-	Truncate Table Mgmt.Metadata_GA_Hierarchy
+	Truncate Table Mtd.Metadata_GA_Hierarchy
 
 	/* Insert Metadata Values */
 
-	INSERT INTO Mgmt.Metadata_GA_Hierarchy
+	INSERT INTO Mtd.Metadata_GA_Hierarchy
 	(Feedback_Category,
      Feedback_Action,
 	 Hierarchy_Grouping,

@@ -8,6 +8,7 @@ SELECT Comm.Id as CommitmentId
 	  ,Comm.LegalEntityName
 	  ,Comm.LegalEntityAddress
 	  ,Comm.CommitmentStatus
+	  ,Comm.CommitmentStatusDesc
 	  ,App.FirstName ApprenticeFirstName
 	  ,App.LastName ApprenticeLastName
 	  ,App.ULN

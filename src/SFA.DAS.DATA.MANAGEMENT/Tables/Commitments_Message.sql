@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [Comt].[Message]
 (
-	[Id] BIGINT NOT NULL PRIMARY KEY IDENTITY, 
+	[Id] BIGINT NOT NULL PRIMARY KEY , 
     [CommitmentId] BIGINT NOT NULL, 
     [Text] NVARCHAR(MAX) NOT NULL, 
     [CreatedDateTime] DATETIME NOT NULL, 

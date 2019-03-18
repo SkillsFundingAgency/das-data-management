@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [Comt].[DataLockStatus]
 (
-	[Id] BIGINT NOT NULL PRIMARY KEY IDENTITY,
+	[Id] BIGINT NOT NULL PRIMARY KEY ,
 	[DataLockEventId] BIGINT NOT NULL,
 	[DataLockEventDatetime] DATETIME NOT NULL,
     [PriceEpisodeIdentifier] NVARCHAR(25) NOT NULL,

@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [Comt].[History]
 (
-	[Id] BIGINT NOT NULL PRIMARY KEY IDENTITY,
+	[Id] BIGINT NOT NULL PRIMARY KEY ,
 	[EntityType] NVARCHAR(50) NULL, -- deprecated
 	[EntityId] BIGINT NULL, -- deprecated
 	[CommitmentId] BIGINT NULL,

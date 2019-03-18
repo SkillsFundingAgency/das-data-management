@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [Comt].[PriceHistory]
 (
-	[Id] BIGINT NOT NULL PRIMARY KEY IDENTITY,
+	[Id] BIGINT NOT NULL PRIMARY KEY ,
 	[ApprenticeshipId] BIGINT NOT NULL, 
 	[Cost] DECIMAL NOT NULL,
 	[FromDate] DateTime NOT NULL,

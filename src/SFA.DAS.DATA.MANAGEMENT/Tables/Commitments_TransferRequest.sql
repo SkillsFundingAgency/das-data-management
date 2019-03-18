@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [Comt].[TransferRequest]
 (
-	[Id] BIGINT NOT NULL PRIMARY KEY IDENTITY, 
+	[Id] BIGINT NOT NULL PRIMARY KEY , 
     [CommitmentId] BIGINT NOT NULL,
 	[TrainingCourses] NVARCHAR(MAX) NOT NULL,
 	[Cost] MONEY NOT NULL,

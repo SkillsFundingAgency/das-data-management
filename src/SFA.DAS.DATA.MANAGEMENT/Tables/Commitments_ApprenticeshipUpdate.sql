@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [Comt].[ApprenticeshipUpdate]
 (
-	[Id] BIGINT NOT NULL PRIMARY KEY IDENTITY, 
+	[Id] BIGINT NOT NULL PRIMARY KEY , 
 	[ApprenticeshipId] BIGINT NOT NULL,
 	[Originator] TINYINT NOT NULL,
 	[OriginatorDesc] varchar(255) null,

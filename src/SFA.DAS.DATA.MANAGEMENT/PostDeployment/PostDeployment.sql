@@ -4,11 +4,7 @@
 --DROP TABLE dbo.Stg_FIC_Feedback
 
 
-DROP TABLE mgmt.Metadata_GA_Hierarchy
 
-DROP PROCEDURE Mgmt.usp_Manage_Commitments_Lookup
-
-DROP PROCEDURE Mgmt.usp_Manage_GA_Hierarchy_Metadata
 
 
 EXEC Mgmt.USP_UnitTest1_CheckCounts

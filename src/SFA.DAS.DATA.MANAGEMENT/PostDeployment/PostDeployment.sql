@@ -13,7 +13,7 @@ EXEC Mtd.usp_Manage_GA_Hierarchy_Metadata
 EXEC mtd.usp_Manage_Commitments_Lookup
 
 
-REVOKE UNMASK TO [Himabindu.Uddaraju@citizenazuresfabisgov.onmicrosoft.com]
+REVOKE MASK TO [Himabindu.Uddaraju@citizenazuresfabisgov.onmicrosoft.com]
 
 
 

@@ -71,7 +71,7 @@
     <None Include="StoredProcedure\Blank.txt" />
     <None Include="Views\Blank1.txt" />
     <Build Include="Schemas\Comt.sql" />
-    <Build Include="Views\vw_Apprenticeship_Commitments.sql" />
+    <Build Include="Views\vw_Commitments_Apprenticeship_Details.sql" />
     <Build Include="Views\vw_CommitmentSummary.sql" />
     <PostDeploy Include="PostDeployment\PostDeployment.sql" />
     <Build Include="StoredProcedure\uSP_UnitTest1_CheckCounts.sql" />
@@ -101,5 +101,7 @@
     <Build Include="Tables\Management_Deployment_Audit.sql" />
     <Build Include="Tables\Feedback_Stg_FIU_GA_Feedback.sql" />
     <Build Include="Tables\Metadata_GA_Hierarchy.sql" />
+    <Build Include="Views\vw_FIU_GA_Segmented_View.sql" />
+    <Build Include="Views\vw_FIU_GA_Data.sql" />
   </ItemGroup>
 </Project>

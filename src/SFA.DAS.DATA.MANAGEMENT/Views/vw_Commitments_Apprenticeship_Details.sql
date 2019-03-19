@@ -1,4 +1,4 @@
-﻿CREATE VIEW vw_Apprenticeship_Commitments
+﻿CREATE VIEW vw_Commitments_Apprenticeship_Details
 AS
 SELECT Comm.Id as CommitmentId
       ,Comm.ProviderId as ProviderId

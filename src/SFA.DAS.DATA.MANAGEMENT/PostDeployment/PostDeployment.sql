@@ -4,7 +4,6 @@
 --DROP TABLE dbo.Stg_FIC_Feedback
 
 
-
 EXEC Mgmt.USP_UnitTest1_CheckCounts
 
 
@@ -12,6 +11,9 @@ EXEC Mtd.usp_Manage_GA_Hierarchy_Metadata
 
 
 EXEC mtd.usp_Manage_Commitments_Lookup
+
+
+DROP VIEW dbo.vw_Apprenticeship_Commitments
 
 
 

@@ -30,7 +30,7 @@ AS (SELECT Id, CommitmentId, AgreementStatus,
 	FROM 
 		 [Comt].[Apprenticeship] a
 )
-SELECT c.Id,
+SELECT c.Id as CommitmentId,
         c.Reference,
 		c.EmployerAccountId, 
 		c.LegalEntityId, 

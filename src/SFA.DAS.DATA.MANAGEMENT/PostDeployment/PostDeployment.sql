@@ -24,6 +24,15 @@ CREATE EXTERNAL TABLE dbo.Ext_Options
 with (data_source=ASSDBConnection,Schema_Name='dbo',Object_Name='Options')
 
 
+  INSERT INTO dbo.Ext_EPAO_Options
+  (ID,StdCode,OptionName)
+  SELECT ID
+        ,StdCode
+		,OptionName
+	FROM dbo.Ext_Options
+
+
+
 
 
 

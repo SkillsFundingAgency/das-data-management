@@ -103,5 +103,6 @@
     <Build Include="Tables\Metadata_GA_Hierarchy.sql" />
     <Build Include="Views\vw_FIU_GA_Segmented_View.sql" />
     <Build Include="Views\vw_FIU_GA_Data.sql" />
+    <Build Include="Tables\EpaoStagingFromExtTable.sql" />
   </ItemGroup>
 </Project>

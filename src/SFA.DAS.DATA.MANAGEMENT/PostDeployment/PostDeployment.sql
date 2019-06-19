@@ -15,6 +15,9 @@ EXEC mtd.usp_Manage_Commitments_Lookup
 
 --GRANT UNMASK TO [Himabindu.Uddaraju@citizenazuresfabisgov.onmicrosoft.com]
 
+IF EXISTS ( SELECT * FROM sys.external_tables WHERE object_id = OBJECT_ID('dbo.Ext_Options') )
+   DROP EXTERNAL TABLE dbo.Ext_Options
+GO
 
 CREATE EXTERNAL TABLE dbo.Ext_Options
 (ID int,

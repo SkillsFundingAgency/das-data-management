@@ -13,7 +13,7 @@ EXEC Mtd.usp_Manage_GA_Hierarchy_Metadata
 EXEC mtd.usp_Manage_Commitments_Lookup
 
 
-GRANT UNMASK TO [Himabindu.Uddaraju@citizenazuresfabisgov.onmicrosoft.com]
+--GRANT UNMASK TO [Himabindu.Uddaraju@citizenazuresfabisgov.onmicrosoft.com]
 
 
 CREATE EXTERNAL TABLE dbo.Ext_Options

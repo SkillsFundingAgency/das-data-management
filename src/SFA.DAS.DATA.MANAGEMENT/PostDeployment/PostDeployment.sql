@@ -16,6 +16,14 @@ EXEC mtd.usp_Manage_Commitments_Lookup
 GRANT UNMASK TO [Himabindu.Uddaraju@citizenazuresfabisgov.onmicrosoft.com]
 
 
+CREATE EXTERNAL TABLE dbo.Ext_Options
+(ID int,
+ StdCode int,
+ OptionName nvarchar(max)
+ )
+ with (data_source=ASSDBConnection,Object_Name='Options')
+
+
 
 
 

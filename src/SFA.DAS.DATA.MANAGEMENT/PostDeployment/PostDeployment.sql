@@ -21,7 +21,7 @@ CREATE EXTERNAL TABLE dbo.Ext_Options
  StdCode int,
  OptionName nvarchar(max)
  )
- with (data_source=ASSDBConnection,Object_Name='Options')
+with (data_source=ASSDBConnection,Schema_Name='dbo',Object_Name='Options')
 
 
 

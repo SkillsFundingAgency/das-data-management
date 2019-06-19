@@ -20,7 +20,7 @@ IF EXISTS ( SELECT * FROM sys.external_tables WHERE object_id = OBJECT_ID('dbo.E
 GO
 
 CREATE EXTERNAL TABLE dbo.Ext_Options
-(ID int,
+(ID uniqueidentifier,
  StdCode int,
  OptionName nvarchar(max)
  )

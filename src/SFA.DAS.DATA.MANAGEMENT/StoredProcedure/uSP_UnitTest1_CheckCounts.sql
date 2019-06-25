@@ -1,4 +1,4 @@
-﻿ CREATE PROCEDURE mgmt.uSP_UnitTest1_CheckCounts
+﻿ /*CREATE PROCEDURE mgmt.uSP_UnitTest1_CheckCounts
  as
  -- =======================================================================================================
 -- Author:		Himabindu Uddaraju
@@ -44,3 +44,5 @@ BEGIN CATCH
                );  
 
 END CATCH
+
+*/

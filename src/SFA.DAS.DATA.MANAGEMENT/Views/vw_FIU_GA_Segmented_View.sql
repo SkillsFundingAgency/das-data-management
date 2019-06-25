@@ -1,4 +1,4 @@
-﻿CREATE VIEW [dbo].[vw_FIU_GA_Segmented_View]
+﻿/*CREATE VIEW [dbo].[vw_FIU_GA_Segmented_View]
 	AS 
 
   SELECT sfgf.Feedback_Id
@@ -14,3 +14,5 @@
 	JOIN Mtd.Metadata_GA_Hierarchy MGH
 	  ON SFGF.Campaign_Category=MGH.Feedback_Category
 	 and sfgf.Campaign_Action=mgh.Feedback_Action
+
+	 */

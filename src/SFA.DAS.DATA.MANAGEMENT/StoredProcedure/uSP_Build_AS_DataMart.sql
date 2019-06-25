@@ -8,6 +8,9 @@ AS
 
 /* Generate Run Id for Logging Execution */
 
+IF EXISTS ( SELECT * FROM sys.external_tables WHERE object_id = OBJECT_ID('dbo.Ext_Tbl_InfSch_Commitments') )
+DROP EXTERNAL TABLE dbo.Ext_Tbl_InfSch_Commitments
+
 CREATE EXTERNAL TABLE [dbo].Ext_Tbl_InfSch_Commitments (  
    Table_Catalog nvarchar(128),
    Table_Schema nvarchar(128),

@@ -1,3 +1,4 @@
+/*
 CREATE EXTERNAL TABLE [dbo].Ext_Tbl_InfSch_Commitments (  
    Table_Catalog nvarchar(128),
    Table_Schema nvarchar(128),
@@ -24,3 +25,4 @@ CREATE EXTERNAL TABLE [dbo].Ext_Tbl_InfSch_Commitments (
    Domain_Name nvarchar(128) null
 )  
 WITH (Data_Source=[comtDBConnection],Schema_Name='Information_Schema',Object_Name='Columns')
+*/

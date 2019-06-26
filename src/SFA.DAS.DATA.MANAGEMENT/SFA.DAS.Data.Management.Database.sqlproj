@@ -107,5 +107,8 @@
     <Build Include="Tables\Management_Log_Record_Counts.sql" />
     <Build Include="StoredProcedure\uSP_Generate_RunId.sql" />
     <Build Include="StoredProcedure\uSP_Build_AS_DataMart.sql" />
+    <Build Include="StoredProcedure\uSP_CreateSystemExternalTables.sql" />
+    <Build Include="Tables\Provider.sql" />
+    <Build Include="StoredProcedure\uSP_Import_Provider.sql" />
   </ItemGroup>
 </Project>

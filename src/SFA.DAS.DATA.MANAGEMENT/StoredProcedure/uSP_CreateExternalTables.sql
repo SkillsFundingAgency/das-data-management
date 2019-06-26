@@ -32,7 +32,7 @@ BEGIN TRY
   SELECT 
         @RunId
 	   ,'Step-1'
-	   ,'uSP_Create_External_Tables'
+	   ,'uSP_Create_External_Tables'+'-'+@ExternalDataSource
 	   ,getdate()
 	   ,0
 
@@ -103,7 +103,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'uSP_Create_External_Tables' AS ErrorProcedure,
+	    'uSP_Create_External_Tables'+'-'+@ExternalDataSource AS ErrorProcedure,
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 

@@ -20,5 +20,5 @@ EXEC dbo.uSP_Create_External_Tables 'comtDBConnection','Ext_Tbl_InfSch_Commitmen
 
 EXEC dbo.uSP_Create_External_Tables 'easAccDBConnection','Ext_Tbl_InfSch_Accounts',@RunId
 
-EXEC dbo.uSP_Import_Provider
+EXEC dbo.uSP_Import_Provider @RunId
 

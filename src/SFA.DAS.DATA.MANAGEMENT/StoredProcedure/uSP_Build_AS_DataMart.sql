@@ -14,10 +14,10 @@ EXEC @RunId= dbo.uSP_Generate_RunId
 
 EXEC uSP_Create_System_External_Tables 'comtDBConnection','Commitments',@RunId
 
-IF EXISTS ( SELECT * FROM sys.external_tables WHERE object_id = OBJECT_ID('dbo.Ext_Tbl_InfSch_Users') )
-DROP EXTERNAL TABLE dbo.Ext_Tbl_InfSch_Users
+IF EXISTS ( SELECT * FROM sys.external_tables WHERE object_id = OBJECT_ID('dbo.Ext_Tbl_InfSch_Accounts') )
+DROP EXTERNAL TABLE dbo.Ext_Tbl_InfSch_Accounts
 
-CREATE EXTERNAL TABLE [dbo].Ext_Tbl_InfSch_Users (  
+CREATE EXTERNAL TABLE [dbo].Ext_Tbl_InfSch_Accounts (  
    Table_Catalog nvarchar(128),
    Table_Schema nvarchar(128),
    Table_Name nvarchar(128) not null,
@@ -42,11 +42,11 @@ CREATE EXTERNAL TABLE [dbo].Ext_Tbl_InfSch_Users (
    Domain_Schema nvarchar(128) null,
    Domain_Name nvarchar(128) null
 )  
-WITH (Data_Source=[usersDBConnection],Schema_Name='Information_Schema',Object_Name='Columns')
+WITH (Data_Source=[easaccDBConnection],Schema_Name='Information_Schema',Object_Name='Columns')
 
 EXEC dbo.uSP_Create_External_Tables 'comtDBConnection','Ext_Tbl_InfSch_Commitments',@RunId
 
-EXEC dbo.uSP_Create_External_Tables 'usersDBConnection','Ext_Tbl_InfSch_Users',@RunId
+EXEC dbo.uSP_Create_External_Tables 'easaccDBConnection','Ext_Tbl_InfSch_Accounts',@RunId
 
 EXEC dbo.uSP_Import_Provider @RunId
 

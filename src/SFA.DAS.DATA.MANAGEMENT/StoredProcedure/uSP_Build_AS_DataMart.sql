@@ -42,11 +42,11 @@ CREATE EXTERNAL TABLE [dbo].Ext_Tbl_InfSch_Accounts (
    Domain_Schema nvarchar(128) null,
    Domain_Name nvarchar(128) null
 )  
-WITH (Data_Source=['easAccDBConnection'],Schema_Name='Information_Schema',Object_Name='Columns')
+WITH (Data_Source=['EasAccDBConnection'],Schema_Name='Information_Schema',Object_Name='Columns')
 
 EXEC dbo.uSP_Create_External_Tables 'comtDBConnection','Ext_Tbl_InfSch_Commitments',@RunId
 
-EXEC dbo.uSP_Create_External_Tables 'easAccDBConnection','Ext_Tbl_InfSch_Accounts',@RunId
+EXEC dbo.uSP_Create_External_Tables 'EasAccDBConnection','Ext_Tbl_InfSch_Accounts',@RunId
 
 EXEC dbo.uSP_Import_Provider @RunId
 

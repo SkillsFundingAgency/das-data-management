@@ -42,7 +42,7 @@ CREATE EXTERNAL TABLE [dbo].Ext_Tbl_InfSch_Users (
    Domain_Schema nvarchar(128) null,
    Domain_Name nvarchar(128) null
 )  
-WITH (Data_Source=['usersDBConnection'],Schema_Name='Information_Schema',Object_Name='Columns')
+WITH (Data_Source=[usersDBConnection],Schema_Name='Information_Schema',Object_Name='Columns')
 
 EXEC dbo.uSP_Create_External_Tables 'comtDBConnection','Ext_Tbl_InfSch_Commitments',@RunId
 

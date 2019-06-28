@@ -48,7 +48,7 @@ SELECT ETA.HashedId as EmpHashedId
 	  ,ETAL.PublicHashedId as LegalEntityPublicHashedId
 	  ,ETAL.Name as LegalEntityName
 	  ,ETAL.OrganisationType as OrganisationType
-	  ,ETAL.Address as LegalEntityAddres
+	  ,ETAL.Address as LegalEntityAddress
 	  ,ETAL.Created as LegalEntityCreatedDate
 	  ,ETAL.Updated as LegalEntityUpdatedDate
 	  ,ETAL.Deleted as LegalEntityDeletedDate

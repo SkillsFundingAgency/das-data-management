@@ -110,5 +110,7 @@
     <Build Include="StoredProcedure\uSP_CreateSystemExternalTables.sql" />
     <Build Include="Tables\Provider.sql" />
     <Build Include="StoredProcedure\uSP_Import_Provider.sql" />
+    <Build Include="StoredProcedure\uSP_Import_Employer.sql" />
+    <Build Include="Tables\Employer.sql" />
   </ItemGroup>
 </Project>

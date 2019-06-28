@@ -84,7 +84,8 @@ JOIN dbo.Ext_Tbl_AccountLegalEntities ETAL
 				 ,Target.LegalEntityDeletedDate=Source.LegalEntityDeletedDate
                  ,Target.Asdm_UpdatedDate=getdate()
   WHEN NOT MATCHED BY TARGET 
-  THEN INSERT (EmpPublicHashedID
+  THEN INSERT (EmpHashedId
+              ,EmpPublicHashedID
               ,EmpName
 			  ,LegalEntityId
 			  ,LegalEntityPublicHashedId
@@ -94,7 +95,8 @@ JOIN dbo.Ext_Tbl_AccountLegalEntities ETAL
 			  ,LegalEntityCreatedDate
 			  ,LegalEntityUpdatedDate
 			  ,LegalEntityDeletedDate) 
-       VALUES (Source.EmpPublicHashedId
+       VALUES (Source.EmpHashedId
+	         ,Source.EmpPublicHashedId
 	         , Source.EmpName
 			 , Source.LegalEntityId
 			 , Source.LegalEntityPublicHashedId

@@ -12,6 +12,6 @@
  ,LegalEntityCreatedDate datetime2
  ,LegalEntityUpdatedDate datetime2
  ,LegalEntityDeletedDate datetime2
- ,AsDm_CreatedDate datetime2
- ,AsDm_UpdatedDate datetime2
+ ,AsDm_CreatedDate datetime2 default(getdate())
+ ,AsDm_UpdatedDate datetime2 default(getdate())
  )

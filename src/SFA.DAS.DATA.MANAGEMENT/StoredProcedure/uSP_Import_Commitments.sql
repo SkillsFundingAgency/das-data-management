@@ -51,7 +51,7 @@ select etc.id as Commitments_SourceId
       ,etc.[ProviderName]
       ,etc.[CommitmentStatus]
       ,etc.[EditStatus]
-      ,etc.[CreatedOn]
+      ,etc.[CreatedOn] as CommitmentCreatedOn
       ,etc.[LastAction]
       ,etc.[LastUpdatedByEmployerName]
       ,etc.[LastUpdatedByEmployerEmail]

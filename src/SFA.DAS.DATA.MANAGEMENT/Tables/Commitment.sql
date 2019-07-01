@@ -18,6 +18,7 @@
 ,ProviderCanApproveCommitment int
 ,EmployerCanApproveCommitment int
 ,Originator varchar(255)
+,OriginatorDesc as (Case when Originator=0 then 'Employer' when Originator=1 then 'Provider' else 'Unknown' end)
 ,Data_Source varchar(255)
 ,Commitments_SourceId int
 ,AsDm_CreatedDate datetime2 default(getdate()) not null

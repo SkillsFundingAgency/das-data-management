@@ -87,9 +87,9 @@ join dbo.Provider Pro
 				   OR Target.LastUpdatedByEmployerEmail<>Source.LastUpdatedByEmployerEmail
 				   OR Target.LastUpdatedByProviderName<>Source.LastUpdatedByProviderName
 				   OR Target.LastUpdatedByProviderEmail<>Source.LastUpdatedByProviderEmail
-				   OR Target.EmployerProviderPaymentPriority<>Source.EmployerProviderPaymentPriority
-				   OR Target.ProviderCanApproveCommitment<>Source.ProviderCanApproveCommitment
-				   OR Target.EmployerCanApproveCommitment<>Source.EmployerCanApproveCommitment
+				   --OR Target.EmployerProviderPaymentPriority<>Source.EmployerProviderPaymentPriority
+				   --OR Target.ProviderCanApproveCommitment<>Source.ProviderCanApproveCommitment
+				   --OR Target.EmployerCanApproveCommitment<>Source.EmployerCanApproveCommitment
 				   OR Target.Originator<>Source.Originator
 				   OR Target.Commitments_SourceId<>Source.Commitments_SourceId
 				   )
@@ -103,9 +103,9 @@ join dbo.Provider Pro
 				 ,Target.LastUpdatedByEmployerEmail=Source.LastUpdatedByEmployerEmail
 				 ,Target.LastUpdatedByProviderName=Source.LastUpdatedByProviderName
 				 ,Target.LastUpdatedByProviderEmail=Source.LastUpdatedByProviderEmail
-				 ,Target.EmployerProviderPaymentPriority=Source.EmployerProviderPaymentPriority
-				 ,Target.ProviderCanApproveCommitment=Source.ProviderCanApproveCommitment
-				 ,Target.EmployerCanApproveCommitment=Source.EmployerCanApproveCommitment
+				 --,Target.EmployerProviderPaymentPriority=Source.EmployerProviderPaymentPriority
+				 --,Target.ProviderCanApproveCommitment=Source.ProviderCanApproveCommitment
+				 --,Target.EmployerCanApproveCommitment=Source.EmployerCanApproveCommitment
 				 ,Target.Originator=Source.Originator
 				 ,Target.Commitments_SourceId=Source.Commitments_SourceId
 				 ,Target.AsDm_UpdatedDate=getdate()
@@ -121,9 +121,9 @@ join dbo.Provider Pro
 			  ,LastUpdatedByEmployerEmail
 			  ,LastUpdatedByProviderName
 			  ,LastUpdatedByProviderEmail
-			  ,EmployerProviderPaymentPriority
-			  ,ProviderCanApproveCommitment
-			  ,EmployerCanApproveCommitment
+			  --,EmployerProviderPaymentPriority
+			  --,ProviderCanApproveCommitment
+			  --,EmployerCanApproveCommitment
 			  ,Originator
 			  ,Commitments_SourceId
 			  )
@@ -138,9 +138,9 @@ join dbo.Provider Pro
 			  ,Source.LastUpdatedByEmployerEmail
 			  ,Source.LastUpdatedByProviderName
 			  ,Source.LastUpdatedByProviderEmail
-			  ,Source.EmployerProviderPaymentPriority
-			  ,Source.ProviderCanApproveCommitment
-			  ,Source.EmployerCanApproveCommitment
+			  --,Source.EmployerProviderPaymentPriority
+			  --,Source.ProviderCanApproveCommitment
+			  --,Source.EmployerCanApproveCommitment
 			  ,Source.Originator
 			  ,Source.Commitments_SourceId
 			  );

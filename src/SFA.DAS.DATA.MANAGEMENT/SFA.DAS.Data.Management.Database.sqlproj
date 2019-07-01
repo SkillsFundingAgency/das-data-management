@@ -109,8 +109,10 @@
     <Build Include="StoredProcedure\uSP_Build_AS_DataMart.sql" />
     <Build Include="StoredProcedure\uSP_CreateSystemExternalTables.sql" />
     <Build Include="Tables\Provider.sql" />
-    <Build Include="StoredProcedure\uSP_Import_Provider.sql" />
+    <Build Include="StoredProcedure\uSP_Import_Commitments.sql" />
     <Build Include="StoredProcedure\uSP_Import_Employer.sql" />
     <Build Include="Tables\Employer.sql" />
+    <Build Include="Tables\Commitment.sql" />
+    <Build Include="StoredProcedure\uSP_Import_Provider.sql" />
   </ItemGroup>
 </Project>

@@ -29,11 +29,11 @@ IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
 DROP TABLE [fdb].[Stg_FIU_GA_Feedback]
 
 
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
-            WHERE TABLE_NAME = N'Commitment'
-		      AND TABLE_SCHEMA=N'Comt'
-	      )
-DROP TABLE  [Comt].[Commitment]
+--IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+--            WHERE TABLE_NAME = N'Commitment'
+--		      AND TABLE_SCHEMA=N'Comt'
+--	      )
+--DROP TABLE  [Comt].[Commitment]
 
 
 

@@ -2,6 +2,7 @@
 (Id int identity(1,1) primary key not null
 ,EmployerId int Foreign Key References dbo.Employer(Id)
 ,ProviderId int Foreign Key References dbo.Provider(Id)
+,Reference nvarchar(100) not null
 ,CommitmentStatus int not null
 ,CommitmentStatusDesc as (CASE WHEN CommitmentStatus=1 then 'Active' when CommitmentStatus=2 then 'Deleted' when CommitmentStatus=0 then 'New' else 'Unknown' end)
 ,EditStatus int not null

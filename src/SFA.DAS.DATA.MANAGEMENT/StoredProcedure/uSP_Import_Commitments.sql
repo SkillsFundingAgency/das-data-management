@@ -79,7 +79,7 @@ join dbo.Provider Pro
     ON Target.Reference=Source.Reference
   WHEN MATCHED AND (  Target.EmployerId<>Source.EmployerId
                    OR Target.ProviderId<>Source.ProviderId
-                   OR Target.CommitmentStatus<>Source.CommitmentStatus
+				   OR Target.CommitmentStatus<>Source.CommitmentStatus
 				   OR Target.EditStatus<>Source.EditStatus
 				   OR Target.CommitmentCreatedOn<>Source.CommitmentCreatedOn
 				   OR Target.LastAction<>Source.LastAction
@@ -112,6 +112,7 @@ join dbo.Provider Pro
    WHEN NOT MATCHED BY TARGET 
    THEN INSERT(EmployerId
               ,ProviderId
+			  ,Reference
 			  ,CommitmentStatus
 			  ,EditStatus
 			  ,CommitmentCreatedOn
@@ -128,6 +129,7 @@ join dbo.Provider Pro
 			  )
 	   VALUES (Source.EmployerId
               ,Source.ProviderId
+			  ,Source.Reference
 			  ,Source.CommitmentStatus
 			  ,Source.EditStatus
 			  ,Source.CommitmentCreatedOn

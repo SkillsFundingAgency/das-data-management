@@ -41,7 +41,29 @@ BEGIN TRY
 IF OBJECT_ID ('tempdb..#tCommitments') IS NOT NULL
 DROP TABLE #tCommitments
 
-select top 10 etc.*, emp.Id as EmployerId,Pro.Id as ProviderId
+select etc.id as Commitments_SourceId
+      ,etc.[Reference]
+      ,etc.[EmployerAccountId]
+      ,etc.[LegalEntityId]
+      ,etc.[LegalEntityName]
+      ,etc.[LegalEntityAddress]
+      ,etc.[LegalEntityOrganisationType]
+      ,etc.[ProviderName]
+      ,etc.[CommitmentStatus]
+      ,etc.[EditStatus]
+      ,etc.[CreatedOn]
+      ,etc.[LastAction]
+      ,etc.[LastUpdatedByEmployerName]
+      ,etc.[LastUpdatedByEmployerEmail]
+      ,etc.[LastUpdatedByProviderName]
+      ,etc.[LastUpdatedByProviderEmail]
+      ,etc.[TransferApprovalActionedByEmployerName]
+      ,etc.[TransferApprovalActionedByEmployerEmail]
+      ,etc.[TransferApprovalActionedOn]
+      ,etc.[AccountLegalEntityPublicHashedId]
+      ,etc.[Originator]
+	  ,emp.Id as EmployerId
+	  ,Pro.Id as ProviderId
 into #tCommitments
 from dbo.Ext_Tbl_Commitment ETC
 left

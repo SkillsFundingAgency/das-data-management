@@ -52,6 +52,7 @@ SELECT ETA.HashedId as EmpHashedId
 	  ,ETAL.Created as LegalEntityCreatedDate
 	  ,ETAL.Updated as LegalEntityUpdatedDate
 	  ,ETAL.Deleted as LegalEntityDeletedDate
+	  ,ETA.Id as Source_AccountId
 INTO #tEmployer
 FROM dbo.Ext_Tbl_Accounts ETA
 LEFT
@@ -61,6 +62,7 @@ JOIN dbo.Ext_Tbl_AccountLegalEntities ETAL
  MERGE dbo.Employer as Target
  USING #tEmployer as Source
     ON Target.EmpHashedID=Source.EmpHashedID
+   AND Target.LegalEntityId=Source.LegalEntityId
   WHEN MATCHED AND (Target.EmpPublicHashedId<>Source.EmpPublicHashedId
                   OR Target.EmpName<>Source.EmpName
 				  OR Target.LegalEntityId<>Source.LegalEntityId
@@ -71,6 +73,7 @@ JOIN dbo.Ext_Tbl_AccountLegalEntities ETAL
 				  OR Target.LegalEntityCreatedDate<>Source.LegalEntityCreatedDate
 				  OR Target.LegalEntityUpdatedDate<>Source.LegalEntityUpdatedDate
 				  OR Target.LegalEntityDeletedDate<>Source.LegalEntityDeletedDate
+				  OR Target.Source_AccountId<>Source.Source_AccountId
 				  )
   THEN UPDATE SET Target.EmpPublicHashedId=Source.EmpPublicHashedId
                  ,Target.EmpName=Source.EmpName
@@ -83,6 +86,8 @@ JOIN dbo.Ext_Tbl_AccountLegalEntities ETAL
 				 ,Target.LegalEntityUpdatedDate=Source.LegalEntityUpdatedDate
 				 ,Target.LegalEntityDeletedDate=Source.LegalEntityDeletedDate
                  ,Target.Asdm_UpdatedDate=getdate()
+				 ,Target.Source_AccountId=Source.Source_AccountId
+				 ,Target.Data_Source='Commitments-Accounts'
   WHEN NOT MATCHED BY TARGET 
   THEN INSERT (EmpHashedId
               ,EmpPublicHashedID
@@ -94,7 +99,9 @@ JOIN dbo.Ext_Tbl_AccountLegalEntities ETAL
 			  ,LegalEntityAddress
 			  ,LegalEntityCreatedDate
 			  ,LegalEntityUpdatedDate
-			  ,LegalEntityDeletedDate) 
+			  ,LegalEntityDeletedDate
+			  ,Data_Source
+			  ,Source_AccountId) 
        VALUES (Source.EmpHashedId
 	         ,Source.EmpPublicHashedId
 	         , Source.EmpName
@@ -106,7 +113,8 @@ JOIN dbo.Ext_Tbl_AccountLegalEntities ETAL
 			 , Source.LegalEntityCreatedDate
 			 , Source.LegalEntityUpdatedDate
 			 , Source.LegalEntityDeletedDate
-			 );
+			 , 'Commitments-Accounts'
+			 , Source.Source_AccountId);
  
  
  /* Update Log Execution Results as Success if the query ran succesfully*/

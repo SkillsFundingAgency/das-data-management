@@ -117,5 +117,11 @@
     <Build Include="StoredProcedure\uSP_Import_Transfers.sql" />
     <Build Include="Tables\Transfers.sql" />
     <Build Include="Tables\EmployerAccountLegalEntity.sql" />
+    <Build Include="Tables\AssessmentOrganisation.sql" />
+    <Build Include="Tables\Apprentice.sql" />
+    <Build Include="Tables\TrainingCourse.sql" />
+    <Build Include="StoredProcedure\uSP_Import_Apprentice.sql" />
+    <Build Include="StoredProcedure\uSP_Import_TrainingCourse.sql" />
+    <Build Include="StoredProcedure\uSP_Import_AssessmentOrganisation.sql" />
   </ItemGroup>
 </Project>

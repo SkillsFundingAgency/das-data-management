@@ -64,8 +64,8 @@ DROP TABLE #tApprentice
 				 ,Target.NINumber=Source.NINumber
                  ,Target.AsDm_UpdatedDate=getdate()
   WHEN NOT MATCHED BY TARGET 
-  THEN INSERT (FirstName,LastName,DateOfBirth,NINumber) 
-       VALUES (Source.FirstName,Source.LastName,Source.DateOfBirth,Source.NINumber);
+  THEN INSERT (FirstName,LastName,DateOfBirth,NINumber,ULN,Data_Source) 
+       VALUES (Source.FirstName,Source.LastName,Source.DateOfBirth,Source.NINumber,ULN,'Commitments-Apprenticeship');
  
  
  /* Update Log Execution Results as Success if the query ran succesfully*/

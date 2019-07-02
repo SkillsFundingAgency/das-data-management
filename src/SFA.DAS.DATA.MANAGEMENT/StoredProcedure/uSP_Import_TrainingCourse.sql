@@ -58,8 +58,8 @@ DROP TABLE #tTrainingCourse
                  ,Target.TrainingName=Source.TrainingName
                  ,Target.AsDm_UpdatedDate=getdate()
   WHEN NOT MATCHED BY TARGET 
-  THEN INSERT (TrainingType,TrainingCode,TrainingName) 
-       VALUES (Source.TrainingType,Source.TrainingCode,Source.TrainingName);
+  THEN INSERT (TrainingType,TrainingCode,TrainingName,Data_Source) 
+       VALUES (Source.TrainingType,Source.TrainingCode,Source.TrainingName,'Commitments-Apprenticeship');
  
  
  /* Update Log Execution Results as Success if the query ran succesfully*/

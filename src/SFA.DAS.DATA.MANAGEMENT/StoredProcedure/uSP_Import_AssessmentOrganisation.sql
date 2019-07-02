@@ -56,8 +56,8 @@ DROP TABLE #tAssessmentOrganisation
                  ,Target.Source_EPAOID=Source.Source_EPAOID
                  ,Target.Asdm_UpdatedDate=getdate()
   WHEN NOT MATCHED BY TARGET 
-  THEN INSERT (EPAOId,EPAO_Name,Source_EPAOID)
-       VALUES (Source.EPAOId,Source.EPAO_Name,Source_EPAOID)
+  THEN INSERT (EPAOId,EPAO_Name,Source_EPAOID,Data_Source)
+       VALUES (Source.EPAOId,Source.EPAO_Name,Source_EPAOID,'Commitments-AssessmentOrganisation')
         ;
  
  

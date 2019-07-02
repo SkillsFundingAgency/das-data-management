@@ -37,9 +37,16 @@ BEGIN TRY
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
 
   /* Get Commitment Data into Temp Table */
-
+  
 IF OBJECT_ID ('tempdb..#tCommitments') IS NOT NULL
 DROP TABLE #tCommitments
+
+SELECT *
+INTO #tCommitments
+from dbo.Ext_Tbl_Commitment
+
+IF OBJECT_ID ('tempdb..#tSourceCommitments') IS NOT NULL
+DROP TABLE #tSourceCommitments
 
 select etc.id as Commitments_SourceId
       ,etc.[Reference]
@@ -65,20 +72,21 @@ select etc.id as Commitments_SourceId
 	  ,EA.iD as EmployerAccountId
 	  ,EALE.id as EmployerAccountLegalEntityId
 	  ,Pro.Id as ProviderId
-into #tCommitments
-from dbo.Ext_Tbl_Commitment ETC
+into #tSourceCommitments
+from #tCommitments ETC
 left
 join dbo.EmployerAccount EA
   on ETC.EmployerAccountId=EA.Source_AccountId
 LEFT
 JOIN dbo.EmployerAccountLegalEntity EALE
-  on ETC.LegalEntityId=EALE.LegalEntityId
+  on ETC.EmployerAccountId=EALE.Source_AccountId
+ and ETC.LegalEntityId=EALE.LegalEntityId
 left
 join dbo.Provider Pro
   on Pro.Ukprn=ETC.ProviderId
 
  MERGE dbo.Commitment as Target
- USING #tCommitments as Source
+ USING #tSourceCommitments as Source
     ON Target.Reference=Source.Reference
   WHEN MATCHED AND (  Target.EmployerAccountId<>Source.EmployerAccountId
                    OR Target.EmployerAccountLegalEntityId<>Source.EmployerAccountLegalEntityId

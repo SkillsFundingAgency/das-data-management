@@ -3,7 +3,7 @@
   ,CommitmentId int Foreign Key References dbo.Commitment(id)
   ,ApprenticeId int Foreign Key References dbo.Apprentice(Id)
   ,TrainingCourseId int Foreign Key References dbo.TrainingCourse(Id)
-  ,EPAOId int Foreign Key References dbo.AssessmentOrganisation(Id)
+  ,AssessmentOrgId int Foreign Key References dbo.AssessmentOrganisation(Id)
   ,Cost decimal(18,0)
   ,StartDate datetime
   ,EndDate Datetime

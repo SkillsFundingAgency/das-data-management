@@ -137,7 +137,7 @@ join dbo.Apprentice a
    THEN INSERT(CommitmentId 
               ,ApprenticeId
               ,TrainingCourseId
-              ,EPAOId
+              ,AssessmentOrgId
               ,Cost
               ,StartDate 
               ,EndDate 
@@ -162,7 +162,7 @@ join dbo.Apprentice a
 	   VALUES (Source.CommitmentId 
               ,Source.ApprenticeId
               ,Source.TrainingCourseId
-              ,Source.EPAOId
+              ,Source.AssessmentOrgId
               ,Source.Cost
               ,Source.StartDate 
               ,Source.EndDate 

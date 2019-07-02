@@ -40,4 +40,6 @@ EXEC [dbo].[uSP_Import_AssessmentOrganisation] @RunId
 
 EXEC [dbo].[uSP_Import_Apprenticeship] @RunId
 
+EXEC [dbo].[uSP_Import_DataLockStatus] @RunId
+
 

@@ -94,7 +94,7 @@ DROP TABLE #tTransfers
 				 ,Target.FundingCap=Source.FundingCap
 				 ,Target.AsDm_UpdatedDate=getdate()
   WHEN NOT MATCHED BY TARGET 
-  THEN INSERT (Commitment_Id
+  THEN INSERT (CommitmentId
 	          ,Cost
 	          ,TrainingCourses
 	          ,TransferStatus
@@ -107,7 +107,7 @@ DROP TABLE #tTransfers
 			  ,TransferCreatedOn
 	          ,Data_Source
 	          ,Source_TransferId) 
-       VALUES (Source.Commitment_Id
+       VALUES (Source.CommitmentId
 	          ,Source.Cost
 	          ,Source.TrainingCourses
 	          ,Source.TransferStatus

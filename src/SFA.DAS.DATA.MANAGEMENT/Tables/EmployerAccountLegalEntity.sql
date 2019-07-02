@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[EmployerAccountLegalEntity]
 (
-	[Id] INT NOT NULL PRIMARY KEY
+	[Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY
 	,LegalEntityId nvarchar(50)
  ,LegalEntityPublicHashedId nchar(6)
  ,LegalEntityName nvarchar(100)

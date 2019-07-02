@@ -152,7 +152,6 @@ join dbo.Apprentice a
               ,PauseDate
               ,HasHadDataLockSuccess
               ,PendingUpdateOriginator
-              ,PendingUpdateOrginatorDesc
               ,CloneOf
               ,ReservationId
               ,IsApproved
@@ -177,7 +176,6 @@ join dbo.Apprentice a
               ,Source.PauseDate
               ,Source.HasHadDataLockSuccess
               ,Source.PendingUpdateOriginator
-              ,Source.PendingUpdateOrginatorDesc
               ,Source.CloneOf
               ,Source.ReservationId
               ,Source.IsApproved

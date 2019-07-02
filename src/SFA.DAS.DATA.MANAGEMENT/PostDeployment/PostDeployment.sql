@@ -10,7 +10,7 @@
 --EXEC Mtd.usp_Manage_GA_Hierarchy_Metadata
 
 
-EXEC mtd.usp_Manage_Commitments_Lookup
+--EXEC mtd.usp_Manage_Commitments_Lookup
 
 EXEC [dbo].[uSP_Build_AS_DataMart]
 

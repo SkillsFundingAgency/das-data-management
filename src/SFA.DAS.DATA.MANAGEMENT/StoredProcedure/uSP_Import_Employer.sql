@@ -36,34 +36,79 @@ BEGIN TRY
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
 
-  /* Get Provider Data into Temp Table */
+  /* Get Employer Account Data into Temp Table */
 
-IF OBJECT_ID ('tempdb..#tEmployer') IS NOT NULL
-DROP TABLE #tEmployer
+IF OBJECT_ID ('tempdb..#tEmployerAccount') IS NOT NULL
+DROP TABLE #tEmployerAccount
 
 SELECT ETA.HashedId as EmpHashedId
       ,ETA.PublicHashedId as EmpPublicHashedId
 	  ,ETA.Name as EmpName
-	  ,ETAL.LegalEntityId as LegalEntityId
-	  ,ETAL.PublicHashedId as LegalEntityPublicHashedId
-	  ,ETAL.Name as LegalEntityName
-	  ,ETAL.OrganisationType as OrganisationType
-	  ,ETAL.Address as LegalEntityAddres
-	  ,ETAL.Created as LegalEntityCreatedDate
-	  ,ETAL.Updated as LegalEntityUpdatedDate
-	  ,ETAL.Deleted as LegalEntityDeletedDate
-INTO #tEmployer
+      ,ETA.Created as AccountCreatedDate
+	  ,ETA.Updated as AccountUpdatedDate
+	  ,ETA.Id as Source_AccountId
+INTO #tEmployerAccount
 FROM dbo.Ext_Tbl_Accounts ETA
-LEFT
-JOIN dbo.Ext_Tbl_AccountLegalEntities ETAL
-  ON ETA.Id=ETAL.AccountId
 
- MERGE dbo.Employer as Target
- USING #tEmployer as Source
+
+ MERGE dbo.EmployerAccount as Target
+ USING #tEmployerAccount as Source
     ON Target.EmpHashedID=Source.EmpHashedID
   WHEN MATCHED AND (Target.EmpPublicHashedId<>Source.EmpPublicHashedId
                   OR Target.EmpName<>Source.EmpName
-				  OR Target.LegalEntityId<>Source.LegalEntityId
+				  OR Target.AccountCreatedDate<>Source.AccountCreatedDate
+				  OR Target.AccountUpdatedDate<>Source.AccountUpdatedDate
+				  OR Target.Source_AccountId<>Source.Source_AccountId
+				  )
+  THEN UPDATE SET Target.EmpPublicHashedId=Source.EmpPublicHashedId
+                 ,Target.EmpName=Source.EmpName
+	             ,Target.AccountCreatedDate=Source.AccountCreatedDate
+				 ,Target.AccountUpdatedDate=Source.AccountUpdatedDate
+                 ,Target.Asdm_UpdatedDate=getdate()
+				 ,Target.Source_AccountId=Source.Source_AccountId
+				 ,Target.Data_Source='Commitments-Accounts'
+  WHEN NOT MATCHED BY TARGET 
+  THEN INSERT (EmpHashedId
+              ,EmpPublicHashedID
+              ,EmpName
+			  ,AccountCreatedDate
+			  ,AccountUpdatedDate
+			  ,Data_Source
+			  ,Source_AccountId) 
+       VALUES (Source.EmpHashedId
+	         , Source.EmpPublicHashedId
+	         , Source.EmpName
+			 , Source.AccountCreatedDate
+			 , Source.AccountUpdatedDate
+			 , 'Commitments-Accounts'
+			 , Source.Source_AccountId);
+
+  /* Get Employer Account Legal Entity Data into Temp Table */
+
+IF OBJECT_ID ('tempdb..#tEmployerAccountLegalEntity') IS NOT NULL
+DROP TABLE #tEmployerAccountLegalEntity
+
+SELECT   ETAL.LegalEntityId 
+        ,ETAL.PublicHashedId as LegalEntityPublicHashedId
+        ,ETAL.Name as LegalEntityName
+        ,ETAL.OrganisationType 
+        ,ETAL.Address as LegalEntityAddress 
+        ,ETAL.Created as LegalEntityCreatedDate 
+        ,ETAL.Updated as LegalEntityUpdatedDate 
+        ,ETAL.Deleted as LegalEntityDeletedDate 
+		,ETAL.ID as Source_AccountLegalEntityId
+		,ETAL.AccountId as Source_AccountId
+		,EA.Id as EmployerAccountId
+INTO #tEmployerAccountLegalEntity
+FROM dbo.Ext_Tbl_AccountLegalEntities ETAL
+LEFT
+JOIN dbo.EmployerAccount EA
+  ON EA.Source_AccountId=ETAL.AccountId
+
+ MERGE dbo.EmployerAccountLegalEntity as Target
+ USING #tEmployerAccountLegalEntity as Source
+    ON Target.LegalEntityPublicHashedId=Source.LegalEntityPublicHashedId
+  WHEN MATCHED AND (Target.LegalEntityId<>Source.LegalEntityId
 				  OR Target.LegalEntityPublicHashedId<>Source.LegalEntityPublicHashedId
 				  OR Target.LegalEntityName<>Source.LegalEntityName
 				  OR Target.OrganisationType<>Source.OrganisationType
@@ -71,10 +116,11 @@ JOIN dbo.Ext_Tbl_AccountLegalEntities ETAL
 				  OR Target.LegalEntityCreatedDate<>Source.LegalEntityCreatedDate
 				  OR Target.LegalEntityUpdatedDate<>Source.LegalEntityUpdatedDate
 				  OR Target.LegalEntityDeletedDate<>Source.LegalEntityDeletedDate
+				  OR Target.Source_AccountLegalEntityID<>Source.Source_AccountLegalEntityId
+				  OR Target.Source_AccountId<>Source.Source_AccountId
+				  OR Target.EmployerAccountId<>Source.EmployerAccountId
 				  )
-  THEN UPDATE SET Target.EmpPublicHashedId=Source.EmpPublicHashedId
-                 ,Target.EmpName=Source.EmpName
-				 ,Target.LegalEntityId=Source.LegalEntityId
+  THEN UPDATE SET Target.LegalEntityId=Source.LegalEntityId
 				 ,Target.LegalEntityPublicHashedId=Source.LegalEntityPublicHashedId
 				 ,Target.LegalEntityName=Source.LegalEntityName
 				 ,Target.OrganisationType=Source.OrganisationType
@@ -82,21 +128,24 @@ JOIN dbo.Ext_Tbl_AccountLegalEntities ETAL
 				 ,Target.LegalEntityCreatedDate=Source.LegalEntityCreatedDate
 				 ,Target.LegalEntityUpdatedDate=Source.LegalEntityUpdatedDate
 				 ,Target.LegalEntityDeletedDate=Source.LegalEntityDeletedDate
-                 ,Target.Asdm_UpdatedDate=getdate()
+				 ,Target.Data_Source='Commitments-AccountLegalEntity'
+				 ,Target.Source_AccountLegalEntityID=Source.Source_AccountLegalEntityId
+				 ,Target.Source_AccountId=Source.Source_AccountId
+				 ,Target.EmployerAccountId=Source.EmployerAccountId
   WHEN NOT MATCHED BY TARGET 
-  THEN INSERT (EmpPublicHashedID
-              ,EmpName
-			  ,LegalEntityId
+  THEN INSERT (LegalEntityId
 			  ,LegalEntityPublicHashedId
 			  ,LegalEntityName
 			  ,OrganisationType
 			  ,LegalEntityAddress
 			  ,LegalEntityCreatedDate
 			  ,LegalEntityUpdatedDate
-			  ,LegalEntityDeletedDate) 
-       VALUES (Source.EmpPublicHashedId
-	         , Source.EmpName
-			 , Source.LegalEntityId
+			  ,LegalEntityDeletedDate
+			  ,Data_Source
+			  ,Source_AccountLegalEntityId
+			  ,Source_AccountId
+			  ,EmployerAccountId) 
+       VALUES (Source.LegalEntityId
 			 , Source.LegalEntityPublicHashedId
 			 , Source.LegalEntityName
 			 , Source.OrganisationType
@@ -104,7 +153,10 @@ JOIN dbo.Ext_Tbl_AccountLegalEntities ETAL
 			 , Source.LegalEntityCreatedDate
 			 , Source.LegalEntityUpdatedDate
 			 , Source.LegalEntityDeletedDate
-			 );
+			 , 'Commitments-AccountLegalEntity'
+			 , Source.Source_AccountLegalEntityId
+			 , Source.Source_AccountId
+			 , Source.EmployerAccountId);
  
  
  /* Update Log Execution Results as Success if the query ran succesfully*/

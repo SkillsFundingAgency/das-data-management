@@ -109,8 +109,23 @@
     <Build Include="StoredProcedure\uSP_Build_AS_DataMart.sql" />
     <Build Include="StoredProcedure\uSP_CreateSystemExternalTables.sql" />
     <Build Include="Tables\Provider.sql" />
-    <Build Include="StoredProcedure\uSP_Import_Provider.sql" />
+    <Build Include="StoredProcedure\uSP_Import_Commitments.sql" />
     <Build Include="StoredProcedure\uSP_Import_Employer.sql" />
-    <Build Include="Tables\Employer.sql" />
+    <Build Include="Tables\EmployerAccount.sql" />
+    <Build Include="Tables\Commitment.sql" />
+    <Build Include="StoredProcedure\uSP_Import_Provider.sql" />
+    <Build Include="StoredProcedure\uSP_Import_Transfers.sql" />
+    <Build Include="Tables\Transfers.sql" />
+    <Build Include="Tables\EmployerAccountLegalEntity.sql" />
+    <Build Include="Tables\AssessmentOrganisation.sql" />
+    <Build Include="Tables\Apprentice.sql" />
+    <Build Include="Tables\TrainingCourse.sql" />
+    <Build Include="StoredProcedure\uSP_Import_Apprentice.sql" />
+    <Build Include="StoredProcedure\uSP_Import_TrainingCourse.sql" />
+    <Build Include="StoredProcedure\uSP_Import_AssessmentOrganisation.sql" />
+    <Build Include="Tables\Apprenticeship.sql" />
+    <Build Include="StoredProcedure\uSP_Import_Apprenticeship.sql" />
+    <Build Include="Tables\DataLockStatus.sql" />
+    <Build Include="StoredProcedure\uSP_Import_DataLockStatus.sql" />
   </ItemGroup>
 </Project>

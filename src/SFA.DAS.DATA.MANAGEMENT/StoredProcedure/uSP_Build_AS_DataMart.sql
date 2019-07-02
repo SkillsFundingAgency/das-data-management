@@ -28,3 +28,18 @@ EXEC dbo.uSP_Import_Provider @RunId
 
 EXEC dbo.uSP_Import_Employer @RunId
 
+EXEC uSP_Import_Commitments @RunId
+
+EXEC uSP_Import_Transfers @RunId
+
+EXEC [dbo].[uSP_Import_Apprentice] @RunId
+
+EXEC [dbo].[uSP_Import_TrainingCourse] @RunId
+
+EXEC [dbo].[uSP_Import_AssessmentOrganisation] @RunId
+
+EXEC [dbo].[uSP_Import_Apprenticeship] @RunId
+
+EXEC [dbo].[uSP_Import_DataLockStatus] @RunId
+
+

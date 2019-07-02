@@ -69,7 +69,7 @@ select ta.id as Source_ApprenticeshipId
 	  ,ta.CloneOf
 	  ,ta.ReservationId
 	  ,ta.IsApproved    
---into #tSourceApprenticeship
+into #tSourceApprenticeship
 from #tApprenticeship ta
 left
 join dbo.Commitment c

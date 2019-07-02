@@ -28,8 +28,8 @@ EXEC dbo.uSP_Import_Provider @RunId
 
 EXEC dbo.uSP_Import_Employer @RunId
 
-EXEC uSP_Import_Commitments @RunId
+--EXEC uSP_Import_Commitments @RunId
 
-EXEC uSP_Import_Transfers @RunId
+--EXEC uSP_Import_Transfers @RunId
 
 

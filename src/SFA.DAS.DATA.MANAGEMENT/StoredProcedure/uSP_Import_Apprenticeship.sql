@@ -111,7 +111,6 @@ join dbo.Apprentice a
 	              OR Target.PendingUpdateOriginator<>Source.PendingUpdateOriginator
 	              OR Target.CloneOf<>Source.CloneOf
 	              OR Target.ReservationId<>Source.ReservationId
-	              OR Target.IsApproved <>Source.IsApproved  
 				  OR Target.Source_ApprenticeshipId<>Source.Source_ApprenticeshipId
 				  )
   THEN UPDATE SET Target.Cost=Source.Cost
@@ -130,7 +129,6 @@ join dbo.Apprentice a
 	             ,Target.PendingUpdateOriginator=Source.PendingUpdateOriginator
 	             ,Target.CloneOf=Source.CloneOf
 	             ,Target.ReservationId=Source.ReservationId
-	             ,Target.IsApproved=Source.IsApproved  
 				 ,Target.Source_ApprenticeshipId=Source.Source_ApprenticeshipId
 				 ,Target.AsDm_UpdatedDate=getdate()
    WHEN NOT MATCHED BY TARGET 
@@ -154,7 +152,6 @@ join dbo.Apprentice a
               ,PendingUpdateOriginator
               ,CloneOf
               ,ReservationId
-              ,IsApproved
               ,Data_Source
               ,Source_ApprenticeshipId
 			  )
@@ -178,7 +175,6 @@ join dbo.Apprentice a
               ,Source.PendingUpdateOriginator
               ,Source.CloneOf
               ,Source.ReservationId
-              ,Source.IsApproved
               ,'Commitments-Apprenticeship'
               ,Source.Source_ApprenticeshipId
 			  );

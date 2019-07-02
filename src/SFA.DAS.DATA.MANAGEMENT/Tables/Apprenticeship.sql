@@ -8,7 +8,7 @@
   ,StartDate datetime
   ,EndDate Datetime
   ,AgreementStatus smallint
-  ,AgreementStatusDesc as (CASE WHEN AgreementStatus=0 THEN 'Not Agreed' WHEN AgreementStatus=1 THEN 'Employer Agreed' WHEN AgreementStatus=2 THEN 'Provider Agreed' WHEN AgreementStatus=3 THEN 'Both Agreed' ELSE 'Unknown' END) PERSISTED
+  ,AgreementStatusDesc as (CASE WHEN AgreementStatus=0 THEN 'Not Agreed' WHEN AgreementStatus=1 THEN 'Employer Agreed' WHEN AgreementStatus=2 THEN 'Provider Agreed' WHEN AgreementStatus=3 THEN 'Both Agreed' WHEN AgreementStatus is null then null  ELSE 'Unknown' END) PERSISTED
   ,ApprenticeshipStatus smallint
   ,ApprenticeshipStatusDesc as (CASE WHEN ApprenticeshipStatus=0 THEN 'Pending Approval' WHEN ApprenticeshipStatus=1 THEN 'Active' WHEN ApprenticeshipStatus=2 THEN 'Payments Halted' WHEN ApprenticeshipStatus=3 THEN 'CANCELLED' WHEN ApprenticeshipStatus=4 THEN 'COMPLETED' WHEN ApprenticeshipStatus=5 THEN 'Deleted' ELSE 'Unknown' END) PERSISTED
   ,EmployerRef nvarchar(50)

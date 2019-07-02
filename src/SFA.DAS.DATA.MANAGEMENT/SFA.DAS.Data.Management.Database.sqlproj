@@ -123,5 +123,7 @@
     <Build Include="StoredProcedure\uSP_Import_Apprentice.sql" />
     <Build Include="StoredProcedure\uSP_Import_TrainingCourse.sql" />
     <Build Include="StoredProcedure\uSP_Import_AssessmentOrganisation.sql" />
+    <Build Include="Tables\Apprenticeship.sql" />
+    <Build Include="StoredProcedure\uSP_Import_Apprenticeship.sql" />
   </ItemGroup>
 </Project>

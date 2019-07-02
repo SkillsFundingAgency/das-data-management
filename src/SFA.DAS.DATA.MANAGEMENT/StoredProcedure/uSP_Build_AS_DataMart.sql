@@ -38,4 +38,6 @@ EXEC [dbo].[uSP_Import_TrainingCourse] @RunId
 
 EXEC [dbo].[uSP_Import_AssessmentOrganisation] @RunId
 
+EXEC [dbo].[uSP_Import_Apprenticeship] @RunId
+
 

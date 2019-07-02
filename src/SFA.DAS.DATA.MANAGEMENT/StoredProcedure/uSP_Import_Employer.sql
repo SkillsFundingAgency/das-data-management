@@ -36,55 +36,34 @@ BEGIN TRY
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
 
-  /* Get Provider Data into Temp Table */
+  /* Get Employer Account Data into Temp Table */
 
-IF OBJECT_ID ('tempdb..#tEmployer') IS NOT NULL
-DROP TABLE #tEmployer
+IF OBJECT_ID ('tempdb..#tEmployerAccount') IS NOT NULL
+DROP TABLE #tEmployerAccount
 
 SELECT ETA.HashedId as EmpHashedId
       ,ETA.PublicHashedId as EmpPublicHashedId
 	  ,ETA.Name as EmpName
-	  ,ETAL.LegalEntityId as LegalEntityId
-	  ,ETAL.PublicHashedId as LegalEntityPublicHashedId
-	  ,ETAL.Name as LegalEntityName
-	  ,ETAL.OrganisationType as OrganisationType
-	  ,ETAL.Address as LegalEntityAddress
-	  ,ETAL.Created as LegalEntityCreatedDate
-	  ,ETAL.Updated as LegalEntityUpdatedDate
-	  ,ETAL.Deleted as LegalEntityDeletedDate
+      ,ETA.Created as AccountCreatedDate
+	  ,ETA.Updated as AccountUpdatedDate
 	  ,ETA.Id as Source_AccountId
-INTO #tEmployer
+INTO #tEmployerAccount
 FROM dbo.Ext_Tbl_Accounts ETA
-LEFT
-JOIN dbo.Ext_Tbl_AccountLegalEntities ETAL
-  ON ETA.Id=ETAL.AccountId
 
- MERGE dbo.Employer as Target
- USING #tEmployer as Source
+
+ MERGE dbo.EmployerAccount as Target
+ USING #tEmployerAccount as Source
     ON Target.EmpHashedID=Source.EmpHashedID
-   AND Target.LegalEntityId=Source.LegalEntityId
   WHEN MATCHED AND (Target.EmpPublicHashedId<>Source.EmpPublicHashedId
                   OR Target.EmpName<>Source.EmpName
-				  OR Target.LegalEntityId<>Source.LegalEntityId
-				  OR Target.LegalEntityPublicHashedId<>Source.LegalEntityPublicHashedId
-				  OR Target.LegalEntityName<>Source.LegalEntityName
-				  OR Target.OrganisationType<>Source.OrganisationType
-				  OR Target.LegalEntityAddress<>Source.LegalEntityAddress
-				  OR Target.LegalEntityCreatedDate<>Source.LegalEntityCreatedDate
-				  OR Target.LegalEntityUpdatedDate<>Source.LegalEntityUpdatedDate
-				  OR Target.LegalEntityDeletedDate<>Source.LegalEntityDeletedDate
+				  OR Target.AccountCreatedDate<>Source.AccountCreatedDate
+				  OR Target.AccountUpdatedDate<>Source.AccountUpdatedDate
 				  OR Target.Source_AccountId<>Source.Source_AccountId
 				  )
   THEN UPDATE SET Target.EmpPublicHashedId=Source.EmpPublicHashedId
                  ,Target.EmpName=Source.EmpName
-				 ,Target.LegalEntityId=Source.LegalEntityId
-				 ,Target.LegalEntityPublicHashedId=Source.LegalEntityPublicHashedId
-				 ,Target.LegalEntityName=Source.LegalEntityName
-				 ,Target.OrganisationType=Source.OrganisationType
-				 ,Target.LegalEntityAddress=Source.LegalEntityAddress
-				 ,Target.LegalEntityCreatedDate=Source.LegalEntityCreatedDate
-				 ,Target.LegalEntityUpdatedDate=Source.LegalEntityUpdatedDate
-				 ,Target.LegalEntityDeletedDate=Source.LegalEntityDeletedDate
+	             ,Target.AccountCreatedDate=Source.AccountCreatedDate
+				 ,Target.AccountUpdatedDate=Source.AccountUpdatedDate
                  ,Target.Asdm_UpdatedDate=getdate()
 				 ,Target.Source_AccountId=Source.Source_AccountId
 				 ,Target.Data_Source='Commitments-Accounts'
@@ -92,7 +71,60 @@ JOIN dbo.Ext_Tbl_AccountLegalEntities ETAL
   THEN INSERT (EmpHashedId
               ,EmpPublicHashedID
               ,EmpName
-			  ,LegalEntityId
+			  ,AccountCreatedDate
+			  ,AccountUpdatedDate
+			  ,Data_Source
+			  ,Source_AccountId) 
+       VALUES (Source.EmpHashedId
+	         , Source.EmpPublicHashedId
+	         , Source.EmpName
+			 , Source.AccountCreatedDate
+			 , Source.AccountUpdatedDate
+			 , 'Commitments-Accounts'
+			 , Source.Source_AccountId);
+
+  /* Get Employer Account Legal Entity Data into Temp Table */
+
+IF OBJECT_ID ('tempdb..#tEmployerAccountLegalEntity') IS NOT NULL
+DROP TABLE #tEmployerAccountLegalEntity
+
+SELECT   LegalEntityId 
+        ,PublicHashedId as LegalEntityPublicHashedId
+        ,Name as LegalEntityName
+        ,OrganisationType 
+        ,Address as LegalEntityAddress 
+        ,Created as LegalEntityCreatedDate 
+        ,Updated as LegalEntityUpdatedDate 
+        ,Deleted as LegalEntityDeletedDate 
+		,ID as Source_AccountLegalEntityId
+INTO #tEmployerAccountLegalEntity
+FROM dbo.Ext_Tbl_AccountLegalEntities ETAL
+
+ MERGE dbo.EmployerAccountLegalEntity as Target
+ USING #tEmployerAccountLegalEntity as Source
+    ON Target.LegalEntityPublicHashedId=Source.LegalEntityPublicHashedId
+  WHEN MATCHED AND (Target.LegalEntityId<>Source.LegalEntityId
+				  OR Target.LegalEntityPublicHashedId<>Source.LegalEntityPublicHashedId
+				  OR Target.LegalEntityName<>Source.LegalEntityName
+				  OR Target.OrganisationType<>Source.OrganisationType
+				  OR Target.LegalEntityAddress<>Source.LegalEntityAddress
+				  OR Target.LegalEntityCreatedDate<>Source.LegalEntityCreatedDate
+				  OR Target.LegalEntityUpdatedDate<>Source.LegalEntityUpdatedDate
+				  OR Target.LegalEntityDeletedDate<>Source.LegalEntityDeletedDate
+				  OR Target.Source_AccountLegalEntityID<>Source.Source_AccountLegalEntityId
+				  )
+  THEN UPDATE SET Target.LegalEntityId=Source.LegalEntityId
+				 ,Target.LegalEntityPublicHashedId=Source.LegalEntityPublicHashedId
+				 ,Target.LegalEntityName=Source.LegalEntityName
+				 ,Target.OrganisationType=Source.OrganisationType
+				 ,Target.LegalEntityAddress=Source.LegalEntityAddress
+				 ,Target.LegalEntityCreatedDate=Source.LegalEntityCreatedDate
+				 ,Target.LegalEntityUpdatedDate=Source.LegalEntityUpdatedDate
+				 ,Target.LegalEntityDeletedDate=Source.LegalEntityDeletedDate
+				 ,Target.Data_Source='Commitments-AccountLegalEntity'
+				 ,Target.Source_AccountLegalEntityID=Source.Source_AccountLegalEntityId
+  WHEN NOT MATCHED BY TARGET 
+  THEN INSERT (LegalEntityId
 			  ,LegalEntityPublicHashedId
 			  ,LegalEntityName
 			  ,OrganisationType
@@ -101,11 +133,8 @@ JOIN dbo.Ext_Tbl_AccountLegalEntities ETAL
 			  ,LegalEntityUpdatedDate
 			  ,LegalEntityDeletedDate
 			  ,Data_Source
-			  ,Source_AccountId) 
-       VALUES (Source.EmpHashedId
-	         ,Source.EmpPublicHashedId
-	         , Source.EmpName
-			 , Source.LegalEntityId
+			  ,Source_AccountLegalEntityId) 
+       VALUES (Source.LegalEntityId
 			 , Source.LegalEntityPublicHashedId
 			 , Source.LegalEntityName
 			 , Source.OrganisationType
@@ -113,8 +142,8 @@ JOIN dbo.Ext_Tbl_AccountLegalEntities ETAL
 			 , Source.LegalEntityCreatedDate
 			 , Source.LegalEntityUpdatedDate
 			 , Source.LegalEntityDeletedDate
-			 , 'Commitments-Accounts'
-			 , Source.Source_AccountId);
+			 , 'Commitments-AccountLegalEntity'
+			 , Source.Source_AccountLegalEntityId);
  
  
  /* Update Log Execution Results as Success if the query ran succesfully*/

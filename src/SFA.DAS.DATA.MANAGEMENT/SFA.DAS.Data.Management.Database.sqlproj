@@ -111,8 +111,11 @@
     <Build Include="Tables\Provider.sql" />
     <Build Include="StoredProcedure\uSP_Import_Commitments.sql" />
     <Build Include="StoredProcedure\uSP_Import_Employer.sql" />
-    <Build Include="Tables\Employer.sql" />
+    <Build Include="Tables\EmployerAccount.sql" />
     <Build Include="Tables\Commitment.sql" />
     <Build Include="StoredProcedure\uSP_Import_Provider.sql" />
+    <Build Include="StoredProcedure\uSP_Import_Transfers.sql" />
+    <Build Include="Tables\Transfers.sql" />
+    <Build Include="Tables\EmployerAccountLegalEntity.sql" />
   </ItemGroup>
 </Project>

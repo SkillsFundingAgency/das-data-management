@@ -1,6 +1,7 @@
 ﻿Create Table dbo.Commitment
 (Id int identity(1,1) primary key not null
-,EmployerId int Foreign Key References dbo.Employer(Id)
+,EmployerAccountId int Foreign Key References dbo.EmployerAccount(Id)
+,EmployerAccountLegalEntityId int Foreign Key References dbo.EmployerAccountLegalEntity(Id)
 ,ProviderId int Foreign Key References dbo.Provider(Id)
 ,Reference nvarchar(100) not null
 ,CommitmentStatus int not null

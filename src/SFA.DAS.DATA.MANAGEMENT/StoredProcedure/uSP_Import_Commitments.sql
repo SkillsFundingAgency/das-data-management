@@ -43,7 +43,7 @@ DROP TABLE #tCommitments
 
 select etc.id as Commitments_SourceId
       ,etc.[Reference]
-      ,etc.[EmployerAccountId]
+      ,etc.[EmployerAccountId] as CmtEmployerAccountId
       ,etc.[LegalEntityId]
       ,etc.[LegalEntityName]
       ,etc.[LegalEntityAddress]
@@ -62,14 +62,17 @@ select etc.id as Commitments_SourceId
       ,etc.[TransferApprovalActionedOn]
       ,etc.[AccountLegalEntityPublicHashedId]
       ,etc.[Originator]
-	  ,emp.Id as EmployerId
+	  ,EA.iD as EmployerAccountId
+	  ,EALE.id as EmployerAccountLegalEntityId
 	  ,Pro.Id as ProviderId
 into #tCommitments
 from dbo.Ext_Tbl_Commitment ETC
 left
-join dbo.Employer Emp
-  on ETC.EmployerAccountId=Emp.Source_AccountId
- and ETC.LegalEntityId=Emp.LegalEntityId
+join dbo.EmployerAccount EA
+  on ETC.EmployerAccountId=EA.Source_AccountId
+LEFT
+JOIN dbo.EmployerAccountLegalEntity EALE
+  on ETC.LegalEntityId=EALE.LegalEntityId
 left
 join dbo.Provider Pro
   on Pro.Ukprn=ETC.ProviderId
@@ -77,7 +80,8 @@ join dbo.Provider Pro
  MERGE dbo.Commitment as Target
  USING #tCommitments as Source
     ON Target.Reference=Source.Reference
-  WHEN MATCHED AND (  Target.EmployerId<>Source.EmployerId
+  WHEN MATCHED AND (  Target.EmployerAccountId<>Source.EmployerAccountId
+                   OR Target.EmployerAccountLegalEntityId<>Source.EmployerAccountLegalEntityId
                    OR Target.ProviderId<>Source.ProviderId
 				   OR Target.CommitmentStatus<>Source.CommitmentStatus
 				   OR Target.EditStatus<>Source.EditStatus
@@ -93,7 +97,8 @@ join dbo.Provider Pro
 				   OR Target.Originator<>Source.Originator
 				   OR Target.Commitments_SourceId<>Source.Commitments_SourceId
 				   )
-  THEN UPDATE SET Target.EmployerId=Source.EmployerId
+  THEN UPDATE SET Target.EmployerAccountId=Source.EmployerAccountId
+                 ,Target.EmployerAccountLegalEntityId=Source.EmployerAccountLegalEntityId
                  ,Target.ProviderId=Source.ProviderId
 				 ,Target.CommitmentStatus=Source.CommitmentStatus
 				 ,Target.EditStatus=Source.EditStatus
@@ -110,7 +115,8 @@ join dbo.Provider Pro
 				 ,Target.Commitments_SourceId=Source.Commitments_SourceId
 				 ,Target.AsDm_UpdatedDate=getdate()
    WHEN NOT MATCHED BY TARGET 
-   THEN INSERT(EmployerId
+   THEN INSERT(EmployerAccountId
+              ,EmployerAccountLegalEntityId
               ,ProviderId
 			  ,Reference
 			  ,CommitmentStatus
@@ -125,9 +131,11 @@ join dbo.Provider Pro
 			  --,ProviderCanApproveCommitment
 			  --,EmployerCanApproveCommitment
 			  ,Originator
+			  ,Data_Source
 			  ,Commitments_SourceId
 			  )
-	   VALUES (Source.EmployerId
+	   VALUES (Source.EmployerAccountId
+	          ,Source.EmployerAccountLegalEntityId
               ,Source.ProviderId
 			  ,Source.Reference
 			  ,Source.CommitmentStatus
@@ -142,6 +150,7 @@ join dbo.Provider Pro
 			  --,Source.ProviderCanApproveCommitment
 			  --,Source.EmployerCanApproveCommitment
 			  ,Source.Originator
+			  ,'Commitments'
 			  ,Source.Commitments_SourceId
 			  );
 
@@ -178,7 +187,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'uSP_Import_Provider',
+	    'uSP_Import_Commitments',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 

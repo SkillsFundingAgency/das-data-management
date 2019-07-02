@@ -38,6 +38,25 @@ BEGIN TRY
 
   /* Get Transfers Data into Temp Table */
 
+  
+IF OBJECT_ID ('tempdb..#tCommitment') IS NOT NULL
+DROP TABLE #tCommitment
+
+SELECT *
+  INTO #tCommitment
+  FROM dbo.Ext_Tbl_Commitment
+
+IF OBJECT_ID ('tempdb..#tTransferRequest') IS NOT NULL
+DROP TABLE #tTransferRequest
+
+SELECT *
+  INTO #tTransferRequest
+  FROM dbo.Ext_Tbl_TransferRequest
+
+
+
+
+
 IF OBJECT_ID ('tempdb..#Transfers') IS NOT NULL
 DROP TABLE #tTransfers
 
@@ -54,9 +73,9 @@ DROP TABLE #tTransfers
 		,TransferReceiver.ID as TransferReceiverAccountId
 		,C.ID as CommitmentId
   into #tTransfers
-  from dbo.Ext_Tbl_TransferRequest ETR
+  from #tTransferRequest ETR
   LEFT
-  JOIN dbo.Ext_Tbl_Commitment ETC
+  JOIN #tCommitment ETC
     ON ETR.CommitmentId=ETC.Id
   LEFT
   JOIN dbo.Commitment C

@@ -91,10 +91,7 @@ join dbo.Apprentice a
 
  MERGE dbo.Apprenticeship as Target
  USING #tSourceApprenticeship as Source
-    ON Target.CommitmentId=Source.CommitmentId
-   AND Target.AssessmentOrgId=Source.AssessmentOrgId
-   AND Target.TrainingCourseId=Source.TrainingCourseId
-   AND Target.ApprenticeId=Source.ApprenticeId
+    ON Target.Source_ApprenticeshipId=Source.Source_ApprenticeshipId
   WHEN MATCHED AND ( Target.Cost<>Source.Cost
 	              OR Target.StartDate<>Source.StartDate
 	              OR Target.EndDate<>Source.EndDate
@@ -111,7 +108,10 @@ join dbo.Apprentice a
 	              OR Target.PendingUpdateOriginator<>Source.PendingUpdateOriginator
 	              OR Target.CloneOf<>Source.CloneOf
 	              OR Target.ReservationId<>Source.ReservationId
-				  OR Target.Source_ApprenticeshipId<>Source.Source_ApprenticeshipId
+				  OR Target.CommitmentId<>Source.CommitmentId
+				  OR Target.ApprenticeId<>Source.ApprenticeId
+				  OR Target.AssessmentOrgId<>Source.AssessmentOrgId
+				  OR Target.TrainingCourseId<>Source.TrainingCourseId
 				  )
   THEN UPDATE SET Target.Cost=Source.Cost
 	             ,Target.StartDate=Source.StartDate
@@ -129,7 +129,10 @@ join dbo.Apprentice a
 	             ,Target.PendingUpdateOriginator=Source.PendingUpdateOriginator
 	             ,Target.CloneOf=Source.CloneOf
 	             ,Target.ReservationId=Source.ReservationId
-				 ,Target.Source_ApprenticeshipId=Source.Source_ApprenticeshipId
+				 ,Target.CommitmentId=Source.CommitmentId
+				 ,Target.ApprenticeId=Source.ApprenticeId
+				 ,Target.AssessmentOrgId=Source.AssessmentOrgId
+				 ,Target.TrainingCourseId=Source.TrainingCourseId
 				 ,Target.AsDm_UpdatedDate=getdate()
    WHEN NOT MATCHED BY TARGET 
    THEN INSERT(CommitmentId 

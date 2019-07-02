@@ -125,5 +125,7 @@
     <Build Include="StoredProcedure\uSP_Import_AssessmentOrganisation.sql" />
     <Build Include="Tables\Apprenticeship.sql" />
     <Build Include="StoredProcedure\uSP_Import_Apprenticeship.sql" />
+    <Build Include="Tables\DataLockStatus.sql" />
+    <Build Include="StoredProcedure\uSP_Import_DataLockStatus.sql" />
   </ItemGroup>
 </Project>

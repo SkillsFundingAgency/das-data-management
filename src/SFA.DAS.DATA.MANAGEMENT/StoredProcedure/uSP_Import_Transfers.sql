@@ -38,7 +38,7 @@ BEGIN TRY
 
   /* Get Transfers Data into Temp Table */
 
-  
+   
 IF OBJECT_ID ('tempdb..#tCommitment') IS NOT NULL
 DROP TABLE #tCommitment
 
@@ -53,11 +53,7 @@ SELECT *
   INTO #tTransferRequest
   FROM dbo.Ext_Tbl_TransferRequest
 
-
-
-
-
-IF OBJECT_ID ('tempdb..#Transfers') IS NOT NULL
+IF OBJECT_ID ('tempdb..#tTransfers') IS NOT NULL
 DROP TABLE #tTransfers
 
  SELECT DISTINCT 
@@ -72,6 +68,7 @@ DROP TABLE #tTransfers
 		,TransferSender.ID as TransferSenderAccountId
 		,TransferReceiver.ID as TransferReceiverAccountId
 		,C.ID as CommitmentId
+		,ETR.ID AS Source_TransferId
   into #tTransfers
   from #tTransferRequest ETR
   LEFT
@@ -87,8 +84,6 @@ DROP TABLE #tTransfers
   JOIN dbo.EmployerAccount TransferReceiver
     on TransferReceiver.Source_AccountId=ETC.EmployerAccountId
 
-
-
  MERGE dbo.Transfers as Target
  USING #tTransfers as Source
     ON Target.CommitmentID=Source.CommitmentID
@@ -102,6 +97,7 @@ DROP TABLE #tTransfers
 				 OR Target.TransferApprovalActionedOn<>Source.TransferApprovalActionedOn
 				 OR Target.TransferCreatedOn<>Source.TransferCreatedOn
 				 OR Target.FundingCap<>Source.FundingCap
+				 OR Target.Source_TransferId<>Source.Source_TransferId
 				 )           
   THEN UPDATE SET Target.TrainingCourses=Source.TrainingCourses
                  ,Target.Cost=Source.Cost
@@ -112,6 +108,7 @@ DROP TABLE #tTransfers
 				 ,Target.TransferCreatedOn=Source.TransferCreatedOn
 				 ,Target.FundingCap=Source.FundingCap
 				 ,Target.AsDm_UpdatedDate=getdate()
+				 ,Target.Source_TransferId=Source.Source_TransferId
   WHEN NOT MATCHED BY TARGET 
   THEN INSERT (CommitmentId
 	          ,Cost
@@ -125,7 +122,9 @@ DROP TABLE #tTransfers
 	          ,FundingCap
 			  ,TransferCreatedOn
 	          ,Data_Source
-	          ,Source_TransferId) 
+	          ,Source_TransferId
+			  ,AsDm_UpdatedDate
+			  ,AsDm_CreatedDate) 
        VALUES (Source.CommitmentId
 	          ,Source.Cost
 	          ,Source.TrainingCourses
@@ -138,9 +137,12 @@ DROP TABLE #tTransfers
 	          ,Source.FundingCap
 			  ,Source.TransferCreatedOn
 	          ,'Commitments-TransferRequest'
-	          ,Source.Source_TransferId);
+	          ,Source.Source_TransferId
+			  ,getdate()
+			  ,getdate());
 
 
+ 
  
  
  /* Update Log Execution Results as Success if the query ran succesfully*/

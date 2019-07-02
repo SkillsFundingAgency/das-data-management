@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Transfers]
 (
-	 [Id] INT NOT NULL PRIMARY KEY
+	 [Id] INT IDENTITY(1,1) PRIMARY KEY NOT NULL 
 	,CommitmentId int 
 	,Cost int
 	,TrainingCourses nvarchar(255)

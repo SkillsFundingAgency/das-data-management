@@ -109,7 +109,9 @@ IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
 	      )
 DROP TABLE [Comt].[Commitment]
 
+DROP VIEW IF EXISTS dbo.vw_CommitmentSummary ; 
 
+DROP VIEW IF EXISTS vw_Commitments_Apprenticeship_Details;
 
 --IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
 --            WHERE TABLE_NAME = N'Commitment'

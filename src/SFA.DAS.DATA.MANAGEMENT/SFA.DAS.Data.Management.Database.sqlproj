@@ -71,8 +71,6 @@
     <None Include="StoredProcedure\Blank.txt" />
     <None Include="Views\Blank1.txt" />
     <Build Include="Schemas\Comt.sql" />
-    <Build Include="Views\vw_Commitments_Apprenticeship_Details.sql" />
-    <Build Include="Views\vw_CommitmentSummary.sql" />
     <PostDeploy Include="PostDeployment\PostDeployment.sql" />
     <Build Include="StoredProcedure\uSP_UnitTest1_CheckCounts.sql" />
     <Build Include="StoredProcedure\uSP_Manage_GA_Hierarchy_Metadata.sql" />
@@ -83,19 +81,6 @@
     <Build Include="StoredProcedure\uSP_Manage_Commitments_Metadata.sql" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Tables\Commitments_Apprenticeship.sql" />
-    <Build Include="Tables\Commitments_ApprenticeshipUpdate.sql" />
-    <Build Include="Tables\Commitments_AssessmentOrganisation.sql" />
-    <Build Include="Tables\Commitments_BulkUpload.sql" />
-    <Build Include="Tables\Commitments_Commitment.sql" />
-    <Build Include="Tables\Commitments_CustomProviderPaymentPriority.sql" />
-    <Build Include="Tables\Commitments_DataLockStatus.sql" />
-    <Build Include="Tables\Commitments_History.sql" />
-    <Build Include="Tables\Commitments_IntegrationTestIds.sql" />
-    <Build Include="Tables\Commitments_JobProgress.sql" />
-    <Build Include="Tables\Commitments_Message.sql" />
-    <Build Include="Tables\Commitments_PriceHistory.sql" />
-    <Build Include="Tables\Commitments_TransferRequest.sql" />
     <Build Include="Tables\Metadata_GA_Hierarchy.sql" />
     <Build Include="Views\vw_FIU_GA_Segmented_View.sql" />
     <Build Include="Views\vw_FIU_GA_Data.sql" />

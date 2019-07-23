@@ -351,8 +351,7 @@
         "WorkerHmrcFunctionAppName": {
             "type": "string",
             "value": "[variables('workerHmrcFunctionAppName')]"
-        }
-        ,
+        },
         "WorkerDatamartFunctionAppName": {
             "type": "string",
             "value": "[variables('workerDatamartFunctionAppName')]"

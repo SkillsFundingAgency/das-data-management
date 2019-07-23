@@ -51,7 +51,6 @@
         "resourceNamePrefix": "[toLower(concat('das-', parameters('resourceEnvironmentName'),'-', parameters('serviceName')))]",
         "storageAccountName": "[toLower(concat('das', parameters('resourceEnvironmentName'), parameters('serviceName'), 'str'))]",
         "workerAppServicePlanName": "[concat(variables('resourceNamePrefix'), 'wkr-asp')]",
-        "workerFunctionAppStorageAccountName": "[concat('das', parameters('resourceEnvironmentName'), parameters('serviceName'),'wkrstr')]",
         "workerHmrcFunctionAppName": "[concat(variables('resourceNamePrefix'),'hmrcwkr-fa')]",
         "workerDatamartFunctionAppName": "[concat(variables('resourceNamePrefix'),'datamartwkr-fa')]",
         "databaseSuffixArray": [
@@ -146,23 +145,6 @@
         },
         {
             "apiVersion": "2017-05-10",
-            "name": "worker-function-app-storage-account",
-            "type": "Microsoft.Resources/deployments",
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(variables('deploymentUrlBase'),'storage-account-arm.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "storageAccountName": {
-                        "value": "[variables('workerFunctionAppStorageAccountName')]"
-                    }
-                }
-            }
-        },
-        {
-            "apiVersion": "2017-05-10",
             "name": "worker-app-service-plan",
             "type": "Microsoft.Resources/deployments",
             "properties": {
@@ -248,11 +230,11 @@
                         "value": [
                             {
                                 "name": "AzureWebJobsStorage",
-                                "value": "[reference('worker-function-app-storage-account').outputs.storageConnectionString.value]"
+                                "value": "[reference('storage-account').outputs.storageConnectionString.value]"
                             },
                             {
                                 "name": "AzureWebJobsDashboard",
-                                "value": "[reference('worker-function-app-storage-account').outputs.storageConnectionString.value]"
+                                "value": "[reference('storage-account').outputs.storageConnectionString.value]"
                             },
                             {
                                 "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
@@ -280,7 +262,7 @@
             },
             "dependsOn": [
                 "worker-app-service-plan",
-                "worker-function-app-storage-account"
+                "storage-account"
             ]
         },
         {
@@ -307,11 +289,11 @@
                         "value": [
                             {
                                 "name": "AzureWebJobsStorage",
-                                "value": "[reference('worker-function-app-storage-account').outputs.storageConnectionString.value]"
+                                "value": "[reference('storage-account').outputs.storageConnectionString.value]"
                             },
                             {
                                 "name": "AzureWebJobsDashboard",
-                                "value": "[reference('worker-function-app-storage-account').outputs.storageConnectionString.value]"
+                                "value": "[reference('storage-account').outputs.storageConnectionString.value]"
                             },
                             {
                                 "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
@@ -339,7 +321,7 @@
             },
             "dependsOn": [
                 "worker-app-service-plan",
-                "worker-function-app-storage-account"
+                "storage-account"
             ]
         }
     ],

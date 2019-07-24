@@ -50,7 +50,7 @@
         "deploymentUrlBase": "https://raw.githubusercontent.com/SkillsFundingAgency/das-platform-building-blocks/master/templates/",
         "resourceNamePrefix": "[toLower(concat('das-', parameters('resourceEnvironmentName'),'-', parameters('serviceName')))]",
         "storageAccountName": "[toLower(concat('das', parameters('resourceEnvironmentName'), parameters('serviceName'), 'str'))]",
-        "workerAppServicePlanName": "[concat(variables('resourceNamePrefix'), '-wkr-asp')]",
+        "workerAppServicePlanName": "[concat(variables('resourceNamePrefix'), 'wkr-asp')]",
         "workerHmrcFunctionAppName": "[concat(variables('resourceNamePrefix'),'-hmrcwkr-fa')]",
         "workerDatamartFunctionAppName": "[concat(variables('resourceNamePrefix'),'-datamartwkr-fa')]",
         "databaseSuffixArray": [

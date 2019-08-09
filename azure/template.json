@@ -2,10 +2,10 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "resourceEnvironmentName" :{
+        "resourceEnvironmentName": {
             "type": "string"
         },
-        "serviceName" :{
+        "serviceName": {
             "type": "string"
         },
         "sqlServerResourceGroupName": {
@@ -27,16 +27,85 @@
         },
         "logAnalyticsWorkspaceName": {
             "type": "string"
+        },
+        "containerArray": {
+            "type": "array"
+        },
+        "workerAspSize": {
+            "type": "string",
+            "defaultValue": "1"
+        },
+        "workerAspInstances": {
+            "type": "int",
+            "defaultValue": 1
+        },
+        "loggingRedisConnectionString": {
+            "type": "securestring"
+        },
+        "configurationStorageConnectionString": {
+            "type": "securestring"
         }
     },
     "variables": {
         "deploymentUrlBase": "https://raw.githubusercontent.com/SkillsFundingAgency/das-platform-building-blocks/master/templates/",
         "resourceNamePrefix": "[toLower(concat('das-', parameters('resourceEnvironmentName'),'-', parameters('serviceName')))]",
+        "storageAccountName": "[toLower(concat('das', parameters('resourceEnvironmentName'), parameters('serviceName'), 'str'))]",
+        "workerAppServicePlanName": "[concat(variables('resourceNamePrefix'), 'wkr-asp')]",
+        "workerHmrcFunctionAppName": "[concat(variables('resourceNamePrefix'),'-hmrcwkr-fa')]",
+        "workerDatamartFunctionAppName": "[concat(variables('resourceNamePrefix'),'-datamartwkr-fa')]",
         "databaseSuffixArray": [
             "-staging-db"
         ]
     },
     "resources": [
+        {
+            "apiVersion": "2017-05-10",
+            "name": "storage-account",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('deploymentUrlBase'), 'storage-account-arm.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "storageAccountName": {
+                        "value": "[variables('storageAccountName')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "[concat('storage-container', parameters('containerArray')[copyIndex()].name)]",
+            "type": "Microsoft.Resources/deployments",
+            "condition": "[greater(length(parameters('containerArray')), 0)]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('deploymentUrlBase'), 'storage-container.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "storageAccountName": {
+                        "value": "[variables('storageAccountName')]"
+                    },
+                    "containerName": {
+                        "value": "[parameters('containerArray')[copyIndex()].name]"
+                    },
+                    "publicAccess": {
+                        "value": "[parameters('containerArray')[copyIndex()].publicAccess]"
+                    }
+                }
+            },
+            "copy": {
+                "name": "containercopy",
+                "count": "[length(parameters('containerArray'))]"
+            },
+            "dependsOn": [
+                "storage-account"
+            ]
+        },
         {
             "apiVersion": "2017-05-10",
             "name": "[concat('sql-database', variables('databaseSuffixArray')[copyIndex()])]",
@@ -73,12 +142,201 @@
                     }
                 }
             }
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "worker-app-service-plan",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('deploymentUrlBase'),'app-service-plan.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "appServicePlanName": {
+                        "value": "[variables('workerAppServicePlanName')]"
+                    },
+                    "aspSize": {
+                        "value": "[parameters('workerAspSize')]"
+                    },
+                    "aspInstances": {
+                        "value": "[parameters('workerAspInstances')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "worker-hmrc-function-app-insights",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('deploymentUrlBase'),'application-insights.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "appInsightsName": {
+                        "value": "[variables('workerHmrcFunctionAppName')]"
+                    },
+                    "attachedService": {
+                        "value": "[variables('workerHmrcFunctionAppName')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "worker-datamart-function-app-insights",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('deploymentUrlBase'),'application-insights.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "appInsightsName": {
+                        "value": "[variables('workerDatamartFunctionAppName')]"
+                    },
+                    "attachedService": {
+                        "value": "[variables('workerDatamartFunctionAppName')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "worker-hmrc-function-app",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('deploymentUrlBase'),'function-app.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "functionAppName": {
+                        "value": "[variables('workerHmrcFunctionAppName')]"
+                    },
+                    "appServicePlanName": {
+                        "value": "[variables('workerAppServicePlanName')]"
+                    },
+                    "appServicePlanResourceGroup": {
+                        "value": "[resourceGroup().name]"
+                    },
+                    "functionAppAppSettings": {
+                        "value": [
+                            {
+                                "name": "AzureWebJobsStorage",
+                                "value": "[reference('storage-account').outputs.storageConnectionString.value]"
+                            },
+                            {
+                                "name": "AzureWebJobsDashboard",
+                                "value": "[reference('storage-account').outputs.storageConnectionString.value]"
+                            },
+                            {
+                                "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                                "value": "[reference('worker-hmrc-function-app-insights').outputs.InstrumentationKey.value]"
+                            },
+                            {
+                                "name": "FUNCTIONS_EXTENSION_VERSION",
+                                "value": "~2"
+                            },
+                            {
+                                "name": "EnvironmentName",
+                                "value": "[toUpper(parameters('resourceEnvironmentName'))]"
+                            },
+                            {
+                                "name": "LoggingRedisConnectionString",
+                                "value": "[parameters('loggingRedisConnectionString')]"
+                            },
+                            {
+                                "name": "ConfigurationStorageConnectionString",
+                                "value": "[parameters('configurationStorageConnectionString')]"
+                            }
+                        ]
+                    }
+                }
+            },
+            "dependsOn": [
+                "worker-app-service-plan",
+                "storage-account"
+            ]
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "worker-datamart-function-app",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('deploymentUrlBase'),'function-app.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "functionAppName": {
+                        "value": "[variables('workerDatamartFunctionAppName')]"
+                    },
+                    "appServicePlanName": {
+                        "value": "[variables('workerAppServicePlanName')]"
+                    },
+                    "appServicePlanResourceGroup": {
+                        "value": "[resourceGroup().name]"
+                    },
+                    "functionAppAppSettings": {
+                        "value": [
+                            {
+                                "name": "AzureWebJobsStorage",
+                                "value": "[reference('storage-account').outputs.storageConnectionString.value]"
+                            },
+                            {
+                                "name": "AzureWebJobsDashboard",
+                                "value": "[reference('storage-account').outputs.storageConnectionString.value]"
+                            },
+                            {
+                                "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                                "value": "[reference('worker-datamart-function-app-insights').outputs.InstrumentationKey.value]"
+                            },
+                            {
+                                "name": "FUNCTIONS_EXTENSION_VERSION",
+                                "value": "~2"
+                            },
+                            {
+                                "name": "EnvironmentName",
+                                "value": "[toUpper(parameters('resourceEnvironmentName'))]"
+                            },
+                            {
+                                "name": "LoggingRedisConnectionString",
+                                "value": "[parameters('loggingRedisConnectionString')]"
+                            },
+                            {
+                                "name": "ConfigurationStorageConnectionString",
+                                "value": "[parameters('configurationStorageConnectionString')]"
+                            }
+                        ]
+                    }
+                }
+            },
+            "dependsOn": [
+                "worker-app-service-plan",
+                "storage-account"
+            ]
         }
     ],
     "outputs": {
         "StagingDatabaseName": {
             "type": "string",
             "value": "[concat(variables('resourceNamePrefix'), variables('databaseSuffixArray')[0])]"
+        },
+        "WorkerHmrcFunctionAppName": {
+            "type": "string",
+            "value": "[variables('workerHmrcFunctionAppName')]"
+        },
+        "WorkerDatamartFunctionAppName": {
+            "type": "string",
+            "value": "[variables('workerDatamartFunctionAppName')]"
         }
     }
 }

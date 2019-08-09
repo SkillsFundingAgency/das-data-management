@@ -137,7 +137,7 @@ DROP PROCEDURE Mtd.usp_Manage_GA_Hierarchy_Metadata
 
 IF EXISTS (select * from INFORMATION_SCHEMA.ROUTINES
             where ROUTINE_NAME='uSP_UnitTest1_CheckCounts'
-              and ROUTINE_SCHEMA='Mtd'
+              and ROUTINE_SCHEMA='Mgmt'
 		  )
 DROP PROCEDURE mgmt.uSP_UnitTest1_CheckCounts
 

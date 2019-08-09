@@ -48,10 +48,34 @@ SELECT ETA.HashedId as EmpHashedId
 	  ,ETA.Updated as AccountUpdatedDate
 	  ,ETA.Id as Source_AccountId
 INTO #tEmployerAccount
-FROM dbo.Ext_Tbl_Accounts ETA
+FROM Comt.Ext_Tbl_Accounts ETA
+
+/* Full Refresh EmployerAccount*/
+
+TRUNCATE TABLE dbo.EmployerAccount
+
+INSERT INTO dbo.EmployerAccount(EmpHashedId
+              ,EmpPublicHashedID
+              ,EmpName
+			  ,AccountCreatedDate
+			  ,AccountUpdatedDate
+			  ,Data_Source
+			  ,Source_AccountId) 
+SELECT Source.EmpHashedId
+	         , Source.EmpPublicHashedId
+	         , Source.EmpName
+			 , Source.AccountCreatedDate
+			 , Source.AccountUpdatedDate
+			 , 'Commitments-Accounts'
+			 , Source.Source_AccountId
+  FROM #tEmployerAccount Source
 
 
- MERGE dbo.EmployerAccount as Target
+
+
+/* Code for Delta */
+
+ /*MERGE dbo.EmployerAccount as Target
  USING #tEmployerAccount as Source
     ON Target.EmpHashedID=Source.EmpHashedID
   WHEN MATCHED AND (Target.EmpPublicHashedId<>Source.EmpPublicHashedId
@@ -83,7 +107,10 @@ FROM dbo.Ext_Tbl_Accounts ETA
 			 , 'Commitments-Accounts'
 			 , Source.Source_AccountId);
 
+*/
+
   /* Get Employer Account Legal Entity Data into Temp Table */
+
 
 IF OBJECT_ID ('tempdb..#tEmployerAccountLegalEntity') IS NOT NULL
 DROP TABLE #tEmployerAccountLegalEntity
@@ -100,11 +127,45 @@ SELECT   ETAL.LegalEntityId
 		,ETAL.AccountId as Source_AccountId
 		,EA.Id as EmployerAccountId
 INTO #tEmployerAccountLegalEntity
-FROM dbo.Ext_Tbl_AccountLegalEntities ETAL
+FROM Comt.Ext_Tbl_AccountLegalEntities ETAL
 LEFT
 JOIN dbo.EmployerAccount EA
   ON EA.Source_AccountId=ETAL.AccountId
 
+/* Full Refresh Employer Account Legal Entity*/
+
+TRUNCATE TABLE dbo.EmployerAccountLegalEntity
+
+INSERT INTO dbo.EmployerAccountLegalEntity(LegalEntityId
+			  ,LegalEntityPublicHashedId
+			  ,LegalEntityName
+			  ,OrganisationType
+			  ,LegalEntityAddress
+			  ,LegalEntityCreatedDate
+			  ,LegalEntityUpdatedDate
+			  ,LegalEntityDeletedDate
+			  ,Data_Source
+			  ,Source_AccountLegalEntityId
+			  ,Source_AccountId
+			  ,EmployerAccountId) 
+SELECT Source.LegalEntityId
+			 , Source.LegalEntityPublicHashedId
+			 , Source.LegalEntityName
+			 , Source.OrganisationType
+			 , Source.LegalEntityAddress
+			 , Source.LegalEntityCreatedDate
+			 , Source.LegalEntityUpdatedDate
+			 , Source.LegalEntityDeletedDate
+			 , 'Commitments-AccountLegalEntity'
+			 , Source.Source_AccountLegalEntityId
+			 , Source.Source_AccountId
+			 , Source.EmployerAccountId
+  FROM #tEmployerAccountLegalEntity Source
+
+
+
+  /* Delta Code */
+/*
  MERGE dbo.EmployerAccountLegalEntity as Target
  USING #tEmployerAccountLegalEntity as Source
     ON Target.LegalEntityPublicHashedId=Source.LegalEntityPublicHashedId
@@ -157,6 +218,8 @@ JOIN dbo.EmployerAccount EA
 			 , Source.Source_AccountLegalEntityId
 			 , Source.Source_AccountId
 			 , Source.EmployerAccountId);
+
+			 */
  
  
  /* Update Log Execution Results as Success if the query ran succesfully*/

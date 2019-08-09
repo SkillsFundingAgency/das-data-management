@@ -1,8 +1,8 @@
 ﻿CREATE TABLE [dbo].[EmployerAccountLegalEntity]
 (
-	[Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY
-	,LegalEntityId nvarchar(50)
-	,EmployerAccountId int Foreign Key References dbo.EmployerAccount(Id) not null
+  [Id] INT IDENTITY(1,1) NOT NULL 
+ ,LegalEntityId nvarchar(50)
+ ,EmployerAccountId int not null
  ,LegalEntityPublicHashedId nchar(6)
  ,LegalEntityName nvarchar(100)
  ,OrganisationType smallint
@@ -16,4 +16,6 @@
  ,Source_AccountId int
  ,AsDm_CreatedDate datetime2 default(getdate())
  ,AsDm_UpdatedDate datetime2 default(getdate())
+ ,CONSTRAINT PK_EmployerAccLE PRIMARY KEY(ID)
+ ,CONSTRAINT FK_EmployerAccLE_EAID Foreign Key(EmployerAccountId) References dbo.EmployerAccount(Id)
 )

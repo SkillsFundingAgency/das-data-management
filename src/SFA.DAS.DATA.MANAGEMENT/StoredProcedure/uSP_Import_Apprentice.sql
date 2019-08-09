@@ -47,9 +47,24 @@ DROP TABLE #tApprentice
 		,DateOfBirth
 		,NINumber
   INTO #tApprentice
-  FROM dbo.Ext_Tbl_Apprenticeship
+  FROM Comt.Ext_Tbl_Apprenticeship
+
+/* Full Refresh Code */
+
+TRUNCATE TABLE dbo.Apprentice
 
 
+INSERT INTO dbo.Apprentice(FirstName,LastName,DateOfBirth,NINumber,ULN,Data_Source) 
+SELECT Source.FirstName,Source.LastName,Source.DateOfBirth,Source.NINumber,ULN,'Commitments-Apprenticeship'
+  FROM #tApprentice Source
+
+
+
+
+
+
+  /* Delta Code */
+  /*
  MERGE dbo.Apprentice as Target
  USING #tApprentice as Source
     ON Target.ULN=Source.ULN
@@ -66,7 +81,7 @@ DROP TABLE #tApprentice
   WHEN NOT MATCHED BY TARGET 
   THEN INSERT (FirstName,LastName,DateOfBirth,NINumber,ULN,Data_Source) 
        VALUES (Source.FirstName,Source.LastName,Source.DateOfBirth,Source.NINumber,ULN,'Commitments-Apprenticeship');
- 
+ */
  
  /* Update Log Execution Results as Success if the query ran succesfully*/
 

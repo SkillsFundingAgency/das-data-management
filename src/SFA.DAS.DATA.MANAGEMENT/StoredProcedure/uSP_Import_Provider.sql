@@ -38,7 +38,22 @@ BEGIN TRY
 
   /* Get Provider Data into Temp Table */
 
- MERGE dbo.Provider as Target
+ /* Code for Full Refresh */
+
+ TRUNCATE TABLE dbo.Provider
+
+ INSERT INTO dbo.Provider
+ (Ukprn,ProviderName)
+ SELECT Ukprn,Name
+   FROM Comt.Ext_Tbl_Providers
+
+
+
+
+
+/* Code for Delta */
+
+/* MERGE dbo.Provider as Target
  USING dbo.Ext_Tbl_Providers as Source
     ON Target.Ukprn=Source.Ukprn
   WHEN MATCHED AND Target.Ukprn<>Source.Ukprn
@@ -47,6 +62,8 @@ BEGIN TRY
   WHEN NOT MATCHED BY TARGET 
   THEN INSERT (Ukprn,ProviderName) 
        VALUES (Source.Ukprn, Source.[Name]);
+
+*/
  
  
  /* Update Log Execution Results as Success if the query ran succesfully*/

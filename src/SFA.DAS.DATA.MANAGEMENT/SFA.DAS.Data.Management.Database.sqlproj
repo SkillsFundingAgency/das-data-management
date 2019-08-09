@@ -72,19 +72,11 @@
     <None Include="Views\Blank1.txt" />
     <Build Include="Schemas\Comt.sql" />
     <PostDeploy Include="PostDeployment\PostDeployment.sql" />
-    <Build Include="StoredProcedure\uSP_UnitTest1_CheckCounts.sql" />
-    <Build Include="StoredProcedure\uSP_Manage_GA_Hierarchy_Metadata.sql" />
     <Build Include="Schemas\Mgmt.sql" />
     <PreDeploy Include="PreDeployment\PreDeploymentPrepScript.sql" />
     <Build Include="Schemas\Mtd.sql" />
-    <Build Include="Tables\Metadata_Commitments.sql" />
-    <Build Include="StoredProcedure\uSP_Manage_Commitments_Metadata.sql" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Tables\Metadata_GA_Hierarchy.sql" />
-    <Build Include="Views\vw_FIU_GA_Segmented_View.sql" />
-    <Build Include="Views\vw_FIU_GA_Data.sql" />
-    <Build Include="Tables\External_Commitments_InformationSchema.sql" />
     <Build Include="StoredProcedure\uSP_CreateExternalTables.sql" />
     <Build Include="Tables\Management_Log_RunId.sql" />
     <Build Include="Tables\Management_Log_Error_Details.sql" />

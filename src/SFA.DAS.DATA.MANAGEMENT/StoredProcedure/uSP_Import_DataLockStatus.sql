@@ -43,7 +43,7 @@ DROP TABLE #tDataLockStatus
 
   SELECT *
   INTO #tDataLockStatus
-  FROM dbo.Ext_Tbl_DataLockStatus
+  FROM Comt.Ext_Tbl_DataLockStatus
 
     IF OBJECT_ID ('tempdb..#tSourceDataLock') IS NOT NULL
 DROP TABLE #tSourceDataLock
@@ -77,10 +77,55 @@ DROP TABLE #tSourceDataLock
   --  ON  tc.TrainingCode=tSD.IlrTrainingCourseCode
   -- AND  tc.TrainingType=tSD.IlrTrainingType
 
+/* Full Refresh Code */
+
+TRUNCATE TABLE dbo.DataLockStatus
+
+INSERT INTO dbo.DataLockStatus([DataLockEventId]
+              ,[DataLockEventDatetime]
+              ,[PriceEpisodeIdentifier]
+              ,[ApprenticeshipId]
+              ,[IlrTrainingCourseCode]
+              ,[IlrTrainingType]
+              ,[IlrActualStartDate]
+              ,[IlrEffectiveFromDate]
+              ,[IlrPriceEffectiveToDate]
+              ,[IlrTotalCost]
+              ,[ErrorCode]
+              ,[DataLockStatus]
+              ,[TriageStatus]
+              ,[IsResolved]
+              ,[EventStatus]
+              ,[IsExpired]
+              ,[ExpiredDateTime]
+			  ,Data_Source
+			  ,Source_DataLockStatusId) 
+ SELECT Source.[DataLockEventId]
+              ,Source.[DataLockEventDatetime]
+              ,Source.[PriceEpisodeIdentifier]
+              ,Source.[ApprenticeshipId]
+              ,Source.[IlrTrainingCourseCode]
+              ,Source.[IlrTrainingType]
+              ,Source.[IlrActualStartDate]
+              ,Source.[IlrEffectiveFromDate]
+              ,Source.[IlrPriceEffectiveToDate]
+              ,Source.[IlrTotalCost]
+              ,Source.[ErrorCode]
+              ,Source.[DataLockStatus]
+              ,Source.[TriageStatus]
+              ,Source.[IsResolved]
+              ,Source.[EventStatus]
+              ,Source.[IsExpired]
+              ,Source.[ExpiredDateTime]
+			  ,'Commitments-DataLockStatus'
+			  ,Source.Source_DataLockStatusId
+   FROM #tSourceDataLock
 
 
-   
 
+
+ /* Delta Code */  
+/*
  MERGE dbo.DataLockStatus as Target
  USING #tSourceDataLock as Source
     ON Target.DataLockEventId=Source.DataLockEventId
@@ -164,7 +209,7 @@ DROP TABLE #tSourceDataLock
 			  ,'Commitments-DataLockStatus'
 			  ,Source.Source_DataLockStatusId
 	          );
- 
+ */
  
  /* Update Log Execution Results as Success if the query ran succesfully*/
 

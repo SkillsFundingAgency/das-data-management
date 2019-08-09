@@ -45,9 +45,22 @@ DROP TABLE #tTrainingCourse
         ,TrainingCode
 		,TrainingName
     INTO #tTrainingCourse
-    FROM dbo.Ext_Tbl_Apprenticeship
+    FROM Comt.Ext_Tbl_Apprenticeship
+
+/* Full Refresh Code */
+
+TRUNCATE TABLE dbo.TrainingCourse
+
+INSERT INTO dbo.TrainingCourse(TrainingType,TrainingCode,TrainingName,Data_Source) 
+SELECT Source.TrainingType,Source.TrainingCode,Source.TrainingName,'Commitments-Apprenticeship'
+  FROM #tTrainingCourse Source
 
 
+
+
+
+	/* Delta Code */
+	/*
  MERGE dbo.TrainingCourse as Target
  USING #tTrainingCourse as Source
     ON Target.TrainingCode=Source.TrainingCode
@@ -60,7 +73,7 @@ DROP TABLE #tTrainingCourse
   WHEN NOT MATCHED BY TARGET 
   THEN INSERT (TrainingType,TrainingCode,TrainingName,Data_Source) 
        VALUES (Source.TrainingType,Source.TrainingCode,Source.TrainingName,'Commitments-Apprenticeship');
- 
+ */
  
  /* Update Log Execution Results as Success if the query ran succesfully*/
 

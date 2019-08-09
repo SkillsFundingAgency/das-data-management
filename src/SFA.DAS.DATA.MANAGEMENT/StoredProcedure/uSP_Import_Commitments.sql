@@ -43,7 +43,7 @@ DROP TABLE #tCommitments
 
 SELECT *
 INTO #tCommitments
-from dbo.Ext_Tbl_Commitment
+from Comt.Ext_Tbl_Commitment
 
 IF OBJECT_ID ('tempdb..#tSourceCommitments') IS NOT NULL
 DROP TABLE #tSourceCommitments
@@ -84,6 +84,59 @@ JOIN dbo.EmployerAccountLegalEntity EALE
 left
 join dbo.Provider Pro
   on Pro.Ukprn=ETC.ProviderId
+
+/* Full Refresh Code */
+
+TRUNCATE TABLE dbo.Commitment
+
+INSERT INTO dbo.Commitment(EmployerAccountId
+              ,EmployerAccountLegalEntityId
+              ,ProviderId
+			  ,Reference
+			  ,CommitmentStatus
+			  ,EditStatus
+			  ,CommitmentCreatedOn
+			  ,LastAction
+			  ,LastUpdatedByEmployerName
+			  ,LastUpdatedByEmployerEmail
+			  ,LastUpdatedByProviderName
+			  ,LastUpdatedByProviderEmail
+			  --,EmployerProviderPaymentPriority
+			  --,ProviderCanApproveCommitment
+			  --,EmployerCanApproveCommitment
+			  ,Originator
+			  ,Data_Source
+			  ,Commitments_SourceId
+			  )
+SELECT Source.EmployerAccountId
+	          ,Source.EmployerAccountLegalEntityId
+              ,Source.ProviderId
+			  ,Source.Reference
+			  ,Source.CommitmentStatus
+			  ,Source.EditStatus
+			  ,Source.CommitmentCreatedOn
+			  ,Source.LastAction
+			  ,Source.LastUpdatedByEmployerName
+			  ,Source.LastUpdatedByEmployerEmail
+			  ,Source.LastUpdatedByProviderName
+			  ,Source.LastUpdatedByProviderEmail
+			  --,Source.EmployerProviderPaymentPriority
+			  --,Source.ProviderCanApproveCommitment
+			  --,Source.EmployerCanApproveCommitment
+			  ,Source.Originator
+			  ,'Commitments'
+			  ,Source.Commitments_SourceId
+   FROM #tSourceCommitments Source
+
+
+
+
+
+
+
+
+  /* Delta Code */
+/*
 
  MERGE dbo.Commitment as Target
  USING #tSourceCommitments as Source
@@ -162,7 +215,7 @@ join dbo.Provider Pro
 			  ,Source.Commitments_SourceId
 			  );
 
-
+*/
  
  /* Update Log Execution Results as Success if the query ran succesfully*/
 

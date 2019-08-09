@@ -44,8 +44,22 @@ DROP TABLE #tAssessmentOrganisation
         ,Name AS EPAO_Name
 		,ID as Source_EPAOID
     INTO #tAssessmentOrganisation
-    FROM dbo.Ext_Tbl_AssessmentOrganisation
+    FROM Comt.Ext_Tbl_AssessmentOrganisation
 
+/* Full Refresh Code */
+
+TRUNCATE TABLE dbo.AssessmentOrganisation
+
+INSERT INTO dbo.AssessmentOrganisation(EPAOId,EPAO_Name,Source_EPAOID,Data_Source)
+SELECT Source.EPAOId,Source.EPAO_Name,Source_EPAOID,'Commitments-AssessmentOrganisation'
+  FROM #tAssessmentOrganisation Source
+
+
+
+
+
+/* Delta Code */
+/*
  MERGE dbo.AssessmentOrganisation as Target
  USING #tAssessmentOrganisation as Source
     ON Target.EPAOId=Source.EPAOId
@@ -59,7 +73,7 @@ DROP TABLE #tAssessmentOrganisation
   THEN INSERT (EPAOId,EPAO_Name,Source_EPAOID,Data_Source)
        VALUES (Source.EPAOId,Source.EPAO_Name,Source_EPAOID,'Commitments-AssessmentOrganisation')
         ;
- 
+ */
  
  /* Update Log Execution Results as Success if the query ran succesfully*/
 

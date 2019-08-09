@@ -1,9 +1,9 @@
 ﻿CREATE TABLE dbo.Apprenticeship
-  (ID int identity(1,1) PRIMARY KEY NOT NULL
-  ,CommitmentId int Foreign Key References dbo.Commitment(id)
-  ,ApprenticeId int Foreign Key References dbo.Apprentice(Id)
-  ,TrainingCourseId int Foreign Key References dbo.TrainingCourse(Id)
-  ,AssessmentOrgId int Foreign Key References dbo.AssessmentOrganisation(Id)
+  (ID int identity(1,1) NOT NULL
+  ,CommitmentId int 
+  ,ApprenticeId int 
+  ,TrainingCourseId int 
+  ,AssessmentOrgId int 
   ,Cost decimal(18,0)
   ,StartDate datetime
   ,EndDate Datetime
@@ -28,4 +28,9 @@
   ,Source_ApprenticeshipId int
   ,AsDm_CreatedDate datetime2 default(getdate()) 
   ,AsDm_UpdatedDate datetime2 default(getdatE())
+  ,Constraint PK_Apprenticeship_ID Primary Key (ID)
+  ,Constraint FK_Apprenticeship_CommitmentId FOREIGN KEY(CommitmentId) REFERENCES dbo.Commitment(ID)
+  ,Constraint FK_Apprenticeship_ApprenticeId FOREIGN KEY(ApprenticeId) REFERENCES dbo.Apprentice(ID)
+  ,Constraint FK_Apprenticeship_TrainingCourseId FOREIGN KEY(TrainingCourseId) REFERENCES dbo.TrainingCourse(ID)
+  ,Constraint FK_Apprenticeship_AssessmentOrgId FOREIGN KEY(AssessmentOrgId) REFERENCES dbo.AssessmentOrganisation(ID)
   )

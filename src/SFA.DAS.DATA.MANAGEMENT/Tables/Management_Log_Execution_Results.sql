@@ -9,19 +9,10 @@ CREATE TABLE [Mgmt].[Log_Execution_Results](
 	[Execution_Status_Desc]  AS (case when [Execution_Status]=(1) then 'Success' else 'Fail' end),
 	[StartDateTime] [datetime2](7) NULL,
 	[EndDateTime] [datetime2](7) NULL,
-PRIMARY KEY CLUSTERED 
-(
-	[LogId] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
-ALTER TABLE [Mgmt].[Log_Execution_Results]  WITH CHECK ADD FOREIGN KEY([ErrorId])
-REFERENCES [Mgmt].[Log_Error_Details] ([ErrorId])
-GO
-
-ALTER TABLE [Mgmt].[Log_Execution_Results]  WITH CHECK ADD FOREIGN KEY([RunId])
-REFERENCES [Mgmt].[Log_RunId] ([Run_Id])
+    CONSTRAINT PK_LER_LogId PRIMARY KEY(LogId),
+    CONSTRAINT FK_LER_ErrorId FOREIGN KEY([ErrorId]) REFERENCES [Mgmt].[Log_Error_Details] ([ErrorId]),
+	CONSTRAINT FK_LER_RunId FOREIGN KEY([RunId]) REFERENCES [Mgmt].[Log_RunId] ([Run_Id])
+	)
 GO
 
 

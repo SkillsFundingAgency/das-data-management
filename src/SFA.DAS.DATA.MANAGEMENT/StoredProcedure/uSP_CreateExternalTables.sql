@@ -3,6 +3,7 @@ CREATE PROCEDURE uSP_Create_External_Tables
 (
    @ExternalDataSource Varchar(255),
    @SysTableName varchar(255),
+   @SchemaName Char(4),
    @RunId int
 )
 AS
@@ -44,7 +45,7 @@ BEGIN TRY
 
  SET @PrepareSQL ='
  SELECT @Result= (
- SELECT DISTINCT '' ''+  ''IF EXISTS ( SELECT * FROM sys.external_tables WHERE object_id = OBJECT_ID(''''Ext_Tbl_''+so.table_name+'''''') ) DROP EXTERNAL TABLE Ext_Tbl_''+so.table_name+'' CREATE EXTERNAL TABLE Ext_Tbl_'' + so.TABLE_NAME + '' ('' + o.list + '')'' 
+ SELECT DISTINCT '' ''+  ''IF EXISTS ( SELECT * FROM sys.external_tables WHERE object_id = OBJECT_ID('''''+@SchemaName+'.Ext_Tbl_''+so.table_name+'''''') ) DROP EXTERNAL TABLE '+@SchemaName+'.Ext_Tbl_''+so.table_name+'' CREATE EXTERNAL TABLE '+@SchemaName+'.Ext_Tbl_'' + so.TABLE_NAME + '' ('' + o.list + '')'' 
 				 +'' WITH (Data_Source=['+@ExternalDataSource+'],Schema_Name=''''''+so.Table_Schema+'''''',Object_Name=''''''+so.table_name+'''''')''
   FROM dbo.'+@SysTableName+' so
  CROSS APPLY

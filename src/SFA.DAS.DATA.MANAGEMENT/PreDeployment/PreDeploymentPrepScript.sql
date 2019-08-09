@@ -1,5 +1,5 @@
 ﻿
-/* Drop previously created tables - Tidy Up */
+/* Drop previously created tables as part of POC - Tidy Up */
 
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
             WHERE TABLE_NAME = N'DataLoad_Log'
@@ -109,9 +109,75 @@ IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
 	      )
 DROP TABLE [Comt].[Commitment]
 
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'Commitments_Metadata'
+		      AND TABLE_SCHEMA=N'Mtd'
+	      )
+DROP TABLE [Mtd].Commitments_Metadata
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'Metadata_GA_Hierarchy'
+		      AND TABLE_SCHEMA=N'Mtd'
+	      )
+DROP TABLE [Mtd].Metadata_GA_Hierarchy
+
+
+IF EXISTS (select * from INFORMATION_SCHEMA.ROUTINES
+            where ROUTINE_NAME='usp_Manage_Commitments_Lookup'
+              and ROUTINE_SCHEMA='Mtd'
+		  )
+DROP PROCEDURE Mtd.uSP_Manage_Commitments_Lookup
+
+IF EXISTS (select * from INFORMATION_SCHEMA.ROUTINES
+            where ROUTINE_NAME='usp_Manage_GA_Hierarchy_Metadata'
+              and ROUTINE_SCHEMA='Mtd'
+		  )
+DROP PROCEDURE Mtd.usp_Manage_GA_Hierarchy_Metadata
+
+
+IF EXISTS (select * from INFORMATION_SCHEMA.ROUTINES
+            where ROUTINE_NAME='uSP_UnitTest1_CheckCounts'
+              and ROUTINE_SCHEMA='Mtd'
+		  )
+DROP PROCEDURE mgmt.uSP_UnitTest1_CheckCounts
+
+
 DROP VIEW IF EXISTS dbo.vw_CommitmentSummary ; 
 
 DROP VIEW IF EXISTS vw_Commitments_Apprenticeship_Details;
+
+DROP VIEW IF EXISTS dbo.vw_FIU_GA_Data ; 
+
+DROP VIEW IF EXISTS dbo.vw_FIU_GA_Segmented_View;
+
+
+/* Clear IF Exists External Tables created as part of POC */
+
+Declare @ExtTable VARCHAR(256)
+Declare RemoveExt Cursor
+for
+(SELECT name
+from sys.external_tables
+where name like 'Ext_Tbl_%'
+)
+
+OPEN RemoveExt
+
+FETCH NEXT FROM RemoveExt into @ExtTable
+
+WHILE(@@FETCH_STATUS=0)
+BEGIN
+DECLARE @VSQL NVARCHAR(MAX)
+SET @VSQL='
+IF EXISTS ( SELECT * FROM sys.external_tables WHERE object_id = OBJECT_ID('''+@ExtTable+''') ) 
+DROP EXTERNAL TABLE '''+@ExtTable+'''
+'
+PRINT @VSQL
+FETCH NEXT FROM RemoveExt into @ExtTable
+END
+
+CLOSE RemoveExt
+DEALLOCATE RemoveExt
 
 --IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
 --            WHERE TABLE_NAME = N'Commitment'

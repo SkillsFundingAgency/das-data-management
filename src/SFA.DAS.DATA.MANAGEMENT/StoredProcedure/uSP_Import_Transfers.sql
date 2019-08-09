@@ -44,14 +44,14 @@ DROP TABLE #tCommitment
 
 SELECT *
   INTO #tCommitment
-  FROM dbo.Ext_Tbl_Commitment
+  FROM Comt.Ext_Tbl_Commitment
 
 IF OBJECT_ID ('tempdb..#tTransferRequest') IS NOT NULL
 DROP TABLE #tTransferRequest
 
 SELECT *
   INTO #tTransferRequest
-  FROM dbo.Ext_Tbl_TransferRequest
+  FROM Comt.Ext_Tbl_TransferRequest
 
 IF OBJECT_ID ('tempdb..#tTransfers') IS NOT NULL
 DROP TABLE #tTransfers
@@ -83,6 +83,46 @@ DROP TABLE #tTransfers
   LEFT
   JOIN dbo.EmployerAccount TransferReceiver
     on TransferReceiver.Source_AccountId=ETC.EmployerAccountId
+
+/* Full Refresh Code */
+
+TRUNCATE TABLE dbo.Transfers
+
+INSERT INTO dbo.Transfers(CommitmentId
+	          ,Cost
+	          ,TrainingCourses
+	          ,TransferStatus
+	          ,TransferSenderAccountId
+	          ,TransferReceiverAccountId
+	          ,TransferApprovalActionedByEmployerName
+	          ,TransferApprovalActionedByEmployerEmail
+	          ,TransferApprovalActionedOn 
+	          ,FundingCap
+			  ,TransferCreatedOn
+	          ,Data_Source
+	          ,Source_CommitmentTransferId
+			  ,AsDm_UpdatedDate
+			  ,AsDm_CreatedDate) 
+ SELECT  Source.CommitmentId
+	          ,Source.Cost
+	          ,Source.TrainingCourses
+	          ,Source.TransferStatus
+	          ,Source.TransferSenderAccountId
+	          ,Source.TransferReceiverAccountId
+	          ,Source.TransferApprovalActionedByEmployerName
+	          ,Source.TransferApprovalActionedByEmployerEmail
+	          ,Source.TransferApprovalActionedOn 
+	          ,Source.FundingCap
+			  ,Source.TransferCreatedOn
+	          ,'Commitments-TransferRequest'
+	          ,Source.Source_TransferId
+			  ,getdate()
+			  ,getdate()
+	FROM #tTransfers Source
+
+
+/* Delta Code */
+/*
 
  MERGE dbo.Transfers as Target
  USING #tTransfers as Source
@@ -141,7 +181,7 @@ DROP TABLE #tTransfers
 			  ,getdate()
 			  ,getdate());
 
-
+*/
  
  
  

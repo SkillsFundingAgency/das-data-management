@@ -42,7 +42,7 @@ DROP TABLE #tApprenticeship
 
 SELECT *
 INTO #tApprenticeship
-from dbo.Ext_Tbl_Apprenticeship
+from Comt.Ext_Tbl_Apprenticeship
 
 IF OBJECT_ID ('tempdb..#tSourceApprenticeship') IS NOT NULL
 DROP TABLE #tSourceApprenticeship
@@ -88,6 +88,62 @@ join dbo.Apprentice a
  and a.firstname=ta.FirstName
  and a.lastname=ta.LastName
  and a.dateofbirth=ta.DateOfBirth
+
+/* Full Refresh Code */
+
+TRUNCATE TABLE dbo.Apprenticeship
+
+INSERT INTO dbo.Apprenticeship(CommitmentId 
+              ,ApprenticeId
+              ,TrainingCourseId
+              ,AssessmentOrgId
+              ,Cost
+              ,StartDate 
+              ,EndDate 
+              ,AgreementStatus
+              ,ApprenticeshipStatus 
+              ,EmployerRef
+              ,ProviderRef
+              ,CommitmentCreatedOn
+              ,CommitmentAgreedOn
+              ,PaymentOrder
+              ,StopDate
+              ,PauseDate
+              ,HasHadDataLockSuccess
+              ,PendingUpdateOriginator
+              ,CloneOf
+              ,ReservationId
+              ,Data_Source
+              ,Source_ApprenticeshipId
+			  )
+ SELECT Source.CommitmentId 
+              ,Source.ApprenticeId
+              ,Source.TrainingCourseId
+              ,Source.AssessmentOrgId
+              ,Source.Cost
+              ,Source.StartDate 
+              ,Source.EndDate 
+              ,Source.AgreementStatus
+              ,Source.ApprenticeshipStatus 
+              ,Source.EmployerRef
+              ,Source.ProviderRef
+              ,Source.CommitmentCreatedOn
+              ,Source.CommitmentAgreedOn
+              ,Source.PaymentOrder
+              ,Source.StopDate
+              ,Source.PauseDate
+              ,Source.HasHadDataLockSuccess
+              ,Source.PendingUpdateOriginator
+              ,Source.CloneOf
+              ,Source.ReservationId
+              ,'Commitments-Apprenticeship'
+              ,Source.Source_ApprenticeshipId
+   FROM #tSourceApprenticeship Source
+
+
+
+ /* Delta Code */
+ /*
 
  MERGE dbo.Apprenticeship as Target
  USING #tSourceApprenticeship as Source
@@ -182,7 +238,7 @@ join dbo.Apprentice a
               ,Source.Source_ApprenticeshipId
 			  );
 
-
+*/
  
  /* Update Log Execution Results as Success if the query ran succesfully*/
 

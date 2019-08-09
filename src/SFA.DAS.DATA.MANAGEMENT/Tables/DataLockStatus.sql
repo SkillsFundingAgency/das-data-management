@@ -1,6 +1,6 @@
 ﻿  CREATE TABLE dbo.DataLockStatus
-  (Id int Identity(1,1) primary key not null
-  ,ApprenticeshipId int Foreign Key References dbo.Apprenticeship(Id)
+  (Id int Identity(1,1) not null
+  ,ApprenticeshipId int 
   ,TrainingCourseId int
   ,DataLockEventId bigint not null
   ,DataLockEventDateTime datetime
@@ -24,4 +24,6 @@
   ,Source_DataLockStatusId int
   ,AsDm_CreatedDate datetime2 default(getdate())
   ,AsDm_UpdatedDate datetime2 default(getdate())
+  ,CONSTRAINT PK_DataLockStatus_Id PRIMARY KEY(Id)
+  ,CONSTRAINT FK_DataLockStatus_ApprenticeshipId Foreign Key(ApprenticeshipId) References dbo.Apprenticeship(Id)
   )

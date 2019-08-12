@@ -29,7 +29,7 @@ BEGIN TRY
 	  )
   SELECT 
         @RunId
-	   ,'Step-6'
+	   ,'Step-2'
 	   ,'uSP_Import_Transfers'
 	   ,getdate()
 	   ,0

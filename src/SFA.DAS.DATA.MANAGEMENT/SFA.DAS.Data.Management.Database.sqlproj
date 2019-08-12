@@ -108,5 +108,6 @@
     <Build Include="Schemas\Fin.sql" />
     <Build Include="Schemas\EAUser.sql" />
     <Build Include="Schemas\Acct.sql" />
+    <Build Include="StoredProcedure\uSP_Import_Commitments_Db.sql" />
   </ItemGroup>
 </Project>

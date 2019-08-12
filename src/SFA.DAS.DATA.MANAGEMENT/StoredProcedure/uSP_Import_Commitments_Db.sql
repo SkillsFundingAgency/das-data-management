@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[uSP_Import_AssessmentOrganisation]
+﻿CREATE PROCEDURE [dbo].[uSP_Import_Commitments_Db]
 (
    @RunId int
 )
@@ -7,7 +7,7 @@ AS
 -- ==================================================
 -- Author:      Himabindu Uddaraju
 -- Create Date: 29/05/2019
--- Description: Import AssessmentOrganisation Related Data 
+-- Description: Import Data from Commitments Database
 -- ==================================================
 
 BEGIN TRY
@@ -29,51 +29,53 @@ BEGIN TRY
   SELECT 
         @RunId
 	   ,'Step-2'
-	   ,'uSP_Import_AssessmentOrganisation'
+	   ,'uSP_Import_Commitments_Db'
 	   ,getdate()
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
 
-  /* Get AssessmentOrganisation Data into Temp Table */
+BEGIN TRANSACTION
 
-  IF OBJECT_ID ('tempdb..#tAssessmentOrganisation') IS NOT NULL
-DROP TABLE #tAssessmentOrganisation
+/* Clear Existing Tables for Full Refresh */
 
-  SELECT EPAOrgId AS EPAOId
-        ,Name AS EPAO_Name
-		,ID as Source_EPAOID
-    INTO #tAssessmentOrganisation
-    FROM Comt.Ext_Tbl_AssessmentOrganisation
 
-/* Full Refresh Code */
-
+TRUNCATE TABLE dbo.DataLockStatus
+TRUNCATE TABLE dbo.Apprenticeship
+TRUNCATE TABLE dbo.Commitment
+TRUNCATE TABLE dbo.Provider
+TRUNCATE TABLE dbo.Apprentice
 TRUNCATE TABLE dbo.AssessmentOrganisation
+TRUNCATE TABLE dbo.EmployerAccountLegalEntity
+TRUNCATE TABLE dbo.EmployerAccount
+TRUNCATE TABLE DBO.TrainingCourse
+TRUNCATE TABLE dbo.Transfers
 
-INSERT INTO dbo.AssessmentOrganisation(EPAOId,EPAO_Name,Source_EPAOID,Data_Source)
-SELECT Source.EPAOId,Source.EPAO_Name,Source_EPAOID,'Commitments-AssessmentOrganisation'
-  FROM #tAssessmentOrganisation Source
+/* Load with Latest Data */
+
+EXEC dbo.uSP_Import_Provider @RunId
+
+EXEC dbo.uSP_Import_Employer @RunId
+
+EXEC uSP_Import_Commitments @RunId
+
+EXEC uSP_Import_Transfers @RunId
+
+EXEC [dbo].[uSP_Import_Apprentice] @RunId
+
+EXEC [dbo].[uSP_Import_TrainingCourse] @RunId
+
+EXEC [dbo].[uSP_Import_AssessmentOrganisation] @RunId
+
+EXEC [dbo].[uSP_Import_Apprenticeship] @RunId
+
+EXEC [dbo].[uSP_Import_DataLockStatus] @RunId
 
 
 
+COMMIT TRANSACTION
 
-
-/* Delta Code */
-/*
- MERGE dbo.AssessmentOrganisation as Target
- USING #tAssessmentOrganisation as Source
-    ON Target.EPAOId=Source.EPAOId
-  WHEN MATCHED AND ( Target.EPAO_Name<>Source.EPAO_Name
-                  OR Target.Source_EPAOID<>Source.Source_EPAOID
-				    )
-  THEN UPDATE SET Target.EPAO_Name=Source.EPAO_Name
-                 ,Target.Source_EPAOID=Source.Source_EPAOID
-                 ,Target.Asdm_UpdatedDate=getdate()
-  WHEN NOT MATCHED BY TARGET 
-  THEN INSERT (EPAOId,EPAO_Name,Source_EPAOID,Data_Source)
-       VALUES (Source.EPAOId,Source.EPAO_Name,Source_EPAOID,'Commitments-AssessmentOrganisation')
-        ;
- */
+  
  
  /* Update Log Execution Results as Success if the query ran succesfully*/
 
@@ -106,7 +108,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'uSP_Import_AssessmentOrganisation',
+	    'uSP_Import_Commitments_Db',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 

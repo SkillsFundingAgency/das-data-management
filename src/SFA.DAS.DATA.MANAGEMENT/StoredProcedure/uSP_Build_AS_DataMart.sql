@@ -33,37 +33,10 @@ EXEC uSP_Create_System_External_Tables 'easAccDBConnection','Account','Acct',@Ru
 EXEC dbo.uSP_Create_External_Tables 'easAccDBConnection','Ext_Tbl_InfSch_Account','Acct',@RunId
 
 
+/* Load Commitments into Modelled Data Tables */
+
+EXEC uSP_Import_Commitments_Db @RunId
 
 
-
-
---EXEC uSP_Create_System_External_Tables 'easaccDBConnection','Accounts',@RunId
-
---EXEC uSP_Create_System_External_Tables 'usersDBConnection','Users',@RunId
-
-
---EXEC dbo.uSP_Create_External_Tables 'comtDBConnection','Ext_Tbl_InfSch_Commitments','Comt',@RunId
-
---EXEC dbo.uSP_Create_External_Tables 'easaccDBConnection','Ext_Tbl_InfSch_Accounts',@RunId
-
---EXEC dbo.uSP_Create_External_Tables 'usersDBConnection','Ext_Tbl_InfSch_Users',@RunId
-
-EXEC dbo.uSP_Import_Provider @RunId
-
-EXEC dbo.uSP_Import_Employer @RunId
-
-EXEC uSP_Import_Commitments @RunId
-
-EXEC uSP_Import_Transfers @RunId
-
-EXEC [dbo].[uSP_Import_Apprentice] @RunId
-
-EXEC [dbo].[uSP_Import_TrainingCourse] @RunId
-
-EXEC [dbo].[uSP_Import_AssessmentOrganisation] @RunId
-
-EXEC [dbo].[uSP_Import_Apprenticeship] @RunId
-
-EXEC [dbo].[uSP_Import_DataLockStatus] @RunId
 
 

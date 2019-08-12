@@ -28,7 +28,7 @@ BEGIN TRY
 	  )
   SELECT 
         @RunId
-	   ,'Step-5'
+	   ,'Step-2'
 	   ,'uSP_Import_Apprentice'
 	   ,getdate()
 	   ,0

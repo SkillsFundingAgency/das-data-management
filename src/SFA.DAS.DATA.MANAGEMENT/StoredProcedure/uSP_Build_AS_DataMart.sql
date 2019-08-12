@@ -20,6 +20,21 @@ EXEC uSP_Create_System_External_Tables 'rsrvDBConnection','Reservations','Resv',
 
 EXEC dbo.uSP_Create_External_Tables 'rsrvDBConnection','Ext_Tbl_InfSch_Reservations','Resv',@RunId
 
+EXEC uSP_Create_System_External_Tables 'easfinDBConnection','Finance','Fin',@RunId
+
+EXEC dbo.uSP_Create_External_Tables 'easfinDBConnection','Finance','Fin',@RunId
+
+EXEC uSP_Create_System_External_Tables 'usersDBConnection','Users','User',@RunId
+
+EXEC dbo.uSP_Create_External_Tables 'usersDBConnection','Users','User',@RunId
+
+EXEC uSP_Create_System_External_Tables 'easAccDBConnection','Account','Acct',@RunId
+
+EXEC dbo.uSP_Create_External_Tables 'easAccDBConnection','Account','Acct',@RunId
+
+
+
+
 
 
 --EXEC uSP_Create_System_External_Tables 'easaccDBConnection','Accounts',@RunId

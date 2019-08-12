@@ -172,31 +172,10 @@ SET @VSQL='
 IF EXISTS ( SELECT * FROM sys.external_tables WHERE object_id = OBJECT_ID('''+@ExtTable+''') ) 
 DROP EXTERNAL TABLE '''+@ExtTable+'''
 '
-PRINT @VSQL
+EXEC @VSQL
 FETCH NEXT FROM RemoveExt into @ExtTable
 END
 
 CLOSE RemoveExt
 DEALLOCATE RemoveExt
 
---IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
---            WHERE TABLE_NAME = N'Commitment'
---		      AND TABLE_SCHEMA=N'Comt'
---	      )
---DROP TABLE  [Comt].[Commitment]
-
-
-
-
---IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
---            WHERE TABLE_NAME = N'Apprenticeship'
---		      AND TABLE_SCHEMA=N'Comt'
---	      )
---DROP TABLE [Comt].[Apprenticeship]
-
-	
---DROP SCHEMA IF EXISTS fdb;
-
---Drop Table dbo.[Deployment_Audit]
-
---Drop Procedure dbo.uSP_UnitTest1_CheckCounts

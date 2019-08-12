@@ -12,7 +12,7 @@
 
 --EXEC mtd.usp_Manage_Commitments_Lookup
 
---EXEC [dbo].[uSP_Build_AS_DataMart]
+EXEC [dbo].[uSP_Build_AS_DataMart]
 
 
 --GRANT UNMASK TO [Himabindu.Uddaraju@citizenazuresfabisgov.onmicrosoft.com]

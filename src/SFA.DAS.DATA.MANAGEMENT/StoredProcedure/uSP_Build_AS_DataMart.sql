@@ -14,11 +14,20 @@ EXEC @RunId= dbo.uSP_Generate_RunId
 
 EXEC uSP_Create_System_External_Tables 'comtDBConnection','Commitments','Comt',@RunId
 
+EXEC dbo.uSP_Create_External_Tables 'comtDBConnection','Ext_Tbl_InfSch_Commitments','Comt',@RunId
+
+EXEC uSP_Create_System_External_Tables 'rsrvDBConnection','Reservations','Resv',@RunId
+
+EXEC dbo.uSP_Create_External_Tables 'rsrvDBConnection','Ext_Tbl_InfSch_Reservations','Resv',@RunId
+
+
+
 --EXEC uSP_Create_System_External_Tables 'easaccDBConnection','Accounts',@RunId
 
 --EXEC uSP_Create_System_External_Tables 'usersDBConnection','Users',@RunId
 
-EXEC dbo.uSP_Create_External_Tables 'comtDBConnection','Ext_Tbl_InfSch_Commitments','Comt',@RunId
+
+--EXEC dbo.uSP_Create_External_Tables 'comtDBConnection','Ext_Tbl_InfSch_Commitments','Comt',@RunId
 
 --EXEC dbo.uSP_Create_External_Tables 'easaccDBConnection','Ext_Tbl_InfSch_Accounts',@RunId
 

@@ -89,6 +89,10 @@ UPDATE Mgmt.Log_Execution_Results
 END TRY
 
 BEGIN CATCH
+
+ IF @@TRANCOUNT > 0
+  ROLLBACK TRAN
+
     DECLARE @ErrorId int
 
   INSERT INTO Mgmt.Log_Error_Details

@@ -48,7 +48,7 @@ DROP TABLE #tAssessmentOrganisation
 
 /* Full Refresh Code */
 
-TRUNCATE TABLE dbo.AssessmentOrganisation
+
 
 INSERT INTO dbo.AssessmentOrganisation(EPAOId,EPAO_Name,Source_EPAOID,Data_Source)
 SELECT Source.EPAOId,Source.EPAO_Name,Source_EPAOID,'Commitments-AssessmentOrganisation'

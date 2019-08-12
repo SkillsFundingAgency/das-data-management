@@ -51,7 +51,6 @@ DROP TABLE #tApprentice
 
 /* Full Refresh Code */
 
-TRUNCATE TABLE dbo.Apprentice
 
 
 INSERT INTO dbo.Apprentice(FirstName,LastName,DateOfBirth,NINumber,ULN,Data_Source) 

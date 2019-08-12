@@ -87,7 +87,7 @@ join dbo.Provider Pro
 
 /* Full Refresh Code */
 
-TRUNCATE TABLE dbo.Commitment
+
 
 INSERT INTO dbo.Commitment(EmployerAccountId
               ,EmployerAccountLegalEntityId

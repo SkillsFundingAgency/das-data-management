@@ -79,7 +79,7 @@ DROP TABLE #tSourceDataLock
 
 /* Full Refresh Code */
 
-TRUNCATE TABLE dbo.DataLockStatus
+
 
 INSERT INTO dbo.DataLockStatus([DataLockEventId]
               ,[DataLockEventDatetime]

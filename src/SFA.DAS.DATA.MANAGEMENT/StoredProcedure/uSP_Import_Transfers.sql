@@ -86,7 +86,7 @@ DROP TABLE #tTransfers
 
 /* Full Refresh Code */
 
-TRUNCATE TABLE dbo.Transfers
+
 
 INSERT INTO dbo.Transfers(CommitmentId
 	          ,Cost

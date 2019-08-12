@@ -49,7 +49,7 @@ DROP TABLE #tTrainingCourse
 
 /* Full Refresh Code */
 
-TRUNCATE TABLE dbo.TrainingCourse
+
 
 INSERT INTO dbo.TrainingCourse(TrainingType,TrainingCode,TrainingName,Data_Source) 
 SELECT Source.TrainingType,Source.TrainingCode,Source.TrainingName,'Commitments-Apprenticeship'

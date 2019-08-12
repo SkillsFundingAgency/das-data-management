@@ -52,7 +52,7 @@ FROM Comt.Ext_Tbl_Accounts ETA
 
 /* Full Refresh EmployerAccount*/
 
-TRUNCATE TABLE dbo.EmployerAccount
+
 
 INSERT INTO dbo.EmployerAccount(EmpHashedId
               ,EmpPublicHashedID

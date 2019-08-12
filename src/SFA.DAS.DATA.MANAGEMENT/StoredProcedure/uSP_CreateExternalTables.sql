@@ -3,7 +3,7 @@ CREATE PROCEDURE uSP_Create_External_Tables
 (
    @ExternalDataSource Varchar(255),
    @SysTableName varchar(255),
-   @SchemaName Char(4),
+   @SchemaName VarChar(10),
    @RunId int
 )
 AS

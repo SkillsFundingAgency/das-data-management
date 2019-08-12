@@ -170,7 +170,7 @@ BEGIN
 DECLARE @VSQL NVARCHAR(MAX)
 SET @VSQL='
 IF EXISTS ( SELECT * FROM sys.external_tables WHERE object_id = OBJECT_ID('''+@ExtTable+''') ) 
-DROP EXTERNAL TABLE '''+@ExtTable+'''
+DROP EXTERNAL TABLE '+@ExtTable+'
 '
 EXEC @VSQL
 FETCH NEXT FROM RemoveExt into @ExtTable

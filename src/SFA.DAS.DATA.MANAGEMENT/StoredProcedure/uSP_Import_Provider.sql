@@ -40,7 +40,7 @@ BEGIN TRY
 
  /* Code for Full Refresh */
 
- TRUNCATE TABLE dbo.Provider
+ DELETE FROM dbo.Provider
 
  INSERT INTO dbo.Provider
  (Ukprn,ProviderName)

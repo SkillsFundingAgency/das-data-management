@@ -106,7 +106,7 @@
     <Build Include="StoredProcedure\uSP_Import_DataLockStatus.sql" />
     <Build Include="Schemas\Resv.sql" />
     <Build Include="Schemas\Fin.sql" />
-    <Build Include="Schemas\User.sql" />
+    <Build Include="Schemas\EAUser.sql" />
     <Build Include="Schemas\Acct.sql" />
   </ItemGroup>
 </Project>

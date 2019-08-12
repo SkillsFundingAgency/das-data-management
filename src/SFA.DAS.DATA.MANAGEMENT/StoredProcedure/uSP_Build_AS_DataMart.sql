@@ -24,9 +24,9 @@ EXEC uSP_Create_System_External_Tables 'easfinDBConnection','Finance','Fin',@Run
 
 EXEC dbo.uSP_Create_External_Tables 'easfinDBConnection','Ext_Tbl_InfSch_Finance','Fin',@RunId
 
-EXEC uSP_Create_System_External_Tables 'usersDBConnection','Users','User',@RunId
+EXEC uSP_Create_System_External_Tables 'usersDBConnection','Users','EAUser',@RunId
 
-EXEC dbo.uSP_Create_External_Tables 'usersDBConnection','Ext_Tbl_InfSch_Users','User',@RunId
+EXEC dbo.uSP_Create_External_Tables 'usersDBConnection','Ext_Tbl_InfSch_Users','EAUser',@RunId
 
 EXEC uSP_Create_System_External_Tables 'easAccDBConnection','Account','Acct',@RunId
 

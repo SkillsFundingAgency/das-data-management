@@ -39,7 +39,7 @@ BEGIN TRY
 	   ,getdate()
 	   ,0
 
-
+  SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
 
  DECLARE @ExecuteSQL nvarchar(max)
  SET @EXECUTESQL=''

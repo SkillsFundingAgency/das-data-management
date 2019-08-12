@@ -40,16 +40,16 @@ BEGIN TRANSACTION
 /* Clear Existing Tables for Full Refresh */
 
 
-TRUNCATE TABLE dbo.DataLockStatus
-TRUNCATE TABLE dbo.Apprenticeship
-TRUNCATE TABLE dbo.Commitment
-TRUNCATE TABLE dbo.Provider
-TRUNCATE TABLE dbo.Apprentice
-TRUNCATE TABLE dbo.AssessmentOrganisation
-TRUNCATE TABLE dbo.EmployerAccountLegalEntity
-TRUNCATE TABLE dbo.EmployerAccount
-TRUNCATE TABLE DBO.TrainingCourse
-TRUNCATE TABLE dbo.Transfers
+DELETE FROM dbo.DataLockStatus
+DELETE FROM dbo.Apprenticeship
+DELETE FROM dbo.Commitment
+DELETE FROM dbo.Provider
+DELETE FROM dbo.Apprentice
+DELETE FROM dbo.AssessmentOrganisation
+DELETE FROM dbo.EmployerAccountLegalEntity
+DELETE FROM dbo.EmployerAccount
+DELETE FROM DBO.TrainingCourse
+DELETE FROM dbo.Transfers
 
 /* Load with Latest Data */
 

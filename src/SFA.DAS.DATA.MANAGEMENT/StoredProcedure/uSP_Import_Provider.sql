@@ -40,12 +40,16 @@ BEGIN TRY
 
  /* Code for Full Refresh */
 
-
+IF @@TRANCOUNT=0
+BEGIN
+BEGIN TRANSACTION
 
  INSERT INTO dbo.Provider
  (Ukprn,ProviderName)
  SELECT Ukprn,Name
    FROM Comt.Ext_Tbl_Providers
+COMMIT TRANSACTION
+END
 
 
 
@@ -78,6 +82,10 @@ UPDATE Mgmt.Log_Execution_Results
 END TRY
 
 BEGIN CATCH
+   IF @@TRANCOUNT>0
+   ROLLBACK TRANSACTION
+
+
     DECLARE @ErrorId int
 
   INSERT INTO Mgmt.Log_Error_Details

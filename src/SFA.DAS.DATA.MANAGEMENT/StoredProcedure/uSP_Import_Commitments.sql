@@ -87,7 +87,9 @@ join dbo.Provider Pro
 
 /* Full Refresh Code */
 
-
+IF @@TRANCOUNT=0
+BEGIN 
+BEGIN TRANSACTION
 
 INSERT INTO dbo.Commitment(EmployerAccountId
               ,EmployerAccountLegalEntityId
@@ -129,7 +131,8 @@ SELECT Source.EmployerAccountId
    FROM #tSourceCommitments Source
 
 
-
+COMMIT TRANSACTION
+END
 
 
 
@@ -229,6 +232,9 @@ UPDATE Mgmt.Log_Execution_Results
 END TRY
 
 BEGIN CATCH
+    IF @@TRANCOUNT>0
+	ROLLBACK TRANSACTION
+
     DECLARE @ErrorId int
 
   INSERT INTO Mgmt.Log_Error_Details

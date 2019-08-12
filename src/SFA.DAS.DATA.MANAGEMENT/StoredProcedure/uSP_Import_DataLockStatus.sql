@@ -79,7 +79,9 @@ DROP TABLE #tSourceDataLock
 
 /* Full Refresh Code */
 
-
+IF @@TRANCOUNT=0
+BEGIN
+BEGIN TRANSACTION
 
 INSERT INTO dbo.DataLockStatus([DataLockEventId]
               ,[DataLockEventDatetime]
@@ -121,6 +123,8 @@ INSERT INTO dbo.DataLockStatus([DataLockEventId]
 			  ,Source.Source_DataLockStatusId
    FROM #tSourceDataLock Source
 
+COMMIT TRANSACTION
+END
 
 
 
@@ -223,6 +227,9 @@ UPDATE Mgmt.Log_Execution_Results
 END TRY
 
 BEGIN CATCH
+    IF @@TRANCOUNT>0
+	ROLLBACK TRANSACTION
+
     DECLARE @ErrorId int
 
   INSERT INTO Mgmt.Log_Error_Details

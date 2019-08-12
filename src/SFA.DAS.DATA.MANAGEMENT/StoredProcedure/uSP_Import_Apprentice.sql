@@ -51,11 +51,16 @@ DROP TABLE #tApprentice
 
 /* Full Refresh Code */
 
-
+IF @@TRANCOUNT=0
+BEGIN
+BEGIN TRANSACTION
 
 INSERT INTO dbo.Apprentice(FirstName,LastName,DateOfBirth,NINumber,ULN,Data_Source) 
 SELECT Source.FirstName,Source.LastName,Source.DateOfBirth,Source.NINumber,ULN,'Commitments-Apprenticeship'
   FROM #tApprentice Source
+
+COMMIT TRANSACTION
+END
 
 
 
@@ -94,6 +99,9 @@ UPDATE Mgmt.Log_Execution_Results
 END TRY
 
 BEGIN CATCH
+    IF @@TRANCOUNT>0
+	ROLLBACK TRANSACTION;
+
     DECLARE @ErrorId int
 
   INSERT INTO Mgmt.Log_Error_Details

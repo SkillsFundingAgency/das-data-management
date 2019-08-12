@@ -52,7 +52,9 @@ FROM Comt.Ext_Tbl_Accounts ETA
 
 /* Full Refresh EmployerAccount*/
 
-
+IF @@TRANCOUNT=0
+BEGIN
+BEGIN TRANSACTION
 
 INSERT INTO dbo.EmployerAccount(EmpHashedId
               ,EmpPublicHashedID
@@ -70,7 +72,8 @@ SELECT Source.EmpHashedId
 			 , Source.Source_AccountId
   FROM #tEmployerAccount Source
 
-
+COMMIT TRANSACTION
+END
 
 
 /* Code for Delta */
@@ -134,7 +137,10 @@ JOIN dbo.EmployerAccount EA
 
 /* Full Refresh Employer Account Legal Entity*/
 
-TRUNCATE TABLE dbo.EmployerAccountLegalEntity
+IF @@TRANCOUNT=0
+BEGIN
+BEGIN TRANSACTION
+
 
 INSERT INTO dbo.EmployerAccountLegalEntity(LegalEntityId
 			  ,LegalEntityPublicHashedId
@@ -162,7 +168,8 @@ SELECT Source.LegalEntityId
 			 , Source.EmployerAccountId
   FROM #tEmployerAccountLegalEntity Source
 
-
+COMMIT TRANSACTION
+END
 
   /* Delta Code */
 /*
@@ -234,6 +241,9 @@ UPDATE Mgmt.Log_Execution_Results
 END TRY
 
 BEGIN CATCH
+    IF @@TRANCOUNT>0
+	ROLLBACK TRANSACTION
+
     DECLARE @ErrorId int
 
   INSERT INTO Mgmt.Log_Error_Details

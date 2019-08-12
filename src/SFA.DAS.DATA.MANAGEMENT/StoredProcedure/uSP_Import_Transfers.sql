@@ -86,7 +86,9 @@ DROP TABLE #tTransfers
 
 /* Full Refresh Code */
 
-
+IF @@TRANCOUNT=0
+BEGIN
+BEGIN TRANSACTION
 
 INSERT INTO dbo.Transfers(CommitmentId
 	          ,Cost
@@ -120,7 +122,8 @@ INSERT INTO dbo.Transfers(CommitmentId
 			  ,getdate()
 	FROM #tTransfers Source
 
-
+COMMIT TRANSACTION
+END
 /* Delta Code */
 /*
 
@@ -197,6 +200,9 @@ UPDATE Mgmt.Log_Execution_Results
 END TRY
 
 BEGIN CATCH
+    IF @@TRANCOUNT>0
+	ROLLBACK TRANSACTION
+
     DECLARE @ErrorId int
 
   INSERT INTO Mgmt.Log_Error_Details

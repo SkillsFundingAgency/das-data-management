@@ -48,11 +48,16 @@ DROP TABLE #tAssessmentOrganisation
 
 /* Full Refresh Code */
 
-
+IF @@TRANCOUNT=0
+BEGIN
+BEGIN TRANSACTION
 
 INSERT INTO dbo.AssessmentOrganisation(EPAOId,EPAO_Name,Source_EPAOID,Data_Source)
 SELECT Source.EPAOId,Source.EPAO_Name,Source_EPAOID,'Commitments-AssessmentOrganisation'
   FROM #tAssessmentOrganisation Source
+
+COMMIT TRANSACTION
+END
 
 
 
@@ -87,6 +92,9 @@ UPDATE Mgmt.Log_Execution_Results
 END TRY
 
 BEGIN CATCH
+    IF @@TRANCOUNT>0
+	ROLLBACK TRANSACTION
+
     DECLARE @ErrorId int
 
   INSERT INTO Mgmt.Log_Error_Details

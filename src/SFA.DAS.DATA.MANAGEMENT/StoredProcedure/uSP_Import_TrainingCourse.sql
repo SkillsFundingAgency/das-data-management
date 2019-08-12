@@ -49,11 +49,16 @@ DROP TABLE #tTrainingCourse
 
 /* Full Refresh Code */
 
-
+IF @@TRANCOUNT=0
+BEGIN
+BEGIN TRANSACTION
 
 INSERT INTO dbo.TrainingCourse(TrainingType,TrainingCode,TrainingName,Data_Source) 
 SELECT Source.TrainingType,Source.TrainingCode,Source.TrainingName,'Commitments-Apprenticeship'
   FROM #tTrainingCourse Source
+
+COMMIT TRANSACTION
+END
 
 
 
@@ -87,6 +92,9 @@ UPDATE Mgmt.Log_Execution_Results
 END TRY
 
 BEGIN CATCH
+    IF @@TRANCOUNT>0
+	ROLLBACK TRANSACTION
+
     DECLARE @ErrorId int
 
   INSERT INTO Mgmt.Log_Error_Details

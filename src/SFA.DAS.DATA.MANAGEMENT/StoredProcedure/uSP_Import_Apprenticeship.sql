@@ -91,7 +91,9 @@ join dbo.Apprentice a
 
 /* Full Refresh Code */
 
-TRUNCATE TABLE dbo.Apprenticeship
+IF @@TRANCOUNT=0
+BEGIN
+BEGIN TRANSACTION
 
 INSERT INTO dbo.Apprenticeship(CommitmentId 
               ,ApprenticeId
@@ -140,6 +142,8 @@ INSERT INTO dbo.Apprenticeship(CommitmentId
               ,Source.Source_ApprenticeshipId
    FROM #tSourceApprenticeship Source
 
+COMMIT TRANSACTION
+END
 
 
  /* Delta Code */
@@ -252,6 +256,9 @@ UPDATE Mgmt.Log_Execution_Results
 END TRY
 
 BEGIN CATCH
+    IF @@TRANCOUNT>0
+	ROLLBACK TRANSACTION
+
     DECLARE @ErrorId int
 
   INSERT INTO Mgmt.Log_Error_Details

@@ -119,7 +119,7 @@ INSERT INTO dbo.DataLockStatus([DataLockEventId]
               ,Source.[ExpiredDateTime]
 			  ,'Commitments-DataLockStatus'
 			  ,Source.Source_DataLockStatusId
-   FROM #tSourceDataLock
+   FROM #tSourceDataLock Source
 
 
 

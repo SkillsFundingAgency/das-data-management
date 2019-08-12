@@ -34,7 +34,8 @@ BEGIN TRY
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
-
+  
+IF @@TRANCOUNT=0
 BEGIN TRANSACTION
 
 /* Clear Existing Tables for Full Refresh */

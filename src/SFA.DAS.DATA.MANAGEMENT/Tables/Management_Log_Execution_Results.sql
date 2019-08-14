@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [Mgmt].[Log_Execution_Results] (
     [LogId]                 BIGINT        IDENTITY (1, 1) NOT NULL,
-    [RunId]                 BIGINT        NOT NULL,
+    [RunId]                 BIGINT        NOT NULL DEFAULT(-1),
     [ErrorId]               BIGINT        NULL,
     [StepNo]                VARCHAR (100) NULL,
     [StoredProcedureName]   VARCHAR (100) NOT NULL,

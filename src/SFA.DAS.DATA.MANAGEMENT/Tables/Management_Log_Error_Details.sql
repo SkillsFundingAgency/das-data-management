@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [Mgmt].[Log_Error_Details] (
     [ErrorId]        BIGINT        IDENTITY (1, 1) NOT NULL,
-    [RunId]         BIGINT        NOT NULL,
+    [RunId]         BIGINT         NOT NULL DEFAULT(-1),
     [UserName]       VARCHAR (100) NULL,
     [ErrorNumber]    BIGINT        NULL,
     [ErrorSeverity]  INT           NULL,

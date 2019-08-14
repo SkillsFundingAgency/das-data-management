@@ -6,7 +6,7 @@
   ,TrainingName nvarchar(255)
   ,Data_Source varchar(255)
   ,Source_ApprenticeshipId int
-  ,RunId bigint
+  ,RunId bigint default(-1)
   ,AsDm_CreatedDate datetime2 default(getdate()) not null
   ,AsDm_UpdatedDate datetime2 default(getdate()) not null
   ,CONSTRAINT PK_TrainingCourse_ID PRIMARY KEY(ID)

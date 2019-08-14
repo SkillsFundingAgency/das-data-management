@@ -24,7 +24,7 @@
 ,Commitments_SourceId int
 ,AsDm_CreatedDate datetime2 default(getdate()) not null
 ,AsDm_UpdatedDate datetime2 default(getdate()) not null
-,RunId bigint
+,RunId bigint default(-1)
 ,CONSTRAINT PK_Commitment_Id PRIMARY KEY (ID)
 ,CONSTRAINT FK_Commitment_EmpAccId FOREIGN KEY (EmployerAccountId) REFERENCES dbo.EmployerAccount(Id)
 ,CONSTRAINT FK_Commitment_EmpAccLEId FOREIGN KEY(EmployerAccountLegalEntityId) REFERENCES dbo.EmployerAccountLegalEntity(Id)

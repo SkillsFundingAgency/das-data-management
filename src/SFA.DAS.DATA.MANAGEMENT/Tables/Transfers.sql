@@ -14,7 +14,7 @@
 	,TransferCreatedOn Datetime2
 	,Data_Source varchar(255) 
 	,Source_CommitmentTransferId int
-	,RunId bigint
+	,RunId bigint default(-1)
 	,AsDm_CreatedDate datetime2 default(getdate()) not null
 	,AsDm_UpdatedDate datetime2 default(getdate()) not null
 	,CONSTRAINT PK_Transfers_Id PRIMARY KEY (ID)

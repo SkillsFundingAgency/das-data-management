@@ -14,7 +14,7 @@
   ,Data_Source varchar(255)
  ,Source_AccountLegalEntityId int
  ,Source_AccountId int
- ,RunId bigint
+ ,RunId bigint default(-1)
  ,AsDm_CreatedDate datetime2 default(getdate())
  ,AsDm_UpdatedDate datetime2 default(getdate())
  ,CONSTRAINT PK_EmployerAccLE PRIMARY KEY(ID)

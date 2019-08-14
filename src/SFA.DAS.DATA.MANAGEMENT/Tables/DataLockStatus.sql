@@ -22,7 +22,7 @@
   ,Expireddatetime datetime
   ,Data_Source varchar(255)
   ,Source_DataLockStatusId int
-  ,RunId bigint
+  ,RunId bigint default(-1)
   ,AsDm_CreatedDate datetime2 default(getdate())
   ,AsDm_UpdatedDate datetime2 default(getdate())
   ,CONSTRAINT PK_DataLockStatus_Id PRIMARY KEY(Id)

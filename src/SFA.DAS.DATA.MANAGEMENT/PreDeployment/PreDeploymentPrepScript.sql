@@ -141,6 +141,89 @@ IF EXISTS (select * from INFORMATION_SCHEMA.ROUTINES
 		  )
 DROP PROCEDURE mgmt.uSP_UnitTest1_CheckCounts
 
+IF EXISTS (select * from INFORMATION_SCHEMA.ROUTINES
+            where ROUTINE_NAME='uSP_Build_AS_DataMart'
+              and ROUTINE_SCHEMA='dbo'
+		  )
+DROP PROCEDURE [dbo].[uSP_Build_AS_DataMart]
+
+IF EXISTS (select * from INFORMATION_SCHEMA.ROUTINES
+            where ROUTINE_NAME='uSP_Create_External_Tables'
+              and ROUTINE_SCHEMA='dbo'
+		  )
+DROP PROCEDURE [dbo].[uSP_Create_External_Tables]
+
+IF EXISTS (select * from INFORMATION_SCHEMA.ROUTINES
+            where ROUTINE_NAME='uSP_Create_System_External_Tables'
+              and ROUTINE_SCHEMA='dbo'
+		  )
+DROP PROCEDURE [dbo].[uSP_Create_System_External_Tables]
+
+IF EXISTS (select * from INFORMATION_SCHEMA.ROUTINES
+            where ROUTINE_NAME='uSP_Generate_RunId'
+              and ROUTINE_SCHEMA='dbo'
+		  )
+DROP PROCEDURE [dbo].[uSP_Generate_RunId]
+
+IF EXISTS (select * from INFORMATION_SCHEMA.ROUTINES
+            where ROUTINE_NAME='uSP_Import_Apprentice'
+              and ROUTINE_SCHEMA='dbo'
+		  )
+DROP PROCEDURE [dbo].[uSP_Import_Apprentice]
+
+IF EXISTS (select * from INFORMATION_SCHEMA.ROUTINES
+            where ROUTINE_NAME='uSP_Import_Apprenticeship'
+              and ROUTINE_SCHEMA='dbo'
+		  )
+DROP PROCEDURE [dbo].[uSP_Import_Apprenticeship]
+
+IF EXISTS (select * from INFORMATION_SCHEMA.ROUTINES
+            where ROUTINE_NAME='uSP_Import_AssessmentOrganisation'
+              and ROUTINE_SCHEMA='dbo'
+		  )
+DROP PROCEDURE [dbo].[uSP_Import_AssessmentOrganisation]
+
+IF EXISTS (select * from INFORMATION_SCHEMA.ROUTINES
+            where ROUTINE_NAME='uSP_Import_Commitments'
+              and ROUTINE_SCHEMA='dbo'
+		  )
+DROP PROCEDURE [dbo].[uSP_Import_Commitments]
+
+IF EXISTS (select * from INFORMATION_SCHEMA.ROUTINES
+            where ROUTINE_NAME='uSP_Import_Commitments_Db'
+              and ROUTINE_SCHEMA='dbo'
+		  )
+DROP PROCEDURE [dbo].[uSP_Import_Commitments_Db]
+
+IF EXISTS (select * from INFORMATION_SCHEMA.ROUTINES
+            where ROUTINE_NAME='uSP_Import_DataLockStatus'
+              and ROUTINE_SCHEMA='dbo'
+		  )
+DROP PROCEDURE [dbo].[uSP_Import_DataLockStatus]
+
+IF EXISTS (select * from INFORMATION_SCHEMA.ROUTINES
+            where ROUTINE_NAME='uSP_Import_Employer'
+              and ROUTINE_SCHEMA='dbo'
+		  )
+DROP PROCEDURE [dbo].[uSP_Import_Employer]
+
+IF EXISTS (select * from INFORMATION_SCHEMA.ROUTINES
+            where ROUTINE_NAME='uSP_Import_Provider'
+              and ROUTINE_SCHEMA='dbo'
+		  )
+DROP PROCEDURE [dbo].[uSP_Import_Provider]
+
+IF EXISTS (select * from INFORMATION_SCHEMA.ROUTINES
+            where ROUTINE_NAME='uSP_Import_TrainingCourse'
+              and ROUTINE_SCHEMA='dbo'
+		  )
+DROP PROCEDURE [dbo].[uSP_Import_TrainingCourse]
+
+IF EXISTS (select * from INFORMATION_SCHEMA.ROUTINES
+            where ROUTINE_NAME='uSP_Import_Transfers'
+              and ROUTINE_SCHEMA='dbo'
+		  )
+DROP PROCEDURE [dbo].[uSP_Import_Transfers]
 
 DROP VIEW IF EXISTS dbo.vw_CommitmentSummary ; 
 

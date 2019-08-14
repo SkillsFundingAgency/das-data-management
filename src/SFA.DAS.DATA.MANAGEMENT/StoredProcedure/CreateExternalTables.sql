@@ -38,7 +38,7 @@ BEGIN TRY
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results 
-   WHERE StoredProcedureName='CreateExternalTables'
+   WHERE StoredProcedureName='CreateExternalTables'+'-'+@ExternalDataSource
      AND RunId=@RunID
 
  DECLARE @PrepareSQL nvarchar(max)

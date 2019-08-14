@@ -40,7 +40,7 @@ BEGIN TRY
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
-   WHERE StoredProcedureName='CreateSystemExternalTables'
+   WHERE StoredProcedureName='CreateSystemExternalTables'+'-'+@DatabaseName
      AND RunId=@RunID
 
  DECLARE @ExecuteSQL nvarchar(max)

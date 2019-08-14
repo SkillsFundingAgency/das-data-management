@@ -1,5 +1,8 @@
-﻿--CREATE VIEW [Data_Pub].[Das_Commitments]
---	AS 
+﻿CREATE VIEW [Data_Pub].[Das_Commitments]
+	AS 
+
+SELECT *
+FROM dbo.Commitment
 --SELECT [C].[ID] AS ID
 --	   , CAST([C].ID AS BIGINT) AS EventID
 --	   , CASE WHEN A.PaymentStatus='0' THEN 'PendingApproval'

@@ -17,7 +17,7 @@ INSERT INTO [Mgmt].[Log_RunId]
 (StartDateTime)
 Values(GETDATE())
 
-SELECT @RunId=MAX(RunId) FROM [Mgmt].[Log_RunId]
+SELECT @RunId=MAX(Run_Id) FROM [Mgmt].[Log_RunId]
 
 select @DateStamp =  CAST(CAST(YEAR(GETDATE()) AS VARCHAR)+RIGHT('0' + RTRIM(cast(MONTH(getdate()) as varchar)), 2) +RIGHT('0' +RTRIM(CAST(DAY(GETDATE()) AS VARCHAR)),2) as int)
 
@@ -25,7 +25,7 @@ select @DateStamp =  CAST(CAST(YEAR(GETDATE()) AS VARCHAR)+RIGHT('0' + RTRIM(cas
 
   INSERT INTO Mgmt.Log_Execution_Results
 	  (
-	    RunId
+	    Run_Id
 	   ,StepNo
 	   ,StoredProcedureName
 	   ,StartDateTime

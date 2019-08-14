@@ -24,7 +24,7 @@ BEGIN TRY
 
   INSERT INTO Mgmt.Log_Execution_Results
 	  (
-	    RunId
+	    Run_Id
 	   ,StepNo
 	   ,StoredProcedureName
 	   ,StartDateTime
@@ -39,7 +39,7 @@ BEGIN TRY
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results 
    WHERE StoredProcedureName='CreateExternalTables'
-     AND RunId=@RunID
+     AND Run_Id=@RunID
 
  DECLARE @PrepareSQL nvarchar(max)
  DECLARE @ExecuteSQL nvarchar(max)
@@ -82,7 +82,7 @@ UPDATE Mgmt.Log_Execution_Results
       ,EndDateTime=getdate()
 	  ,FullJobStatus='Pending'
  WHERE LogId=@LogID
-   AND RunID=@RunId
+   AND Run_ID=@RunId
 
  
 END TRY
@@ -99,7 +99,7 @@ BEGIN CATCH
 	  ,ErrorProcedure
 	  ,ErrorMessage
 	  ,ErrorDateTime
-	  ,RunId
+	  ,Run_Id
 	  )
   SELECT 
         SUSER_SNAME(),
@@ -121,7 +121,7 @@ UPDATE Mgmt.Log_Execution_Results
       ,EndDateTime=getdate()
 	  ,ErrorId=@ErrorId
  WHERE LogId=@LogID
-   AND RunID=@RunId
+   AND Run_Id=@RunId
 
   END CATCH
 

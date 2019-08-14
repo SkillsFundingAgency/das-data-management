@@ -6,6 +6,7 @@ CREATE TABLE [dbo].[AssessmentOrganisation]
 	,EPAO_Name nvarchar(255)
 	,Data_Source varchar(255) 
 	,Source_EPAOId int
+	,RunId bigint
 	,AsDm_CreatedDate datetime2 default(getdate()) not null
 	,AsDm_UpdatedDate datetime2 default(getdate()) not null
 	,CONSTRAINT PK_AssOrg_Id PRIMARY KEY(ID)

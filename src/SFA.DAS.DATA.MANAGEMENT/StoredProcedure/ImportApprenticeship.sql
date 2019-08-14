@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[uSP_Import_Apprenticeship]
+﻿CREATE PROCEDURE [dbo].[ImportApprenticeship]
 (
    @RunId int
 )
@@ -20,7 +20,7 @@ BEGIN TRY
 
   INSERT INTO Mgmt.Log_Execution_Results
 	  (
-	    RunId
+	    Run_Id
 	   ,StepNo
 	   ,StoredProcedureName
 	   ,StartDateTime
@@ -29,11 +29,13 @@ BEGIN TRY
   SELECT 
         @RunId
 	   ,'Step-2'
-	   ,'uSP_Import_Apprenticeship'
+	   ,'ImportApprenticeship'
 	   ,getdate()
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
+   WHERE StoredProcedureName='ImportApprenticeship'
+     AND Run_Id=@RunID
 
   /* Get Commitment Data into Temp Table */
   
@@ -117,6 +119,7 @@ INSERT INTO dbo.Apprenticeship(CommitmentId
               ,ReservationId
               ,Data_Source
               ,Source_ApprenticeshipId
+			  ,RunId
 			  )
  SELECT Source.CommitmentId 
               ,Source.ApprenticeId
@@ -140,6 +143,7 @@ INSERT INTO dbo.Apprenticeship(CommitmentId
               ,Source.ReservationId
               ,'Commitments-Apprenticeship'
               ,Source.Source_ApprenticeshipId
+			  ,@RunId
    FROM #tSourceApprenticeship Source
 
 COMMIT TRANSACTION
@@ -249,8 +253,9 @@ END
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1
       ,EndDateTime=getdate()
+	  ,FullJobStatus='Pending'
  WHERE LogId=@LogID
-   AND RunID=@RunId
+   AND Run_Id=@RunId
 
  
 END TRY
@@ -278,7 +283,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'uSP_Import_Commitments',
+	    'ImportApprenticeship',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 
@@ -292,7 +297,7 @@ UPDATE Mgmt.Log_Execution_Results
       ,EndDateTime=getdate()
 	  ,ErrorId=@ErrorId
  WHERE LogId=@LogID
-   AND RunID=@RunId
+   AND Run_ID=@RunId
 
   END CATCH
 

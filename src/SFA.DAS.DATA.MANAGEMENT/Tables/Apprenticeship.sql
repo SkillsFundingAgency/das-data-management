@@ -26,6 +26,7 @@
   ,IsApproved  AS (case when ApprenticeshipStatus>(0) then CONVERT([bit],(1)) else CONVERT([bit],(0)) end) PERSISTED
   ,Data_Source varchar(255)
   ,Source_ApprenticeshipId int
+  ,RunId bigint
   ,AsDm_CreatedDate datetime2 default(getdate()) 
   ,AsDm_UpdatedDate datetime2 default(getdatE())
   ,Constraint PK_Apprenticeship_ID Primary Key (ID)

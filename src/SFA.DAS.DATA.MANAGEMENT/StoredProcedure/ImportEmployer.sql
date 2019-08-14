@@ -1,5 +1,5 @@
 ﻿
-CREATE PROCEDURE uSP_Import_Employer
+CREATE PROCEDURE ImportEmployer
 (
    @RunId int
 )
@@ -21,7 +21,7 @@ BEGIN TRY
 
   INSERT INTO Mgmt.Log_Execution_Results
 	  (
-	    RunId
+	    Run_Id
 	   ,StepNo
 	   ,StoredProcedureName
 	   ,StartDateTime
@@ -30,11 +30,13 @@ BEGIN TRY
   SELECT 
         @RunId
 	   ,'Step-2'
-	   ,'uSP_Import_Employer'
+	   ,'ImportEmployer'
 	   ,getdate()
 	   ,0
 
-  SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
+    SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
+   WHERE StoredProcedureName='ImportEmployer'
+     AND Run_Id=@RunID
 
   /* Get Employer Account Data into Temp Table */
 
@@ -62,7 +64,8 @@ INSERT INTO dbo.EmployerAccount(EmpHashedId
 			  ,AccountCreatedDate
 			  ,AccountUpdatedDate
 			  ,Data_Source
-			  ,Source_AccountId) 
+			  ,Source_AccountId
+			  ,RunId) 
 SELECT Source.EmpHashedId
 	         , Source.EmpPublicHashedId
 	         , Source.EmpName
@@ -70,6 +73,7 @@ SELECT Source.EmpHashedId
 			 , Source.AccountUpdatedDate
 			 , 'Commitments-Accounts'
 			 , Source.Source_AccountId
+			 ,@RunId
   FROM #tEmployerAccount Source
 
 COMMIT TRANSACTION
@@ -234,8 +238,9 @@ END
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1
       ,EndDateTime=getdate()
+	  ,FullJobStatus='Pending'
  WHERE LogId=@LogID
-   AND RunID=@RunId
+   AND Run_ID=@RunId
 
  
 END TRY
@@ -263,7 +268,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'uSP_Import_Employer',
+	    'ImportEmployer',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 
@@ -277,7 +282,7 @@ UPDATE Mgmt.Log_Execution_Results
       ,EndDateTime=getdate()
 	  ,ErrorId=@ErrorId
  WHERE LogId=@LogID
-   AND RunID=@RunId
+   AND Run_ID=@RunId
 
   END CATCH
 

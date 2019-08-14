@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[uSP_Import_Commitments_Db]
+﻿CREATE PROCEDURE [dbo].[ImportCommitmentsDb]
 (
    @RunId int
 )
@@ -20,7 +20,7 @@ BEGIN TRY
 
   INSERT INTO Mgmt.Log_Execution_Results
 	  (
-	    RunId
+	    Run_Id
 	   ,StepNo
 	   ,StoredProcedureName
 	   ,StartDateTime
@@ -29,11 +29,13 @@ BEGIN TRY
   SELECT 
         @RunId
 	   ,'Step-2'
-	   ,'uSP_Import_Commitments_Db'
+	   ,'ImportCommitmentsDb'
 	   ,getdate()
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
+   WHERE StoredProcedureName='ImportCommitmentsDb'
+     AND Run_Id=@RunID
   
 IF @@TRANCOUNT=0
 BEGIN
@@ -55,23 +57,23 @@ DELETE FROM dbo.Transfers
 
 /* Load with Latest Data */
 
-EXEC dbo.uSP_Import_Provider @RunId
+EXEC dbo.ImportProvider @RunId
 
-EXEC dbo.uSP_Import_Employer @RunId
+EXEC dbo.ImportEmployer @RunId
 
-EXEC uSP_Import_Commitments @RunId
+EXEC ImportCommitments @RunId
 
-EXEC uSP_Import_Transfers @RunId
+EXEC ImportTransfers @RunId
 
-EXEC [dbo].[uSP_Import_Apprentice] @RunId
+EXEC ImportApprentice @RunId
 
-EXEC [dbo].[uSP_Import_TrainingCourse] @RunId
+EXEC ImportTrainingCourse @RunId
 
-EXEC [dbo].[uSP_Import_AssessmentOrganisation] @RunId
+EXEC ImportAssessmentOrganisation @RunId
 
-EXEC [dbo].[uSP_Import_Apprenticeship] @RunId
+EXEC ImportApprenticeship @RunId
 
-EXEC [dbo].[uSP_Import_DataLockStatus] @RunId
+EXEC ImportDataLockStatus @RunId
 
 
 
@@ -85,8 +87,9 @@ END
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1
       ,EndDateTime=getdate()
+	  ,FullJobStatus='Pending'
  WHERE LogId=@LogID
-   AND RunID=@RunId
+   AND Run_ID=@RunId
 
  
 END TRY
@@ -115,7 +118,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'uSP_Import_Commitments_Db',
+	    'ImportCommitmentsDb',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 
@@ -129,7 +132,7 @@ UPDATE Mgmt.Log_Execution_Results
       ,EndDateTime=getdate()
 	  ,ErrorId=@ErrorId
  WHERE LogId=@LogID
-   AND RunID=@RunId
+   AND Run_ID=@RunId
 
   END CATCH
 

@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE uSP_Create_System_External_Tables
+﻿CREATE PROCEDURE CreateSystemExternalTables
 (
    @ExternalDataSource Varchar(255),
    @DatabaseName varchar(255),
@@ -26,7 +26,7 @@ BEGIN TRY
 
   INSERT INTO Mgmt.Log_Execution_Results
 	  (
-	    RunId
+	    Run_Id
 	   ,StepNo
 	   ,StoredProcedureName
 	   ,StartDateTime
@@ -35,11 +35,13 @@ BEGIN TRY
   SELECT 
         @RunId
 	   ,'Step-1'
-	   ,'uSP_Create_System_External_Tables'+'-'+@DatabaseName
+	   ,'CreateSystemExternalTables'+'-'+@DatabaseName
 	   ,getdate()
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
+   WHERE StoredProcedureName='CreateSystemExternalTables'
+     AND Run_Id=@RunID
 
  DECLARE @ExecuteSQL nvarchar(max)
  SET @EXECUTESQL=''
@@ -85,8 +87,9 @@ WITH (Data_Source=['+@ExternalDataSource+'],Schema_Name=''Information_Schema'',O
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1
       ,EndDateTime=getdate()
+	  ,FullJobStatus='Pending'
  WHERE LogId=@LogID
-   AND RunID=@RunId
+   AND Run_ID=@RunId
 
  
 END TRY
@@ -111,7 +114,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'uSP_Create_System_External_Tables'+'-'+@DatabaseName AS ErrorProcedure,
+	    'CreateSystemExternalTables'+'-'+@DatabaseName AS ErrorProcedure,
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 
@@ -125,7 +128,7 @@ UPDATE Mgmt.Log_Execution_Results
       ,EndDateTime=getdate()
 	  ,ErrorId=@ErrorId
  WHERE LogId=@LogID
-   AND RunID=@RunId
+   AND Run_ID=@RunId
 
   END CATCH
 

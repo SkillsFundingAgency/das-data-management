@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[uSP_Import_AssessmentOrganisation]
+﻿CREATE PROCEDURE [dbo].[ImportApprentice]
 (
    @RunId int
 )
@@ -7,7 +7,7 @@ AS
 -- ==================================================
 -- Author:      Himabindu Uddaraju
 -- Create Date: 29/05/2019
--- Description: Import AssessmentOrganisation Related Data 
+-- Description: Import Apprentice Related Data 
 -- ==================================================
 
 BEGIN TRY
@@ -20,7 +20,7 @@ BEGIN TRY
 
   INSERT INTO Mgmt.Log_Execution_Results
 	  (
-	    RunId
+	    Run_Id
 	   ,StepNo
 	   ,StoredProcedureName
 	   ,StartDateTime
@@ -29,22 +29,27 @@ BEGIN TRY
   SELECT 
         @RunId
 	   ,'Step-2'
-	   ,'uSP_Import_AssessmentOrganisation'
+	   ,'ImportApprentice'
 	   ,getdate()
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
+   WHERE StoredProcedureName='ImportApprentice'
+     AND Run_Id=@RunID
 
   /* Get AssessmentOrganisation Data into Temp Table */
 
-  IF OBJECT_ID ('tempdb..#tAssessmentOrganisation') IS NOT NULL
-DROP TABLE #tAssessmentOrganisation
+IF OBJECT_ID ('tempdb..#tApprentice') IS NOT NULL
+DROP TABLE #tApprentice
 
-  SELECT EPAOrgId AS EPAOId
-        ,Name AS EPAO_Name
-		,ID as Source_EPAOID
-    INTO #tAssessmentOrganisation
-    FROM Comt.Ext_Tbl_AssessmentOrganisation
+  SELECT DISTINCT 
+         FirstName
+		,LastName
+		,ULN
+		,DateOfBirth
+		,NINumber
+  INTO #tApprentice
+  FROM Comt.Ext_Tbl_Apprenticeship
 
 /* Full Refresh Code */
 
@@ -52,9 +57,9 @@ IF @@TRANCOUNT=0
 BEGIN
 BEGIN TRANSACTION
 
-INSERT INTO dbo.AssessmentOrganisation(EPAOId,EPAO_Name,Source_EPAOID,Data_Source)
-SELECT Source.EPAOId,Source.EPAO_Name,Source_EPAOID,'Commitments-AssessmentOrganisation'
-  FROM #tAssessmentOrganisation Source
+INSERT INTO dbo.Apprentice(FirstName,LastName,DateOfBirth,NINumber,ULN,Data_Source,RunId) 
+SELECT Source.FirstName,Source.LastName,Source.DateOfBirth,Source.NINumber,ULN,'Commitments-Apprenticeship',@RunId
+  FROM #tApprentice Source
 
 COMMIT TRANSACTION
 END
@@ -63,37 +68,44 @@ END
 
 
 
-/* Delta Code */
-/*
- MERGE dbo.AssessmentOrganisation as Target
- USING #tAssessmentOrganisation as Source
-    ON Target.EPAOId=Source.EPAOId
-  WHEN MATCHED AND ( Target.EPAO_Name<>Source.EPAO_Name
-                  OR Target.Source_EPAOID<>Source.Source_EPAOID
-				    )
-  THEN UPDATE SET Target.EPAO_Name=Source.EPAO_Name
-                 ,Target.Source_EPAOID=Source.Source_EPAOID
-                 ,Target.Asdm_UpdatedDate=getdate()
+
+  /* Delta Code */
+  /*
+ MERGE dbo.Apprentice as Target
+ USING #tApprentice as Source
+    ON Target.ULN=Source.ULN
+  WHEN MATCHED AND ( Target.FirstName<>Source.FirstName
+                  OR Target.LastName<>Source.LastName
+				  OR Target.DateOfBirth<>Source.DateOfBirth
+				  OR Target.NINumber<>Source.NINumber
+				  )
+  THEN UPDATE SET Target.FirstName=Source.FirstName
+                 ,Target.LastName=Source.LastName
+				 ,Target.DateOfBirth=Source.DateOfBirth
+				 ,Target.NINumber=Source.NINumber
+                 ,Target.AsDm_UpdatedDate=getdate()
   WHEN NOT MATCHED BY TARGET 
-  THEN INSERT (EPAOId,EPAO_Name,Source_EPAOID,Data_Source)
-       VALUES (Source.EPAOId,Source.EPAO_Name,Source_EPAOID,'Commitments-AssessmentOrganisation')
-        ;
+  THEN INSERT (FirstName,LastName,DateOfBirth,NINumber,ULN,Data_Source) 
+       VALUES (Source.FirstName,Source.LastName,Source.DateOfBirth,Source.NINumber,ULN,'Commitments-Apprenticeship');
  */
  
+
+
  /* Update Log Execution Results as Success if the query ran succesfully*/
 
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1
       ,EndDateTime=getdate()
+	  ,FullJobStatus='Pending'
  WHERE LogId=@LogID
-   AND RunID=@RunId
+   AND Run_Id=@RunId
 
  
 END TRY
 
 BEGIN CATCH
     IF @@TRANCOUNT>0
-	ROLLBACK TRANSACTION
+	ROLLBACK TRANSACTION;
 
     DECLARE @ErrorId int
 
@@ -114,7 +126,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'uSP_Import_AssessmentOrganisation',
+	    'ImportApprentice',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 
@@ -128,7 +140,7 @@ UPDATE Mgmt.Log_Execution_Results
       ,EndDateTime=getdate()
 	  ,ErrorId=@ErrorId
  WHERE LogId=@LogID
-   AND RunID=@RunId
+   AND Run_ID=@RunId
 
   END CATCH
 

@@ -7,7 +7,8 @@
   ,DateOfBirth datetime
   ,NINumber nvarchar(10)
   ,Data_Source varchar(255)
-  ,Source_ApprenticeshipId int
+  ,Source_ApprenticeshipId bigint
+  ,RunId bigint
   ,AsDm_CreatedDate datetime2 default(getdate()) not null
   ,AsDm_UpdatedDate datetime2 default(getdate()) not null
   ,CONSTRAINT [PK_Apprentice_ID]  PRIMARY KEY (ID)

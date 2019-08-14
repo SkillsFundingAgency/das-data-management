@@ -1,4 +1,5 @@
-﻿CREATE PROCEDURE [dbo].[uSP_Import_TrainingCourse]
+﻿
+CREATE PROCEDURE ImportProvider
 (
    @RunId int
 )
@@ -7,7 +8,7 @@ AS
 -- ==================================================
 -- Author:      Himabindu Uddaraju
 -- Create Date: 29/05/2019
--- Description: Import TrainingCourse Related Data 
+-- Description: Import Provider Related Data 
 -- ==================================================
 
 BEGIN TRY
@@ -20,7 +21,7 @@ BEGIN TRY
 
   INSERT INTO Mgmt.Log_Execution_Results
 	  (
-	    RunId
+	    Run_Id
 	   ,StepNo
 	   ,StoredProcedureName
 	   ,StartDateTime
@@ -29,34 +30,26 @@ BEGIN TRY
   SELECT 
         @RunId
 	   ,'Step-2'
-	   ,'uSP_Import_TrainingCourse'
+	   ,'ImportProvider'
 	   ,getdate()
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
+   WHERE StoredProcedureName='ImportProvider'
+     AND Run_Id=@RunID
 
-  /* Get AssessmentOrganisation Data into Temp Table */
+  /* Get Provider Data into Temp Table */
 
-IF OBJECT_ID ('tempdb..#tTrainingCourse') IS NOT NULL
-DROP TABLE #tTrainingCourse
-
-  SELECT DISTINCT 
-         TrainingType
-        ,TrainingCode
-		,TrainingName
-    INTO #tTrainingCourse
-    FROM Comt.Ext_Tbl_Apprenticeship
-
-/* Full Refresh Code */
+ /* Code for Full Refresh */
 
 IF @@TRANCOUNT=0
 BEGIN
 BEGIN TRANSACTION
 
-INSERT INTO dbo.TrainingCourse(TrainingType,TrainingCode,TrainingName,Data_Source) 
-SELECT Source.TrainingType,Source.TrainingCode,Source.TrainingName,'Commitments-Apprenticeship'
-  FROM #tTrainingCourse Source
-
+ INSERT INTO dbo.Provider
+ (Ukprn,ProviderName,RunId)
+ SELECT Ukprn,Name,@RunId
+   FROM Comt.Ext_Tbl_Providers
 COMMIT TRANSACTION
 END
 
@@ -64,36 +57,37 @@ END
 
 
 
-	/* Delta Code */
-	/*
- MERGE dbo.TrainingCourse as Target
- USING #tTrainingCourse as Source
-    ON Target.TrainingCode=Source.TrainingCode
-  WHEN MATCHED AND ( Target.TrainingType<>Source.TrainingType
-                  OR Target.TrainingName<>Source.TrainingName
-				  )
-  THEN UPDATE SET Target.TrainingType=Source.TrainingType
-                 ,Target.TrainingName=Source.TrainingName
-                 ,Target.AsDm_UpdatedDate=getdate()
+/* Code for Delta */
+
+/* MERGE dbo.Provider as Target
+ USING dbo.Ext_Tbl_Providers as Source
+    ON Target.Ukprn=Source.Ukprn
+  WHEN MATCHED AND Target.Ukprn<>Source.Ukprn
+  THEN UPDATE SET Target.ProviderName=Source.Name
+                 ,Target.Asdm_UpdatedDate=getdate()
   WHEN NOT MATCHED BY TARGET 
-  THEN INSERT (TrainingType,TrainingCode,TrainingName,Data_Source) 
-       VALUES (Source.TrainingType,Source.TrainingCode,Source.TrainingName,'Commitments-Apprenticeship');
- */
+  THEN INSERT (Ukprn,ProviderName) 
+       VALUES (Source.Ukprn, Source.[Name]);
+
+*/
+ 
  
  /* Update Log Execution Results as Success if the query ran succesfully*/
 
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1
       ,EndDateTime=getdate()
+	  ,FullJobStatus='Pending'
  WHERE LogId=@LogID
-   AND RunID=@RunId
+   AND Run_ID=@RunId
 
  
 END TRY
 
 BEGIN CATCH
-    IF @@TRANCOUNT>0
-	ROLLBACK TRANSACTION
+   IF @@TRANCOUNT>0
+   ROLLBACK TRANSACTION
+
 
     DECLARE @ErrorId int
 
@@ -114,7 +108,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'uSP_Import_TrainingCourse',
+	    'ImportProvider',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 
@@ -128,7 +122,7 @@ UPDATE Mgmt.Log_Execution_Results
       ,EndDateTime=getdate()
 	  ,ErrorId=@ErrorId
  WHERE LogId=@LogID
-   AND RunID=@RunId
+   AND Run_ID=@RunId
 
   END CATCH
 

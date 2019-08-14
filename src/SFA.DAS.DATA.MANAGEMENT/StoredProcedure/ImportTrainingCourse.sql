@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[uSP_Import_AssessmentOrganisation]
+﻿CREATE PROCEDURE [dbo].[ImportTrainingCourse]
 (
    @RunId int
 )
@@ -7,7 +7,7 @@ AS
 -- ==================================================
 -- Author:      Himabindu Uddaraju
 -- Create Date: 29/05/2019
--- Description: Import AssessmentOrganisation Related Data 
+-- Description: Import TrainingCourse Related Data 
 -- ==================================================
 
 BEGIN TRY
@@ -29,22 +29,25 @@ BEGIN TRY
   SELECT 
         @RunId
 	   ,'Step-2'
-	   ,'uSP_Import_AssessmentOrganisation'
+	   ,'ImportTrainingCourse'
 	   ,getdate()
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
+   WHERE StoredProcedureName='ImportTrainingCourse'
+     AND RunId=@RunID
 
   /* Get AssessmentOrganisation Data into Temp Table */
 
-  IF OBJECT_ID ('tempdb..#tAssessmentOrganisation') IS NOT NULL
-DROP TABLE #tAssessmentOrganisation
+IF OBJECT_ID ('tempdb..#tTrainingCourse') IS NOT NULL
+DROP TABLE #tTrainingCourse
 
-  SELECT EPAOrgId AS EPAOId
-        ,Name AS EPAO_Name
-		,ID as Source_EPAOID
-    INTO #tAssessmentOrganisation
-    FROM Comt.Ext_Tbl_AssessmentOrganisation
+  SELECT DISTINCT 
+         TrainingType
+        ,TrainingCode
+		,TrainingName
+    INTO #tTrainingCourse
+    FROM Comt.Ext_Tbl_Apprenticeship
 
 /* Full Refresh Code */
 
@@ -52,9 +55,9 @@ IF @@TRANCOUNT=0
 BEGIN
 BEGIN TRANSACTION
 
-INSERT INTO dbo.AssessmentOrganisation(EPAOId,EPAO_Name,Source_EPAOID,Data_Source)
-SELECT Source.EPAOId,Source.EPAO_Name,Source_EPAOID,'Commitments-AssessmentOrganisation'
-  FROM #tAssessmentOrganisation Source
+INSERT INTO dbo.TrainingCourse(TrainingType,TrainingCode,TrainingName,Data_Source,RunId) 
+SELECT Source.TrainingType,Source.TrainingCode,Source.TrainingName,'Commitments-Apprenticeship',@RunId
+  FROM #tTrainingCourse Source
 
 COMMIT TRANSACTION
 END
@@ -63,21 +66,20 @@ END
 
 
 
-/* Delta Code */
-/*
- MERGE dbo.AssessmentOrganisation as Target
- USING #tAssessmentOrganisation as Source
-    ON Target.EPAOId=Source.EPAOId
-  WHEN MATCHED AND ( Target.EPAO_Name<>Source.EPAO_Name
-                  OR Target.Source_EPAOID<>Source.Source_EPAOID
-				    )
-  THEN UPDATE SET Target.EPAO_Name=Source.EPAO_Name
-                 ,Target.Source_EPAOID=Source.Source_EPAOID
-                 ,Target.Asdm_UpdatedDate=getdate()
+	/* Delta Code */
+	/*
+ MERGE dbo.TrainingCourse as Target
+ USING #tTrainingCourse as Source
+    ON Target.TrainingCode=Source.TrainingCode
+  WHEN MATCHED AND ( Target.TrainingType<>Source.TrainingType
+                  OR Target.TrainingName<>Source.TrainingName
+				  )
+  THEN UPDATE SET Target.TrainingType=Source.TrainingType
+                 ,Target.TrainingName=Source.TrainingName
+                 ,Target.AsDm_UpdatedDate=getdate()
   WHEN NOT MATCHED BY TARGET 
-  THEN INSERT (EPAOId,EPAO_Name,Source_EPAOID,Data_Source)
-       VALUES (Source.EPAOId,Source.EPAO_Name,Source_EPAOID,'Commitments-AssessmentOrganisation')
-        ;
+  THEN INSERT (TrainingType,TrainingCode,TrainingName,Data_Source) 
+       VALUES (Source.TrainingType,Source.TrainingCode,Source.TrainingName,'Commitments-Apprenticeship');
  */
  
  /* Update Log Execution Results as Success if the query ran succesfully*/
@@ -85,6 +87,7 @@ END
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1
       ,EndDateTime=getdate()
+	  ,FullJobStatus='Pending'
  WHERE LogId=@LogID
    AND RunID=@RunId
 
@@ -106,7 +109,7 @@ BEGIN CATCH
 	  ,ErrorProcedure
 	  ,ErrorMessage
 	  ,ErrorDateTime
-	  ,Run_Id
+	  ,RunId
 	  )
   SELECT 
         SUSER_SNAME(),
@@ -114,7 +117,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'uSP_Import_AssessmentOrganisation',
+	    'ImportTrainingCourse',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 

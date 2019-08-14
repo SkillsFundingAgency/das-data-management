@@ -1,5 +1,5 @@
 ﻿
-CREATE PROCEDURE uSP_Import_DataLockStatus
+CREATE PROCEDURE ImportDataLockStatus
 (
    @RunId int
 )
@@ -30,11 +30,13 @@ BEGIN TRY
   SELECT 
         @RunId
 	   ,'Step-2'
-	   ,'uSP_Import_DataLockStatus'
+	   ,'ImportDataLockStatus'
 	   ,getdate()
 	   ,0
 
-  SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
+   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
+   WHERE StoredProcedureName='ImportDataLockStatus'
+     AND RunId=@RunID
 
   /* Get DataLockStatus Data into Temp Table */
 
@@ -101,7 +103,8 @@ INSERT INTO dbo.DataLockStatus([DataLockEventId]
               ,[IsExpired]
               ,[ExpiredDateTime]
 			  ,Data_Source
-			  ,Source_DataLockStatusId) 
+			  ,Source_DataLockStatusId
+			  ,RunId) 
  SELECT Source.[DataLockEventId]
               ,Source.[DataLockEventDatetime]
               ,Source.[PriceEpisodeIdentifier]
@@ -121,6 +124,7 @@ INSERT INTO dbo.DataLockStatus([DataLockEventId]
               ,Source.[ExpiredDateTime]
 			  ,'Commitments-DataLockStatus'
 			  ,Source.Source_DataLockStatusId
+			  ,@RunId
    FROM #tSourceDataLock Source
 
 COMMIT TRANSACTION
@@ -220,6 +224,7 @@ END
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1
       ,EndDateTime=getdate()
+	  ,FullJobStatus='Pending'
  WHERE LogId=@LogID
    AND RunID=@RunId
 
@@ -241,7 +246,7 @@ BEGIN CATCH
 	  ,ErrorProcedure
 	  ,ErrorMessage
 	  ,ErrorDateTime
-	  ,Run_Id
+	  ,RunId
 	  )
   SELECT 
         SUSER_SNAME(),
@@ -249,12 +254,12 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'uSP_Import_DataLockStatus',
+	    'ImportDataLockStatus',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 
 
-  SELECT @ErrorId=MAX(ErrorId) FROM Mgmt.Log_Error_Details
+
 
 /* Update Log Execution Results as Fail if there is an Error*/
 

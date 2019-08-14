@@ -1,5 +1,5 @@
 ﻿
-CREATE PROCEDURE uSP_Import_Transfers
+CREATE PROCEDURE ImportTransfers
 (
    @RunId int
 )
@@ -30,11 +30,14 @@ BEGIN TRY
   SELECT 
         @RunId
 	   ,'Step-2'
-	   ,'uSP_Import_Transfers'
+	   ,'ImportTransfers'
 	   ,getdate()
 	   ,0
 
-  SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
+   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
+   WHERE StoredProcedureName='ImportTransfers'
+     AND RunId=@RunID
+
 
   /* Get Transfers Data into Temp Table */
 
@@ -103,6 +106,7 @@ INSERT INTO dbo.Transfers(CommitmentId
 			  ,TransferCreatedOn
 	          ,Data_Source
 	          ,Source_CommitmentTransferId
+			  ,RunId
 			  ,AsDm_UpdatedDate
 			  ,AsDm_CreatedDate) 
  SELECT  Source.CommitmentId
@@ -118,6 +122,7 @@ INSERT INTO dbo.Transfers(CommitmentId
 			  ,Source.TransferCreatedOn
 	          ,'Commitments-TransferRequest'
 	          ,Source.Source_TransferId
+			  ,@RunId
 			  ,getdate()
 			  ,getdate()
 	FROM #tTransfers Source
@@ -193,6 +198,7 @@ END
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1
       ,EndDateTime=getdate()
+	  ,FullJobStatus='Pending'
  WHERE LogId=@LogID
    AND RunID=@RunId
 
@@ -214,7 +220,7 @@ BEGIN CATCH
 	  ,ErrorProcedure
 	  ,ErrorMessage
 	  ,ErrorDateTime
-	  ,Run_Id
+	  ,RunId
 	  )
   SELECT 
         SUSER_SNAME(),
@@ -222,7 +228,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'uSP_Import_Transfers',
+	    'ImportTransfers',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 

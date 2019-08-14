@@ -77,37 +77,40 @@
     <Build Include="Schemas\Mtd.sql" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="StoredProcedure\uSP_CreateExternalTables.sql" />
+    <Build Include="StoredProcedure\CreateExternalTables.sql" />
     <Build Include="Tables\Management_Log_RunId.sql" />
     <Build Include="Tables\Management_Log_Error_Details.sql" />
     <Build Include="Tables\Management_Log_Execution_Results.sql" />
     <Build Include="Tables\Management_Log_Record_Counts.sql" />
-    <Build Include="StoredProcedure\uSP_Generate_RunId.sql" />
-    <Build Include="StoredProcedure\uSP_Build_AS_DataMart.sql" />
-    <Build Include="StoredProcedure\uSP_CreateSystemExternalTables.sql" />
+    <Build Include="StoredProcedure\GenerateRunId.sql" />
+    <Build Include="StoredProcedure\Build_AS_DataMart.sql" />
+    <Build Include="StoredProcedure\CreateSystemExternalTables.sql" />
     <Build Include="Tables\Provider.sql" />
-    <Build Include="StoredProcedure\uSP_Import_Commitments.sql" />
-    <Build Include="StoredProcedure\uSP_Import_Employer.sql" />
+    <Build Include="StoredProcedure\ImportCommitments.sql" />
+    <Build Include="StoredProcedure\ImportEmployer.sql" />
     <Build Include="Tables\EmployerAccount.sql" />
     <Build Include="Tables\Commitment.sql" />
-    <Build Include="StoredProcedure\uSP_Import_Provider.sql" />
-    <Build Include="StoredProcedure\uSP_Import_Transfers.sql" />
+    <Build Include="StoredProcedure\ImportProvider.sql" />
+    <Build Include="StoredProcedure\ImportTransfers.sql" />
     <Build Include="Tables\Transfers.sql" />
     <Build Include="Tables\EmployerAccountLegalEntity.sql" />
     <Build Include="Tables\AssessmentOrganisation.sql" />
     <Build Include="Tables\Apprentice.sql" />
     <Build Include="Tables\TrainingCourse.sql" />
-    <Build Include="StoredProcedure\uSP_Import_Apprentice.sql" />
-    <Build Include="StoredProcedure\uSP_Import_TrainingCourse.sql" />
-    <Build Include="StoredProcedure\uSP_Import_AssessmentOrganisation.sql" />
+    <Build Include="StoredProcedure\ImportApprentice.sql" />
+    <Build Include="StoredProcedure\ImportTrainingCourse.sql" />
+    <Build Include="StoredProcedure\ImportAssessmentOrganisation.sql" />
     <Build Include="Tables\Apprenticeship.sql" />
-    <Build Include="StoredProcedure\uSP_Import_Apprenticeship.sql" />
+    <Build Include="StoredProcedure\ImportApprenticeship.sql" />
     <Build Include="Tables\DataLockStatus.sql" />
-    <Build Include="StoredProcedure\uSP_Import_DataLockStatus.sql" />
+    <Build Include="StoredProcedure\ImportDataLockStatus.sql" />
     <Build Include="Schemas\Resv.sql" />
     <Build Include="Schemas\Fin.sql" />
     <Build Include="Schemas\EAUser.sql" />
     <Build Include="Schemas\Acct.sql" />
-    <Build Include="StoredProcedure\uSP_Import_Commitments_Db.sql" />
+    <Build Include="StoredProcedure\ImportCommitmentsDb.sql" />
+    <Build Include="Schemas\Data_Pub.sql" />
+    <Build Include="Views\Das_Commitments.sql" />
+    <Build Include="Views\LoadStatus.sql" />
   </ItemGroup>
 </Project>

@@ -1,19 +1,16 @@
-﻿
-CREATE TABLE [Mgmt].[Log_Execution_Results](
-	[LogId] [int] IDENTITY(1,1) NOT NULL,
-	[RunId] [int] NOT NULL,
-	[ErrorId] [int] NULL,
-	[StepNo] [varchar](100) NULL,
-	[StoredProcedureName] [varchar](100) NOT NULL,
-	[Execution_Status] [bit] NOT NULL,
-	[Execution_Status_Desc]  AS (case when [Execution_Status]=(1) then 'Success' else 'Fail' end),
-	[StartDateTime] [datetime2](7) NULL,
-	[EndDateTime] [datetime2](7) NULL,
-    CONSTRAINT PK_LER_LogId PRIMARY KEY(LogId),
-    CONSTRAINT FK_LER_ErrorId FOREIGN KEY([ErrorId]) REFERENCES [Mgmt].[Log_Error_Details] ([ErrorId]),
-	CONSTRAINT FK_LER_RunId FOREIGN KEY([RunId]) REFERENCES [Mgmt].[Log_RunId] ([Run_Id])
-	)
-GO
-
-
+﻿CREATE TABLE [Mgmt].[Log_Execution_Results] (
+    [LogId]                 BIGINT        IDENTITY (1, 1) NOT NULL,
+    [RunId]                 BIGINT        NOT NULL,
+    [ErrorId]               BIGINT        NULL,
+    [StepNo]                VARCHAR (100) NULL,
+    [StoredProcedureName]   VARCHAR (100) NOT NULL,
+    [Execution_Status]      BIT           NOT NULL,
+    [Execution_Status_Desc] AS            (case when [Execution_Status]=(1) then 'Success' else 'Fail' end),
+    [StartDateTime]         DATETIME2 (7) NULL,
+    [EndDateTime]           DATETIME2 (7) NULL,
+    [FullJobStatus]         VARCHAR (256) NULL,
+    CONSTRAINT [PK_LER_LogID] PRIMARY KEY CLUSTERED ([LogId] ASC),
+    CONSTRAINT [FK_LER_ErrorID] FOREIGN KEY ([ErrorId]) REFERENCES [Mgmt].[Log_Error_Details] ([ErrorId]),
+    CONSTRAINT [FK_LER_RunID] FOREIGN KEY ([RunId]) REFERENCES [Mgmt].[Log_RunId] ([RunId])
+);
 

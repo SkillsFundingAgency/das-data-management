@@ -1,5 +1,5 @@
 ﻿
-CREATE PROCEDURE uSP_Import_Provider
+CREATE PROCEDURE ImportProvider
 (
    @RunId int
 )
@@ -30,11 +30,13 @@ BEGIN TRY
   SELECT 
         @RunId
 	   ,'Step-2'
-	   ,'uSP_Import_Provider'
+	   ,'ImportProvider'
 	   ,getdate()
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
+   WHERE StoredProcedureName='ImportProvider'
+     AND RunId=@RunID
 
   /* Get Provider Data into Temp Table */
 
@@ -45,8 +47,8 @@ BEGIN
 BEGIN TRANSACTION
 
  INSERT INTO dbo.Provider
- (Ukprn,ProviderName)
- SELECT Ukprn,Name
+ (Ukprn,ProviderName,RunId)
+ SELECT Ukprn,Name,@RunId
    FROM Comt.Ext_Tbl_Providers
 COMMIT TRANSACTION
 END
@@ -75,6 +77,7 @@ END
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1
       ,EndDateTime=getdate()
+	  ,FullJobStatus='Pending'
  WHERE LogId=@LogID
    AND RunID=@RunId
 
@@ -97,7 +100,7 @@ BEGIN CATCH
 	  ,ErrorProcedure
 	  ,ErrorMessage
 	  ,ErrorDateTime
-	  ,Run_Id
+	  ,RunId
 	  )
   SELECT 
         SUSER_SNAME(),
@@ -105,7 +108,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'uSP_Import_Provider',
+	    'ImportProvider',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 

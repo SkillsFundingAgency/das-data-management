@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[uSP_Import_Apprentice]
+﻿CREATE PROCEDURE [dbo].[ImportAssessmentOrganisation]
 (
    @RunId int
 )
@@ -7,7 +7,7 @@ AS
 -- ==================================================
 -- Author:      Himabindu Uddaraju
 -- Create Date: 29/05/2019
--- Description: Import Apprentice Related Data 
+-- Description: Import AssessmentOrganisation Related Data 
 -- ==================================================
 
 BEGIN TRY
@@ -29,25 +29,25 @@ BEGIN TRY
   SELECT 
         @RunId
 	   ,'Step-2'
-	   ,'uSP_Import_Apprentice'
+	   ,'ImportAssessmentOrganisation'
 	   ,getdate()
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
+   WHERE StoredProcedureName='ImportAssessmentOrganisation'
+     AND RunId=@RunID
+
 
   /* Get AssessmentOrganisation Data into Temp Table */
 
-IF OBJECT_ID ('tempdb..#tApprentice') IS NOT NULL
-DROP TABLE #tApprentice
+  IF OBJECT_ID ('tempdb..#tAssessmentOrganisation') IS NOT NULL
+DROP TABLE #tAssessmentOrganisation
 
-  SELECT DISTINCT 
-         FirstName
-		,LastName
-		,ULN
-		,DateOfBirth
-		,NINumber
-  INTO #tApprentice
-  FROM Comt.Ext_Tbl_Apprenticeship
+  SELECT EPAOrgId AS EPAOId
+        ,Name AS EPAO_Name
+		,ID as Source_EPAOID
+    INTO #tAssessmentOrganisation
+    FROM Comt.Ext_Tbl_AssessmentOrganisation
 
 /* Full Refresh Code */
 
@@ -55,9 +55,9 @@ IF @@TRANCOUNT=0
 BEGIN
 BEGIN TRANSACTION
 
-INSERT INTO dbo.Apprentice(FirstName,LastName,DateOfBirth,NINumber,ULN,Data_Source) 
-SELECT Source.FirstName,Source.LastName,Source.DateOfBirth,Source.NINumber,ULN,'Commitments-Apprenticeship'
-  FROM #tApprentice Source
+INSERT INTO dbo.AssessmentOrganisation(EPAOId,EPAO_Name,Source_EPAOID,Data_Source,RunId)
+SELECT Source.EPAOId,Source.EPAO_Name,Source_EPAOID,'Commitments-AssessmentOrganisation',@RunId
+  FROM #tAssessmentOrganisation Source
 
 COMMIT TRANSACTION
 END
@@ -66,25 +66,21 @@ END
 
 
 
-
-  /* Delta Code */
-  /*
- MERGE dbo.Apprentice as Target
- USING #tApprentice as Source
-    ON Target.ULN=Source.ULN
-  WHEN MATCHED AND ( Target.FirstName<>Source.FirstName
-                  OR Target.LastName<>Source.LastName
-				  OR Target.DateOfBirth<>Source.DateOfBirth
-				  OR Target.NINumber<>Source.NINumber
-				  )
-  THEN UPDATE SET Target.FirstName=Source.FirstName
-                 ,Target.LastName=Source.LastName
-				 ,Target.DateOfBirth=Source.DateOfBirth
-				 ,Target.NINumber=Source.NINumber
-                 ,Target.AsDm_UpdatedDate=getdate()
+/* Delta Code */
+/*
+ MERGE dbo.AssessmentOrganisation as Target
+ USING #tAssessmentOrganisation as Source
+    ON Target.EPAOId=Source.EPAOId
+  WHEN MATCHED AND ( Target.EPAO_Name<>Source.EPAO_Name
+                  OR Target.Source_EPAOID<>Source.Source_EPAOID
+				    )
+  THEN UPDATE SET Target.EPAO_Name=Source.EPAO_Name
+                 ,Target.Source_EPAOID=Source.Source_EPAOID
+                 ,Target.Asdm_UpdatedDate=getdate()
   WHEN NOT MATCHED BY TARGET 
-  THEN INSERT (FirstName,LastName,DateOfBirth,NINumber,ULN,Data_Source) 
-       VALUES (Source.FirstName,Source.LastName,Source.DateOfBirth,Source.NINumber,ULN,'Commitments-Apprenticeship');
+  THEN INSERT (EPAOId,EPAO_Name,Source_EPAOID,Data_Source)
+       VALUES (Source.EPAOId,Source.EPAO_Name,Source_EPAOID,'Commitments-AssessmentOrganisation')
+        ;
  */
  
  /* Update Log Execution Results as Success if the query ran succesfully*/
@@ -92,6 +88,7 @@ END
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1
       ,EndDateTime=getdate()
+	  ,FullJobStatus='Pending'
  WHERE LogId=@LogID
    AND RunID=@RunId
 
@@ -100,7 +97,7 @@ END TRY
 
 BEGIN CATCH
     IF @@TRANCOUNT>0
-	ROLLBACK TRANSACTION;
+	ROLLBACK TRANSACTION
 
     DECLARE @ErrorId int
 
@@ -113,7 +110,7 @@ BEGIN CATCH
 	  ,ErrorProcedure
 	  ,ErrorMessage
 	  ,ErrorDateTime
-	  ,Run_Id
+	  ,RunId
 	  )
   SELECT 
         SUSER_SNAME(),
@@ -121,7 +118,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'uSP_Import_Apprentice',
+	    'ImportAssessmentOrganisation',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 

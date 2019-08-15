@@ -1,4 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[CreateCommitmentsView]
+(
+   @RunId int
+)
 AS
 -- =========================================================================
 -- Author:      Himabindu Uddaraju
@@ -8,10 +11,7 @@ AS
 
 BEGIN TRY
 
-/* Generate Run Id by inserting startdatetime into Log_RunId */
 
-DECLARE @RunId bigint
-DECLARE @DateStamp VARCHAR(10)
 DECLARE @LogID int
 
 /* Start Logging Execution */

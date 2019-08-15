@@ -47,8 +47,8 @@ BEGIN TRY
 
  SET @PrepareSQL ='
  SELECT @Result= (
- SELECT DISTINCT '' ''+  ''IF EXISTS ( SELECT * FROM sys.external_tables WHERE object_id = OBJECT_ID('''''+@SchemaName+'.Ext_Tbl_''+so.table_name+'''''') ) DROP EXTERNAL TABLE '+@SchemaName+'.Ext_Tbl_''+so.table_name+'' CREATE EXTERNAL TABLE '+@SchemaName+'.Ext_Tbl_'' + so.TABLE_NAME + '' ('' + o.list + '')'' 
-				 +'' WITH (Data_Source=['+@ExternalDataSource+'],Schema_Name=''''''+so.Table_Schema+'''''',Object_Name=''''''+so.table_name+'''''')''
+ SELECT DISTINCT '' ''+  ''IF EXISTS ( SELECT * FROM sys.external_tables WHERE object_id = OBJECT_ID('''''+@SchemaName+'.[Ext_Tbl_''+so.table_name+'']'''') ) DROP EXTERNAL TABLE '+@SchemaName+'.[Ext_Tbl_''+so.table_name+''] CREATE EXTERNAL TABLE '+@SchemaName+'.[Ext_Tbl_'' + so.TABLE_NAME + ''] ('' + o.list + '')'' 
+				 +'' WITH (Data_Source=['+@ExternalDataSource+'],Schema_Name=''''''+so.Table_Schema+'''''',Object_Name=''''[''+so.table_name+'']'''')''
   FROM '+@SchemaName+'.'+@SysTableName+' so
  CROSS APPLY
    (SELECT STUFF ((SELECT '',''+
@@ -62,11 +62,16 @@ BEGIN TRY
            else coalesce(''(''+case when character_maximum_length = -1 then ''MAX'' else cast(character_maximum_length as varchar) end +'')'','''') end + '' '' +
            + '' '' +
            (case when IS_NULLABLE = ''No'' then ''NOT '' else '''' end ) + ''NULL '' 
-     FROM  '+@SchemaName+'.'+@SysTableName+'
+     FROM  '+@SchemaName+'.'+@SysTableName+' Inc
     WHERE  table_name = so.table_name
     ORDER  BY ordinal_position
       FOR  XML PATH('''')),1,1,'''')) o (list)
  WHERE so.table_schema<>''sys''
+  AND NOT EXISTS (SELECT 1
+                    FROM '+@SchemaName+'.'+@SysTableName+' Exc
+				   WHERE Exc.Data_Type=''Xml''
+				     AND Exc.Table_Name=so.Table_Name
+				 )
   FOR XML PATH(''''))
   '
  

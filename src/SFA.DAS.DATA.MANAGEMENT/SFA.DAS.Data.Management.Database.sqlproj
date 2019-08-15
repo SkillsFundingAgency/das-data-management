@@ -110,7 +110,7 @@
     <Build Include="Schemas\Acct.sql" />
     <Build Include="StoredProcedure\ImportCommitmentsDb.sql" />
     <Build Include="Schemas\Data_Pub.sql" />
-    <Build Include="Views\Das_Commitments.sql" />
     <Build Include="Views\LoadStatus.sql" />
+    <Build Include="StoredProcedure\CreateCommitmentsView.sql" />
   </ItemGroup>
 </Project>

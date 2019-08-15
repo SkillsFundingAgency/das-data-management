@@ -36,13 +36,13 @@ DECLARE @LogID int
      AND RunId=@RunID
 
 
-DECLARE @VSQL1 VARCHAR(MAX)
+DECLARE @VSQL1 NVARCHAR(MAX)
 DECLARE @VSQL2 VARCHAR(MAX)
 DECLARE @VSQL3 VARCHAR(MAX)
 DECLARE @VSQL4 VARCHAR(MAX)
 
 SET @VSQL1='
-if exists(select 1 from sys.views where name=''Das_Commitments'' and type=''v'')
+if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_COMMITMETNS'')
 Drop View Data_Pub.Das_Commitments
 '
 SET @VSQL2='
@@ -203,7 +203,7 @@ LEFT JOIN (SELECT P.ApprenticeshipId
 	      GROUP BY P.ApprenticeshipId) P on P.ApprenticeshipId=A.ID
 '
 
-EXEC @VSQL1
+EXEC SP_EXECUTESQL @VSQL1
 EXEC (@VSQL2+@VSQL3+@VSQL4)
 
 UPDATE Mgmt.Log_Execution_Results

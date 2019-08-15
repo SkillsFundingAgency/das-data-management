@@ -41,7 +41,11 @@ DECLARE @VSQL2 VARCHAR(MAX)
 DECLARE @VSQL3 VARCHAR(MAX)
 
 SET @VSQL1='
-ALTER VIEW [Data_Pub].[Das_Commitments]
+
+if exists(select 1 from sys.views where name=''Das_Commitments'' and type=''v'')
+Drop View Data_Pub.Das_Commitments
+GO
+CREATE VIEW [Data_Pub].[Das_Commitments]
 	AS 
 SELECT [C].[ID] AS ID
 	   , CAST([C].ID AS BIGINT) AS EventID

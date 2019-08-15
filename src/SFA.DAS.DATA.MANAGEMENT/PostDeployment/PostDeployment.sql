@@ -49,6 +49,7 @@ BEGIN
 	CREATE ROLE [DataAnalyst]
 END
 
+if exists(select 1 from sys.views where name='Das_Commitments' and type='v')
 GRANT SELECT ON Data_Pub.Das_Commitments TO DataAnalyst
 
 

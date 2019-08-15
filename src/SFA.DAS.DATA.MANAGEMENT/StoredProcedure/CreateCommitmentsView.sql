@@ -41,7 +41,7 @@ DECLARE @VSQL2 VARCHAR(MAX)
 DECLARE @VSQL3 VARCHAR(MAX)
 
 SET @VSQL1='
-CREATE VIEW [Data_Pub].[Das_Commitments]
+ALTER VIEW [Data_Pub].[Das_Commitments]
 	AS 
 SELECT [C].[ID] AS ID
 	   , CAST([C].ID AS BIGINT) AS EventID

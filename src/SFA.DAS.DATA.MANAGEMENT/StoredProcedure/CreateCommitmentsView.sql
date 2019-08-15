@@ -39,12 +39,13 @@ DECLARE @LogID int
 DECLARE @VSQL1 VARCHAR(MAX)
 DECLARE @VSQL2 VARCHAR(MAX)
 DECLARE @VSQL3 VARCHAR(MAX)
+DECLARE @VSQL4 VARCHAR(MAX)
 
 SET @VSQL1='
 if exists(select 1 from sys.views where name=''Das_Commitments'' and type=''v'')
 Drop View Data_Pub.Das_Commitments
-GO
-
+'
+SET @VSQL2='
 CREATE VIEW [Data_Pub].[Das_Commitments]
 	AS 
 SELECT [C].[ID] AS ID
@@ -78,7 +79,7 @@ SELECT [C].[ID] AS ID
 			  END  as TrainingTypeID
 		, A.TrainingCode As TrainingID
 '
-SET @VSQL2='
+SET @VSQL3='
 		, CASE
 	      WHEN [A].[TrainingType] = 0  AND ISNUMERIC(A.TrainingCode) = 1
 	      THEN CAST(A.TrainingCode AS INT)
@@ -127,7 +128,7 @@ SET @VSQL2='
 		      ELSE DATEDIFF(YEAR, [a].[DateOfBirth], [a].[StartDate])
 		END AS [CommitmentAgeAtStart]
 '
-SET @VSQL3=
+SET @VSQL4=
 '	   , CASE WHEN P.TotalAmount>0 THEN ''Yes'' ELSE ''No'' END AS RealisedCommitment
 	   , CASE 
 		 WHEN CASE 
@@ -202,7 +203,8 @@ LEFT JOIN (SELECT P.ApprenticeshipId
 	      GROUP BY P.ApprenticeshipId) P on P.ApprenticeshipId=A.ID
 '
 
-EXEC (@VSQL1+@VSQL2+@VSQL3)
+EXEC @VSQL1
+EXEC (@VSQL2+@VSQL3+@VSQL4)
 
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1

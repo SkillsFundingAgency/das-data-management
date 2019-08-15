@@ -48,7 +48,7 @@ BEGIN TRY
  SET @PrepareSQL ='
  SELECT @Result= (
  SELECT DISTINCT '' ''+  ''IF EXISTS ( SELECT * FROM sys.external_tables WHERE object_id = OBJECT_ID('''''+@SchemaName+'.[Ext_Tbl_''+so.table_name+'']'''') ) DROP EXTERNAL TABLE '+@SchemaName+'.[Ext_Tbl_''+so.table_name+''] CREATE EXTERNAL TABLE '+@SchemaName+'.[Ext_Tbl_'' + so.TABLE_NAME + ''] ('' + o.list + '')'' 
-				 +'' WITH (Data_Source=['+@ExternalDataSource+'],Schema_Name=''''''+so.Table_Schema+'''''',Object_Name=''''[''+so.table_name+'']'''')''
+				 +'' WITH (Data_Source=['+@ExternalDataSource+'],Schema_Name=''''''+so.Table_Schema+'''''',Object_Name=''''''+so.table_name+'''''')''
   FROM '+@SchemaName+'.'+@SysTableName+' so
  CROSS APPLY
    (SELECT STUFF ((SELECT '',''+

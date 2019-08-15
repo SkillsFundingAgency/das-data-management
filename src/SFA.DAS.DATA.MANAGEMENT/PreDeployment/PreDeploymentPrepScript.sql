@@ -233,7 +233,11 @@ DROP VIEW IF EXISTS dbo.vw_FIU_GA_Data ;
 
 DROP VIEW IF EXISTS dbo.vw_FIU_GA_Segmented_View;
 
-DROP VIEW IF EXISTS Data_Pub.Das_Commitments;
+if exists(select 1 from sys.views where name='Das_Commitments' and type='v')
+Drop View Data_Pub.Das_Commitments
+go
+
+
 
 /* Clear Previous Runs to allow Changing Run_Id to RunID */
 

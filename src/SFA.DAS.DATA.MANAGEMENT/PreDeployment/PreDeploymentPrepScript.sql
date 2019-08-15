@@ -233,6 +233,8 @@ DROP VIEW IF EXISTS dbo.vw_FIU_GA_Data ;
 
 DROP VIEW IF EXISTS dbo.vw_FIU_GA_Segmented_View;
 
+DROP VIEW IF EXISTS Data_Pub.Das_Commitments;
+
 /* Clear Previous Runs to allow Changing Run_Id to RunID */
 
 DELETE LRC  FROM 

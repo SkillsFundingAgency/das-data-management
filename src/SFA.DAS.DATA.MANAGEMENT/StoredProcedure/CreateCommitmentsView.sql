@@ -36,9 +36,11 @@ DECLARE @LogID int
      AND RunId=@RunID
 
 
-DECLARE @VSQL NVARCHAR(MAX)
+DECLARE @VSQL1 VARCHAR(MAX)
+DECLARE @VSQL2 VARCHAR(MAX)
+DECLARE @VSQL3 VARCHAR(MAX)
 
-SET @VSQL='
+SET @VSQL1='
 CREATE VIEW [Data_Pub].[Das_Commitments]
 	AS 
 SELECT [C].[ID] AS ID
@@ -71,6 +73,8 @@ SELECT [C].[ID] AS ID
 			  ELSE ''Unknown''
 			  END  as TrainingTypeID
 		, A.TrainingCode As TrainingID
+'
+SET @VSQL2='
 		, CASE
 	      WHEN [A].[TrainingType] = 0  AND ISNUMERIC(A.TrainingCode) = 1
 	      THEN CAST(A.TrainingCode AS INT)
@@ -78,19 +82,19 @@ SELECT [C].[ID] AS ID
 	       END AS [StdCode]
 	    , CASE
 	      WHEN A.TrainingType = 1
-	          AND CHARINDEX('-', [A].[TrainingCode]) <> 0 -- This to fix the issues when standard codes are being recorded as Frameworks
-	      THEN CAST(SUBSTRING([A].[TrainingCode], 1, CHARINDEX('-', [A].[TrainingCode])-1) AS INT)
+	          AND CHARINDEX(''-'', [A].[TrainingCode]) <> 0 -- This to fix the issues when standard codes are being recorded as Frameworks
+	      THEN CAST(SUBSTRING([A].[TrainingCode], 1, CHARINDEX(''-'', [A].[TrainingCode])-1) AS INT)
 	      ELSE ''-1''
 	       END AS [FworkCode]
 	    , CASE
 	      WHEN A.TrainingType = 1 
-	          AND CHARINDEX('-',  [A].[TrainingCode]) <> 0 -- This to fix the issues when standard codes are being recorded as Frameworks
-	      THEN CAST(SUBSTRING(SUBSTRING([A].[TrainingCode], CHARINDEX('-',[A].[TrainingCode])+1, LEN([A].[TrainingCode])), 1, CHARINDEX('-', SUBSTRING([A].[TrainingCode], CHARINDEX('-',[A].[TrainingCode])+1, LEN([A].[TrainingCode])))-1) AS INT)
+	          AND CHARINDEX(''-'',  [A].[TrainingCode]) <> 0 -- This to fix the issues when standard codes are being recorded as Frameworks
+	      THEN CAST(SUBSTRING(SUBSTRING([A].[TrainingCode], CHARINDEX(''-'',[A].[TrainingCode])+1, LEN([A].[TrainingCode])), 1, CHARINDEX(''-'', SUBSTRING([A].[TrainingCode], CHARINDEX(''-'',[A].[TrainingCode])+1, LEN([A].[TrainingCode])))-1) AS INT)
 	      ELSE ''-1''
 	       END AS [ProgType]
 	   , CASE
 	      WHEN A.TrainingType = 1 
-	      THEN CAST(SUBSTRING(SUBSTRING([A].[TrainingCode], CHARINDEX('-', [A].[TrainingCode])+1, LEN( [A].[TrainingCode])), CHARINDEX('-', SUBSTRING([A].[TrainingCode], CHARINDEX('-', [A].[TrainingCode])+1, LEN( [A].[TrainingCode])))+1, LEN(SUBSTRING([A].[TrainingCode], CHARINDEX('-',[A].[TrainingCode])+1, LEN( [A].[TrainingCode])))) AS INT)
+	      THEN CAST(SUBSTRING(SUBSTRING([A].[TrainingCode], CHARINDEX(''-'', [A].[TrainingCode])+1, LEN( [A].[TrainingCode])), CHARINDEX(''-'', SUBSTRING([A].[TrainingCode], CHARINDEX(''-'', [A].[TrainingCode])+1, LEN( [A].[TrainingCode])))+1, LEN(SUBSTRING([A].[TrainingCode], CHARINDEX(''-'',[A].[TrainingCode])+1, LEN( [A].[TrainingCode])))) AS INT)
 	      ELSE ''-1''
 	       END AS [PwayCode]
 	   , CAST([a].[StartDate] AS DATE) AS TrainingStartDate
@@ -118,7 +122,9 @@ SELECT [C].[ID] AS ID
 			  THEN DATEDIFF(YEAR, [a].[DateOfBirth], [a].[StartDate]) - 1
 		      ELSE DATEDIFF(YEAR, [a].[DateOfBirth], [a].[StartDate])
 		END AS [CommitmentAgeAtStart]
-	   , CASE WHEN P.TotalAmount>0 THEN ''Yes'' ELSE ''No'' END AS RealisedCommitment
+'
+SET @VSQL3=
+'	   , CASE WHEN P.TotalAmount>0 THEN ''Yes'' ELSE ''No'' END AS RealisedCommitment
 	   , CASE 
 		 WHEN CASE 
 				WHEN [a].[DateOfBirth] IS NULL
@@ -161,18 +167,14 @@ SELECT [C].[ID] AS ID
 		       ELSE ''No''
 			   END as FullyAgreedCommitment
 	    , C.LegalEntityAddress as LegalEntityRegisteredAddress
-FROM [Comt].[Ext_Tbl_Commitment] C
-LEFT
-JOIN [Comt].[Ext_Tbl_Apprenticeship] A
+FROM [Comt].[Ext_Tbl_Commitment] C 
+LEFT JOIN [Comt].[Ext_Tbl_Apprenticeship] A
   ON C.Id=A.CommitmentId
-LEFT
-JOIN [Comt].[Ext_Tbl_Accounts] Acc
+LEFT JOIN [Comt].[Ext_Tbl_Accounts] Acc
   ON Acc.Id=c.EmployerAccountId
-LEFT 
-JOIN [Acct].[Ext_Tbl_LegalEntity] LE
+LEFT JOIN [Acct].[Ext_Tbl_LegalEntity] LE
   ON LE.Code=c.LegalEntityId
-LEFT
-JOIN (SELECT P.ApprenticeshipId 
+LEFT JOIN (SELECT P.ApprenticeshipId 
         ,SUM(P.Amount) as TotalAmount
         FROM Fin.Ext_Tbl_Payment P
 	   inner join
@@ -196,7 +198,7 @@ JOIN (SELECT P.ApprenticeshipId
 	      GROUP BY P.ApprenticeshipId) P on P.ApprenticeshipId=A.ID
 '
 
-EXEC @VSQL
+EXEC (@VSQL1+@VSQL2+@VSQL3)
 
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1

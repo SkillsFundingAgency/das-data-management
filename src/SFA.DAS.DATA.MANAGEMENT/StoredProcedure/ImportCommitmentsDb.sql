@@ -37,7 +37,6 @@ BEGIN TRY
    WHERE StoredProcedureName='ImportCommitmentsDb'
      AND RunId=@RunID
   
-IF @@TRANCOUNT=0
 BEGIN
 BEGIN TRANSACTION
 

@@ -37,7 +37,7 @@ EXEC CreateCommitmentsView @RunId
 
 /* Load Commitments into Modelled Data Tables */
 
-EXEC ImportCommitmentsDb @RunId
+--EXEC ImportCommitmentsDb @RunId
 
 
 

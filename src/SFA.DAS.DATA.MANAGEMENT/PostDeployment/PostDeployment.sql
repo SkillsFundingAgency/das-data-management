@@ -1,6 +1,6 @@
 ﻿/* Execute Stored Procedure */
 
-EXEC [dbo].[Build_AS_DataMart]
+--EXEC [dbo].[Build_AS_DataMart]
 
 
 /* Grant Permissions to Roles 

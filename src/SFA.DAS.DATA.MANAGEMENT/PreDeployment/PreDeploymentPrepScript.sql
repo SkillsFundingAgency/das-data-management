@@ -1,5 +1,5 @@
 ﻿
-/* Drop previously created tables as part of POC - Tidy Up */
+/* Drop previously created tables as part of POC - Tidy Up 
 
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
             WHERE TABLE_NAME = N'DataLoad_Log'
@@ -288,5 +288,6 @@ END
 CLOSE RemoveExt
 DEALLOCATE RemoveExt
 
+*/
 
 

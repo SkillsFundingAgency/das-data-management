@@ -1,9 +1,9 @@
 ﻿/* Execute Stored Procedure */
 
---EXEC [dbo].[Build_AS_DataMart]
+EXEC [dbo].[Build_AS_DataMart]
 
 
-/* Grant Permissions to Roles 
+/* Grant Permissions to Roles */
 
 
 IF DATABASE_PRINCIPAL_ID('Developer') IS NULL
@@ -52,7 +52,7 @@ END
 if exists(select 1 from sys.views where name='Das_Commitments' and type='v')
 GRANT SELECT ON Data_Pub.Das_Commitments TO DataAnalyst
 
-*/
+
 
 
 

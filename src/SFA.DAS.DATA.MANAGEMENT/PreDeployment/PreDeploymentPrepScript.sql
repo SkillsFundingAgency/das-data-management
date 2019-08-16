@@ -236,24 +236,41 @@ DROP VIEW IF EXISTS dbo.vw_FIU_GA_Segmented_View;
 
 /* Clear Previous Runs to allow Changing Run_Id to RunID */
 
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'Log_Record_Counts'
+		      AND TABLE_SCHEMA=N'Mgmt'
+	      )
 DELETE LRC  FROM 
   Mgmt.Log_Record_Counts LRC
   WHERE RunId IN (SELECT RunId 
                     FROM Mgmt.Log_RunId
 				   where StartDateTime<'2019-08-15')
 
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'Log_Execution_Results'
+		      AND TABLE_SCHEMA=N'Mgmt'
+	      )
 DELETE LER  FROM 
   Mgmt.Log_Execution_Results LER
   WHERE RunId IN (SELECT RunId 
                     FROM Mgmt.Log_RunId
 				   where StartDateTime<'2019-08-15')
 
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'Log_Error_Details'
+		      AND TABLE_SCHEMA=N'Mgmt'
+	      )
 DELETE LED  FROM 
   Mgmt.Log_Error_Details LED
   WHERE RunId IN (SELECT RunId 
                     FROM Mgmt.Log_RunId
 				   where StartDateTime<'2019-08-15')
 
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'Log_RunId'
+		      AND TABLE_SCHEMA=N'Mgmt'
+	      )
 DELETE LR  FROM 
   Mgmt.Log_RunId LR
   WHERE StartDateTime<'2019-08-15'

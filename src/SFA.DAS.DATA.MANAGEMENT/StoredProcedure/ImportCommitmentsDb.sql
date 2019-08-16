@@ -37,8 +37,7 @@ BEGIN TRY
    WHERE StoredProcedureName='ImportCommitmentsDb'
      AND RunId=@RunID
   
-BEGIN
-BEGIN TRANSACTION
+
 
 /* Clear Existing Tables for Full Refresh */
 
@@ -76,8 +75,6 @@ EXEC ImportDataLockStatus @RunId
 
 
 
-COMMIT TRANSACTION
-END
 
   
  

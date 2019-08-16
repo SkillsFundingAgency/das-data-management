@@ -1,5 +1,5 @@
 ﻿
-CREATE PROCEDURE uSP_Import_Employer
+CREATE PROCEDURE ImportEmployer
 (
    @RunId int
 )
@@ -29,12 +29,14 @@ BEGIN TRY
 	  )
   SELECT 
         @RunId
-	   ,'Step-6'
-	   ,'uSP_Import_Employer'
+	   ,'Step-2'
+	   ,'ImportEmployer'
 	   ,getdate()
 	   ,0
 
-  SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
+    SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
+   WHERE StoredProcedureName='ImportEmployer'
+     AND RunId=@RunID
 
   /* Get Employer Account Data into Temp Table */
 
@@ -48,10 +50,39 @@ SELECT ETA.HashedId as EmpHashedId
 	  ,ETA.Updated as AccountUpdatedDate
 	  ,ETA.Id as Source_AccountId
 INTO #tEmployerAccount
-FROM dbo.Ext_Tbl_Accounts ETA
+FROM Comt.Ext_Tbl_Accounts ETA
+
+/* Full Refresh EmployerAccount*/
+
+IF @@TRANCOUNT=0
+BEGIN
+BEGIN TRANSACTION
+
+INSERT INTO dbo.EmployerAccount(EmpHashedId
+              ,EmpPublicHashedID
+              ,EmpName
+			  ,AccountCreatedDate
+			  ,AccountUpdatedDate
+			  ,Data_Source
+			  ,Source_AccountId
+			  ,RunId) 
+SELECT Source.EmpHashedId
+	         , Source.EmpPublicHashedId
+	         , Source.EmpName
+			 , Source.AccountCreatedDate
+			 , Source.AccountUpdatedDate
+			 , 'Commitments-Accounts'
+			 , Source.Source_AccountId
+			 ,@RunId
+  FROM #tEmployerAccount Source
+
+COMMIT TRANSACTION
+END
 
 
- MERGE dbo.EmployerAccount as Target
+/* Code for Delta */
+
+ /*MERGE dbo.EmployerAccount as Target
  USING #tEmployerAccount as Source
     ON Target.EmpHashedID=Source.EmpHashedID
   WHEN MATCHED AND (Target.EmpPublicHashedId<>Source.EmpPublicHashedId
@@ -83,7 +114,10 @@ FROM dbo.Ext_Tbl_Accounts ETA
 			 , 'Commitments-Accounts'
 			 , Source.Source_AccountId);
 
+*/
+
   /* Get Employer Account Legal Entity Data into Temp Table */
+
 
 IF OBJECT_ID ('tempdb..#tEmployerAccountLegalEntity') IS NOT NULL
 DROP TABLE #tEmployerAccountLegalEntity
@@ -100,11 +134,49 @@ SELECT   ETAL.LegalEntityId
 		,ETAL.AccountId as Source_AccountId
 		,EA.Id as EmployerAccountId
 INTO #tEmployerAccountLegalEntity
-FROM dbo.Ext_Tbl_AccountLegalEntities ETAL
+FROM Comt.Ext_Tbl_AccountLegalEntities ETAL
 LEFT
 JOIN dbo.EmployerAccount EA
   ON EA.Source_AccountId=ETAL.AccountId
 
+/* Full Refresh Employer Account Legal Entity*/
+
+IF @@TRANCOUNT=0
+BEGIN
+BEGIN TRANSACTION
+
+
+INSERT INTO dbo.EmployerAccountLegalEntity(LegalEntityId
+			  ,LegalEntityPublicHashedId
+			  ,LegalEntityName
+			  ,OrganisationType
+			  ,LegalEntityAddress
+			  ,LegalEntityCreatedDate
+			  ,LegalEntityUpdatedDate
+			  ,LegalEntityDeletedDate
+			  ,Data_Source
+			  ,Source_AccountLegalEntityId
+			  ,Source_AccountId
+			  ,EmployerAccountId) 
+SELECT Source.LegalEntityId
+			 , Source.LegalEntityPublicHashedId
+			 , Source.LegalEntityName
+			 , Source.OrganisationType
+			 , Source.LegalEntityAddress
+			 , Source.LegalEntityCreatedDate
+			 , Source.LegalEntityUpdatedDate
+			 , Source.LegalEntityDeletedDate
+			 , 'Commitments-AccountLegalEntity'
+			 , Source.Source_AccountLegalEntityId
+			 , Source.Source_AccountId
+			 , Source.EmployerAccountId
+  FROM #tEmployerAccountLegalEntity Source
+
+COMMIT TRANSACTION
+END
+
+  /* Delta Code */
+/*
  MERGE dbo.EmployerAccountLegalEntity as Target
  USING #tEmployerAccountLegalEntity as Source
     ON Target.LegalEntityPublicHashedId=Source.LegalEntityPublicHashedId
@@ -157,6 +229,8 @@ JOIN dbo.EmployerAccount EA
 			 , Source.Source_AccountLegalEntityId
 			 , Source.Source_AccountId
 			 , Source.EmployerAccountId);
+
+			 */
  
  
  /* Update Log Execution Results as Success if the query ran succesfully*/
@@ -164,6 +238,7 @@ JOIN dbo.EmployerAccount EA
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1
       ,EndDateTime=getdate()
+	  ,FullJobStatus='Pending'
  WHERE LogId=@LogID
    AND RunID=@RunId
 
@@ -171,6 +246,9 @@ UPDATE Mgmt.Log_Execution_Results
 END TRY
 
 BEGIN CATCH
+    IF @@TRANCOUNT>0
+	ROLLBACK TRANSACTION
+
     DECLARE @ErrorId int
 
   INSERT INTO Mgmt.Log_Error_Details
@@ -182,7 +260,7 @@ BEGIN CATCH
 	  ,ErrorProcedure
 	  ,ErrorMessage
 	  ,ErrorDateTime
-	  ,Run_Id
+	  ,RunId
 	  )
   SELECT 
         SUSER_SNAME(),
@@ -190,7 +268,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'uSP_Import_Employer',
+	    'ImportEmployer',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 

@@ -1,8 +1,9 @@
 ﻿
-CREATE PROCEDURE uSP_Create_External_Tables
+CREATE PROCEDURE CreateExternalTables
 (
    @ExternalDataSource Varchar(255),
    @SysTableName varchar(255),
+   @SchemaName VarChar(10),
    @RunId int
 )
 AS
@@ -32,11 +33,13 @@ BEGIN TRY
   SELECT 
         @RunId
 	   ,'Step-1'
-	   ,'uSP_Create_External_Tables'+'-'+@ExternalDataSource
+	   ,'CreateExternalTables'+'-'+@ExternalDataSource
 	   ,getdate()
 	   ,0
 
-  SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
+  SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results 
+   WHERE StoredProcedureName='CreateExternalTables'+'-'+@ExternalDataSource
+     AND RunId=@RunID
 
  DECLARE @PrepareSQL nvarchar(max)
  DECLARE @ExecuteSQL nvarchar(max)
@@ -44,9 +47,9 @@ BEGIN TRY
 
  SET @PrepareSQL ='
  SELECT @Result= (
- SELECT DISTINCT '' ''+  ''IF EXISTS ( SELECT * FROM sys.external_tables WHERE object_id = OBJECT_ID(''''Ext_Tbl_''+so.table_name+'''''') ) DROP EXTERNAL TABLE Ext_Tbl_''+so.table_name+'' CREATE EXTERNAL TABLE Ext_Tbl_'' + so.TABLE_NAME + '' ('' + o.list + '')'' 
+ SELECT DISTINCT '' ''+  ''IF EXISTS ( SELECT * FROM sys.external_tables WHERE object_id = OBJECT_ID('''''+@SchemaName+'.[Ext_Tbl_''+so.table_name+'']'''') ) DROP EXTERNAL TABLE '+@SchemaName+'.[Ext_Tbl_''+so.table_name+''] CREATE EXTERNAL TABLE '+@SchemaName+'.[Ext_Tbl_'' + so.TABLE_NAME + ''] ('' + o.list + '')'' 
 				 +'' WITH (Data_Source=['+@ExternalDataSource+'],Schema_Name=''''''+so.Table_Schema+'''''',Object_Name=''''''+so.table_name+'''''')''
-  FROM dbo.'+@SysTableName+' so
+  FROM '+@SchemaName+'.'+@SysTableName+' so
  CROSS APPLY
    (SELECT STUFF ((SELECT '',''+
            ''  [''+column_name+''] '' + 
@@ -59,11 +62,16 @@ BEGIN TRY
            else coalesce(''(''+case when character_maximum_length = -1 then ''MAX'' else cast(character_maximum_length as varchar) end +'')'','''') end + '' '' +
            + '' '' +
            (case when IS_NULLABLE = ''No'' then ''NOT '' else '''' end ) + ''NULL '' 
-     FROM  dbo.'+@SysTableName+'
+     FROM  '+@SchemaName+'.'+@SysTableName+' Inc
     WHERE  table_name = so.table_name
     ORDER  BY ordinal_position
       FOR  XML PATH('''')),1,1,'''')) o (list)
  WHERE so.table_schema<>''sys''
+  AND NOT EXISTS (SELECT 1
+                    FROM '+@SchemaName+'.'+@SysTableName+' Exc
+				   WHERE Exc.Data_Type=''Xml''
+				     AND Exc.Table_Name=so.Table_Name
+				 )
   FOR XML PATH(''''))
   '
  
@@ -77,6 +85,7 @@ BEGIN TRY
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1
       ,EndDateTime=getdate()
+	  ,FullJobStatus='Pending'
  WHERE LogId=@LogID
    AND RunID=@RunId
 
@@ -95,7 +104,7 @@ BEGIN CATCH
 	  ,ErrorProcedure
 	  ,ErrorMessage
 	  ,ErrorDateTime
-	  ,Run_Id
+	  ,RunId
 	  )
   SELECT 
         SUSER_SNAME(),
@@ -103,7 +112,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'uSP_Create_External_Tables'+'-'+@ExternalDataSource AS ErrorProcedure,
+	    'CreateExternalTables'+'-'+@ExternalDataSource AS ErrorProcedure,
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 
@@ -117,7 +126,7 @@ UPDATE Mgmt.Log_Execution_Results
       ,EndDateTime=getdate()
 	  ,ErrorId=@ErrorId
  WHERE LogId=@LogID
-   AND RunID=@RunId
+   AND RunId=@RunId
 
   END CATCH
 

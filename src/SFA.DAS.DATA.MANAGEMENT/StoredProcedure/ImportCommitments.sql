@@ -1,5 +1,5 @@
 ﻿
-CREATE PROCEDURE uSP_Import_Commitments
+CREATE PROCEDURE ImportCommitments
 (
    @RunId int
 )
@@ -29,12 +29,14 @@ BEGIN TRY
 	  )
   SELECT 
         @RunId
-	   ,'Step-5'
-	   ,'uSP_Import_Commitments'
+	   ,'Step-2'
+	   ,'ImportCommitments'
 	   ,getdate()
 	   ,0
 
-  SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
+    SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
+   WHERE StoredProcedureName='ImportCommitments'
+     AND RunId=@RunID
 
   /* Get Commitment Data into Temp Table */
   
@@ -43,7 +45,7 @@ DROP TABLE #tCommitments
 
 SELECT *
 INTO #tCommitments
-from dbo.Ext_Tbl_Commitment
+from Comt.Ext_Tbl_Commitment
 
 IF OBJECT_ID ('tempdb..#tSourceCommitments') IS NOT NULL
 DROP TABLE #tSourceCommitments
@@ -84,6 +86,64 @@ JOIN dbo.EmployerAccountLegalEntity EALE
 left
 join dbo.Provider Pro
   on Pro.Ukprn=ETC.ProviderId
+
+/* Full Refresh Code */
+
+IF @@TRANCOUNT=0
+BEGIN 
+BEGIN TRANSACTION
+
+INSERT INTO dbo.Commitment(EmployerAccountId
+              ,EmployerAccountLegalEntityId
+              ,ProviderId
+			  ,Reference
+			  ,CommitmentStatus
+			  ,EditStatus
+			  ,CommitmentCreatedOn
+			  ,LastAction
+			  ,LastUpdatedByEmployerName
+			  ,LastUpdatedByEmployerEmail
+			  ,LastUpdatedByProviderName
+			  ,LastUpdatedByProviderEmail
+			  --,EmployerProviderPaymentPriority
+			  --,ProviderCanApproveCommitment
+			  --,EmployerCanApproveCommitment
+			  ,Originator
+			  ,Data_Source
+			  ,Commitments_SourceId
+			  ,RunId
+			  )
+SELECT Source.EmployerAccountId
+	          ,Source.EmployerAccountLegalEntityId
+              ,Source.ProviderId
+			  ,Source.Reference
+			  ,Source.CommitmentStatus
+			  ,Source.EditStatus
+			  ,Source.CommitmentCreatedOn
+			  ,Source.LastAction
+			  ,Source.LastUpdatedByEmployerName
+			  ,Source.LastUpdatedByEmployerEmail
+			  ,Source.LastUpdatedByProviderName
+			  ,Source.LastUpdatedByProviderEmail
+			  --,Source.EmployerProviderPaymentPriority
+			  --,Source.ProviderCanApproveCommitment
+			  --,Source.EmployerCanApproveCommitment
+			  ,Source.Originator
+			  ,'Commitments'
+			  ,Source.Commitments_SourceId
+			  ,@RunId
+   FROM #tSourceCommitments Source
+
+
+COMMIT TRANSACTION
+END
+
+
+
+
+
+  /* Delta Code */
+/*
 
  MERGE dbo.Commitment as Target
  USING #tSourceCommitments as Source
@@ -162,13 +222,14 @@ join dbo.Provider Pro
 			  ,Source.Commitments_SourceId
 			  );
 
-
+*/
  
  /* Update Log Execution Results as Success if the query ran succesfully*/
 
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1
       ,EndDateTime=getdate()
+	  ,FullJobStatus='Pending'
  WHERE LogId=@LogID
    AND RunID=@RunId
 
@@ -176,6 +237,9 @@ UPDATE Mgmt.Log_Execution_Results
 END TRY
 
 BEGIN CATCH
+    IF @@TRANCOUNT>0
+	ROLLBACK TRANSACTION
+
     DECLARE @ErrorId int
 
   INSERT INTO Mgmt.Log_Error_Details
@@ -187,7 +251,7 @@ BEGIN CATCH
 	  ,ErrorProcedure
 	  ,ErrorMessage
 	  ,ErrorDateTime
-	  ,Run_Id
+	  ,RunId
 	  )
   SELECT 
         SUSER_SNAME(),
@@ -195,7 +259,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'uSP_Import_Commitments',
+	    'ImportCommitments',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 

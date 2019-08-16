@@ -1,8 +1,8 @@
 ﻿Create Table dbo.Commitment
-(Id int identity(1,1) primary key not null
-,EmployerAccountId int Foreign Key References dbo.EmployerAccount(Id)
-,EmployerAccountLegalEntityId int Foreign Key References dbo.EmployerAccountLegalEntity(Id)
-,ProviderId int Foreign Key References dbo.Provider(Id)
+(Id int identity(1,1) not null
+,EmployerAccountId int 
+,EmployerAccountLegalEntityId int 
+,ProviderId int 
 ,Reference nvarchar(100) not null
 ,CommitmentStatus int not null
 ,CommitmentStatusDesc as (CASE WHEN CommitmentStatus=1 then 'Active' when CommitmentStatus=2 then 'Deleted' when CommitmentStatus=0 then 'New' else 'Unknown' end) PERSISTED
@@ -24,4 +24,9 @@
 ,Commitments_SourceId int
 ,AsDm_CreatedDate datetime2 default(getdate()) not null
 ,AsDm_UpdatedDate datetime2 default(getdate()) not null
+,RunId bigint default(-1)
+,CONSTRAINT PK_Commitment_Id PRIMARY KEY (ID)
+,CONSTRAINT FK_Commitment_EmpAccId FOREIGN KEY (EmployerAccountId) REFERENCES dbo.EmployerAccount(Id)
+,CONSTRAINT FK_Commitment_EmpAccLEId FOREIGN KEY(EmployerAccountLegalEntityId) REFERENCES dbo.EmployerAccountLegalEntity(Id)
+,CONSTRAINT FK_Commitment_ProviderId FOREIGN KEY(ProviderId) REFERENCES dbo.Provider(Id)
 )

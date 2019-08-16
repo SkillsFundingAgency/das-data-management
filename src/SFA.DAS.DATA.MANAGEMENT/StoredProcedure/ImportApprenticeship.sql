@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[uSP_Import_Apprenticeship]
+﻿CREATE PROCEDURE [dbo].[ImportApprenticeship]
 (
    @RunId int
 )
@@ -28,12 +28,14 @@ BEGIN TRY
 	  )
   SELECT 
         @RunId
-	   ,'Step-5'
-	   ,'uSP_Import_Apprenticeship'
+	   ,'Step-2'
+	   ,'ImportApprenticeship'
 	   ,getdate()
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
+   WHERE StoredProcedureName='ImportApprenticeship'
+     AND RunId=@RunID
 
   /* Get Commitment Data into Temp Table */
   
@@ -42,7 +44,7 @@ DROP TABLE #tApprenticeship
 
 SELECT *
 INTO #tApprenticeship
-from dbo.Ext_Tbl_Apprenticeship
+from Comt.Ext_Tbl_Apprenticeship
 
 IF OBJECT_ID ('tempdb..#tSourceApprenticeship') IS NOT NULL
 DROP TABLE #tSourceApprenticeship
@@ -88,6 +90,68 @@ join dbo.Apprentice a
  and a.firstname=ta.FirstName
  and a.lastname=ta.LastName
  and a.dateofbirth=ta.DateOfBirth
+
+/* Full Refresh Code */
+
+IF @@TRANCOUNT=0
+BEGIN
+BEGIN TRANSACTION
+
+INSERT INTO dbo.Apprenticeship(CommitmentId 
+              ,ApprenticeId
+              ,TrainingCourseId
+              ,AssessmentOrgId
+              ,Cost
+              ,StartDate 
+              ,EndDate 
+              ,AgreementStatus
+              ,ApprenticeshipStatus 
+              ,EmployerRef
+              ,ProviderRef
+              ,CommitmentCreatedOn
+              ,CommitmentAgreedOn
+              ,PaymentOrder
+              ,StopDate
+              ,PauseDate
+              ,HasHadDataLockSuccess
+              ,PendingUpdateOriginator
+              ,CloneOf
+              ,ReservationId
+              ,Data_Source
+              ,Source_ApprenticeshipId
+			  ,RunId
+			  )
+ SELECT Source.CommitmentId 
+              ,Source.ApprenticeId
+              ,Source.TrainingCourseId
+              ,Source.AssessmentOrgId
+              ,Source.Cost
+              ,Source.StartDate 
+              ,Source.EndDate 
+              ,Source.AgreementStatus
+              ,Source.ApprenticeshipStatus 
+              ,Source.EmployerRef
+              ,Source.ProviderRef
+              ,Source.CommitmentCreatedOn
+              ,Source.CommitmentAgreedOn
+              ,Source.PaymentOrder
+              ,Source.StopDate
+              ,Source.PauseDate
+              ,Source.HasHadDataLockSuccess
+              ,Source.PendingUpdateOriginator
+              ,Source.CloneOf
+              ,Source.ReservationId
+              ,'Commitments-Apprenticeship'
+              ,Source.Source_ApprenticeshipId
+			  ,@RunId
+   FROM #tSourceApprenticeship Source
+
+COMMIT TRANSACTION
+END
+
+
+ /* Delta Code */
+ /*
 
  MERGE dbo.Apprenticeship as Target
  USING #tSourceApprenticeship as Source
@@ -182,20 +246,24 @@ join dbo.Apprentice a
               ,Source.Source_ApprenticeshipId
 			  );
 
-
+*/
  
  /* Update Log Execution Results as Success if the query ran succesfully*/
 
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1
       ,EndDateTime=getdate()
+	  ,FullJobStatus='Pending'
  WHERE LogId=@LogID
-   AND RunID=@RunId
+   AND RunId=@RunId
 
  
 END TRY
 
 BEGIN CATCH
+    IF @@TRANCOUNT>0
+	ROLLBACK TRANSACTION
+
     DECLARE @ErrorId int
 
   INSERT INTO Mgmt.Log_Error_Details
@@ -207,7 +275,7 @@ BEGIN CATCH
 	  ,ErrorProcedure
 	  ,ErrorMessage
 	  ,ErrorDateTime
-	  ,Run_Id
+	  ,RunId
 	  )
   SELECT 
         SUSER_SNAME(),
@@ -215,7 +283,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'uSP_Import_Commitments',
+	    'ImportApprenticeship',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 

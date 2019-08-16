@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[uSP_Import_AssessmentOrganisation]
+﻿CREATE PROCEDURE [dbo].[ImportAssessmentOrganisation]
 (
    @RunId int
 )
@@ -28,12 +28,15 @@ BEGIN TRY
 	  )
   SELECT 
         @RunId
-	   ,'Step-5'
-	   ,'uSP_Import_AssessmentOrganisation'
+	   ,'Step-2'
+	   ,'ImportAssessmentOrganisation'
 	   ,getdate()
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
+   WHERE StoredProcedureName='ImportAssessmentOrganisation'
+     AND RunId=@RunID
+
 
   /* Get AssessmentOrganisation Data into Temp Table */
 
@@ -44,8 +47,27 @@ DROP TABLE #tAssessmentOrganisation
         ,Name AS EPAO_Name
 		,ID as Source_EPAOID
     INTO #tAssessmentOrganisation
-    FROM dbo.Ext_Tbl_AssessmentOrganisation
+    FROM Comt.Ext_Tbl_AssessmentOrganisation
 
+/* Full Refresh Code */
+
+IF @@TRANCOUNT=0
+BEGIN
+BEGIN TRANSACTION
+
+INSERT INTO dbo.AssessmentOrganisation(EPAOId,EPAO_Name,Source_EPAOID,Data_Source,RunId)
+SELECT Source.EPAOId,Source.EPAO_Name,Source_EPAOID,'Commitments-AssessmentOrganisation',@RunId
+  FROM #tAssessmentOrganisation Source
+
+COMMIT TRANSACTION
+END
+
+
+
+
+
+/* Delta Code */
+/*
  MERGE dbo.AssessmentOrganisation as Target
  USING #tAssessmentOrganisation as Source
     ON Target.EPAOId=Source.EPAOId
@@ -59,13 +81,14 @@ DROP TABLE #tAssessmentOrganisation
   THEN INSERT (EPAOId,EPAO_Name,Source_EPAOID,Data_Source)
        VALUES (Source.EPAOId,Source.EPAO_Name,Source_EPAOID,'Commitments-AssessmentOrganisation')
         ;
- 
+ */
  
  /* Update Log Execution Results as Success if the query ran succesfully*/
 
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1
       ,EndDateTime=getdate()
+	  ,FullJobStatus='Pending'
  WHERE LogId=@LogID
    AND RunID=@RunId
 
@@ -73,6 +96,9 @@ UPDATE Mgmt.Log_Execution_Results
 END TRY
 
 BEGIN CATCH
+    IF @@TRANCOUNT>0
+	ROLLBACK TRANSACTION
+
     DECLARE @ErrorId int
 
   INSERT INTO Mgmt.Log_Error_Details
@@ -84,7 +110,7 @@ BEGIN CATCH
 	  ,ErrorProcedure
 	  ,ErrorMessage
 	  ,ErrorDateTime
-	  ,Run_Id
+	  ,RunId
 	  )
   SELECT 
         SUSER_SNAME(),
@@ -92,7 +118,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'uSP_Import_AssessmentOrganisation',
+	    'ImportAssessmentOrganisation',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 

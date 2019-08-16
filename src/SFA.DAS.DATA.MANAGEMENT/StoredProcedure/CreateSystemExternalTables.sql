@@ -1,17 +1,18 @@
-﻿CREATE PROCEDURE uSP_Create_System_External_Tables
+﻿CREATE PROCEDURE CreateSystemExternalTables
 (
    @ExternalDataSource Varchar(255),
    @DatabaseName varchar(255),
+   @SchemaName varchar(255),
    @RunId int
 )
 AS
 
--- ====================================================================================================
+-- ============================================================================================================
 -- Author:      Himabindu Uddaraju
 -- Create Date: 29/05/2019
 -- Description: Dynamically Creates System External Tables which will then be used for Dynamically Creating
 --              Actual External Tables.
--- ====================================================================================================
+-- ============================================================================================================
 
 BEGIN TRY
 
@@ -34,20 +35,22 @@ BEGIN TRY
   SELECT 
         @RunId
 	   ,'Step-1'
-	   ,'uSP_Create_System_External_Tables'+'-'+@DatabaseName
+	   ,'CreateSystemExternalTables'+'-'+@DatabaseName
 	   ,getdate()
 	   ,0
 
-
+  SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
+   WHERE StoredProcedureName='CreateSystemExternalTables'+'-'+@DatabaseName
+     AND RunId=@RunID
 
  DECLARE @ExecuteSQL nvarchar(max)
  SET @EXECUTESQL=''
 
  SET @ExecuteSQL ='
- IF EXISTS ( SELECT * FROM sys.external_tables WHERE object_id = OBJECT_ID(''dbo.Ext_Tbl_InfSch_'+@DatabaseName+''') )
-DROP EXTERNAL TABLE dbo.Ext_Tbl_InfSch_'+@DatabaseName+'
+ IF EXISTS ( SELECT * FROM sys.external_tables WHERE object_id = OBJECT_ID('''+@SchemaName+'.Ext_Tbl_InfSch_'+@DatabaseName+''') )
+DROP EXTERNAL TABLE '+@SchemaName+'.Ext_Tbl_InfSch_'+@DatabaseName+'
 
-CREATE EXTERNAL TABLE [dbo].Ext_Tbl_InfSch_'+@DatabaseName+' (  
+CREATE EXTERNAL TABLE '+@SchemaName+'.Ext_Tbl_InfSch_'+@DatabaseName+' (  
    Table_Catalog nvarchar(128),
    Table_Schema nvarchar(128),
    Table_Name nvarchar(128) not null,
@@ -84,6 +87,7 @@ WITH (Data_Source=['+@ExternalDataSource+'],Schema_Name=''Information_Schema'',O
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1
       ,EndDateTime=getdate()
+	  ,FullJobStatus='Pending'
  WHERE LogId=@LogID
    AND RunID=@RunId
 
@@ -102,7 +106,7 @@ BEGIN CATCH
 	  ,ErrorProcedure
 	  ,ErrorMessage
 	  ,ErrorDateTime
-	  ,Run_Id
+	  ,RunId
 	  )
   SELECT 
         SUSER_SNAME(),
@@ -110,7 +114,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'uSP_Create_System_External_Tables'+'-'+@DatabaseName AS ErrorProcedure,
+	    'CreateSystemExternalTables'+'-'+@DatabaseName AS ErrorProcedure,
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 

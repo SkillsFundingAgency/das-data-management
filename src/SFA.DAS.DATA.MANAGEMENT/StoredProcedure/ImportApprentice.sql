@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[uSP_Import_Apprentice]
+﻿CREATE PROCEDURE [dbo].[ImportApprentice]
 (
    @RunId int
 )
@@ -28,12 +28,14 @@ BEGIN TRY
 	  )
   SELECT 
         @RunId
-	   ,'Step-5'
-	   ,'uSP_Import_Apprentice'
+	   ,'Step-2'
+	   ,'ImportApprentice'
 	   ,getdate()
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
+   WHERE StoredProcedureName='ImportApprentice'
+     AND RunId=@RunID
 
   /* Get AssessmentOrganisation Data into Temp Table */
 
@@ -47,9 +49,28 @@ DROP TABLE #tApprentice
 		,DateOfBirth
 		,NINumber
   INTO #tApprentice
-  FROM dbo.Ext_Tbl_Apprenticeship
+  FROM Comt.Ext_Tbl_Apprenticeship
+
+/* Full Refresh Code */
+
+IF @@TRANCOUNT=0
+BEGIN
+BEGIN TRANSACTION
+
+INSERT INTO dbo.Apprentice(FirstName,LastName,DateOfBirth,NINumber,ULN,Data_Source,RunId) 
+SELECT Source.FirstName,Source.LastName,Source.DateOfBirth,Source.NINumber,ULN,'Commitments-Apprenticeship',@RunId
+  FROM #tApprentice Source
+
+COMMIT TRANSACTION
+END
 
 
+
+
+
+
+  /* Delta Code */
+  /*
  MERGE dbo.Apprentice as Target
  USING #tApprentice as Source
     ON Target.ULN=Source.ULN
@@ -66,20 +87,26 @@ DROP TABLE #tApprentice
   WHEN NOT MATCHED BY TARGET 
   THEN INSERT (FirstName,LastName,DateOfBirth,NINumber,ULN,Data_Source) 
        VALUES (Source.FirstName,Source.LastName,Source.DateOfBirth,Source.NINumber,ULN,'Commitments-Apprenticeship');
+ */
  
- 
+
+
  /* Update Log Execution Results as Success if the query ran succesfully*/
 
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1
       ,EndDateTime=getdate()
+	  ,FullJobStatus='Pending'
  WHERE LogId=@LogID
-   AND RunID=@RunId
+   AND RunId=@RunId
 
  
 END TRY
 
 BEGIN CATCH
+    IF @@TRANCOUNT>0
+	ROLLBACK TRANSACTION;
+
     DECLARE @ErrorId int
 
   INSERT INTO Mgmt.Log_Error_Details
@@ -91,7 +118,7 @@ BEGIN CATCH
 	  ,ErrorProcedure
 	  ,ErrorMessage
 	  ,ErrorDateTime
-	  ,Run_Id
+	  ,RunId
 	  )
   SELECT 
         SUSER_SNAME(),
@@ -99,7 +126,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'uSP_Import_Apprentice',
+	    'ImportApprentice',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 

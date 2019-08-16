@@ -1,19 +1,59 @@
-﻿--REVOKE UNMASK TO [Himabindu.Uddaraju@citizenazuresfabisgov.onmicrosoft.com]
+﻿/* Execute Stored Procedure */
 
---if exists (select * from sys.objects where name = 'Stg_FIC_Feedback' and type = 'u')
---DROP TABLE dbo.Stg_FIC_Feedback
-
-
---EXEC Mgmt.USP_UnitTest1_CheckCounts
+EXEC [dbo].[Build_AS_DataMart]
 
 
---EXEC Mtd.usp_Manage_GA_Hierarchy_Metadata
+/* Grant Permissions to Roles */
 
 
---EXEC mtd.usp_Manage_Commitments_Lookup
+IF DATABASE_PRINCIPAL_ID('Developer') IS NULL
+BEGIN
+	CREATE ROLE [Developer]
+END
 
-EXEC [dbo].[uSP_Build_AS_DataMart]
+GRANT SELECT ON SCHEMA :: Comt TO Developer
+
+GRANT SELECT ON SCHEMA :: Acct To Developer
+
+GRANT SELECT ON SCHEMA :: EAUser To Developer
+
+GRANT SELECT ON SCHEMA :: Fin To Developer
+
+GRANT SELECT ON SCHEMA :: Mgmt To Developer
+
+GRANT SELECT ON SCHEMA :: Resv To Developer
+
+GRANT SELECT ON dbo.Apprentice To Developer
+
+GRANT SELECT ON dbo.Apprenticeship To Developer
+
+GRANT SELECT ON dbo.AssessmentOrganisation To Developer
+
+GRANT SELECT ON dbo.Commitment To Developer
+
+GRANT SELECT ON dbo.DataLockStatus To Developer
+
+GRANT SELECT ON dbo.EmployerAccount To Developer
+
+GRANT SELECT ON dbo.EmployerAccountLegalEntity To Developer
+
+GRANT SELECT ON dbo.Provider To Developer
+
+GRANT SELECT ON dbo.TrainingCourse To Developer
+
+GRANT SELECT ON dbo.Transfers To Developer
 
 
---GRANT UNMASK TO [Himabindu.Uddaraju@citizenazuresfabisgov.onmicrosoft.com]
+IF DATABASE_PRINCIPAL_ID('DataAnalyst') IS NULL
+BEGIN
+	CREATE ROLE [DataAnalyst]
+END
+
+if exists(select 1 from sys.views where name='Das_Commitments' and type='v')
+GRANT SELECT ON Data_Pub.Das_Commitments TO DataAnalyst
+
+
+
+
+
 

@@ -1,5 +1,4 @@
-﻿
-CREATE PROCEDURE uSP_Import_Provider
+﻿CREATE PROCEDURE [dbo].[ImportCommitmentsDb]
 (
    @RunId int
 )
@@ -8,7 +7,7 @@ AS
 -- ==================================================
 -- Author:      Himabindu Uddaraju
 -- Create Date: 29/05/2019
--- Description: Import Provider Related Data 
+-- Description: Import Data from Commitments Database
 -- ==================================================
 
 BEGIN TRY
@@ -29,31 +28,62 @@ BEGIN TRY
 	  )
   SELECT 
         @RunId
-	   ,'Step-5'
-	   ,'uSP_Import_Provider'
+	   ,'Step-2'
+	   ,'ImportCommitmentsDb'
 	   ,getdate()
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
+   WHERE StoredProcedureName='ImportCommitmentsDb'
+     AND RunId=@RunID
+  
 
-  /* Get Provider Data into Temp Table */
 
- MERGE dbo.Provider as Target
- USING dbo.Ext_Tbl_Providers as Source
-    ON Target.Ukprn=Source.Ukprn
-  WHEN MATCHED AND Target.Ukprn<>Source.Ukprn
-  THEN UPDATE SET Target.ProviderName=Source.Name
-                 ,Target.Asdm_UpdatedDate=getdate()
-  WHEN NOT MATCHED BY TARGET 
-  THEN INSERT (Ukprn,ProviderName) 
-       VALUES (Source.Ukprn, Source.[Name]);
- 
+/* Clear Existing Tables for Full Refresh */
+
+
+DELETE FROM dbo.DataLockStatus
+DELETE FROM dbo.Apprenticeship
+DELETE FROM dbo.Commitment
+DELETE FROM dbo.Provider
+DELETE FROM dbo.Apprentice
+DELETE FROM dbo.AssessmentOrganisation
+DELETE FROM dbo.EmployerAccountLegalEntity
+DELETE FROM dbo.EmployerAccount
+DELETE FROM DBO.TrainingCourse
+DELETE FROM dbo.Transfers
+
+/* Load with Latest Data */
+
+EXEC dbo.ImportProvider @RunId
+
+EXEC dbo.ImportEmployer @RunId
+
+EXEC ImportCommitments @RunId
+
+EXEC ImportTransfers @RunId
+
+EXEC ImportApprentice @RunId
+
+EXEC ImportTrainingCourse @RunId
+
+EXEC ImportAssessmentOrganisation @RunId
+
+EXEC ImportApprenticeship @RunId
+
+EXEC ImportDataLockStatus @RunId
+
+
+
+
+  
  
  /* Update Log Execution Results as Success if the query ran succesfully*/
 
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1
       ,EndDateTime=getdate()
+	  ,FullJobStatus='Pending'
  WHERE LogId=@LogID
    AND RunID=@RunId
 
@@ -61,6 +91,10 @@ UPDATE Mgmt.Log_Execution_Results
 END TRY
 
 BEGIN CATCH
+
+ IF @@TRANCOUNT > 0
+  ROLLBACK TRAN
+
     DECLARE @ErrorId int
 
   INSERT INTO Mgmt.Log_Error_Details
@@ -72,7 +106,7 @@ BEGIN CATCH
 	  ,ErrorProcedure
 	  ,ErrorMessage
 	  ,ErrorDateTime
-	  ,Run_Id
+	  ,RunId
 	  )
   SELECT 
         SUSER_SNAME(),
@@ -80,7 +114,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'uSP_Import_Provider',
+	    'ImportCommitmentsDb',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 

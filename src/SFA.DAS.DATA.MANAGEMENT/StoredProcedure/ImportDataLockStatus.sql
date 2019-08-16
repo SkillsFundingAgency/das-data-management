@@ -1,5 +1,5 @@
 ﻿
-CREATE PROCEDURE uSP_Import_DataLockStatus
+CREATE PROCEDURE ImportDataLockStatus
 (
    @RunId int
 )
@@ -29,12 +29,14 @@ BEGIN TRY
 	  )
   SELECT 
         @RunId
-	   ,'Step-5'
-	   ,'uSP_Import_DataLockStatus'
+	   ,'Step-2'
+	   ,'ImportDataLockStatus'
 	   ,getdate()
 	   ,0
 
-  SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
+   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
+   WHERE StoredProcedureName='ImportDataLockStatus'
+     AND RunId=@RunID
 
   /* Get DataLockStatus Data into Temp Table */
 
@@ -43,7 +45,7 @@ DROP TABLE #tDataLockStatus
 
   SELECT *
   INTO #tDataLockStatus
-  FROM dbo.Ext_Tbl_DataLockStatus
+  FROM Comt.Ext_Tbl_DataLockStatus
 
     IF OBJECT_ID ('tempdb..#tSourceDataLock') IS NOT NULL
 DROP TABLE #tSourceDataLock
@@ -77,10 +79,61 @@ DROP TABLE #tSourceDataLock
   --  ON  tc.TrainingCode=tSD.IlrTrainingCourseCode
   -- AND  tc.TrainingType=tSD.IlrTrainingType
 
+/* Full Refresh Code */
+
+IF @@TRANCOUNT=0
+BEGIN
+BEGIN TRANSACTION
+
+INSERT INTO dbo.DataLockStatus([DataLockEventId]
+              ,[DataLockEventDatetime]
+              ,[PriceEpisodeIdentifier]
+              ,[ApprenticeshipId]
+              ,[IlrTrainingCourseCode]
+              ,[IlrTrainingType]
+              ,[IlrActualStartDate]
+              ,[IlrEffectiveFromDate]
+              ,[IlrPriceEffectiveToDate]
+              ,[IlrTotalCost]
+              ,[ErrorCode]
+              ,[DataLockStatus]
+              ,[TriageStatus]
+              ,[IsResolved]
+              ,[EventStatus]
+              ,[IsExpired]
+              ,[ExpiredDateTime]
+			  ,Data_Source
+			  ,Source_DataLockStatusId
+			  ,RunId) 
+ SELECT Source.[DataLockEventId]
+              ,Source.[DataLockEventDatetime]
+              ,Source.[PriceEpisodeIdentifier]
+              ,Source.[ApprenticeshipId]
+              ,Source.[IlrTrainingCourseCode]
+              ,Source.[IlrTrainingType]
+              ,Source.[IlrActualStartDate]
+              ,Source.[IlrEffectiveFromDate]
+              ,Source.[IlrPriceEffectiveToDate]
+              ,Source.[IlrTotalCost]
+              ,Source.[ErrorCode]
+              ,Source.[DataLockStatus]
+              ,Source.[TriageStatus]
+              ,Source.[IsResolved]
+              ,Source.[EventStatus]
+              ,Source.[IsExpired]
+              ,Source.[ExpiredDateTime]
+			  ,'Commitments-DataLockStatus'
+			  ,Source.Source_DataLockStatusId
+			  ,@RunId
+   FROM #tSourceDataLock Source
+
+COMMIT TRANSACTION
+END
 
 
-   
 
+ /* Delta Code */  
+/*
  MERGE dbo.DataLockStatus as Target
  USING #tSourceDataLock as Source
     ON Target.DataLockEventId=Source.DataLockEventId
@@ -164,13 +217,14 @@ DROP TABLE #tSourceDataLock
 			  ,'Commitments-DataLockStatus'
 			  ,Source.Source_DataLockStatusId
 	          );
- 
+ */
  
  /* Update Log Execution Results as Success if the query ran succesfully*/
 
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1
       ,EndDateTime=getdate()
+	  ,FullJobStatus='Pending'
  WHERE LogId=@LogID
    AND RunID=@RunId
 
@@ -178,6 +232,9 @@ UPDATE Mgmt.Log_Execution_Results
 END TRY
 
 BEGIN CATCH
+    IF @@TRANCOUNT>0
+	ROLLBACK TRANSACTION
+
     DECLARE @ErrorId int
 
   INSERT INTO Mgmt.Log_Error_Details
@@ -189,7 +246,7 @@ BEGIN CATCH
 	  ,ErrorProcedure
 	  ,ErrorMessage
 	  ,ErrorDateTime
-	  ,Run_Id
+	  ,RunId
 	  )
   SELECT 
         SUSER_SNAME(),
@@ -197,12 +254,12 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'uSP_Import_DataLockStatus',
+	    'ImportDataLockStatus',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 
 
-  SELECT @ErrorId=MAX(ErrorId) FROM Mgmt.Log_Error_Details
+
 
 /* Update Log Execution Results as Fail if there is an Error*/
 

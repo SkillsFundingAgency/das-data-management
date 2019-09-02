@@ -43,6 +43,9 @@ GRANT SELECT ON dbo.TrainingCourse To Developer
 
 GRANT SELECT ON dbo.Transfers To Developer
 
+IF EXISTS(select 1 from sys.views where name='Das_Commitments' and type='v')
+GRANT SELECT ON Data_Pub.Das_Commitments TO Developer
+
 
 IF DATABASE_PRINCIPAL_ID('DataAnalyst') IS NULL
 BEGIN

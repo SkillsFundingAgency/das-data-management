@@ -47,6 +47,10 @@ IF EXISTS(select 1 from sys.views where name='Das_Commitments' and type='v')
 GRANT SELECT ON Data_Pub.Das_Commitments TO Developer
 
 
+IF EXISTS(select 1 from sys.views where name='DAS_Employer_Account_Transfers' and type='v')
+GRANT SELECT ON Data_Pub.DAS_Employer_Account_Transfers TO Developer
+
+
 IF DATABASE_PRINCIPAL_ID('DataAnalyst') IS NULL
 BEGIN
 	CREATE ROLE [DataAnalyst]
@@ -54,6 +58,10 @@ END
 
 if exists(select 1 from sys.views where name='Das_Commitments' and type='v')
 GRANT SELECT ON Data_Pub.Das_Commitments TO DataAnalyst
+
+
+if exists(select 1 from sys.views where name='DAS_Employer_Account_Transfers' and type='v')
+GRANT SELECT ON Data_Pub.DAS_Employer_Account_Transfers TO DataAnalyst
 
 
 

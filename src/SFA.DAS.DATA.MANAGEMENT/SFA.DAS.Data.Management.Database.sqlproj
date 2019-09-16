@@ -113,5 +113,6 @@
     <Build Include="Views\LoadStatus.sql" />
     <Build Include="StoredProcedure\CreateCommitmentsView.sql" />
 	<Build Include="StoredProcedure\CreateEmployerAccountTransfersView.sql" />
+	<Build Include="StoredProcedure\CreateEmployerPayeSchemesView.sql" />
   </ItemGroup>
 </Project>

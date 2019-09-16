@@ -46,9 +46,11 @@ GRANT SELECT ON dbo.Transfers To Developer
 IF EXISTS(select 1 from sys.views where name='Das_Commitments' and type='v')
 GRANT SELECT ON Data_Pub.Das_Commitments TO Developer
 
-
 IF EXISTS(select 1 from sys.views where name='DAS_Employer_Account_Transfers' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_Account_Transfers TO Developer
+
+IF EXISTS(select 1 from sys.views where name='DAS_EmployerPAYESchemes' and type='v')
+GRANT SELECT ON Data_Pub.DAS_EmployerPAYESchemes TO Developer
 
 
 IF DATABASE_PRINCIPAL_ID('DataAnalyst') IS NULL
@@ -59,12 +61,9 @@ END
 if exists(select 1 from sys.views where name='Das_Commitments' and type='v')
 GRANT SELECT ON Data_Pub.Das_Commitments TO DataAnalyst
 
-
 if exists(select 1 from sys.views where name='DAS_Employer_Account_Transfers' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_Account_Transfers TO DataAnalyst
 
-
-
-
-
+if exists(select 1 from sys.views where name='DAS_EmployerPAYESchemes' and type='v')
+GRANT SELECT ON Data_Pub.DAS_EmployerPAYESchemes TO DataAnalyst
 

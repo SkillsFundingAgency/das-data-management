@@ -112,7 +112,6 @@ WHERE  A.templateid = ''3''
        AND L.id <> ''33275'' 
        AND L.id <> ''33278'' 
        AND L.id <> ''33301''
-ORDER  BY L.NAME ASC
 '
 
 EXEC SP_EXECUTESQL @VSQL1

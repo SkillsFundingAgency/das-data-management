@@ -61,9 +61,9 @@ SELECT [C].[ID] AS ID
 	   , CAST(A.ID as bigint) AS CommitmentId
 	   , CASE WHEN  A.AgreementStatus= ''3''
 				THEN ''BothAgreed''
-	       WHEN C.EditStatus = ''1''
+	       WHEN A.AgreementStatus = ''1''
 				THEN ''EmployerAgreed''
-		   WHEN C.EditStatus = ''2''
+		   WHEN A.AgreementStatus = ''2''
 		        THEN ''ProviderAgreed''
 		   ELSE ''NotAgreed''
 		   END as AgreementStatus

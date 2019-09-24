@@ -32,7 +32,17 @@ EXEC CreateSystemExternalTables 'easAccDBConnection','Account','Acct',@RunId
 
 EXEC CreateExternalTables 'easAccDBConnection','Ext_Tbl_InfSch_Account','Acct',@RunId
 
+EXEC LoadReferenceData @RunId
+
+EXEC UpdateCalendarMonth @RunId
+
 EXEC CreateCommitmentsView @RunId
+
+EXEC CreatePaymentsView @RunId
+
+EXEC CreateLevyDeclarationsView @RunId
+
+EXEC CreateEmployerAccountTransactionsView @RunId
 
 
 /* Load Commitments into Modelled Data Tables */

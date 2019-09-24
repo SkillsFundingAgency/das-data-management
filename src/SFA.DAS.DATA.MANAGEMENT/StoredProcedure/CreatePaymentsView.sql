@@ -168,7 +168,7 @@ SET @VSQL4=
    LEFT JOIN  Comt C 
           ON [c].id = [p].[ApprenticeshipId] 
   INNER JOIN  dbo.DASCalendarMonth CM 
-          ON CM.CalendarMonthNumber = P.DeliveryMonth 
+          ON CM.CalendarMonthNumber = P.DeliveryPeriodMonth 
          AND CM.CalendarYear = P.DeliveryYear 		
    LEFT JOIN
              (

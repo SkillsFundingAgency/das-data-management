@@ -100,24 +100,24 @@ SELECT
        END															AS ReservationStatus 
       ,COALESCE(F.courseid, ''-99999'')								AS ReservationCourseId 
       ,COALESCE(T.title, ''NA'')									AS ReservationCourseTitle 
-      ,COALESCE(T.level, -99999)									AS ReservationLevel 
+      ,COALESCE(T.level, -9)										AS ReservationLevel 
       ,COALESCE(CONVERT(VARCHAR(255), F.id), ''NA'')				AS ReservationId 
       ,COALESCE(P.commitmentid, -1)									AS CommitmentId 
       ,COALESCE(P.createdon, ''9999-12-31'')						AS CommitmentCreatedOn 
       ,COALESCE(P.startdate, ''9999-12-31'')						AS CommitmentStartDate 
       ,COALESCE(P.trainingtype, -99999)								AS CommitmentTrainingType 
       ,COALESCE(P.trainingname, ''NA'')								AS CommitmentTrainingName 
-      ,COALESCE(P.trainingcode, -99999)								AS CommitmentTrainingCode 
+      ,COALESCE(P.trainingcode, ''-99999'')								AS CommitmentTrainingCode 
       ,COALESCE(P.isapproved, -99999)								AS CommitmentIsApproved 
       ,COALESCE(P.agreedon, ''9999-12-31'')							AS ApprovalAgreedOn 
       ,COALESCE(C.providerid, -1)									AS ProviderId
       ,COALESCE(C.providername, ''NA'')								AS ApprovalProviderName 
       ,COALESCE(CONVERT(VARCHAR(255),NLP.PaymentId),''NA'')			AS PaymentId
       ,COALESCE(NLP.EvidenceSubmittedOn,''9999-12-31'')				AS EvidenceSubmittedOn
-      ,COALESCE(NLP.CollectionPeriodYear,''0000'')					AS CollectionPeriodYear
-      ,COALESCE(NLP.CollectionPeriodMonth,''-1'')					AS CollectionPeriodMonth
-      ,COALESCE(NLP.DeliveryPeriodYear,''0000'')					AS DeliveryPeriodYear
-      ,COALESCE(NLP.DeliveryPeriodMonth,''-1'')						AS DeliveryPeriodMonth
+      ,COALESCE(NLP.CollectionPeriodYear, 0000)					AS CollectionPeriodYear
+      ,COALESCE(NLP.CollectionPeriodMonth, -1)					AS CollectionPeriodMonth
+      ,COALESCE(NLP.DeliveryPeriodYear, 0000)					AS DeliveryPeriodYear
+      ,COALESCE(NLP.DeliveryPeriodMonth, -1)						AS DeliveryPeriodMonth
       ,COALESCE(NLP.Amount,0)										AS PaidAmount
 FROM   acct.ext_tbl_account R 
        LEFT JOIN acct.ext_tbl_accountlegalentity L 

@@ -82,36 +82,11 @@ SET @VSQL3='
          , [P].[EvidenceSubmittedOn]                                          AS EvidenceSubmittedOn 
          , [P].[EmployerAccountVersion]                                       AS EmployerAccountVersion 
          , [P].[ApprenticeshipVersion]                                        AS ApprenticeshipVersion 
-         --, CASE
-         --    WHEN  P.FundingSource=1    THEN ''Levy''
-         --    WHEN  P.FundingSource=2    THEN ''CoInvestedSfa''
-         --    WHEN  P.FundingSource=3    THEN ''CoInvestedEmployer''
-         --    WHEN  P.FundingSource=4    THEN ''FullyFundedSfa''
-         --    WHEN  P.FundingSource=5    THEN ''LevyTransfer''
-         --    ELSE ''Unknown''
-         --   END                                                             AS FundingSource 
 		 ,COALESCE(FS.FieldDesc,''Unknown'')                                  AS FundingSource
          , CASE
              WHEN [P].[FundingSource] = 5 THEN [EAT].[SenderAccountId]
              ELSE NULL
             END                                                               AS FundingAccountId
-         --, CASE
-         --    WHEN P.TransactionType=1  THEN ''Learning''
-         --    WHEN P.TransactionType=2  THEN ''Completion''
-         --    WHEN P.TransactionType=3  THEN ''Balancing''
-         --    WHEN P.TransactionType=4  THEN ''First16To18EmployerIncentive''
-         --    WHEN P.TransactionType=5  THEN ''First16To18ProviderIncentive''
-         --    WHEN P.TransactionType=6  THEN ''Second16To18EmployerIncentive''
-         --    WHEN P.TransactionType=7  THEN ''Second16To18ProviderIncentive''
-         --    WHEN P.TransactionType=8  THEN ''OnProgramme16To18FrameworkUplift''
-         --    WHEN P.TransactionType=9  THEN ''Completion16To18FrameworkUplift''
-         --    WHEN P.TransactionType=10 THEN ''Balancing16To18FrameworkUplift''
-         --    WHEN P.TransactionType=11 THEN ''FirstDisadvantagePayment''
-         --    WHEN P.TransactionType=12 THEN ''SecondDisadvantagePayment''
-         --    WHEN P.TransactionType=15 THEN ''LearningSupport''
-         --    WHEN P.TransactionType=16 THEN ''CareLeaverApprenticePayment''
-         --    ELSE ''Unknown''
-         --  END                                                              AS TransactionType 
 		 , COALESCE(TT.FieldDesc,''Unknown'')                                 AS TransactionType
          , [P].[Amount]                                                       AS Amount
          , CAST(COALESCE([PM].[StandardCode], -1) AS INT)                     AS [StdCode] 
@@ -129,18 +104,22 @@ SET @VSQL3='
          , COALESCE(FP.Flag_FirstPayment, 0)                                  AS Flag_FirstPayment 
          , CASE
              WHEN C.DateOfBirth IS NULL THEN -1
-             ELSE DATEDIFF(YEAR, C.DateOfBirth, p.EvidenceSubmittedOn)
+			 WHEN DATEPART(M,C.DateOfBirth) > DATEPART(M,P.CollectionDate) OR (DATEPART(M,C.DateOfBirth) = DATEPART(M,P.CollectionDate) AND DATEPART(DD,C.DateOfBirth) > DATEPART(DD,P.CollectionDate)) THEN DATEDIFF(YEAR,C.DateOfBirth,P.CollectionDate) -1
+             ELSE DATEDIFF(YEAR, C.DateOfBirth, p.CollectionDate)
             END                                                               AS PaymentAge 
          , CASE
              WHEN C.DateOfBirth IS NULL THEN ''Unknown DOB (no commitment)''
-             WHEN DATEDIFF(YEAR, C.DateOfBirth, P.EvidenceSubmittedOn) BETWEEN 0 AND 18 THEN ''16-18''
+             WHEN CASE WHEN C.DateOfBirth IS NULL THEN -1
+                        WHEN DATEPART(M,C.DateOfBirth) > DATEPART(M,P.CollectionDate) OR (DATEPART(M,C.DateOfBirth) = DATEPART(M,P.CollectionDate) AND DATEPART(DD,C.DateOfBirth) > DATEPART(DD,P.CollectionDate)) THEN DATEDIFF(YEAR,C.DateOfBirth,P.CollectionDate) -1
+                      ELSE DATEDIFF(YEAR,C.DateOfBirth, P.CollectionDate)
+                   END BETWEEN 0 AND 18 THEN ''16-18''
              ELSE ''19+''
             END                                                               AS PaymentAgeBand 
-         , CM.CalendarMonthShortNameYear                                      AS DeliveryMonthShortNameYear 
+		 , CM.CalendarMonthShortNameYear                                      AS DeliveryMonthShortNameYear 
          , Acct.Name                                                          AS DASAccountName 
          , P.PeriodEnd                                                        AS CollectionPeriodName 
-         , P.CollectionPeriodMonth                                            AS CollectionPeriodMonth
-         , P.CollectionPeriodYear                                             AS CollectionPeriodYear
+         , RIGHT(rtrim(P.CollectionPeriodId),3)                               AS CollectionPeriodMonth
+         , LEFT(ltrim(P.CollectionPeriodId),4)                                AS CollectionPeriodYear
  FROM    Payment AS P 
 '
 SET @VSQL4=

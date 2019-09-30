@@ -113,5 +113,12 @@
     <Build Include="Views\LoadStatus.sql" />
     <Build Include="StoredProcedure\CreateCommitmentsView.sql" />
     <Build Include="StoredProcedure\CreateNonLevyView.sql" />
+    <Build Include="StoredProcedure\CreateEmployerAccountTransactionsView.sql" />
+    <Build Include="StoredProcedure\CreateLevyDeclarationsView.sql" />
+    <Build Include="StoredProcedure\CreatePaymentsView.sql" />
+    <Build Include="StoredProcedure\LoadReferenceData.sql" />
+    <Build Include="StoredProcedure\UpdateCalendarMonth.sql" />
+    <Build Include="Tables\ReferenceData.sql" />
+    <Build Include="Tables\DasCalendarMonth.sql" />
   </ItemGroup>
 </Project>

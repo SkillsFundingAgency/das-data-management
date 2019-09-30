@@ -49,6 +49,15 @@ GRANT SELECT ON Data_Pub.Das_Commitments TO Developer
 IF EXISTS(select 1 from sys.views where name='Das_NonLevy' and type='v')
 GRANT SELECT ON Data_Pub.Das_NonLevy TO Developer
 
+IF EXISTS(select 1 from sys.views where name='Das_Payments' and type='v')
+GRANT SELECT ON Data_Pub.Das_Payments TO Developer
+
+IF EXISTS(select 1 from sys.views where name='Das_LevyDeclarations' and type='v')
+GRANT SELECT ON Data_Pub.Das_LevyDeclarations TO Developer
+
+IF EXISTS(select 1 from sys.views where name='DAS_Employer_AccountTransactions' and type='v')
+GRANT SELECT ON Data_Pub.DAS_Employer_AccountTransactions TO Developer
+
 IF DATABASE_PRINCIPAL_ID('DataAnalyst') IS NULL
 BEGIN
 	CREATE ROLE [DataAnalyst]
@@ -59,6 +68,15 @@ GRANT SELECT ON Data_Pub.Das_Commitments TO DataAnalyst
 
 if exists(select 1 from sys.views where name='Das_NonLevy' and type='v')
 GRANT SELECT ON Data_Pub.Das_NonLevy TO DataAnalyst
+
+IF EXISTS(select 1 from sys.views where name='Das_Payments' and type='v')
+GRANT SELECT ON Data_Pub.Das_Payments TO DataAnalyst
+
+IF EXISTS(select 1 from sys.views where name='Das_LevyDeclarations' and type='v')
+GRANT SELECT ON Data_Pub.Das_LevyDeclarations TO DataAnalyst
+
+IF EXISTS(select 1 from sys.views where name='DAS_Employer_AccountTransactions' and type='v')
+GRANT SELECT ON Data_Pub.DAS_Employer_AccountTransactions TO DataAnalyst
 
 
 

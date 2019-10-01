@@ -92,7 +92,7 @@
     <Build Include="Tables\Commitment.sql" />
     <Build Include="StoredProcedure\ImportProvider.sql" />
     <Build Include="StoredProcedure\ImportTransfers.sql" />
-	<Build Include="Functions\Fn_ExtractPostCodeUKFromAddress.sql" />
+    <Build Include="Functions\Fn_ExtractPostCodeUKFromAddress.sql" />
     <Build Include="Tables\Transfers.sql" />
     <Build Include="Tables\EmployerAccountLegalEntity.sql" />
     <Build Include="Tables\AssessmentOrganisation.sql" />
@@ -112,9 +112,11 @@
     <Build Include="StoredProcedure\ImportCommitmentsDb.sql" />
     <Build Include="Schemas\Data_Pub.sql" />
     <Build Include="Views\LoadStatus.sql" />
+	<Build Include="Functions\fn_ExtractPostCodeUKFromAddress.sql" />
     <Build Include="StoredProcedure\CreateCommitmentsView.sql" />
     <Build Include="StoredProcedure\CreateEmployerAccountTransfersView.sql" />
     <BuildExtensionConfiguration Include="StoredProcedure\CreateEmployerPayeSchemesView.sql" />
-    <Build Include="Functions\fn_ExtractPostCodeUKFromAddress.sql" />
+    
+    <Build Include="StoredProcedure\CreateEmployerLegalEntities.sql" />
   </ItemGroup>
 </Project>

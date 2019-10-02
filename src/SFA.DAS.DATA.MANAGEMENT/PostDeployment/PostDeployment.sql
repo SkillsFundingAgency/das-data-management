@@ -52,6 +52,13 @@ GRANT SELECT ON Data_Pub.DAS_Employer_Account_Transfers TO Developer
 IF EXISTS(select 1 from sys.views where name='DAS_EmployerPAYESchemes' and type='v')
 GRANT SELECT ON Data_Pub.DAS_EmployerPAYESchemes TO Developer
 
+IF EXISTS(select 1 from sys.views where name='DAS_EmployerLegalEntities' and type='v')
+GRANT SELECT ON Data_Pub.DAS_EmployerLegalEntities TO Developer
+
+IF EXISTS(select 1 from sys.views where name='DAS_EmployerAccounts' and type='v')
+GRANT SELECT ON Data_Pub.DAS_EmployerAccounts TO Developer
+
+
 
 IF DATABASE_PRINCIPAL_ID('DataAnalyst') IS NULL
 BEGIN
@@ -66,4 +73,10 @@ GRANT SELECT ON Data_Pub.DAS_Employer_Account_Transfers TO DataAnalyst
 
 if exists(select 1 from sys.views where name='DAS_EmployerPAYESchemes' and type='v')
 GRANT SELECT ON Data_Pub.DAS_EmployerPAYESchemes TO DataAnalyst
+
+if exists(select 1 from sys.views where name='DAS_EmployerLegalEntities' and type='v')
+GRANT SELECT ON Data_Pub.DAS_EmployerLegalEntities TO DataAnalyst
+
+if exists(select 1 from sys.views where name='DAS_EmployerAccounts' and type='v')
+GRANT SELECT ON Data_Pub.DAS_EmployerAccounts TO DataAnalyst
 

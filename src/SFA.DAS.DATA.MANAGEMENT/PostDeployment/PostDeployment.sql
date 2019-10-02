@@ -49,14 +49,14 @@ GRANT SELECT ON Data_Pub.Das_Commitments TO Developer
 IF EXISTS(select 1 from sys.views where name='DAS_Employer_Account_Transfers' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_Account_Transfers TO Developer
 
-IF EXISTS(select 1 from sys.views where name='DAS_EmployerPAYESchemes' and type='v')
-GRANT SELECT ON Data_Pub.DAS_EmployerPAYESchemes TO Developer
+IF EXISTS(select 1 from sys.views where name='DAS_Employer_Paye_Schemes' and type='v')
+GRANT SELECT ON Data_Pub.DAS_Employer_PayeSchemes TO Developer
 
-IF EXISTS(select 1 from sys.views where name='DAS_EmployerLegalEntities' and type='v')
-GRANT SELECT ON Data_Pub.DAS_EmployerLegalEntities TO Developer
+IF EXISTS(select 1 from sys.views where name='DAS_Employer_LegalEntities' and type='v')
+GRANT SELECT ON Data_Pub.DAS_Employer_LegalEntities TO Developer
 
-IF EXISTS(select 1 from sys.views where name='DAS_EmployerAccounts' and type='v')
-GRANT SELECT ON Data_Pub.DAS_EmployerAccounts TO Developer
+IF EXISTS(select 1 from sys.views where name='DAS_Employer_Accounts' and type='v')
+GRANT SELECT ON Data_Pub.DAS_Employer_Accounts TO Developer
 
 
 
@@ -71,12 +71,12 @@ GRANT SELECT ON Data_Pub.Das_Commitments TO DataAnalyst
 if exists(select 1 from sys.views where name='DAS_Employer_Account_Transfers' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_Account_Transfers TO DataAnalyst
 
-if exists(select 1 from sys.views where name='DAS_EmployerPAYESchemes' and type='v')
-GRANT SELECT ON Data_Pub.DAS_EmployerPAYESchemes TO DataAnalyst
+if exists(select 1 from sys.views where name='DAS_Employer_PayeSchemes' and type='v')
+GRANT SELECT ON Data_Pub.DAS_Employer_PayeSchemes TO DataAnalyst
 
-if exists(select 1 from sys.views where name='DAS_EmployerLegalEntities' and type='v')
-GRANT SELECT ON Data_Pub.DAS_EmployerLegalEntities TO DataAnalyst
+if exists(select 1 from sys.views where name='DAS_Employer_LegalEntities' and type='v')
+GRANT SELECT ON Data_Pub.DAS_Employer_LegalEntities TO DataAnalyst
 
-if exists(select 1 from sys.views where name='DAS_EmployerAccounts' and type='v')
-GRANT SELECT ON Data_Pub.DAS_EmployerAccounts TO DataAnalyst
+if exists(select 1 from sys.views where name='DAS_Employer_Accounts' and type='v')
+GRANT SELECT ON Data_Pub.DAS_Employer_Accounts TO DataAnalyst
 

@@ -42,8 +42,8 @@ DECLARE @VSQL3 VARCHAR(MAX)
 DECLARE @VSQL4 VARCHAR(MAX)
 
 SET @VSQL1='
-if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_EmployerAccountTransfers'')
-Drop View Data_Pub.DAS_EmployerAccountTransfers
+if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_Employer_Account_Transfers'')
+Drop View Data_Pub.DAS_Employer_Account_Transfers
 '
 SET @VSQL2='
 CREATE VIEW [Data_Pub].[DAS_Employer_Account_Transfers]	AS 

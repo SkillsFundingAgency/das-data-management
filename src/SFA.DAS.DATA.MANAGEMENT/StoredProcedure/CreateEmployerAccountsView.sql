@@ -27,12 +27,12 @@ DEClARE @quote varchar(5) = ''''
   SELECT 
         @RunId
 	   ,'Step-4'
-	   ,'CreateEmployerLegalEntitiesView'
+	   ,'CreateEmployerAccountsView'
 	   ,getdate()
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
-   WHERE StoredProcedureName='EmployerLegalEntitiesView'
+   WHERE StoredProcedureName='EmployerAccountsView'
      AND RunId=@RunID
 
 
@@ -42,11 +42,11 @@ DECLARE @VSQL3 VARCHAR(MAX)
 DECLARE @VSQL4 VARCHAR(MAX)
 
 SET @VSQL1='
-if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_EmployerLegalEntities'')
-Drop View Data_Pub.DAS_EmployerLegalEntities
+if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_Employer_Accounts'')
+Drop View Data_Pub.DAS_Employer_Accounts
 '
 SET @VSQL2='
-CREATE VIEW [Data_Pub].[DAS_EmployerLegalEntities]	AS
+CREATE VIEW [Data_Pub].[DAS_Employer_Accounts]	AS
 SELECT	a.Id * 100 as Id
 	,	a.HashedId AS DasAccountID
 	,   a.Id AS EmployerAccountID
@@ -133,7 +133,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'CreateEmployerLegalEntitiesView',
+	    'CreateEmployerAccountsView',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 

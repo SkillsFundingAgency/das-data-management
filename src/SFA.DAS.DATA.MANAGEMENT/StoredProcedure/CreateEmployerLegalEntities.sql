@@ -42,11 +42,11 @@ DECLARE @VSQL3 VARCHAR(MAX)
 DECLARE @VSQL4 VARCHAR(MAX)
 
 SET @VSQL1='
-if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_EmployerLegalEntities'')
-Drop View Data_Pub.DAS_EmployerLegalEntities
+if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_Employer_LegalEntities'')
+Drop View Data_Pub.DAS_Employer_LegalEntities
 '
 SET @VSQL2='
-CREATE VIEW [Data_Pub].[DAS_EmployerLegalEntities]	AS 
+CREATE VIEW [Data_Pub].[DAS_Employer_LegalEntities]	AS 
 SELECT 
     b.LegalEntityId * 10  AS Id
 	, a.HashedId AS DASAccountID

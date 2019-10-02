@@ -49,7 +49,7 @@ GRANT SELECT ON Data_Pub.Das_Commitments TO Developer
 IF EXISTS(select 1 from sys.views where name='DAS_Employer_Account_Transfers' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_Account_Transfers TO Developer
 
-IF EXISTS(select 1 from sys.views where name='DAS_Employer_Paye_Schemes' and type='v')
+IF EXISTS(select 1 from sys.views where name='DAS_Employer_PayeSchemes' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_PayeSchemes TO Developer
 
 IF EXISTS(select 1 from sys.views where name='DAS_Employer_LegalEntities' and type='v')

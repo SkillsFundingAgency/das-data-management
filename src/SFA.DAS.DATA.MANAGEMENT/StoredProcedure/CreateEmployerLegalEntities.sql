@@ -12,7 +12,7 @@ AS
 BEGIN TRY
 
 DECLARE @LogID int
-DEClARE @quote varchar(5) = ''''
+DEClARE @Quote varchar(5) = ''''
 
 /* Start Logging Execution */
 
@@ -56,58 +56,58 @@ SELECT
   , Mgmt.fn_ExtractPostCodeUKFromAddress(UPPER(b.Address)) AS LegalEntityRegisteredAddressPostcode
   -- DO we need a valid postcode field
 	, CASE 
-      WHEN c.OrganisationType = 3 THEN ' + @quote + 'Public Body' + @quote + '
-			WHEN c.OrganisationType = 1 THEN ' + @quote + 'Companies House' + @quote + '
-	    WHEN c.OrganisationType = 2 THEN ' + @quote + 'Charities' + @quote + '
-			WHEN c.OrganisationType = 5 THEN ' + @quote + 'Pensions Regulator' + @quote + '
-	    ELSE ' + @quote + 'Other' + @quote + '
+      WHEN c.OrganisationType = 3 THEN ' + @Quote + 'Public Body' + @Quote + '
+			WHEN c.OrganisationType = 1 THEN ' + @Quote + 'Companies House' + @Quote + '
+	    WHEN c.OrganisationType = 2 THEN ' + @Quote + 'Charities' + @Quote + '
+			WHEN c.OrganisationType = 5 THEN ' + @Quote + 'Pensions Regulator' + @Quote + '
+	    ELSE ' + @Quote + 'Other' + @Quote + '
 	  END LegalEntitySource 
   -- Additional Columns for InceptionDate represented as a Date
-	, b.Created AS LegalEntityCreatedDate  
+	, CAST( b.Created AS DATE ) AS LegalEntityCreatedDate
 	-- Column Renamed as has DateTime
 	, b.Created   AS LegalEntityCreatedDateTime 
 	, x.LegalEntityID AS LegalEntityNumber 
 	, CASE
 	    WHEN c.OrganisationType = 3 THEN  x.LegalEntityID 
-		  ELSE '  + @QUOTE + @QUOTE + '
+		  ELSE '  + @Quote + @Quote + '
     END AS LegalEntityCompanyReferenceNumber
 	, CASE
 		  WHEN  c.OrganisationType = 2  THEN x.LegalEntityID     
-      ELSE ' + @QUOTE + @QUOTE + '
+      ELSE ' + @Quote + @Quote + '
 	  END AS LegalEntityCharityCommissionNumber
   , CASE
-      WHEN (isnumeric(x.LegalEntityID) = 1) THEN ' + @QUOTE + 'active' + @QUOTE + '
+      WHEN (isnumeric(x.LegalEntityID) = 1) THEN ' + @Quote + 'active' + @Quote + '
       ELSE null 
     END  AS  LegalEntityStatus 
 	, CASE
 		  -- Other also flag to Red
-		  WHEN c.OrganisationType not in (3,1,2,5) THEN ' + @QUOTE + 'Red' + @QUOTE + ' 
+		  WHEN c.OrganisationType not in (3,1,2,5) THEN ' + @Quote + 'Red' + @Quote + ' 
 		  -- Charity commission always flag to Green
 		  WHEN c.OrganisationType = 2 THEN 
         ( CASE 
-            WHEN  x.LegalEntityID  IS NULL OR  x.LegalEntityID  = ' + @QUOTE + '0' + @QUOTE + ' THEN ' + @QUOTE + 'Red' + @QUOTE + ' 
-            ELSE ' + @QUOTE + 'Green' + @QUOTE + ' 
+            WHEN  x.LegalEntityID  IS NULL OR  x.LegalEntityID  = ' + @Quote + '0' + @Quote + ' THEN ' + @Quote + 'Red' + @Quote + ' 
+            ELSE ' + @Quote + 'Green' + @Quote + ' 
           END
         ) 
 		  -- When company if first to charactors are text then flag as Amber else green
 		  WHEN c.OrganisationType = 1  THEN -- Companies House
 			( CASE 
-				  WHEN  x.LegalEntityID  IS NULL OR  x.LegalEntityID  = '  + @QUOTE + '0'  + @QUOTE + ' THEN '  + @QUOTE +  'Red'  + @QUOTE + '
-				  WHEN ISNUMERIC(LEFT( x.LegalEntityID ,2)) <> 1 THEN '  + @QUOTE + 'Amber'  + @QUOTE + '
-				  ELSE ' + @QUOTE + 'Green'  + @QUOTE + '
+				  WHEN  x.LegalEntityID  IS NULL OR  x.LegalEntityID  = '  + @Quote + '0'  + @Quote + ' THEN '  + @Quote +  'Red'  + @Quote + '
+				  WHEN ISNUMERIC(LEFT( x.LegalEntityID ,2)) <> 1 THEN '  + @Quote + 'Amber'  + @Quote + '
+				  ELSE ' + @Quote + 'Green'  + @Quote + '
 			  END
       )
 		  -- Public Sector always set to Amber
-		  WHEN c.OrganisationType = 3  THEN ' + @QUOTE + 'Amber'  + @QUOTE + ' -- Public Bodies
-		  ELSE ' + @QUOTE + 'ERROR'  + @QUOTE + '
+		  WHEN c.OrganisationType = 3  THEN ' + @Quote + 'Amber'  + @Quote + ' -- Public Bodies
+		  ELSE ' + @Quote + 'ERROR'  + @Quote + '
 	 END AS LegalEntityRAGRating
 	, CASE 
-      WHEN isnull(b.Deleted,convert(datetime, ' + @QUOTE + '01 Jan 1900' + @QUOTE + ' )) > b.Created THEN b.Deleted
+      WHEN isnull(b.Deleted,convert(datetime, ' + @Quote + '01 Jan 1900' + @Quote + ' )) > b.Created THEN b.Deleted
 	    ELSE b.Created
 	  END  AS  UpdateDateTime
 	-- Additional Columns for UpdateDateTime represented as a Date
 	, CASE 
-      WHEN isnull(b.Deleted,convert(datetime, ' + @Quote + '01 Jan 1900' + @quote + ' )) > b.Created THEN Convert(DATE,b.Deleted)
+      WHEN isnull(b.Deleted,convert(datetime, ' + @Quote + '01 Jan 1900' + @Quote + ' )) > b.Created THEN Convert(DATE,b.Deleted)
 	    ELSE Convert(DATE,b.Created)
 	  END  AS  UpdateDate
 	-- Flag to say if latest record from subquery, Using Coalesce to set null value to 0
@@ -125,7 +125,7 @@ LEFT JOIN
 		Address,
 		Row_number() over (partition by Name , Address ORDER BY LegalEntityID) as RowNumber
 		FROM Comt.Ext_Tbl_AccountLegalEntities
-    WHERE LegalEntityId > ' + @QUOTE + @QUOTE + '
+    WHERE LegalEntityId > ' + @Quote + @Quote + '
 	) d
   WHERE RowNumber = 1
 ) x ON (b.Name = x.Name AND b.Address= x.Address)

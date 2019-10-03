@@ -50,7 +50,7 @@ CREATE VIEW [Data_Pub].[DAS_Employer_PayeSchemes]	AS
 SELECT ah.Id
 , a.HashedId as DASAccountID 
 , HASHBYTES(''SHA2_512'',ah.PayeRef) AS PAYEReference
-, p.Name as PAYESchemeName
+, Cast( p.Name AS nvarchar)  as PAYESchemeName
 , ah.AddedDate
 , ah.RemovedDate
 , CASE -- make up a last changed date from added/removed.
@@ -58,8 +58,8 @@ SELECT ah.Id
     ELSE ah.AddedDate 
   END AS UpdateDateTime
 , CASE  -- work out IsLatest as the views that reference this view select out the islatest = 1 
-    WHEN RANK () OVER (PARTITION BY a.ID, AH.PayeRef ORDER BY ah.RemovedDate DESC, ah.AddedDate DESC ) = 1 THEN 1
-    ELSE 0
+    WHEN RANK () OVER (PARTITION BY a.ID, AH.PayeRef ORDER BY ah.RemovedDate DESC, ah.AddedDate DESC ) = 1 THEN Cast(1 AS BIT ) 
+    ELSE Cast ( 0 AS BIT ) 
  END AS Flag_Latest
 FROM Acct.Ext_Tbl_Account a
 INNER JOIN Acct.Ext_Tbl_AccountHistory ah ON a.Id = ah.AccountID

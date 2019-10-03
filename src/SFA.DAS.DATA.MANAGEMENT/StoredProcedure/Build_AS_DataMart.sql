@@ -42,6 +42,7 @@ EXEC CreateEmployerLegalEntitiesView @RunId
 
 EXEC CreateEmployerAccountsView @RunId 
 
+EXEC CreateEmployerTransferRelationshipView @RunId 
 
 /* Load Commitments into Modelled Data Tables */
 

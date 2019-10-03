@@ -32,7 +32,7 @@ DEClARE @quote varchar(5) = ''''
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
-   WHERE StoredProcedureName='EmployerAccountsView'
+   WHERE StoredProcedureName='CreateEmployerAccountsView'
      AND RunId=@RunID
 
 

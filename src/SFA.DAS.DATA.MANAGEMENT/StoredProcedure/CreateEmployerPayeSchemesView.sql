@@ -32,7 +32,7 @@ DECLARE @LogID int
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
-   WHERE StoredProcedureName='EmployerPAYESchemesView'
+   WHERE StoredProcedureName='CreateEmployerPAYESchemesView'
      AND RunId=@RunID
 
 

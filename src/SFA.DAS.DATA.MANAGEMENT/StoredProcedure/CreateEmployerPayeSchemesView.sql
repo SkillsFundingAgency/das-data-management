@@ -42,12 +42,28 @@ DECLARE @VSQL3 VARCHAR(MAX)
 DECLARE @VSQL4 VARCHAR(MAX)
 
 SET @VSQL1='
-if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_Employer_PayeSchemes'')
-Drop View Data_Pub.DAS_Employer_PAYESchemes
+if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_EmployerPAYESchemes'')
+Drop View Data_Pub.DAS_EmployerPAYESchemes
 '
 SET @VSQL2='
 CREATE VIEW [Data_Pub].[DAS_Employer_PayeSchemes]	AS 
-select count(*) from Acct.Ext_Tbl_Account a
+SELECT ah.Id
+, a.HashedId as DASAccountID 
+, HASHBYTES(''SHA2_512'',ah.PayeRef) AS PAYEReference
+, Cast( p.Name AS nvarchar)  as PAYESchemeName
+, ah.AddedDate
+, ah.RemovedDate
+, CASE -- make up a last changed date from added/removed.
+    WHEN ah.RemovedDate > ah.AddedDate THEN ah.RemovedDate
+    ELSE ah.AddedDate 
+  END AS UpdateDateTime
+, CASE  -- work out IsLatest as the views that reference this view select out the islatest = 1 
+    WHEN RANK () OVER (PARTITION BY a.ID, AH.PayeRef ORDER BY ah.RemovedDate DESC, ah.AddedDate DESC ) = 1 THEN Cast(1 AS BIT ) 
+    ELSE Cast ( 0 AS BIT ) 
+ END AS Flag_Latest
+FROM Acct.Ext_Tbl_Account a
+INNER JOIN Acct.Ext_Tbl_AccountHistory ah ON a.Id = ah.AccountID
+INNER JOIN Acct.Ext_Tbl_Paye p ON ah.PayeRef = p.Ref
 '
 -- SET @VSQL3='  '
 -- SET @VSQL4='  '

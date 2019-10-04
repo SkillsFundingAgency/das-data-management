@@ -54,7 +54,7 @@ SELECT	a.Id * 100 as Id
 	,	Convert(DATE,a.CreatedDate) AS DateRegistered
 	,	a.CreatedDate AS DateTimeRegistered
 	--Owner Email Address suppressed for Data Protection reasons
-	,	' + @Quote + 'Suppressed'  + @Quote + 'AS OwnerEmail
+	,	' + @Quote + 'Suppressed'  + @Quote + ' AS OwnerEmail
 	, CASE WHEN ModifiedDate IS NOT NULL
 	       THEN ModifiedDate
 		 ELSE
@@ -78,9 +78,9 @@ LEFT JOIN
 ( SELECT
 	  eps.DASAccountID
 	, COUNT(*) AS CountOfCurrentPAYESchemes
-  FROM Data_Pub.DAS_EmployerPayeSchemes eps
+  FROM Data_Pub.DAS_Employer_PayeSchemes eps
 	--Checking if the PAYE Schemes are valid when the view runs using 31 DEC 2999 as default removed date if null
-	WHERE GETDATE() BETWEEN b.Created AND isnull(b.Deleted,' + @Quote + '31 DEC 2999' + @Quote + ')
+	WHERE GETDATE() BETWEEN eps.AddedDate AND isnull(eps.RemovedDate,' + @Quote + '31 DEC 2999' + @Quote + ')
 	GROUP BY eps.DASAccountId
 ) eps
 ON a.HashedId = eps.DASAccountId
@@ -89,7 +89,7 @@ LEFT JOIN
 ( SELECT ele.DASAccountId
   , Count(*) AS CountOfCurrentLegalEntities
 FROM      
-    Data_Pub.DAS_EmployerLegalEntities ele
+    Data_Pub.DAS_Employer_LegalEntities ele
 GROUP BY ele.DASAccountID
 ) ele
 ON a.HashedId  = ele.DASAccountId

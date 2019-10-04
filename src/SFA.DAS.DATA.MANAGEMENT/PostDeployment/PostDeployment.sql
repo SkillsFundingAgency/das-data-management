@@ -58,10 +58,6 @@ GRANT SELECT ON Data_Pub.Das_LevyDeclarations TO Developer
 IF EXISTS(select 1 from sys.views where name='DAS_Employer_AccountTransactions' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_AccountTransactions TO Developer
 
-IF EXISTS(select 1 from sys.views where name='DAS_CalendarMonth' and type='v')
-GRANT SELECT ON Data_Pub.DAS_CalendarMonth TO Developer
-
-
 IF DATABASE_PRINCIPAL_ID('DataAnalyst') IS NULL
 BEGIN
 	CREATE ROLE [DataAnalyst]
@@ -81,9 +77,6 @@ GRANT SELECT ON Data_Pub.Das_LevyDeclarations TO DataAnalyst
 
 IF EXISTS(select 1 from sys.views where name='DAS_Employer_AccountTransactions' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_AccountTransactions TO DataAnalyst
-
-IF EXISTS(select 1 from sys.views where name='DAS_CalendarMonth' and type='v')
-GRANT SELECT ON Data_Pub.DAS_CalendarMonth TO DataAnalyst
 
 
 

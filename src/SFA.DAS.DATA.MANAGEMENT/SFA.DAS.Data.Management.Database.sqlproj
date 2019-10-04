@@ -115,7 +115,7 @@
     <Build Include="Functions\fn_ExtractPostCodeUKFromAddress.sql" />
     <Build Include="StoredProcedure\CreateCommitmentsView.sql" />
     <Build Include="StoredProcedure\CreateEmployerAccountTransfersView.sql" />
-    <BuildExtensionConfiguration Include="StoredProcedure\CreateEmployerPayeSchemesView.sql" />
+    <Build Include="StoredProcedure\CreateEmployerPayeSchemesView.sql" />
     <Build Include="StoredProcedure\CreateEmployerLegalEntities.sql" />
     <Build Include="StoredProcedure\CreateEmployerAccountsView.sql" />
     <Build Include="StoredProcedure\CreateEmployerTransferRelationshipView.sql" />

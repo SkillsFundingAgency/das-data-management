@@ -233,10 +233,6 @@ DROP VIEW IF EXISTS dbo.vw_FIU_GA_Data ;
 
 DROP VIEW IF EXISTS dbo.vw_FIU_GA_Segmented_View;
 
--- temp drop to clear incorrect view name should be DAS_Employer_PayeSchemes
-if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_EmployerPAYESchemes')
-Drop View Data_Pub.DAS_EmployerPAYESchemes;
-
 /* Clear Previous Runs to allow Changing Run_Id to RunID */
 
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES

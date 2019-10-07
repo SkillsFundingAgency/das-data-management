@@ -120,5 +120,6 @@
     <Build Include="StoredProcedure\UpdateCalendarMonth.sql" />
     <Build Include="Tables\ReferenceData.sql" />
     <Build Include="Tables\DasCalendarMonth.sql" />
+    <Build Include="Views\DAS_CalendarMonth.sql" />
   </ItemGroup>
 </Project>

@@ -46,6 +46,15 @@ EXEC CreatePaymentsView @RunId
 
 EXEC CreateEmployerAccountTransactionsView @RunId
 
+EXEC CreateEmployerAccountTransfersView @RunId 
+
+EXEC CreateEmployerPAYESchemesView @RunId 
+
+EXEC CreateEmployerLegalEntitiesView @RunId 
+
+EXEC CreateEmployerAccountsView @RunId 
+
+EXEC CreateEmployerTransferRelationshipView @RunId 
 
 /* Load Commitments into Modelled Data Tables */
 

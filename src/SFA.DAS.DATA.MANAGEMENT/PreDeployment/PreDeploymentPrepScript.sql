@@ -233,7 +233,6 @@ DROP VIEW IF EXISTS dbo.vw_FIU_GA_Data ;
 
 DROP VIEW IF EXISTS dbo.vw_FIU_GA_Segmented_View;
 
-
 /* Clear Previous Runs to allow Changing Run_Id to RunID */
 
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES

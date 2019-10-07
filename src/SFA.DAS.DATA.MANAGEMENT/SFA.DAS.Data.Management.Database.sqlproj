@@ -121,5 +121,11 @@
     <Build Include="Tables\ReferenceData.sql" />
     <Build Include="Tables\DasCalendarMonth.sql" />
     <Build Include="Views\DAS_CalendarMonth.sql" />
+    <Build Include="StoredProcedure\CreateEmployerAccountsView.sql" />
+    <Build Include="StoredProcedure\CreateEmployerAccountTransfersView.sql" />
+    <Build Include="StoredProcedure\CreateEmployerLegalEntities.sql" />
+    <Build Include="StoredProcedure\CreateEmployerPayeSchemesView.sql" />
+    <Build Include="StoredProcedure\CreateEmployerTransferRelationshipView.sql" />
+    <Build Include="Functions\Fn_ExtractPostCodeUKFromAddress.sql" />
   </ItemGroup>
 </Project>

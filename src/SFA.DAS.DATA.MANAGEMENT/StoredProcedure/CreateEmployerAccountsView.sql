@@ -67,7 +67,7 @@ SELECT	a.Id * 100 as Id
 		       Convert(DATE,CreatedDate)
 		 END UpdateDate
 	-- Flag to say if latest record from subquery, Using Coalesce to set null value to 0
-	,  1 as Flag_Latest
+	,  Cast( 1 AS BIT ) as Flag_Latest
 	--Count of currrent PAYE Schemes
      , isnull(eps.CountOfCurrentPAYESchemes, 0) AS CountOfCurrentPAYESchemes
 	--Count of currrent Legal Entities

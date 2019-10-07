@@ -55,7 +55,7 @@ CREATE VIEW [Data_Pub].[DAS_Employer_Account_Transfers]	AS
 	, A.CommitmentId
 	, AT.Amount
 	, AT.Type
-	, AT.PeriodEnd AS CollectionPeriodName
+	, CAST ( AT.PeriodEnd AS NVARCHAR(10)) AS CollectionPeriodName
 	, AT.CreatedDate AS UpdateDateTime
 	FROM Fin.Ext_Tbl_AccountTransfers AT
 	INNER JOIN Comt.Ext_Tbl_Apprenticeship A

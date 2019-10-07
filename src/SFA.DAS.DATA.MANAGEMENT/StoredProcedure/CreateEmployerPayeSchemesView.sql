@@ -57,6 +57,10 @@ SELECT ah.Id
     WHEN ah.RemovedDate > ah.AddedDate THEN ah.RemovedDate
     ELSE ah.AddedDate 
   END AS UpdateDateTime
+, CASE -- make up a last changed date from added/removed.
+    WHEN ah.RemovedDate > ah.AddedDate THEN Cast ( ah.RemovedDate as DATE ) 
+    ELSE Cast ( ah.AddedDate AS DATE ) 
+  END AS UpdateDate
 , CASE  -- work out IsLatest as the views that reference this view select out the islatest = 1 
     WHEN RANK () OVER (PARTITION BY a.ID, AH.PayeRef ORDER BY ah.RemovedDate DESC, ah.AddedDate DESC ) = 1 THEN Cast(1 AS BIT ) 
     ELSE Cast ( 0 AS BIT ) 

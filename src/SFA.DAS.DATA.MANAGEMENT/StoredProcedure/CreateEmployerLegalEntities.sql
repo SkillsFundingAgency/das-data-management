@@ -76,7 +76,7 @@ SELECT
       ELSE ' + @Quote + @Quote + '
 	  END AS LegalEntityCharityCommissionNumber
   , CASE
-      WHEN (isnumeric(x.LegalEntityID) = 1) THEN ' + @Quote + 'active' + @Quote + '
+      WHEN (isnumeric(x.LegalEntityID) = 1) THEN CAST( ' + @Quote + 'active' + @Quote + ' AS NVARCHAR )
       ELSE null 
     END  AS  LegalEntityStatus 
 	, CASE
@@ -111,7 +111,7 @@ SELECT
 	    ELSE Convert(DATE,b.Created)
 	  END  AS  UpdateDate
 	-- Flag to say if latest record from subquery, Using Coalesce to set null value to 0
-	, 1 As Flag_latest
+	, Cast( 1 AS BIT ) As Flag_latest
 FROM Acct.Ext_Tbl_Account a
 JOIN Acct.Ext_Tbl_AccountLegalEntity b ON a.ID = b.AccountID
 LEFT JOIN 

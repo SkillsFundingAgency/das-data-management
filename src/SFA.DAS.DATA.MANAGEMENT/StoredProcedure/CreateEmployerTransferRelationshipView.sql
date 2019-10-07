@@ -61,7 +61,7 @@ CREATE VIEW [Data_Pub].[DAS_Employer_Transfer_Relationship]	AS
         ,isnull(e.UserID,0) as [ApproverUserId]
         ,isnull(f.UserID,0) as [RejectorUserId]
         ,g.CreatedDate as UpdateDateTime
-	    ,1 as [IsLatest]
+	    ,Cast (1 AS BIT ) as [IsLatest]
       , b.Hashedid as [SenderDasAccountID]
       , c.Hashedid as [RecieverDasAccountID]
    from acct.Ext_Tbl_TransferConnectionInvitation a

@@ -76,6 +76,9 @@ GRANT SELECT ON Data_Pub.DAS_Employer_Accounts TO Developer
 IF EXISTS(select 1 from sys.views where name='DAS_Employer_Transfer_Relationship' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_Transfer_Relationship TO Developer
 
+IF EXISTS(select 1 from sys.views where name='Das_TransactionLine' and type='v')
+GRANT SELECT ON Data_Pub.Das_TransactionLine TO Developer
+
 IF DATABASE_PRINCIPAL_ID('DataAnalyst') IS NULL
 BEGIN
 	CREATE ROLE [DataAnalyst]

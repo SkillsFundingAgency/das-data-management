@@ -63,7 +63,7 @@ AS
 
 '
 SET @VSQL3='
-     SELECT    EA.HashedId
+     SELECT    EA.HashedId AS DasAccountID
           ,    LD.CreatedDate
 		  ,	   LD.SubmissionDate
 		  ,    LD.PayrollMonth

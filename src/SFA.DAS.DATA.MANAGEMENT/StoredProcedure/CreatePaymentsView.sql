@@ -7,6 +7,9 @@ AS
 -- Author:      Himabindu Uddaraju
 -- Create Date: 15/08/2019
 -- Description: Create Views for Payments that mimics RDS Payments
+-- Simon Heath: 04/11/2019 Amend transfers CTE to remove names to prevent 
+-- duplicates and correct names of DeliveryYear and CreateDatetime to match 
+-- RDS.
 -- =========================================================================
 
 BEGIN TRY
@@ -54,9 +57,9 @@ CREATE VIEW [Data_Pub].[Das_Payments]
            FROM Comt.Ext_Tbl_Apprenticeship)
 ,Transfers AS
         (SELECT DISTINCT [SenderAccountId] 
-                        ,[SenderAccountName] 
+                        --,[SenderAccountName] 
                         ,[ReceiverAccountId] 
-                        ,[ReceiverAccountName] 
+                        --,[ReceiverAccountName] 
                         ,[ApprenticeshipId]
            FROM [Fin].[Ext_Tbl_AccountTransfers])
 ,Payment AS
@@ -76,7 +79,7 @@ SET @VSQL3='
          , Acct.HashedId                                                      AS DasAccountId 
          , P.ApprenticeshipId                                                 AS CommitmentID 
          , P.DeliveryPeriodMonth                                              AS DeliveryMonth 
-         , P.DeliveryPeriodYear                                               AS DeliveryPeriod 
+         , P.DeliveryPeriodYear                                               AS DeliveryYear 
          , P.CollectionPeriodMonth                                            AS CollectionMonth 
          , P.CollectionPeriodYear                                             AS CollectionYear 
          , [P].[EvidenceSubmittedOn]                                          AS EvidenceSubmittedOn 
@@ -98,7 +101,7 @@ SET @VSQL3='
 		     THEN ''ContractWithEmployer''
              ELSE ''ContractWithSFA''
             END                                                               AS ContractType 
-         , EvidenceSubmittedOn                                                AS UpdatedDateTime 
+         , EvidenceSubmittedOn                                                AS UpdateDateTime 
          , CAST(EvidenceSubmittedOn AS DATE)                                  AS [UpdateDate] 
          , 1                                                                  AS [Flag_Latest] 
          , COALESCE(FP.Flag_FirstPayment, 0)                                  AS Flag_FirstPayment 

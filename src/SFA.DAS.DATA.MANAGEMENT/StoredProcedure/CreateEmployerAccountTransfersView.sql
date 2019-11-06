@@ -12,6 +12,12 @@ Simon Heath 05/11/2019 ADM-863 Changed where RequiredPaymentId is sourced
 from to workaround production bug in MA where the source has it set as all 
 zeroes. 
 
+Future improvements from Hima's review: 
+1) TransferId is not unique in DataManagement but it's unique on RDS - worth 
+informing Data Science on this.
+2) RequiredPaymentID in data management is actually PaymentId on DEDS which 
+we don't currently have in source AS databases. We can change this once
+DEDS has been staged.
 =============================================================================*/
 
 BEGIN TRY
@@ -57,7 +63,7 @@ CREATE VIEW [Data_Pub].[DAS_Employer_Account_Transfers]	AS
 	, AT.SenderAccountId
 	, AT.ReceiverAccountId 
 	, p.PaymentID AS RequiredPaymentId
-	, A.CommitmentId
+	, A.ID AS CommitmentId
 	, p.Amount
 	, AT.Type
 	, CAST ( p.PeriodEnd AS NVARCHAR(10)) AS CollectionPeriodName
@@ -66,11 +72,15 @@ CREATE VIEW [Data_Pub].[DAS_Employer_Account_Transfers]	AS
 	INNER JOIN Comt.Ext_Tbl_Apprenticeship A 
 	  ON AT.ApprenticeshipId = A.ID
 	LEFT OUTER JOIN 
-	( SELECT * FROM [Fin].[Ext_Tbl_Payment] 
-	  WHERE Fundingsource = 5 
+	( SELECT xp.PaymentID
+	  , xp.ApprenticeshipId
+		, xp.PeriodEnd
+		, xp.Amount
+	  FROM Fin.Ext_Tbl_Payment xp 
+	  WHERE xp.Fundingsource = 5 
 	) AS p ON at.ApprenticeshipId=p.ApprenticeshipId and at.periodend=p.periodend
 '
-
+print @VSQL2
 -- SET @VSQL3='  ' 
 -- SET @VSQL4='  ' 
 

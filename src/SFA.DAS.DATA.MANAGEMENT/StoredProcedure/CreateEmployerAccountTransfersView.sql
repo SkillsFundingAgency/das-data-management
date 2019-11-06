@@ -80,7 +80,6 @@ CREATE VIEW [Data_Pub].[DAS_Employer_Account_Transfers]	AS
 	  WHERE xp.Fundingsource = 5 
 	) AS p ON at.ApprenticeshipId=p.ApprenticeshipId and at.periodend=p.periodend
 '
-print @VSQL2
 -- SET @VSQL3='  ' 
 -- SET @VSQL4='  ' 
 

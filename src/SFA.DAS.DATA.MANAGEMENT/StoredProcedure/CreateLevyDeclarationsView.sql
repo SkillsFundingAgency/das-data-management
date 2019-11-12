@@ -84,6 +84,7 @@ SELECT  LD.[Id]                                                              AS 
            ON EA.ID=LD.AccountId
 	LEFT JOIN dbo.DASCalendarMonth AS CM 
 	       ON LD.PayrollYear = CM.TaxYear AND LD.PayrollMonth = CM.TaxMonthNumber
+ WHERE LD.LastSubmission=1
 '
 
 

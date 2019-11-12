@@ -59,6 +59,7 @@ AS
 	   ,LevyDeclaredInMonth
 	   ,TopUp
    FROM Fin.Ext_Tbl_GetLevyDeclarationAndTopUp
+  WHERE LastSubmission=1
 )
 
 '

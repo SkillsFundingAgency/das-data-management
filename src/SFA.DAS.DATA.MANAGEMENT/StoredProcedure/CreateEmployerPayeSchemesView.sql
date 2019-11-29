@@ -42,8 +42,8 @@ DECLARE @VSQL3 VARCHAR(MAX)
 DECLARE @VSQL4 VARCHAR(MAX)
 
 SET @VSQL1='
-if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_EmployerPAYESchemes'')
-Drop View Data_Pub.DAS_EmployerPAYESchemes
+if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_Employer_PAYESchemes'')
+Drop View Data_Pub.DAS_Employer_PAYESchemes
 '
 SET @VSQL2='
 CREATE VIEW [Data_Pub].[DAS_Employer_PayeSchemes]	AS 

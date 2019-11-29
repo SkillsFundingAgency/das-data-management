@@ -47,27 +47,19 @@ Drop View Data_Pub.DAS_Employer_Accounts
 '
 SET @VSQL2='
 CREATE VIEW [Data_Pub].[DAS_Employer_Accounts]	AS
-SELECT	a.Id * 100 as Id
-	,	a.HashedId AS DasAccountID
+SELECT	 isnull(a.Id * 100,-1) as Id
+	,	isnull(a.HashedId,' + @Quote +' XXXXXX' + @Quote + ') AS DasAccountID
 	,   a.Id AS EmployerAccountID
 	,	a.Name as DASAccountName
 	,	Convert(DATE,a.CreatedDate) AS DateRegistered
 	,	a.CreatedDate AS DateTimeRegistered
 	--Owner Email Address suppressed for Data Protection reasons
 	,	' + @Quote + 'Suppressed'  + @Quote + ' AS OwnerEmail
-	, CASE WHEN ModifiedDate IS NOT NULL
-	       THEN ModifiedDate
-		 ELSE
-		       CreatedDate
-		 END UpdateDateTime
+	, , ISNULL(ISNULL(ModifiedDate,CreatedDate),' + @Quote +'9999-12-31' +@Quote+') UpdateDateTime
 	-- Additional Columns for UpdateDateTime represented as a Date
-	,	CASE WHEN ModifiedDate is not null  
-	        THEN Convert(DATE,ModifiedDate)
-		 ELSE
-		       Convert(DATE,CreatedDate)
-		 END UpdateDate
+	,	ISNULL(ISNULL( Convert(DATE,ModifiedDate), Convert(DATE,CreatedDate)),' + @Quote +'9999-12-31' +@Quote+') UpdateDate
 	-- Flag to say if latest record from subquery, Using Coalesce to set null value to 0
-	,  Cast( 1 AS BIT ) as Flag_Latest
+	,  ISNULL(Cast( 1 AS BIT ),-1) as Flag_Latest
 	--Count of currrent PAYE Schemes
      , isnull(eps.CountOfCurrentPAYESchemes, 0) AS CountOfCurrentPAYESchemes
 	--Count of currrent Legal Entities

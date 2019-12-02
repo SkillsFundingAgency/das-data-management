@@ -78,8 +78,6 @@ ORDER BY ale.LegalEntityId
 '
 ;
 
-
-Print @VSQL2
 EXEC SP_EXECUTESQL @VSQL1 -- run check to drop view if it exists. 
 EXEC (@VSQL2) -- run sql to create view. 
 

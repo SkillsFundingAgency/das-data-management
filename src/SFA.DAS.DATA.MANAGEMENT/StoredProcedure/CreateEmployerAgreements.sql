@@ -74,7 +74,6 @@ FROM Acct.Ext_Tbl_EmployerAgreement ea
 	LEFT OUTER JOIN Acct.Ext_Tbl_Account a 
 	  ON ale.AccountId = a.Id
 WHERE ea.SignedDate is not null
-ORDER BY ale.LegalEntityId
 '
 ;
 

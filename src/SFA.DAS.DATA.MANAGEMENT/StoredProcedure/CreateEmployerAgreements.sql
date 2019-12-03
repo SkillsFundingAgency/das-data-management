@@ -12,7 +12,7 @@ AS
 BEGIN TRY
 
 DECLARE @LogID int
-DEClARE @Quote varchar(5) = ''''
+DECLARE @Quote varchar(5) = ''''
 
 /* Start Logging Execution */
 
@@ -47,25 +47,35 @@ SET @VSQL2='
 CREATE VIEW [Data_Pub].[DAS_Employer_Agreements]	AS 
 SELECT 
     ea.Id
-	, a.HashedId AS DasAccountId
-	, ea.StatusId -- Remove when 5 lookup sorted.
-  , eas.name as EmployerAgreementStatus
+  , CASE WHEN a.HashedId IS NOT NULL THEN a.HashedId
+		ELSE ' + @Quote + 'XXXXX' + @Quote + ' 
+	END																AS DasAccountId
+  , CASE WHEN eas.name IS NOT NULL THEN eas.name
+		ELSE ' + @Quote + 'XXXXX' + @Quote + '
+	END																AS EmployerAgreementStatus
   , CASE WHEN ea.SignedByName IS NOT NULL THEN ' + @Quote + 'Supressed' + @Quote + '
-	    ELSE NULL 
-		END AS SignedBy
-  , ea.SignedDate as SignedDateTime
-	, CAST( ea.SignedDate AS Date ) AS SignedDate
-  , ea.ExpiredDate AS ExpiredDateTime
-	, CAST( ea.ExpiredDate AS Date ) AS ExpiredDate
-	, ale.LegalEntityId AS DasLegalEntity
-    , CAST( ale.SignedAgreementId AS NVARCHAR(100) ) AS DasEmployerAgreementId /* find source of hashed Z9Z9Z9 format ? */ 
+        ELSE ' + @Quote + 'XXXXX' + @Quote + '
+	END																AS SignedBy
+  , ea.SignedDate													AS SignedDateTime
+	, CAST( ea.SignedDate AS Date )							AS SignedDate
+  , ea.ExpiredDate													AS ExpiredDateTime
+	, CAST( ea.ExpiredDate AS Date )							AS ExpiredDate
+	, CASE WHEN ale.LegalEntityId	IS NULL THEN -1 
+		ELSE ale.LegalEntityId	
+	END																AS DasLegalEntityId
+    , CASE WHEN ale.SignedAgreementId  IS NOT NULL THEN 
+		CAST( ale.SignedAgreementId AS NVARCHAR(100) ) 
+		ELSE ' + @Quote + 'XXXXX' + @Quote + '
+	END																AS DasEmployerAgreementID
 	, CASE WHEN ea.ExpiredDate IS NOT NULL AND ea.ExpiredDate > ea.SignedDate THEN ea.ExpiredDate
-		  ELSE ea.SignedDate
-		END AS LateUpdatedDateTime
+		WHEN ea.ExpiredDate IS NULL AND ea.ExpiredDate IS NULL THEN CAST( ' + @Quote + '9999-12-31' + @Quote + ' AS DATETIME )
+		ELSE ea.SignedDate	
+	END																AS UpdatedDateTime
   , CASE WHEN ea.ExpiredDate IS NOT NULL AND ea.ExpiredDate > ea.SignedDate THEN Cast( ea.ExpiredDate AS Date ) 
-		  ELSE CAST ( ea.SignedDate AS Date) 
-		END AS LateUpdatedDate
-  ,CAST( 1AS bit ) AS Flag_Latest
+		WHEN ea.ExpiredDate IS NULL AND ea.ExpiredDate IS NULL THEN CAST ( ' + @Quote + '9999-12-31' + @Quote + ' AS DATE )
+		ELSE CAST ( ea.SignedDate AS Date) 
+	END																AS UpdatedDate
+  ,CAST( 1 AS bit )												AS Flag_Latest
 FROM Acct.Ext_Tbl_EmployerAgreement ea
 	LEFT OUTER JOIN Acct.Ext_Tbl_EmployerAgreementStatus eas
 		ON ea.StatusId = eas.Id

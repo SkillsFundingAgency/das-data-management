@@ -48,117 +48,116 @@ Drop View Data_Pub.Das_Commitments
 SET @VSQL2='
 CREATE VIEW [Data_Pub].[Das_Commitments]
 	AS 
-SELECT [C].[ID] AS ID
-	   , CAST([C].ID AS BIGINT) AS EventID
-	   , CASE WHEN A.PaymentStatus=''0'' THEN ''PendingApproval''
-	          WHEN A.PaymentStatus=''1'' THEN ''Active''
-			  WHEN A.PaymentStatus=''2'' THEN ''Paused''
-			  WHEN A.PaymentStatus=''3'' THEN ''Withdrawn''
-			  WHEN A.PaymentStatus=''4'' THEN ''Completed''
-			  WHEN A.PaymentStatus=''5'' THEN ''Deleted''
-			  ELSE ''Unknown''
-		  END AS PaymentStatus
-	   , CAST(A.ID as bigint) AS CommitmentId
-	   , CASE WHEN  A.AgreementStatus= ''3''
-				THEN ''BothAgreed''
-	       WHEN A.AgreementStatus = ''1''
-				THEN ''EmployerAgreed''
-		   WHEN A.AgreementStatus = ''2''
-		        THEN ''ProviderAgreed''
-		   ELSE ''NotAgreed''
-		   END as AgreementStatus
-		,C.ProviderId as UKPRN
-		,A.ULN as ULN
-		,C.ProviderId as ProviderId
-		,A.ULN as LearnerId
-		,C.EmployerAccountId as EmployerAccountID
-		,Acc.HashedId as DasAccountID  
-		,CASE WHEN A.TrainingType=0  THEN ''Standard''
+SELECT [C].[ID]                                                         AS ID
+	   , CAST([C].ID AS BIGINT)                                         AS EventID
+	   , CAST(CASE WHEN A.PaymentStatus=''0'' THEN ''PendingApproval''
+	               WHEN A.PaymentStatus=''1'' THEN ''Active''
+			       WHEN A.PaymentStatus=''2'' THEN ''Paused''
+			       WHEN A.PaymentStatus=''3'' THEN ''Withdrawn''
+			       WHEN A.PaymentStatus=''4'' THEN ''Completed''
+			       WHEN A.PaymentStatus=''5'' THEN ''Deleted''
+			       ELSE ''Unknown''
+		       END AS Varchar(50))                                      AS PaymentStatus
+	   , CAST(A.ID as bigint) AS CommitmentID
+	   , CAST(CASE WHEN  A.AgreementStatus= ''3''
+				  THEN ''BothAgreed''
+	               WHEN A.AgreementStatus = ''1''
+				   THEN ''EmployerAgreed''
+		           WHEN A.AgreementStatus = ''2''
+		           THEN ''ProviderAgreed''
+		           ELSE ''NotAgreed''
+		       END AS Varchar(50))                                      as AgreementStatus
+		,CAST(C.ProviderId as bigint)                                   as UKPRN
+		,CAST(A.ULN as bigint)                                          as ULN
+		,CAST(C.ProviderId as Varchar(255))                             as ProviderID
+		,CAST(A.ULN as varchar(255))                                    as LearnerID
+		,CAST(C.EmployerAccountId as Varchar(255))                      as EmployerAccountID
+		,CAST(Acc.HashedId as Varchar(100))                             as DasAccountId  
+		,CAST(CASE WHEN A.TrainingType=0  THEN ''Standard''
 		      WHEN A.TrainingType=1 THEN ''Framework''
 			  ELSE ''Unknown''
-			  END  as TrainingTypeID
-		, A.TrainingCode As TrainingID
+			  END AS Varchar(255))                                      as TrainingTypeID
+		,CAST(A.TrainingCode AS VARCHAR(255))                           As TrainingID
 '
 SET @VSQL3='
 		, CASE
 	      WHEN [A].[TrainingType] = 0  AND ISNUMERIC(A.TrainingCode) = 1
 	      THEN CAST(A.TrainingCode AS INT)
 	      ELSE ''-1''
-	       END AS [StdCode]
+	       END                                                          AS [StdCode]
 	    , CASE
 	      WHEN A.TrainingType = 1
 	          AND CHARINDEX(''-'', [A].[TrainingCode]) <> 0 -- This to fix the issues when standard codes are being recorded as Frameworks
 	      THEN CAST(SUBSTRING([A].[TrainingCode], 1, CHARINDEX(''-'', [A].[TrainingCode])-1) AS INT)
 	      ELSE ''-1''
-	       END AS [FworkCode]
+	       END                                                         AS [FworkCode]
 	    , CASE
 	      WHEN A.TrainingType = 1 
 	          AND CHARINDEX(''-'',  [A].[TrainingCode]) <> 0 -- This to fix the issues when standard codes are being recorded as Frameworks
 	      THEN CAST(SUBSTRING(SUBSTRING([A].[TrainingCode], CHARINDEX(''-'',[A].[TrainingCode])+1, LEN([A].[TrainingCode])), 1, CHARINDEX(''-'', SUBSTRING([A].[TrainingCode], CHARINDEX(''-'',[A].[TrainingCode])+1, LEN([A].[TrainingCode])))-1) AS INT)
 	      ELSE ''-1''
-	       END AS [ProgType]
+	       END                                                         AS [ProgType]
 	   , CASE
 	      WHEN A.TrainingType = 1 
 	      THEN CAST(SUBSTRING(SUBSTRING([A].[TrainingCode], CHARINDEX(''-'', [A].[TrainingCode])+1, LEN( [A].[TrainingCode])), CHARINDEX(''-'', SUBSTRING([A].[TrainingCode], CHARINDEX(''-'', [A].[TrainingCode])+1, LEN( [A].[TrainingCode])))+1, LEN(SUBSTRING([A].[TrainingCode], CHARINDEX(''-'',[A].[TrainingCode])+1, LEN( [A].[TrainingCode])))) AS INT)
 	      ELSE ''-1''
-	       END AS [PwayCode]
-	   , CAST([a].[StartDate] AS DATE) AS TrainingStartDate
-	   , CAST([a].[EndDate] AS DATE) AS TrainingEndDate
-	   , C.TransferSenderId as TransferSenderAccountId
-	   , C.TransferApprovalStatus as TransferApprovalStatus
-	   , C.TransferApprovalActionedOn as TransferApprovalDate
-	   , A.Cost as TrainingTotalCost
-	   , GETDATE() AS UpdatedDateTime
-	   , CAST(GETDATE() AS Date) as UpdatedDate
-	   , 1 AS Flag_Latest
-	   , CAST(C.LegalEntityID AS VARCHAR(50)) AS LegalEntityCode
-	   , CAST(C.LegalEntityName as varchar(100)) AS LegalEntityName
-	   , CASE WHEN C.LegalEntityOrganisationType =1 THEN ''CompaniesHouse''
-	          WHEN C.LegalEntityOrganisationType=2 THEN ''Charities''
-			  WHEN C.LegalEntityOrganisationType=3 THEN ''Public Bodies''
-			  ELSE ''Other''
-		  END as LegalEntitySource
-	   , CAST(COALESCE(LE.ID,-1) AS BIGINT) AS DasLegalEntityId 
-	   , CAST(A.DateOfBirth as DATE) as DateOfBirth
+	       END                                                         AS [PwayCode]
+	   , CAST([a].[StartDate] AS DATE)                                 AS TrainingStartDate
+	   , CAST([a].[EndDate] AS DATE)                                   AS TrainingEndDate
+	   , CAST(C.TransferSenderId AS bigint)                            as TransferSenderAccountId
+	   , CAST(C.TransferApprovalStatus AS nvarchar(50))                as TransferApprovalStatus
+	   , CAST(C.TransferApprovalActionedOn AS DateTime)                as TransferApprovalDate
+	   , CAST(A.Cost as decimal(18,0))                                 as TrainingTotalCost
+	   , CAST(GETDATE() AS DateTime)                                   AS UpdateDateTime
+	   , CAST(GETDATE() AS Date)                                       as UpdateDate
+	   , 1                                                             AS Flag_Latest
+	   , CAST(C.LegalEntityID AS VARCHAR(50))                          AS LegalEntityCode
+	   , CAST(C.LegalEntityName as varchar(100))                       AS LegalEntityName
+	   , CAST((CASE WHEN C.LegalEntityOrganisationType =1 THEN ''CompaniesHouse''
+	              WHEN C.LegalEntityOrganisationType=2 THEN ''Charities''
+			      WHEN C.LegalEntityOrganisationType=3 THEN ''Public Bodies''
+			      ELSE ''Other''
+		      END) AS Varchar(20))                                     as LegalEntitySource
+	   , CAST(COALESCE(LE.ID,-1) AS BIGINT)                            AS DasLegalEntityId 
+	   , CAST(A.DateOfBirth as DATE)                                   as DateOfBirth
 	   , CASE WHEN [a].[DateOfBirth] IS NULL	THEN - 1
 		      WHEN DATEPART([M], [a].[DateOfBirth]) > DATEPART([M], [a].[StartDate])
 			    OR DATEPART([M], [a].[DateOfBirth]) = DATEPART([M], [a].[StartDate])
 			   AND DATEPART([DD], [a].[DateOfBirth]) > DATEPART([DD], [a].[StartDate])
 			  THEN DATEDIFF(YEAR, [a].[DateOfBirth], [a].[StartDate]) - 1
 		      ELSE DATEDIFF(YEAR, [a].[DateOfBirth], [a].[StartDate])
-		END AS [CommitmentAgeAtStart]
+		END                                                            AS [CommitmentAgeAtStart]
 '
 SET @VSQL4=
-'	   , CASE WHEN P.TotalAmount>0 THEN ''Yes'' ELSE ''No'' END AS RealisedCommitment
-	   , CASE 
-		 WHEN CASE 
-				WHEN [a].[DateOfBirth] IS NULL
-					THEN - 1
-				WHEN DATEPART([M], [a].[DateOfBirth]) > DATEPART([M], [a].[StartDate])
-					OR DATEPART([M], [a].[DateOfBirth]) = DATEPART([M], [a].[StartDate])
+'	   , CAST((CASE 
+		      WHEN CASE 
+				   WHEN [a].[DateOfBirth] IS NULL THEN - 1
+				   WHEN DATEPART([M], [a].[DateOfBirth]) > DATEPART([M], [a].[StartDate])
+					   OR DATEPART([M], [a].[DateOfBirth]) = DATEPART([M], [a].[StartDate])
 					AND DATEPART([DD], [a].[DateOfBirth]) > DATEPART([DD], [a].[StartDate])
 					THEN DATEDIFF(YEAR, [a].[DateOfBirth], [a].[StartDate]) - 1
-				ELSE DATEDIFF(YEAR, [a].[DateOfBirth], [a].[StartDate])
-				END BETWEEN 0
-				AND 18
-			THEN ''16-18''
-		ELSE ''19+''
-		END AS [CommitmentAgeAtStartBand]
+				   ELSE DATEDIFF(YEAR, [a].[DateOfBirth], [a].[StartDate])
+				   END BETWEEN 0
+				   AND 18
+			   THEN ''16-18''
+		       ELSE ''19+''
+		     END) as Varchar(5))                                      AS [CommitmentAgeAtStartBand]
 		--,RealisedCommitment
-		, CASE 
+		, CAST((CASE WHEN P.TotalAmount>0 THEN ''Yes'' ELSE ''No'' END) as Varchar(3)) AS RealisedCommitment
+		, CAST((CASE 
 		  WHEN [a].[StartDate] BETWEEN DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0)
 				AND DATEADD(dd, - 1, DATEADD(mm, DATEDIFF(mm, 0, GETDATE()) + 1, 0))
 		  THEN ''Yes''
 		  ELSE ''No''
-		END AS StartDateInCurrentMonth
-		--,DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0) AS [Start day of current month]
+		END) AS VARCHAR(3))                                          AS StartDateInCurrentMonth
+		--,DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0)                AS [Start day of current month]
 		--,DATEADD(dd, - 1, DATEADD(mm, DATEDIFF(mm, 0, GETDATE()) + 1, 0)) AS [Last day of current month]
 		, CASE WHEN A.AgreementStatus=0 THEN 1
 		       WHEN A.AgreementStatus=1 THEN 2
 			   WHEN A.AgreementStatus=2 THEN 3
 			   WHEN A.AgreementStatus=3 THEN 4
 			   ELSE 9
-			   END AS [AgreementStatus_SortOrder]
+			   END                                                   AS [AgreementStatus_SortOrder]
 		, CASE WHEN A.PaymentStatus=0 THEN 1
 		       WHEN A.PaymentStatus=1 THEN 2
 			   WHEN A.PaymentStatus=2 THEN 3
@@ -166,12 +165,12 @@ SET @VSQL4=
 			   WHEN A.PaymentStatus=4 THEN 5
 			   WHEN A.PaymentStatus=5 THEN 6
 			   ELSE 9
-			   END AS [PaymentStatus_SortOrder]
-		, C.LegalEntityName as DASAccountName
-		, CASE WHEN A.AgreementStatus=3 THEN ''Yes''
+			   END                                                   AS [PaymentStatus_SortOrder]
+		, CAST(C.LegalEntityName as nvarchar(100))                   as DASAccountName
+		, CAST((CASE WHEN A.AgreementStatus=3 THEN ''Yes''
 		       ELSE ''No''
-			   END as FullyAgreedCommitment
-	    , C.LegalEntityAddress as LegalEntityRegisteredAddress
+			   END) AS Varchar(3))                                   as FullyAgreedCommitment
+	    , CAST(C.LegalEntityAddress as nvarchar(256))                as LegalEntityRegisteredAddress
 FROM [Comt].[Ext_Tbl_Commitment] C 
 LEFT JOIN [Comt].[Ext_Tbl_Apprenticeship] A
   ON C.Id=A.CommitmentId

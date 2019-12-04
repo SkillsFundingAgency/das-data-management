@@ -47,23 +47,23 @@ Drop View Data_Pub.DAS_Employer_Accounts
 '
 SET @VSQL2='
 CREATE VIEW [Data_Pub].[DAS_Employer_Accounts]	AS
-SELECT	 isnull(a.Id * 100,-1) as Id
-	,	isnull(a.HashedId,' + @Quote +'XXXXXX' + @Quote + ') AS DasAccountID
-	,   a.Id AS EmployerAccountID
-	,	a.Name as DASAccountName
-	,	Convert(DATE,a.CreatedDate) AS DateRegistered
-	,	a.CreatedDate AS DateTimeRegistered
+SELECT	isnull(CAST(a.Id * 100 as bigint),-1)                                       as Id
+	,	isnull(CAST(a.HashedId AS nvarchar(100)),' + @Quote +'XXXXXX' + @Quote + ') AS DasAccountId
+	,   CAST(a.Id as bigint)                                                        AS EmployerAccountId
+	,	CAST(a.Name as nvarchar(100))                                               as DASAccountName
+	,	Convert(DATE,a.CreatedDate)                                                 AS DateRegistered
+	,	CAST(a.CreatedDate as DateTime)                                             AS DateTimeRegistered
 	--Owner Email Address suppressed for Data Protection reasons
-	,	' + @Quote + 'Suppressed'  + @Quote + ' AS OwnerEmail
-	,  ISNULL(ISNULL(ModifiedDate,CreatedDate),' + @Quote +'9999-12-31' +@Quote+') UpdateDateTime
+	,	CAST(' + @Quote + 'Suppressed'  + @Quote + ' AS Varchar(10))                AS OwnerEmail
+	,  ISNULL(ISNULL(ModifiedDate,CreatedDate),' + @Quote +'9999-12-31' +@Quote+')  AS UpdateDateTime
 	-- Additional Columns for UpdateDateTime represented as a Date
-	,	ISNULL(ISNULL( Convert(DATE,ModifiedDate), Convert(DATE,CreatedDate)),' + @Quote +'9999-12-31' +@Quote+') UpdateDate
+	,	ISNULL(ISNULL( Convert(DATE,ModifiedDate), Convert(DATE,CreatedDate)),' + @Quote +'9999-12-31' +@Quote+') AS UpdateDate
 	-- Flag to say if latest record from subquery, Using Coalesce to set null value to 0
-	,  ISNULL(Cast( 1 AS BIT ),-1) as Flag_Latest
+	,  ISNULL(Cast( 1 AS BIT ),-1)                                                  as Flag_Latest
 	--Count of currrent PAYE Schemes
-     , isnull(eps.CountOfCurrentPAYESchemes, 0) AS CountOfCurrentPAYESchemes
+     , isnull(eps.CountOfCurrentPAYESchemes, 0)                                     AS CountOfCurrentPAYESchemes
 	--Count of currrent Legal Entities
-     , isnull(ele.CountOfCurrentLegalEntities, 0) AS CountOfCurrentLegalEntities
+     , isnull(ele.CountOfCurrentLegalEntities, 0)                                   AS CountOfCurrentLegalEntities
 FROM  Acct.Ext_Tbl_Account a
 -- Adding Current number of PAYE Schemes
 LEFT JOIN 

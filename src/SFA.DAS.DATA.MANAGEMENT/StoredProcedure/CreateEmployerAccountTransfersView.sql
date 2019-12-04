@@ -59,15 +59,15 @@ Drop View Data_Pub.DAS_Employer_Account_Transfers
 SET @VSQL2='
 CREATE VIEW [Data_Pub].[DAS_Employer_Account_Transfers]	AS 
 	SELECT
-	  AT.Id AS TransferId
-	, AT.SenderAccountId
-	, AT.ReceiverAccountId 
-	, p.PaymentID AS RequiredPaymentId
-	, A.ID AS CommitmentId
-	, p.Amount
-	, AT.Type
-	, CAST ( p.PeriodEnd AS NVARCHAR(10)) AS CollectionPeriodName
-	, AT.CreatedDate AS UpdateDateTime
+	  ISNULL(CAST(AT.Id AS bigint),-1)                               AS TransferId
+	, ISNULL(CAST(AT.SenderAccountId AS bigint),-1)                  as SenderAccountId
+	, ISNULL(CAST(AT.ReceiverAccountId AS bigint),-1)                as ReceiverAccountId
+	, ISNULL(p.PaymentID,''00000000-0000-0000-0000-000000000000'')   AS RequiredPaymentId
+	, ISNULL(CAST(A.ID AS bigint),-1)                                AS CommitmentId
+	, CAST(p.Amount as decimal(18,5))                                as Amount
+	, CAST(AT.Type as nvarchar(50))                                  AS Type
+	, ISNULL(CAST (p.PeriodEnd AS NVARCHAR(10)),''XXXX'')            AS CollectionPeriodName
+	, ISNULL(AT.CreatedDate,''9999-12-31'')                          AS UpdateDateTime
 	FROM Fin.Ext_Tbl_AccountTransfers AT
 	INNER JOIN Comt.Ext_Tbl_Apprenticeship A 
 	  ON AT.ApprenticeshipId = A.ID

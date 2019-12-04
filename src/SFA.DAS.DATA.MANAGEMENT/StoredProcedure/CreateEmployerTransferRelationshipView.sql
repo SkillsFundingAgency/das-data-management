@@ -47,23 +47,23 @@ if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_Employer
 Drop View Data_Pub.DAS_Employer_Transfer_Relationship
 '
 SET @VSQL2='
-CREATE VIEW [Data_Pub].[DAS_Employer_Transfer_Relationship]	AS 
-	 SELECT     a.[Id]
-      ,[SenderAccountId]
-      ,[ReceiverAccountId]
-	  , CASE WHEN [status] = 2
-	            THEN ' + @Quote + 'Approved' + @Quote + '
-			 WHEN [status] = 1
-				THEN ' + @Quote + 'Pending'  + @Quote + '
-		ELSE ' + @Quote + 'Rejected' + @Quote + '
-		END [RelationshipStatus]
-        ,isnull(d.UserID,0) AS [SenderUserId]
-        ,isnull(e.UserID,0) as [ApproverUserId]
-        ,isnull(f.UserID,0) as [RejectorUserId]
-        ,g.CreatedDate as UpdateDateTime
-	    ,Cast (1 AS BIT ) as [IsLatest]
-      , b.Hashedid as [SenderDasAccountID]
-      , c.Hashedid as [RecieverDasAccountID]
+CREATE VIEW [Data_Pub].[DAS_Employer_Transfer_Relationship]
+    AS 
+	 SELECT     
+	   ISNULL(CAST(a.[Id] as bigint),-1)                         as Id
+      ,ISNULL(Cast(SenderAccountId as bigint),-1)                as SenderAccountId
+      ,ISNULL(CAST(ReceiverAccountId as bigint),-1)              as ReceiverAccountId
+	  ,ISNULL((CASE WHEN [status] = 2 THEN ' + @Quote + 'Approved' + @Quote + '
+			        WHEN [status] = 1 THEN ' + @Quote + 'Pending'  + @Quote + '
+		            ELSE ' + @Quote + 'Rejected' + @Quote + '
+		       END),''NA'')                                      as RelationshipStatus
+        ,isnull(CAST(d.UserID as bigint),-1)                     AS SenderUserId
+        ,isnull(CAST(e.UserID as bigint),-1)                     as ApproverUserId
+		,isnull(CAST(f.UserID as bigint),-1)                     as RejectorUserId
+        ,isnull(CAST(g.CreatedDate as datetime),''9999-12-31'')  as UpdateDateTime
+	    ,ISNULL(Cast (1 AS BIT),-1)                              as IsLatest
+        ,CAST(b.Hashedid as nvarchar(100))                       as SenderDasAccountID
+        ,CAST(c.Hashedid as nvarchar(100))                       as RecieverDasAccountID
    from acct.Ext_Tbl_TransferConnectionInvitation a
      LEFT JOIN  acct.Ext_Tbl_Account b
    ON a.[SenderAccountId] = b.Id

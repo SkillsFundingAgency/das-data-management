@@ -47,24 +47,24 @@ Drop View Data_Pub.DAS_Employer_PAYESchemes
 '
 SET @VSQL2='
 CREATE VIEW [Data_Pub].[DAS_Employer_PayeSchemes]	AS 
-SELECT ah.Id
-, a.HashedId as DASAccountID 
-, HASHBYTES(''SHA2_512'',ah.PayeRef) AS PAYEReference
-, Cast( p.Name AS nvarchar)  as PAYESchemeName
-, ah.AddedDate
-, ah.RemovedDate
-, CASE -- make up a last changed date from added/removed.
+SELECT ISNULL(CAST(ah.Id as bigint),-1)                                                                         as Id
+, ISNULL(CAST(a.HashedId as nvarchar(100)),''XXXXXX'')                                                          as DasAccountId 
+, HASHBYTES(''SHA2_512'',ah.PayeRef)                                                                            AS PAYEReference
+, Cast( p.Name AS nvarchar(100))                                                                                as PAYESchemeName
+, ISNULL(Cast(ah.AddedDate AS DateTime),''9999-12-31'')                                                         as AddedDate
+, ah.RemovedDate                                                                                                as RemovedDate
+, ISNULL(CASE -- make up a last changed date from added/removed.
     WHEN ah.RemovedDate > ah.AddedDate THEN ah.RemovedDate
     ELSE ah.AddedDate 
-  END AS UpdateDateTime
+  END,''9999-12-31'')                                                                                           AS UpdateDateTime
 , CASE -- make up a last changed date from added/removed.
     WHEN ah.RemovedDate > ah.AddedDate THEN Cast ( ah.RemovedDate as DATE ) 
     ELSE Cast ( ah.AddedDate AS DATE ) 
-  END AS UpdateDate
-, CASE  -- work out IsLatest as the views that reference this view select out the islatest = 1 
+  END                                                                                                           AS UpdateDate
+, ISNULL(CASE  -- work out IsLatest as the views that reference this view select out the islatest = 1 
     WHEN RANK () OVER (PARTITION BY a.ID, AH.PayeRef ORDER BY ah.RemovedDate DESC, ah.AddedDate DESC ) = 1 THEN Cast(1 AS BIT ) 
     ELSE Cast ( 0 AS BIT ) 
- END AS Flag_Latest
+    END,-1)                                                                                                     AS Flag_Latest
 FROM Acct.Ext_Tbl_Account a
 INNER JOIN Acct.Ext_Tbl_AccountHistory ah ON a.Id = ah.AccountID
 INNER JOIN Acct.Ext_Tbl_Paye p ON ah.PayeRef = p.Ref

@@ -64,6 +64,16 @@ AS
 
 '
 SET @VSQL3='
+     SELECT   CAST(DasAccountID as nvarchar(100))                  as DasAccountId
+	         ,ISNULL(CAST(CreatedDate as DateTime),''9999-12-31'') as CreatedDate
+			 ,CAST(SubmissionDate as DateTime)                     as SubmissionDate
+			 ,CAST(PayrollMonth as tinyint)                        as PayrollMonth
+			 ,CAST(PayrollYear as nvarchar(10))                    as PayrollYear
+			 ,CAST(CollectionMonth as int)                         as CollectionMonth
+			 ,CAST(CollectionYear as int)                          as CollectionYear
+			 ,CAST(TransactionType as nvarchar(54))                as TransactionType
+			 ,Cast(Amount AS decimal(37,10))                       as Amount
+	   FROM (
      SELECT    EA.HashedId AS DasAccountID
           ,    LD.CreatedDate
 		  ,	   LD.SubmissionDate
@@ -110,10 +120,11 @@ SET @VSQL3='
       LEFT 
 	  JOIN Acct.Ext_Tbl_Account EA ON EA.Id = [PS].AccountId 
      WHERE PS.FundingSource = 1  -- Only Month coming from balances
+	 ) T
 '
 
 EXEC SP_EXECUTESQL @VSQL1
-EXEC (@VSQL2+@VSQL3+@VSQL4)
+EXEC (@VSQL2+@VSQL3)
 
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1

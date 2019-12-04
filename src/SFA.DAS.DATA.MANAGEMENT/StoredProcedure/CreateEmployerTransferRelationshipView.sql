@@ -53,7 +53,7 @@ CREATE VIEW [Data_Pub].[DAS_Employer_Transfer_Relationship]
 	   ISNULL(CAST(a.[Id] as bigint),-1)                         as Id
       ,ISNULL(Cast(SenderAccountId as bigint),-1)                as SenderAccountId
       ,ISNULL(CAST(ReceiverAccountId as bigint),-1)              as ReceiverAccountId
-	  ,ISNULL(CAST(CASE WHEN [status] = 2 THEN ' + @Quote + 'Approved' + @Quote + '
+	  ,ISNULL(CAST((CASE WHEN [status] = 2 THEN ' + @Quote + 'Approved' + @Quote + '
 			        WHEN [status] = 1 THEN ' + @Quote + 'Pending'  + @Quote + '
 		            ELSE ' + @Quote + 'Rejected' + @Quote + '
 		       END) AS nvarchar(50)),''NA'')                     as RelationshipStatus

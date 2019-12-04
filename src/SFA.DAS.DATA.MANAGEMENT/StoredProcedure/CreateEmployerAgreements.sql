@@ -49,7 +49,8 @@ SELECT
     ea.Id
   , IsNull ( a.HashedId, ' + @Quote + 'XXXXX' + @Quote + ' )	AS DasAccountId
   , IsNull ( eas.name, ' + @Quote + 'XXXXX' + @Quote + ' )		AS EmployerAgreementStatus
-  , Cast ( ' + @Quote + 'Suppressed' + @Quote + ' AS VARCHAR(10) ) AS SignedBy
+  , IsNull( Cast ( ' + @Quote + 'Suppressed' + @Quote +  ' AS VARCHAR(10) ) , ' 
+       + @Quote + 'XXXXX' + @Quote + '	 )	AS SignedBy
   , ea.SignedDate															AS SignedDateTime
 	, CAST( ea.SignedDate AS Date )									AS SignedDate
   , ea.ExpiredDate															AS ExpiredDateTime
@@ -57,19 +58,19 @@ SELECT
 	, IsNull( ale.LegalEntityId, -1)										AS DasLegalEntityId
     , IsNull ( Cast( ale.SignedAgreementId AS NVARCHAR(100) ) 
 		, ' + @Quote + 'XXXXX' + @Quote + '	)						AS DasEmployerAgreementID
-	, IsNull 
+	, IsNull( CAST 
 	( CASE WHEN ea.ExpiredDate IS NOT NULL AND ea.ExpiredDate > ea.SignedDate 
 			THEN ea.ExpiredDate
 		ELSE ea.SignedDate	
-	  END
+	  END AS DATETIME )
 	  , CAST ( ' + @Quote + '9999-12-31' + @Quote + ' AS DATETIME )
 	)																			AS UpdateDateTime
-	, IsNull
+	, IsNull( CAST  
 	( CASE WHEN ea.ExpiredDate IS NOT NULL AND ea.ExpiredDate > ea.SignedDate 
 			THEN ea.ExpiredDate
 		ELSE ea.SignedDate	
-	  END
-	  , CAST( ' + @Quote + '9999-12-31' + @Quote + ' AS DATE )
+	  END AS DATETIME )
+	  , CAST ( ' + @Quote + '9999-12-31' + @Quote + ' AS DATETIME )
 	)																			AS UpdateDate
   ,	IsNull ( CAST( 1 AS bit ), -1) 										AS Flag_Latest
 FROM Acct.Ext_Tbl_EmployerAgreement ea

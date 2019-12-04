@@ -50,7 +50,7 @@ SELECT
   , IsNull ( a.HashedId, ' + @Quote + 'XXXXX' + @Quote + ' )	AS DasAccountId
   , IsNull ( eas.name, ' + @Quote + 'XXXXX' + @Quote + ' )		AS EmployerAgreementStatus
   , IsNull( Cast ( ' + @Quote + 'Suppressed' + @Quote +  ' AS VARCHAR(10) ) , ' 
-       + @Quote + 'XXXXX' + @Quote + '	 )	AS SignedBy
+       + @Quote + 'XXXXX' + @Quote + '	 )							AS SignedBy
   , ea.SignedDate															AS SignedDateTime
 	, CAST( ea.SignedDate AS Date )									AS SignedDate
   , ea.ExpiredDate															AS ExpiredDateTime
@@ -69,8 +69,8 @@ SELECT
 	( CASE WHEN ea.ExpiredDate IS NOT NULL AND ea.ExpiredDate > ea.SignedDate 
 			THEN ea.ExpiredDate
 		ELSE ea.SignedDate	
-	  END AS DATETIME )
-	  , CAST ( ' + @Quote + '9999-12-31' + @Quote + ' AS DATETIME )
+	  END AS DATE )
+	  , CAST ( ' + @Quote + '9999-12-31' + @Quote + ' AS DATE )
 	)																			AS UpdateDate
   ,	IsNull ( CAST( 1 AS bit ), -1) 										AS Flag_Latest
 FROM Acct.Ext_Tbl_EmployerAgreement ea

@@ -42,13 +42,13 @@ DECLARE @VSQL3 VARCHAR(MAX)
 DECLARE @VSQL4 VARCHAR(MAX)
 
 SET @VSQL1='
-if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''Das_LevyDeclarations'')
-Drop View Data_Pub.Das_LevyDeclarations
+if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_LevyDeclarations'')
+Drop View Data_Pub.DAS_LevyDeclarations
 '
 SET @VSQL2='
-CREATE VIEW [Data_Pub].[Das_LevyDeclarations]
+CREATE VIEW [Data_Pub].[DAS_LevyDeclarations]
 	AS 
-SELECT  ISNULL(CAST(LD.[Id] AS bigint),-1)                                   AS ID
+SELECT  ISNULL(CAST(LD.[Id] AS bigint),-1)                                   AS Id
       , ISNULL(CAST(EA.HashedId as nvarchar(100)),''XXXXXX'')                AS DASAccountID
       , ISNULL(CAST(LD.ID as bigint),-1)                                     AS LevyDeclarationID              
       , HASHBYTES(''SHA2_512'',RTRIM(LTRIM(CAST(LD.empRef AS VARCHAR(20))))) AS PAYEReference
@@ -68,13 +68,13 @@ SELECT  ISNULL(CAST(LD.[Id] AS bigint),-1)                                   AS 
       , LD.[InactiveTo]                                                      AS InactiveTo
       , LD.[HmrcSubmissionId]                                                AS HMRCSubmissionID
       , ISNULL(CAST(LD.[EnglishFraction] as decimal(18,5)),-1)               AS EnglishFraction
-      , ISNULL(CAST(LD.[TopupPercentage] as decimal(18,5)),-1)               AS TopUpPercentage
-      , ISNULL(CAST(TopUp as decimal(18,5)),-1)                              AS TopUpAmount
-      , ISNULL(LD.CreatedDate,''9999-12-31'')                                AS UpdatedDateTime
+      , ISNULL(CAST(LD.[TopupPercentage] as decimal(18,5)),-1)               AS TopupPercentage
+      , ISNULL(CAST(TopUp as decimal(18,5)),-1)                              AS TopupAmount
+      , ISNULL(LD.CreatedDate,''9999-12-31'')                                AS UpdateDateTime
 	 -- Additional Columns for UpdateDateTime represented as a Date
       ,	CAST(LD.CreatedDate AS DATE)                                         AS UpdateDate
 	-- Flag to say if latest record from subquery, Using Coalesce to set null value to 0
-      , ISNULL(CAST(1 as Bit),-1)                                            AS  Flag_Latest
+      , ISNULL(CAST(1 as Bit),-1)                                            AS Flag_Latest
 	  , cast(CM.CalendarMonthShortNameYear AS Varchar(20))                   AS PayrollMonthShortNameYear 
       , Cast(LD.LevyDeclaredInMonth AS decimal(18,5))                        AS LevyDeclaredInMonth
       , Cast(LD.TotalAmount as Decimal(18,5))                                AS LevyAvailableInMonth                            

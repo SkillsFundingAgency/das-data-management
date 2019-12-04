@@ -42,11 +42,11 @@ DECLARE @VSQL3 VARCHAR(MAX)
 DECLARE @VSQL4 VARCHAR(MAX)
 
 SET @VSQL1='
-if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''Das_Commitments'')
-Drop View Data_Pub.Das_Commitments
+if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_Commitments'')
+Drop View Data_Pub.DAS_Commitments
 '
 SET @VSQL2='
-CREATE VIEW [Data_Pub].[Das_Commitments]
+CREATE VIEW [Data_Pub].[DAS_Commitments]
 	AS 
 SELECT [C].[ID]                                                         AS ID
 	   , CAST([C].ID AS BIGINT)                                         AS EventID
@@ -110,7 +110,7 @@ SET @VSQL3='
 	   , CAST(A.Cost as decimal(18,0))                                 as TrainingTotalCost
 	   , CAST(GETDATE() AS DateTime)                                   AS UpdateDateTime
 	   , CAST(GETDATE() AS Date)                                       as UpdateDate
-	   , 1                                                             AS Flag_Latest
+	   , ISNULL(CAST(1 AS BIT),-1)                                     AS Flag_Latest
 	   , CAST(C.LegalEntityID AS VARCHAR(50))                          AS LegalEntityCode
 	   , CAST(C.LegalEntityName as varchar(100))                       AS LegalEntityName
 	   , CAST((CASE WHEN C.LegalEntityOrganisationType =1 THEN ''CompaniesHouse''
@@ -129,28 +129,25 @@ SET @VSQL3='
 		END                                                            AS [CommitmentAgeAtStart]
 '
 SET @VSQL4=
-'	   , CAST((CASE 
-		      WHEN CASE 
-				   WHEN [a].[DateOfBirth] IS NULL THEN - 1
-				   WHEN DATEPART([M], [a].[DateOfBirth]) > DATEPART([M], [a].[StartDate])
-					   OR DATEPART([M], [a].[DateOfBirth]) = DATEPART([M], [a].[StartDate])
-					AND DATEPART([DD], [a].[DateOfBirth]) > DATEPART([DD], [a].[StartDate])
-					THEN DATEDIFF(YEAR, [a].[DateOfBirth], [a].[StartDate]) - 1
-				   ELSE DATEDIFF(YEAR, [a].[DateOfBirth], [a].[StartDate])
-				   END BETWEEN 0
-				   AND 18
-			   THEN ''16-18''
-		       ELSE ''19+''
-		     END) as Varchar(5))                                      AS [CommitmentAgeAtStartBand]
+'	   , ISNULL(CAST((CASE 
+		              WHEN CASE 
+				      WHEN [a].[DateOfBirth] IS NULL THEN - 1
+				      WHEN DATEPART([M], [a].[DateOfBirth]) > DATEPART([M], [a].[StartDate])
+					    OR DATEPART([M], [a].[DateOfBirth]) = DATEPART([M], [a].[StartDate])
+					   AND DATEPART([DD], [a].[DateOfBirth]) > DATEPART([DD], [a].[StartDate])
+					  THEN DATEDIFF(YEAR, [a].[DateOfBirth], [a].[StartDate]) - 1
+				      ELSE DATEDIFF(YEAR, [a].[DateOfBirth], [a].[StartDate])
+				      END BETWEEN 0  AND 18 THEN ''16-18''
+		              ELSE ''19+''
+		              END) as Varchar(5)),''NA'')                      AS [CommitmentAgeAtStartBand]
 		--,RealisedCommitment
-		, CAST((CASE WHEN P.TotalAmount>0 THEN ''Yes'' ELSE ''No'' END) as Varchar(3)) AS RealisedCommitment
-		, CAST((CASE 
-		  WHEN [a].[StartDate] BETWEEN DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0)
-				AND DATEADD(dd, - 1, DATEADD(mm, DATEDIFF(mm, 0, GETDATE()) + 1, 0))
-		  THEN ''Yes''
-		  ELSE ''No''
-		END) AS VARCHAR(3))                                          AS StartDateInCurrentMonth
-		--,DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0)                AS [Start day of current month]
+        , ISNULL(CAST((CASE WHEN P.TotalAmount>0 THEN ''Yes'' ELSE ''No'' END) as Varchar(3)),''NA'') AS RealisedCommitment
+		, ISNULL(CAST((CASE WHEN [a].[StartDate] BETWEEN DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0)
+				             AND DATEADD(dd, - 1, DATEADD(mm, DATEDIFF(mm, 0, GETDATE()) + 1, 0))
+		                    THEN ''Yes''
+		                    ELSE ''No''
+		                     END) AS VARCHAR(3)),''NA'')              AS StartDateInCurrentMonth
+		--,DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0)                 AS [Start day of current month]
 		--,DATEADD(dd, - 1, DATEADD(mm, DATEDIFF(mm, 0, GETDATE()) + 1, 0)) AS [Last day of current month]
 		, CASE WHEN A.AgreementStatus=0 THEN 1
 		       WHEN A.AgreementStatus=1 THEN 2
@@ -167,9 +164,9 @@ SET @VSQL4=
 			   ELSE 9
 			   END                                                   AS [PaymentStatus_SortOrder]
 		, CAST(C.LegalEntityName as nvarchar(100))                   as DASAccountName
-		, CAST((CASE WHEN A.AgreementStatus=3 THEN ''Yes''
-		       ELSE ''No''
-			   END) AS Varchar(3))                                   as FullyAgreedCommitment
+		, ISNULL(CAST((CASE WHEN A.AgreementStatus=3 THEN ''Yes''
+		                    ELSE ''No''
+			                 END) AS Varchar(3)),''NA'')             as FullyAgreedCommitment
 	    , CAST(C.LegalEntityAddress as nvarchar(256))                as LegalEntityRegisteredAddress
 FROM [Comt].[Ext_Tbl_Commitment] C 
 LEFT JOIN [Comt].[Ext_Tbl_Apprenticeship] A

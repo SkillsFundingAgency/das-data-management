@@ -65,7 +65,7 @@ CREATE VIEW [Data_Pub].[DAS_Employer_Account_Transfers]	AS
 	, ISNULL(p.PaymentID,''00000000-0000-0000-0000-000000000000'')   AS RequiredPaymentId
 	, ISNULL(CAST(A.ID AS bigint),-1)                                AS CommitmentId
 	, CAST(p.Amount as decimal(18,5))                                as Amount
-	, CAST(AT.Type as nvarchar(50))                                  AS Type
+	, ISNULL(CAST(AT.Type as nvarchar(50)),''NA'')                   AS Type
 	, ISNULL(CAST (p.PeriodEnd AS NVARCHAR(10)),''XXXX'')            AS CollectionPeriodName
 	, ISNULL(AT.CreatedDate,''9999-12-31'')                          AS UpdateDateTime
 	FROM Fin.Ext_Tbl_AccountTransfers AT

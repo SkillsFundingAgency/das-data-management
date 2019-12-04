@@ -50,18 +50,18 @@ CREATE VIEW [Data_Pub].[DAS_Employer_LegalEntities]	AS
 SELECT 
       ISNULL(CAST(ale.LegalEntityId * 10 as bigint),-1)                                                 AS Id
 	, ISNULL(CAST(a.HashedId as nvarchar(100)),'+@Quote+'XXXXXX'+@Quote+')                              AS DasAccountId
-	, CAST(ale.LegalEntityId AS bigint)                                                                 AS DasLegalEntityId
-	, CAST(ale.Name as nvarchar(100))                                                                   AS LegalEntityName
+	, ISNULL(CAST(ale.LegalEntityId AS bigint),-1)                                                      AS DasLegalEntityId
+	, ISNULL(CAST(ale.Name as nvarchar(100)),''NA'')                                                    AS LegalEntityName
 	, CAST(ale.Address as nvarchar(256))                                                                as LegalEntityRegisteredAddress
     , CAST(Mgmt.fn_ExtractPostCodeUKFromAddress(UPPER( ale.Address)) as Varchar(8))                     AS LegalEntityRegisteredAddressPostcode
   -- DO we need a valid postcode field
-	, CAST((CASE 
-            WHEN le.Source = 3 THEN ' + @Quote + 'Public Body' + @Quote + '
-			WHEN le.Source = 1 THEN ' + @Quote + 'Companies House' + @Quote + '
-	        WHEN le.Source = 2 THEN ' + @Quote + 'Charities' + @Quote + '
-			WHEN le.Source = 5 THEN ' + @Quote + 'Pensions Regulator' + @Quote + '
-	        ELSE ' + @Quote + 'Other' + @Quote + '
-	        END) AS NVARCHAR(50))                                                                       AS LegalEntitySource 
+	, ISNULL(CAST((CASE 
+                   WHEN le.Source = 3 THEN ' + @Quote + 'Public Body' + @Quote + '
+			       WHEN le.Source = 1 THEN ' + @Quote + 'Companies House' + @Quote + '
+	               WHEN le.Source = 2 THEN ' + @Quote + 'Charities' + @Quote + '
+			       WHEN le.Source = 5 THEN ' + @Quote + 'Pensions Regulator' + @Quote + '
+	               ELSE ' + @Quote + 'Other' + @Quote + '
+	                END) AS NVARCHAR(50)),''NA'')                                                       AS LegalEntitySource 
   -- Additional Columns for InceptionDate represented as a Date
    , CAST(le.DateOfIncorporation AS DATE)                                                               AS LegalEntityCreatedDate
 	-- Column Renamed as has DateTime
@@ -79,7 +79,7 @@ SELECT
           WHEN (isnumeric(le.Code) = 1) THEN CAST( ' + @Quote + 'active' + @Quote + ' AS NVARCHAR )
           ELSE null 
           END) AS nvarchar(50))                                                                         AS  LegalEntityStatus 
-	, CAST((CASE
+	, ISNULL(CAST((CASE
 		  -- Other also flag to Red
 		  WHEN le.Source not in (3,1,2,5) THEN ' + @Quote + 'Red' + @Quote + ' 
 		  -- Charity commission always flag to Green
@@ -100,7 +100,7 @@ SELECT
 		  -- Public Sector always set to Amber
 		  WHEN le.Source = 3  THEN ' + @Quote + 'Amber'  + @Quote + ' -- Public Bodies
 		  ELSE ' + @Quote + 'ERROR'  + @Quote + '
-	 END) AS Varchar(5))                                                                                 AS LegalEntityRAGRating
+	 END) AS Varchar(5)),''NA'')                                                                         AS LegalEntityRAGRating
 	, ISNULL(CASE 
              WHEN isnull( ale.Deleted,convert(datetime, ' + @Quote + '01 Jan 1900' + @Quote + ' )) > ale.Created THEN ale.Deleted
 	         ELSE ale.Created

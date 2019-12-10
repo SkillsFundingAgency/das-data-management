@@ -45,11 +45,11 @@ DECLARE @VSQL3 VARCHAR(MAX)
 DECLARE @VSQL4 VARCHAR(MAX)
 
 SET @VSQL1='
-if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''Das_Payments'')
-Drop View Data_Pub.Das_Payments
+if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_Payments'')
+Drop View Data_Pub.DAS_Payments
 '
 SET @VSQL2='
-CREATE VIEW [Data_Pub].[Das_Payments]
+CREATE VIEW [Data_Pub].[DAS_Payments]
 	AS 
   WITH Comt AS
         (SELECT ID,

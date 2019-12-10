@@ -48,38 +48,38 @@ Drop View Data_Pub.DAS_Employer_LegalEntities
 SET @VSQL2='
 CREATE VIEW [Data_Pub].[DAS_Employer_LegalEntities]	AS 
 SELECT 
-    ale.LegalEntityId * 10  AS Id
-	, a.HashedId AS DASAccountID
-	, ale.LegalEntityId AS DasLegalEntityID
-	, ale.Name AS LegalEntityName
-	, ale.Address as  LegalEntityRegisteredAddress
-        , Mgmt.fn_ExtractPostCodeUKFromAddress(UPPER( ale.Address)) AS LegalEntityRegisteredAddressPostcode
+      ISNULL(CAST(ale.LegalEntityId * 10 as bigint),-1)                                                 AS Id
+	, ISNULL(CAST(a.HashedId as nvarchar(100)),'+@Quote+'XXXXXX'+@Quote+')                              AS DasAccountId
+	, ISNULL(CAST(ale.LegalEntityId AS bigint),-1)                                                      AS DasLegalEntityId
+	, ISNULL(CAST(ale.Name as nvarchar(100)),''NA'')                                                    AS LegalEntityName
+	, CAST(ale.Address as nvarchar(256))                                                                as LegalEntityRegisteredAddress
+    , CAST(Mgmt.fn_ExtractPostCodeUKFromAddress(UPPER( ale.Address)) as Varchar(8))                     AS LegalEntityRegisteredAddressPostcode
   -- DO we need a valid postcode field
-	, CASE 
-      WHEN le.Source = 3 THEN ' + @Quote + 'Public Body' + @Quote + '
-			WHEN le.Source = 1 THEN ' + @Quote + 'Companies House' + @Quote + '
-	    WHEN le.Source = 2 THEN ' + @Quote + 'Charities' + @Quote + '
-			WHEN le.Source = 5 THEN ' + @Quote + 'Pensions Regulator' + @Quote + '
-	    ELSE ' + @Quote + 'Other' + @Quote + '
-	  END LegalEntitySource 
+	, ISNULL(CAST((CASE 
+                   WHEN le.Source = 3 THEN ' + @Quote + 'Public Body' + @Quote + '
+			       WHEN le.Source = 1 THEN ' + @Quote + 'Companies House' + @Quote + '
+	               WHEN le.Source = 2 THEN ' + @Quote + 'Charities' + @Quote + '
+			       WHEN le.Source = 5 THEN ' + @Quote + 'Pensions Regulator' + @Quote + '
+	               ELSE ' + @Quote + 'Other' + @Quote + '
+	                END) AS NVARCHAR(50)),''NA'')                                                       AS LegalEntitySource 
   -- Additional Columns for InceptionDate represented as a Date
-  , le.DateOfIncorporation AS LegalEntityCreatedDate
+   , CAST(le.DateOfIncorporation AS DATE)                                                               AS LegalEntityCreatedDate
 	-- Column Renamed as has DateTime
-	, le.DateOfIncorporation   AS LegalEntityCreatedDateTime
-	, le.Code AS LegalEntityNumber 
-	, CASE
+	, le.DateOfIncorporation                                                                            AS LegalEntityCreatedDateTime
+	, CAST(le.Code as nvarchar(50))                                                                     AS LegalEntityNumber 
+	, CAST((CASE
 	    WHEN le.Source = 3 THEN le.Code 
 		  ELSE '  + @Quote + @Quote + '
-    END AS LegalEntityCompanyReferenceNumber
-	, CASE
+    END) AS NVARCHAR(50))                                                                               AS LegalEntityCompanyReferenceNumber
+	, CAST((CASE
 		  WHEN  le.Source = 2  THEN le.Code     
       ELSE ' + @Quote + @Quote + '
-	  END AS LegalEntityCharityCommissionNumber
-  , CASE
-      WHEN (isnumeric(le.Code) = 1) THEN CAST( ' + @Quote + 'active' + @Quote + ' AS NVARCHAR )
-      ELSE null 
-    END  AS  LegalEntityStatus 
-	, CASE
+	  END) AS nvarchar(50))                                                                             AS LegalEntityCharityCommissionNumber
+  , CAST((CASE
+          WHEN (isnumeric(le.Code) = 1) THEN CAST( ' + @Quote + 'active' + @Quote + ' AS NVARCHAR )
+          ELSE null 
+          END) AS nvarchar(50))                                                                         AS  LegalEntityStatus 
+	, ISNULL(CAST((CASE
 		  -- Other also flag to Red
 		  WHEN le.Source not in (3,1,2,5) THEN ' + @Quote + 'Red' + @Quote + ' 
 		  -- Charity commission always flag to Green
@@ -100,18 +100,18 @@ SELECT
 		  -- Public Sector always set to Amber
 		  WHEN le.Source = 3  THEN ' + @Quote + 'Amber'  + @Quote + ' -- Public Bodies
 		  ELSE ' + @Quote + 'ERROR'  + @Quote + '
-	 END AS LegalEntityRAGRating
-	, CASE 
-      WHEN isnull( ale.Deleted,convert(datetime, ' + @Quote + '01 Jan 1900' + @Quote + ' )) > ale.Created THEN ale.Deleted
-	    ELSE ale.Created
-	  END  AS  UpdateDateTime
+	 END) AS Varchar(5)),''NA'')                                                                         AS LegalEntityRAGRating
+	, ISNULL(CASE 
+             WHEN isnull( ale.Deleted,convert(datetime, ' + @Quote + '01 Jan 1900' + @Quote + ' )) > ale.Created THEN ale.Deleted
+	         ELSE ale.Created
+	          END,'+@Quote+'9999-12-31'+@Quote+')                                                        AS  UpdateDateTime
 	-- Additional Columns for UpdateDateTime represented as a Date
 	, CASE 
       WHEN isnull( ale.Deleted,convert(datetime, ' + @Quote + '01 Jan 1900' + @Quote + ' )) > ale.Created THEN Convert(DATE, ale.Deleted)
 	    ELSE Convert(DATE, ale.Created)
-	  END  AS  UpdateDate
+	  END                                                                                                AS  UpdateDate
 	-- Flag to say if latest record from subquery, Using Coalesce to set null value to 0
-	, Cast( 1 AS BIT ) As Flag_latest
+	, ISNULL((Cast( 1 AS BIT )),-1)                                                                      As Flag_Latest
 FROM Acct.Ext_Tbl_Account a
 JOIN Acct.Ext_Tbl_AccountLegalEntity ale ON a.ID = ale.AccountID
 LEFT JOIN Acct.Ext_Tbl_LegalEntity le ON ale.LegalEntityID = le.ID

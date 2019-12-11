@@ -51,6 +51,12 @@ GRANT SELECT ON [dbo].[DASCalendarMonth] To Developer
 IF EXISTS(select 1 from sys.views where name='Das_Commitments' and type='v')
 GRANT SELECT ON Data_Pub.Das_Commitments TO Developer
 
+
+IF EXISTS(select 1 from sys.views where name='Das_Commitments_LevyInd' and type='v')
+BEGIN
+     GRANT SELECT ON Data_Pub.Das_Commitments_LevyInd TO Developer
+END
+
 IF EXISTS(select 1 from sys.views where name='Das_NonLevy' and type='v')
 GRANT SELECT ON Data_Pub.Das_NonLevy TO Developer
 
@@ -92,6 +98,13 @@ END
 
 if exists(select 1 from sys.views where name='Das_Commitments' and type='v')
 GRANT SELECT ON Data_Pub.Das_Commitments TO DataAnalyst
+
+
+IF EXISTS(select 1 from sys.views where name='Das_Commitments_LevyInd' and type='v')
+BEGIN
+     GRANT SELECT ON Data_Pub.Das_Commitments_LevyInd TO DataAnalyst
+END
+
 
 if exists(select 1 from sys.views where name='Das_NonLevy' and type='v')
 GRANT SELECT ON Data_Pub.Das_NonLevy TO DataAnalyst

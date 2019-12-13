@@ -47,9 +47,14 @@ GRANT SELECT ON dbo.[ReferenceData] To Developer
 
 GRANT SELECT ON [dbo].[DASCalendarMonth] To Developer
 
-
 IF EXISTS(select 1 from sys.views where name='Das_Commitments' and type='v')
 GRANT SELECT ON Data_Pub.Das_Commitments TO Developer
+
+
+IF EXISTS(select 1 from sys.views where name='Das_Commitments_LevyInd' and type='v')
+BEGIN
+     GRANT SELECT ON Data_Pub.Das_Commitments_LevyInd TO Developer
+END
 
 IF EXISTS(select 1 from sys.views where name='Das_NonLevy' and type='v')
 GRANT SELECT ON Data_Pub.Das_NonLevy TO Developer
@@ -84,6 +89,11 @@ GRANT SELECT ON Data_Pub.DAS_Employer_Transfer_Relationship TO Developer
 IF EXISTS(select 1 from sys.views where name='Das_TransactionLine' and type='v')
 GRANT SELECT ON Data_Pub.Das_TransactionLine TO Developer
 
+IF EXISTS(select 1 from sys.views where name='DAS_Employer_Agreements' and type='v')
+GRANT SELECT ON Data_Pub.DAS_Employer_Agreements TO Developer
+
+
+
 
 IF DATABASE_PRINCIPAL_ID('DataAnalyst') IS NULL
 BEGIN
@@ -92,6 +102,13 @@ END
 
 if exists(select 1 from sys.views where name='Das_Commitments' and type='v')
 GRANT SELECT ON Data_Pub.Das_Commitments TO DataAnalyst
+
+
+IF EXISTS(select 1 from sys.views where name='Das_Commitments_LevyInd' and type='v')
+BEGIN
+     GRANT SELECT ON Data_Pub.Das_Commitments_LevyInd TO DataAnalyst
+END
+
 
 if exists(select 1 from sys.views where name='Das_NonLevy' and type='v')
 GRANT SELECT ON Data_Pub.Das_NonLevy TO DataAnalyst
@@ -122,3 +139,9 @@ GRANT SELECT ON Data_Pub.DAS_Employer_Accounts TO DataAnalyst
 
 if exists(select 1 from sys.views where name='DAS_Employer_Transfer_Relationship' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_Transfer_Relationship TO DataAnalyst
+
+if exists(select 1 from sys.views where name='DAS_Employer_Agreements' and type='v')
+GRANT SELECT ON Data_Pub.DAS_Employer_Agreements TO DataAnalyst
+
+IF EXISTS(select 1 from sys.views where name='Das_Payments' and type='v')
+GRANT SELECT ON Data_Pub.Das_Payments TO DataAnalyst

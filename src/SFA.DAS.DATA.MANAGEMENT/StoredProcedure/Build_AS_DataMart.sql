@@ -58,6 +58,12 @@ EXEC CreateEmployerTransferRelationshipView @RunId
 
 EXEC CreateTransactionLineView @RunId 
 
+EXEC CreateEmployerAgreementsView @RunId
+
+EXEC CreateCommitmentsView_LevyInd @RunId
+
+
+
 /* Load Commitments into Modelled Data Tables */
 
 EXEC ImportCommitmentsDb @RunId

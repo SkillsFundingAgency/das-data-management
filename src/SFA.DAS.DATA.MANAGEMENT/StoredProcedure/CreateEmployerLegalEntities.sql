@@ -120,7 +120,7 @@ JOIN Acct.Ext_Tbl_AccountLegalEntity ale ON a.ID = ale.AccountID
 LEFT JOIN Acct.Ext_Tbl_LegalEntity le ON ale.LegalEntityID = le.ID
 ) 
 SELECT Id ,
-     DASAccountId,
+     DasAccountId,
 	   DasLegalEntityId,
 	   LegalEntityName,
 	   LegalEntityRegisteredAddress,

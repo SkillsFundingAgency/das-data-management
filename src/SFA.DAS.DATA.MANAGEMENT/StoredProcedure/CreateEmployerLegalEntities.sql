@@ -120,10 +120,11 @@ JOIN Acct.Ext_Tbl_AccountLegalEntity ale ON a.ID = ale.AccountID
 LEFT JOIN Acct.Ext_Tbl_LegalEntity le ON ale.LegalEntityID = le.ID
 ) 
 SELECT Id ,
-     DASAccountID,
-	   DasLegalEntityID,
+     DASAccountId,
+	   DasLegalEntityId,
 	   LegalEntityName,
 	   LegalEntityRegisteredAddress,
+		 LegalEntityRegisteredAddressPostcode,
 	   LegalEntitySource,
 	   LegalEntityCreatedDate,
 	   LegalEntityCreatedDateTime,
@@ -134,7 +135,7 @@ SELECT Id ,
 	   LegalEntityRAGRating,
 	   UpdateDateTime,
 	   UpdateDate,
-	   Flag_latest
+	   Flag_Latest
 FROM cte_EmpLEs 
 WHERE Rownumber = 1
 '

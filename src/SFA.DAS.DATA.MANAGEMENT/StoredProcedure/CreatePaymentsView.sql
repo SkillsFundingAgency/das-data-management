@@ -10,7 +10,14 @@ AS
 -- Simon Heath: 04/11/2019 Amend transfers CTE to remove names to prevent 
 -- duplicates and correct names of DeliveryYear and CreateDatetime to match 
 -- RDS.
--- =========================================================================
+--
+--     Change Control
+--     
+--     Date				Author        Jira             Description
+--
+--      14/01/2019		R.Rai			ADM_982			Change Agreement Type to logic to account tables
+--
+-- =====================================================================================================
 
 BEGIN TRY
 
@@ -162,12 +169,17 @@ SET @VSQL4=
           ON Acct.Id = [P].AccountId 
    LEFT JOIN
              (
-              SELECT AccountId,
-                     IsLevy 
-                FROM Resv.Ext_Tbl_AccountLegalEntity 
-               WHERE IsLevy = 0 
-                 AND AgreementType = 1 
-                 AND AgreementSigned = 1
+              
+		      SELECT a.ID as AccountID,
+			         a.ApprenticeshipEmployerType As IsLevy
+			  FROM [acct].[Ext_Tbl_Account] a
+			      JOIN [acct].[Ext_Tbl_AccountLegalEntity] b
+			  ON a.id = b.AccountID
+			  WHERE a.ApprenticeshipEmployerType = 0
+			  AND SignedAgreementID is not null
+			  AND SignedAgreementVersion = 1
+		
+
              ) NL 
           ON NL.AccountId = P.AccountId
    LEFT JOIN 

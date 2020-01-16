@@ -7,7 +7,18 @@ AS
 -- Author:      Robin Rai
 -- Create Date: 15/08/2019
 -- Description: Create Commitment View with Levy Indicator 
--- =========================================================================
+--
+--
+--     Change Control
+--     
+--     Date				Author        Jira             Description
+--
+--      16/01/2020		R.Rai		  ADM_1001		   Change Levy Indicator logic to account tables
+--
+-- =====================================================================================================
+
+
+
 
 BEGIN TRY
 
@@ -168,7 +179,7 @@ SET @VSQL4=
 		                    ELSE ''No''
 			                 END) AS Varchar(3)),''NA'')             as FullyAgreedCommitment
 	    , CAST(C.LegalEntityAddress as nvarchar(256))                as LegalEntityRegisteredAddress
-		,  convert(int,C.ApprenticeshipEmployerTypeOnApproval)       as ApprenticeshipEmployerTypeOnApproval
+		, acct1.ApprenticeshipEmployerType                           as IsLevy
 FROM [Comt].[Ext_Tbl_Commitment] C 
 LEFT JOIN [Comt].[Ext_Tbl_Apprenticeship] A
   ON C.Id=A.CommitmentId
@@ -176,6 +187,8 @@ LEFT JOIN [Comt].[Ext_Tbl_Accounts] Acc
   ON Acc.Id=c.EmployerAccountId
 LEFT JOIN [Acct].[Ext_Tbl_LegalEntity] LE
   ON LE.Code=c.LegalEntityId
+LEFT JOIN [Acct].[Ext_Tbl_Account] acct1
+  ON acct1.id = c.EmployerAccountId
 LEFT JOIN (SELECT P.ApprenticeshipId 
         ,SUM(P.Amount) as TotalAmount
         FROM Fin.Ext_Tbl_Payment P

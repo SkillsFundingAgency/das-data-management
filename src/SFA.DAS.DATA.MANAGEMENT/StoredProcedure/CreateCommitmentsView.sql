@@ -3,11 +3,21 @@
    @RunId int
 )
 AS
--- =========================================================================
+/* =========================================================================
 -- Author:      Himabindu Uddaraju
 -- Create Date: 15/08/2019
 -- Description: Create Views for Commitments that mimics RDS Commitments
 -- =========================================================================
+
+--
+     Change Control
+     
+     Date				Author        Jira             Description
+
+     20/01/2020		R.Rai		  ADM_989		   Change ULN to -2 when null
+
+
+*/
 
 BEGIN TRY
 
@@ -68,7 +78,7 @@ SELECT [C].[ID]                                                         AS ID
 		           ELSE ''NotAgreed''
 		       END AS Varchar(50))                                      as AgreementStatus
 		,CAST(C.ProviderId as bigint)                                   as UKPRN
-		,CAST(A.ULN as bigint)                                          as ULN
+		,CAST(isnull(A.ULN,-2) as bigint)                               as ULN
 		,CAST(C.ProviderId as Varchar(255))                             as ProviderID
 		,CAST(A.ULN as varchar(255))                                    as LearnerID
 		,CAST(C.EmployerAccountId as Varchar(255))                      as EmployerAccountID

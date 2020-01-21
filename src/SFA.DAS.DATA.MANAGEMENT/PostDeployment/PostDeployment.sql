@@ -74,6 +74,15 @@ GRANT SELECT ON Data_Pub.DAS_CalendarMonth TO Developer
 IF EXISTS(select 1 from sys.views where name='DAS_Employer_Account_Transfers' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_Account_Transfers TO Developer
 
+
+IF EXISTS(select 1 from sys.views where name='DAS_Employer_Account_Transfers_LevyInd' and type='v')
+BEGIN
+  GRANT SELECT ON Data_Pub.DAS_Employer_Account_Transfers_LevyInd TO Developer
+END
+
+
+
+
 IF EXISTS(select 1 from sys.views where name='DAS_Employer_PayeSchemes' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_PayeSchemes TO Developer
 
@@ -127,6 +136,14 @@ GRANT SELECT ON Data_Pub.DAS_CalendarMonth TO DataAnalyst
 
 if exists(select 1 from sys.views where name='DAS_Employer_Account_Transfers' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_Account_Transfers TO DataAnalyst
+
+
+if exists(select 1 from sys.views where name='DAS_Employer_Account_Transfers_LevyInd' and type='v')
+BEGIN
+   GRANT SELECT ON Data_Pub.DAS_Employer_Account_Transfers_LevyInd TO DataAnalyst
+END
+
+
 
 if exists(select 1 from sys.views where name='DAS_Employer_PayeSchemes' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_PayeSchemes TO DataAnalyst

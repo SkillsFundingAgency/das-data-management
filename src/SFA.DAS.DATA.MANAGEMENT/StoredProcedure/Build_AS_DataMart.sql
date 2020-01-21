@@ -48,6 +48,8 @@ EXEC CreateEmployerAccountTransactionsView @RunId
 
 EXEC CreateEmployerAccountTransfersView @RunId 
 
+EXEC CreateEmployerAccountTransfersView_LevyInd @RunId 
+
 EXEC CreateEmployerPAYESchemesView @RunId 
 
 EXEC CreateEmployerLegalEntitiesView @RunId 

@@ -65,9 +65,9 @@ CREATE VIEW [Data_Pub].[DAS_Employer_Account_Transfers_LevyInd]	AS
 	FROM Fin.Ext_Tbl_AccountTransfers AT
 	 JOIN Comt.Ext_Tbl_Apprenticeship A 
 	    ON AT.ApprenticeshipId = A.ID
-	 JOIN [Acct].[Ext_Tbl_Account] Acct1
+	 LEFT JOIN [Acct].[Ext_Tbl_Account] Acct1
         ON Acct1.id = AT.SenderAccountId
-	 JOIN [Acct].[Ext_Tbl_Account] Acct2
+	 LEFT JOIN [Acct].[Ext_Tbl_Account] Acct2
         ON Acct2.id = AT.ReceiverAccountId
 
 	LEFT OUTER JOIN 

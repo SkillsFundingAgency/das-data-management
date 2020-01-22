@@ -131,5 +131,6 @@
     <Build Include="StoredProcedure\CreateEmployerAgreements.sql" />
     <Build Include="StoredProcedure\CreateCommitmentsView_LevyInd.sql" />
     <Build Include="StoredProcedure\CreateEmployerAccountTransfersView_LevyInd.sql" />
+    <Build Include="StoredProcedure\CreateLevyDeclarationsView_LevyInd.sql" />
   </ItemGroup>
 </Project>

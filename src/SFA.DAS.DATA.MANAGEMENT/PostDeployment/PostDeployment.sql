@@ -65,6 +65,15 @@ GRANT SELECT ON Data_Pub.Das_Payments TO Developer
 IF EXISTS(select 1 from sys.views where name='Das_LevyDeclarations' and type='v')
 GRANT SELECT ON Data_Pub.Das_LevyDeclarations TO Developer
 
+
+IF EXISTS(select 1 from sys.views where name='Das_LevyDeclarations_LevyInd' and type='v')
+BEGIN
+     GRANT SELECT ON Data_Pub.Das_LevyDeclarations_LevyInd TO Developer
+END
+
+
+
+
 IF EXISTS(select 1 from sys.views where name='DAS_Employer_AccountTransactions' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_AccountTransactions TO Developer
 
@@ -127,6 +136,13 @@ GRANT SELECT ON Data_Pub.Das_NonLevy TO DataAnalyst
 
 IF EXISTS(select 1 from sys.views where name='Das_LevyDeclarations' and type='v')
 GRANT SELECT ON Data_Pub.Das_LevyDeclarations TO DataAnalyst
+
+
+IF EXISTS(select 1 from sys.views where name='Das_LevyDeclarations_LevyInd' and type='v')
+BEGIN
+     GRANT SELECT ON Data_Pub.Das_LevyDeclarations_LevyInd TO DataAnalyst
+END
+
 
 IF EXISTS(select 1 from sys.views where name='DAS_Employer_AccountTransactions' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_AccountTransactions TO DataAnalyst

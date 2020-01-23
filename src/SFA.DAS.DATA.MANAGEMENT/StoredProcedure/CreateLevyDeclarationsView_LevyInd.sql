@@ -89,7 +89,7 @@ SELECT  ISNULL(CAST(LD.[Id] AS bigint),-1)                                   AS 
       , Cast(LD.LevyDeclaredInMonth AS decimal(18,5))                        AS LevyDeclaredInMonth
       , Cast(LD.TotalAmount as Decimal(18,5))                                AS LevyAvailableInMonth                            
       , cast(LD.LevyDeclaredInMonth * LD.EnglishFraction as decimal(37,10))  AS LevyDeclaredInMonthWithEnglishFractionApplied
-	  , convert(int,EA.ApprenticeshipEmployerType)                           AS IsLevy
+	  , EA.ApprenticeshipEmployerType                                        AS IsLevy
   FROM fin.ext_tbl_getlevydeclarationandtopup AS LD
     LEFT JOIN acct.Ext_Tbl_Account EA 
            ON EA.ID=LD.AccountId

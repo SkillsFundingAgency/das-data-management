@@ -42,6 +42,8 @@ EXEC CreateNonLevyView @RunId
 
 EXEC CreateLevyDeclarationsView @RunId
 
+EXEC CreateLevyDeclarationsView_LevyInd @RunId
+
 EXEC CreatePaymentsView @RunId
 
 EXEC CreateEmployerAccountTransactionsView @RunId
@@ -63,6 +65,7 @@ EXEC CreateTransactionLineView @RunId
 EXEC CreateEmployerAgreementsView @RunId
 
 EXEC CreateCommitmentsView_LevyInd @RunId
+
 
 
 

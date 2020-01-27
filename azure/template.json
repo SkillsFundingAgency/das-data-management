@@ -1,5 +1,5 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
         "resourceEnvironmentName": {
@@ -14,10 +14,6 @@
         "sqlServerName": {
             "type": "string"
         },
-        "elasticPoolName": {
-            "defaultValue": "",
-            "type": "string"
-        },
         "logAnalyticsSubscriptionId": {
             "type": "string",
             "defaultValue": "[subscription().subscriptionId]"
@@ -26,6 +22,12 @@
             "type": "string"
         },
         "logAnalyticsWorkspaceName": {
+            "type": "string"
+        },
+        "databaseSkuName": {
+            "type": "string"
+        },
+        "databaseTier": {
             "type": "string"
         },
         "containerArray": {
@@ -128,9 +130,6 @@
                     "sqlServerName": {
                         "value": "[parameters('sqlServerName')]"
                     },
-                    "elasticPoolName": {
-                        "value": "[parameters('elasticPoolName')]"
-                    },
                     "logAnalyticsSubscriptionId": {
                         "value": "[parameters('logAnalyticsSubscriptionId')]"
                     },
@@ -139,6 +138,12 @@
                     },
                     "logAnalyticsWorkspaceName": {
                         "value": "[parameters('logAnalyticsWorkspaceName')]"
+                    },
+                    "databaseSkuName": {
+                        "value": "[parameters('databaseSkuName')]"
+                    },
+                    "databaseTier": {
+                        "value" : "[parameters('databaseTier')]"
                     }
                 }
             }

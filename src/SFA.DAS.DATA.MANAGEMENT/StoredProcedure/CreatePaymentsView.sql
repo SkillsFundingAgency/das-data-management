@@ -79,7 +79,7 @@ CREATE VIEW [Data_Pub].[DAS_Payments]
 '
 SET @VSQL3='
 		SELECT	
-           CAST( 1 AS BIGINT )                                                AS ID  -- may need to do hashbytes on PaymentID to cast as bigint 
+           CAST( ISNULL( 1, 1 ) AS BIGINT )                                   AS ID  -- may need to do hashbytes to cast as bigint 
 	       , CAST( [P].[PaymentId] AS nvarchar(100) )                           AS PaymentID  
          , CAST([P].[UkPrn] AS BIGINT)                                        AS UKPRN 
          , CAST([P].[Uln] AS BIGINT)                                          AS ULN 

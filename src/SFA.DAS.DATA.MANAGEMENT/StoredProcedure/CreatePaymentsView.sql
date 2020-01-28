@@ -15,7 +15,8 @@ AS
 --     
 --     Date				Author        Jira             Description
 --
---      14/01/2019		R.Rai			ADM_982			Change Agreement Type to logic to account tables
+--      14/01/2020 R.Rai			ADM_982			Change Agreement Type to logic to account tables
+--      28/01/2020 S Heath    ADM_990     Cast data types to match RDS
 --
 -- =====================================================================================================
 
@@ -78,11 +79,11 @@ CREATE VIEW [Data_Pub].[DAS_Payments]
 '
 SET @VSQL3='
 		SELECT	
-           [P].[PaymentId]                                                    AS ID
-		 , [P].[PaymentId]                                                    AS PaymentID 
+           CAST( 1 AS BIGINT )                                                AS ID  -- may need to do hashbytes on PaymentID to cast as bigint 
+	       , CAST( [P].[PaymentId] AS nvarchar(100) )                           AS PaymentID  
          , CAST([P].[UkPrn] AS BIGINT)                                        AS UKPRN 
          , CAST([P].[Uln] AS BIGINT)                                          AS ULN 
-         , [P].[AccountId]                                                    AS EmployerAccountID 
+         , CAST([P].[AccountId] AS nvarchar(100) )                            AS EmployerAccountID 
          , Acct.HashedId                                                      AS DasAccountId 
          , P.ApprenticeshipId                                                 AS CommitmentID 
          , P.DeliveryPeriodMonth                                              AS DeliveryMonth 
@@ -90,24 +91,24 @@ SET @VSQL3='
          , P.CollectionPeriodMonth                                            AS CollectionMonth 
          , P.CollectionPeriodYear                                             AS CollectionYear 
          , [P].[EvidenceSubmittedOn]                                          AS EvidenceSubmittedOn 
-         , [P].[EmployerAccountVersion]                                       AS EmployerAccountVersion 
-         , [P].[ApprenticeshipVersion]                                        AS ApprenticeshipVersion 
-		 ,COALESCE(FS.FieldDesc,''Unknown'')                                  AS FundingSource
+         , CAST( [P].[EmployerAccountVersion] AS nvarchar(50) )               AS EmployerAccountVersion 
+         , CAST( [P].[ApprenticeshipVersion] AS nvarchar(50) )                AS ApprenticeshipVersion 
+		     , CAST( COALESCE(FS.FieldDesc,''Unknown'') AS nvarchar(25) )         AS FundingSource
          , CASE
              WHEN [P].[FundingSource] = 5 THEN [EAT].[SenderAccountId]
              ELSE NULL
             END                                                               AS FundingAccountId
-		 , COALESCE(TT.FieldDesc,''Unknown'')                                 AS TransactionType
+		     , CAST( COALESCE(TT.FieldDesc,''Unknown'') AS nvarchar(50) )         AS TransactionType
          , [P].[Amount]                                                       AS Amount
          , CAST(COALESCE([PM].[StandardCode], -1) AS INT)                     AS [StdCode] 
          , CAST(COALESCE([PM].[FrameworkCode], -1) AS INT)                    AS [FworkCode] 
          , CAST(COALESCE([PM].[ProgrammeType], -1) AS INT)                    AS [ProgType] 
          , CAST(COALESCE([PM].[PathwayCode], -1) AS INT)                      AS [PwayCode] 
-         , CASE
+         , CAST( CASE
              WHEN NL.AccountId IS NULL 
 		     THEN ''ContractWithEmployer''
              ELSE ''ContractWithSFA''
-            END                                                               AS ContractType 
+            END AS nvarchar (50) )                                            AS ContractType 
          , EvidenceSubmittedOn                                                AS UpdateDateTime 
          , CAST(EvidenceSubmittedOn AS DATE)                                  AS [UpdateDate] 
          , 1                                                                  AS [Flag_Latest] 
@@ -127,9 +128,9 @@ SET @VSQL3='
             END                                                               AS PaymentAgeBand 
 		 , CM.CalendarMonthShortNameYear                                      AS DeliveryMonthShortNameYear 
          , Acct.Name                                                          AS DASAccountName 
-         , P.PeriodEnd                                                        AS CollectionPeriodName 
-         , RIGHT(rtrim(P.CollectionPeriodId),3)                               AS CollectionPeriodMonth
-         , LEFT(ltrim(P.CollectionPeriodId),4)                                AS CollectionPeriodYear
+         , CAST( P.PeriodEnd AS nvarchar(20) )                                AS CollectionPeriodName 
+         , CAST( RIGHT(rtrim(P.CollectionPeriodId),3) AS nvarchar(10) )       AS CollectionPeriodMonth
+         , CAST( LEFT(ltrim(P.CollectionPeriodId),4) AS nvarchar(10) )        AS CollectionPeriodYear
  FROM    Payment AS P 
 '
 SET @VSQL4=

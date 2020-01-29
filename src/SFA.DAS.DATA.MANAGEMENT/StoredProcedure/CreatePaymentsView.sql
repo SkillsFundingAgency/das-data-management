@@ -16,8 +16,8 @@ AS
 --     Date				Author        Jira             Description
 --
 --      14/01/2020 R.Rai			ADM_982			Change Agreement Type to logic to account tables
---      28/01/2020 S Heath    ADM_990     Cast data types to match RDS
---
+--      28/01/2020 S Heath          ADM_990         Cast data types to match RDS
+--      29/01/2020 H Uddaraju	    ADM_1022        Fix Join Condition for Funding Source 
 -- =====================================================================================================
 
 BEGIN TRY
@@ -198,7 +198,7 @@ SET @VSQL4=
 			   FROM dbo.ReferenceData TM
 			  WHERE TM.FieldName=''FundingSource''
 			    and TM.Category=''Payments'') FS
-		  ON FS.FieldValue=P.TransactionType
+		  ON FS.FieldValue=P.FundingSource
 '
 
 EXEC SP_EXECUTESQL @VSQL1

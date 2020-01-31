@@ -104,11 +104,7 @@ SET @VSQL3='
          , CAST(COALESCE([PM].[FrameworkCode], -1) AS INT)                    AS [FworkCode] 
          , CAST(COALESCE([PM].[ProgrammeType], -1) AS INT)                    AS [ProgType] 
          , CAST(COALESCE([PM].[PathwayCode], -1) AS INT)                      AS [PwayCode] 
-         , CAST( CASE
-             WHEN NL.AccountId IS NULL 
-		     THEN ''ContractWithEmployer''
-             ELSE ''ContractWithSFA''
-            END AS nvarchar (50) )                                            AS ContractType 
+         , NULL                                                               AS ContractType 
          , EvidenceSubmittedOn                                                AS UpdateDateTime 
          , CAST(EvidenceSubmittedOn AS DATE)                                  AS [UpdateDate] 
          , 1                                                                  AS [Flag_Latest] 
@@ -168,21 +164,21 @@ SET @VSQL4=
                 FROM [Acct].Ext_Tbl_Account
              ) Acct 
           ON Acct.Id = [P].AccountId 
-   LEFT JOIN
-             (
+   --LEFT JOIN
+   --          (
               
-		      SELECT a.ID as AccountID,
-			         a.ApprenticeshipEmployerType As IsLevy
-			  FROM [acct].[Ext_Tbl_Account] a
-			      JOIN [acct].[Ext_Tbl_AccountLegalEntity] b
-			  ON a.id = b.AccountID
-			  WHERE a.ApprenticeshipEmployerType = 0
-			  AND SignedAgreementID is not null
-			  AND SignedAgreementVersion = 1
+		 --     SELECT a.ID as AccountID,
+			--         a.ApprenticeshipEmployerType As IsLevy
+			--  FROM [acct].[Ext_Tbl_Account] a
+			--      JOIN [acct].[Ext_Tbl_AccountLegalEntity] b
+			--  ON a.id = b.AccountID
+			--  WHERE a.ApprenticeshipEmployerType = 0
+			--  AND SignedAgreementID is not null
+			--  AND SignedAgreementVersion = 1
 		
 
-             ) NL 
-          ON NL.AccountId = P.AccountId
+   --          ) NL 
+   --       ON NL.AccountId = P.AccountId
    LEFT JOIN 
             (
 			 SELECT FieldValue

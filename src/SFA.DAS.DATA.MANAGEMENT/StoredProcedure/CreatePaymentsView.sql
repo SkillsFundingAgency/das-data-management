@@ -16,8 +16,8 @@ AS
 --     Date				Author        Jira             Description
 --
 --      14/01/2020 R.Rai			ADM_982			Change Agreement Type to logic to account tables
---      28/01/2020 S Heath    ADM_990     Cast data types to match RDS
---
+--      28/01/2020 S Heath          ADM_990         Cast data types to match RDS
+--      29/01/2020 H Uddaraju	    ADM_1022        Fix Join Condition for Funding Source 
 -- =====================================================================================================
 
 BEGIN TRY
@@ -104,11 +104,7 @@ SET @VSQL3='
          , CAST(COALESCE([PM].[FrameworkCode], -1) AS INT)                    AS [FworkCode] 
          , CAST(COALESCE([PM].[ProgrammeType], -1) AS INT)                    AS [ProgType] 
          , CAST(COALESCE([PM].[PathwayCode], -1) AS INT)                      AS [PwayCode] 
-         , CAST( CASE
-             WHEN NL.AccountId IS NULL 
-		     THEN ''ContractWithEmployer''
-             ELSE ''ContractWithSFA''
-            END AS nvarchar (50) )                                            AS ContractType 
+         , NULL                                                               AS ContractType 
          , EvidenceSubmittedOn                                                AS UpdateDateTime 
          , CAST(EvidenceSubmittedOn AS DATE)                                  AS [UpdateDate] 
          , 1                                                                  AS [Flag_Latest] 
@@ -168,21 +164,21 @@ SET @VSQL4=
                 FROM [Acct].Ext_Tbl_Account
              ) Acct 
           ON Acct.Id = [P].AccountId 
-   LEFT JOIN
-             (
+   --LEFT JOIN
+   --          (
               
-		      SELECT a.ID as AccountID,
-			         a.ApprenticeshipEmployerType As IsLevy
-			  FROM [acct].[Ext_Tbl_Account] a
-			      JOIN [acct].[Ext_Tbl_AccountLegalEntity] b
-			  ON a.id = b.AccountID
-			  WHERE a.ApprenticeshipEmployerType = 0
-			  AND SignedAgreementID is not null
-			  AND SignedAgreementVersion = 1
+		 --     SELECT a.ID as AccountID,
+			--         a.ApprenticeshipEmployerType As IsLevy
+			--  FROM [acct].[Ext_Tbl_Account] a
+			--      JOIN [acct].[Ext_Tbl_AccountLegalEntity] b
+			--  ON a.id = b.AccountID
+			--  WHERE a.ApprenticeshipEmployerType = 0
+			--  AND SignedAgreementID is not null
+			--  AND SignedAgreementVersion = 1
 		
 
-             ) NL 
-          ON NL.AccountId = P.AccountId
+   --          ) NL 
+   --       ON NL.AccountId = P.AccountId
    LEFT JOIN 
             (
 			 SELECT FieldValue
@@ -198,7 +194,7 @@ SET @VSQL4=
 			   FROM dbo.ReferenceData TM
 			  WHERE TM.FieldName=''FundingSource''
 			    and TM.Category=''Payments'') FS
-		  ON FS.FieldValue=P.TransactionType
+		  ON FS.FieldValue=P.FundingSource
 '
 
 EXEC SP_EXECUTESQL @VSQL1

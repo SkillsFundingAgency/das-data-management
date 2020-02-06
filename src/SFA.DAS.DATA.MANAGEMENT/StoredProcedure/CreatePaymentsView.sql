@@ -104,7 +104,7 @@ SET @VSQL3='
          , CAST(COALESCE([PM].[FrameworkCode], -1) AS INT)                    AS [FworkCode] 
          , CAST(COALESCE([PM].[ProgrammeType], -1) AS INT)                    AS [ProgType] 
          , CAST(COALESCE([PM].[PathwayCode], -1) AS INT)                      AS [PwayCode] 
-         , NULL                                                               AS ContractType 
+         , CAST(NULL AS NVARCHAR(50))                                         AS ContractType 
          , EvidenceSubmittedOn                                                AS UpdateDateTime 
          , CAST(EvidenceSubmittedOn AS DATE)                                  AS [UpdateDate] 
          , 1                                                                  AS [Flag_Latest] 

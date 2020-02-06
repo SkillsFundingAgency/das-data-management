@@ -21,7 +21,7 @@
  ,FworkCode int null
  ,ProgType int null
  ,PwayCode int null
- ,ContractType int null
+ ,ContractType nvarchar(50) null
  ,UpdateDateTime datetime not null
  ,UpdateDate date null
  ,Flag_Latest int not null

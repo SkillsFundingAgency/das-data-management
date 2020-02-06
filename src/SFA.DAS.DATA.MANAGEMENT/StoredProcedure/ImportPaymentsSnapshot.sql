@@ -1,29 +1,22 @@
-﻿CREATE PROCEDURE [dbo].[CreatePaymentsView]
+﻿
+CREATE PROCEDURE ImportPaymentsSnapshot
 (
    @RunId int
 )
 AS
--- =========================================================================
+
+-- ==================================================
 -- Author:      Himabindu Uddaraju
--- Create Date: 15/08/2019
--- Description: Create Views for Payments that mimics RDS Payments
--- Simon Heath: 04/11/2019 Amend transfers CTE to remove names to prevent 
--- duplicates and correct names of DeliveryYear and CreateDatetime to match 
--- RDS.
---
---     Change Control
---     
---     Date				Author        Jira             Description
---
---      14/01/2020 R.Rai			ADM_982			Change Agreement Type to logic to account tables
---      28/01/2020 S Heath          ADM_990         Cast data types to match RDS
---      29/01/2020 H Uddaraju	    ADM_1022        Fix Join Condition for Funding Source 
--- =====================================================================================================
+-- Create Date: 03/02/2020
+-- Description: Import Payments Snapshot Data to help with Data Science Metadata Refresh Issue
+--              ADM- 1036
+-- ==================================================
 
 BEGIN TRY
 
+    SET NOCOUNT ON
 
-DECLARE @LogID int
+ DECLARE @LogID int
 
 /* Start Logging Execution */
 
@@ -37,29 +30,22 @@ DECLARE @LogID int
 	  )
   SELECT 
         @RunId
-	   ,'Step-4'
-	   ,'CreatePaymentsView'
+	   ,'Step-2'
+	   ,'ImportPaymentsSnapshot'
 	   ,getdate()
 	   ,0
 
-  SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
-   WHERE StoredProcedureName='CreatePaymentsView'
+    SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
+   WHERE StoredProcedureName='ImportPaymentsSnapshot'
      AND RunId=@RunID
 
 
-DECLARE @VSQL1 NVARCHAR(MAX)
-DECLARE @VSQL2 VARCHAR(MAX)
-DECLARE @VSQL3 VARCHAR(MAX)
-DECLARE @VSQL4 VARCHAR(MAX)
+/* Import Payments Snapshot for Data Science */
 
-SET @VSQL1='
-if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_Payments'')
-Drop View Data_Pub.DAS_Payments
-'
-SET @VSQL2='
-CREATE VIEW [Data_Pub].[DAS_Payments]
-	AS 
-  WITH Comt AS
+DELETE FROM dbo.Payments_SS
+
+
+;WITH Comt AS
         (SELECT ID,
                 DateofBirth
            FROM Comt.Ext_Tbl_Apprenticeship)
@@ -72,15 +58,51 @@ CREATE VIEW [Data_Pub].[DAS_Payments]
            FROM [Fin].[Ext_Tbl_AccountTransfers])
 ,Payment AS
         (SELECT P.*
-               ,Cast(P.CollectionPeriodYear AS varchar)+''-''+RIGHT(''0'' + RTRIM(cast(p.CollectionPeriodMonth AS varchar)), 2)+''-01'' CollectionDate 
-               ,Cast(P.DeliveryPeriodYear AS varchar)+''-''+RIGHT(''0'' + RTRIM(cast(p.DeliveryPeriodMonth AS varchar)), 2)+''-01'' DeliveryDate
+               ,Cast(P.CollectionPeriodYear AS varchar)+'-'+RIGHT('0' + RTRIM(cast(p.CollectionPeriodMonth AS varchar)), 2)+'-01' CollectionDate 
+               ,Cast(P.DeliveryPeriodYear AS varchar)+'-'+RIGHT('0' + RTRIM(cast(p.DeliveryPeriodMonth AS varchar)), 2)+'-01' DeliveryDate
            FROM Fin.Ext_Tbl_Payment P) 
 
-'
-SET @VSQL3='
+
+
+        INSERT INTO  dbo.Payments_SS
+		  ([PaymentId]
+           ,[UkPrn]
+           ,[Uln]
+           ,[EmployerAccountId]
+		   ,DasAccountId
+		   ,CommitmentID
+		   ,DeliveryMonth
+		   ,DeliveryYear
+		   ,CollectionMonth
+		   ,CollectionYear
+		   ,EvidenceSubmittedOn
+		   ,EmployerAccountVersion
+		   ,ApprenticeshipVersion
+		   ,FundingSource
+		   ,FundingAccountId
+		   ,TransactionType
+		   ,Amount
+		   ,StdCode
+		   ,FworkCode
+		   ,ProgType
+		   ,PwayCode
+		   ,ContractType
+		   ,UpdateDateTime
+		   ,UpdateDate
+		   ,Flag_Latest
+		   ,Flag_FirstPayment
+		   ,PaymentAge
+		   ,PaymentAgeBand
+		   ,DeliveryMonthShortNameYear
+		   ,DASAccountName
+		   ,CollectionPeriodName
+		   ,CollectionPeriodMonth
+		   ,CollectionPeriodYear
+          )
+
 		SELECT	
-           ISNULL( CAST( 1 AS BIGINT ), 1 )                                   AS ID  -- may need to do hashbytes to cast as bigint 
-	       , CAST( [P].[PaymentId] AS nvarchar(100) )                           AS PaymentID  
+       --    ISNULL( CAST( 1 AS BIGINT ), 1 )                                   AS ID,  -- may need to do hashbytes to cast as bigint 
+	       CAST( [P].[PaymentId] AS nvarchar(100) )                           AS PaymentID  
          , CAST([P].[UkPrn] AS BIGINT)                                        AS UKPRN 
          , CAST([P].[Uln] AS BIGINT)                                          AS ULN 
          , CAST([P].[AccountId] AS nvarchar(100) )                            AS EmployerAccountID 
@@ -93,18 +115,18 @@ SET @VSQL3='
          , [P].[EvidenceSubmittedOn]                                          AS EvidenceSubmittedOn 
          , CAST( [P].[EmployerAccountVersion] AS nvarchar(50) )               AS EmployerAccountVersion 
          , CAST( [P].[ApprenticeshipVersion] AS nvarchar(50) )                AS ApprenticeshipVersion 
-		     , CAST( COALESCE(FS.FieldDesc,''Unknown'') AS nvarchar(25) )         AS FundingSource
+		     , CAST( COALESCE(FS.FieldDesc,'Unknown') AS nvarchar(25) )         AS FundingSource
          , CASE
              WHEN [P].[FundingSource] = 5 THEN [EAT].[SenderAccountId]
              ELSE NULL
             END                                                               AS FundingAccountId
-		     , CAST( COALESCE(TT.FieldDesc,''Unknown'') AS nvarchar(50) )         AS TransactionType
+		     , CAST( COALESCE(TT.FieldDesc,'Unknown') AS nvarchar(50) )         AS TransactionType
          , [P].[Amount]                                                       AS Amount
          , CAST(COALESCE([PM].[StandardCode], -1) AS INT)                     AS [StdCode] 
          , CAST(COALESCE([PM].[FrameworkCode], -1) AS INT)                    AS [FworkCode] 
          , CAST(COALESCE([PM].[ProgrammeType], -1) AS INT)                    AS [ProgType] 
          , CAST(COALESCE([PM].[PathwayCode], -1) AS INT)                      AS [PwayCode] 
-         , CAST(NULL AS NVARCHAR(50))                                         AS ContractType 
+         , NULL                                                               AS ContractType 
          , EvidenceSubmittedOn                                                AS UpdateDateTime 
          , CAST(EvidenceSubmittedOn AS DATE)                                  AS [UpdateDate] 
          , 1                                                                  AS [Flag_Latest] 
@@ -115,12 +137,12 @@ SET @VSQL3='
              ELSE DATEDIFF(YEAR, C.DateOfBirth, p.CollectionDate)
             END                                                               AS PaymentAge 
          , CASE
-             WHEN C.DateOfBirth IS NULL THEN ''Unknown DOB (no commitment)''
+             WHEN C.DateOfBirth IS NULL THEN 'Unknown DOB (no commitment)'
              WHEN CASE WHEN C.DateOfBirth IS NULL THEN -1
                         WHEN DATEPART(M,C.DateOfBirth) > DATEPART(M,P.CollectionDate) OR (DATEPART(M,C.DateOfBirth) = DATEPART(M,P.CollectionDate) AND DATEPART(DD,C.DateOfBirth) > DATEPART(DD,P.CollectionDate)) THEN DATEDIFF(YEAR,C.DateOfBirth,P.CollectionDate) -1
                       ELSE DATEDIFF(YEAR,C.DateOfBirth, P.CollectionDate)
-                   END BETWEEN 0 AND 18 THEN ''16-18''
-             ELSE ''19+''
+                   END BETWEEN 0 AND 18 THEN '16-18'
+             ELSE '19+'
             END                                                               AS PaymentAgeBand 
 		 , CM.CalendarMonthShortNameYear                                      AS DeliveryMonthShortNameYear 
          , Acct.Name                                                          AS DASAccountName 
@@ -128,9 +150,7 @@ SET @VSQL3='
          , CAST( RIGHT(rtrim(P.CollectionPeriodId),3) AS nvarchar(10) )       AS CollectionPeriodMonth
          , CAST( LEFT(ltrim(P.CollectionPeriodId),4) AS nvarchar(10) )        AS CollectionPeriodYear
  FROM    Payment AS P 
-'
-SET @VSQL4=
-'  LEFT JOIN  Transfers EAT 
+  LEFT JOIN  Transfers EAT 
           ON P.ApprenticeshipId = EAT.ApprenticeshipId 
    LEFT JOIN  Fin.Ext_Tbl_PaymentMetaData PM 
           ON P.PaymentMetaDataId = PM.Id 		
@@ -184,34 +204,41 @@ SET @VSQL4=
 			 SELECT FieldValue
 			       ,FieldDesc
 			   FROM dbo.ReferenceData TM
-			  WHERE TM.FieldName=''TransactionType''
-			    and TM.Category=''Payments'') TT
+			  WHERE TM.FieldName='TransactionType'
+			    and TM.Category='Payments') TT
 		  ON TT.FieldValue=P.TransactionType
     LEFT JOIN 
             (
 			 SELECT FieldValue
 			       ,FieldDesc
 			   FROM dbo.ReferenceData TM
-			  WHERE TM.FieldName=''FundingSource''
-			    and TM.Category=''Payments'') FS
+			  WHERE TM.FieldName='FundingSource'
+			    and TM.Category='Payments') FS
 		  ON FS.FieldValue=P.FundingSource
-'
 
-EXEC SP_EXECUTESQL @VSQL1
-EXEC (@VSQL2+@VSQL3+@VSQL4)
+
+
+
+ 
+
+
+ 
+ 
+ /* Update Log Execution Results as Success if the query ran succesfully*/
 
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1
       ,EndDateTime=getdate()
 	  ,FullJobStatus='Pending'
  WHERE LogId=@LogID
-   AND RunId=@RunId
+   AND RunID=@RunId
 
  
 END TRY
+
 BEGIN CATCH
     IF @@TRANCOUNT>0
-	ROLLBACK TRANSACTION;
+	ROLLBACK TRANSACTION
 
     DECLARE @ErrorId int
 
@@ -232,7 +259,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'CreatePaymentsView',
+	    'ImportPaymentsSnapshot',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 
@@ -251,7 +278,3 @@ UPDATE Mgmt.Log_Execution_Results
   END CATCH
 
 GO
-
-
-		  
-

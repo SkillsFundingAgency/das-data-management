@@ -42,7 +42,7 @@ BEGIN TRY
 
 /* Import Payments Snapshot for Data Science */
 
-TRUNCATE TABLE dbo.Payments_SS
+DELETE FROM dbo.Payments_SS
 
 
 ;WITH Comt AS

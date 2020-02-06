@@ -1,23 +1,24 @@
-﻿CREATE PROCEDURE [dbo].[CreateCommitmentsView]
+﻿CREATE PROCEDURE [dbo].[CreateCommitmentsView_LevyInd]
 (
    @RunId int
 )
 AS
-/* =========================================================================
--- Author:      Himabindu Uddaraju
--- Create Date: 15/08/2019
--- Description: Create Views for Commitments that mimics RDS Commitments
 -- =========================================================================
-
+-- Author:      Robin Rai
+-- Create Date: 15/08/2019
+-- Description: Create Commitment View with Levy Indicator 
 --
-     Change Control
-     
-     Date				Author        Jira             Description
+--
+--     Change Control
+--     
+--     Date				Author        Jira             Description
+--
+--      16/01/2020		R.Rai		  ADM_1001		   Change Levy Indicator logic to account tables
+--
+-- =====================================================================================================
 
-     20/01/2020		R.Rai		  ADM_989		   Change ULN to -2 when null
 
 
-*/
 
 BEGIN TRY
 
@@ -37,12 +38,12 @@ DECLARE @LogID int
   SELECT 
         @RunId
 	   ,'Step-4'
-	   ,'CreateCommitmentsView'
+	   ,'CreateCommitmentsView_LevyInd'
 	   ,getdate()
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
-   WHERE StoredProcedureName='CreateCommitmentsView'
+   WHERE StoredProcedureName='CreateCommitmentsView_LevyInd'
      AND RunId=@RunID
 
 
@@ -52,11 +53,11 @@ DECLARE @VSQL3 VARCHAR(MAX)
 DECLARE @VSQL4 VARCHAR(MAX)
 
 SET @VSQL1='
-if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_Commitments'')
-Drop View Data_Pub.DAS_Commitments
+if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_Commitments_LevyInd'')
+Drop View Data_Pub.DAS_Commitments_LevyInd
 '
 SET @VSQL2='
-CREATE VIEW [Data_Pub].[DAS_Commitments]
+CREATE VIEW [Data_Pub].[DAS_Commitments_LevyInd]
 	AS 
 SELECT [C].[ID]                                                         AS ID
 	   , CAST([C].ID AS BIGINT)                                         AS EventID
@@ -78,7 +79,7 @@ SELECT [C].[ID]                                                         AS ID
 		           ELSE ''NotAgreed''
 		       END AS Varchar(50))                                      as AgreementStatus
 		,CAST(C.ProviderId as bigint)                                   as UKPRN
-		,CAST(isnull(A.ULN,-2) as bigint)                               as ULN
+		,CAST(A.ULN as bigint)                                          as ULN
 		,CAST(C.ProviderId as Varchar(255))                             as ProviderID
 		,CAST(A.ULN as varchar(255))                                    as LearnerID
 		,CAST(C.EmployerAccountId as Varchar(255))                      as EmployerAccountID
@@ -178,6 +179,7 @@ SET @VSQL4=
 		                    ELSE ''No''
 			                 END) AS Varchar(3)),''NA'')             as FullyAgreedCommitment
 	    , CAST(C.LegalEntityAddress as nvarchar(256))                as LegalEntityRegisteredAddress
+		, acct1.ApprenticeshipEmployerType                           as IsLevy
 FROM [Comt].[Ext_Tbl_Commitment] C 
 LEFT JOIN [Comt].[Ext_Tbl_Apprenticeship] A
   ON C.Id=A.CommitmentId
@@ -185,6 +187,8 @@ LEFT JOIN [Comt].[Ext_Tbl_Accounts] Acc
   ON Acc.Id=c.EmployerAccountId
 LEFT JOIN [Acct].[Ext_Tbl_LegalEntity] LE
   ON LE.Code=c.LegalEntityId
+LEFT JOIN [Acct].[Ext_Tbl_Account] acct1
+  ON acct1.id = c.EmployerAccountId
 LEFT JOIN (SELECT P.ApprenticeshipId 
         ,SUM(P.Amount) as TotalAmount
         FROM Fin.Ext_Tbl_Payment P
@@ -244,7 +248,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'CreateCommitmentsView',
+	    'CreateCommitmentsView_LevyInd',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 

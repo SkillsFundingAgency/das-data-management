@@ -1,23 +1,14 @@
-﻿CREATE PROCEDURE [dbo].[CreateEmployerAccountTransfersView]
+﻿CREATE PROCEDURE [dbo].[CreateEmployerAccountTransfersView_LevyInd]
 (
    @RunId int
 )
 AS
 /*===========================================================================
-Author:      Simon Heath
-Create Date: 12/09/2019
-Description: Create Views for EmployerAccountTransfers that mimics RDS view
+Author:      Robin Rai
+Create Date: 07/01/2020
+Description: Clone Transfers View and Add Levy Indicator by sourcing flag from Acct.Ext_tbl_Account on id 
+             (which is the employer id ) and column is ApprenticeshipEmployerType which holds flag
 
-Simon Heath 05/11/2019 ADM-863 Changed where RequiredPaymentId is sourced 
-from to workaround production bug in MA where the source has it set as all 
-zeroes. 
-
-Future improvements from Hima's review: 
-1) TransferId is not unique in DataManagement but it's unique on RDS - worth 
-informing Data Science on this.
-2) RequiredPaymentID in data management is actually PaymentId on DEDS which 
-we don't currently have in source AS databases. We can change this once
-DEDS has been staged.
 =============================================================================*/
 
 BEGIN TRY
@@ -38,12 +29,12 @@ DECLARE @LogID int
   SELECT 
         @RunId
 	   ,'Step-4'
-	   ,'CreateEmployerAccountTransfersView'
+	   ,'CreateEmployerAccountTransfersView_LevyInd'
 	   ,getdate()
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
-   WHERE StoredProcedureName='CreateEmployerAccountTransfersView'
+   WHERE StoredProcedureName='CreateEmployerAccountTransfersView_LevyInd'
      AND RunId=@RunID
 
 
@@ -53,11 +44,11 @@ DECLARE @VSQL3 VARCHAR(MAX)
 DECLARE @VSQL4 VARCHAR(MAX)
 
 SET @VSQL1='
-if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_Employer_Account_Transfers'')
-Drop View Data_Pub.DAS_Employer_Account_Transfers
+if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_Employer_Account_Transfers_LevyInd'')
+Drop View Data_Pub.DAS_Employer_Account_Transfers_LevyInd
 '
 SET @VSQL2='
-CREATE VIEW [Data_Pub].[DAS_Employer_Account_Transfers]	AS 
+CREATE VIEW [Data_Pub].[DAS_Employer_Account_Transfers_LevyInd]	AS 
 	SELECT
 	  ISNULL(CAST(AT.Id AS bigint),-1)                               AS TransferId
 	, ISNULL(CAST(AT.SenderAccountId AS bigint),-1)                  as SenderAccountId
@@ -68,9 +59,17 @@ CREATE VIEW [Data_Pub].[DAS_Employer_Account_Transfers]	AS
 	, ISNULL(CAST(AT.Type as nvarchar(50)),''NA'')                   AS Type
 	, ISNULL(CAST (p.PeriodEnd AS NVARCHAR(10)),''XXXX'')            AS CollectionPeriodName
 	, ISNULL(AT.CreatedDate,''9999-12-31'')                          AS UpdateDateTime
+
+    , Acct1.ApprenticeshipEmployerType                               AS SenderAccountId_IsLevy
+	, Acct2.ApprenticeshipEmployerType                               AS ReceiverAccountId_IsLevy
 	FROM Fin.Ext_Tbl_AccountTransfers AT
-	INNER JOIN Comt.Ext_Tbl_Apprenticeship A 
-	  ON AT.ApprenticeshipId = A.ID
+	 JOIN Comt.Ext_Tbl_Apprenticeship A 
+	    ON AT.ApprenticeshipId = A.ID
+	 LEFT JOIN [Acct].[Ext_Tbl_Account] Acct1
+        ON Acct1.id = AT.SenderAccountId
+	 LEFT JOIN [Acct].[Ext_Tbl_Account] Acct2
+        ON Acct2.id = AT.ReceiverAccountId
+
 	LEFT OUTER JOIN 
 	( SELECT xp.PaymentID
 	  , xp.ApprenticeshipId
@@ -79,6 +78,7 @@ CREATE VIEW [Data_Pub].[DAS_Employer_Account_Transfers]	AS
 	  FROM Fin.Ext_Tbl_Payment xp 
 	  WHERE xp.Fundingsource = 5 
 	) AS p ON at.ApprenticeshipId=p.ApprenticeshipId and at.periodend=p.periodend
+
 '
 -- SET @VSQL3='  ' 
 -- SET @VSQL4='  ' 
@@ -119,7 +119,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'CreateEmployerAccountTransfersView',
+	    'CreateEmployerAccountTransfersView_LevyInd',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 

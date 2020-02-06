@@ -128,5 +128,9 @@
     <Build Include="StoredProcedure\CreateEmployerTransferRelationshipView.sql" />
     <Build Include="Functions\Fn_ExtractPostCodeUKFromAddress.sql" />
     <Build Include="StoredProcedure\CreateTransactionLineView.sql" />
+    <Build Include="StoredProcedure\CreateEmployerAgreements.sql" />
+    <Build Include="StoredProcedure\CreateCommitmentsView_LevyInd.sql" />
+    <Build Include="StoredProcedure\CreateEmployerAccountTransfersView_LevyInd.sql" />
+    <Build Include="StoredProcedure\CreateLevyDeclarationsView_LevyInd.sql" />
   </ItemGroup>
 </Project>

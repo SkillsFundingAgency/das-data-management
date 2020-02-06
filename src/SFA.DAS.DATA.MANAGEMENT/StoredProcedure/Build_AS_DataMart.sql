@@ -42,11 +42,15 @@ EXEC CreateNonLevyView @RunId
 
 EXEC CreateLevyDeclarationsView @RunId
 
+EXEC CreateLevyDeclarationsView_LevyInd @RunId
+
 EXEC CreatePaymentsView @RunId
 
 EXEC CreateEmployerAccountTransactionsView @RunId
 
 EXEC CreateEmployerAccountTransfersView @RunId 
+
+EXEC CreateEmployerAccountTransfersView_LevyInd @RunId 
 
 EXEC CreateEmployerPAYESchemesView @RunId 
 
@@ -57,6 +61,13 @@ EXEC CreateEmployerAccountsView @RunId
 EXEC CreateEmployerTransferRelationshipView @RunId 
 
 EXEC CreateTransactionLineView @RunId 
+
+EXEC CreateEmployerAgreementsView @RunId
+
+EXEC CreateCommitmentsView_LevyInd @RunId
+
+
+
 
 /* Load Commitments into Modelled Data Tables */
 

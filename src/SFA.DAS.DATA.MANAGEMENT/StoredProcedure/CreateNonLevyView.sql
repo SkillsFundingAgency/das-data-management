@@ -42,11 +42,11 @@ DECLARE @VSQL3 VARCHAR(MAX)
 DECLARE @VSQL4 VARCHAR(MAX)
 
 SET @VSQL1='
-if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''Das_NonLevy'')
-Drop View Data_Pub.Das_NonLevy
+if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_NonLevy'')
+Drop View Data_Pub.DAS_NonLevy
 '
 SET @VSQL2='
-CREATE VIEW [Data_Pub].[Das_NonLevy]
+CREATE VIEW [Data_Pub].[DAS_NonLevy]
 	AS
 
 WITH NonLevyPayments

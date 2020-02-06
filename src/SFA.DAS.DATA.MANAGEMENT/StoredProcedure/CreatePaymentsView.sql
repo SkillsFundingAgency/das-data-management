@@ -7,7 +7,18 @@ AS
 -- Author:      Himabindu Uddaraju
 -- Create Date: 15/08/2019
 -- Description: Create Views for Payments that mimics RDS Payments
--- =========================================================================
+-- Simon Heath: 04/11/2019 Amend transfers CTE to remove names to prevent 
+-- duplicates and correct names of DeliveryYear and CreateDatetime to match 
+-- RDS.
+--
+--     Change Control
+--     
+--     Date				Author        Jira             Description
+--
+--      14/01/2020 R.Rai			ADM_982			Change Agreement Type to logic to account tables
+--      28/01/2020 S Heath          ADM_990         Cast data types to match RDS
+--      29/01/2020 H Uddaraju	    ADM_1022        Fix Join Condition for Funding Source 
+-- =====================================================================================================
 
 BEGIN TRY
 
@@ -42,11 +53,11 @@ DECLARE @VSQL3 VARCHAR(MAX)
 DECLARE @VSQL4 VARCHAR(MAX)
 
 SET @VSQL1='
-if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''Das_Payments'')
-Drop View Data_Pub.Das_Payments
+if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_Payments'')
+Drop View Data_Pub.DAS_Payments
 '
 SET @VSQL2='
-CREATE VIEW [Data_Pub].[Das_Payments]
+CREATE VIEW [Data_Pub].[DAS_Payments]
 	AS 
   WITH Comt AS
         (SELECT ID,
@@ -54,9 +65,9 @@ CREATE VIEW [Data_Pub].[Das_Payments]
            FROM Comt.Ext_Tbl_Apprenticeship)
 ,Transfers AS
         (SELECT DISTINCT [SenderAccountId] 
-                        ,[SenderAccountName] 
+                        --,[SenderAccountName] 
                         ,[ReceiverAccountId] 
-                        ,[ReceiverAccountName] 
+                        --,[ReceiverAccountName] 
                         ,[ApprenticeshipId]
            FROM [Fin].[Ext_Tbl_AccountTransfers])
 ,Payment AS
@@ -68,37 +79,33 @@ CREATE VIEW [Data_Pub].[Das_Payments]
 '
 SET @VSQL3='
 		SELECT	
-           [P].[PaymentId]                                                    AS ID
-		 , [P].[PaymentId]                                                    AS PaymentID 
+           ISNULL( CAST( 1 AS BIGINT ), 1 )                                   AS ID  -- may need to do hashbytes to cast as bigint 
+	       , CAST( [P].[PaymentId] AS nvarchar(100) )                           AS PaymentID  
          , CAST([P].[UkPrn] AS BIGINT)                                        AS UKPRN 
          , CAST([P].[Uln] AS BIGINT)                                          AS ULN 
-         , [P].[AccountId]                                                    AS EmployerAccountID 
+         , CAST([P].[AccountId] AS nvarchar(100) )                            AS EmployerAccountID 
          , Acct.HashedId                                                      AS DasAccountId 
          , P.ApprenticeshipId                                                 AS CommitmentID 
          , P.DeliveryPeriodMonth                                              AS DeliveryMonth 
-         , P.DeliveryPeriodYear                                               AS DeliveryPeriod 
+         , P.DeliveryPeriodYear                                               AS DeliveryYear 
          , P.CollectionPeriodMonth                                            AS CollectionMonth 
          , P.CollectionPeriodYear                                             AS CollectionYear 
          , [P].[EvidenceSubmittedOn]                                          AS EvidenceSubmittedOn 
-         , [P].[EmployerAccountVersion]                                       AS EmployerAccountVersion 
-         , [P].[ApprenticeshipVersion]                                        AS ApprenticeshipVersion 
-		 ,COALESCE(FS.FieldDesc,''Unknown'')                                  AS FundingSource
+         , CAST( [P].[EmployerAccountVersion] AS nvarchar(50) )               AS EmployerAccountVersion 
+         , CAST( [P].[ApprenticeshipVersion] AS nvarchar(50) )                AS ApprenticeshipVersion 
+		     , CAST( COALESCE(FS.FieldDesc,''Unknown'') AS nvarchar(25) )         AS FundingSource
          , CASE
              WHEN [P].[FundingSource] = 5 THEN [EAT].[SenderAccountId]
              ELSE NULL
             END                                                               AS FundingAccountId
-		 , COALESCE(TT.FieldDesc,''Unknown'')                                 AS TransactionType
+		     , CAST( COALESCE(TT.FieldDesc,''Unknown'') AS nvarchar(50) )         AS TransactionType
          , [P].[Amount]                                                       AS Amount
          , CAST(COALESCE([PM].[StandardCode], -1) AS INT)                     AS [StdCode] 
          , CAST(COALESCE([PM].[FrameworkCode], -1) AS INT)                    AS [FworkCode] 
          , CAST(COALESCE([PM].[ProgrammeType], -1) AS INT)                    AS [ProgType] 
          , CAST(COALESCE([PM].[PathwayCode], -1) AS INT)                      AS [PwayCode] 
-         , CASE
-             WHEN NL.AccountId IS NULL 
-		     THEN ''ContractWithEmployer''
-             ELSE ''ContractWithSFA''
-            END                                                               AS ContractType 
-         , EvidenceSubmittedOn                                                AS UpdatedDateTime 
+         , NULL                                                               AS ContractType 
+         , EvidenceSubmittedOn                                                AS UpdateDateTime 
          , CAST(EvidenceSubmittedOn AS DATE)                                  AS [UpdateDate] 
          , 1                                                                  AS [Flag_Latest] 
          , COALESCE(FP.Flag_FirstPayment, 0)                                  AS Flag_FirstPayment 
@@ -117,9 +124,9 @@ SET @VSQL3='
             END                                                               AS PaymentAgeBand 
 		 , CM.CalendarMonthShortNameYear                                      AS DeliveryMonthShortNameYear 
          , Acct.Name                                                          AS DASAccountName 
-         , P.PeriodEnd                                                        AS CollectionPeriodName 
-         , RIGHT(rtrim(P.CollectionPeriodId),3)                               AS CollectionPeriodMonth
-         , LEFT(ltrim(P.CollectionPeriodId),4)                                AS CollectionPeriodYear
+         , CAST( P.PeriodEnd AS nvarchar(20) )                                AS CollectionPeriodName 
+         , CAST( RIGHT(rtrim(P.CollectionPeriodId),3) AS nvarchar(10) )       AS CollectionPeriodMonth
+         , CAST( LEFT(ltrim(P.CollectionPeriodId),4) AS nvarchar(10) )        AS CollectionPeriodYear
  FROM    Payment AS P 
 '
 SET @VSQL4=
@@ -157,16 +164,21 @@ SET @VSQL4=
                 FROM [Acct].Ext_Tbl_Account
              ) Acct 
           ON Acct.Id = [P].AccountId 
-   LEFT JOIN
-             (
-              SELECT AccountId,
-                     IsLevy 
-                FROM Resv.Ext_Tbl_AccountLegalEntity 
-               WHERE IsLevy = 0 
-                 AND AgreementType = 1 
-                 AND AgreementSigned = 1
-             ) NL 
-          ON NL.AccountId = P.AccountId
+   --LEFT JOIN
+   --          (
+              
+		 --     SELECT a.ID as AccountID,
+			--         a.ApprenticeshipEmployerType As IsLevy
+			--  FROM [acct].[Ext_Tbl_Account] a
+			--      JOIN [acct].[Ext_Tbl_AccountLegalEntity] b
+			--  ON a.id = b.AccountID
+			--  WHERE a.ApprenticeshipEmployerType = 0
+			--  AND SignedAgreementID is not null
+			--  AND SignedAgreementVersion = 1
+		
+
+   --          ) NL 
+   --       ON NL.AccountId = P.AccountId
    LEFT JOIN 
             (
 			 SELECT FieldValue
@@ -182,7 +194,7 @@ SET @VSQL4=
 			   FROM dbo.ReferenceData TM
 			  WHERE TM.FieldName=''FundingSource''
 			    and TM.Category=''Payments'') FS
-		  ON FS.FieldValue=P.TransactionType
+		  ON FS.FieldValue=P.FundingSource
 '
 
 EXEC SP_EXECUTESQL @VSQL1

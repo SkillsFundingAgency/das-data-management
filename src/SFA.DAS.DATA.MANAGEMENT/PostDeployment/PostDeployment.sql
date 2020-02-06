@@ -43,8 +43,18 @@ GRANT SELECT ON dbo.TrainingCourse To Developer
 
 GRANT SELECT ON dbo.Transfers To Developer
 
+GRANT SELECT ON dbo.[ReferenceData] To Developer
+
+GRANT SELECT ON [dbo].[DASCalendarMonth] To Developer
+
 IF EXISTS(select 1 from sys.views where name='Das_Commitments' and type='v')
 GRANT SELECT ON Data_Pub.Das_Commitments TO Developer
+
+
+IF EXISTS(select 1 from sys.views where name='Das_Commitments_LevyInd' and type='v')
+BEGIN
+     GRANT SELECT ON Data_Pub.Das_Commitments_LevyInd TO Developer
+END
 
 IF EXISTS(select 1 from sys.views where name='Das_NonLevy' and type='v')
 GRANT SELECT ON Data_Pub.Das_NonLevy TO Developer
@@ -55,6 +65,15 @@ GRANT SELECT ON Data_Pub.Das_Payments TO Developer
 IF EXISTS(select 1 from sys.views where name='Das_LevyDeclarations' and type='v')
 GRANT SELECT ON Data_Pub.Das_LevyDeclarations TO Developer
 
+
+IF EXISTS(select 1 from sys.views where name='Das_LevyDeclarations_LevyInd' and type='v')
+BEGIN
+     GRANT SELECT ON Data_Pub.Das_LevyDeclarations_LevyInd TO Developer
+END
+
+
+
+
 IF EXISTS(select 1 from sys.views where name='DAS_Employer_AccountTransactions' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_AccountTransactions TO Developer
 
@@ -63,6 +82,15 @@ GRANT SELECT ON Data_Pub.DAS_CalendarMonth TO Developer
 
 IF EXISTS(select 1 from sys.views where name='DAS_Employer_Account_Transfers' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_Account_Transfers TO Developer
+
+
+IF EXISTS(select 1 from sys.views where name='DAS_Employer_Account_Transfers_LevyInd' and type='v')
+BEGIN
+  GRANT SELECT ON Data_Pub.DAS_Employer_Account_Transfers_LevyInd TO Developer
+END
+
+
+
 
 IF EXISTS(select 1 from sys.views where name='DAS_Employer_PayeSchemes' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_PayeSchemes TO Developer
@@ -79,6 +107,12 @@ GRANT SELECT ON Data_Pub.DAS_Employer_Transfer_Relationship TO Developer
 IF EXISTS(select 1 from sys.views where name='Das_TransactionLine' and type='v')
 GRANT SELECT ON Data_Pub.Das_TransactionLine TO Developer
 
+IF EXISTS(select 1 from sys.views where name='DAS_Employer_Agreements' and type='v')
+GRANT SELECT ON Data_Pub.DAS_Employer_Agreements TO Developer
+
+
+
+
 IF DATABASE_PRINCIPAL_ID('DataAnalyst') IS NULL
 BEGIN
 	CREATE ROLE [DataAnalyst]
@@ -87,14 +121,28 @@ END
 if exists(select 1 from sys.views where name='Das_Commitments' and type='v')
 GRANT SELECT ON Data_Pub.Das_Commitments TO DataAnalyst
 
+
+IF EXISTS(select 1 from sys.views where name='Das_Commitments_LevyInd' and type='v')
+BEGIN
+     GRANT SELECT ON Data_Pub.Das_Commitments_LevyInd TO DataAnalyst
+END
+
+
 if exists(select 1 from sys.views where name='Das_NonLevy' and type='v')
 GRANT SELECT ON Data_Pub.Das_NonLevy TO DataAnalyst
 
-IF EXISTS(select 1 from sys.views where name='Das_Payments' and type='v')
-GRANT SELECT ON Data_Pub.Das_Payments TO DataAnalyst
+--IF EXISTS(select 1 from sys.views where name='Das_Payments' and type='v')
+--GRANT SELECT ON Data_Pub.Das_Payments TO DataAnalyst
 
 IF EXISTS(select 1 from sys.views where name='Das_LevyDeclarations' and type='v')
 GRANT SELECT ON Data_Pub.Das_LevyDeclarations TO DataAnalyst
+
+
+IF EXISTS(select 1 from sys.views where name='Das_LevyDeclarations_LevyInd' and type='v')
+BEGIN
+     GRANT SELECT ON Data_Pub.Das_LevyDeclarations_LevyInd TO DataAnalyst
+END
+
 
 IF EXISTS(select 1 from sys.views where name='DAS_Employer_AccountTransactions' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_AccountTransactions TO DataAnalyst
@@ -104,6 +152,14 @@ GRANT SELECT ON Data_Pub.DAS_CalendarMonth TO DataAnalyst
 
 if exists(select 1 from sys.views where name='DAS_Employer_Account_Transfers' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_Account_Transfers TO DataAnalyst
+
+
+if exists(select 1 from sys.views where name='DAS_Employer_Account_Transfers_LevyInd' and type='v')
+BEGIN
+   GRANT SELECT ON Data_Pub.DAS_Employer_Account_Transfers_LevyInd TO DataAnalyst
+END
+
+
 
 if exists(select 1 from sys.views where name='DAS_Employer_PayeSchemes' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_PayeSchemes TO DataAnalyst
@@ -116,3 +172,9 @@ GRANT SELECT ON Data_Pub.DAS_Employer_Accounts TO DataAnalyst
 
 if exists(select 1 from sys.views where name='DAS_Employer_Transfer_Relationship' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_Transfer_Relationship TO DataAnalyst
+
+if exists(select 1 from sys.views where name='DAS_Employer_Agreements' and type='v')
+GRANT SELECT ON Data_Pub.DAS_Employer_Agreements TO DataAnalyst
+
+IF EXISTS(select 1 from sys.views where name='Das_Payments' and type='v')
+GRANT SELECT ON Data_Pub.Das_Payments TO DataAnalyst

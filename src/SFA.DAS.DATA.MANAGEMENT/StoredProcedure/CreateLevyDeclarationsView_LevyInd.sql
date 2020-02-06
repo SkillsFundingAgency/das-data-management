@@ -1,13 +1,23 @@
-﻿CREATE PROCEDURE [dbo].[CreateLevyDeclarationsView]
+﻿CREATE PROCEDURE [dbo].[CreateLevyDeclarationsView_LevyInd]
 (
    @RunId int
 )
 AS
--- ================================================================================
+/* ================================================================================
 -- Author:      Himabindu Uddaraju
 -- Create Date: 24/09/2019
 -- Description: Create Views for LevyDeclarations that mimics RDS LevyDeclarations
+
 -- ================================================================================
+
+    Change Control
+
+	Date			Author           Change\Comment
+
+	22/01/2020		R.Rai			ADM_678 - Add LevyIndicator Flag
+
+
+*/
 
 BEGIN TRY
 
@@ -27,12 +37,12 @@ DECLARE @LogID int
   SELECT 
         @RunId
 	   ,'Step-4'
-	   ,'CreateLevyDeclarationsView'
+	   ,'CreateLevyDeclarationsView_LevyInd'
 	   ,getdate()
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
-   WHERE StoredProcedureName='CreateLevyDeclarationsView'
+   WHERE StoredProcedureName='CreateLevyDeclarationsView_LevyInd'
      AND RunId=@RunID
 
 
@@ -42,11 +52,11 @@ DECLARE @VSQL3 VARCHAR(MAX)
 DECLARE @VSQL4 VARCHAR(MAX)
 
 SET @VSQL1='
-if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_LevyDeclarations'')
-Drop View Data_Pub.DAS_LevyDeclarations
+if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_LevyDeclarations_LevyInd'')
+Drop View Data_Pub.DAS_LevyDeclarations_LevyInd
 '
 SET @VSQL2='
-CREATE VIEW [Data_Pub].[DAS_LevyDeclarations]
+CREATE VIEW [Data_Pub].[DAS_LevyDeclarations_LevyInd]
 	AS 
 SELECT  ISNULL(CAST(LD.[Id] AS bigint),-1)                                   AS Id
       , ISNULL(CAST(EA.HashedId as nvarchar(100)),''XXXXXX'')                AS DASAccountID
@@ -79,6 +89,7 @@ SELECT  ISNULL(CAST(LD.[Id] AS bigint),-1)                                   AS 
       , Cast(LD.LevyDeclaredInMonth AS decimal(18,5))                        AS LevyDeclaredInMonth
       , Cast(LD.TotalAmount as Decimal(18,5))                                AS LevyAvailableInMonth                            
       , cast(LD.LevyDeclaredInMonth * LD.EnglishFraction as decimal(37,10))  AS LevyDeclaredInMonthWithEnglishFractionApplied
+	  , EA.ApprenticeshipEmployerType                                        AS IsLevy
   FROM fin.ext_tbl_getlevydeclarationandtopup AS LD
     LEFT JOIN acct.Ext_Tbl_Account EA 
            ON EA.ID=LD.AccountId
@@ -123,7 +134,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'CreateLevyDeclarationsView',
+	    'CreateLevyDeclarationsView_LevyInd',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 

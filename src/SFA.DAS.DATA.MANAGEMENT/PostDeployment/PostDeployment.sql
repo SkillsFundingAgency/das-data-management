@@ -49,7 +49,7 @@ GRANT SELECT ON dbo.[ReferenceData] To Developer
 
 GRANT SELECT ON [dbo].[DASCalendarMonth] To Developer
 
-GRANT SELECT ON dbo.Payments_SS TO DataAnalyst
+GRANT SELECT ON dbo.Payments_SS TO Developer
 
 IF EXISTS(select 1 from sys.views where name='Das_Commitments' and type='v')
 GRANT SELECT ON Data_Pub.Das_Commitments TO Developer

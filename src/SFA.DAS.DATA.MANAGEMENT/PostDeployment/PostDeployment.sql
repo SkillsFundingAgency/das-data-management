@@ -5,6 +5,8 @@ EXEC [dbo].[Build_AS_DataMart]
 
 /* Grant Permissions to Roles */
 
+/* Developer Role Access */
+
 
 IF DATABASE_PRINCIPAL_ID('Developer') IS NULL
 BEGIN
@@ -47,6 +49,8 @@ GRANT SELECT ON dbo.[ReferenceData] To Developer
 
 GRANT SELECT ON [dbo].[DASCalendarMonth] To Developer
 
+GRANT SELECT ON dbo.Payments_SS TO Developer
+
 IF EXISTS(select 1 from sys.views where name='Das_Commitments' and type='v')
 GRANT SELECT ON Data_Pub.Das_Commitments TO Developer
 
@@ -72,8 +76,6 @@ BEGIN
 END
 
 
-
-
 IF EXISTS(select 1 from sys.views where name='DAS_Employer_AccountTransactions' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_AccountTransactions TO Developer
 
@@ -88,8 +90,6 @@ IF EXISTS(select 1 from sys.views where name='DAS_Employer_Account_Transfers_Lev
 BEGIN
   GRANT SELECT ON Data_Pub.DAS_Employer_Account_Transfers_LevyInd TO Developer
 END
-
-
 
 
 IF EXISTS(select 1 from sys.views where name='DAS_Employer_PayeSchemes' and type='v')
@@ -112,6 +112,7 @@ GRANT SELECT ON Data_Pub.DAS_Employer_Agreements TO Developer
 
 
 
+/* Analyst Role Access */
 
 IF DATABASE_PRINCIPAL_ID('DataAnalyst') IS NULL
 BEGIN
@@ -178,3 +179,5 @@ GRANT SELECT ON Data_Pub.DAS_Employer_Agreements TO DataAnalyst
 
 IF EXISTS(select 1 from sys.views where name='Das_Payments' and type='v')
 GRANT SELECT ON Data_Pub.Das_Payments TO DataAnalyst
+
+GRANT SELECT ON dbo.Payments_SS TO DataAnalyst

@@ -132,5 +132,7 @@
     <Build Include="StoredProcedure\CreateCommitmentsView_LevyInd.sql" />
     <Build Include="StoredProcedure\CreateEmployerAccountTransfersView_LevyInd.sql" />
     <Build Include="StoredProcedure\CreateLevyDeclarationsView_LevyInd.sql" />
+    <Build Include="StoredProcedure\ImportPaymentsSnapshot.sql" />
+    <Build Include="Tables\Payments_SS.sql" />
   </ItemGroup>
 </Project>

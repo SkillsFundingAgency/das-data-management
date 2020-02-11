@@ -63,8 +63,8 @@ SET @vsql1='
            FROM [Fin].[Ext_Tbl_AccountTransfers])
 ,Payment AS
         (SELECT P.*
-               ,Cast(P.CollectionPeriodYear AS varchar)+'-'+RIGHT(''0'' + RTRIM(cast(p.CollectionPeriodMonth AS varchar)), 2)+''-01'' CollectionDate 
-               ,Cast(P.DeliveryPeriodYear AS varchar)+'-'+RIGHT(''0'' + RTRIM(cast(p.DeliveryPeriodMonth AS varchar)), 2)+''-01'' DeliveryDate
+               ,Cast(P.CollectionPeriodYear AS varchar)+''-''+RIGHT(''0'' + RTRIM(cast(p.CollectionPeriodMonth AS varchar)), 2)+''-01'' CollectionDate 
+               ,Cast(P.DeliveryPeriodYear AS varchar)+''-''+RIGHT(''0'' + RTRIM(cast(p.DeliveryPeriodMonth AS varchar)), 2)+''-01'' DeliveryDate
            FROM Fin.Ext_Tbl_Payment P) 
 '
 SET @vsql2='

@@ -67,6 +67,9 @@ EXEC CreateEmployerAgreementsView @RunId
 EXEC CreateCommitmentsView_LevyInd @RunId
 
 
+/* Refresh Payments Snapshot Table */
+
+EXEC ImportPaymentsSnapshot @RunId
 
 
 /* Load Commitments into Modelled Data Tables */

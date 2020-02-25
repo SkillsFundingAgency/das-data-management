@@ -112,7 +112,6 @@
     <Build Include="Schemas\Data_Pub.sql" />
     <Build Include="Views\LoadStatus.sql" />
     <Build Include="StoredProcedure\CreateCommitmentsView.sql" />
-    <Build Include="StoredProcedure\CreateNonLevyView.sql" />
     <Build Include="StoredProcedure\CreateEmployerAccountTransactionsView.sql" />
     <Build Include="StoredProcedure\CreateLevyDeclarationsView.sql" />
     <Build Include="StoredProcedure\CreatePaymentsView.sql" />
@@ -134,5 +133,7 @@
     <Build Include="StoredProcedure\CreateLevyDeclarationsView_LevyInd.sql" />
     <Build Include="StoredProcedure\ImportPaymentsSnapshot.sql" />
     <Build Include="Tables\Payments_SS.sql" />
+    <Build Include="StoredProcedure\CreateSpendControlView.sql" />
+    <Build Include="Schemas\ASData_PL.sql" />
   </ItemGroup>
 </Project>

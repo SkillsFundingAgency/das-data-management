@@ -54,7 +54,6 @@ GRANT SELECT ON dbo.Payments_SS TO Developer
 IF EXISTS(select 1 from sys.views where name='Das_Commitments' and type='v')
 GRANT SELECT ON Data_Pub.Das_Commitments TO Developer
 
-
 IF EXISTS(select 1 from sys.views where name='Das_Commitments_LevyInd' and type='v')
 BEGIN
      GRANT SELECT ON Data_Pub.Das_Commitments_LevyInd TO Developer
@@ -69,12 +68,10 @@ GRANT SELECT ON Data_Pub.Das_Payments TO Developer
 IF EXISTS(select 1 from sys.views where name='Das_LevyDeclarations' and type='v')
 GRANT SELECT ON Data_Pub.Das_LevyDeclarations TO Developer
 
-
 IF EXISTS(select 1 from sys.views where name='Das_LevyDeclarations_LevyInd' and type='v')
 BEGIN
      GRANT SELECT ON Data_Pub.Das_LevyDeclarations_LevyInd TO Developer
 END
-
 
 IF EXISTS(select 1 from sys.views where name='DAS_Employer_AccountTransactions' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_AccountTransactions TO Developer
@@ -85,12 +82,10 @@ GRANT SELECT ON Data_Pub.DAS_CalendarMonth TO Developer
 IF EXISTS(select 1 from sys.views where name='DAS_Employer_Account_Transfers' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_Account_Transfers TO Developer
 
-
 IF EXISTS(select 1 from sys.views where name='DAS_Employer_Account_Transfers_LevyInd' and type='v')
 BEGIN
   GRANT SELECT ON Data_Pub.DAS_Employer_Account_Transfers_LevyInd TO Developer
 END
-
 
 IF EXISTS(select 1 from sys.views where name='DAS_Employer_PayeSchemes' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_PayeSchemes TO Developer
@@ -109,6 +104,9 @@ GRANT SELECT ON Data_Pub.Das_TransactionLine TO Developer
 
 IF EXISTS(select 1 from sys.views where name='DAS_Employer_Agreements' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_Agreements TO Developer
+
+if exists(select 1 from sys.views where name='DAS_SpendControl' and type='v')
+GRANT SELECT ON ASData_PL.DAS_SpendControl TO Developer
 
 
 
@@ -181,3 +179,18 @@ IF EXISTS(select 1 from sys.views where name='Das_Payments' and type='v')
 GRANT SELECT ON Data_Pub.Das_Payments TO DataAnalyst
 
 GRANT SELECT ON dbo.Payments_SS TO DataAnalyst
+
+
+
+
+/* Finance Role Access */
+
+
+IF DATABASE_PRINCIPAL_ID('Finance') IS NULL
+BEGIN
+	CREATE ROLE [Finance]
+END
+
+
+IF EXISTS(select 1 from sys.views where name='DAS_SpendControl' and type='v')
+GRANT SELECT ON ASData_PL.DAS_SpendControl TO Finance

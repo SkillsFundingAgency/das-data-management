@@ -42,9 +42,14 @@ BEGIN TRY
 
 /* Import Payments Snapshot for Data Science */
 
-DELETE FROM dbo.Payments_SS
+TRUNCATE TABLE dbo.Payments_SS
 
+DECLARE @vsql1 nvarchar(max)
+DECLARE @vsql2 nvarchar(max)
+DECLARE @vsql3 nvarchar(max)
+DECLARE @vsql4 nvarchar(max)
 
+SET @vsql1='
 ;WITH Comt AS
         (SELECT ID,
                 DateofBirth
@@ -58,12 +63,11 @@ DELETE FROM dbo.Payments_SS
            FROM [Fin].[Ext_Tbl_AccountTransfers])
 ,Payment AS
         (SELECT P.*
-               ,Cast(P.CollectionPeriodYear AS varchar)+'-'+RIGHT('0' + RTRIM(cast(p.CollectionPeriodMonth AS varchar)), 2)+'-01' CollectionDate 
-               ,Cast(P.DeliveryPeriodYear AS varchar)+'-'+RIGHT('0' + RTRIM(cast(p.DeliveryPeriodMonth AS varchar)), 2)+'-01' DeliveryDate
+               ,Cast(P.CollectionPeriodYear AS varchar)+''-''+RIGHT(''0'' + RTRIM(cast(p.CollectionPeriodMonth AS varchar)), 2)+''-01'' CollectionDate 
+               ,Cast(P.DeliveryPeriodYear AS varchar)+''-''+RIGHT(''0'' + RTRIM(cast(p.DeliveryPeriodMonth AS varchar)), 2)+''-01'' DeliveryDate
            FROM Fin.Ext_Tbl_Payment P) 
-
-
-
+'
+SET @vsql2='
         INSERT INTO  dbo.Payments_SS
 		  ([PaymentId]
            ,[UkPrn]
@@ -99,6 +103,8 @@ DELETE FROM dbo.Payments_SS
 		   ,CollectionPeriodMonth
 		   ,CollectionPeriodYear
           )
+'
+SET @vsql3='
 
 		SELECT	
        --    ISNULL( CAST( 1 AS BIGINT ), 1 )                                   AS ID,  -- may need to do hashbytes to cast as bigint 
@@ -115,12 +121,12 @@ DELETE FROM dbo.Payments_SS
          , [P].[EvidenceSubmittedOn]                                          AS EvidenceSubmittedOn 
          , CAST( [P].[EmployerAccountVersion] AS nvarchar(50) )               AS EmployerAccountVersion 
          , CAST( [P].[ApprenticeshipVersion] AS nvarchar(50) )                AS ApprenticeshipVersion 
-		     , CAST( COALESCE(FS.FieldDesc,'Unknown') AS nvarchar(25) )         AS FundingSource
+		     , CAST( COALESCE(FS.FieldDesc,''Unknown'') AS nvarchar(25) )     AS FundingSource
          , CASE
              WHEN [P].[FundingSource] = 5 THEN [EAT].[SenderAccountId]
              ELSE NULL
             END                                                               AS FundingAccountId
-		     , CAST( COALESCE(TT.FieldDesc,'Unknown') AS nvarchar(50) )         AS TransactionType
+		 , CAST( COALESCE(TT.FieldDesc,''Unknown'') AS nvarchar(50) )         AS TransactionType
          , [P].[Amount]                                                       AS Amount
          , CAST(COALESCE([PM].[StandardCode], -1) AS INT)                     AS [StdCode] 
          , CAST(COALESCE([PM].[FrameworkCode], -1) AS INT)                    AS [FworkCode] 
@@ -137,18 +143,20 @@ DELETE FROM dbo.Payments_SS
              ELSE DATEDIFF(YEAR, C.DateOfBirth, p.CollectionDate)
             END                                                               AS PaymentAge 
          , CASE
-             WHEN C.DateOfBirth IS NULL THEN 'Unknown DOB (no commitment)'
+             WHEN C.DateOfBirth IS NULL THEN ''Unknown DOB (no commitment)''
              WHEN CASE WHEN C.DateOfBirth IS NULL THEN -1
                         WHEN DATEPART(M,C.DateOfBirth) > DATEPART(M,P.CollectionDate) OR (DATEPART(M,C.DateOfBirth) = DATEPART(M,P.CollectionDate) AND DATEPART(DD,C.DateOfBirth) > DATEPART(DD,P.CollectionDate)) THEN DATEDIFF(YEAR,C.DateOfBirth,P.CollectionDate) -1
                       ELSE DATEDIFF(YEAR,C.DateOfBirth, P.CollectionDate)
-                   END BETWEEN 0 AND 18 THEN '16-18'
-             ELSE '19+'
+                   END BETWEEN 0 AND 18 THEN ''16-18''
+             ELSE ''19+''
             END                                                               AS PaymentAgeBand 
 		 , CM.CalendarMonthShortNameYear                                      AS DeliveryMonthShortNameYear 
          , Acct.Name                                                          AS DASAccountName 
          , CAST( P.PeriodEnd AS nvarchar(20) )                                AS CollectionPeriodName 
          , CAST( RIGHT(rtrim(P.CollectionPeriodId),3) AS nvarchar(10) )       AS CollectionPeriodMonth
          , CAST( LEFT(ltrim(P.CollectionPeriodId),4) AS nvarchar(10) )        AS CollectionPeriodYear
+'
+set @vsql4='
  FROM    Payment AS P 
   LEFT JOIN  Transfers EAT 
           ON P.ApprenticeshipId = EAT.ApprenticeshipId 
@@ -204,24 +212,20 @@ DELETE FROM dbo.Payments_SS
 			 SELECT FieldValue
 			       ,FieldDesc
 			   FROM dbo.ReferenceData TM
-			  WHERE TM.FieldName='TransactionType'
-			    and TM.Category='Payments') TT
+			  WHERE TM.FieldName=''TransactionType''
+			    and TM.Category=''Payments'') TT
 		  ON TT.FieldValue=P.TransactionType
     LEFT JOIN 
             (
 			 SELECT FieldValue
 			       ,FieldDesc
 			   FROM dbo.ReferenceData TM
-			  WHERE TM.FieldName='FundingSource'
-			    and TM.Category='Payments') FS
+			  WHERE TM.FieldName=''FundingSource''
+			    and TM.Category=''Payments'') FS
 		  ON FS.FieldValue=P.FundingSource
+'	  		   		   		  
 
-
-
-
- 
-
-
+EXEC (@vsql1+@vsql2+@vsql3+@vsql4)
  
  
  /* Update Log Execution Results as Success if the query ran succesfully*/

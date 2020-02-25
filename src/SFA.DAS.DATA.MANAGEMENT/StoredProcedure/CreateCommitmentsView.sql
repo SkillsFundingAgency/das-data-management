@@ -15,6 +15,7 @@ AS
      Date				Author        Jira             Description
 
      20/01/2020		R.Rai		  ADM_989		   Change ULN to -2 when null
+     25/02/2020   S.Heath   ADM-1092     Split TransferApprovalStatus from ADM-921 to allow it to go in a CR.
 
 
 */
@@ -115,7 +116,14 @@ SET @VSQL3='
 	   , CAST([a].[StartDate] AS DATE)                                 AS TrainingStartDate
 	   , CAST([a].[EndDate] AS DATE)                                   AS TrainingEndDate
 	   , CAST(C.TransferSenderId AS bigint)                            as TransferSenderAccountId
-	   , CAST(C.TransferApprovalStatus AS nvarchar(50))                as TransferApprovalStatus
+     , Convert(nvarchar(50), 
+       CASE WHEN TransferApprovalStatus is null 
+						  THEN null
+						WHEN TransferApprovalStatus = ''1''
+							THEN ''TransferApproved''
+						WHEN  TransferApprovalStatus = ''2''
+							THEN ''TransferRejected''
+				END ) AS  TransferApprovalStatus
 	   , CAST(C.TransferApprovalActionedOn AS DateTime)                as TransferApprovalDate
 	   , CAST(A.Cost as decimal(18,0))                                 as TrainingTotalCost
 	   , CAST(GETDATE() AS DateTime)                                   AS UpdateDateTime

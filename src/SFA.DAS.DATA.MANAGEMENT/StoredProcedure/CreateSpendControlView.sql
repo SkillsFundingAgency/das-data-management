@@ -49,7 +49,7 @@ SET @VSQL2='
 CREATE VIEW [ASData_PL].[DAS_SpendControl]
 	AS
 SELECT 
- COALESCE(Account.EmployerAccountId, -99999)                                 AS EmployerAccountId
+ COALESCE(Account.EmployerAccountId, -1)                                     AS EmployerAccountId
 ,COALESCE(Account.DasAccountId, ''XXXXXX'')                                  AS DasAccountId
 ,COALESCE(Account.DasAccountName, ''NA'')                                    AS DasAccountName
 --,COALESCE(Account.DasLegalEntityId,''-1'')                                 AS DasLegalEntityId
@@ -71,20 +71,20 @@ WHEN Reservation.Status = ''2'' THEN ''Completed''
 WHEN Reservation.Status = ''3'' THEN ''Deleted''
 ELSE ''NA''
 END                                                                          AS ReservationStatus 
-,COALESCE(Reservation.Courseid, ''-99999'')                                  AS ReservationCourseId 
+,COALESCE(Reservation.Courseid, ''NA'')                                      AS ReservationCourseId 
 ,COALESCE(Course.Title, ''NA'')                                              AS CourseTitle 
-,COALESCE(Course.Level, -9)                                                  AS CourseLevel 
+,COALESCE(Course.Level, -1)                                                  AS CourseLevel 
 
 ,COALESCE(Apprenticeship.Commitmentid, -1)                                   AS ApprenticeshipCommitmentId
 ,COALESCE(Apprenticeship.Id, -1)                                             AS ApprenticeshipId 
 ,COALESCE(Apprenticeship.CreatedOn, ''9999-12-31'')                          AS ApprenticeshipCreatedOn 
 ,COALESCE(Apprenticeship.StartDate, ''9999-12-31'')                          AS ApprenticeshipStartDate 
-,COALESCE(Apprenticeship.TrainingType, -99999)                               AS ApprenticeshipTrainingType 
+,COALESCE(Apprenticeship.TrainingType, -1)                                   AS ApprenticeshipTrainingType 
 ,COALESCE(Apprenticeship.TrainingName, ''NA'')                               AS ApprenticeshipTrainingName 
-,COALESCE(Apprenticeship.TrainingCode, ''-99999'')                           AS ApprenticeshipTrainingCode 
-,COALESCE(Apprenticeship.IsApproved, -99999)                                 AS ApprenticeshipIsApproved 
+,COALESCE(Apprenticeship.TrainingCode, ''NA'')                               AS ApprenticeshipTrainingCode 
+,COALESCE(Apprenticeship.IsApproved, -1)                                     AS ApprenticeshipIsApproved 
 ,COALESCE(Apprenticeship.AgreedOn, ''9999-12-31'')                           AS ApprenticeshipAgreedOn 
-,COALESCE(Apprenticeship.Cost, ''-9999'')                                    AS ApprenticeshipAgreedCost
+,Apprenticeship.Cost                                                         AS ApprenticeshipAgreedCost
 
 ,COALESCE(Reservation.ProviderId, -1)                                        AS ReservationByEmployerOrProvider
 ,COALESCE(Commitment.ProviderId, -1)                                         AS CommitmentProviderId
@@ -110,7 +110,7 @@ END                                                                          AS 
 ,COALESCE(RDFS.FieldDesc, ''NA'')                                            AS PaymentFundingSource
 ,COALESCE(RDTT.FieldDesc, ''NA'')                                            AS PaymentTransactionType
 ,COALESCE(Payment.ApprenticeshipId, -1)                                      AS PaymentApprenticeshipId
-,COALESCE(Payment.Amount, ''-9999'')                                         AS PaymentAmount
+,Payment.Amount                                                              AS PaymentAmount
 
 FROM (SELECT *
         FROM Resv.Ext_Tbl_Reservation

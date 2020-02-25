@@ -119,6 +119,8 @@ SET @VSQL3='
      , Convert(nvarchar(50), 
        CASE WHEN TransferApprovalStatus is null 
 						  THEN null
+            WHEN TransferApprovalStatus = ''0''
+							THEN ''Pending''
 						WHEN TransferApprovalStatus = ''1''
 							THEN ''TransferApproved''
 						WHEN  TransferApprovalStatus = ''2''

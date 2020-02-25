@@ -238,10 +238,6 @@
                                 "value": "[reference('storage-account').outputs.storageConnectionString.value]"
                             },
                             {
-                                "name": "AzureWebJobsDashboard",
-                                "value": "[reference('storage-account').outputs.storageConnectionString.value]"
-                            },
-                            {
                                 "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
                                 "value": "[reference('worker-hmrc-function-app-insights').outputs.InstrumentationKey.value]"
                             },
@@ -294,10 +290,6 @@
                         "value": [
                             {
                                 "name": "AzureWebJobsStorage",
-                                "value": "[reference('storage-account').outputs.storageConnectionString.value]"
-                            },
-                            {
-                                "name": "AzureWebJobsDashboard",
                                 "value": "[reference('storage-account').outputs.storageConnectionString.value]"
                             },
                             {

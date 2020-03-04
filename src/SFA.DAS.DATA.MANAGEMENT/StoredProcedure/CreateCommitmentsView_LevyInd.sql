@@ -14,7 +14,7 @@ AS
 --     Date				Author        Jira             Description
 --
 --      16/01/2020		R.Rai		  ADM_1001		   Change Levy Indicator logic to account tables
---
+--      04/03/2020      R.Rai         ADM_1130         Change Levy Indicator New Logic and TransferApprovalStatus  
 -- =====================================================================================================
 
 
@@ -116,7 +116,19 @@ SET @VSQL3='
 	   , CAST([a].[StartDate] AS DATE)                                 AS TrainingStartDate
 	   , CAST([a].[EndDate] AS DATE)                                   AS TrainingEndDate
 	   , CAST(C.TransferSenderId AS bigint)                            as TransferSenderAccountId
-	   , CAST(C.TransferApprovalStatus AS nvarchar(50))                as TransferApprovalStatus
+
+	    , Convert(nvarchar(50), CASE WHEN TransferApprovalStatus is null 
+									THEN null
+                                WHEN TransferApprovalStatus = ''0''
+							       THEN ''Pending''
+								WHEN TransferApprovalStatus = ''1''
+									THEN ''TransferApproved''
+								WHEN  TransferApprovalStatus = ''2''
+									 THEN ''TransferRejected''
+								END
+				) AS  TransferApprovalStatus
+
+
 	   , CAST(C.TransferApprovalActionedOn AS DateTime)                as TransferApprovalDate
 	   , CAST(A.Cost as decimal(18,0))                                 as TrainingTotalCost
 	   , CAST(GETDATE() AS DateTime)                                   AS UpdateDateTime
@@ -179,7 +191,21 @@ SET @VSQL4=
 		                    ELSE ''No''
 			                 END) AS Varchar(3)),''NA'')             as FullyAgreedCommitment
 	    , CAST(C.LegalEntityAddress as nvarchar(256))                as LegalEntityRegisteredAddress
-		, acct1.ApprenticeshipEmployerType                           as IsLevy
+
+
+		,  CONVERT(bit, CASE WHEN  isnull(A.AgreementStatus,''0'') =''3''
+								THEN C.ApprenticeshipEmployerTypeOnApproval
+							ELSE null
+							END 
+				  ) as ApprenticeshipEmployerTypeOnApproval
+        , CONVERT(bit, CASE WHEN isnull(A.AgreementStatus,''0'') <> ''3''
+								THEN acct1.ApprenticeshipEmployerType
+							ELSE null
+							END 
+				  ) as ApprenticeshipEmployerType
+
+
+
 FROM [Comt].[Ext_Tbl_Commitment] C 
 LEFT JOIN [Comt].[Ext_Tbl_Apprenticeship] A
   ON C.Id=A.CommitmentId

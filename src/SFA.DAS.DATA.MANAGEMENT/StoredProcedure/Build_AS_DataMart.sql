@@ -38,8 +38,6 @@ EXEC LoadReferenceData @RunId
 
 EXEC CreateCommitmentsView @RunId
 
-EXEC CreateNonLevyView @RunId
-
 EXEC CreateLevyDeclarationsView @RunId
 
 EXEC CreateLevyDeclarationsView_LevyInd @RunId
@@ -65,6 +63,8 @@ EXEC CreateTransactionLineView @RunId
 EXEC CreateEmployerAgreementsView @RunId
 
 EXEC CreateCommitmentsView_LevyInd @RunId
+
+EXEC CreateSpendControlView @RunId
 
 
 /* Refresh Payments Snapshot Table */

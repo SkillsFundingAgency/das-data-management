@@ -135,5 +135,6 @@
     <Build Include="Tables\Payments_SS.sql" />
     <Build Include="StoredProcedure\CreateSpendControlView.sql" />
     <Build Include="Schemas\ASData_PL.sql" />
+    <Build Include="Schemas\Pmts.sql" />
   </ItemGroup>
 </Project>

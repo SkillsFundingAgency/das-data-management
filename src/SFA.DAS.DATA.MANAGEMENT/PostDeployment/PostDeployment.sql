@@ -25,6 +25,8 @@ GRANT SELECT ON SCHEMA :: Mgmt To Developer
 
 GRANT SELECT ON SCHEMA :: Resv To Developer
 
+GRANT SELECT ON SCHEMA :: Pmts TO Developer
+
 GRANT SELECT ON dbo.Apprentice To Developer
 
 GRANT SELECT ON dbo.Apprenticeship To Developer

@@ -69,7 +69,7 @@ EXEC CreateSpendControlView @RunId
 
 /* Refresh Payments Snapshot Table */
 
-EXEC ImportPaymentsSnapshot @RunId
+--EXEC ImportPaymentsSnapshot @RunId
 
 
 /* Load Commitments into Modelled Data Tables */

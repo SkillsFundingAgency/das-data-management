@@ -71,6 +71,8 @@ EXEC CreateSpendControlView @RunId
 
 --EXEC ImportPaymentsSnapshot @RunId
 
+EXEC CreatePaymentsView_LevyInd  @RunId
+
 
 /* Load Commitments into Modelled Data Tables */
 

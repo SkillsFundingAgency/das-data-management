@@ -1,6 +1,8 @@
 ﻿
 /* Drop previously created tables as part of POC - Tidy Up */
 
+
+
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
             WHERE TABLE_NAME = N'DataLoad_Log'
 		      AND TABLE_SCHEMA=N'Mgmt'
@@ -303,6 +305,30 @@ END
 
 CLOSE RemoveExt
 DEALLOCATE RemoveExt
+
+
+
+IF EXISTS (SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Commitments_LevyInd' AND TABLE_SCHEMA = 'Data_Pub')
+BEGIN 
+   DROP VIEW Data_Pub.DAS_Commitments_LevyInd
+END
+
+
+IF EXISTS (SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Employer_Account_Transfers_LevyInd' AND TABLE_SCHEMA = 'Data_Pub')
+BEGIN 
+   DROP VIEW Data_Pub.DAS_Employer_Account_Transfers_LevyInd
+END
+
+
+IF EXISTS (SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_LevyDeclarations_LevyInd' AND TABLE_SCHEMA = 'Data_Pub')
+BEGIN 
+   DROP VIEW Data_Pub.DAS_LevyDeclarations_LevyInd
+END
+
+
+
+
+
 
 
 

@@ -15,6 +15,7 @@ AS
 --
 --      16/01/2020		R.Rai		  ADM_1001		   Change Levy Indicator logic to account tables
 --      04/03/2020      R.Rai         ADM_1130         Change Levy Indicator New Logic and TransferApprovalStatus  
+--      09/03/2020      R.Rai         ADM_1130         Schema Change  
 -- =====================================================================================================
 
 
@@ -53,11 +54,15 @@ DECLARE @VSQL3 VARCHAR(MAX)
 DECLARE @VSQL4 VARCHAR(MAX)
 
 SET @VSQL1='
-if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_Commitments_LevyInd'')
-Drop View Data_Pub.DAS_Commitments_LevyInd
+
+IF EXISTS (SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_Commitments_LevyInd'' AND TABLE_SCHEMA = ''ASData_PL'')
+BEGIN 
+   DROP VIEW ASData_PL.DAS_Commitments_LevyInd
+END
+
 '
 SET @VSQL2='
-CREATE VIEW [Data_Pub].[DAS_Commitments_LevyInd]
+CREATE VIEW [ASData_PL].[DAS_Commitments_LevyInd]
 	AS 
 SELECT [C].[ID]                                                         AS ID
 	   , CAST([C].ID AS BIGINT)                                         AS EventID

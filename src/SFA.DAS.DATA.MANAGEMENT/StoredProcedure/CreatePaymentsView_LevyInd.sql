@@ -18,6 +18,7 @@ AS
 --     Date				Author        Jira             Description
 --
 --      05/03/2020		R.Rai		  ADM_677		  Payment View with Levy Indicator
+--      09/03/2020      R.Rai         ADM_677         Change Schema name to ASData_PL
 --
 -- =====================================================================================================
 
@@ -58,14 +59,15 @@ DECLARE @VSQL3 VARCHAR(MAX)
 DECLARE @VSQL4 VARCHAR(MAX)
 
 SET @VSQL1='
-if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_Payments_LevyInd'')
+
+IF  EXISTS (SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_Payments_LevyInd'' AND TABLE_SCHEMA = ''ASData_PL'' )
 BEGIN
-     Drop View Data_Pub.DAS_Payments_LevyInd
+     DROP VIEW ASData_PL.Data_Pub.DAS_Payments_LevyInd
 END
 
 '
 SET @VSQL2='
-CREATE VIEW [Data_Pub].[DAS_Payments_LevyInd]
+CREATE VIEW [ASData_PL].[DAS_Payments_LevyInd]
 	AS 
 	SELECT a.[ID]
       ,a.[PaymentID]

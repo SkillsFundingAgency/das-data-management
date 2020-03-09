@@ -56,9 +56,9 @@ GRANT SELECT ON dbo.Payments_SS TO Developer
 IF EXISTS(select 1 from sys.views where name='Das_Commitments' and type='v')
 GRANT SELECT ON Data_Pub.Das_Commitments TO Developer
 
-IF EXISTS(select 1 from sys.views where name='Das_Commitments_LevyInd' and type='v')
+IF  EXISTS (SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='Das_Commitments_LevyInd' AND TABLE_SCHEMA = 'ASData_PL' )
 BEGIN
-     GRANT SELECT ON Data_Pub.Das_Commitments_LevyInd TO Developer
+     GRANT SELECT ON ASData_PL.Das_Commitments_LevyInd TO Developer
 END
 
 IF EXISTS(select 1 from sys.views where name='Das_NonLevy' and type='v')
@@ -68,9 +68,9 @@ IF EXISTS(select 1 from sys.views where name='Das_Payments' and type='v')
 GRANT SELECT ON Data_Pub.Das_Payments TO Developer
 
 
-IF EXISTS(select 1 from sys.views where name='DAS_Payments_LevyInd' and type='v')
+IF  EXISTS (SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Payments_LevyInd' AND TABLE_SCHEMA = 'ASData_PL' )
 BEGIN 
-   GRANT SELECT ON Data_Pub.DAS_Payments_LevyInd TO Developer
+   GRANT SELECT ON ASData_PL.DAS_Payments_LevyInd TO Developer
 END
 
 
@@ -131,9 +131,10 @@ if exists(select 1 from sys.views where name='Das_Commitments' and type='v')
 GRANT SELECT ON Data_Pub.Das_Commitments TO DataAnalyst
 
 
-IF EXISTS(select 1 from sys.views where name='Das_Commitments_LevyInd' and type='v')
+
+IF  EXISTS (SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='Das_Commitments_LevyInd' AND TABLE_SCHEMA = 'ASData_PL' )
 BEGIN
-     GRANT SELECT ON Data_Pub.Das_Commitments_LevyInd TO DataAnalyst
+     GRANT SELECT ON ASData_PL.Das_Commitments_LevyInd TO DataAnalyst
 END
 
 
@@ -189,9 +190,10 @@ IF EXISTS(select 1 from sys.views where name='Das_Payments' and type='v')
 GRANT SELECT ON Data_Pub.Das_Payments TO DataAnalyst
 
 
-IF EXISTS(select 1 from sys.views where name='DAS_Payments_LevyInd' and type='v')
+
+IF  EXISTS (SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Payments_LevyInd' AND TABLE_SCHEMA = 'ASData_PL' )
 BEGIN 
-   GRANT SELECT ON Data_Pub.DAS_Payments_LevyInd TO DataAnalyst
+   GRANT SELECT ON ASData_PL.DAS_Payments_LevyInd TO DataAnalyst
 END
 
 

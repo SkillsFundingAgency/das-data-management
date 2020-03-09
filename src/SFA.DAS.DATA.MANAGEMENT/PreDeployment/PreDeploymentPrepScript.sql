@@ -340,6 +340,7 @@ END
 
 IF EXISTS (SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Employer_LegalEntities_LevyInd' AND TABLE_SCHEMA = 'Data_Pub')
 BEGIN 
+
    DROP VIEW Data_Pub.DAS_Employer_LegalEntities_LevyInd
 END
 

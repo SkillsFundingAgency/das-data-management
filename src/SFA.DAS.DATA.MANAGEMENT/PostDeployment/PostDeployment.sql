@@ -56,7 +56,9 @@ GRANT SELECT ON dbo.Payments_SS TO Developer
 IF EXISTS(select 1 from sys.views where name='Das_Commitments' and type='v')
 GRANT SELECT ON Data_Pub.Das_Commitments TO Developer
 
-IF  EXISTS (SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='Das_Commitments_LevyInd' AND TABLE_SCHEMA = 'ASData_PL' )
+
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Commitments_LevyInd' AND TABLE_SCHEMA = 'ASData_PL')
 BEGIN
      GRANT SELECT ON ASData_PL.Das_Commitments_LevyInd TO Developer
 END
@@ -66,14 +68,6 @@ GRANT SELECT ON Data_Pub.Das_NonLevy TO Developer
 
 IF EXISTS(select 1 from sys.views where name='Das_Payments' and type='v')
 GRANT SELECT ON Data_Pub.Das_Payments TO Developer
-
-
-IF  EXISTS (SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Payments_LevyInd' AND TABLE_SCHEMA = 'ASData_PL' )
-BEGIN 
-   GRANT SELECT ON ASData_PL.DAS_Payments_LevyInd TO Developer
-END
-
-
 
 IF EXISTS(select 1 from sys.views where name='Das_LevyDeclarations' and type='v')
 GRANT SELECT ON Data_Pub.Das_LevyDeclarations TO Developer
@@ -128,15 +122,15 @@ BEGIN
 END
 
 if exists(select 1 from sys.views where name='Das_Commitments' and type='v')
-GRANT SELECT ON Data_Pub.Das_Commitments TO DataAnalyst
+BEGIN
+   GRANT SELECT ON Data_Pub.Das_Commitments TO DataAnalyst
+END
 
 
-
-IF  EXISTS (SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='Das_Commitments_LevyInd' AND TABLE_SCHEMA = 'ASData_PL' )
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Commitments_LevyInd' AND TABLE_SCHEMA = 'ASData_PL')
 BEGIN
      GRANT SELECT ON ASData_PL.Das_Commitments_LevyInd TO DataAnalyst
 END
-
 
 if exists(select 1 from sys.views where name='Das_NonLevy' and type='v')
 GRANT SELECT ON Data_Pub.Das_NonLevy TO DataAnalyst
@@ -188,15 +182,6 @@ GRANT SELECT ON Data_Pub.DAS_Employer_Agreements TO DataAnalyst
 
 IF EXISTS(select 1 from sys.views where name='Das_Payments' and type='v')
 GRANT SELECT ON Data_Pub.Das_Payments TO DataAnalyst
-
-
-
-IF  EXISTS (SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Payments_LevyInd' AND TABLE_SCHEMA = 'ASData_PL' )
-BEGIN 
-   GRANT SELECT ON ASData_PL.DAS_Payments_LevyInd TO DataAnalyst
-END
-
-
 
 GRANT SELECT ON dbo.Payments_SS TO DataAnalyst
 

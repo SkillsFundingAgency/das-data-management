@@ -62,7 +62,7 @@ SET @VSQL1='
 
 IF  EXISTS (SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_Payments_LevyInd'' AND TABLE_SCHEMA = ''ASData_PL'' )
 BEGIN
-     DROP VIEW ASData_PL.Data_Pub.DAS_Payments_LevyInd
+     DROP VIEW ASData_PL.DAS_Payments_LevyInd
 END
 
 '

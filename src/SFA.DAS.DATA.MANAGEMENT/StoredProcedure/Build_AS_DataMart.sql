@@ -40,7 +40,6 @@ EXEC CreateCommitmentsView @RunId
 
 EXEC CreateLevyDeclarationsView @RunId
 
--- EXEC CreateLevyDeclarationsView_LevyInd @RunId
 
 EXEC CreatePaymentsView @RunId
 
@@ -48,7 +47,7 @@ EXEC CreateEmployerAccountTransactionsView @RunId
 
 EXEC CreateEmployerAccountTransfersView @RunId 
 
--- EXEC CreateEmployerAccountTransfersView_LevyInd @RunId 
+
 
 EXEC CreateEmployerPAYESchemesView @RunId 
 
@@ -69,7 +68,9 @@ EXEC CreateSpendControlView @RunId
 
 /* Refresh Payments Snapshot Table */
 
---EXEC ImportPaymentsSnapshot @RunId
+-- EXEC ImportPaymentsSnapshot @RunId
+
+EXEC CreatePaymentsView_LevyInd  @RunId
 
 
 /* Load Commitments into Modelled Data Tables */

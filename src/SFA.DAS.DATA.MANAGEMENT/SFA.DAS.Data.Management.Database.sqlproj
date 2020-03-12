@@ -129,12 +129,11 @@
     <Build Include="StoredProcedure\CreateTransactionLineView.sql" />
     <Build Include="StoredProcedure\CreateEmployerAgreements.sql" />
     <Build Include="StoredProcedure\CreateCommitmentsView_LevyInd.sql" />
-    <Build Include="StoredProcedure\CreateEmployerAccountTransfersView_LevyInd.sql" />
-    <Build Include="StoredProcedure\CreateLevyDeclarationsView_LevyInd.sql" />
     <Build Include="StoredProcedure\ImportPaymentsSnapshot.sql" />
     <Build Include="Tables\Payments_SS.sql" />
     <Build Include="StoredProcedure\CreateSpendControlView.sql" />
     <Build Include="Schemas\ASData_PL.sql" />
     <Build Include="Schemas\Pmts.sql" />
+    <Build Include="StoredProcedure\CreatePaymentsView_LevyInd.sql" />
   </ItemGroup>
 </Project>

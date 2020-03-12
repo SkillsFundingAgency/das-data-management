@@ -69,46 +69,46 @@ END
 SET @VSQL2='
 CREATE VIEW [ASData_PL].[DAS_Payments_LevyInd]
 	AS 
-	SELECT a.[ID]
-      ,a.[PaymentID]
-      ,a.[UKPRN]
-      ,a.[ULN]
-      ,a.[EmployerAccountID]
-      ,a.[DasAccountId]
-      ,a.[CommitmentID]
-      ,a.[DeliveryMonth]
-      ,a.[DeliveryYear]
-      ,a.[CollectionMonth]
-      ,a.[CollectionYear]
-      ,a.[EvidenceSubmittedOn]
-      ,a.[EmployerAccountVersion]
-      ,a.[ApprenticeshipVersion]
-      ,a.[FundingSource]
-      ,a.[FundingAccountId]
-      ,a.[TransactionType]
-      ,a.[Amount]
-      ,a.[StdCode]
-      ,a.[FworkCode]
-      ,a.[ProgType]
-      ,a.[PwayCode]
-      ,a.[ContractType]
-      ,a.[UpdateDateTime]
-      ,a.[UpdateDate]
-      ,a.[Flag_Latest]
-      ,a.[Flag_FirstPayment]
-      ,a.[PaymentAge]
-      ,a.[PaymentAgeBand]
-      ,a.[DeliveryMonthShortNameYear]
-      ,a.[DASAccountName]
-      ,a.[CollectionPeriodName]
-      ,a.[CollectionPeriodMonth]
-      ,a.[CollectionPeriodYear]
-      ,Convert(bit,c.ApprenticeshipEmployerTypeOnApproval)  as ApprenticeshipEmployerTypeOnApproval
-   FROM [dbo].[Payments_SS] a
-  LEFT JOIN  [Comt].[Ext_tbl_Apprenticeship] b
-  ON b.Id= a.CommitmentId
-  LEFT JOIN  [Comt].[Ext_tbl_Commitment] c 
-  ON b.CommitmentID = c.Id
+	SELECT PS.[ID]
+      ,PS.[PaymentID]
+      ,PS.[UKPRN]
+      ,PS.[ULN]
+      ,PS.[EmployerAccountID]
+      ,PS.[DasAccountId]
+      ,PS.[CommitmentID]
+      ,PS.[DeliveryMonth]
+      ,PS.[DeliveryYear]
+      ,PS.[CollectionMonth]
+      ,PS.[CollectionYear]
+      ,PS.[EvidenceSubmittedOn]
+      ,PS.[EmployerAccountVersion]
+      ,PS.[ApprenticeshipVersion]
+      ,PS.[FundingSource]
+      ,PS.[FundingAccountId]
+      ,PS.[TransactionType]
+      ,PS.[Amount]
+      ,PS.[StdCode]
+      ,PS.[FworkCode]
+      ,PS.[ProgType]
+      ,PS.[PwayCode]
+      ,PS.[ContractType]
+      ,PS.[UpdateDateTime]
+      ,PS.[UpdateDate]
+      ,PS.[Flag_Latest]
+      ,PS.[Flag_FirstPayment]
+      ,PS.[PaymentAge]
+      ,PS.[PaymentAgeBand]
+      ,PS.[DeliveryMonthShortNameYear]
+      ,PS.[DASAccountName]
+      ,PS.[CollectionPeriodName]
+      ,PS.[CollectionPeriodMonth]
+      ,PS.[CollectionPeriodYear]
+      ,Convert(bit,C.ApprenticeshipEmployerTypeOnApproval)  as ApprenticeshipEmployerTypeOnApproval
+   FROM [dbo].[Payments_SS] PS
+  LEFT JOIN  [Comt].[Ext_tbl_Apprenticeship] A
+  ON A.Id= PS.CommitmentId
+  LEFT JOIN  [Comt].[Ext_tbl_Commitment] C 
+  ON A.CommitmentID = C.Id
   
 '
 

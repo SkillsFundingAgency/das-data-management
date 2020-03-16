@@ -105,6 +105,15 @@ GRANT SELECT ON Data_Pub.DAS_Employer_PayeSchemes TO Developer
 IF EXISTS(select 1 from sys.views where name='DAS_Employer_LegalEntities' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_LegalEntities TO Developer
 
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Employer_LegalEntities_LevyInd' AND TABLE_SCHEMA = 'ASData_PL')
+BEGIN
+     GRANT SELECT ON ASData_PL.DAS_Employer_LegalEntities_LevyInd TO Developer
+END
+
+
+
+
 IF EXISTS(select 1 from sys.views where name='DAS_Employer_Accounts' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_Accounts TO Developer
 
@@ -178,6 +187,15 @@ GRANT SELECT ON Data_Pub.DAS_Employer_PayeSchemes TO DataAnalyst
 
 if exists(select 1 from sys.views where name='DAS_Employer_LegalEntities' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_LegalEntities TO DataAnalyst
+
+
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Employer_LegalEntities_LevyInd' AND TABLE_SCHEMA = 'ASData_PL')
+BEGIN
+     GRANT SELECT ON ASData_PL.DAS_Employer_LegalEntities_LevyInd TO DataAnalyst
+END
+
+
 
 if exists(select 1 from sys.views where name='DAS_Employer_Accounts' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_Accounts TO DataAnalyst

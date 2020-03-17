@@ -135,5 +135,6 @@
     <Build Include="Schemas\ASData_PL.sql" />
     <Build Include="Schemas\Pmts.sql" />
     <Build Include="StoredProcedure\CreatePaymentsView_LevyInd.sql" />
+    <Build Include="StoredProcedure\CreateEmployerLegalEntitiesView_LevyInd.sql" />
   </ItemGroup>
 </Project>

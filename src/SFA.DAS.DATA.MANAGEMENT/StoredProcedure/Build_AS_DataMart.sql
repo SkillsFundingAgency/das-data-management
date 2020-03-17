@@ -68,7 +68,7 @@ EXEC CreateSpendControlView @RunId
 
 /* Refresh Payments Snapshot Table */
 
--- EXEC ImportPaymentsSnapshot @RunId
+EXEC ImportPaymentsSnapshot @RunId
 
 EXEC CreatePaymentsView_LevyInd  @RunId
 

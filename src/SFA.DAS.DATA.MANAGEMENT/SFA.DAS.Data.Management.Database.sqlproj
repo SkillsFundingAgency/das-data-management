@@ -136,5 +136,32 @@
     <Build Include="Schemas\Pmts.sql" />
     <Build Include="StoredProcedure\CreatePaymentsView_LevyInd.sql" />
     <Build Include="StoredProcedure\CreateEmployerLegalEntitiesView_LevyInd.sql" />
+    <Build Include="Tables\Pmts_Stg_Apprenticeship.sql" />
+    <Build Include="Tables\Pmts_Stg_ApprenticeshipPause.sql" />
+    <Build Include="Tables\Pmts_Stg_ApprenticeshipPriceEpisode.sql" />
+    <Build Include="Tables\Pmts_Stg_ApprenticeshipStatus.sql" />
+    <Build Include="Tables\Pmts_Stg_DataLockEvent.sql" />
+    <Build Include="Tables\Pmts_Stg_DataLockEventNonPayablePeriod.sql" />
+    <Build Include="Tables\Pmts_Stg_DataLockEventNonPayablePeriodFailures.sql" />
+    <Build Include="Tables\Pmts_Stg_DataLockEventPayablePeriod.sql" />
+    <Build Include="Tables\Pmts_Stg_DataLockEventPriceEpisode.sql" />
+    <Build Include="Tables\Pmts_Stg_DataLockFailure.sql" />
+    <Build Include="Tables\Pmts_Stg_DataMatchReport.sql" />
+    <Build Include="Tables\Pmts_Stg_EarningEvent.sql" />
+    <Build Include="Tables\Pmts_Stg_EarningEventPeriod.sql" />
+    <Build Include="Tables\Pmts_Stg_EarningEventPriceEpisode.sql" />
+    <Build Include="Tables\Pmts_Stg_EmployerProviderPriority.sql" />
+    <Build Include="Tables\Pmts_Stg_FundingSourceEvent.sql" />
+    <Build Include="Tables\Pmts_Stg_Job.sql" />
+    <Build Include="Tables\Pmts_Stg_JobEvent.sql" />
+    <Build Include="Tables\Pmts_Stg_JobEventStatus.sql" />
+    <Build Include="Tables\Pmts_Stg_JobProviderEarnings.sql" />
+    <Build Include="Tables\Pmts_Stg_JobStatus.sql" />
+    <Build Include="Tables\Pmts_Stg_JobType.sql" />
+    <Build Include="Tables\Pmts_Stg_LevyAccount.sql" />
+    <Build Include="Tables\Pmts_Stg_Payment.sql" />
+    <Build Include="Tables\Pmts_Stg_ProviderAdjustmentPayments.sql" />
+    <Build Include="Tables\Pmts_Stg_RequiredPaymentEvent.sql" />
+    <Build Include="Tables\Pmts_Stg_SubmittedLearnerAim.sql" />
   </ItemGroup>
 </Project>

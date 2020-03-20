@@ -306,46 +306,35 @@ END
 CLOSE RemoveExt
 DEALLOCATE RemoveExt
 
+-- Remove redundant Create Payment Staging Tables' 
 
-
-IF EXISTS (SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Commitments_LevyInd' AND TABLE_SCHEMA = 'Data_Pub')
-BEGIN 
-   DROP VIEW Data_Pub.DAS_Commitments_LevyInd
-END
-
-
-IF EXISTS (SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Employer_Account_Transfers_LevyInd' AND TABLE_SCHEMA = 'Data_Pub')
-BEGIN 
-   DROP VIEW Data_Pub.DAS_Employer_Account_Transfers_LevyInd
-END
-
-
-IF EXISTS (SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_LevyDeclarations_LevyInd' AND TABLE_SCHEMA = 'Data_Pub')
-BEGIN 
-   DROP VIEW Data_Pub.DAS_LevyDeclarations_LevyInd
-END
-
-
-IF EXISTS (SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Employer_Accounts_LevyInd' AND TABLE_SCHEMA = 'Data_Pub')
-BEGIN 
-   DROP VIEW Data_Pub.DAS_Employer_Accounts_LevyInd
-END
-
-
-IF EXISTS (SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Payments_LevyInd' AND TABLE_SCHEMA = 'Data_Pub')
-BEGIN 
-   DROP VIEW Data_Pub.DAS_Payments_LevyInd
-END
-
-
-IF EXISTS (SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Employer_LegalEntities_LevyInd' AND TABLE_SCHEMA = 'Data_Pub')
-BEGIN 
-
-   DROP VIEW Data_Pub.DAS_Employer_LegalEntities_LevyInd
-END
-
-
-
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_NAME = 'Stg_Apprenticeship'      AND TABLE_SCHEMA='Pmts' )  BEGIN   DROP TABLE  [Pmts]. Stg_Apprenticeship       END 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_NAME = 'Stg_ApprenticeshipPause'      AND TABLE_SCHEMA='Pmts' )  BEGIN   DROP TABLE  [Pmts]. Stg_ApprenticeshipPause       END 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_NAME = 'Stg_ApprenticeshipPriceEpisode'      AND TABLE_SCHEMA='Pmts' )  BEGIN   DROP TABLE  [Pmts]. Stg_ApprenticeshipPriceEpisode       END 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_NAME = 'Stg_ApprenticeshipStatus'      AND TABLE_SCHEMA='Pmts' )  BEGIN   DROP TABLE  [Pmts]. Stg_ApprenticeshipStatus       END 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_NAME = 'Stg_DataLockEvent'      AND TABLE_SCHEMA='Pmts' )  BEGIN   DROP TABLE  [Pmts]. Stg_DataLockEvent       END 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_NAME = 'Stg_DataLockEventNonPayablePeriod'      AND TABLE_SCHEMA='Pmts' )  BEGIN   DROP TABLE  [Pmts]. Stg_DataLockEventNonPayablePeriod       END 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_NAME = 'Stg_DataLockEventNonPayablePeriodFailures'      AND TABLE_SCHEMA='Pmts' )  BEGIN   DROP TABLE  [Pmts]. Stg_DataLockEventNonPayablePeriodFailures       END 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_NAME = 'Stg_DataLockEventPayablePeriod'      AND TABLE_SCHEMA='Pmts' )  BEGIN   DROP TABLE  [Pmts]. Stg_DataLockEventPayablePeriod       END 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_NAME = 'Stg_DataLockEventPriceEpisode'      AND TABLE_SCHEMA='Pmts' )  BEGIN   DROP TABLE  [Pmts]. Stg_DataLockEventPriceEpisode       END 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_NAME = 'Stg_DataLockFailure'      AND TABLE_SCHEMA='Pmts' )  BEGIN   DROP TABLE  [Pmts]. Stg_DataLockFailure       END 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_NAME = 'Stg_DataMatchReport'      AND TABLE_SCHEMA='Pmts' )  BEGIN   DROP TABLE  [Pmts]. Stg_DataMatchReport       END 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_NAME = 'Stg_EarningEvent'      AND TABLE_SCHEMA='Pmts' )  BEGIN   DROP TABLE  [Pmts]. Stg_EarningEvent       END 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_NAME = 'Stg_EarningEventPeriod'      AND TABLE_SCHEMA='Pmts' )  BEGIN   DROP TABLE  [Pmts]. Stg_EarningEventPeriod       END 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_NAME = 'Stg_EarningEventPriceEpisode'      AND TABLE_SCHEMA='Pmts' )  BEGIN   DROP TABLE  [Pmts]. Stg_EarningEventPriceEpisode       END 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_NAME = 'Stg_EmployerProviderPriority'      AND TABLE_SCHEMA='Pmts' )  BEGIN   DROP TABLE  [Pmts]. Stg_EmployerProviderPriority       END 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_NAME = 'Stg_FundingSourceEvent'      AND TABLE_SCHEMA='Pmts' )  BEGIN   DROP TABLE  [Pmts]. Stg_FundingSourceEvent       END 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_NAME = 'Stg_Job'      AND TABLE_SCHEMA='Pmts' )  BEGIN   DROP TABLE  [Pmts]. Stg_Job       END 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_NAME = 'Stg_JobEvent'      AND TABLE_SCHEMA='Pmts' )  BEGIN   DROP TABLE  [Pmts]. Stg_JobEvent       END 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_NAME = 'Stg_JobEventStatus'      AND TABLE_SCHEMA='Pmts' )  BEGIN   DROP TABLE  [Pmts]. Stg_JobEventStatus       END 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_NAME = 'Stg_JobProviderEarnings'      AND TABLE_SCHEMA='Pmts' )  BEGIN   DROP TABLE  [Pmts]. Stg_JobProviderEarnings       END 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_NAME = 'Stg_JobStatus'      AND TABLE_SCHEMA='Pmts' )  BEGIN   DROP TABLE  [Pmts]. Stg_JobStatus       END 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_NAME = 'Stg_JobType'      AND TABLE_SCHEMA='Pmts' )  BEGIN   DROP TABLE  [Pmts]. Stg_JobType       END 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_NAME = 'Stg_LevyAccount'      AND TABLE_SCHEMA='Pmts' )  BEGIN   DROP TABLE  [Pmts]. Stg_LevyAccount       END 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_NAME = 'Stg_Payment'      AND TABLE_SCHEMA='Pmts' )  BEGIN   DROP TABLE  [Pmts]. Stg_Payment       END 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_NAME = 'Stg_ProviderAdjustmentPayments'      AND TABLE_SCHEMA='Pmts' )  BEGIN   DROP TABLE  [Pmts]. Stg_ProviderAdjustmentPayments       END 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_NAME = 'Stg_RequiredPaymentEvent'      AND TABLE_SCHEMA='Pmts' )  BEGIN   DROP TABLE  [Pmts]. Stg_RequiredPaymentEvent       END 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_NAME = 'Stg_SubmittedLearnerAim'      AND TABLE_SCHEMA='Pmts' )  BEGIN   DROP TABLE  [Pmts]. Stg_SubmittedLearnerAim       END 
 
 
 

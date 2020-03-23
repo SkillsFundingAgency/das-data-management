@@ -308,50 +308,5 @@ DEALLOCATE RemoveExt
 
 
 
-IF EXISTS (SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Commitments_LevyInd' AND TABLE_SCHEMA = 'Data_Pub')
-BEGIN 
-   DROP VIEW Data_Pub.DAS_Commitments_LevyInd
-END
-
-
-IF EXISTS (SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Employer_Account_Transfers_LevyInd' AND TABLE_SCHEMA = 'Data_Pub')
-BEGIN 
-   DROP VIEW Data_Pub.DAS_Employer_Account_Transfers_LevyInd
-END
-
-
-IF EXISTS (SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_LevyDeclarations_LevyInd' AND TABLE_SCHEMA = 'Data_Pub')
-BEGIN 
-   DROP VIEW Data_Pub.DAS_LevyDeclarations_LevyInd
-END
-
-
-IF EXISTS (SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Employer_Accounts_LevyInd' AND TABLE_SCHEMA = 'Data_Pub')
-BEGIN 
-   DROP VIEW Data_Pub.DAS_Employer_Accounts_LevyInd
-END
-
-
-IF EXISTS (SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Payments_LevyInd' AND TABLE_SCHEMA = 'Data_Pub')
-BEGIN 
-   DROP VIEW Data_Pub.DAS_Payments_LevyInd
-END
-
-
-IF EXISTS (SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Employer_LegalEntities_LevyInd' AND TABLE_SCHEMA = 'Data_Pub')
-BEGIN 
-
-   DROP VIEW Data_Pub.DAS_Employer_LegalEntities_LevyInd
-END
-
-
-
-
-
-
-
-
-
-
 
 

@@ -90,13 +90,7 @@ END                                                                          AS 
 ,COALESCE(Commitment.ProviderId, -1)                                         AS CommitmentProviderId
 ,COALESCE(Commitment.ProviderName, ''NA'')                                   AS CommitmentProviderName
                            
-,CASE 
-WHEN Apprenticeship.AgreementStatus = ''0'' THEN ''Not Agreed''
-WHEN Apprenticeship.AgreementStatus = ''1'' THEN ''Employer Agreed''
-WHEN Apprenticeship.AgreementStatus = ''2'' THEN ''Provider Agreed''
-WHEN Apprenticeship.AgreementStatus = ''3'' THEN ''Both Agreed''
-ELSE ''NA''
-END                                                                          AS ApprenticeshipAgreementStatus
+,COALESCE(RD.FieldDesc,''NA'')                                               AS ApprenticeshipAgreementStatus
 ,CAST(CASE WHEN Apprenticeship.PaymentStatus=''0'' THEN ''PendingApproval''
 	               WHEN Apprenticeship.PaymentStatus=''1'' THEN ''Active''
 			       WHEN Apprenticeship.PaymentStatus=''2'' THEN ''Paused''
@@ -150,7 +144,11 @@ JOIN dbo.ReferenceData RDTT
   ON RDTT.Category=''Payments''
  AND RDTT.FieldName=''TransactionType''
  AND RDTT.FieldValue=Payment.TransactionType
-
+ LEFT 
+ JOIN dbo.ReferenceData RD
+   ON RD.Category=''Commitments''
+  AND RD.FieldName=''Approvals''
+  AND RD.FieldValue=C.Approvals
 
 '
 

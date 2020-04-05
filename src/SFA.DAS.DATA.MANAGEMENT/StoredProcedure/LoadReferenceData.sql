@@ -72,8 +72,9 @@ VALUES
 ('Commitments','Approvals',2,'ProviderAgreed'),
 ('Commitments','Approvals',3,'EmployerAndProviderAgreed'),
 ('Commitments','Approvals',4,'TransferSenderAgreed'),
+('Commitments','Approvals',5,'TransferSenderAndEmployerAgreed'),
+('Commitments','Approvals',6,'TransferSenderAndProviderAgreed'),
 ('Commitments','Approvals',7,'AllAgreed')
-
 
 
 COMMIT TRANSACTION

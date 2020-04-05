@@ -164,5 +164,6 @@
     <Build Include="Tables\StgPmts_RequiredPaymentEvent.sql" />
     <Build Include="Tables\StgPmts_SubmittedLearnerAim.sql" />
     <Build Include="Schemas\StgPmts.sql" />
+    <Build Include="StoredProcedure\CreateSpendControlNonLevyView.sql" />
   </ItemGroup>
 </Project>

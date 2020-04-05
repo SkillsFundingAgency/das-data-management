@@ -1,12 +1,12 @@
-﻿CREATE PROCEDURE [dbo].[CreateSpendControlView]
+﻿CREATE PROCEDURE [dbo].[CreateSpendControlNonLevyView]
 (
    @RunId int
 )
 AS
 -- =========================================================================
 -- Author:      Himabindu Uddaraju
--- Create Date: 05/04/2020
--- Description: Spend Control for Levy and Non-Levy Created after 2019
+-- Create Date: 25/02/2020
+-- Description: Spend Control for Non-Levy
 -- =========================================================================
 
 BEGIN TRY
@@ -27,12 +27,12 @@ DECLARE @LogID int
   SELECT 
         @RunId
 	   ,'Step-4'
-	   ,'CreateSpendControlView'
+	   ,'CreateSpendControlNonLevyView'
 	   ,getdate()
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
-   WHERE StoredProcedureName='CreateSpendControlView'
+   WHERE StoredProcedureName='CreateSpendControlNonLevyView'
      AND RunId=@RunID
 
 
@@ -42,31 +42,19 @@ DECLARE @VSQL3 VARCHAR(MAX)
 DECLARE @VSQL4 VARCHAR(MAX)
 
 SET @VSQL1='
-if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_SpendControl'')
-Drop View ASData_PL.DAS_SpendControl
+if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_SpendControlNonLevy'')
+Drop View ASData_PL.DAS_SpendControlNonLevy
 '
 SET @VSQL2='
-CREATE VIEW [ASData_PL].[DAS_SpendControl]
+CREATE VIEW [ASData_PL].[DAS_SpendControlNonLevy]
 	AS
 SELECT 
  COALESCE(Account.EmployerAccountId, -1)                                     AS EmployerAccountId
 ,COALESCE(Account.DasAccountId, ''XXXXXX'')                                  AS DasAccountId
 ,COALESCE(Account.DasAccountName, ''NA'')                                    AS DasAccountName
-,COALESCE(Account.AccountCreatedDate,''999-12-31'')                          AS AccountCreatedDate
-,COALESCE(Account.AccountModifiedDate,''9999-12-31'')                        AS AccountModifiedDate
-,COALESCE(Account.ApprenticeshipEmployerType,-1)                             AS AccountApprenticeshipEmployerType
-,COALESCE(Account.DasLegalEntityId,''-1'')                                   AS DasLegalEntityId
+--,COALESCE(Account.DasLegalEntityId,''-1'')                                 AS DasLegalEntityId
 ,COALESCE(Account.LegalEntityName,''NA'')                                    AS LegalEntityName
 ,COALESCE(Account.LegalEntityCreatedDate, ''9999-12-31'')                    AS AccountLegalEntityCreatedDate   
-,COALESCE(Account.AccountSignedAgreementVersion,-1)                          AS AccountSignedAgreementVersion
-,CASE WHEN Account.AccountLegalEntityDeleted IS NULL
-      THEN ''No''
-	  ELSE ''Yes''
-  END                                                                        AS AccountLegalEntityIsDeleted
-,COALESCE(Account.AccountLegalEntityDeleted,''9999-12-31'')                  AS AccountLegalEntityDeletedDate
-,COALESCE(Account.EmployerSignedAgreementId,-1)                              AS EmployerSignedAgreementId
-,COALESCE(Account.AgreementSignedDate,''9999-12-31'')                        AS AgreementSignedDate
-,COALESCE(Account.AgreementSignedByUserId,-1)                                AS AgreementSignedByUserId
 ,COALESCE(CONVERT(VARCHAR(255), Reservation.Id), ''NA'')                     AS ReservationId                              
 ,CASE 
 WHEN Reservation.IslevyAccount = ''1'' THEN ''Yes'' 
@@ -81,7 +69,6 @@ WHEN Reservation.Status = ''0'' THEN ''Pending''
 WHEN Reservation.Status = ''1'' THEN ''Confirmed''
 WHEN Reservation.Status = ''2'' THEN ''Completed''
 WHEN Reservation.Status = ''3'' THEN ''Deleted''
-WHEN Reservation.Status = ''4'' THEN ''Unrestricted''
 ELSE ''NA''
 END                                                                          AS ReservationStatus 
 ,COALESCE(Reservation.Courseid, ''NA'')                                      AS ReservationCourseId 
@@ -100,26 +87,14 @@ END                                                                          AS 
 ,COALESCE(Reservation.ProviderId, -1)                                        AS ReservationByEmployerOrProvider
 ,COALESCE(Commitment.ProviderId, -1)                                         AS CommitmentProviderId
 ,COALESCE(Commitment.ProviderName, ''NA'')                                   AS CommitmentProviderName
-,CASE WHEN [Apprenticeship].[DateOfBirth] IS NULL	THEN - 1
-		      WHEN DATEPART([M], [Apprenticeship].[DateOfBirth]) > DATEPART([M], [Apprenticeship].[StartDate])
-			    OR DATEPART([M], [Apprenticeship].[DateOfBirth]) = DATEPART([M], [Apprenticeship].[StartDate])
-			   AND DATEPART([DD], [Apprenticeship].[DateOfBirth]) > DATEPART([DD], [Apprenticeship].[StartDate])
-			  THEN DATEDIFF(YEAR, [Apprenticeship].[DateOfBirth], [Apprenticeship].[StartDate]) - 1
-		      ELSE DATEDIFF(YEAR, [Apprenticeship].[DateOfBirth], [Apprenticeship].[StartDate])
-		END                                                            AS [CommitmentAgeAtStart]
-, ISNULL(CAST((CASE 
-		              WHEN CASE 
-				      WHEN [Apprenticeship].[DateOfBirth] IS NULL THEN - 1
-				      WHEN DATEPART([M], [Apprenticeship].[DateOfBirth]) > DATEPART([M], [Apprenticeship].[StartDate])
-					    OR DATEPART([M], [Apprenticeship].[DateOfBirth]) = DATEPART([M], [Apprenticeship].[StartDate])
-					   AND DATEPART([DD], [Apprenticeship].[DateOfBirth]) > DATEPART([DD], [Apprenticeship].[StartDate])
-					  THEN DATEDIFF(YEAR, [Apprenticeship].[DateOfBirth], [Apprenticeship].[StartDate]) - 1
-				      ELSE DATEDIFF(YEAR, [Apprenticeship].[DateOfBirth], [Apprenticeship].[StartDate])
-				      END BETWEEN 0  AND 18 THEN ''16-18''
-		              ELSE ''19+''
-		              END) as Varchar(5)),''NA'')                      AS [CommitmentAgeAtStartBand]
                            
-,COALESCE(RD.FieldDesc,''NA'')                                               AS ApprenticeshipAgreementStatus
+,CASE 
+WHEN Apprenticeship.AgreementStatus = ''0'' THEN ''Not Agreed''
+WHEN Apprenticeship.AgreementStatus = ''1'' THEN ''Employer Agreed''
+WHEN Apprenticeship.AgreementStatus = ''2'' THEN ''Provider Agreed''
+WHEN Apprenticeship.AgreementStatus = ''3'' THEN ''Both Agreed''
+ELSE ''NA''
+END                                                                          AS ApprenticeshipAgreementStatus
 ,CAST(CASE WHEN Apprenticeship.PaymentStatus=''0'' THEN ''PendingApproval''
 	               WHEN Apprenticeship.PaymentStatus=''1'' THEN ''Active''
 			       WHEN Apprenticeship.PaymentStatus=''2'' THEN ''Paused''
@@ -128,20 +103,16 @@ END                                                                          AS 
 			       WHEN Apprenticeship.PaymentStatus=''5'' THEN ''Deleted''
 			       ELSE ''Unknown''
 		       END AS Varchar(50))                                           AS ApprenticeshipPaymentStatus
-,COALESCE(Commitment.ApprenticeshipEmployerTypeOnApproval,-1)                AS ApprenticeshipEmployerTypeOnApproval
-,COALESCE(Commitment.TransferSenderId,-1)                                    AS CommitmentTransferSenderId
 ,COALESCE(CONVERT(VARCHAR(255), Payment.PaymentId), ''NA'')                  AS PaymentId
 ,COALESCE(Payment.PeriodEnd, ''NA'')                                         AS PaymentPeriodEnd
 ,COALESCE(RDFS.FieldDesc, ''NA'')                                            AS PaymentFundingSource
 ,COALESCE(RDTT.FieldDesc, ''NA'')                                            AS PaymentTransactionType
 ,COALESCE(Payment.ApprenticeshipId, -1)                                      AS PaymentApprenticeshipId
 ,Payment.Amount                                                              AS PaymentAmount
-
 FROM (SELECT *
         FROM Resv.Ext_Tbl_Reservation
 	   WHERE YEAR(CreatedDate) > = 2020
-       --AND IsLevyAccount = 0
-		 ) Reservation
+         AND IsLevyAccount = 0) Reservation
 LEFT 
 JOIN (select Acct.Id as EmployerAccountId
             ,Acct.HashedId as DasAccountId
@@ -149,20 +120,9 @@ JOIN (select Acct.Id as EmployerAccountId
 	        ,ALE.Created as LegalEntityCreatedDate
 	        ,Acct.Name as DasAccountName
 	        ,Ale.Name as LegalEntityName
-			,Acct.CreatedDate as AccountCreatedDate
-			,Acct.ModifiedDate as AccountModifiedDate
-			,Acct.ApprenticeshipEmployerType as ApprenticeshipEmployerType
-			,ALE.SignedAgreementVersion as AccountSignedAgreementVersion
-			,ALE.Deleted as AccountLegalEntityDeleted
-			,EA.SignedById as AgreementSignedByUserId
-			,EA.Id as EmployerSignedAgreementId
-			,EA.SignedDate as AgreementSignedDate
         FROM Acct.Ext_Tbl_Account Acct
         JOIN Acct.Ext_Tbl_AccountLegalEntity ALE
-          ON Acct.Id=ale.AccountId
-		LEFT
-		JOIN Acct.Ext_Tbl_EmployerAgreement EA
-		  ON EA.Id=ALE.SignedAgreementId) Account
+          ON Acct.Id=ale.AccountId) Account
   ON Account.EmployerAccountId=Reservation.AccountId
  AND Account.DasLegalEntityId=Reservation.AccountLegalEntityId
 LEFT 
@@ -187,12 +147,6 @@ JOIN dbo.ReferenceData RDTT
   ON RDTT.Category=''Payments''
  AND RDTT.FieldName=''TransactionType''
  AND RDTT.FieldValue=Payment.TransactionType
- LEFT 
- JOIN dbo.ReferenceData RD
-   ON RD.Category=''Commitments''
-  AND RD.FieldName=''Approvals''
-  AND RD.FieldValue=Commitment.Approvals
-
 '
 
 EXEC SP_EXECUTESQL @VSQL1
@@ -230,7 +184,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'CreateSpendControlView',
+	    'CreateSpendControlNonLevyView',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 
@@ -249,7 +203,4 @@ UPDATE Mgmt.Log_Execution_Results
   END CATCH
 
 GO
-
-
-		  
 

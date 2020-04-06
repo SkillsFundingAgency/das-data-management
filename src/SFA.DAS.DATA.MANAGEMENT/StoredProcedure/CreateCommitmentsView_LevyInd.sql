@@ -151,16 +151,17 @@ SET @VSQL3='
 '
 SET @VSQL4=
 '	   , ISNULL(CAST((CASE 
-		              WHEN CASE 
-				      WHEN [a].[DateOfBirth] IS NULL THEN - 1
-				      WHEN DATEPART([M], [a].[DateOfBirth]) > DATEPART([M], [a].[StartDate])
-					    OR DATEPART([M], [a].[DateOfBirth]) = DATEPART([M], [a].[StartDate])
-					   AND DATEPART([DD], [a].[DateOfBirth]) > DATEPART([DD], [a].[StartDate])
-					  THEN DATEDIFF(YEAR, [a].[DateOfBirth], [a].[StartDate]) - 1
-				      ELSE DATEDIFF(YEAR, [a].[DateOfBirth], [a].[StartDate])
-				      END BETWEEN 0  AND 18 THEN ''16-18''
-		              ELSE ''19+''
-		              END) as Varchar(5)),''NA'')                      AS [CommitmentAgeAtStartBand]
+		               WHEN [a].[DateOfBirth] IS NULL THEN ''- 1''
+					   WHEN CASE
+				            WHEN DATEPART([M], [a].[DateOfBirth]) > DATEPART([M], [a].[StartDate])
+					          OR DATEPART([M], [a].[DateOfBirth]) = DATEPART([M], [a].[StartDate])
+					         AND DATEPART([DD], [a].[DateOfBirth]) > DATEPART([DD], [a].[StartDate])
+					        THEN DATEDIFF(YEAR, [a].[DateOfBirth], [a].[StartDate]) - 1
+				            ELSE DATEDIFF(YEAR, [a].[DateOfBirth], [a].[StartDate])
+				             END BETWEEN 0  AND 18 
+							THEN ''16-18''
+		                ELSE ''19+''
+		                 END) as Varchar(5)),''NA'')                      AS [CommitmentAgeAtStartBand]
 		--,RealisedCommitment
         , ISNULL(CAST((CASE WHEN P.TotalAmount>0 THEN ''Yes'' ELSE ''No'' END) as Varchar(3)),''NA'') AS RealisedCommitment
 		, ISNULL(CAST((CASE WHEN [a].[StartDate] BETWEEN DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0)

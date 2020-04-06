@@ -108,14 +108,15 @@ END                                                                          AS 
 		      ELSE DATEDIFF(YEAR, [Apprenticeship].[DateOfBirth], [Apprenticeship].[StartDate])
 		END                                                            AS [CommitmentAgeAtStart]
 , ISNULL(CAST((CASE 
-		              WHEN CASE 
-				      WHEN [Apprenticeship].[DateOfBirth] IS NULL THEN - 1
-				      WHEN DATEPART([M], [Apprenticeship].[DateOfBirth]) > DATEPART([M], [Apprenticeship].[StartDate])
-					    OR DATEPART([M], [Apprenticeship].[DateOfBirth]) = DATEPART([M], [Apprenticeship].[StartDate])
-					   AND DATEPART([DD], [Apprenticeship].[DateOfBirth]) > DATEPART([DD], [Apprenticeship].[StartDate])
-					  THEN DATEDIFF(YEAR, [Apprenticeship].[DateOfBirth], [Apprenticeship].[StartDate]) - 1
-				      ELSE DATEDIFF(YEAR, [Apprenticeship].[DateOfBirth], [Apprenticeship].[StartDate])
-				      END BETWEEN 0  AND 18 THEN ''16-18''
+		              WHEN [Apprenticeship].[DateOfBirth] IS NULL THEN ''NA''
+					  WHEN CASE 
+				           WHEN DATEPART([M], [Apprenticeship].[DateOfBirth]) > DATEPART([M], [Apprenticeship].[StartDate])
+					         OR (DATEPART([M], [Apprenticeship].[DateOfBirth]) = DATEPART([M], [Apprenticeship].[StartDate])
+					        AND DATEPART([DD], [Apprenticeship].[DateOfBirth]) > DATEPART([DD], [Apprenticeship].[StartDate]))
+					       THEN DATEDIFF(YEAR, [Apprenticeship].[DateOfBirth], [Apprenticeship].[StartDate]) - 1
+				           ELSE DATEDIFF(YEAR, [Apprenticeship].[DateOfBirth], [Apprenticeship].[StartDate])
+				            END BETWEEN 0  AND 18 
+					  THEN ''16-18''
 		              ELSE ''19+''
 		              END) as Varchar(5)),''NA'')                      AS [CommitmentAgeAtStartBand]
                            

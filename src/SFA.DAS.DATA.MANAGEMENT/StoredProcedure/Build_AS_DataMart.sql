@@ -6,6 +6,7 @@ AS
 -- Description: Master Stored Proc that builds AS DataMart
 -- ==========================================================
 
+
 /* Generate Run Id for Logging Execution */
 
 DECLARE @RunId int
@@ -66,6 +67,8 @@ EXEC CreateEmployerAgreementsView @RunId
 EXEC CreateCommitmentsView_LevyInd @RunId
 
 EXEC CreateSpendControlView @RunId
+
+EXEC CreateSpendControlNonLevyView @RunId
 
 
 /* Refresh Payments Snapshot Table */

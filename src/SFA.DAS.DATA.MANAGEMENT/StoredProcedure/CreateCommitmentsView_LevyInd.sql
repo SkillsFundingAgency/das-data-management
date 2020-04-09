@@ -75,14 +75,7 @@ SELECT [C].[ID]                                                         AS ID
 			       ELSE ''Unknown''
 		       END AS Varchar(50))                                      AS PaymentStatus
 	   , CAST(A.ID as bigint) AS CommitmentID
-	   , CAST(CASE WHEN  A.AgreementStatus= ''3''
-				  THEN ''BothAgreed''
-	               WHEN A.AgreementStatus = ''1''
-				   THEN ''EmployerAgreed''
-		           WHEN A.AgreementStatus = ''2''
-		           THEN ''ProviderAgreed''
-		           ELSE ''NotAgreed''
-		       END AS Varchar(50))                                      as AgreementStatus
+	   , CAST(RD.FieldDesc AS Varchar(50))                              as AgreementStatus
 		,CAST(C.ProviderId as bigint)                                   as UKPRN
 		,CAST(A.ULN as bigint)                                          as ULN
 		,CAST(C.ProviderId as Varchar(255))                             as ProviderID
@@ -158,16 +151,17 @@ SET @VSQL3='
 '
 SET @VSQL4=
 '	   , ISNULL(CAST((CASE 
-		              WHEN CASE 
-				      WHEN [a].[DateOfBirth] IS NULL THEN - 1
-				      WHEN DATEPART([M], [a].[DateOfBirth]) > DATEPART([M], [a].[StartDate])
-					    OR DATEPART([M], [a].[DateOfBirth]) = DATEPART([M], [a].[StartDate])
-					   AND DATEPART([DD], [a].[DateOfBirth]) > DATEPART([DD], [a].[StartDate])
-					  THEN DATEDIFF(YEAR, [a].[DateOfBirth], [a].[StartDate]) - 1
-				      ELSE DATEDIFF(YEAR, [a].[DateOfBirth], [a].[StartDate])
-				      END BETWEEN 0  AND 18 THEN ''16-18''
-		              ELSE ''19+''
-		              END) as Varchar(5)),''NA'')                      AS [CommitmentAgeAtStartBand]
+		               WHEN [a].[DateOfBirth] IS NULL THEN ''- 1''
+					   WHEN CASE
+				            WHEN DATEPART([M], [a].[DateOfBirth]) > DATEPART([M], [a].[StartDate])
+					          OR DATEPART([M], [a].[DateOfBirth]) = DATEPART([M], [a].[StartDate])
+					         AND DATEPART([DD], [a].[DateOfBirth]) > DATEPART([DD], [a].[StartDate])
+					        THEN DATEDIFF(YEAR, [a].[DateOfBirth], [a].[StartDate]) - 1
+				            ELSE DATEDIFF(YEAR, [a].[DateOfBirth], [a].[StartDate])
+				             END BETWEEN 0  AND 18 
+							THEN ''16-18''
+		                ELSE ''19+''
+		                 END) as Varchar(5)),''NA'')                      AS [CommitmentAgeAtStartBand]
 		--,RealisedCommitment
         , ISNULL(CAST((CASE WHEN P.TotalAmount>0 THEN ''Yes'' ELSE ''No'' END) as Varchar(3)),''NA'') AS RealisedCommitment
 		, ISNULL(CAST((CASE WHEN [a].[StartDate] BETWEEN DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0)
@@ -177,10 +171,12 @@ SET @VSQL4=
 		                     END) AS VARCHAR(3)),''NA'')              AS StartDateInCurrentMonth
 		--,DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0)                 AS [Start day of current month]
 		--,DATEADD(dd, - 1, DATEADD(mm, DATEDIFF(mm, 0, GETDATE()) + 1, 0)) AS [Last day of current month]
-		, CASE WHEN A.AgreementStatus=0 THEN 1
-		       WHEN A.AgreementStatus=1 THEN 2
-			   WHEN A.AgreementStatus=2 THEN 3
-			   WHEN A.AgreementStatus=3 THEN 4
+		, CASE WHEN C.Approvals=0 THEN 1
+		       WHEN C.Approvals=1 THEN 2
+			   WHEN C.Approvals=2 THEN 3
+			   WHEN C.Approvals=3 THEN 4
+			   WHEN C.Approvals=4 THEN 5
+			   WHEN C.Approvals=7 THEN 6
 			   ELSE 9
 			   END                                                   AS [AgreementStatus_SortOrder]
 		, CASE WHEN A.PaymentStatus=0 THEN 1
@@ -242,6 +238,10 @@ LEFT JOIN (SELECT P.ApprenticeshipId
 			        AND LP.DeliveryPeriodYear=P.DeliveryPeriodYear
 			        AND LP.Max_CollectionPeriod=(CAST(P.CollectionPeriodYear as VARCHAR(255))+''-''+ CAST(P.CollectionPeriodMonth AS VARCHAR(255)))
 	      GROUP BY P.ApprenticeshipId) P on P.ApprenticeshipId=A.ID
+LEFT JOIN dbo.ReferenceData RD
+       ON RD.Category=''Commitments''
+      AND RD.FieldName=''Approvals''
+      AND RD.FieldValue=C.Approvals
 '
 
 EXEC SP_EXECUTESQL @VSQL1

@@ -65,7 +65,16 @@ VALUES
 ('Payments','FundingSource',2,'CoInvestedSfa'),
 ('Payments','FundingSource',3,'CoInvestedEmployer'),
 ('Payments','FundingSource',4,'FullyFundedSfa'),
-('Payments','FundingSource',5,'LevyTransfer')
+('Payments','FundingSource',5,'LevyTransfer'),
+--Approvals
+('Commitments','Approvals',0,'NotAgreed'),
+('Commitments','Approvals',1,'EmployerAgreed'),
+('Commitments','Approvals',2,'ProviderAgreed'),
+('Commitments','Approvals',3,'EmployerAndProviderAgreed'),
+('Commitments','Approvals',4,'TransferSenderAgreed'),
+('Commitments','Approvals',5,'TransferSenderAndEmployerAgreed'),
+('Commitments','Approvals',6,'TransferSenderAndProviderAgreed'),
+('Commitments','Approvals',7,'AllAgreed')
 
 
 COMMIT TRANSACTION

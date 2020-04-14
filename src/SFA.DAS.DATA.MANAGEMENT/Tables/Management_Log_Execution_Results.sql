@@ -6,6 +6,7 @@
     [StoredProcedureName]   VARCHAR (100) NOT NULL,
     [Execution_Status]      BIT           NOT NULL,
     [Execution_Status_Desc] AS            (case when [Execution_Status]=(1) then 'Success' else 'Fail' end),
+	[ADFTaskType]           VARCHAR(256)  NULL,
     [StartDateTime]         DATETIME2 (7) NULL,
     [EndDateTime]           DATETIME2 (7) NULL,
     [FullJobStatus]         VARCHAR (256) NULL,

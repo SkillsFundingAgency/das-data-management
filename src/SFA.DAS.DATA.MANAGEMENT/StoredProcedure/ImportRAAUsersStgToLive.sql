@@ -19,10 +19,24 @@ BEGIN TRY
 
 /* Start Logging Execution */
 
-   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
-   WHERE ADFTaskType='ImportRAAUsersToDM'
-     AND RunId=@RunID
+  INSERT INTO Mgmt.Log_Execution_Results
+	  (
+	    RunId
+	   ,StepNo
+	   ,StoredProcedureName
+	   ,StartDateTime
+	   ,Execution_Status
+	  )
+  SELECT 
+        @RunId
+	   ,'Step-5'
+	   ,'ImportRAAUsersStgToLive'
+	   ,getdate()
+	   ,0
 
+  SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
+   WHERE StoredProcedureName='ImportRAAUsersStgToLive'
+     AND RunId=@RunID
 
   /* Get RAA Users From Staging to Live Tables, Apply Transformation Rules */
 

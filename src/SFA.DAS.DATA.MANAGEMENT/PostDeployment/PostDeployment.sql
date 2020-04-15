@@ -29,6 +29,12 @@ GRANT SELECT ON SCHEMA :: Pmts TO Developer
 
 GRANT SELECT ON SCHEMA :: StgPmts TO Developer
 
+GRANT SELECT ON SCHEMA :: Stg TO Developer
+
+GRANT SELECT ON SCHEMA :: AsData_PL TO Developer
+
+GRANT SELECT ON SCHEMA :: Data_Pub TO Developer
+
 GRANT SELECT ON dbo.Apprentice To Developer
 
 GRANT SELECT ON dbo.Apprenticeship To Developer
@@ -54,6 +60,13 @@ GRANT SELECT ON dbo.[ReferenceData] To Developer
 GRANT SELECT ON [dbo].[DASCalendarMonth] To Developer
 
 GRANT SELECT ON dbo.Payments_SS TO Developer
+
+GRANT UNMASK TO Developer
+
+
+
+
+/*
 
 IF EXISTS(select 1 from sys.views where name='Das_Commitments' and type='v')
 GRANT SELECT ON Data_Pub.Das_Commitments TO Developer
@@ -114,8 +127,6 @@ BEGIN
 END
 
 
-
-
 IF EXISTS(select 1 from sys.views where name='DAS_Employer_Accounts' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_Accounts TO Developer
 
@@ -131,6 +142,7 @@ GRANT SELECT ON Data_Pub.DAS_Employer_Agreements TO Developer
 if exists(select 1 from sys.views where name='DAS_SpendControl' and type='v')
 GRANT SELECT ON ASData_PL.DAS_SpendControl TO Developer
 
+*/
 
 
 /* Analyst Role Access */

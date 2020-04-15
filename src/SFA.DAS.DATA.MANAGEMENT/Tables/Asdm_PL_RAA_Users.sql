@@ -5,8 +5,8 @@
  ,TypeCode varchar(10)
  ,IdamUserId varchar(256)
  ,UserType varchar(256)
- ,UserName varchar(256)
- ,UserEmail varchar(256) 
+ ,UserName varchar(256) MASKED WITH (FUNCTION = 'default()')
+ ,UserEmail varchar(256) MASKED WITH (FUNCTION = 'Email()') 
  ,UserCreatedTimeStamp bigint
  ,UserCreatedDateTime datetime2
  ,LastSignedInTimeStamp bigint

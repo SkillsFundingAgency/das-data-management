@@ -172,5 +172,6 @@
     <Build Include="Tables\Asdm_PL_RAA_Users.sql" />
     <Build Include="Schemas\Stg.sql" />
     <Build Include="Schemas\Swap.sql" />
+    <Build Include="Tables\Stg_RAA_Vacancies.sql" />
   </ItemGroup>
 </Project>

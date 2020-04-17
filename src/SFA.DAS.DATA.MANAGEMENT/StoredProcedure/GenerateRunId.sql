@@ -40,7 +40,7 @@ select @DateStamp =  CAST(CAST(YEAR(GETDATE()) AS VARCHAR)+RIGHT('0' + RTRIM(cas
 	   ,getdate()
 	   ,getdate()
 	   ,1
-	   ,'Pending- Go To Step CreateSystemExternalTables'
+	   ,'Pending'
 
 
 RETURN (@RunId)

@@ -164,6 +164,13 @@
     <Build Include="Tables\StgPmts_RequiredPaymentEvent.sql" />
     <Build Include="Tables\StgPmts_SubmittedLearnerAim.sql" />
     <Build Include="Schemas\StgPmts.sql" />
+    <Build Include="Tables\Stg_RAA_Users.sql" />
+    <Build Include="Functions\Fn_ConvertTimeStampToDateTime.sql" />
+    <Build Include="StoredProcedure\Insert_Log_Error_Details.sql" />
     <Build Include="StoredProcedure\CreateSpendControlNonLevyView.sql" />
+    <Build Include="StoredProcedure\ImportRAAUsersStgToLive.sql" />
+    <Build Include="Tables\Asdm_PL_RAA_Users.sql" />
+    <Build Include="Schemas\Stg.sql" />
+    <Build Include="Schemas\Swap.sql" />
   </ItemGroup>
 </Project>

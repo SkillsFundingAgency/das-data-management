@@ -43,10 +43,10 @@ DECLARE @VSQL4 VARCHAR(MAX)
 
 SET @VSQL1='
 if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_TransactionLine'')
-Drop View Data_Pub.DAS_TransactionLine
+Drop View ASData_PL.DAS_TransactionLine
 '
 SET @VSQL2='
- CREATE VIEW [Data_Pub].[DAS_TransactionLine]  AS 
+ CREATE VIEW [ASData_PL].[DAS_TransactionLine]  AS 
  SELECT [Id], 
  [AccountId],  
  [DateCreated],  

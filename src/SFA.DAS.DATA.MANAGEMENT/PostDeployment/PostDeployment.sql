@@ -134,7 +134,7 @@ IF EXISTS(select 1 from sys.views where name='DAS_Employer_Transfer_Relationship
 GRANT SELECT ON Data_Pub.DAS_Employer_Transfer_Relationship TO Developer
 
 IF EXISTS(select 1 from sys.views where name='Das_TransactionLine' and type='v')
-GRANT SELECT ON Data_Pub.Das_TransactionLine TO Developer
+GRANT SELECT ON ASData_PL.Das_TransactionLine TO Developer
 
 IF EXISTS(select 1 from sys.views where name='DAS_Employer_Agreements' and type='v')
 GRANT SELECT ON Data_Pub.DAS_Employer_Agreements TO Developer
@@ -233,7 +233,7 @@ GRANT SELECT ON dbo.Payments_SS TO DataAnalyst
 
 
 IF EXISTS(select 1 from sys.views where name='DAS_TransactionLine' and type='v')
-GRANT SELECT ON Data_Pub.DAS_TransactionLine TO DataAnalyst
+GRANT SELECT ON ASData_PL.DAS_TransactionLine TO DataAnalyst
 
 /* Finance Role Access */
 

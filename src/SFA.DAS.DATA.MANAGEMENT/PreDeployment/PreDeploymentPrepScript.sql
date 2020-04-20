@@ -309,7 +309,7 @@ DEALLOCATE RemoveExt
 -- Remove old schema version of DAS_TransactionLine as it's moved to ASData_PL.
 
 if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_TransactionLine' and TABLE_SCHEMA = 'Data_Pub')
-Drop View ASData_PL.DAS_TransactionLine
+Drop View Data_Pub.DAS_TransactionLine
 
 
 

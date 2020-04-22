@@ -11,11 +11,12 @@ AS
 --
 --     Change Control
 --     
---     Date				Author        Jira             Description
+--     Date				Author        Jira       Description
 --
---      16/01/2020		R.Rai		  ADM_1001		   Change Levy Indicator logic to account tables
---      04/03/2020      R.Rai         ADM_1130         Change Levy Indicator New Logic and TransferApprovalStatus  
---      09/03/2020      R.Rai         ADM_1130         Schema Change  
+--     16/01/2020	R.Rai		      ADM_1001	 Change Levy Indicator logic to account tables
+--     04/03/2020 R.Rai         ADM_1130   Change Levy Indicator New Logic and TransferApprovalStatus  
+--     09/03/2020 R.Rai         ADM_1130   Schema Change  
+--     22/04/2020 S.Heath       ADM-1412   Update logic for FullyAgreedCommitment
 -- =====================================================================================================
 
 
@@ -188,7 +189,7 @@ SET @VSQL4=
 			   ELSE 9
 			   END                                                   AS [PaymentStatus_SortOrder]
 		, CAST(C.LegalEntityName as nvarchar(100))                   as DASAccountName
-		, ISNULL(CAST((CASE WHEN A.AgreementStatus IN (3,7) THEN ''Yes''
+		, ISNULL(CAST((CASE WHEN C.Approvals IN (3,7) THEN ''Yes''
 		                    ELSE ''No''
 			                 END) AS Varchar(3)),''NA'')             as FullyAgreedCommitment
 	    , CAST(C.LegalEntityAddress as nvarchar(256))                as LegalEntityRegisteredAddress

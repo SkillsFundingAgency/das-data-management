@@ -16,7 +16,7 @@ AS
 
      20/01/2020		R.Rai		  ADM_989		   Change ULN to -2 when null
      25/02/2020   S.Heath   ADM-1092     Split TransferApprovalStatus from ADM-921 to allow it to go in a CR.
-
+     22/04/2020   S.Heath   ADM-1412     Update logic for FullyAgreedCommitment
 
 */
 
@@ -180,7 +180,7 @@ SET @VSQL4=
 			   ELSE 9
 			   END                                                   AS [PaymentStatus_SortOrder]
 		, CAST(C.LegalEntityName as nvarchar(100))                   as DASAccountName
-		, ISNULL(CAST((CASE WHEN A.AgreementStatus IN (3,7) THEN ''Yes''
+		, ISNULL(CAST((CASE WHEN C.Approvals IN (3,7) THEN ''Yes''
 		                    ELSE ''No''
 			                 END) AS Varchar(3)),''NA'')             as FullyAgreedCommitment
 	    , CAST(C.LegalEntityAddress as nvarchar(256))                as LegalEntityRegisteredAddress

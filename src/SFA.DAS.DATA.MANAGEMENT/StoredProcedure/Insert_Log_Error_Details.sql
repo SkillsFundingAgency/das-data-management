@@ -22,8 +22,7 @@ BEGIN TRY
 
  SELECT @LogID = MAX(LogID)
    FROM Mgmt.Log_Execution_Results
-  WHERE StoredProcedureName='DataFactory'
-    AND ADFTaskType=@TaskType
+  WHERE ADFTaskType=@TaskType
 
   INSERT INTO Mgmt.Log_Error_Details
 	  (

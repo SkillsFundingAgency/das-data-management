@@ -9,7 +9,7 @@
  ,UserEmail nvarchar(256) 
  ,UserCreatedTimeStamp nvarchar(256)
  ,LastSignedInTimeStamp nvarchar(256)
- ,EmployerAccountId nvarchar(256)
+ ,EmployerAccountId nvarchar(512)
  ,Ukprn nvarchar(256)
  ,RunId bigint  default(-1)
  ,AsDm_CreatedDate datetime2 default(getdate()) 

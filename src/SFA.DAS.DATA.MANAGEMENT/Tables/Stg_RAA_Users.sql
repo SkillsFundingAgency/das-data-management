@@ -1,6 +1,6 @@
 ﻿CREATE TABLE Stg.RAA_Users
   (
-  SourseSK INT IDENTITY(1,1) NOT NULL 
+  SourseSK BIGINT IDENTITY(1,1) NOT NULL
  ,BinaryId varchar(256)
  ,TypeCode varchar(256)
  ,IdamUserId varchar(256)

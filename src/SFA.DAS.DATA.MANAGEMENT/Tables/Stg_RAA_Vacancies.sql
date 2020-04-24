@@ -1,6 +1,6 @@
 ﻿CREATE TABLE Stg.RAA_Vacancies
 (
-  SourseSK INT IDENTITY(1,1) NOT NULL
+  SourseSK BIGINT IDENTITY(1,1) NOT NULL
  ,BinaryId VARCHAR(256) 
  ,TypeCode VARCHAR(256)
  ,EmployerAccountId VARCHAR(256)

@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [Stg].[RAA_ApplicationReviews]
 (
- BinaryId VARCHAR(256)
+ SourseSK BIGINT IDENTITY(1,1) NOT NULL
+,BinaryId VARCHAR(256)
 ,TypeCode VARCHAR(256)
 ,CandidateId VARCHAR(256)
 ,CandidateIdType VARCHAR(256)

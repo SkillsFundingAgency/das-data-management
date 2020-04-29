@@ -10,7 +10,7 @@
  ,UserCreatedTimeStamp varchar(256)
  ,LastSignedInTimeStamp varchar(256)
  ,EmployerAccountId varchar(max)
- ,Ukprn nvarchar(256)
+ ,Ukprn varchar(256)
  ,RunId bigint  default(-1)
  ,AsDm_CreatedDate datetime2 default(getdate()) 
  ,AsDm_UpdatedDate datetime2 default(getdatE())

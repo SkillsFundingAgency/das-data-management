@@ -140,7 +140,7 @@ SET @VSQL3='
 
 	
      	, CAST(le.code AS VARCHAR(50))                                  AS LegalEntityCode
-		, CAST(AcctLE.Name  as varchar(100)                             AS LegalEntityName
+		, CAST(AcctLE.Name  as varchar(100))                            AS LegalEntityName
 
 	   , CAST((CASE WHEN C.LegalEntityOrganisationType =1 THEN ''CompaniesHouse''
 	              WHEN C.LegalEntityOrganisationType=2 THEN ''Charities''

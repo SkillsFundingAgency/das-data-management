@@ -17,6 +17,7 @@ AS
      20/01/2020		R.Rai		  ADM_989		   Change ULN to -2 when null
      25/02/2020   S.Heath   ADM-1092     Split TransferApprovalStatus from ADM-921 to allow it to go in a CR.
      22/04/2020   S.Heath   ADM-1412     Update logic for FullyAgreedCommitment
+	 01/05/2020    R.Rai    ADM-1471     Remove fields from Commitments
 
 */
 
@@ -124,8 +125,13 @@ SET @VSQL3='
 	   , CAST(GETDATE() AS DateTime)                                   AS UpdateDateTime
 	   , CAST(GETDATE() AS Date)                                       as UpdateDate
 	   , ISNULL(CAST(1 AS BIT),-1)                                     AS Flag_Latest
-	   , CAST(C.LegalEntityID AS VARCHAR(50))                          AS LegalEntityCode
-	   , CAST(C.LegalEntityName as varchar(100))                       AS LegalEntityName
+
+	--   , CAST(C.LegalEntityID AS VARCHAR(50))                          AS LegalEntityCode
+	--   , CAST(C.LegalEntityName as varchar(100))                       AS LegalEntityName
+
+     	, CAST(le.code AS VARCHAR(50))                                  AS LegalEntityCode
+		, CAST(AcctLE.Name  as varchar(100)                             AS LegalEntityName
+
 	   , CAST((CASE WHEN C.LegalEntityOrganisationType =1 THEN ''CompaniesHouse''
 	              WHEN C.LegalEntityOrganisationType=2 THEN ''Charities''
 			      WHEN C.LegalEntityOrganisationType=3 THEN ''Public Bodies''
@@ -187,10 +193,20 @@ SET @VSQL4=
 FROM [Comt].[Ext_Tbl_Commitment] C 
 LEFT JOIN [Comt].[Ext_Tbl_Apprenticeship] A
   ON C.Id=A.CommitmentId
+
+LEFT JOIN [Acct].[Ext_Tbl_AccountLegalEntity] AcctLE
+ON c.AccountLegalEntityId = AcctLE.ID
+
 LEFT JOIN [Comt].[Ext_Tbl_Accounts] Acc
   ON Acc.Id=c.EmployerAccountId
-LEFT JOIN [Acct].[Ext_Tbl_LegalEntity] LE
-  ON LE.Code=c.LegalEntityId
+
+-- LEFT JOIN [Acct].[Ext_Tbl_LegalEntity] LE
+--  ON LE.Code=c.LegalEntityId
+
+LEFT JOIN [Acct].[Ext_Tbl_LegalEntity] LE  
+  ON AcctLE.LegalEntityId = LE.id
+
+
 LEFT JOIN (SELECT P.ApprenticeshipId 
         ,SUM(P.Amount) as TotalAmount
         FROM Fin.Ext_Tbl_Payment P

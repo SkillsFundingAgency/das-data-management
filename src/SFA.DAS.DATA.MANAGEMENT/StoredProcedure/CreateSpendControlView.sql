@@ -9,6 +9,16 @@ AS
 -- Description: Spend Control for Levy and Non-Levy Created after 2019
 -- =========================================================================
 
+/*
+Change Control
+     
+     Date				Author        Jira             Description
+
+  	 01/05/2020			R.Rai        ADM-1471          Remove fields from Commitments
+
+*/
+
+
 BEGIN TRY
 
 
@@ -99,7 +109,11 @@ END                                                                          AS 
 ,Apprenticeship.Cost                                                         AS ApprenticeshipAgreedCost
 ,COALESCE(Reservation.ProviderId, -1)                                        AS ReservationByEmployerOrProvider
 ,COALESCE(Commitment.ProviderId, -1)                                         AS CommitmentProviderId
-,COALESCE(Commitment.ProviderName, ''NA'')                                   AS CommitmentProviderName
+
+-- ,COALESCE(Commitment.ProviderName, ''NA'')                                AS CommitmentProviderName
+ ,COALESCE(TP.Name, ''NA'')                                                  AS CommitmentProviderName
+
+
 ,CASE WHEN [Apprenticeship].[DateOfBirth] IS NULL	THEN - 1
 		      WHEN DATEPART([M], [Apprenticeship].[DateOfBirth]) > DATEPART([M], [Apprenticeship].[StartDate])
 			    OR DATEPART([M], [Apprenticeship].[DateOfBirth]) = DATEPART([M], [Apprenticeship].[StartDate])
@@ -193,6 +207,11 @@ JOIN dbo.ReferenceData RDTT
    ON RD.Category=''Commitments''
   AND RD.FieldName=''Approvals''
   AND RD.FieldValue=Commitment.Approvals
+
+  LEFT
+   JOIN [comt].[ext_tbl_providers] TP
+ ON  Commitment.ProviderId = TP.UKPRN
+
 
 '
 

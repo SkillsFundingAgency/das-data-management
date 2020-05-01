@@ -132,11 +132,20 @@ SET @VSQL3='
      	, CAST(le.code AS VARCHAR(50))                                  AS LegalEntityCode
 		, CAST(AcctLE.Name  as varchar(100))                            AS LegalEntityName
 
-	   , CAST((CASE WHEN C.LegalEntityOrganisationType =1 THEN ''CompaniesHouse''
-	              WHEN C.LegalEntityOrganisationType=2 THEN ''Charities''
-			      WHEN C.LegalEntityOrganisationType=3 THEN ''Public Bodies''
+	--   , CAST((CASE WHEN C.LegalEntityOrganisationType =1 THEN ''CompaniesHouse''
+	--              WHEN C.LegalEntityOrganisationType=2 THEN ''Charities''
+	--		      WHEN C.LegalEntityOrganisationType=3 THEN ''Public Bodies''
+	--		      ELSE ''Other''
+	--	      END) AS Varchar(20))                                     as LegalEntitySource
+
+
+	   , CAST((CASE WHEN LE.Source = 1 THEN ''CompaniesHouse''
+	              WHEN LE.Source = 2 THEN ''Charities''
+			      WHEN LE.Source = 3  THEN ''Public Bodies''
 			      ELSE ''Other''
 		      END) AS Varchar(20))                                     as LegalEntitySource
+
+
 	   , CAST(COALESCE(LE.ID,-1) AS BIGINT)                            AS DasLegalEntityId 
 	   , CAST(A.DateOfBirth as DATE)                                   as DateOfBirth
 	   , CASE WHEN [a].[DateOfBirth] IS NULL	THEN - 1
@@ -185,7 +194,11 @@ SET @VSQL4=
 			   WHEN A.PaymentStatus=5 THEN 6
 			   ELSE 9
 			   END                                                   AS [PaymentStatus_SortOrder]
-		, CAST(C.LegalEntityName as nvarchar(100))                   as DASAccountName
+
+	--	,  CAST(C.LegalEntityName as nvarchar(100))                   as DASAccountName
+	    ,  CAST(AcctLE.Name  as nvarchar(100))                        AS DASAccountName
+
+
 		, ISNULL(CAST((CASE WHEN C.Approvals IN (3,7) THEN ''Yes''
 		                    ELSE ''No''
 			                 END) AS Varchar(3)),''NA'')             as FullyAgreedCommitment

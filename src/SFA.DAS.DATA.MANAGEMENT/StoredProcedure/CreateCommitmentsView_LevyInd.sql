@@ -199,7 +199,9 @@ SET @VSQL4=
 		, ISNULL(CAST((CASE WHEN C.Approvals IN (3,7) THEN ''Yes''
 		                    ELSE ''No''
 			                 END) AS Varchar(3)),''NA'')             as FullyAgreedCommitment
-	    , CAST(C.LegalEntityAddress as nvarchar(256))                as LegalEntityRegisteredAddress
+
+	 --   , CAST(C.LegalEntityAddress as nvarchar(256))          as LegalEntityRegisteredAddress
+	      , CAST(AcctLE.Address as nvarchar(256))                as LegalEntityRegisteredAddress
 
 
 		,  CONVERT(bit, CASE WHEN  isnull(A.AgreementStatus,''0'') =''3''

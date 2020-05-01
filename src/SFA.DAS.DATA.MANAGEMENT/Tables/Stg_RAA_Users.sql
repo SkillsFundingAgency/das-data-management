@@ -1,6 +1,6 @@
 ﻿CREATE TABLE Stg.RAA_Users
   (
-  SourseSK INT IDENTITY(1,1) NOT NULL
+  SourseSK BIGINT IDENTITY(1,1) NOT NULL
  ,BinaryId varchar(256)
  ,TypeCode varchar(256)
  ,IdamUserId varchar(256)
@@ -9,7 +9,7 @@
  ,UserEmail varchar(256) 
  ,UserCreatedTimeStamp varchar(256)
  ,LastSignedInTimeStamp varchar(256)
- ,EmployerAccountId varchar(256)
+ ,EmployerAccountId varchar(max)
  ,Ukprn varchar(256)
  ,RunId bigint  default(-1)
  ,AsDm_CreatedDate datetime2 default(getdate()) 

@@ -144,18 +144,18 @@ SELECT
 -- Main Select
 SET @VSQL3 = '
 SELECT 
-    P.Id
+    P.ID
   , CAST( P.PaymentId AS nvarchar(100) )                              AS PaymentID  
   , P.UKprn                                                           AS UKPRN 
   , P.LearnerUln                                                      AS ULN 
   , CAST(P.AccountId AS nvarchar(100) )                               AS EmployerAccountID 
   , Acct.HashedId                                                     AS DasAccountId 
-  , P.ApprenticeshipId                                                AS CommitmentID 
+  , IsNull( P.ApprenticeshipId, -1)                                   AS CommitmentID 
   , P.DeliveryMonth                                                   AS DeliveryMonth 
   , P.DeliveryYear                                                    AS DeliveryYear 
-  , P.CollectionPeriodMonth                                           AS CollectionMonth 
+  , ISNULL( CAST(P.CollectionPeriodMonth AS Int), -1)                 AS CollectionMonth 
   , P.CollectionPeriodYear                                            AS CollectionYear 
-  , P.EvidenceSubmittedOn                                             AS EvidenceSubmittedOn 
+  , CAST ( P.EvidenceSubmittedOn AS datetime )                        AS EvidenceSubmittedOn 
   , CAST( NULL AS nvarchar(50) )                                      AS EmployerAccountVersion 
   , CAST( NULL AS nvarchar(50) )                                      AS ApprenticeshipVersion 
 	, CAST( COALESCE(FS.FieldDesc,''Unknown'') AS nvarchar(25) )        AS FundingSource
@@ -164,14 +164,14 @@ SELECT
       ELSE NULL
     END                                                               AS FundingAccountId
 	, CAST( COALESCE(TT.FieldDesc,''Unknown'') AS nvarchar(50) )        AS TransactionType
-  , P.Amount                                                          AS Amount
+  , CAST ( P.Amount AS DECIMAL (18, 5) )                              AS Amount
   , P.StdCode
   , P.FworkCode
   , P.ProgType
   , P.PwayCode
   , CAST(NULL AS NVARCHAR(50))                                        AS ContractType 
-  , EvidenceSubmittedOn                                               AS UpdateDateTime 
-  , CAST(EvidenceSubmittedOn AS DATE)                                 AS UpdateDate
+  , CAST( EvidenceSubmittedOn AS DATETIME )                           AS UpdateDateTime 
+  , CAST( EvidenceSubmittedOn AS DATE )                               AS UpdateDate
   , 1                                                                 AS Flag_Latest
   , COALESCE(FP.Flag_FirstPayment, 0)                                 AS Flag_FirstPayment 
   , CASE
@@ -194,12 +194,12 @@ SELECT
           ELSE DATEDIFF(YEAR,C.DateOfBirth, P.CollectionDate)
         END BETWEEN 0 AND 18 THEN ''16-18''
       ELSE ''19+''
-    END                                                                AS PaymentAgeBand 
+    END                                                               AS PaymentAgeBand 
   , P.DeliveryMonthShortNameYear 
-  , Acct.Name                                                          AS DASAccountName 
-  , P.CollectionPeriodName 
-  , P.CollectionPeriodMonth
-  , P.CollectionPeriodYear
+  , Acct.Name                                                         AS DASAccountName 
+  , CAST ( P.CollectionPeriodName AS nvarchar(20) )                   AS CollectionPeriodName
+  , CAST ( P.CollectionPeriodMonth AS nvarchar(10) )                  AS CollectionPeriodMonth
+  , CAST ( P.CollectionPeriodYear AS nvarchar(10) )                   AS CollectionPeriodYear
 '
 -- Joins
 SET @VSQL4 = '

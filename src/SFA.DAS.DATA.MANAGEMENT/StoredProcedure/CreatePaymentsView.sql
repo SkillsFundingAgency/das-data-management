@@ -153,9 +153,9 @@ SELECT
   , IsNull( P.ApprenticeshipId, -1)                                   AS CommitmentID 
   , P.DeliveryMonth                                                   AS DeliveryMonth 
   , P.DeliveryYear                                                    AS DeliveryYear 
-  , ISNULL( CAST(P.CollectionPeriodMonth AS Int), -1)                 AS CollectionMonth 
-  , P.CollectionPeriodYear                                            AS CollectionYear 
-  , CAST ( P.EvidenceSubmittedOn AS datetime )                        AS EvidenceSubmittedOn 
+  , ISNULL( CAST(P.CollectionPeriodMonth AS INT), -1)                 AS CollectionMonth 
+  , CAST ( P.CollectionPeriodYear AS INT )                            AS CollectionYear 
+  , ISNULL(CAST( P.EvidenceSubmittedOn AS datetime ), ''9999-12-31'') AS EvidenceSubmittedOn 
   , CAST( NULL AS nvarchar(50) )                                      AS EmployerAccountVersion 
   , CAST( NULL AS nvarchar(50) )                                      AS ApprenticeshipVersion 
 	, CAST( COALESCE(FS.FieldDesc,''Unknown'') AS nvarchar(25) )        AS FundingSource
@@ -164,13 +164,13 @@ SELECT
       ELSE NULL
     END                                                               AS FundingAccountId
 	, CAST( COALESCE(TT.FieldDesc,''Unknown'') AS nvarchar(50) )        AS TransactionType
-  , CAST ( P.Amount AS DECIMAL (18, 5) )                              AS Amount
+  , ISNULL( CAST( P.Amount AS DECIMAL (18, 5) ), -1 )                 AS Amount
   , P.StdCode
   , P.FworkCode
   , P.ProgType
   , P.PwayCode
   , CAST(NULL AS NVARCHAR(50))                                        AS ContractType 
-  , CAST( EvidenceSubmittedOn AS DATETIME )                           AS UpdateDateTime 
+  , ISNULL( CAST( EvidenceSubmittedOn AS DATETIME ), ''9999-12-31'')  AS UpdateDateTime 
   , CAST( EvidenceSubmittedOn AS DATE )                               AS UpdateDate
   , 1                                                                 AS Flag_Latest
   , COALESCE(FP.Flag_FirstPayment, 0)                                 AS Flag_FirstPayment 

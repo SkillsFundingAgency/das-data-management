@@ -154,7 +154,7 @@ SELECT
   , P.DeliveryMonth                                                   AS DeliveryMonth 
   , P.DeliveryYear                                                    AS DeliveryYear 
   , ISNULL( CAST(P.CollectionPeriodMonth AS INT), -1)                 AS CollectionMonth 
-  , CAST ( P.CollectionPeriodYear AS INT )                            AS CollectionYear 
+  , ISNULL( CAST(P.CollectionPeriodYear  AS INT), -1)                 AS CollectionYear 
   , ISNULL(CAST( P.EvidenceSubmittedOn AS datetime ), ''9999-12-31'') AS EvidenceSubmittedOn 
   , CAST( NULL AS nvarchar(50) )                                      AS EmployerAccountVersion 
   , CAST( NULL AS nvarchar(50) )                                      AS ApprenticeshipVersion 

@@ -180,5 +180,6 @@
     <Build Include="Tables\Stg_RAA_ReferenceDataApprenticeshipProgrammes.sql" />
     <Build Include="Tables\Stg_RAA_ReferenceDataBannedPhrases.sql" />
     <Build Include="Tables\Stg_RAA_ReferenceDataProfanities.sql" />
+    <Build Include="Tables\ExcludeFieldList.sql" />
   </ItemGroup>
 </Project>

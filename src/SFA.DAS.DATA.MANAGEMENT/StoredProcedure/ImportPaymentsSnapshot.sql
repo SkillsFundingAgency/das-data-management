@@ -96,26 +96,42 @@ SELECT
         ELSE P.LearningAimPathwayCode
       END                                           AS PwayCode
     -- derive dates from academic year / month to match original view calendar year values
-    , CalCP.CalendarMonthNumber                     AS CollectionMonth
-    , CalCP.CalendarYear                            AS CollectionYear
+    -- There are no calendar loookup for collection period R13/14 so deal with them in a case.
+    , CASE WHEN P.CollectionPeriod <= 12 THEN CalCP.CalendarMonthNumber                     
+        WHEN P.CollectionPeriod = 13 THEN 9
+        WHEN P.CollectionPeriod = 14 THEN 10
+      END                                           AS CollectionMonth
+    , CASE WHEN P.CollectionPeriod <= 12 THEN CalCP.CalendarYear                            
+      WHEN P.CollectionPeriod IN (13,14) THEN  
+        Cast( ''20'' + Substring( Cast ( P.AcademicYear AS VARCHAR) , 3, 4) AS INT )
+      END                                           AS CollectionYear
     , Cast( P.AcademicYear AS varchar) + ''-R'' 
       + RIGHT( ''0'' 
       + Cast (CollectionPeriod AS varchar), 2 )     AS CollectionPeriodName
     , ''R'' + Right( ''0'' 
           + Cast (CollectionPeriod AS varchar), 2 ) AS CollectionPeriodMonth
     , P.AcademicYear                                AS CollectionPeriodYear
+    -- Need to lookup actual date for collection date as its used in age calcs (not academic calendar)
+    , CASE WHEN P.CollectionPeriod <=12 THEN 
+          Cast(CalCP.CalendarYear AS varchar)+ ''-''
+          + RIGHT(''0'' + RTRIM(cast(CalCP.CalendarMonthNumber AS varchar)), 2)
+          + ''-01''  
+        WHEN P.CollectionPeriod = 13 THEN
+          ''20'' + Substring( Cast ( CalCP.CalendarYear AS VARCHAR) , 3, 4)  + ''-''
+          + ''09-01''
+        WHEN P.CollectionPeriod = 14 THEN
+          ''20'' + Substring( Cast ( CalCP.CalendarYear AS VARCHAR) , 3, 4) + ''-''
+          + ''10-01''
+      END                                           AS CollectionDate
     , CalDP.CalendarMonthNumber                     AS DeliveryMonth
     , CalDP.CalendarYear                            AS DeliveryYear
     , CalDP.CalendarMonthShortNameYear              AS DeliveryMonthShortNameYear 
-    , Cast(CalCP.CalendarYear AS varchar)+ ''-''
-      + RIGHT(''0'' + RTRIM(cast(CalCP.CalendarMonthNumber AS varchar)), 2)
-      + ''-01''                                     AS CollectionDate 
     , Cast(CalDP.CalendarYear AS varchar) + ''-''
       + RIGHT(''0'' + RTRIM(cast(CalDP.CalendarMonthNumber AS varchar)), 2)
       + ''-01''                                     AS DeliveryDate
     , P.IlrSubmissionDateTime                       AS EvidenceSubmittedOn
   FROM StgPmts.Payment P
-  INNER JOIN dbo.DASCalendarMonth CalCP -- Calendar Conversion for CollectionPeriod Dates
+  LEFT OUTER JOIN dbo.DASCalendarMonth CalCP -- Calendar Conversion for CollectionPeriod Dates
     ON ''20'' + Substring( Cast ( P.AcademicYear AS VARCHAR) , 1, 2) 
       + ''/'' + Substring( Cast ( P.AcademicYear AS VARCHAR) , 3, 4) = CalCP.AcademicYear 
     AND P.CollectionPeriod = CalCP.AcademicMonthNumber
@@ -181,12 +197,12 @@ SELECT
   , P.LearnerUln                                                      AS ULN 
   , CAST(P.AccountId AS nvarchar(100) )                               AS EmployerAccountID 
   , Acct.HashedId                                                     AS DasAccountId 
-  , P.ApprenticeshipId                                                AS CommitmentID 
+  , IsNull( P.ApprenticeshipId, -1)                                   AS CommitmentID 
   , P.DeliveryMonth                                                   AS DeliveryMonth 
   , P.DeliveryYear                                                    AS DeliveryYear 
-  , P.CollectionPeriodMonth                                           AS CollectionMonth 
-  , P.CollectionPeriodYear                                            AS CollectionYear 
-  , P.EvidenceSubmittedOn                                             AS EvidenceSubmittedOn 
+  , ISNULL( CAST(P.CollectionPeriodMonth AS INT), -1)                 AS CollectionMonth 
+  , ISNULL( CAST(P.CollectionPeriodYear  AS INT), -1)                 AS CollectionYear 
+  , ISNULL(CAST( P.EvidenceSubmittedOn AS datetime ), ''9999-12-31'') AS EvidenceSubmittedOn 
   , CAST( NULL AS nvarchar(50) )                                      AS EmployerAccountVersion 
   , CAST( NULL AS nvarchar(50) )                                      AS ApprenticeshipVersion 
 	, CAST( COALESCE(FS.FieldDesc,''Unknown'') AS nvarchar(25) )        AS FundingSource
@@ -195,14 +211,14 @@ SELECT
       ELSE NULL
     END                                                               AS FundingAccountId
 	, CAST( COALESCE(TT.FieldDesc,''Unknown'') AS nvarchar(50) )        AS TransactionType
-  , P.Amount                                                          AS Amount
+  , ISNULL( CAST( P.Amount AS DECIMAL (18, 5) ), -1 )                 AS Amount
   , P.StdCode
   , P.FworkCode
   , P.ProgType
   , P.PwayCode
   , CAST(NULL AS NVARCHAR(50))                                        AS ContractType 
-  , EvidenceSubmittedOn                                               AS UpdateDateTime 
-  , CAST(EvidenceSubmittedOn AS DATE)                                 AS UpdateDate
+  , ISNULL( CAST( EvidenceSubmittedOn AS DATETIME ), ''9999-12-31'')  AS UpdateDateTime 
+  , CAST( EvidenceSubmittedOn AS DATE )                               AS UpdateDate
   , 1                                                                 AS Flag_Latest
   , COALESCE(FP.Flag_FirstPayment, 0)                                 AS Flag_FirstPayment 
   , CASE
@@ -225,12 +241,12 @@ SELECT
           ELSE DATEDIFF(YEAR,C.DateOfBirth, P.CollectionDate)
         END BETWEEN 0 AND 18 THEN ''16-18''
       ELSE ''19+''
-    END                                                                AS PaymentAgeBand 
+    END                                                               AS PaymentAgeBand 
   , P.DeliveryMonthShortNameYear 
-  , Acct.Name                                                          AS DASAccountName 
-  , P.CollectionPeriodName 
-  , P.CollectionPeriodMonth
-  , P.CollectionPeriodYear
+  , Acct.Name                                                         AS DASAccountName 
+  , CAST ( P.CollectionPeriodName AS nvarchar(20) )                   AS CollectionPeriodName
+  , CAST ( P.CollectionPeriodMonth AS nvarchar(10) )                  AS CollectionPeriodMonth
+  , CAST ( P.CollectionPeriodYear AS nvarchar(10) )                   AS CollectionPeriodYear
 '
 -- Joins
 SET @VSQL4 = '

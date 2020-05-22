@@ -88,6 +88,7 @@ SELECT
     , P.Amount
     , P.FundingSource
     , P.TransactionType
+    , P.ContractType
     -- Mapped 0 as -1 in these codes to match original query
     , CASE WHEN P.LearningAimStandardCode = 0 THEN -1 
         ELSE P.LearningAimStandardCode 
@@ -123,11 +124,11 @@ SELECT
           + RIGHT(''0'' + RTRIM(cast(CalCP.CalendarMonthNumber AS varchar)), 2)
           + ''-01''  
         WHEN P.CollectionPeriod = 13 THEN
-          ''20'' + Substring( Cast ( CalCP.CalendarYear AS VARCHAR) , 3, 4)  + ''-''
-          + ''09-01''
+          ''20'' + Substring( Cast ( CalCP.CalendarYear AS VARCHAR) , 3, 4) 
+          + ''-09-01''
         WHEN P.CollectionPeriod = 14 THEN
-          ''20'' + Substring( Cast ( CalCP.CalendarYear AS VARCHAR) , 3, 4) + ''-''
-          + ''10-01''
+          ''20'' + Substring( Cast ( CalCP.CalendarYear AS VARCHAR) , 3, 4)
+          + ''-10-01''
       END                                           AS CollectionDate
     , CalDP.CalendarMonthNumber                     AS DeliveryMonth
     , CalDP.CalendarYear                            AS DeliveryYear
@@ -170,8 +171,8 @@ SELECT
   , IsNull( P.ApprenticeshipId, -1)                                   AS CommitmentID 
   , P.DeliveryMonth                                                   AS DeliveryMonth 
   , P.DeliveryYear                                                    AS DeliveryYear 
-  , ISNULL( CAST(P.CollectionPeriodMonth AS INT), -1)                 AS CollectionMonth 
-  , ISNULL( CAST(P.CollectionPeriodYear  AS INT), -1)                 AS CollectionYear 
+  , ISNULL( CAST(P.CollectionMonth AS INT), -1)                       AS CollectionMonth 
+  , ISNULL( CAST(P.CollectionYear  AS INT), -1)                       AS CollectionYear 
   , ISNULL(CAST( P.EvidenceSubmittedOn AS datetime ), ''9999-12-31'') AS EvidenceSubmittedOn 
   , CAST( NULL AS nvarchar(50) )                                      AS EmployerAccountVersion 
   , CAST( NULL AS nvarchar(50) )                                      AS ApprenticeshipVersion 
@@ -186,7 +187,7 @@ SELECT
   , P.FworkCode
   , P.ProgType
   , P.PwayCode
-  , CAST(NULL AS NVARCHAR(50))                                        AS ContractType 
+  , CAST(P.ContractType AS NVARCHAR(50))                              AS ContractType 
   , ISNULL( CAST( EvidenceSubmittedOn AS DATETIME ), ''9999-12-31'')  AS UpdateDateTime 
   , CAST( EvidenceSubmittedOn AS DATE )                               AS UpdateDate
   , 1                                                                 AS Flag_Latest

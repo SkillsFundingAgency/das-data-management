@@ -58,6 +58,9 @@ VALUES
 ('Payments','TransactionType',9,'Completion16To18FrameworkUplift'),
 ('Payments','TransactionType',10,'Balancing16To18FrameworkUplift'),
 ('Payments','TransactionType',11,'FirstDisadvantagePayment'),
+('Payments','TransactionType',12,'SecondDisadvantagePayment'),
+('Payments','TransactionType',13,'OnProgrammeMathsAndEnglish'),
+('Payments','TransactionType',14,'BalancingMathsAndEnglish'),
 ('Payments','TransactionType',15,'LearningSupport'),
 ('Payments','TransactionType',16,'CareLeaverApprenticePayment'),
 --FundingSource

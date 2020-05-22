@@ -14,9 +14,10 @@ AS
 --     Date				Author        Jira       Description
 --
 --     16/01/2020	R.Rai		      ADM_1001	 Change Levy Indicator logic to account tables
---     04/03/2020 R.Rai         ADM_1130   Change Levy Indicator New Logic and TransferApprovalStatus  
---     09/03/2020 R.Rai         ADM_1130   Schema Change  
---     22/04/2020 S.Heath       ADM-1412   Update logic for FullyAgreedCommitment
+--     04/03/2020   R.Rai             ADM_1130   Change Levy Indicator New Logic and TransferApprovalStatus  
+--     09/03/2020   R.Rai             ADM_1130   Schema Change  
+--     22/04/2020   S.Heath          ADM-1412   Update logic for FullyAgreedCommitment
+--     01/05/2020   R.Rai            ADM-1471   REmove fields from Commitments
 -- =====================================================================================================
 
 
@@ -133,13 +134,29 @@ SET @VSQL3='
 	   , CAST(GETDATE() AS DateTime)                                   AS UpdateDateTime
 	   , CAST(GETDATE() AS Date)                                       as UpdateDate
 	   , ISNULL(CAST(1 AS BIT),-1)                                     AS Flag_Latest
-	   , CAST(C.LegalEntityID AS VARCHAR(50))                          AS LegalEntityCode
-	   , CAST(C.LegalEntityName as varchar(100))                       AS LegalEntityName
-	   , CAST((CASE WHEN C.LegalEntityOrganisationType =1 THEN ''CompaniesHouse''
-	              WHEN C.LegalEntityOrganisationType=2 THEN ''Charities''
-			      WHEN C.LegalEntityOrganisationType=3 THEN ''Public Bodies''
+
+	--   , CAST(C.LegalEntityID AS VARCHAR(50))                          AS LegalEntityCode
+	--   , CAST(C.LegalEntityName as varchar(100))                       AS LegalEntityName
+
+	
+     	, CAST(le.code AS VARCHAR(50))                                  AS LegalEntityCode
+		, CAST(AcctLE.Name  as varchar(100))                            AS LegalEntityName
+
+
+--	   , CAST((CASE WHEN C.LegalEntityOrganisationType =1 THEN ''CompaniesHouse''
+--	              WHEN C.LegalEntityOrganisationType=2 THEN ''Charities''
+--			      WHEN C.LegalEntityOrganisationType=3 THEN ''Public Bodies''
+--			      ELSE ''Other''
+--		      END) AS Varchar(20))                                     as LegalEntitySource
+
+
+	   , CAST((CASE WHEN LE.Source = 1 THEN ''CompaniesHouse''
+	              WHEN LE.Source = 2 THEN ''Charities''
+			      WHEN LE.Source = 3  THEN ''Public Bodies''
 			      ELSE ''Other''
 		      END) AS Varchar(20))                                     as LegalEntitySource
+
+
 	   , CAST(COALESCE(LE.ID,-1) AS BIGINT)                            AS DasLegalEntityId 
 	   , CAST(A.DateOfBirth as DATE)                                   as DateOfBirth
 	   , CASE WHEN [a].[DateOfBirth] IS NULL	THEN - 1
@@ -188,11 +205,16 @@ SET @VSQL4=
 			   WHEN A.PaymentStatus=5 THEN 6
 			   ELSE 9
 			   END                                                   AS [PaymentStatus_SortOrder]
-		, CAST(C.LegalEntityName as nvarchar(100))                   as DASAccountName
+
+	--	, CAST(C.LegalEntityName as nvarchar(100))                   as DASAccountName
+	    ,  CAST(AcctLE.Name  as nvarchar(100))                       AS DASAccountName
+
 		, ISNULL(CAST((CASE WHEN C.Approvals IN (3,7) THEN ''Yes''
 		                    ELSE ''No''
 			                 END) AS Varchar(3)),''NA'')             as FullyAgreedCommitment
-	    , CAST(C.LegalEntityAddress as nvarchar(256))                as LegalEntityRegisteredAddress
+
+	 --   , CAST(C.LegalEntityAddress as nvarchar(256))          as LegalEntityRegisteredAddress
+	      , CAST(AcctLE.Address as nvarchar(256))                as LegalEntityRegisteredAddress
 
 
 		,  CONVERT(bit, CASE WHEN  isnull(A.AgreementStatus,''0'') =''3''
@@ -211,10 +233,20 @@ SET @VSQL4=
 FROM [Comt].[Ext_Tbl_Commitment] C 
 LEFT JOIN [Comt].[Ext_Tbl_Apprenticeship] A
   ON C.Id=A.CommitmentId
+  
+LEFT JOIN [Acct].[Ext_Tbl_AccountLegalEntity] AcctLE
+ON c.AccountLegalEntityId = AcctLE.ID
+
+
 LEFT JOIN [Comt].[Ext_Tbl_Accounts] Acc
   ON Acc.Id=c.EmployerAccountId
-LEFT JOIN [Acct].[Ext_Tbl_LegalEntity] LE
-  ON LE.Code=c.LegalEntityId
+
+ -- LEFT JOIN [Acct].[Ext_Tbl_LegalEntity] LE
+ --   ON LE.Code=c.LegalEntityId
+   
+LEFT JOIN [Acct].[Ext_Tbl_LegalEntity] LE  
+  ON AcctLE.LegalEntityId = LE.id
+
 LEFT JOIN [Acct].[Ext_Tbl_Account] acct1
   ON acct1.id = c.EmployerAccountId
 LEFT JOIN (SELECT P.ApprenticeshipId 

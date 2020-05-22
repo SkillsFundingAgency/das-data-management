@@ -9,6 +9,17 @@ AS
 -- Description: Spend Control for Non-Levy
 -- =========================================================================
 
+
+/*
+Change Control
+     
+     Date				Author        Jira             Description
+
+  	 01/05/2020			R.Rai        ADM-1471          Remove fields from Commitments
+
+*/
+
+
 BEGIN TRY
 
 
@@ -86,7 +97,9 @@ END                                                                          AS 
 ,Apprenticeship.Cost                                                         AS ApprenticeshipAgreedCost
 ,COALESCE(Reservation.ProviderId, -1)                                        AS ReservationByEmployerOrProvider
 ,COALESCE(Commitment.ProviderId, -1)                                         AS CommitmentProviderId
-,COALESCE(Commitment.ProviderName, ''NA'')                                   AS CommitmentProviderName
+
+ -- ,COALESCE(Commitment.ProviderName, ''NA'')                               AS CommitmentProviderName
+  ,COALESCE(TP.Name, ''NA'')                                                 AS CommitmentProviderName
                            
 ,COALESCE(RD.FieldDesc,''NA'')                                               AS ApprenticeshipAgreementStatus
 ,CAST(CASE WHEN Apprenticeship.PaymentStatus=''0'' THEN ''PendingApproval''
@@ -146,6 +159,13 @@ JOIN dbo.ReferenceData RD
   ON RD.Category=''Commitments''
  AND RD.FieldName=''Approvals''
  AND RD.FieldValue=Commitment.Approvals
+ 
+ LEFT
+   JOIN [comt].[ext_tbl_providers] TP
+ ON  Commitment.ProviderId = TP.UKPRN
+
+
+
 '
 
 EXEC SP_EXECUTESQL @VSQL1

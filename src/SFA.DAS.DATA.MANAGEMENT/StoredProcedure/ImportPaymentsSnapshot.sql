@@ -217,7 +217,7 @@ SELECT
   , P.FworkCode
   , P.ProgType
   , P.PwayCode
-  , CAST(P.ContractType AS NVARCHAR(50))                              AS ContractType 
+  , CAST(CT.FieldDesc AS NVARCHAR(50))                                AS ContractType
   , ISNULL( CAST( EvidenceSubmittedOn AS DATETIME ), ''9999-12-31'')  AS UpdateDateTime 
   , CAST( EvidenceSubmittedOn AS DATE )                               AS UpdateDate
   , 1                                                                 AS Flag_Latest
@@ -268,6 +268,10 @@ LEFT JOIN dbo.ReferenceData FS
   ON FS.FieldValue=P.FundingSource
     AND FS.FieldName=''FundingSource''
     AND FS.Category=''Payments''
+LEFT JOIN dbo.ReferenceData CT
+  ON CT.FieldValue=P.ContractType
+    AND CT.FieldName=''ContractType''
+    AND CT.Category=''Payments''
 '
 
 EXEC (@vsql1+@vsql2+@vsql3+@vsql4)

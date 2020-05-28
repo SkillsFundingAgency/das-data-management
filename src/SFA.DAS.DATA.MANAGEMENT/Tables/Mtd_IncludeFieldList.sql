@@ -4,7 +4,7 @@
    ,STL_ID BIGINT
    ,[TableName] Varchar(256)
    ,[ColumnNameToInclude] Varchar(256)
-   ,IsEnabled BIT
+   ,IsEnabled BIT DEFAULT(1)
    ,AddedDate DateTime2 Default(Getdate())
    ,UpdatedDate DateTime2
    ,CONSTRAINT [PK_IncludeFieldList_IFLId] PRIMARY KEY CLUSTERED (IFL_ID ASC)

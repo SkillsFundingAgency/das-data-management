@@ -183,5 +183,8 @@
     <Build Include="Tables\Mtd_ExcludeFieldList.sql" />
     <Build Include="Tables\Mtd_ImportSourceTableList.sql" />
     <Build Include="Tables\Mtd_IncludeFieldList.sql" />
+    <Build Include="Tables\SourceDbChanges.sql" />
+    <Build Include="StoredProcedure\PopulateSourceDbMetadataForImport.sql" />
+    <Build Include="StoredProcedure\SourceConfigForImport.sql" />
   </ItemGroup>
 </Project>

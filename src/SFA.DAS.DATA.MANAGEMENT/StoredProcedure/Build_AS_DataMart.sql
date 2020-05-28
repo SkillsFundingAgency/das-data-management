@@ -37,6 +37,8 @@ EXEC UpdateCalendarMonth @RunId
 
 EXEC LoadReferenceData @RunId
 
+EXEC PopulateSourceDbMetadataForImport @RunId
+
 EXEC CreateCommitmentsView @RunId
 
 EXEC CreateLevyDeclarationsView @RunId

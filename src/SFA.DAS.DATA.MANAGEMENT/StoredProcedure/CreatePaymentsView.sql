@@ -210,6 +210,7 @@ LEFT JOIN -- transfers
 -- need to use cte_payment as weve messed with the delivery dates and they wont join
 -- create a string to decide which is min doing individual columns doesnt 
 -- work as dates and IDs are in alignment
+LEFT JOIN
 ( SELECT P.AccountId
   , P.ApprenticeshipId
    , MIN( CAST( P.CollectionDate AS VARCHAR (12) ) 

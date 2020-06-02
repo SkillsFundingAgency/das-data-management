@@ -37,10 +37,10 @@ DECLARE @LogID int
    WHERE StoredProcedureName='PopulateSourceDbMetadataForImport'
      AND RunId=@RunID
 
-
+DELETE FROM Mtd.SourceConfigForImport
 
 INSERT INTO Mtd.SourceConfigForImport
-(SourceDatabaseName,SourceTableName,ColumnNamesToInclude,ColumnNamesToExclude)
+(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude)
 
 /* AVMSPlus Metadata */
 

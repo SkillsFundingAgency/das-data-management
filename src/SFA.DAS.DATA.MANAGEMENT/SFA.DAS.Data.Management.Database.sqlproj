@@ -186,5 +186,6 @@
     <Build Include="Tables\SourceDbChanges.sql" />
     <Build Include="StoredProcedure\PopulateSourceDbMetadataForImport.sql" />
     <Build Include="Tables\Mtd_SourceConfigForImport.sql" />
+    <Build Include="StoredProcedure\DetectAndLogSourceDbChanges.sql" />
   </ItemGroup>
 </Project>

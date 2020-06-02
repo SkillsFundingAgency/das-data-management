@@ -46,11 +46,10 @@ INSERT INTO Mtd.SourceConfigForImport
 
 Values
 ('AVMSPlus'
-,'Candidate','[CandidateId],[PersonId],[CandidateStatusTypeId],[CountyId],[Postcode],[LocalAuthorityId],[VoucherReferenceNumber],[UniqueLearnerNumber],[UlnStatusId],[Gender],[ApplicationLimitEnforced]
-      ,[LastAccessedDate],[ReceivePushedContent],[ReferralAgent],[DisableAlerts],[DoBFailureCount],[ForgottenUsernameRequested],[ForgottenPasswordRequested],[TextFailureCount]
-      ,[EmailFailureCount],[LastAccessedManageApplications],[ReferralPoints],[BeingSupportedBy],[LockedForSupportUntil],[AllowMarketingMessages],[ReminderMessageSent],[CandidateGuid],[DateofBirth]'
-	  ,'[AddressLine1],[AddressLine2],[AddressLine3],[AddressLine4],[AddressLine5],[Town],[Longitude],[Latitude],[GeocodeEasting],[GeocodeNorthing],[NiReference],[EthnicOrigin]
-      ,[EthnicOriginOther],[AdditionalEmail],[Disability],[DisabilityOther],[HealthProblems],[UnconfirmedEmailAddress],[MobileNumberUnconfirmed],[NewVacancyAlertEmail],[NewVacancyAlertSMS]'
+,'Candidate'
+,'dbo'
+,'[CandidateId],[PersonId],[CandidateStatusTypeId],[CountyId],[Postcode],[LocalAuthorityId],[VoucherReferenceNumber],[UniqueLearnerNumber],[UlnStatusId],[Gender],[ApplicationLimitEnforced],[LastAccessedDate],[ReceivePushedContent],[ReferralAgent],[DisableAlerts],[DoBFailureCount],[ForgottenUsernameRequested],[ForgottenPasswordRequested],[TextFailureCount],[EmailFailureCount],[LastAccessedManageApplications],[ReferralPoints],[BeingSupportedBy],[LockedForSupportUntil],[AllowMarketingMessages],[ReminderMessageSent],[CandidateGuid],[DateofBirth]'
+,'[AddressLine1],[AddressLine2],[AddressLine3],[AddressLine4],[AddressLine5],[Town],[Longitude],[Latitude],[GeocodeEasting],[GeocodeNorthing],[NiReference],[EthnicOrigin],[EthnicOriginOther],[AdditionalEmail],[Disability],[DisabilityOther],[HealthProblems],[UnconfirmedEmailAddress],[MobileNumberUnconfirmed],[NewVacancyAlertEmail],[NewVacancyAlertSMS]'
 )
 
 

@@ -180,9 +180,6 @@
     <Build Include="Tables\Stg_RAA_ReferenceDataApprenticeshipProgrammes.sql" />
     <Build Include="Tables\Stg_RAA_ReferenceDataBannedPhrases.sql" />
     <Build Include="Tables\Stg_RAA_ReferenceDataProfanities.sql" />
-    <Build Include="Tables\Mtd_ExcludeFieldList.sql" />
-    <Build Include="Tables\Mtd_ImportSourceTableList.sql" />
-    <Build Include="Tables\Mtd_IncludeFieldList.sql" />
     <Build Include="Tables\SourceDbChanges.sql" />
     <Build Include="StoredProcedure\PopulateSourceDbMetadataForImport.sql" />
     <Build Include="Tables\Mtd_SourceConfigForImport.sql" />

@@ -37,6 +37,8 @@ DECLARE @LogID int
    WHERE StoredProcedureName='PopulateSourceDbMetadataForImport'
      AND RunId=@RunID
 
+BEGIN TRANSACTION
+
 DELETE FROM Mtd.SourceConfigForImport
 
 INSERT INTO Mtd.SourceConfigForImport
@@ -53,7 +55,7 @@ Values
 )
 
 
-
+COMMIT TRANSACTION
 
 
 UPDATE Mgmt.Log_Execution_Results

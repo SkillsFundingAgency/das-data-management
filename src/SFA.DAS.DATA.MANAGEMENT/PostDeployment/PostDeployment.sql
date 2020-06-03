@@ -35,6 +35,8 @@ GRANT SELECT ON SCHEMA :: AsData_PL TO Developer
 
 GRANT SELECT ON SCHEMA :: Data_Pub TO Developer
 
+GRANT SELECT ON SCHEMA :: Mtd TO Developer
+
 GRANT SELECT ON dbo.Apprentice To Developer
 
 GRANT SELECT ON dbo.Apprenticeship To Developer
@@ -60,6 +62,8 @@ GRANT SELECT ON dbo.[ReferenceData] To Developer
 GRANT SELECT ON [dbo].[DASCalendarMonth] To Developer
 
 GRANT SELECT ON dbo.Payments_SS TO Developer
+
+GRANT SELECT ON dbo.SourceDbChanges TO Developer
 
 GRANT UNMASK TO Developer
 

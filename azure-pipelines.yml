@@ -18,10 +18,11 @@ pool:
   demands: Agent.OS -equals Windows_NT
 
 steps:
-- task: gittools.gitversion.gitversion-task.GitVersion@5
+- task: UseGitVersion@5
   displayName: GitVersion
   inputs:
-    updateAssemblyInfo: true
+    versionSpec: 5.x
+    mode: Mainline
 
 - task: VSBuild@1
   displayName: 'Build DACPAC'

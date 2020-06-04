@@ -14,12 +14,12 @@
         "sqlServerName": {
             "type": "string"
         },
+        "sharedManagementResourceGroup": {
+            "type": "string"
+        },        
         "logAnalyticsSubscriptionId": {
             "type": "string",
             "defaultValue": "[subscription().subscriptionId]"
-        },
-        "logAnalyticsResourceGroup": {
-            "type": "string"
         },
         "logAnalyticsWorkspaceName": {
             "type": "string"
@@ -134,7 +134,7 @@
                         "value": "[parameters('logAnalyticsSubscriptionId')]"
                     },
                     "logAnalyticsResourceGroup": {
-                        "value": "[parameters('logAnalyticsResourceGroup')]"
+                        "value": "[parameters('sharedManagementResourceGroup')]"
                     },
                     "logAnalyticsWorkspaceName": {
                         "value": "[parameters('logAnalyticsWorkspaceName')]"

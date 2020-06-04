@@ -14,16 +14,15 @@ variables:
   buildPlatform: 'anycpu'
 
 pool:
-  name: 'Continuous Integration 02 - SSD - 160ACU'
-  demands: 
-  - msbuild
-  - visualstudio
+  name: 'DAS - Continuous Integration'
+  demands: Agent.OS -equals Windows_NT
 
 steps:
-- task: gittools.gitversion.gitversion-task.GitVersion@3
+- task: UseGitVersion@5
   displayName: GitVersion
   inputs:
-    updateAssemblyInfo: true
+    versionSpec: 5.x
+    mode: Mainline
 
 - task: VSBuild@1
   displayName: 'Build DACPAC'

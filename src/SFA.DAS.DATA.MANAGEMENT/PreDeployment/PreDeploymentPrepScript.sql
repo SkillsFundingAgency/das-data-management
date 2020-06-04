@@ -313,32 +313,3 @@ Drop View Data_Pub.DAS_TransactionLine
 
 
 
-/* Clear existing AVMS Table in AT ONE OFF*/
-
-
-Declare @AvmsTable VARCHAR(256)
-Declare RemoveAvms Cursor
-for
-(SELECT name
-from sys.tables
-where name like '%Avms%'
-)
-
-OPEN RemoveAvms
-
-FETCH NEXT FROM RemoveAvms into @AvmsTable
-
-WHILE(@@FETCH_STATUS=0)
-BEGIN
-DECLARE @VSQL NVARCHAR(MAX)
-SET @VSQL='
-IF EXISTS ( SELECT * FROM sys.tables WHERE object_id = OBJECT_ID('''+@AvmsTable+''') ) 
-DROP EXTERNAL TABLE ['+@AvmsTable+']
-'
-EXEC (@VSQL)
-FETCH NEXT FROM RemoveAvms into @AvmsTable
-END
-
-CLOSE RemoveAvms
-DEALLOCATE RemoveAvms
-

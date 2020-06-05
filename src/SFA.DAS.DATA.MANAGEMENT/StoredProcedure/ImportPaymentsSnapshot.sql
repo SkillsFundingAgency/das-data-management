@@ -55,25 +55,10 @@ DECLARE @vsql4 nvarchar(max)
 
 -- CTEs
 SET @vsql1='
-WITH cte_Comt AS
-( SELECT 
-    ID
-  , DateofBirth
-  FROM Comt.Ext_Tbl_Apprenticeship
-)
-, cte_Transfers AS
-( SELECT DISTINCT 
-    SenderAccountId
-  --,SenderAccountName
-  , ReceiverAccountId
-  --,ReceiverAccountName
-  ,ApprenticeshipId
-  FROM Fin.Ext_Tbl_AccountTransfers
-)
-, cte_Payment AS
+WITH cte_Payment AS
 ( -- rework data from new payments staging table to match data sourced from external table
 SELECT
-      P.Id
+      P.ID 
     , P.EventId AS PaymentID
     , P.Ukprn
     , P.LearnerUln
@@ -118,7 +103,7 @@ SELECT
           + RIGHT(''0'' + RTRIM(cast(CalCP.CalendarMonthNumber AS varchar)), 2)
           + ''-01''  
         WHEN P.CollectionPeriod = 13 THEN
-          ''20'' + Substring( Cast ( CalCP.CalendarYear AS VARCHAR) , 3, 4)  
+          ''20'' + Substring( Cast ( CalCP.CalendarYear AS VARCHAR) , 3, 4) 
           + ''-09-01''
         WHEN P.CollectionPeriod = 14 THEN
           ''20'' + Substring( Cast ( CalCP.CalendarYear AS VARCHAR) , 3, 4)
@@ -127,6 +112,7 @@ SELECT
     , CalDP.CalendarMonthNumber                     AS DeliveryMonth
     , CalDP.CalendarYear                            AS DeliveryYear
     , CalDP.CalendarMonthShortNameYear              AS DeliveryMonthShortNameYear 
+    , P.DeliveryPeriod                              AS DeliveryPeriod
     , Cast(CalDP.CalendarYear AS varchar) + ''-''
       + RIGHT(''0'' + RTRIM(cast(CalDP.CalendarMonthNumber AS varchar)), 2)
       + ''-01''                                     AS DeliveryDate
@@ -140,17 +126,7 @@ SELECT
     ON ''20'' + Substring( Cast ( P.AcademicYear AS VARCHAR) , 1, 2) 
       + ''/'' + Substring( Cast ( P.AcademicYear AS VARCHAR) , 3, 4) = CalDP.AcademicYear 
       AND P.DeliveryPeriod = CalDP.AcademicMonthNumber 
-) 
-, cte_FirstPayment AS 
-( SELECT
-    P.AccountId AccountId
-  , P.ApprenticeshipId ApprenticeshipId
-  , MIN(CollectionDate) MinCollectionPeriod
-  , MIN(DeliveryDate) MinDeliveryPeriod
-  , 1 AS Flag_FirstPayment 
-  FROM cte_Payment AS P 
-  GROUP BY P.AccountId, P.ApprenticeshipId
-) 
+)
 '
 -- Insert
 SET @vsql2='
@@ -193,7 +169,8 @@ SET @vsql2='
 -- Main Select
 SET @VSQL3 = '
 SELECT 
-    CAST( P.PaymentId AS nvarchar(100) )                              AS PaymentID  
+-- not needed as its a sequence on SS table P.ID
+   CAST( P.PaymentId AS nvarchar(100) )                              AS PaymentID  
   , P.UKprn                                                           AS UKPRN 
   , P.LearnerUln                                                      AS ULN 
   , CAST(P.AccountId AS nvarchar(100) )                               AS EmployerAccountID 
@@ -217,7 +194,7 @@ SELECT
   , P.FworkCode
   , P.ProgType
   , P.PwayCode
-  , CAST(CT.FieldDesc AS NVARCHAR(50))                                AS ContractType
+  , CAST(CT.FieldDesc AS NVARCHAR(50))                                AS ContractType 
   , ISNULL( CAST( EvidenceSubmittedOn AS DATETIME ), ''9999-12-31'')  AS UpdateDateTime 
   , CAST( EvidenceSubmittedOn AS DATE )                               AS UpdateDate
   , 1                                                                 AS Flag_Latest
@@ -247,19 +224,38 @@ SELECT
   , Acct.Name                                                         AS DASAccountName 
   , CAST ( P.CollectionPeriodName AS nvarchar(20) )                   AS CollectionPeriodName
   , CAST ( P.CollectionPeriodMonth AS nvarchar(10) )                  AS CollectionPeriodMonth
-  , CAST ( P.CollectionPeriodYear AS nvarchar(10) )                   AS CollectionPeriodYear
-'
+  , CAST ( P.CollectionPeriodYear AS nvarchar(10) )                   AS CollectionPeriodYear'
 -- Joins
 SET @VSQL4 = '
 FROM cte_Payment P 
 LEFT JOIN Acct.Ext_Tbl_Account Acct ON Acct.Id = P.AccountId
-LEFT JOIN cte_Transfers EAT ON P.ApprenticeshipId = EAT.ApprenticeshipId 
-LEFT JOIN cte_FirstPayment FP
-  ON FP.AccountId = P.AccountId 
-    AND FP.ApprenticeshipId = P.ApprenticeshipId 
-    AND FP.MinCollectionPeriod = P.CollectionDate 
-    AND FP.MinDeliveryPeriod = P.DeliveryDate 		
-LEFT JOIN cte_Comt C ON c.id = p.ApprenticeshipId
+LEFT JOIN Comt.Ext_Tbl_Apprenticeship C
+  ON P.ApprenticeshipId = C.ID
+LEFT JOIN -- transfers
+( SELECT DISTINCT 
+    SenderAccountId
+    , ReceiverAccountId
+    , ApprenticeshipId
+  FROM Fin.Ext_Tbl_AccountTransfers
+) EAT ON P.ApprenticeshipId = EAT.ApprenticeshipId 
+-- need to use cte_payment as weve messed with the delivery dates and they wont join
+-- create a string to decide which is min doing individual columns doesnt 
+-- work as dates and IDs are in alignment
+LEFT JOIN
+( SELECT P.AccountId
+  , P.ApprenticeshipId
+   , MIN( CAST( P.CollectionDate AS VARCHAR (12) ) 
+    + ''-'' + CAST( P.DeliveryDate AS varchar(12) )
+    + ''-'' + CAST( P.EvidenceSubmittedOn AS varchar(25) )
+    + ''-'' + CAST( P.Id AS VARCHAR(12) ) ) AS MinPaymentString
+  , 1 AS Flag_FirstPayment
+  FROM cte_Payment P
+  GROUP BY P.AccountId, P.ApprenticeshipId  
+) FP ON P.AccountId = FP.AccountId
+  AND ( CAST( P.CollectionDate AS VARCHAR (12) ) 
+    + ''-'' + CAST( P.DeliveryDate AS varchar(12) )
+    + ''-'' + CAST( P.EvidenceSubmittedOn AS varchar(25) )
+    + ''-'' + CAST( P.Id AS VARCHAR(12) ) ) = FP.MinPaymentString
 LEFT JOIN dbo.ReferenceData TT
   ON TT.FieldValue = P.TransactionType
     AND TT.FieldName = ''TransactionType''

@@ -128,7 +128,7 @@ SELECT
     ON ''20'' + Substring( Cast ( P.AcademicYear AS VARCHAR) , 1, 2) 
       + ''/'' + Substring( Cast ( P.AcademicYear AS VARCHAR) , 3, 4) = CalCP.AcademicYear 
     AND P.CollectionPeriod = CalCP.AcademicMonthNumber
-  INNER JOIN dbo.DASCalendarMonth CalDP -- Calendar Conversion for DeliveryPeriod Dates
+  LEFT OUTER JOIN dbo.DASCalendarMonth CalDP -- Calendar Conversion for DeliveryPeriod Dates
     ON ''20'' + Substring( Cast ( P.AcademicYear AS VARCHAR) , 1, 2) 
       + ''/'' + Substring( Cast ( P.AcademicYear AS VARCHAR) , 3, 4) = CalDP.AcademicYear 
       AND P.DeliveryPeriod = CalDP.AcademicMonthNumber 

@@ -103,10 +103,10 @@ SELECT
           + RIGHT(''0'' + RTRIM(cast(CalCP.CalendarMonthNumber AS varchar)), 2)
           + ''-01''  
         WHEN P.CollectionPeriod = 13 THEN
-          ''20'' + Substring( Cast ( CalCP.CalendarYear AS VARCHAR) , 3, 4) 
+          ''20'' + Substring( Cast ( P.AcademicYear AS VARCHAR) , 3, 4) 
           + ''-09-01''
         WHEN P.CollectionPeriod = 14 THEN
-          ''20'' + Substring( Cast ( CalCP.CalendarYear AS VARCHAR) , 3, 4)
+          ''20'' + Substring( Cast ( P.AcademicYear AS VARCHAR) , 3, 4)
           + ''-10-01''
       END                                           AS CollectionDate
     , CalDP.CalendarMonthNumber                     AS DeliveryMonth

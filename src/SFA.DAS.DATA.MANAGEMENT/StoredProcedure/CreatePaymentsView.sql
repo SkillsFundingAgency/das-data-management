@@ -13,11 +13,12 @@ AS
 --
 --     Change Control
 --     
---     Date				Author        Jira             Description
+--     Date				Author        Jira        Description
 --
---      14/01/2020 R.Rai			ADM_982			Change Agreement Type to logic to account tables
---      28/01/2020 S Heath          ADM_990         Cast data types to match RDS
---      29/01/2020 H Uddaraju	    ADM_1022        Fix Join Condition for Funding Source 
+--      14/01/2020 R.Rai        ADM_982	    Change Agreement Type to logic to account tables
+--      28/01/2020 S Heath      ADM_990     Cast data types to match RDS
+--      29/01/2020 H Uddaraju   ADM_1022    Fix Join Condition for Funding Source 
+--      06/05/2020 S Heath      ADM_1312    Change source data to use StgPmnts.Payment
 -- =====================================================================================================
 
 BEGIN TRY
@@ -56,146 +57,188 @@ SET @VSQL1='
 if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME=''DAS_Payments'')
 Drop View Data_Pub.DAS_Payments
 '
+-- CTEs
 SET @VSQL2='
 CREATE VIEW [Data_Pub].[DAS_Payments]
 	AS 
-  WITH Comt AS
-        (SELECT ID,
-                DateofBirth
-           FROM Comt.Ext_Tbl_Apprenticeship)
-,Transfers AS
-        (SELECT DISTINCT [SenderAccountId] 
-                        --,[SenderAccountName] 
-                        ,[ReceiverAccountId] 
-                        --,[ReceiverAccountName] 
-                        ,[ApprenticeshipId]
-           FROM [Fin].[Ext_Tbl_AccountTransfers])
-,Payment AS
-        (SELECT P.*
-               ,Cast(P.CollectionPeriodYear AS varchar)+''-''+RIGHT(''0'' + RTRIM(cast(p.CollectionPeriodMonth AS varchar)), 2)+''-01'' CollectionDate 
-               ,Cast(P.DeliveryPeriodYear AS varchar)+''-''+RIGHT(''0'' + RTRIM(cast(p.DeliveryPeriodMonth AS varchar)), 2)+''-01'' DeliveryDate
-           FROM Fin.Ext_Tbl_Payment P) 
+WITH cte_Payment AS
+( -- rework data from new payments staging table to match data sourced from external table
+SELECT
+      P.Id
+    , P.EventId AS PaymentID
+    , P.Ukprn
+    , P.LearnerUln
+    , P.AccountId
+    , P.ApprenticeshipId
+    , P.Amount
+    , P.FundingSource
+    , P.TransactionType
+    , P.ContractType
+    -- Mapped 0 as -1 in these codes to match original query
+    , CASE WHEN P.LearningAimStandardCode = 0 THEN -1 
+        ELSE P.LearningAimStandardCode 
+      END                                           AS StdCode
+    , CASE WHEN P.LearningAimFrameworkCode = 0 THEN -1
+        ELSE P.LearningAimFrameworkCode 
+     END                                            AS FworkCode
+    , CASE WHEN P.LearningAimProgrammeType = 0 THEN -1
+        ELSE P.LearningAimProgrammeType
+      END                                           AS ProgType
+    , CASE WHEN P.LearningAimPathwayCode = 0 THEN -1 
+        ELSE P.LearningAimPathwayCode
+      END                                           AS PwayCode
+    -- derive dates from academic year / month to match original view calendar year values
+    -- There are no calendar loookup for collection period R13/14 so deal with them in a case.
+    , CASE WHEN P.CollectionPeriod <= 12 THEN CalCP.CalendarMonthNumber                     
+        WHEN P.CollectionPeriod = 13 THEN 9
+        WHEN P.CollectionPeriod = 14 THEN 10
+      END                                           AS CollectionMonth
+    , CASE WHEN P.CollectionPeriod <= 12 THEN CalCP.CalendarYear                            
+      WHEN P.CollectionPeriod IN (13,14) THEN  
+        Cast( ''20'' + Substring( Cast ( P.AcademicYear AS VARCHAR) , 3, 4) AS INT )
+      END                                           AS CollectionYear
+    , Cast( P.AcademicYear AS varchar) + ''-R'' 
+      + RIGHT( ''0'' 
+      + Cast (CollectionPeriod AS varchar), 2 )     AS CollectionPeriodName
+    , ''R'' + Right( ''0'' 
+          + Cast (CollectionPeriod AS varchar), 2 ) AS CollectionPeriodMonth
+    , P.AcademicYear                                AS CollectionPeriodYear
+    -- Need to lookup actual date for collection date as its used in age calcs (not academic calendar)
+    , CASE WHEN P.CollectionPeriod <=12 THEN 
+          Cast(CalCP.CalendarYear AS varchar)+ ''-''
+          + RIGHT(''0'' + RTRIM(cast(CalCP.CalendarMonthNumber AS varchar)), 2)
+          + ''-01''  
+        WHEN P.CollectionPeriod = 13 THEN
+          ''20'' + Substring( Cast ( P.AcademicYear AS VARCHAR) , 3, 4) 
+          + ''-09-01''
+        WHEN P.CollectionPeriod = 14 THEN
+          ''20'' + Substring( Cast ( P.AcademicYear AS VARCHAR) , 3, 4)
+          + ''-10-01''
+      END                                           AS CollectionDate
+    , CalDP.CalendarMonthNumber                     AS DeliveryMonth
+    , CalDP.CalendarYear                            AS DeliveryYear
+    , CalDP.CalendarMonthShortNameYear              AS DeliveryMonthShortNameYear 
+    , P.DeliveryPeriod                              AS DeliveryPeriod
+    , Cast(CalDP.CalendarYear AS varchar) + ''-''
+      + RIGHT(''0'' + RTRIM(cast(CalDP.CalendarMonthNumber AS varchar)), 2)
+      + ''-01''                                     AS DeliveryDate
+    , P.IlrSubmissionDateTime                       AS EvidenceSubmittedOn
+  FROM StgPmts.Payment P
+  LEFT OUTER JOIN dbo.DASCalendarMonth CalCP -- Calendar Conversion for CollectionPeriod Dates
+    ON ''20'' + Substring( Cast ( P.AcademicYear AS VARCHAR) , 1, 2) 
+      + ''/'' + Substring( Cast ( P.AcademicYear AS VARCHAR) , 3, 4) = CalCP.AcademicYear 
+    AND P.CollectionPeriod = CalCP.AcademicMonthNumber
+  LEFT OUTER JOIN dbo.DASCalendarMonth CalDP -- Calendar Conversion for DeliveryPeriod Dates
+    ON ''20'' + Substring( Cast ( P.AcademicYear AS VARCHAR) , 1, 2) 
+      + ''/'' + Substring( Cast ( P.AcademicYear AS VARCHAR) , 3, 4) = CalDP.AcademicYear 
+      AND P.DeliveryPeriod = CalDP.AcademicMonthNumber 
+) 
+'
+-- Main Select
+SET @VSQL3 = '
+SELECT 
+    P.ID
+  , CAST( P.PaymentId AS nvarchar(100) )                              AS PaymentID  
+  , P.UKprn                                                           AS UKPRN 
+  , P.LearnerUln                                                      AS ULN 
+  , CAST(P.AccountId AS nvarchar(100) )                               AS EmployerAccountID 
+  , Acct.HashedId                                                     AS DasAccountId 
+  , IsNull( P.ApprenticeshipId, -1)                                   AS CommitmentID 
+  , P.DeliveryMonth                                                   AS DeliveryMonth 
+  , P.DeliveryYear                                                    AS DeliveryYear 
+  , ISNULL( CAST(P.CollectionMonth AS INT), -1)                       AS CollectionMonth 
+  , ISNULL( CAST(P.CollectionYear  AS INT), -1)                       AS CollectionYear 
+  , ISNULL(CAST( P.EvidenceSubmittedOn AS datetime ), ''9999-12-31'') AS EvidenceSubmittedOn 
+  , CAST( NULL AS nvarchar(50) )                                      AS EmployerAccountVersion 
+  , CAST( NULL AS nvarchar(50) )                                      AS ApprenticeshipVersion 
+	, CAST( COALESCE(FS.FieldDesc,''Unknown'') AS nvarchar(25) )        AS FundingSource
+  , CASE
+      WHEN P.FundingSource = 5 THEN EAT.SenderAccountId
+      ELSE NULL
+    END                                                               AS FundingAccountId
+	, CAST( COALESCE(TT.FieldDesc,''Unknown'') AS nvarchar(50) )        AS TransactionType
+  , ISNULL( CAST( P.Amount AS DECIMAL (18, 5) ), -1 )                 AS Amount
+  , P.StdCode
+  , P.FworkCode
+  , P.ProgType
+  , P.PwayCode
+  , CAST(CT.FieldDesc AS NVARCHAR(50))                                AS ContractType 
+  , ISNULL( CAST( EvidenceSubmittedOn AS DATETIME ), ''9999-12-31'')  AS UpdateDateTime 
+  , CAST( EvidenceSubmittedOn AS DATE )                               AS UpdateDate
+  , 1                                                                 AS Flag_Latest
+  , COALESCE(FP.Flag_FirstPayment, 0)                                 AS Flag_FirstPayment 
+  , CASE
+      WHEN C.DateOfBirth IS NULL THEN -1
+      WHEN DATEPART(M,C.DateOfBirth) > DATEPART(M,P.CollectionDate) 
+        OR (DATEPART(M,C.DateOfBirth) = DATEPART(M,P.CollectionDate) 
+            AND DATEPART(DD,C.DateOfBirth) > DATEPART(DD,P.CollectionDate)
+            ) THEN DATEDIFF(YEAR,C.DateOfBirth,P.CollectionDate) -1
+      ELSE DATEDIFF(YEAR, C.DateOfBirth, p.CollectionDate)
+    END                                                               AS PaymentAge 
+  , CASE
+      WHEN C.DateOfBirth IS NULL THEN ''Unknown DOB (no commitment)''
+      WHEN 
+        CASE
+          WHEN C.DateOfBirth IS NULL THEN -1
+          WHEN DATEPART(M,C.DateOfBirth) > DATEPART(M,P.CollectionDate) 
+            OR ( DATEPART(M,C.DateOfBirth) = DATEPART(M,P.CollectionDate) 
+                 AND DATEPART(DD,C.DateOfBirth) > DATEPART(DD,P.CollectionDate)
+               ) THEN DATEDIFF(YEAR,C.DateOfBirth,P.CollectionDate) -1
+          ELSE DATEDIFF(YEAR,C.DateOfBirth, P.CollectionDate)
+        END BETWEEN 0 AND 18 THEN ''16-18''
+      ELSE ''19+''
+    END                                                               AS PaymentAgeBand 
+  , P.DeliveryMonthShortNameYear 
+  , Acct.Name                                                         AS DASAccountName 
+  , CAST ( P.CollectionPeriodName AS nvarchar(20) )                   AS CollectionPeriodName
+  , CAST ( P.CollectionPeriodMonth AS nvarchar(10) )                  AS CollectionPeriodMonth
+  , CAST ( P.CollectionPeriodYear AS nvarchar(10) )                   AS CollectionPeriodYear
+'
+-- Joins
+SET @VSQL4 = '
+FROM cte_Payment P 
+LEFT JOIN Acct.Ext_Tbl_Account Acct ON Acct.Id = P.AccountId
+LEFT JOIN Comt.Ext_Tbl_Apprenticeship C
+  ON P.ApprenticeshipId = C.ID
+LEFT JOIN -- transfers
+( SELECT DISTINCT 
+    SenderAccountId
+    , ReceiverAccountId
+    , ApprenticeshipId
+  FROM Fin.Ext_Tbl_AccountTransfers
+) EAT ON P.ApprenticeshipId = EAT.ApprenticeshipId 
+-- need to use cte_payment as weve messed with the delivery dates and they wont join
+-- create a string to decide which is min doing individual columns doesnt 
+-- work as dates and IDs are in alignment
+LEFT JOIN
+( SELECT P.AccountId
+  , P.ApprenticeshipId
+   , MIN( CAST( P.CollectionDate AS VARCHAR (12) ) 
+    + ''-'' + CAST( P.DeliveryDate AS varchar(12) )
+    + ''-'' + CAST( P.EvidenceSubmittedOn AS varchar(25) )
+    + ''-'' + CAST( P.Id AS VARCHAR(12) ) ) AS MinPaymentString
+  , 1 AS Flag_FirstPayment
+  FROM cte_Payment P
+  GROUP BY P.AccountId, P.ApprenticeshipId  
+) FP ON P.AccountId = FP.AccountId
+  AND ( CAST( P.CollectionDate AS VARCHAR (12) ) 
+    + ''-'' + CAST( P.DeliveryDate AS varchar(12) )
+    + ''-'' + CAST( P.EvidenceSubmittedOn AS varchar(25) )
+    + ''-'' + CAST( P.Id AS VARCHAR(12) ) ) = FP.MinPaymentString
+LEFT JOIN dbo.ReferenceData TT
+  ON TT.FieldValue = P.TransactionType
+    AND TT.FieldName = ''TransactionType''
+    AND TT.Category = ''Payments''
+LEFT JOIN dbo.ReferenceData FS
+  ON FS.FieldValue=P.FundingSource
+    AND FS.FieldName=''FundingSource''
+    AND FS.Category=''Payments''
+LEFT JOIN dbo.ReferenceData CT
+  ON CT.FieldValue=P.ContractType
+    AND CT.FieldName=''ContractType''
+    AND CT.Category=''Payments''
+'
 
-'
-SET @VSQL3='
-		SELECT	
-           ISNULL( CAST( 1 AS BIGINT ), 1 )                                   AS ID  -- may need to do hashbytes to cast as bigint 
-	       , CAST( [P].[PaymentId] AS nvarchar(100) )                           AS PaymentID  
-         , CAST([P].[UkPrn] AS BIGINT)                                        AS UKPRN 
-         , CAST([P].[Uln] AS BIGINT)                                          AS ULN 
-         , CAST([P].[AccountId] AS nvarchar(100) )                            AS EmployerAccountID 
-         , Acct.HashedId                                                      AS DasAccountId 
-         , P.ApprenticeshipId                                                 AS CommitmentID 
-         , P.DeliveryPeriodMonth                                              AS DeliveryMonth 
-         , P.DeliveryPeriodYear                                               AS DeliveryYear 
-         , P.CollectionPeriodMonth                                            AS CollectionMonth 
-         , P.CollectionPeriodYear                                             AS CollectionYear 
-         , [P].[EvidenceSubmittedOn]                                          AS EvidenceSubmittedOn 
-         , CAST( [P].[EmployerAccountVersion] AS nvarchar(50) )               AS EmployerAccountVersion 
-         , CAST( [P].[ApprenticeshipVersion] AS nvarchar(50) )                AS ApprenticeshipVersion 
-		     , CAST( COALESCE(FS.FieldDesc,''Unknown'') AS nvarchar(25) )         AS FundingSource
-         , CASE
-             WHEN [P].[FundingSource] = 5 THEN [EAT].[SenderAccountId]
-             ELSE NULL
-            END                                                               AS FundingAccountId
-		     , CAST( COALESCE(TT.FieldDesc,''Unknown'') AS nvarchar(50) )         AS TransactionType
-         , [P].[Amount]                                                       AS Amount
-         , CAST(COALESCE([PM].[StandardCode], -1) AS INT)                     AS [StdCode] 
-         , CAST(COALESCE([PM].[FrameworkCode], -1) AS INT)                    AS [FworkCode] 
-         , CAST(COALESCE([PM].[ProgrammeType], -1) AS INT)                    AS [ProgType] 
-         , CAST(COALESCE([PM].[PathwayCode], -1) AS INT)                      AS [PwayCode] 
-         , CAST(NULL AS NVARCHAR(50))                                         AS ContractType 
-         , EvidenceSubmittedOn                                                AS UpdateDateTime 
-         , CAST(EvidenceSubmittedOn AS DATE)                                  AS [UpdateDate] 
-         , 1                                                                  AS [Flag_Latest] 
-         , COALESCE(FP.Flag_FirstPayment, 0)                                  AS Flag_FirstPayment 
-         , CASE
-             WHEN C.DateOfBirth IS NULL THEN -1
-			 WHEN DATEPART(M,C.DateOfBirth) > DATEPART(M,P.CollectionDate) OR (DATEPART(M,C.DateOfBirth) = DATEPART(M,P.CollectionDate) AND DATEPART(DD,C.DateOfBirth) > DATEPART(DD,P.CollectionDate)) THEN DATEDIFF(YEAR,C.DateOfBirth,P.CollectionDate) -1
-             ELSE DATEDIFF(YEAR, C.DateOfBirth, p.CollectionDate)
-            END                                                               AS PaymentAge 
-         , CASE
-             WHEN C.DateOfBirth IS NULL THEN ''Unknown DOB (no commitment)''
-             WHEN CASE WHEN C.DateOfBirth IS NULL THEN -1
-                        WHEN DATEPART(M,C.DateOfBirth) > DATEPART(M,P.CollectionDate) OR (DATEPART(M,C.DateOfBirth) = DATEPART(M,P.CollectionDate) AND DATEPART(DD,C.DateOfBirth) > DATEPART(DD,P.CollectionDate)) THEN DATEDIFF(YEAR,C.DateOfBirth,P.CollectionDate) -1
-                      ELSE DATEDIFF(YEAR,C.DateOfBirth, P.CollectionDate)
-                   END BETWEEN 0 AND 18 THEN ''16-18''
-             ELSE ''19+''
-            END                                                               AS PaymentAgeBand 
-		 , CM.CalendarMonthShortNameYear                                      AS DeliveryMonthShortNameYear 
-         , Acct.Name                                                          AS DASAccountName 
-         , CAST( P.PeriodEnd AS nvarchar(20) )                                AS CollectionPeriodName 
-         , CAST( RIGHT(rtrim(P.CollectionPeriodId),3) AS nvarchar(10) )       AS CollectionPeriodMonth
-         , CAST( LEFT(ltrim(P.CollectionPeriodId),4) AS nvarchar(10) )        AS CollectionPeriodYear
- FROM    Payment AS P 
-'
-SET @VSQL4=
-'  LEFT JOIN  Transfers EAT 
-          ON P.ApprenticeshipId = EAT.ApprenticeshipId 
-   LEFT JOIN  Fin.Ext_Tbl_PaymentMetaData PM 
-          ON P.PaymentMetaDataId = PM.Id 		
-   LEFT JOIN
-              (
-                SELECT
-                   [P].[AccountId] AccountId,
-                   P.ApprenticeshipId ApprenticeshipId,
-                   MIN(CollectionDate) MinCollectionPeriod,
-                   MIN(DeliveryDate) MinDeliveryPeriod,
-                   1 AS Flag_FirstPayment 
-                  FROM Payment AS P 
-                 GROUP BY
-                    P.AccountId,
-                    P.ApprenticeshipId
-              )   FP 
-          ON FP.AccountId = P.AccountId 
-         AND FP.ApprenticeshipId = P.ApprenticeshipId 
-         AND FP.MinCollectionPeriod = P.CollectionDate 
-         AND FP.MinDeliveryPeriod = P.DeliveryDate 		
-   LEFT JOIN  Comt C 
-          ON [c].id = [p].[ApprenticeshipId] 
-  INNER JOIN  dbo.DASCalendarMonth CM 
-          ON CM.CalendarMonthNumber = P.DeliveryPeriodMonth 
-         AND CM.CalendarYear = P.DeliveryPeriodYear 		
-   LEFT JOIN
-             (
-              SELECT NAME
-			        ,ID
-					,HashedId 
-                FROM [Acct].Ext_Tbl_Account
-             ) Acct 
-          ON Acct.Id = [P].AccountId 
-   --LEFT JOIN
-   --          (
-              
-		 --     SELECT a.ID as AccountID,
-			--         a.ApprenticeshipEmployerType As IsLevy
-			--  FROM [acct].[Ext_Tbl_Account] a
-			--      JOIN [acct].[Ext_Tbl_AccountLegalEntity] b
-			--  ON a.id = b.AccountID
-			--  WHERE a.ApprenticeshipEmployerType = 0
-			--  AND SignedAgreementID is not null
-			--  AND SignedAgreementVersion = 1
-		
-
-   --          ) NL 
-   --       ON NL.AccountId = P.AccountId
-   LEFT JOIN 
-            (
-			 SELECT FieldValue
-			       ,FieldDesc
-			   FROM dbo.ReferenceData TM
-			  WHERE TM.FieldName=''TransactionType''
-			    and TM.Category=''Payments'') TT
-		  ON TT.FieldValue=P.TransactionType
-    LEFT JOIN 
-            (
-			 SELECT FieldValue
-			       ,FieldDesc
-			   FROM dbo.ReferenceData TM
-			  WHERE TM.FieldName=''FundingSource''
-			    and TM.Category=''Payments'') FS
-		  ON FS.FieldValue=P.FundingSource
-'
 
 EXEC SP_EXECUTESQL @VSQL1
 EXEC (@VSQL2+@VSQL3+@VSQL4)

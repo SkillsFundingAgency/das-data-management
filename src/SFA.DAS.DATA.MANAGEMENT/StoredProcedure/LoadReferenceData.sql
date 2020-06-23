@@ -58,6 +58,9 @@ VALUES
 ('Payments','TransactionType',9,'Completion16To18FrameworkUplift'),
 ('Payments','TransactionType',10,'Balancing16To18FrameworkUplift'),
 ('Payments','TransactionType',11,'FirstDisadvantagePayment'),
+('Payments','TransactionType',12,'SecondDisadvantagePayment'),
+('Payments','TransactionType',13,'OnProgrammeMathsAndEnglish'),
+('Payments','TransactionType',14,'BalancingMathsAndEnglish'),
 ('Payments','TransactionType',15,'LearningSupport'),
 ('Payments','TransactionType',16,'CareLeaverApprenticePayment'),
 --FundingSource
@@ -66,6 +69,10 @@ VALUES
 ('Payments','FundingSource',3,'CoInvestedEmployer'),
 ('Payments','FundingSource',4,'FullyFundedSfa'),
 ('Payments','FundingSource',5,'LevyTransfer'),
+-- Contract Type
+('Payments','ContractType',0,'Unknown'),
+('Payments','ContractType',1,'ContractWithEmployer'),
+('Payments','ContractType',2,'ContractWithSfa'),
 --Approvals
 ('Commitments','Approvals',0,'NotAgreed'),
 ('Commitments','Approvals',1,'EmployerAgreed'),
@@ -75,7 +82,6 @@ VALUES
 ('Commitments','Approvals',5,'TransferSenderAndEmployerAgreed'),
 ('Commitments','Approvals',6,'TransferSenderAndProviderAgreed'),
 ('Commitments','Approvals',7,'AllAgreed')
-
 
 COMMIT TRANSACTION
 END

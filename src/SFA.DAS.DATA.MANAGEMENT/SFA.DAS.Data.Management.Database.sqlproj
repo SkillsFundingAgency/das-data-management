@@ -169,7 +169,7 @@
     <Build Include="StoredProcedure\Insert_Log_Error_Details.sql" />
     <Build Include="StoredProcedure\CreateSpendControlNonLevyView.sql" />
     <Build Include="StoredProcedure\ImportRAAUsersStgToLive.sql" />
-    <Build Include="Tables\Asdm_PL_RAA_Users.sql" />
+    <Build Include="Tables\AsData_PL_RAA_Users.sql" />
     <Build Include="Schemas\Stg.sql" />
     <Build Include="Schemas\Swap.sql" />
     <Build Include="Tables\Stg_RAA_Vacancies.sql" />
@@ -184,5 +184,16 @@
     <Build Include="StoredProcedure\PopulateSourceDbMetadataForImport.sql" />
     <Build Include="Tables\Mtd_SourceConfigForImport.sql" />
     <Build Include="StoredProcedure\DetectAndLogSourceDbChanges.sql" />
+    <Build Include="Tables\AsDataPL_Va_Application.sql" />
+    <Build Include="Tables\AsDataPL_Va_ApplicationHistory.sql" />
+    <Build Include="Tables\AsDataPL_Va_ApprenticeshipFrameWorkAndOccupation.sql" />
+    <Build Include="Tables\AsDataPL_Va_ApprenticeshipStandard.sql" />
+    <Build Include="Tables\AsDataPL_Va_Candidate.sql" />
+    <Build Include="Tables\AsDataPL_Va_County.sql" />
+    <Build Include="Tables\AsDataPL_Va_Employer.sql" />
+    <Build Include="Tables\AsDataPL_Va_LocalAuthority.sql" />
+    <Build Include="Tables\AsDataPL_Va_Provider.sql" />
+    <Build Include="Tables\AsDataPL_Va_Vacancy.sql" />
+    <Build Include="Tables\AsDataPL_Va_VacancyHistory.sql" />
   </ItemGroup>
 </Project>

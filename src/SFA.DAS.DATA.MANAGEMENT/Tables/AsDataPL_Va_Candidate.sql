@@ -20,7 +20,7 @@
       ,[AllowMarketingMessages] bit
       ,[CandidateGuid] uniqueidentifier
       ,[Age] int
-	 , Foreign Key (CountyId) References [AsData_PL].[Va1_County](CountyId)
-	 ,Foreign Key (LocalAuthorityId) References [AsData_PL].[Va1_LocalAuthority](LocalAuthorityId)
+	 , Foreign Key (CountyId) References [AsData_PL].[Va_County](CountyId)
+	 ,Foreign Key (LocalAuthorityId) References [AsData_PL].[Va_LocalAuthority](LocalAuthorityId)
 	  
 )

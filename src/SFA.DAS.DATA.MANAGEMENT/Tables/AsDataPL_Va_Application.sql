@@ -9,7 +9,7 @@
       ,[LockedForSupportUntil] datetime
       ,[WithdrawalAcknowledged] bit
       ,[ApplicationGuid] uniqueidentifier
-	  ,Foreign Key (CandidateId)  References [AsData_PL].[Va1_Candidate](CandidateId)
-	  ,Foreign Key (VacancyId) References [AsData_PL].[Va1_Vacancy](VacancyId)
+	  ,Foreign Key (CandidateId)  References [AsData_PL].[Va_Candidate](CandidateId)
+	  ,Foreign Key (VacancyId) References [AsData_PL].[Va_Vacancy](VacancyId)
  
  )

@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [AsData_PL].[Va_VacancyHistory]
 (	
   VacancyHistoryId Int
- ,VacancyId Int
+ ,VacancyId BIGINT
  ,VacancyHistoryEventTypeId int
  ,VacancyHistoryEventTypeDesc Varchar(255)
  ,HistoryDate datetime

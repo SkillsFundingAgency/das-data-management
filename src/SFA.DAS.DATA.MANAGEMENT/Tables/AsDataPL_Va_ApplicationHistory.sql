@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [AsData_PL].[Va_ApplicationHistory]
 (
 	  ApplicationHistoryId int
-     ,ApplicationId int
+     ,ApplicationId BIGINT
      ,ApplicationHistoryEventDate datetime
      ,ApplicationHistoryEventTypeId int
      ,ApplicationHistoryEventTypeDesc Varchar(100)

@@ -8,16 +8,14 @@
       ,[PostCode] nvarchar(10)
       ,[LocalAuthorityId] int
 	  ,[LocalAuthorityName] Varchar(255)
-      ,[VoucherReferenceNumber] Int
       ,[UniqueLearnerNumber] Bigint
       ,[Gender] Int
-      ,[ApplicationLimitEnforced] Bit
-      ,[LastAccessedDate] DateTime
-      ,[LastAccessedManageApplications] datetime
-      ,[ReferralPoints] smallint
-      ,[BeingSupportedBy] nvarchar(50)
-      ,[LockedForSupportUntil] datetime
-      ,[AllowMarketingMessages] bit
+      ,[ApplicationLimitEnforced_v1] Bit
+      ,[LastAccessedDate_v1] DateTime
+      ,[LastAccessedManageApplications_v1] datetime
+      ,[BeingSupportedBy_v1] nvarchar(50)
+      ,[LockedForSupportUntil_v1] datetime
+      ,[AllowMarketingMessages_v1] bit
       ,[CandidateGuid] uniqueidentifier
       ,[Age] int
 	 , Foreign Key (CountyId) References [AsData_PL].[Va_County](CountyId)

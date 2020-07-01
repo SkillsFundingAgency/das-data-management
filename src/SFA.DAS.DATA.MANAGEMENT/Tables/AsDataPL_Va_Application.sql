@@ -7,8 +7,9 @@
 	  ,[ApplicationStatusDesc] Varchar(255)
       ,[BeingSupportedBy] nvarchar(50)
       ,[LockedForSupportUntil] datetime
-      ,[WithdrawalAcknowledged] bit
-      ,[ApplicationGuid] uniqueidentifier
+      ,IsWithdrawn bit
+      ,[ApplicationGuid] Varchar(256)
+	  ,CreatedDateTime DateTime
 	  ,Foreign Key (CandidateId)  References [AsData_PL].[Va_Candidate](CandidateId)
 	  ,Foreign Key (VacancyId) References [AsData_PL].[Va_Vacancy](VacancyId)
  

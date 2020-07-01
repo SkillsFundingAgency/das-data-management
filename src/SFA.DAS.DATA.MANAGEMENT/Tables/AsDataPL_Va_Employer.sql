@@ -1,18 +1,15 @@
 ﻿CREATE TABLE [AsData_PL].[Va_Employer]
 (
-	   [EmployerId] int
-      ,[EdsUrn] int
+	   [EmployerId] int Primary Key
+      ,[EdsUrn_V1] int
+	  ,EmployerAccountId_V2 varchar(100)
+	  ,LegalEntityId_V2 INT
       ,[FullName] nvarchar(255)
       ,[TradingName] nvarchar(255)
       ,[CountyId] int
       ,[PostCode] nvarchar(8)
       ,[LocalAuthorityId] int
       ,[OwnerOrgnistaion] varchar(255)
-	  ,[EmployerStatusTypeId] Int
-	  ,[EmployerStatusTypeDesc] varchar(100)
-      ,[TotalVacanciesPosted] int
-      ,[BeingSupportedBy] nvarchar(50)
-      ,[LockedForSupportUntil] datetime
-	  ,Foreign Key (CountyId) References [AsData_PL].[Va_County](CountyId)
-	  ,Foreign Key (LocalAuthorityId) References [AsData_PL].[Va_LocalAuthority](LocalAuthorityId)
+	  ,[EmployerStatusTypeId_V1] Int
+	  ,[EmployerStatusTypeDesc_V1] varchar(100)
 )

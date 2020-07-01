@@ -1,6 +1,6 @@
 ﻿CREATE TABLE AsData_Pl.Va_Vacancy
 (
- VacancyId INT PRIMARY KEY
+ VacancyId BIGINT IDENTITY(1,1) PRIMARY KEY
 ,VacancyGuid varchar(256)
 ,VacancyReferenceNumber int
 ,VacancyStatus Varchar(100)
@@ -66,6 +66,7 @@
 ,IsDeleted_v2 Varchar(100)
 ,DeletedDateTime_v2 DateTime
 ,SubmittedDateTime_v2 DateTime
+,SourceVacancyId INT
 ,SourceDb varchar(100)
 )
 

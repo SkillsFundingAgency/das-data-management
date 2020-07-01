@@ -1,7 +1,8 @@
 ﻿CREATE TABLE [AsData_PL].[Va_Provider]
 (
-	[ProviderID] int PRIMARY KEY 
+	[ProviderID] BIGINT IDENTITY(1,1) PRIMARY KEY 
       ,[UPIN_v1] int
+	  ,[SourceProviderID_v1] INT
       ,[UKPRN] int
       ,[FullName] nvarchar(255)
       ,[TradingName] nvarchar(255)
@@ -12,4 +13,5 @@
 	  ,[ProviderStatusTypeDesc] varchar(100)
       ,[IsNASProvider_v1] bit
       ,[ProviderToUseFAA_v1] int
-)
+	  ,[SourceDb] Varchar(100)
+	)

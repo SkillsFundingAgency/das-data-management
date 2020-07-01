@@ -1,15 +1,12 @@
 ﻿CREATE TABLE [AsData_PL].[Va_Employer]
 (
-	   [EmployerId] int Primary Key
-      ,[EdsUrn_V1] int
-	  ,EmployerAccountId_V2 varchar(100)
-	  ,LegalEntityId_V2 INT
-      ,[FullName] nvarchar(255)
-      ,[TradingName] nvarchar(255)
-      ,[CountyId] int
-      ,[PostCode] nvarchar(8)
+	   [EmployerId] BIGINT IDENTITY(1,1) Primary Key
+      ,[SourceEmployerId_v1] INT
+	  ,[DasAccountId_v2] varchar(8)
       ,[LocalAuthorityId] int
-      ,[OwnerOrgnistaion] varchar(255)
-	  ,[EmployerStatusTypeId_V1] Int
-	  ,[EmployerStatusTypeDesc_V1] varchar(100)
+      ,[OwnerOrgnistaion_v1] varchar(255)
+	  ,[EdsUrn_v1] int
+	  ,[EmployerStatusTypeId_v1] Int
+	  ,[EmployerStatusTypeDesc_v1] varchar(100)
+	  ,[SourceDb] varchar(100)
 )

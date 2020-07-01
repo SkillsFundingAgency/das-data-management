@@ -1,6 +1,8 @@
 ﻿CREATE TABLE [AsData_PL].[Va_Employer]
 (
 	   [EmployerId] BIGINT IDENTITY(1,1) Primary Key
+	  ,[FullName] Varchar(256)
+      ,[TradingName] Varchar(256)
       ,[SourceEmployerId_v1] INT
 	  ,[DasAccountId_v2] varchar(8)
       ,[LocalAuthorityId] int

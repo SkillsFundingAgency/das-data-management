@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[AsDataPL_Va_LegalEntity]
+﻿CREATE TABLE AsData_PL.[Va_LegalEntity]
 (
 	LegalEntityId INT PRIMARY KEY
    ,LegalEntityPublicHashedId Varchar(256)

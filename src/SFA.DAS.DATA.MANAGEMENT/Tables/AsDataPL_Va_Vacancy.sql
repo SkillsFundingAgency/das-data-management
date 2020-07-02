@@ -30,7 +30,7 @@
 ,FrameworkOrStandardID varchar(255)
 ,FrameworkOrStandardLarsCode varchar(255)
 ,FrameworkOrStandardName varchar(255)
-,StandardLevel varchar(255)
+,EducationLevel varchar(255)
 ,WeeklyWage_v1 decimal(19,4)
 ,WageLowerBound_v1 decimal(19,4)
 ,WageUpperBound_v1 decimal(19,4)

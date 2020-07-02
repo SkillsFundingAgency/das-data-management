@@ -1,6 +1,6 @@
 ﻿CREATE TABLE AsData_PL.[Va_LegalEntity]
 (
-	LegalEntityId INT PRIMARY KEY
+	LegalEntityId INT IDENTITY(1,1) PRIMARY KEY
    ,LegalEntityPublicHashedId Varchar(256)
    ,EmployerId INT
    ,[EmployerAccountId] varchar(100)

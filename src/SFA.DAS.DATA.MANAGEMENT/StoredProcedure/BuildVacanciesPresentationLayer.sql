@@ -14,14 +14,14 @@ BEGIN
 
 
 
-EXEC dbo.ImportVacanciesEmpImportVacanciesEmployerToPL @RunId
+EXEC dbo.ImportVacanciesEmployerToPL @RunId
 
 
 /* Import Vacancies Provider Data to Presentation Layer */
 
 IF EXISTS (SELECT * FROM Mgmt.Log_Execution_Results where StoredProcedureName='ImportVacanciesEmployerToPL' and Execution_Status=1 and RunId=@RunId) 
 BEGIN
-EXEC dbo.ImportVacanciesProviderToPL@RunId
+EXEC dbo.ImportVacanciesProviderToPL @RunId
 END
 ELSE RAISERROR( 'Import Data From Vacancies Provider Failed -Check Log Table For Errors',1,1)
 

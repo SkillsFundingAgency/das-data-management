@@ -196,5 +196,13 @@
     <Build Include="Tables\AsDataPL_Va_Vacancy.sql" />
     <Build Include="Tables\AsDataPL_Va_VacancyHistory.sql" />
     <Build Include="Tables\AsDataPL_Va_LegalEntity.sql" />
+    <Build Include="StoredProcedure\BuildVacanciesPresentationLayer.sql" />
+    <Build Include="StoredProcedure\ImportVacanciesEmployer.sql" />
+    <Build Include="StoredProcedure\ImportVacanciesProvider.sql" />
+    <Build Include="StoredProcedure\ImportVacanciesLegalEntity.sql" />
+    <Build Include="StoredProcedure\ImportVacancies.sql" />
+    <Build Include="StoredProcedure\ImportVacanciesCandidate.sql" />
+    <Build Include="StoredProcedure\ImportVacanciesApplication.sql" />
+    <Build Include="Tables\AsDataPL_Va_EducationLevel.sql" />
   </ItemGroup>
 </Project>

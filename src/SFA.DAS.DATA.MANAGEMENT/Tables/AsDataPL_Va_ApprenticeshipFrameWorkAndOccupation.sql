@@ -1,10 +1,14 @@
 ﻿CREATE TABLE [AsData_PL].[Va_ApprenticeshipFrameWorkAndOccupation]
 (
-	 [ApprenticeshipFrameworkId] int
+	 ApprenticeshipFrameworkId INT IDENTITY(1,1) PRIMARY KEY
+	,[SourceApprenticeshipFrameworkId] int
+	,[ProgrammeId_v2] varchar(256)
+	,[SourceDb] Varchar(100)
     ,[ApprenticeshipOccupationId] int
     ,FrameworkCodeName nvarchar(3)
     ,FrameworkShortName nvarchar(100)
     ,FrameWorkFullName nvarchar(200)
+	,FrameworkTitle_v2 nvarchar(256)
 	,ApprenticeshipFrameworkStatus varchar(100)
     ,FrameworkClosedDate datetime
     ,[PreviousApprenticeshipOccupationId] int

@@ -123,25 +123,25 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
            ,v.[Description]
            ,v.[NumberofPositions]
 	       ,CASE WHEN V.ApprenticeshipFrameworkId is not null 
-                 then App.AOFullName
-                 WHEN V.StandardId is not null then Std.SSFullName 
+                 then AF.ApprenticehipOccupationFullName
+                 WHEN V.StandardId is not null then Std.StandardSectorName 
                  ELSE 'Unknown' 
              END as [Framework/Standard Sector] 
            ,CASE WHEN V.ApprenticeshipFrameworkId is not null 
-                 then App.ApprenticeshipFrameworkId
+                 then AF.ApprenticeshipFrameworkId
                  WHEN V.StandardId is not null then Std.StandardId 
                  ELSE -1 
              END as [Framework/StandardId] 
-           ,CASE WHEN App.FrameworkCode IS NOT NULL THEN App.FrameworkCode
-                 WHEN Std.STLarsCode IS NOT NULL THEN CAST(Std.STLarsCode AS Varchar)
+           ,CASE WHEN AF.FrameworkCodeName IS NOT NULL THEN AF.FrameworkCodeName
+                 WHEN Std.LarsCode IS NOT NULL THEN CAST(Std.LarsCode AS Varchar)
 		         ELSE ''
 		     END LarsCode
             ,CASE WHEN V.ApprenticeshipFrameworkId is not null 
-                  then App.AFFullName 
-                  WHEN V.StandardId is not null then Std.SSFullName 
+                  then Af.FrameWorkFullName 
+                  WHEN V.StandardId is not null then Std.StandardFullName 
                   ELSE '' 
               END as [Framework/Standard Name] 
-            ,Std.StandardLevel as StandardLevel
+            ,Std.EducationLevelFullName as StandardLevel
             ,v.[WeeklyWage]
             ,v.[WageLowerBound]
             ,v.[WageUpperBound]
@@ -205,20 +205,16 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
         join Stg.Avms_TrainingType TT 
 		  on TT.TrainingTypeId=V.TrainingTypeId
         LEFT 
-		JOIN (SELECT ST.StandardId ,SS.FullName as SSFullName ,ST.LarsCode as STLarsCode ,ST.FullName as STFullName,EL.FullName as StandardLevel
-        	    FROM Stg.Avms_Standard ST 
-	            JOIN Stg.Avms_StandardSector SS 
-	              ON ST.StandardSectorId=SS.StandardSectorId
+		JOIN (SELECT AST.*,EL.EducationLevelFullName
+        	    FROM ASData_PL.Va_ApprenticeshipStandard AST
 			    LEFT 
-			    JOIN Stg.Avms_EducationLevel EL
-			      ON EL.EducationLevelId=ST.EducationLevelId) Std 
+			    JOIN AsData_PL.Va_EducationLevel EL
+			      ON EL.EducationLevelId=AST.EducationLevelId) Std 
           ON Std.StandardId=V.StandardId 
         LEFT
-		JOIN (SELECT AF.ApprenticeshipFrameworkId, AO.ShortName AOShortName, AO.FullName AOFullName, AF.ShortnAME as AFShortName, AF.FullName as AFFullName,AF.CodeName AS FrameworkCode
-                FROM Stg.Avms_ApprenticeshipFramework AF 
-                JOIN Stg.Avms_ApprenticeshipOccupation AO 
-                  ON AO.ApprenticeshipOccupationId=AF.ApprenticeshipOccupationId ) App
-          ON App.ApprenticeshipFrameworkId=V.ApprenticeshipFrameworkId
+		JOIN ASData_PL.Va_ApprenticeshipFrameWorkAndOccupation AF 
+          ON AF.SourceApprenticeshipFrameworkId=V.ApprenticeshipFrameworkId
+	     AND AF.SourceDb='RAAv1'
         left
         join (select vacancyid,min(HistoryDate) HistoryDate
                 from Stg.Avms_VacancyHistory vh
@@ -236,6 +232,10 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
         left
         join stg.Avms_WageUnit wu
           on v.WageUnitId=wu.WageUnitId
+
+
+
+
 
 
 /* Load RAAv2 */
@@ -309,7 +309,7 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
            ,[SubmittedDateTime_v2]
            ,[SourceVacancyId]
            ,[SourceDb])
-    SELECT v.BinaryId
+   SELECT v.BinaryId
 	      ,VacancyReference
 		  ,VacancyStatus
 		  ,VacancyTitle
@@ -321,12 +321,14 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
 		  ,v.TrainingProviderUkprn
 	      ,v.TrainingProviderName
 		  ,v.TrainingProviderName as TradingName
-		  ,[ApprenticeshipType]
+		  ,CASE WHEN EL.CodeName IN (2,3,4) then EL.FullName +' Level Apprenticeship'
+		        ELSE EL.FullName
+			END as ApprenticeshipType
           ,[VacancyDescription] as ShortDesc
           ,[VacancyDescription] 
 		  ,v.NumberOfPositions
-	      ,CASE WHEN AP.ApprenticeshipType='Standard' THEN ST.SSFullName
-                WHEN AP.ApprenticeshipType='Framework' then AF.AOFullName
+	      ,CASE WHEN AP.ApprenticeshipType='Standard' THEN ST.StandardSectorName
+                WHEN AP.ApprenticeshipType='Framework' then AF.ApprenticehipOccupationFullName
                 ELSE 'Unknown' 
             END as [Framework/Standard Sector] 
 	      ,CASE WHEN AP.ApprenticeshipType='Framework' then AF.ApprenticeshipFrameworkId
@@ -335,9 +337,9 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
             END as [Framework/StandardId] 
           ,V.ProgrammeId LarsCode
           , CASE WHEN ApprenticeshipType='Framework'  
-                 then AF.AFFullName 
+                 then AF.FrameWorkFullName 
                  WHEN ApprenticeshipType='Standard' 
-			     then ST.SSFullName 
+			     then ST.StandardFullName 
                  ELSE '' 
              END as [Framework/Standard Name] 
           ,EL.FullName as EducationLevel
@@ -389,23 +391,19 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
 	    on V.ProgrammeId=ap.ProgrammeId
 	  LEFT 
 	  JOIN Stg.Avms_EducationLevel EL
-        ON EL.EducationLevelId=ap.EducationLevelNumber
+        ON EL.CodeName=ap.EducationLevelNumber
 	  LEFT
-      JOIN (SELECT ST.StandardId ,SS.FullName as SSFullName ,ST.LarsCode as STLarsCode ,ST.FullName as STFullName,EL.FullName as StandardLevel
-        	  FROM Stg.Avms_Standard ST 
-	          JOIN Stg.Avms_StandardSector SS 
-	            ON ST.StandardSectorId=SS.StandardSectorId
+      JOIN (SELECT AST.*,EL.FullName AS EducationLevel
+        	  FROM ASData_PL.Va_ApprenticeshipStandard AST
 			  LEFT 
 			  JOIN Stg.Avms_EducationLevel EL
-			    ON EL.EducationLevelId=ST.EducationLevelId
+			    ON EL.EducationLevelId=AST.EducationLevelId
 				) ST
-	    on cast(ST.STLarsCode as Varchar)=V.ProgrammeId 
+	    on cast(ST.LarsCode as Varchar)=V.ProgrammeId 
       LEFT 
-	  JOIN (SELECT AF.ApprenticeshipFrameworkId, AO.ShortName AOShortName, AO.FullName AOFullName, AF.ShortnAME as AFShortName, AF.FullName as AFFullName,AF.CodeName AS FrameworkCode
-              FROM Stg.Avms_ApprenticeshipFramework AF 
-              JOIN Stg.Avms_ApprenticeshipOccupation AO 
-                ON AO.ApprenticeshipOccupationId=AF.ApprenticeshipOccupationId ) AF
-        ON cast(AF.ApprenticeshipFrameworkId as varchar)=Substring(V.ProgrammeId,1,3) 
+	  JOIN ASData_PL.Va_ApprenticeshipFrameWorkAndOccupation AF
+        ON AF.ProgrammeId_v2=V.ProgrammeId
+	   AND AF.SourceDb='RAAv2'
 
 
 

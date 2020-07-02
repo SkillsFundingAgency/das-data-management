@@ -353,9 +353,9 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
           ,v.WeeklyHours
          --  ,[DurationTypeId]
           ,v.WageDuration
-	      ,CAST(DATEADD(ms, CAST(RIGHT(cast(v.ClosingDateTimeStamp as bigint),3) AS smallint), DATEADD(s, cast(v.ClosingDateTimeStamp as bigint)/ 1000, '1970-01-01')) AS datetime2(3)) as ClosingDateTime
+	      ,dbo.Fn_ConvertTimeStampToDateTime(v.ClosingDateTimeStamp) as ClosingDateTime
          --  ,[InterviewsFromDate]
-          ,CAST(DATEADD(ms, CAST(RIGHT(cast(v.StartDateTimeStamp as bigint),3) AS smallint), DATEADD(s, cast(v.StartDateTimeStamp as bigint)/ 1000, '1970-01-01')) AS datetime2(3)) as StartDateTime
+          ,dbo.Fn_ConvertTimeStampToDateTime(v.StartDateTimeStamp) as StartDateTime
           ,v.WageDuration as WageDurationText
 	      ,AP.ApprenticeshipType as TT
 	      ,CASE WHEN AP.EducationLevelNumber=8 THEN 2
@@ -366,12 +366,12 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
 	            WHEN AP.EducationLevelNumber IN (2,3,4,6) THEN 'Apprenticeship'
 			    ELSE 'Unknown'
 			END VacancyType
-          ,CAST(DATEADD(ms, CAST(RIGHT(cast(v.LastUpdatedTimeStamp as bigint),3) AS smallint), DATEADD(s, cast(v.LastUpdatedTimeStamp as bigint)/ 1000, '1970-01-01')) AS datetime2(3)) as LastUpdateDateTime
+          ,dbo.Fn_ConvertTimeStampToDateTime(v.LastUpdatedTimeStamp) as LastUpdateDateTime
           ,v.SourceOrigin
-          ,CAST(DATEADD(ms, CAST(RIGHT(cast(v.CreatedDateTimeStamp as bigint),3) AS smallint), DATEADD(s, cast(v.CreatedDateTimeStamp as bigint)/ 1000, '1970-01-01')) AS datetime2(3)) as CreatedDateTime
+          ,dbo.Fn_ConvertTimeStampToDateTime(v.CreatedDateTimeStamp) as CreatedDateTime
 		  ,v.IsDeleted
-		  ,CAST(DATEADD(ms, CAST(RIGHT(cast(v.DeletedDateTimeStamp as bigint),3) AS smallint), DATEADD(s, cast(v.DeletedDateTimeStamp as bigint)/ 1000, '1970-01-01')) AS datetime2(3)) as DeletedDateTime
-		  ,CAST(DATEADD(ms, CAST(RIGHT(cast(v.SubmittedDateTimeStamp as bigint),3) AS smallint), DATEADD(s, cast(v.SubmittedDateTimeStamp as bigint)/ 1000, '1970-01-01')) AS datetime2(3)) as SubmittedDateTime
+		  ,dbo.Fn_ConvertTimeStampToDateTime(v.DeletedDateTimeStamp) as DeletedDateTime
+		  ,dbo.Fn_ConvertTimeStampToDateTime(v.SubmittedDateTimeStamp) as SubmittedDateTime
 		  ,v.SourseSK
 		  ,'RAAv2' SourceDb
 	  FROM Stg.RAA_Vacancies V

@@ -12,6 +12,8 @@
 ,VacancyCounty varchar(255)
 ,EmployerId int
 ,EmployerFullName nvarchar(255)
+,LegalEntitiyId Int
+,LegalEntityName nvarchar(255)
 ,ProviderId int
 ,ProviderUkprn int
 ,ProviderFullName nvarchar(255)

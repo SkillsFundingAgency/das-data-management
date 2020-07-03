@@ -62,7 +62,7 @@ IF EXISTS (SELECT * FROM Mgmt.Log_Execution_Results where StoredProcedureName='I
 BEGIN
 EXEC dbo.ImportVacanciesCandidateToPL @RunId
 END
-RAISERROR( 'Import Data From Vacancies Candidate Failed -Check Log Table For Errors',1,1)
+ELSE RAISERROR( 'Import Data From Vacancies Candidate Failed -Check Log Table For Errors',1,1)
 
 /* Import Vacancies Application Data to Presentation Layer */
 
@@ -70,7 +70,7 @@ IF EXISTS (SELECT * FROM Mgmt.Log_Execution_Results where StoredProcedureName='I
 BEGIN
 EXEC dbo.ImportVacanciesApplicationToPL @RunId
 END
-RAISERROR( 'Import Data From Vacancies Application To PL Failed -Check Log Table For Errors',1,1)
+ELSE RAISERROR( 'Import Data From Vacancies Application To PL Failed -Check Log Table For Errors',1,1)
 
 
 

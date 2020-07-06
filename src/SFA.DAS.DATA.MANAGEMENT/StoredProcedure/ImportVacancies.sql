@@ -3,11 +3,12 @@
    @RunId int
 )
 AS
--- ===============================================================================
+-- ==========================================================================================================
 -- Author:      Himabindu Uddaraju
 -- Create Date: 02/07/2020
 -- Description: Import Vacancies Data from v1 and v2
--- ===============================================================================
+--              Fields that are in v1 but not in v2 or viceversa are replaced with Defaults/Dummy Values
+-- ==========================================================================================================
 
 BEGIN TRY
 
@@ -109,80 +110,80 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
            ,[CreatedDate]
            ,[SourceVacancyId]
            ,[SourceDb])
-     SELECT v.VacancyGuid
-           ,v.[VacancyReferenceNumber]
-           ,vs.FullName VacancyStatus
-	       ,v.[Title] VacancyTitle
-	       ,E.EmployerId as EmployerId
-           ,E.FullName as EmployerFullNAME
-           ,P.ProviderID as ProviderId
-           ,p.UKPRN as ProviderUKPrn
-           ,P.FullName as ProviderFullName
-           ,P.TradingName as ProviderTradingName
+     SELECT v.VacancyGuid                                     as VacancyGuid
+           ,v.[VacancyReferenceNumber]                        as VacancyReferenceNumber
+           ,vs.FullName                                       as VacancyStatus
+	       ,v.[Title]                                         as VacancyTitle
+	       ,E.EmployerId                                      as EmployerId
+           ,E.FullName                                        as EmployerFullNAME
+           ,P.ProviderID                                      as ProviderId
+           ,p.UKPRN                                           as ProviderUKPrn
+           ,P.FullName                                        as ProviderFullName
+           ,P.TradingName                                     as ProviderTradingName
 	 --  , psrt.ProviderSiteRelationshipTypeName as ProviderSiteRelationshipType
-	       ,AT.FullName ApprenticeshipType
-           ,v.[ShortDescription]
-           ,v.[Description]
-           ,v.[NumberofPositions]
+	       ,AT.FullName                                       as ApprenticeshipType
+           ,v.[ShortDescription]                              as VacancyShortDescription
+           ,v.[Description]                                   as VacancyDescription
+           ,v.[NumberofPositions]                             as NumberOfPositions
 	       ,CASE WHEN V.ApprenticeshipFrameworkId is not null 
                  then AF.ApprenticehipOccupationFullName
                  WHEN V.StandardId is not null then Std.StandardSectorName 
                  ELSE 'Unknown' 
-             END as [Framework/Standard Sector] 
+             END                                              as [Framework/Standard Sector] 
            ,CASE WHEN V.ApprenticeshipFrameworkId is not null 
                  then AF.ApprenticeshipFrameworkId
                  WHEN V.StandardId is not null then Std.StandardId 
                  ELSE -1 
-             END as [Framework/StandardId] 
+             END                                              as [Framework/StandardId] 
            ,CASE WHEN AF.FrameworkCodeName IS NOT NULL THEN AF.FrameworkCodeName
                  WHEN Std.LarsCode IS NOT NULL THEN CAST(Std.LarsCode AS Varchar)
 		         ELSE ''
-		     END LarsCode
+		     END                                              as LarsCode
             ,CASE WHEN V.ApprenticeshipFrameworkId is not null 
                   then Af.FrameWorkFullName 
                   WHEN V.StandardId is not null then Std.StandardFullName 
                   ELSE '' 
-              END as [Framework/Standard Name] 
-            ,Std.EducationLevelFullName as StandardLevel
-            ,v.[WeeklyWage]
-            ,v.[WageLowerBound]
-            ,v.[WageUpperBound]
-            ,WT.FullName AS WageType
-	        ,v.WageText
-	        ,v.WageUnitId
-	        ,WU.FullName as WageUnit
-	        ,v.[WorkingWeek]
-	        ,v.[HoursPerWeek]
-	        ,v.DurationTypeId
-	        ,v.DurationValue
-            ,v.[ApplicationClosingDate]
-            ,v.[InterviewsFromDate]
-            ,v.[ExpectedStartDate]
-            ,v.[ExpectedDuration]
-            ,v.[NumberOfViews]
-	        ,v.MaxNumberofApplications
-	        ,v.ApplyOutsideNAVMS
-	        ,v.[NoOfOfflineApplicants]
-	        ,v.MasterVacancyId
-	        ,v.NoOfOfflineSystemApplicants
-	        ,v.SmallEmployerWageIncentive
-	        ,v.SubmissionCount
-	        ,v.StartedToQADateTime
-	        ,TT.TrainingTypeId
-	        ,TT.FullName as TrainingType
+              END                                             as [Framework/Standard Name] 
+            ,Std.EducationLevelFullName                       as EducationLevel
+            ,v.[WeeklyWage]                                   as WeeklyWage
+            ,v.[WageLowerBound]                               as WageLowerBound
+            ,v.[WageUpperBound]                               as WageUpperBound
+            ,WT.FullName                                      AS WageType 
+	        ,v.WageText                                       as WageText
+	        ,v.WageUnitId                                     as WageUnitId
+	        ,WU.FullName                                      as WageUnit
+	        ,v.[WorkingWeek]                                  as WorkingWeek
+	        ,v.[HoursPerWeek]                                 as HoursPerWeek
+	        ,v.DurationTypeId                                 as DurationTypeId
+	        ,v.DurationValue                                  as DurationValue
+            ,v.[ApplicationClosingDate]                       as ApplicationClosingDate
+            ,v.[InterviewsFromDate]                           as InterviewFromDate
+            ,v.[ExpectedStartDate]                            as ExpectedStartDate
+            ,v.[ExpectedDuration]                             as ExpectedDuration
+            ,v.[NumberOfViews]                                as NumberOfViews
+	        ,v.MaxNumberofApplications                        as MaxNumberOfApplications
+	        ,v.ApplyOutsideNAVMS                              as ApplyOutsideNAVMS
+	        ,v.[NoOfOfflineApplicants]                        AS NoOfOfflineApplicants
+	        ,v.MasterVacancyId                                as MasterVacancyId
+	        ,v.NoOfOfflineSystemApplicants                    as NoOfOfflineSystemApplicants
+	        ,v.SmallEmployerWageIncentive                     as SmallEmployerWageIncentive
+	        ,v.SubmissionCount                                as SubmissionCount
+	        ,v.StartedToQADateTime                            as StartedToQADateTime
+	        ,TT.TrainingTypeId                                as TrainingTypeId
+	        ,TT.FullName                                      as TrainingTypeDesc
 	        ,v.VacancyTypeId
             ,CASE WHEN v.[VacancyTypeId]=1 THEN 'Apprenticeship'
 	              WHEN V.VacancyTypeId=2 THEN 'Traineeship'
 			      ELSE 'Unknown'
-			  end as VacancyType
-	        ,v.UpdatedDateTime UpdatedDateTime
-	        ,v.EditedInRaa
-	        ,v.VacancySourceId
-	        ,vas.FullName as VacancySource
-            ,v.OfflineVacancyTypeId      
-	        ,ISNULL(VH.HistoryDate,V.UpdatedDateTime) as CreatedDate
-			,v.VacancyId
-			,'RAAv1'
+			  end                                             as VacancyType
+	        ,v.UpdatedDateTime                                as UpdatedDateTime
+	        ,v.EditedInRaa                                    as EditedInRAA
+	        ,v.VacancySourceId                                as VacancySourceId
+	        ,vas.FullName                                     as VacancySource
+            ,v.OfflineVacancyTypeId                           as OfflineVacancyTypeId   
+	        ,ISNULL(VH.HistoryDate,V.UpdatedDateTime)         as CreatedDate
+			,v.VacancyId                                      as SourceVacancyId
+			,'RAAv1'                                          as SourceDb
        FROM Stg.[Avms_Vacancy] V
        join Stg.Avms_VacancyStatusType vs 
 	     on V.VacancyStatusId = vs.VacancyStatusTypeId
@@ -311,69 +312,69 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
            ,[SubmittedDateTime_v2]
            ,[SourceVacancyId]
            ,[SourceDb])
-   SELECT v.BinaryId
-	      ,VacancyReference
-		  ,VacancyStatus
-		  ,VacancyTitle
-		  ,E.EmployerId
-		  ,E.FullName
-		  ,LE.LegalEntityId
-		  ,LE.LegalEntityName
-		  ,P.ProviderID
-		  ,v.TrainingProviderUkprn
-	      ,v.TrainingProviderName
-		  ,v.TrainingProviderName as TradingName
+   SELECT v.BinaryId                                               as VacancyGuid
+	      ,VacancyReference                                        as VacancyReference
+		  ,VacancyStatus                                           as VacancyStatus
+		  ,VacancyTitle                                            as VacancyTitle
+		  ,E.EmployerId                                            as EmployerId
+		  ,E.FullName                                              as EmployerFullName
+		  ,LE.LegalEntityId                                        as LegalEntityId
+		  ,LE.LegalEntityName                                      as LegalEntityName
+		  ,P.ProviderID                                            as ProviderId
+		  ,v.TrainingProviderUkprn                                 as ProviderUkprn
+	      ,v.TrainingProviderName                                  as ProviderName
+		  ,v.TrainingProviderName                                  as ProviderTradingName
 		  ,CASE WHEN EL.CodeName IN (2,3,4) then EL.FullName +' Level Apprenticeship'
 		        ELSE EL.FullName
-			END as ApprenticeshipType
-          ,[VacancyDescription] as ShortDesc
-          ,[VacancyDescription] 
-		  ,v.NumberOfPositions
+			END                                                    as ApprenticeshipType
+          ,[VacancyDescription]                                    as VacancyShortDesc
+          ,[VacancyDescription]                                    as VacancyDesc
+		  ,v.NumberOfPositions                                     as NumberOfPositions
 	      ,CASE WHEN AP.ApprenticeshipType='Standard' THEN ST.StandardSectorName
                 WHEN AP.ApprenticeshipType='Framework' then AF.ApprenticehipOccupationFullName
                 ELSE 'Unknown' 
-            END as [Framework/Standard Sector] 
+            END                                                    as [Framework/Standard Sector] 
 	      ,CASE WHEN AP.ApprenticeshipType='Framework' then AF.ApprenticeshipFrameworkId
                 WHEN AP.ApprenticeshipType='Standard' then ST.StandardId 
                 ELSE -1 
-            END as [Framework/StandardId] 
-          ,V.ProgrammeId LarsCode
+            END                                                    as [Framework/StandardId] 
+          ,V.ProgrammeId                                           as LarsCode
           , CASE WHEN ApprenticeshipType='Framework'  
                  then AF.FrameWorkFullName 
                  WHEN ApprenticeshipType='Standard' 
 			     then ST.StandardFullName 
                  ELSE '' 
-             END as [Framework/Standard Name] 
-          ,EL.FullName as EducationLevel
-		  ,v.[WageType]
-          ,v.WageAdditionalInformation
+             END                                                   as [Framework/Standard Name] 
+          ,EL.FullName                                             as EducationLevel
+		  ,v.[WageType]                                            as WageType
+          ,v.WageAdditionalInformation                             as WageText
           -- ,[WageUnitId]
-          ,v.WageDurationUnit
-          ,v.WorkingWeekDescription
-          ,v.WeeklyHours
+          ,v.WageDurationUnit                                      as WageUnitDesc
+          ,v.WorkingWeekDescription                                as WorkingWeek
+          ,v.WeeklyHours                                           as HoursPerWeek
          --  ,[DurationTypeId]
-          ,v.WageDuration
+          ,v.WageDuration                                          as DurationTypeDesc
 	      ,dbo.Fn_ConvertTimeStampToDateTime(v.ClosingDateTimeStamp) as ClosingDateTime
          --  ,[InterviewsFromDate]
-          ,dbo.Fn_ConvertTimeStampToDateTime(v.StartDateTimeStamp) as StartDateTime
-          ,v.WageDuration as WageDurationText
-	      ,AP.ApprenticeshipType as TT
+          ,dbo.Fn_ConvertTimeStampToDateTime(v.StartDateTimeStamp) as ExpectedStartDate
+          ,v.WageDuration                                          as ExpectedDuration
+	      ,AP.ApprenticeshipType                                   as TrainingTypeFullName
 	      ,CASE WHEN AP.EducationLevelNumber=8 THEN 2
 	            WHEN AP.EducationLevelNumber IN (2,3,4,6) THEN 1
 			    ELSE 0
-			END el
+			END                                                    as VacancyTypeId
 	      ,CASE WHEN AP.EducationLevelNumber=8 THEN 'Traineeship'
 	            WHEN AP.EducationLevelNumber IN (2,3,4,6) THEN 'Apprenticeship'
 			    ELSE 'Unknown'
-			END VacancyType
-          ,dbo.Fn_ConvertTimeStampToDateTime(v.LastUpdatedTimeStamp) as LastUpdateDateTime
-          ,v.SourceOrigin
+			END                                                    as VacancyTypeDesc
+          ,dbo.Fn_ConvertTimeStampToDateTime(v.LastUpdatedTimeStamp) as UpdateDateTime
+          ,v.SourceOrigin                                            as VacancySource
           ,dbo.Fn_ConvertTimeStampToDateTime(v.CreatedDateTimeStamp) as CreatedDateTime
-		  ,v.IsDeleted
+		  ,v.IsDeleted                                               as IsDeleted
 		  ,dbo.Fn_ConvertTimeStampToDateTime(v.DeletedDateTimeStamp) as DeletedDateTime
 		  ,dbo.Fn_ConvertTimeStampToDateTime(v.SubmittedDateTimeStamp) as SubmittedDateTime
-		  ,v.SourseSK
-		  ,'RAAv2' SourceDb
+		  ,v.SourseSK                                                as SourceVacancyId
+		  ,'RAAv2'                                                   as SourceDb
 	  FROM Stg.RAA_Vacancies V
 	  LEFT
 	  JOIN ASData_PL.Va_Employer E
@@ -387,7 +388,7 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
 	  LEFT
 	  JOIN ASData_PL.Va_Provider P
 	    ON P.UKPRN=V.TrainingProviderUkprn
-	   AND P.SourceDb='RAAv2'
+	 --  AND P.SourceDb='RAAv2'
 	  LEFT
 	  JOIN Stg.RAA_ReferenceDataApprenticeshipProgrammes ap
 	    on V.ProgrammeId=ap.ProgrammeId

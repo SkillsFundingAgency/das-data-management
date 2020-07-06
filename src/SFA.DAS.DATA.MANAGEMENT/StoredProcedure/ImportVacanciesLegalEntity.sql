@@ -46,12 +46,12 @@ INSERT INTO [ASData_PL].[Va_LegalEntity]
            ,[LegalEntityName]
            ,[SourceLegalEntityId]
            ,[SourceDb])
-     SELECT AccountLegalEntityPublicHashedId
-		   ,E.EmployerId
-		   ,EmployerAccountId
-		   ,LegalEntityName
-		   ,LegalEntityId
-		   ,'RAAv2'
+     SELECT AccountLegalEntityPublicHashedId as LegalEntityPublicHashedId
+		   ,E.EmployerId                     as EmployerId
+		   ,EmployerAccountId                as EmployerAccountId
+		   ,LegalEntityName                  as LegalEntityName
+		   ,LegalEntityId                    as SourceLegalEntityId
+		   ,'RAAv2'                          as SourceDb
 	   FROM (SELECT DISTINCT LegalEntityId
 	                        ,AccountLegalEntityPublicHashedId
 							,EmployerAccountId

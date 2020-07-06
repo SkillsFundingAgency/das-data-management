@@ -7,6 +7,7 @@ AS
 -- Author:      Himabindu Uddaraju
 -- Create Date: 02/07/2020
 -- Description: Import Vacancies Candidate Data from v1 and v2
+--              Fields that are in v1 but not in v2 or viceversa are replaced with Defaults/Dummy Values
 -- ===============================================================================
 
 BEGIN TRY
@@ -80,14 +81,14 @@ SELECT CandidateStatusTypeId
   FROM Stg.Avms_Candidate C
  union
 SELECT DISTINCT 
-       ''
-      ,'Unknown'
-	  ,''
-	  ,''
-	  ,''
-	  ,''
-	  ,''
-	  ,''
+       -1
+      ,'N/A'as CandidateStatusDesc
+	  ,NULL as ApplicationLimitEnforced
+	  ,'' as LastAccessedDate
+	  ,'' as LastAccessedManageApplications
+	  ,'N/A' as BeingSupportedBy
+	  ,'' as LockedForSupportUntil
+	  ,NULL as AllowMarketingMessages
 	  ,CAST(CandidateId as Varchar(256))
 	  ,'RAAv2'
 	  ,''

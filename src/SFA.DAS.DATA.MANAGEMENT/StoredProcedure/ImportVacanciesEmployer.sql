@@ -7,6 +7,7 @@ AS
 -- Author:      Himabindu Uddaraju
 -- Create Date: 02/07/2020
 -- Description: Import Vacancies Employer Data from v1 and v2
+--              Fields that are in v1 but not in v2 or viceversa are replaced with Defaults/Dummy Values
 -- ===============================================================================
 
 BEGIN TRY
@@ -50,32 +51,32 @@ INSERT INTO [ASData_PL].[Va_Employer]
            ,[EmployerStatusTypeId_v1]
            ,[EmployerStatusTypeDesc_v1]
            ,[SourceDb])
- SELECT     E.FullName
-           ,E.TradingName
-           ,EmployerId
-	       ,'N/A'
-		   ,-1
-		   ,OwnerOrgnistaion
-		   ,-1
-		   ,EmployerStatusTypeId
-		   ,ETPS.FullName
-		   ,'RAAv1'
+ SELECT     E.FullName               as EmployerFullName
+           ,E.TradingName            as TradingName
+           ,EmployerId               as SourceEmployerId_v1
+	       ,'N/A'                    as DasAccountId_v2
+		   ,-1                       as LocalAuthorityId
+		   ,OwnerOrgnistaion         as OwnerOrganisation
+		   ,-1                       as EdsUrn_v1
+		   ,EmployerStatusTypeId     as EmployerStatusTypeId_v1
+		   ,ETPS.FullName            as EmployerStatusTypeDesc_v1
+		   ,'RAAv1'                  as SourceDb
 	   FROM Stg.Avms_Employer E
 	   LEFT
 	   JOIN Stg.Avms_EmployerTrainingProviderStatus ETPS
 	     ON E.EmployerStatusTypeId=ETPS.EmployerTrainingProviderStatusId
 	  UNION
 	 SELECT DISTINCT
-	        EmployerName
-	       ,EmployerName
-		   ,-1
-		   ,EmployerAccountId
-		   ,-1
-		   ,'N/A'
-		   ,-1
-		   ,-1
-		   ,'N/A'
-		   ,'RAAv2'
+	        EmployerName             as EmployerFullName
+	       ,EmployerName             as TradingName
+		   ,-1                       as SourceEmployerId_v1
+		   ,EmployerAccountId        as DasAccountId_v2
+		   ,-1                       as LocalAuthorityId
+		   ,'N/A'                    as OwnerOrganisation
+		   ,-1                       as EdsUrn_v1
+		   ,-1                       as EmployerStatusTypeId_v1
+		   ,'N/A'                    as EmployerStatusTypeDesc_v1
+		   ,'RAAv2'                  as SourceDb
 	   FROM (SELECT DISTINCT EmployerAccountId,EmployerName,row_number() over (Partition by EmployerAccountId order by EmployerName Desc) rn
 	           from Stg.RAA_Vacancies) v
 	  where rn=1

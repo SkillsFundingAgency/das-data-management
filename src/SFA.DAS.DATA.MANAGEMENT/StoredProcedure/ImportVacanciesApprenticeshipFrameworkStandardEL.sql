@@ -61,23 +61,23 @@ INSERT INTO [ASData_PL].[Va_ApprenticeshipFrameWorkAndOccupation]
            ,[ApprenticehipOccupationFullName]
            ,[ApprenticeshipOccupationStatus]
            ,[ApprenticeshipOccupationClosedDate])
-SELECT AF.ApprenticeshipFrameworkId
-      ,''
-	  ,'RAAv1'
-	  ,AO.ApprenticeshipOccupationId
-	  ,AF.CodeName as FrameworkCodeName
-	  ,AF.ShortName as FrameworkShortName
-	  ,AO.FullName as FrameworkFullName
-	  ,''
-	  ,AFST.ShortName as FrameworkStatus
-	  ,AF.ClosedDate
-	  ,AF.PreviousApprenticeshipOccupationId
-	  ,AF.StandardId
-	  ,AO.Codename as ApprenticeshipOccupationCodeName
-	  ,AO.ShortName as ApprenticeshipOccupationShortName
-	  ,AO.FullName as ApprenticeshipOccupationFullName
-	  ,AOST.FullName as ApprenticeshipOccupationStatus
-	  ,AO.ClosedDate
+SELECT AF.ApprenticeshipFrameworkId  as ApprenticeshipFrameworkId
+      ,'N/A'                         as ProgrammeId_v2
+	  ,'RAAv1'                       as SourceDb
+	  ,AO.ApprenticeshipOccupationId as ApprenticeshipOccupationId
+	  ,AF.CodeName                   as FrameworkCodeName
+	  ,AF.ShortName                  as FrameworkShortName
+	  ,AO.FullName                   as FrameworkFullName
+	  ,'N/A'                         as FrameworkTitle_v2
+	  ,AFST.ShortName                as FrameworkStatus
+	  ,AF.ClosedDate                 as FrameworkClosedDate
+	  ,AF.PreviousApprenticeshipOccupationId as PreviousApprenticeshipOccupationId
+	  ,AF.StandardId                 as StandardId
+	  ,AO.Codename                   as ApprenticeshipOccupationCodeName
+	  ,AO.ShortName                  as ApprenticeshipOccupationShortName
+	  ,AO.FullName                   as ApprenticeshipOccupationFullName
+	  ,AOST.FullName                 as ApprenticeshipOccupationStatus
+	  ,AO.ClosedDate                 as ApprenticeshipOccupationClosedDate
   FROM Stg.Avms_ApprenticeshipFramework AF 
   JOIN Stg.Avms_ApprenticeshipOccupation AO 
     ON AO.ApprenticeshipOccupationId=AF.ApprenticeshipOccupationId
@@ -88,23 +88,23 @@ SELECT AF.ApprenticeshipFrameworkId
   JOIN Stg.Avms_ApprenticeshipOccupationStatusType AOST
     ON AOST.ApprenticeshipOccupationStatusTypeId=AO.ApprenticeshipOccupationStatusTypeId
  UNION
-SELECT ap.SourseSK
-      ,ap.ProgrammeId
-	  ,'RAAv2'
-	  ,AO.ApprenticeshipOccupationId
-	  ,AF.CodeName as FrameworkCodeName
-	  ,AF.ShortName as FrameworkShortName
-	  ,AO.FullName as FrameworkFullName
-	  ,ap.Title as FrameworkTitle
-	  ,AFST.ShortName as FrameworkStatus
-	  ,AF.ClosedDate
-	  ,AF.PreviousApprenticeshipOccupationId
-	  ,AF.StandardId
-	  ,AO.Codename as ApprenticeshipOccupationCodeName
-	  ,AO.ShortName as ApprenticeshipOccupationShortName
-	  ,AO.FullName as ApprenticeshipOccupationFullName
-	  ,AOST.FullName as ApprenticeshipOccupationStatus
-	  ,AO.ClosedDate
+SELECT ap.SourseSK                                 as ApprenticeshipFrameworkId
+      ,ap.ProgrammeId                              as ProgrammeId_v2
+	  ,'RAAv2'                                     as SourceDb
+	  ,AO.ApprenticeshipOccupationId               as ApprenticeshipOccupationId
+	  ,AF.CodeName                                 as FrameworkCodeName
+	  ,AF.ShortName                                as FrameworkShortName
+	  ,AO.FullName                                 as FrameworkFullName
+	  ,ap.Title                                    as FrameworkTitle
+	  ,AFST.ShortName                              as FrameworkStatus
+	  ,AF.ClosedDate                               as FrameworkClosedDate
+	  ,AF.PreviousApprenticeshipOccupationId       as PreviousApprenticeshipOccupationId
+	  ,AF.StandardId                               as StandardId
+	  ,AO.Codename                                 as ApprenticeshipOccupationCodeName   
+	  ,AO.ShortName                                as ApprenticeshipOccupationShortName
+	  ,AO.FullName                                 as ApprenticeshipOccupationFullName
+	  ,AOST.FullName                               as ApprenticeshipOccupationStatus
+	  ,AO.ClosedDate                               as ApprenticeshipOccupationClosedDate
   FROM Stg.RAA_ReferenceDataApprenticeshipProgrammes AP
   LEFT
   JOIN Stg.Avms_ApprenticeshipFramework AF 
@@ -131,15 +131,15 @@ INSERT INTO [ASData_PL].[Va_ApprenticeshipStandard]
            ,[ApprenticeshipOccupationId]
            ,[EducationLevelId]
            ,[ApprenticeshipFrameworkStatusType])
-SELECT  ST.StandardId 
-       ,ST.LarsCode as STLarsCode
-       ,ST.FullName as SSFullName 
-	   ,ST.StandardSectorId
-	   ,SS.FullName as STFullName
-	   ,SS.[LarsStandardSectorCode]
-	   ,SS.ApprenticeshipOccupationId
-	   ,ST.EducationLevelId
-	   ,AFST.FullName as ApprenticeshipFrameworkStatusType
+SELECT  ST.StandardId               as StandardId
+       ,ST.LarsCode                 as LarsCode
+       ,ST.FullName                 as StandardFullName 
+	   ,ST.StandardSectorId         as StandardSectorId
+	   ,SS.FullName                 as StandardFullName
+	   ,SS.[LarsStandardSectorCode] as LarsStandardSectorCode
+	   ,SS.ApprenticeshipOccupationId as ApprenticeshipOccupationId
+	   ,ST.EducationLevelId         as EducationLevelId
+	   ,AFST.FullName               as ApprenticeshipFrameworkStatusType
   FROM Stg.Avms_Standard ST 
   JOIN Stg.Avms_StandardSector SS 
     ON ST.StandardSectorId=SS.StandardSectorId
@@ -154,10 +154,10 @@ INSERT INTO [ASData_PL].[Va_EducationLevel]
            ,[EducationLevelCodeName]
            ,[EducationLevelShortName]
            ,[EducationLevelFullName])
-SELECT EducationLevelId
-      ,CodeName
-	  ,ShortName
-	  ,FullName
+SELECT EducationLevelId as EducationLevelId
+      ,CodeName         as EducationLevelCodeName
+	  ,ShortName        as EducationLevelShortName
+	  ,FullName         as EducationLevelFullName
   FROM Stg.Avms_EducationLevel
 
 

@@ -7,6 +7,7 @@ AS
 -- Author:      Himabindu Uddaraju
 -- Create Date: 02/07/2020
 -- Description: Import Vacancies Application Data from v1 and v2
+--              Fields that are in v1 but not in v2 or viceversa are replaced with Defaults/Dummy Values
 -- ===============================================================================
 
 BEGIN TRY
@@ -51,19 +52,19 @@ INSERT INTO [ASData_PL].[Va_Application]
            ,[CreatedDateTime]
            ,[SourceDb]
            ,[SourceApplicationId])
-    SELECT  CAST(c.CandidateId AS Varchar)
-           ,v.[VacancyId]
-           ,AA.[ApplicationStatusTypeId]
-	       ,AST.FullName as ApplicationStatusDesc
-           ,[BeingSupportedBy]
-           ,[LockedForSupportUntil]
+    SELECT  CAST(c.CandidateId AS Varchar) as CandidateId
+           ,v.[VacancyId]                  as VacancyId
+           ,AA.[ApplicationStatusTypeId]   as ApplicationStatusTypeId
+	       ,AST.FullName                   as ApplicationStatusDesc 
+           ,[BeingSupportedBy]             as BeingSupportedBy        
+           ,[LockedForSupportUntil]        as LockedForSupportUntil
           ,Case when AA.ApplicationStatusTypeId in (4,8) THEN 1
 	            ELSE 0
-	        END
-          ,cast([ApplicationGuid] as varchar(256))
-		  ,AH.HistoryDate as CreatedDateTime
-		  ,'RAAv1'
-		  ,AA.ApplicationId
+	        END                            as IsWithdrawn
+          ,cast([ApplicationGuid] as varchar(256)) as ApplicationGuid
+		  ,AH.HistoryDate                  as CreatedDateTime
+		  ,'RAAv1'                         as SourceDb
+		  ,AA.ApplicationId                as SourceApplicationId
   FROM [Stg].[Avms_Application] AA
   LEFT
   JOIN ASData_PL.Va_Vacancy v
@@ -82,19 +83,19 @@ INSERT INTO [ASData_PL].[Va_Application]
     on c.SourceCandidateId_v1=AA.CandidateId
    AND C.SourceDb='RAAv1'
  UNION
- SELECT C.CandidateId
-	   ,v.VacancyId
-	   ,-1
-	   ,AR.ApplicationStatus
-	   ,'N/A'
-	   ,''
+ SELECT C.CandidateId                       as CandidateId
+	   ,v.VacancyId                         as VacancyId
+	   ,-1                                  as ApplicationStatusTypeId       
+	   ,AR.ApplicationStatus                as ApplicationStatusDesc
+	   ,'N/A'                               as BeingSupportedBy 
+	   ,''                                  as LockedForSupportUntil
 	   ,CASE WHEN AR.IsWithDrawn='False' then 0
 	         WHEN AR.IsWithDrawn='True' then 1
-		 END 
-	   ,CAST(AR.BinaryId as varchar(256))
-	   ,dbo.Fn_ConvertTimeStampToDateTime(ar.CreatedDateTimeStamp)
-	   ,'RAAv2'
-	   ,AR.SourseSK
+		 END                                as IsWithdrawn
+	   ,CAST(AR.BinaryId as varchar(256))   as ApplicationGuid
+	   ,dbo.Fn_ConvertTimeStampToDateTime(ar.CreatedDateTimeStamp) as CreatedDateTime
+	   ,'RAAv2'                             as SourceDb
+	   ,AR.SourseSK                         as SourceApplicationId
  from Stg.RAA_ApplicationReviews AR
  left
  join ASData_PL.Va_Vacancy V   

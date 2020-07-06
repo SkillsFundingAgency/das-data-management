@@ -386,9 +386,9 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
 	   AND LE.EmployerAccountId=v.EmployerAccountId
 	   AND LE.SourceDb='RAAv2'
 	  LEFT
-	  JOIN (SELECT providerid 
+	  JOIN (SELECT providerid ,UKPRN
               FROM 
-           (SELECT providerid,SourceProviderID_v1,row_number() over (partition by ukprn order by providerstatustypeid asc) rn -- ToSelectOnlyActivatedProviders
+           (SELECT providerid,Ukprn,row_number() over (partition by ukprn order by providerstatustypeid asc) rn -- ToSelectOnlyActivatedProviders
 	          FROM ASData_PL.Va_Provider) Provider
              WHERE rn=1) P
 	    ON P.UKPRN=V.TrainingProviderUkprn

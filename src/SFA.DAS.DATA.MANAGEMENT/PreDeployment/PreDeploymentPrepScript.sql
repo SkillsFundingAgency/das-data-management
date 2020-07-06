@@ -312,4 +312,30 @@ if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Transacti
 Drop View Data_Pub.DAS_TransactionLine
 
 
+-- Remove Unwated Tables From AT
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'Va_ApplicationHistory'
+		      AND TABLE_SCHEMA=N'AsData_PL'
+	      )
+DROP TABLE [ASData_PL].[Va_ApplicationHistory]
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'Va_VacancyHistory'
+		      AND TABLE_SCHEMA=N'AsData_PL'
+	      )
+DROP TABLE [ASData_PL].[Va_VacancyHistory]
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'ExcludeFieldList'
+		      AND TABLE_SCHEMA=N'Mtd'
+	      )
+DROP TABLE Mtd.ExcludeFieldList
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'IncludeFieldList'
+		      AND TABLE_SCHEMA=N'Mtd'
+	      )
+DROP TABLE Mtd.IncludeFieldList
+
 

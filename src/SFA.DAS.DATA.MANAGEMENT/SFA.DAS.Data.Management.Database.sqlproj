@@ -203,5 +203,6 @@
     <Build Include="StoredProcedure\ImportVacanciesApplication.sql" />
     <Build Include="Tables\AsDataPL_Va_EducationLevel.sql" />
     <Build Include="StoredProcedure\ImportVacanciesApprenticeshipFrameworkStandardEL.sql" />
+    <Build Include="Tables\Stg_FAA_Candidate.sql" />
   </ItemGroup>
 </Project>

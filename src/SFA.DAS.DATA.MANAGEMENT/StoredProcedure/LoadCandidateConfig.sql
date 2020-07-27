@@ -46,7 +46,7 @@ DELETE FROM dbo.CandidateConfig
 
 /* RAAv2 */
 
-INSERT INTO dbo.CandidateConfig
+INSERT INTO Stg.CandidateConfig
 (SourceDb,Category,ShortCode)
 VALUES
 ('RAAv1','Ethnicity',0),

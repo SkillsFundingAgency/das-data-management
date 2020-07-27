@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[CandidateConfig]
+﻿CREATE TABLE [Stg].[CandidateConfig]
 (
    SourceSK BIGINT IDENTITY(1,1) PRIMARY KEY
   ,SourceDb Varchar(255)

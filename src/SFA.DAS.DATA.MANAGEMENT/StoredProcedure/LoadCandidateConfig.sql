@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[LoadCandidateEthLookUp]
+﻿CREATE PROCEDURE [dbo].[LoadCandidateConfig]
 (
    @RunId int
 )

@@ -205,5 +205,7 @@
     <Build Include="StoredProcedure\ImportVacanciesApprenticeshipFrameworkStandardEL.sql" />
     <Build Include="Tables\Stg_FAA_Candidate.sql" />
     <Build Include="Tables\Stg_CandidateEthLookUp.sql" />
+    <Build Include="StoredProcedure\LoadCandidateEthLookup.sql" />
+    <Build Include="Tables\Stg_CopyActivity.sql" />
   </ItemGroup>
 </Project>

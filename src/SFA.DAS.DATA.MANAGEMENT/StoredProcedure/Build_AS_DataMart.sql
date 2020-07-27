@@ -72,6 +72,7 @@ EXEC CreateSpendControlView @RunId
 
 EXEC CreateSpendControlNonLevyView @RunId
 
+EXEC LoadCandidateEthLookUp @RunId
 
 /* Refresh Payments Snapshot Table */
 

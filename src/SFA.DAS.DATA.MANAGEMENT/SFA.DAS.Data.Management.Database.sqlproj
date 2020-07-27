@@ -204,8 +204,9 @@
     <Build Include="Tables\AsDataPL_Va_EducationLevel.sql" />
     <Build Include="StoredProcedure\ImportVacanciesApprenticeshipFrameworkStandardEL.sql" />
     <Build Include="Tables\Stg_FAA_Candidate.sql" />
-    <Build Include="Tables\Stg_CandidateEthLookUp.sql" />
+    <Build Include="Tables\CandidateEthLookUp.sql" />
     <Build Include="StoredProcedure\LoadCandidateEthLookup.sql" />
     <Build Include="Tables\Stg_CopyActivity.sql" />
+    <Build Include="StoredProcedure\GenerateCopyActivityId.sql" />
   </ItemGroup>
 </Project>

@@ -208,5 +208,6 @@
     <Build Include="StoredProcedure\LoadCandidateEthLookup.sql" />
     <Build Include="Tables\Stg_CopyActivity.sql" />
     <Build Include="StoredProcedure\GenerateCopyActivityId.sql" />
+    <Build Include="Tables\Stg_Avms_CandidateEth.sql" />
   </ItemGroup>
 </Project>

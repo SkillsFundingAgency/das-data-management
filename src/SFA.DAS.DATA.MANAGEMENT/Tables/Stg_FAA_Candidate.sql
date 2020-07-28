@@ -4,4 +4,5 @@
    ,[CandidateId] Varchar(256)
    ,[LegacyCandidateId] BIGINT
    ,[EID] BIGINT
+   ,[RunID] BIGINT
 )

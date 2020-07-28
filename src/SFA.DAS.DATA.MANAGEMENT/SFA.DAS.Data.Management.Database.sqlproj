@@ -211,5 +211,6 @@
     <Build Include="Tables\Stg_Avms_CandidateEth.sql" />
     <Build Include="Tables\Stg_CandidateConfig.sql" />
     <Build Include="StoredProcedure\LoadCandidateConfig.sql" />
+    <Build Include="StoredProcedure\GenerateConfig.sql" />
   </ItemGroup>
 </Project>

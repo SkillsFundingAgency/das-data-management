@@ -41,7 +41,7 @@ BEGIN TRY
 IF @@TRANCOUNT=0
 BEGIN
 BEGIN TRANSACTION
-DELETE FROM dbo.CandidateConfig
+DELETE FROM Stg.CandidateConfig
 
 
 /* RAAv2 */
@@ -90,7 +90,9 @@ VALUES
 ('RAAv2','Ethnicity',46),
 ('RAAv2','Ethnicity',47),
 ('RAAv2','Ethnicity',98),
-('RAAv2','Ethnicity',99)
+('RAAv2','Ethnicity',99),
+('RAAv2','Ethnicity',null),
+
 
 
 

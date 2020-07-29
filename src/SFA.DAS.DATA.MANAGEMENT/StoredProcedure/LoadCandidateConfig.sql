@@ -70,7 +70,27 @@ VALUES
 ('RAAv1','Ethnicity',18),
 ('RAAv1','Ethnicity',19),
 ('RAAv1','Ethnicity',20),
-('RAAv1','Ethnicity',21)
+('RAAv1','Ethnicity',21),
+/*RAAv2*/
+('RAAv2','Ethnicity',31),
+('RAAv2','Ethnicity',32),
+('RAAv2','Ethnicity',33),
+('RAAv2','Ethnicity',34),
+('RAAv2','Ethnicity',35),
+('RAAv2','Ethnicity',36),
+('RAAv2','Ethnicity',37),
+('RAAv2','Ethnicity',38),
+('RAAv2','Ethnicity',39),
+('RAAv2','Ethnicity',40),
+('RAAv2','Ethnicity',41),
+('RAAv2','Ethnicity',42),
+('RAAv2','Ethnicity',43),
+('RAAv2','Ethnicity',44),
+('RAAv2','Ethnicity',45),
+('RAAv2','Ethnicity',46),
+('RAAv2','Ethnicity',47),
+('RAAv2','Ethnicity',98),
+('RAAv2','Ethnicity',99)
 
 
 

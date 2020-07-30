@@ -312,16 +312,16 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
            ,[SubmittedDateTime_v2]
            ,[SourceVacancyId]
            ,[SourceDb])
-   SELECT v.BinaryId                                               as VacancyGuid
-	      ,VacancyReference                                        as VacancyReference
-		  ,VacancyStatus                                           as VacancyStatus
+  SELECT   cast(v.BinaryId as varchar(256))                        as VacancyGuid
+	      ,cast(VacancyReference as int)                           as VacancyReference
+		  ,cast(VacancyStatus as varchar(100))                     as VacancyStatus
 		  ,VacancyTitle                                            as VacancyTitle
 		  ,E.EmployerId                                            as EmployerId
 		  ,E.FullName                                              as EmployerFullName
 		  ,LE.LegalEntityId                                        as LegalEntityId
 		  ,LE.LegalEntityName                                      as LegalEntityName
 		  ,P.ProviderID                                            as ProviderId
-		  ,v.TrainingProviderUkprn                                 as ProviderUkprn
+		  ,cast(v.TrainingProviderUkprn as int)                    as ProviderUkprn
 	      ,v.TrainingProviderName                                  as ProviderName
 		  ,v.TrainingProviderName                                  as ProviderTradingName
 		  ,CASE WHEN EL.CodeName IN (2,3,4) then EL.FullName +' Level Apprenticeship'
@@ -329,7 +329,7 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
 			END                                                    as ApprenticeshipType
           ,[VacancyDescription]                                    as VacancyShortDesc
           ,[VacancyDescription]                                    as VacancyDesc
-		  ,v.NumberOfPositions                                     as NumberOfPositions
+		  ,cast(v.NumberOfPositions as int)                        as NumberOfPositions
 	      ,CASE WHEN AP.ApprenticeshipType='Standard' THEN ST.StandardSectorName
                 WHEN AP.ApprenticeshipType='Framework' then AF.ApprenticehipOccupationFullName
                 ELSE 'Unknown' 
@@ -351,9 +351,9 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
           -- ,[WageUnitId]
           ,v.WageDurationUnit                                      as WageUnitDesc
           ,v.WorkingWeekDescription                                as WorkingWeek
-          ,v.WeeklyHours                                           as HoursPerWeek
+          ,cast(v.WeeklyHours as decimal(10,2))                    as HoursPerWeek
          --  ,[DurationTypeId]
-          ,v.WageDuration                                          as DurationTypeDesc
+          ,cast(v.WageDuration as int)                             as DurationTypeDesc
 	      ,dbo.Fn_ConvertTimeStampToDateTime(v.ClosingDateTimeStamp) as ClosingDateTime
          --  ,[InterviewsFromDate]
           ,dbo.Fn_ConvertTimeStampToDateTime(v.StartDateTimeStamp) as ExpectedStartDate

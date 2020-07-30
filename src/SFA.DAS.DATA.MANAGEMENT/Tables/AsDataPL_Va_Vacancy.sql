@@ -25,7 +25,7 @@
 ,VacancyDescription nvarchar(max)
 ,VacancyLocationTypeId_v1 int
 ,VacancyLocationType_v1 varchar(255)
-,NumberOfPositions smallint
+,NumberOfPositions int
 ,SectorName varchar(255)
 ,FrameworkOrStandardID varchar(255)
 ,FrameworkOrStandardLarsCode varchar(255)

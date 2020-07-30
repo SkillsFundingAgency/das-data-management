@@ -16,7 +16,7 @@
       ,[BeingSupportedBy_v1] nvarchar(50)
       ,[LockedForSupportUntil_v1] datetime
       ,[AllowMarketingMessages_v1] bit
-      ,[CandidateGuid] uniqueidentifier
+      ,[CandidateGuid] varchar(256)
       ,[Age] int
 	  ,[SourceDb] varchar(100)
 	  ,[SourceCandidateId_v1] Varchar(256)

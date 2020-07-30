@@ -254,3 +254,26 @@ GRANT SELECT ON ASData_PL.DAS_SpendControl TO Finance
 IF EXISTS(select 1 from sys.views where name='DAS_SpendControlNonLevy' and type='v')
 GRANT SELECT ON ASData_PL.DAS_SpendControlNonLevy TO Finance
 
+
+/* Service Ops Access */
+
+IF DATABASE_PRINCIPAL_ID('ServiceOps') IS NULL
+BEGIN
+	CREATE ROLE [ServiceOps]
+END
+
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='RAA_Vacancies' AND TABLE_SCHEMA = 'Stg')
+BEGIN
+     GRANT SELECT ON Stg.RAA_Vacancies TO ServiceOps
+END
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='RAA_ReferenceDataApprenticeshipProgrammes' AND TABLE_SCHEMA = 'Stg')
+BEGIN
+     GRANT SELECT ON Stg.RAA_ReferenceDataApprenticeshipProgrammes TO ServiceOps
+END
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='RAA_ApplicationReviews' AND TABLE_SCHEMA = 'Stg')
+BEGIN
+     GRANT SELECT ON Stg.RAA_ApplicationReviews TO ServiceOps
+END

@@ -312,4 +312,3 @@ if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Transacti
 Drop View Data_Pub.DAS_TransactionLine
 
 
-

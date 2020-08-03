@@ -1,4 +1,4 @@
-﻿CREATE FUNCTION [dbo].[Fn_ConvertTimeStampToDateTime] (@UnixTimeStamp BIGINT)
+﻿CREATE FUNCTION [dbo].[Fn_ConvertTimeStampToDateTime] (@UnixTimeStamp varchar(256))
 RETURNS DATETIME2
 AS
 BEGIN

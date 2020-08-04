@@ -52,7 +52,7 @@ INSERT INTO [ASData_PL].[Va_Application]
            ,[CreatedDateTime]
            ,[SourceDb]
            ,[SourceApplicationId])
-    SELECT  CAST(c.CandidateId AS Varchar) as CandidateId
+    SELECT  c.CandidateId                  as CandidateId
            ,v.[VacancyId]                  as VacancyId
            ,AA.[ApplicationStatusTypeId]   as ApplicationStatusTypeId
 	       ,AST.FullName                   as ApplicationStatusDesc 

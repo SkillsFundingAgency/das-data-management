@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[GenerateCopyActivityId] 
-(@RunId bigint,@SourceDb Varchar(255))
+(@RunId bigint,@SourceDb Varchar(255),@Category varchar(256))
 AS
 -- =========================================================================
 -- Author:      Himabindu Uddaraju
@@ -13,8 +13,8 @@ DECLARE @LogID BIGINT
 DECLARE @CAID BIGINT
 
 INSERT INTO Stg.CopyActivity
-(RunId,SourceDb)
-Values(@RunId,@SourceDb)
+(RunId,SourceDb,Category)
+Values(@RunId,@SourceDb,@Category)
 
 SELECT @CAID=NID FROM Stg.CopyActivity Where ID = (SELECT MAX(ID) FROM Stg.CopyActivity)
 

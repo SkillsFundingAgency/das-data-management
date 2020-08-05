@@ -49,7 +49,8 @@ DELETE FROM dbo.CandidateEthLookUp
 INSERT INTO dbo.CandidateEthLookUp
 (FullName,SourceDb)
 VALUES
- ( 'English / Welsh / Scottish / Northern Irish / British','RAAv2')
+ ('Unknown')
+,( 'English / Welsh / Scottish / Northern Irish / British','RAAv2')
 ,('Irish','RAAv2')
 ,('Gypsy or Irish Traveller','RAAv2')
 ,('Any Other White background','RAAv2')

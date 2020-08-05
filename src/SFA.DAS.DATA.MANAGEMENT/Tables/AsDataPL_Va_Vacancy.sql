@@ -55,7 +55,7 @@
 ,SmallEmployerWageIncentive_v1 bit
 ,SubmissionCount_v1 int
 ,StartedToQADateTime_v1 datetime
-,TrainingTypeId_v1 int
+,TrainingTypeId int
 ,TrainingTypeFullName varchar(255)
 ,VacancyTypeId int
 ,VacancyTypeDesc varchar(255)

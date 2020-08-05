@@ -67,7 +67,7 @@ SELECT AF.ApprenticeshipFrameworkId  as ApprenticeshipFrameworkId
 	  ,AO.ApprenticeshipOccupationId as ApprenticeshipOccupationId
 	  ,AF.CodeName                   as FrameworkCodeName
 	  ,AF.ShortName                  as FrameworkShortName
-	  ,AO.FullName                   as FrameworkFullName
+	  ,AF.FullName                   as FrameworkFullName
 	  ,'N/A'                         as FrameworkTitle_v2
 	  ,AFST.ShortName                as FrameworkStatus
 	  ,AF.ClosedDate                 as FrameworkClosedDate
@@ -94,7 +94,7 @@ SELECT ap.SourseSK                                 as ApprenticeshipFrameworkId
 	  ,AO.ApprenticeshipOccupationId               as ApprenticeshipOccupationId
 	  ,AF.CodeName                                 as FrameworkCodeName
 	  ,AF.ShortName                                as FrameworkShortName
-	  ,AO.FullName                                 as FrameworkFullName
+	  ,AF.FullName                                 as FrameworkFullName
 	  ,ap.Title                                    as FrameworkTitle
 	  ,AFST.ShortName                              as FrameworkStatus
 	  ,AF.ClosedDate                               as FrameworkClosedDate

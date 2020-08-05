@@ -1,4 +1,4 @@
-﻿CREATE TABLE [Stg].[FAA_Candidate]
+﻿CREATE TABLE [Stg].[FAA_CandidateDetails]
 (
 	[SourceSK] BIGINT NOT NULL IDENTITY(1,1) PRIMARY KEY
    ,[CandidateId] Varchar(256)

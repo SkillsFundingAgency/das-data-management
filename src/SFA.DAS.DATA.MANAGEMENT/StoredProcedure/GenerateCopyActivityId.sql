@@ -16,7 +16,7 @@ INSERT INTO Stg.CopyActivity
 (RunId,SourceDb,Category)
 Values(@RunId,@SourceDb,@Category)
 
-SELECT @CAID=NID FROM Stg.CopyActivity Where ID = (SELECT MAX(ID) FROM Stg.CopyActivity)
+SELECT @CAID=NID FROM Stg.CopyActivity Where CAId = (SELECT MAX(CAId) FROM Stg.CopyActivity)
 
 
 /* Start Logging Execution */

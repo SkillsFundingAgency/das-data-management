@@ -212,5 +212,7 @@
     <Build Include="StoredProcedure\LoadCandidateConfig.sql" />
     <Build Include="StoredProcedure\LoadCandidateEthLookup.sql" />
     <Build Include="StoredProcedure\GenerateCopyActivityId.sql" />
+    <Build Include="Tables\AsDataPL_Va_CandidateDetails.sql" />
+    <Build Include="StoredProcedure\ImportVacanciesCandidateDetails.sql" />
   </ItemGroup>
 </Project>

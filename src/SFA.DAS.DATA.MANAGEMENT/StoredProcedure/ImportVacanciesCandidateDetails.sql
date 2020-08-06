@@ -68,6 +68,8 @@ SELECT ELookUp.FullName,EDerived.ShortCode,EDerived.NID
 
 /* Insert Candidate Ethnicity Details to Presentation Layer Table */
 
+IF ((SELECT COUNT(*) FROM #tRAAv2Eth) > 0)
+BEGIN
 INSERT INTO [ASData_PL].[Va_CandidateDetails]
            (
 		    [CandidateId] 
@@ -86,6 +88,8 @@ SELECT VC.CandidateId
   LEFT
   JOIN #tRAAv2Eth Eth
     ON FCD.EID=Eth.NID
+END
+ELSE RAISERROR( 'Ethnicity Lookup for RAAv2 is empty',1,1)
 
 
 /* RAAv1(AVMS) Candidate Eth Details */
@@ -119,6 +123,8 @@ SELECT ELookUp.FullName,EDerived.ShortCode,EDerived.NID
 
 /* Insert Candidate Ethnicity Details for RAAv1(AVMS) from FAA and RAAv1(AVMS) to Presentation Layer Table */
 
+IF ((SELECT COUNT(*) FROM #tRAAv1Eth) > 0)
+BEGIN
 INSERT INTO [ASData_PL].[Va_CandidateDetails]
            (
 		    [CandidateId] 
@@ -146,6 +152,8 @@ SELECT VC.CandidateId
   JOIN ASData_PL.Va_Candidate VC
     ON VC.SourceCandidateId_v1=FCD.LegacyCandidateId
    AND VC.SourceDb='RAAv1'
+END
+ELSE RAISERROR( 'Ethnicity Lookup for RAAv1 is empty',1,1)
    
 
      

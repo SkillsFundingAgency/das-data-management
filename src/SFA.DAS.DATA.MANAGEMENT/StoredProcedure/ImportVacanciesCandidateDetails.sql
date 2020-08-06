@@ -152,6 +152,9 @@ SELECT VC.CandidateId
   JOIN ASData_PL.Va_Candidate VC
     ON VC.SourceCandidateId_v1=FCD.LegacyCandidateId
    AND VC.SourceDb='RAAv1'
+  LEFT
+  JOIN #tRAAv2Eth Eth
+    ON FCD.EID=Eth.NID
 END
 ELSE RAISERROR( 'Ethnicity Lookup for RAAv1 is empty',1,1)
    

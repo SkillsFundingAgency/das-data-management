@@ -68,7 +68,7 @@ ELSE RAISERROR( 'Import Data From Vacancies Candidate Failed -Check Log Table Fo
 
 IF EXISTS (SELECT * FROM Mgmt.Log_Execution_Results where StoredProcedureName='ImportVacanciesCandidateToPL' and Execution_Status=1 and RunId=@RunId)
 BEGIN
-EXEC dbo.ImportVacanciesCandImportVacanciesCandidateDetailsToPL @RunId
+EXEC dbo.ImportVacanciesCandidateDetailsToPL @RunId
 END
 ELSE RAISERROR( 'Import Data From Vacancies Candidate Details To PL Failed -Check Log Table For Errors',1,1)
 

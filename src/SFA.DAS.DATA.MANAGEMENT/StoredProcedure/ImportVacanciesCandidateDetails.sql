@@ -35,7 +35,50 @@ DEClARE @quote varchar(5) = ''''
    WHERE StoredProcedureName='ImportVacanciesCandidateDetailsToPL'
      AND RunId=@RunID
 
+/* Check if the Copy Activity Count and Candidate Config Count Match for RAAv2 to check if Random ID is generated for all codes , If not raise error */
+
+if((select count(*) CACount
+     from stg.CopyActivity
+    where runid in (select runid from stg.CandidateConfig)
+      and SourceDb='RAAv2')<>
+   (select count(*) CCCount
+      from stg.CandidateConfig
+     where SourceDb='RAAv2'))
+RAISERROR( 'Vacancies Eth Code not generated correctly for RAAv2 Look at Log Error Table for errors',1,1)
+
+
+
+  if((select count(*) CACount
+     from stg.CopyActivity
+    where runid in (select runid from stg.CandidateConfig)
+      and SourceDb='RAAv1')<>
+   (select count(*) CCCount
+      from stg.CandidateConfig
+     where SourceDb='RAAv1'))
+RAISERROR( 'Vacancies Eth Code not generated correctly for RAAv1 Look at Log Error Table for errors',1,1)
+
+/* Check if we got Desc for all Eth Code */
+
+if((select count(*) CCcount
+     from stg.CandidateConfig
+    where SourceDb='RAAv2')<>
+   (select count(*) CCCount
+      from dbo.CandidateEthLookUp
+     where SourceDb='RAAv2'))
+RAISERROR( 'Vacancies Eth Code doesn''t have corresponding Desc for RAAv2',1,1)
+
+
+
+if((select count(*) CCcount
+     from stg.CandidateConfig
+    where SourceDb='RAAv1')<>
+   (select count(*) CCCount
+      from dbo.CandidateEthLookUp
+     where SourceDb='RAAv1'))
+RAISERROR( 'Vacancies Eth Code doesn''t have corresponding Desc for RAAv1',1,1)
+
 BEGIN TRANSACTION
+
 
 DELETE FROM ASData_PL.Va_CandidateDetails
 
@@ -65,6 +108,10 @@ SELECT ELookUp.FullName,EDerived.ShortCode,EDerived.NID
 	       AND CA.RunId=CC.RunId
          )EDerived
 	ON ELookUp.rn=EDerived.rn
+
+
+
+
 
 /* Insert Candidate Ethnicity Details to Presentation Layer Table */
 

@@ -90,7 +90,7 @@ END
 /* Bring the Derived Code and Actual Code for Eth */
 SELECT ELookUp.FullName,EDerived.ShortCode,EDerived.NID
   INTO #tRAAv2Eth
-  FROM (SELECT FullName, ROW_NUMBER() OVER (PARTITION BY SourceDb Order By SourceSK) RN
+  FROM (SELECT FullName, ROW_NUMBER() OVER (PARTITION BY SourceDb Order By CELId) RN
 	      FROM dbo.CandidateEthLookUp
 	     WHERE SourceDb='RAAv2') ELookUp
   JOIN (SELECT CA.NID,CC.ShortCode,CC.SourceDb
@@ -100,7 +100,7 @@ SELECT ELookUp.FullName,EDerived.ShortCode,EDerived.NID
 		         WHERE SourceDb='RAAv2'
 		           AND Category='Eth'
 			       AND RunId=(SELECT MAX(RunId) FROM Stg.CopyActivity)) CA
-	      JOIN (SELECT *,row_number() over (partition by sourcedb ORDER BY sourcesk) RN
+	      JOIN (SELECT *,row_number() over (partition by sourcedb ORDER BY CCId) RN
 	              FROM Stg.CandidateConfig
 		         WHERE SourceDb='RAAv2'
 		           AND Category='Ethnicity') CC
@@ -149,7 +149,7 @@ END
 /* Bring the Derived Code and Actual Code for Eth */
 SELECT ELookUp.FullName,EDerived.ShortCode,EDerived.NID
   INTO #tRAAv1Eth
-  FROM (SELECT FullName, ROW_NUMBER() OVER (PARTITION BY SourceDb Order By SourceSK) RN
+  FROM (SELECT FullName, ROW_NUMBER() OVER (PARTITION BY SourceDb Order By CELId) RN
 	      FROM dbo.CandidateEthLookUp
 	     WHERE SourceDb='RAAv1') ELookUp
   JOIN (SELECT CA.NID,CC.ShortCode,CC.SourceDb
@@ -159,7 +159,7 @@ SELECT ELookUp.FullName,EDerived.ShortCode,EDerived.NID
 		         WHERE SourceDb='RAAv1'
 		           AND Category='Eth'
 			       AND RunId=(SELECT MAX(RunId) FROM Stg.CopyActivity)) CA
-	      JOIN (SELECT *,row_number() over (partition by sourcedb ORDER BY sourcesk) RN
+	      JOIN (SELECT *,row_number() over (partition by sourcedb ORDER BY CCId) RN
 	              FROM Stg.CandidateConfig
 		         WHERE SourceDb='RAAv1'
 		           AND Category='Ethnicity') CC

@@ -18,27 +18,27 @@ Values(@RunId,@SourceDb,@Category)
 
 SELECT @CAID=NID FROM Stg.CopyActivity Where CAId = (SELECT MAX(CAId) FROM Stg.CopyActivity)
 
-
+/* Commenting out to avoid logging several times */
 /* Start Logging Execution */
 
-  INSERT INTO Mgmt.Log_Execution_Results
-	  (
-	    RunId
-	   ,StepNo
-	   ,StoredProcedureName
-	   ,StartDateTime
-	   ,EndDateTime
-	   ,Execution_Status
-	   ,FullJobStatus
-	  )
-  SELECT 
-        @RunId
-	   ,'Step-3'
-	   ,'GenerateCopyActivityId'
-	   ,getdate()
-	   ,getdate()
-	   ,1
-	   ,'Pending'
+  --INSERT INTO Mgmt.Log_Execution_Results
+	 -- (
+	 --   RunId
+	 --  ,StepNo
+	 --  ,StoredProcedureName
+	 --  ,StartDateTime
+	 --  ,EndDateTime
+	 --  ,Execution_Status
+	 --  ,FullJobStatus
+	 -- )
+  --SELECT 
+  --      @RunId
+	 --  ,'Step-3'
+	 --  ,'GenerateCopyActivityId'
+	 --  ,getdate()
+	 --  ,getdate()
+	 --  ,1
+	 --  ,'Pending'
 
 
 RETURN (@CAID)

@@ -91,8 +91,13 @@ VALUES
 ('RAAv2','Ethnicity',47),
 ('RAAv2','Ethnicity',98),
 ('RAAv2','Ethnicity',99),
-('RAAv2','Ethnicity','''null'''),
 ('RAAv2','Ethnicity',0)
+
+
+INSERT INTO Stg.CandidateConfig
+(SourceDb,Category,ShortCode)
+VALUES
+('RAAv2','Ethnicity','''null''')
 
 
 

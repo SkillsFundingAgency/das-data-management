@@ -29,7 +29,7 @@ BEGIN TRY
   SELECT 
         @RunId
 	   ,'Step-3'
-	   ,'GenerateCandidateConfig'
+	   ,'GenerateConfig'
 	   ,getdate()
 	   ,0
 

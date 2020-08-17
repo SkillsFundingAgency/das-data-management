@@ -40,42 +40,34 @@ DEClARE @quote varchar(5) = ''''
 if((select count(*) CACount
      from stg.CopyActivity
     where runid in (select runid from stg.CandidateConfig)
-      and SourceDb='RAAv2')<>
+      and SourceDb='RAAv2')=
    (select count(*) CCCount
       from stg.CandidateConfig
-     where SourceDb='RAAv2'))
-RAISERROR( 'Vacancies Eth Code not generated correctly for RAAv2 Look at Log Error Table for errors',1,1)
-
-
-
-  if((select count(*) CACount
+     where SourceDb='RAAv2') 
+	 AND
+	 (select count(*) CACount
      from stg.CopyActivity
     where runid in (select runid from stg.CandidateConfig)
-      and SourceDb='RAAv1')<>
+      and SourceDb='RAAv1')=
    (select count(*) CCCount
       from stg.CandidateConfig
-     where SourceDb='RAAv1'))
-RAISERROR( 'Vacancies Eth Code not generated correctly for RAAv1 Look at Log Error Table for errors',1,1)
-
-/* Check if we got Desc for all Eth Code */
-
-if((select count(*) CCcount
+     where SourceDb='RAAv1')
+	 AND
+	 (select count(*) CCcount
      from stg.CandidateConfig
-    where SourceDb='RAAv2')<>
+    where SourceDb='RAAv2')=
    (select count(*) CCCount
       from dbo.CandidateEthLookUp
-     where SourceDb='RAAv2'))
-RAISERROR( 'Vacancies Eth Code doesn''t have corresponding Desc for RAAv2',1,1)
-
-
-
-if((select count(*) CCcount
+     where SourceDb='RAAv2')
+	 AND
+	 (select count(*) CCcount
      from stg.CandidateConfig
-    where SourceDb='RAAv1')<>
+    where SourceDb='RAAv1')=
    (select count(*) CCCount
       from dbo.CandidateEthLookUp
      where SourceDb='RAAv1'))
-RAISERROR( 'Vacancies Eth Code doesn''t have corresponding Desc for RAAv1',1,1)
+--RAISERROR( 'Vacancies Eth Code not generated correctly for RAAv2 Look at Log Error Table for errors',1,1)
+BEGIN
 
 BEGIN TRANSACTION
 
@@ -209,14 +201,57 @@ ELSE RAISERROR( 'Ethnicity Lookup for RAAv1 is empty',1,1)
      
 COMMIT TRANSACTION
 
-
-
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1
       ,EndDateTime=getdate()
 	  ,FullJobStatus='Pending'
  WHERE LogId=@LogID
    AND RunId=@RunId
+
+
+END
+ELSE
+BEGIN
+  DECLARE @RangeErrorId int
+
+  INSERT INTO Mgmt.Log_Error_Details
+	  (UserName
+	  ,ErrorNumber
+	  ,ErrorState
+	  ,ErrorSeverity
+	  ,ErrorLine
+	  ,ErrorProcedure
+	  ,ErrorMessage
+	  ,ErrorDateTime
+	  ,RunId
+	  )
+  SELECT 
+        SUSER_SNAME(),
+	    99999,
+	    ERROR_STATE(),
+	    9,
+	    ERROR_LINE(),
+	    'ImportVacanciesCandidateToPL' AS ErrorProcedure,
+	    'Inconsistency Found between Candidate Config and Ethnicity LookUp, Correct Stg.CandidateConfig Or Stg.CandidateEthLookUp For Consistency',
+	    GETDATE(),
+		@RunId as RunId; 
+
+  SELECT @RangeErrorId=MAX(ErrorId) FROM Mgmt.Log_Error_Details
+
+/* Update Log Execution Results as Fail if there is an Error*/
+
+UPDATE Mgmt.Log_Execution_Results
+   SET Execution_Status=0
+      ,EndDateTime=getdate()
+	  ,ErrorId=@RangeErrorId
+ WHERE LogId=@LogID
+   AND RunID=@RunId
+
+END
+
+
+
+
 
  
 END TRY

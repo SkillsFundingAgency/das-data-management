@@ -98,7 +98,7 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
            ,[SmallEmployerWageIncentive_v1]
            ,[SubmissionCount_v1]
            ,[StartedToQADateTime_v1]
-           ,[TrainingTypeId_v1]
+           ,[TrainingTypeId]
            ,[TrainingTypeFullName]
            ,[VacancyTypeId]
            ,[VacancyTypeDesc]
@@ -169,8 +169,16 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
 	        ,v.SmallEmployerWageIncentive                     as SmallEmployerWageIncentive
 	        ,v.SubmissionCount                                as SubmissionCount
 	        ,v.StartedToQADateTime                            as StartedToQADateTime
-	        ,TT.TrainingTypeId                                as TrainingTypeId
-	        ,TT.FullName                                      as TrainingTypeDesc
+	        ,CASE WHEN V.ApprenticeshipFrameworkId is not null 
+                  then 1 
+                  WHEN V.StandardId is not null then 2 
+                  ELSE 0
+              END                                             as TrainingTypeId
+	        ,CASE WHEN V.ApprenticeshipFrameworkId is not null 
+                  then 'Frameworks' 
+                  WHEN V.StandardId is not null then 'Standards'
+                  ELSE 'Unknown' 
+              END                                             as TrainingTypeDesc
 	        ,v.VacancyTypeId
             ,CASE WHEN v.[VacancyTypeId]=1 THEN 'Apprenticeship'
 	              WHEN V.VacancyTypeId=2 THEN 'Traineeship'
@@ -204,9 +212,6 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
         join ASData_PL.Va_Provider p 
 		  on ps.ProviderID = p.SourceProviderID_v1
 		 and p.SourceDb='RAAv1'
-        left
-        join Stg.Avms_TrainingType TT 
-		  on TT.TrainingTypeId=V.TrainingTypeId
         LEFT 
 		JOIN (SELECT AST.*,EL.EducationLevelFullName
         	    FROM ASData_PL.Va_ApprenticeshipStandard AST
@@ -297,7 +302,7 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
            --,[SmallEmployerWageIncentive_v1]
            --,[SubmissionCount_v1]
            --,[StartedToQADateTime_v1]
-           --,[TrainingTypeId_v1]
+           ,[TrainingTypeId]
            ,[TrainingTypeFullName]
            ,[VacancyTypeId]
            ,[VacancyTypeDesc]
@@ -358,7 +363,11 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
          --  ,[InterviewsFromDate]
           ,dbo.Fn_ConvertTimeStampToDateTime(v.StartDateTimeStamp) as ExpectedStartDate
           ,v.WageDuration                                          as ExpectedDuration
-	      ,AP.ApprenticeshipType                                   as TrainingTypeFullName
+		  ,CASE WHEN AP.ApprenticeshipType='Frameworks' THEN 1
+                WHEN AP.ApprenticeshipType='Standards' THEN 2
+                ELSE 0
+              END                                                  as TrainingTypeId
+	      ,ISNULL(AP.ApprenticeshipType,'Unknown')                 as TrainingTypeFullName
 	      ,CASE WHEN AP.EducationLevelNumber=8 THEN 2
 	            WHEN AP.EducationLevelNumber IN (2,3,4,6) THEN 1
 			    ELSE 0

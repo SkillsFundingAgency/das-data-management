@@ -203,5 +203,16 @@
     <Build Include="StoredProcedure\ImportVacanciesApplication.sql" />
     <Build Include="Tables\AsDataPL_Va_EducationLevel.sql" />
     <Build Include="StoredProcedure\ImportVacanciesApprenticeshipFrameworkStandardEL.sql" />
+    <Build Include="Tables\CandidateEthLookUp.sql" />
+    <Build Include="Tables\Stg_Avms_CandidateDetails.sql" />
+    <Build Include="Tables\Stg_CandidateConfig.sql" />
+    <Build Include="Tables\Stg_CopyActivity.sql" />
+    <Build Include="Tables\Stg_FAA_CandidateDetails.sql" />
+    <Build Include="StoredProcedure\GenerateConfig.sql" />
+    <Build Include="StoredProcedure\LoadCandidateConfig.sql" />
+    <Build Include="StoredProcedure\LoadCandidateEthLookup.sql" />
+    <Build Include="StoredProcedure\GenerateCopyActivityId.sql" />
+    <Build Include="Tables\AsDataPL_Va_CandidateDetails.sql" />
+    <Build Include="StoredProcedure\ImportVacanciesCandidateDetails.sql" />
   </ItemGroup>
 </Project>

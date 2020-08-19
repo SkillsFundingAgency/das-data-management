@@ -214,5 +214,14 @@
     <Build Include="StoredProcedure\GenerateCopyActivityId.sql" />
     <Build Include="Tables\AsDataPL_Va_CandidateDetails.sql" />
     <Build Include="StoredProcedure\ImportVacanciesCandidateDetails.sql" />
+    <Build Include="StoredProcedure\CreateDashboardRegistrationView.sql" />
+    <Build Include="StoredProcedure\CreateDashboardReservationAndCommitmentView.sql" />
+    <Build Include="StoredProcedure\CreateDashboardReservationAndTrainingView.sql" />
+    <Build Include="StoredProcedure\CreateDashboardReservationView.sql" />
+    <Build Include="StoredProcedure\CreateStdsAndFrameworksView.sql" />
+    <Build Include="StoredProcedure\SaltKeyLogging.sql" />
+    <Build Include="StoredProcedure\UpdateApprenticeshipStdRoute.sql" />
+    <Build Include="Tables\SaltKeyLog.sql" />
+    <Build Include="Tables\ApprenticeshipStdRoute.sql" />
   </ItemGroup>
 </Project>

@@ -79,7 +79,7 @@ VALUES
 ,('AvmsPlus','VacancyLocationType','dbo','[VacancyLocationTypeId],[CodeName],[ShortName],[FullName]','')
 ,('AvmsPlus','WageUnit','dbo','[WageUnitId],[CodeName],[ShortName],[FullName]','')
 ,('AvmsPlus','ApplicationHistory','dbo','[ApplicationHistoryId],[ApplicationId],[ApplicationHistoryEventDate],[ApplicationHistoryEventTypeId],[ApplicationHistoryEventSubTypeId]','[UserName],[Comment]')
-,('EmpInc','Accounts','dbo','Id,AccountLegalEntityId,LegalEntityId,HasSignedIncentivesTerms','LegalEntityName')
+,('EmpInc','Accounts','dbo','[Id],[AccountLegalEntityId],[LegalEntityId],[HasSignedIncentivesTerms]','[LegalEntityName]')
 
 
 

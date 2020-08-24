@@ -215,5 +215,6 @@
     <Build Include="Tables\AsDataPL_Va_CandidateDetails.sql" />
     <Build Include="StoredProcedure\ImportVacanciesCandidateDetails.sql" />
     <Build Include="Tables\AsDataPL_EI_Accounts.sql" />
+    <Build Include="StoredProcedure\PresentationLayerFullRefresh.sql" />
   </ItemGroup>
 </Project>

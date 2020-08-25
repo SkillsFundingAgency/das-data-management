@@ -3,7 +3,6 @@
 	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
 	[IncentiveApplicationId] UNIQUEIDENTIFIER NOT NULL,
 	[ApprenticeshipId] BIGINT NOT NULL,
-	[ULN] BIGINT NOT NULL,
 	[PlannedStartDate] DATETIME2 NOT NULL,
 	[ApprenticeshipEmployerTypeOnApproval] INT NOT NULL,
 	[TotalIncentiveAmount] MONEY NOT NULL,

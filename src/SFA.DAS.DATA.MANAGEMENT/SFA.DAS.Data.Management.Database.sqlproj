@@ -216,5 +216,7 @@
     <Build Include="StoredProcedure\ImportVacanciesCandidateDetails.sql" />
     <Build Include="Tables\AsDataPL_EI_Accounts.sql" />
     <Build Include="StoredProcedure\PresentationLayerFullRefresh.sql" />
+    <Build Include="Tables\AsDataPL_EI_IncentiveApplication.sql" />
+    <Build Include="Tables\AsDataPL_EI_IncentiveApplicationApprenticeship.sql" />
   </ItemGroup>
 </Project>

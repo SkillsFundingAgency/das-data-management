@@ -277,3 +277,26 @@ IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='RAA_Applicat
 BEGIN
      GRANT SELECT ON Stg.RAA_ApplicationReviews TO ServiceOps
 END
+
+/* Service Ops Access */
+
+IF DATABASE_PRINCIPAL_ID('BetaUser') IS NULL
+BEGIN
+	CREATE ROLE [BetaUser]
+END
+
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='EI_Accounts' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN
+     GRANT SELECT ON AsData_PL.EI_Accounts TO BetaUser
+END
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='EI_IncentiveApplication' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN
+     GRANT SELECT ON AsData_PL.EI_IncentiveApplication TO BetaUser
+END
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='EI_IncentiveApplicationApprenticeship' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN
+     GRANT SELECT ON AsData_PL.EI_IncentiveApplicationApprenticeship TO BetaUser
+END

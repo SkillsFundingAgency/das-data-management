@@ -18,6 +18,9 @@ BEGIN TRY
 
 
 DECLARE @LogID int
+DECLARE @SPName Varchar(255)
+
+select @SPName = 'PresentationLayerFullRefresh'+SUBSTRING(@PLTableName,CHARINDEX('.',@PLTableName)+1,LEN(@PLTableName))
 
 /* Start Logging Execution */
 
@@ -32,12 +35,12 @@ DECLARE @LogID int
   SELECT 
         @RunId
 	   ,'Step-4'
-	   ,'PresentationLayerFullRefresh'
+	   ,@SPName
 	   ,getdate()
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
-   WHERE StoredProcedureName='PresentationLayerFullRefresh'
+   WHERE StoredProcedureName=@SPName
      AND RunId=@RunID
 
 BEGIN TRANSACTION
@@ -105,7 +108,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'PresentationLayerFullRefresh',
+	    @SPName,
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 

@@ -20,7 +20,7 @@ BEGIN TRY
 DECLARE @LogID int
 DECLARE @SPName Varchar(255)
 
-select @SPName = 'PresentationLayerFullRefresh'+SUBSTRING(@PLTableName,CHARINDEX('.',@PLTableName)+1,LEN(@PLTableName))
+select @SPName = 'PresentationLayerFullRefresh-'+SUBSTRING(@PLTableName,CHARINDEX('.',@PLTableName)+1,LEN(@PLTableName))
 
 /* Start Logging Execution */
 
@@ -34,7 +34,7 @@ select @SPName = 'PresentationLayerFullRefresh'+SUBSTRING(@PLTableName,CHARINDEX
 	  )
   SELECT 
         @RunId
-	   ,'Step-4'
+	   ,'Step-6'
 	   ,@SPName
 	   ,getdate()
 	   ,0

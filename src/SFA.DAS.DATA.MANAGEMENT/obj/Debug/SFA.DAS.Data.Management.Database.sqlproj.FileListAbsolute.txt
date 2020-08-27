@@ -1,0 +1,10 @@
+C:\Gitrepo2\das-data-management\src\SFA.DAS.DATA.MANAGEMENT\bin\Debug\SFA.DAS.Data.Management.Database.dacpac
+C:\Gitrepo2\das-data-management\src\SFA.DAS.DATA.MANAGEMENT\bin\Debug\SFA.DAS.Data.Management.Database.dll
+C:\Gitrepo2\das-data-management\src\SFA.DAS.DATA.MANAGEMENT\bin\Debug\SFA.DAS.Data.Management.Database.pdb
+C:\Gitrepo2\das-data-management\src\SFA.DAS.DATA.MANAGEMENT\obj\Debug\SFA.DAS.Data.Management.Database.sqlprojAssemblyReference.cache
+C:\Gitrepo2\das-data-management\src\SFA.DAS.DATA.MANAGEMENT\obj\Debug\Model.xml
+C:\Gitrepo2\das-data-management\src\SFA.DAS.DATA.MANAGEMENT\obj\Debug\refactor.xml
+C:\Gitrepo2\das-data-management\src\SFA.DAS.DATA.MANAGEMENT\obj\Debug\postdeploy.sql
+C:\Gitrepo2\das-data-management\src\SFA.DAS.DATA.MANAGEMENT\obj\Debug\predeploy.sql
+C:\Gitrepo2\das-data-management\src\SFA.DAS.DATA.MANAGEMENT\obj\Debug\SFA.DAS.Data.Management.Database.dll
+C:\Gitrepo2\das-data-management\src\SFA.DAS.DATA.MANAGEMENT\obj\Debug\SFA.DAS.Data.Management.Database.pdb

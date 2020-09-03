@@ -35,6 +35,7 @@ BEGIN TRY
 		
 		Declare @SaltKeyID BigInt = replace(replace(replace(replace(convert(Nvarchar(25), current_timestamp, 121),'-',''),':',''),'.',''),' ','')				
 		insert into AsData_PL.SaltKeyLog(SaltKeyID,SourceType) Values (@SaltKeyID,@SourceType)
+		delete from AsData_PL.SaltKeyLog Where SaltKeyID != @SaltKeyID
 
 		 UPDATE Mgmt.Log_Execution_Results
 		   SET Execution_Status=1

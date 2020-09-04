@@ -16,7 +16,7 @@
         },
         "sharedManagementResourceGroup": {
             "type": "string"
-        },        
+        },
         "logAnalyticsSubscriptionId": {
             "type": "string",
             "defaultValue": "[subscription().subscriptionId]"
@@ -147,7 +147,7 @@
                         "value": "[parameters('databaseSkuName')]"
                     },
                     "databaseTier": {
-                        "value" : "[parameters('databaseTier')]"
+                        "value": "[parameters('databaseTier')]"
                     }
                 }
             }

@@ -227,5 +227,6 @@
     <Build Include="StoredProcedure\CreateDashboardReservationAndCommitmentView.sql" />
     <Build Include="Tables\ApprenticeshipStdRoute.sql" />
     <Build Include="Tables\SaltKeyLog.sql" />
+    <Build Include="Tables\Stg_SQLCodeForDynamicBuild.sql" />
   </ItemGroup>
 </Project>

@@ -218,5 +218,14 @@
     <Build Include="StoredProcedure\PresentationLayerFullRefresh.sql" />
     <Build Include="Tables\AsDataPL_EI_IncentiveApplication.sql" />
     <Build Include="Tables\AsDataPL_EI_IncentiveApplicationApprenticeship.sql" />
+    <Build Include="StoredProcedure\CreateDashboardRegistrationView.sql" />
+    <Build Include="StoredProcedure\CreateDashboardReservationView.sql" />
+    <Build Include="StoredProcedure\CreateStdsAndFrameworksView.sql" />
+    <Build Include="StoredProcedure\UpdateApprenticeshipStdRoute.sql" />
+    <Build Include="StoredProcedure\SaltKeyLogging.sql" />
+    <Build Include="StoredProcedure\CreateDashboardReservationAndTrainingView.sql" />
+    <Build Include="StoredProcedure\CreateDashboardReservationAndCommitmentView.sql" />
+    <Build Include="Tables\ApprenticeshipStdRoute.sql" />
+    <Build Include="Tables\SaltKeyLog.sql" />
   </ItemGroup>
 </Project>

@@ -218,5 +218,6 @@
     <Build Include="StoredProcedure\PresentationLayerFullRefresh.sql" />
     <Build Include="Tables\AsDataPL_EI_IncentiveApplication.sql" />
     <Build Include="Tables\AsDataPL_EI_IncentiveApplicationApprenticeship.sql" />
+    <Build Include="Tables\Stg_SQLCodeForDynamicBuild.sql" />
   </ItemGroup>
 </Project>

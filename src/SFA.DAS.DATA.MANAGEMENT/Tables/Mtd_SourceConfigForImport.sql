@@ -6,6 +6,7 @@
    ,SourceSchemaName Varchar(256)
    ,ColumnNamesToInclude Varchar(MAX)
    ,ColumnNamesToExclude Varchar(MAX)
+   ,ColumnNamesToMask varchar(max)
    ,IsEnabled bit default(1)
    ,AddedDate DateTime2 default(getdate())
    ,UpdatedDate DateTime2

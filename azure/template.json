@@ -16,7 +16,7 @@
         },
         "sharedManagementResourceGroup": {
             "type": "string"
-        },        
+        },
         "logAnalyticsSubscriptionId": {
             "type": "string",
             "defaultValue": "[subscription().subscriptionId]"
@@ -46,6 +46,10 @@
         },
         "configurationStorageConnectionString": {
             "type": "securestring"
+        },
+        "functionsExtensionVersion": {
+            "type": "string",
+            "defaultValue": "~2.0"
         }
     },
     "variables": {
@@ -143,7 +147,7 @@
                         "value": "[parameters('databaseSkuName')]"
                     },
                     "databaseTier": {
-                        "value" : "[parameters('databaseTier')]"
+                        "value": "[parameters('databaseTier')]"
                     }
                 }
             }
@@ -243,7 +247,7 @@
                             },
                             {
                                 "name": "FUNCTIONS_EXTENSION_VERSION",
-                                "value": "~2"
+                                "value": "[parameters('functionsExtensionVersion')]"
                             },
                             {
                                 "name": "EnvironmentName",
@@ -298,7 +302,7 @@
                             },
                             {
                                 "name": "FUNCTIONS_EXTENSION_VERSION",
-                                "value": "~2"
+                                "value": "[parameters('functionsExtensionVersion')]"
                             },
                             {
                                 "name": "EnvironmentName",

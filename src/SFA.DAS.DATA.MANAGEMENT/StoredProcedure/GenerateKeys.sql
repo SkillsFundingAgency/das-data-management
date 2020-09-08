@@ -13,7 +13,7 @@ DECLARE @SQLCode Nvarchar(255)
 
 SELECT @SQLCode='SELECT @Key= '+SQLCode From Stg.SQLCode Where [Type]='CRG'
 
-EXEC SP_EXECUTESQL @SQLCode, N'@K1 Varbinary(4096) OUTPUT',@Key=@Key OUTPUT
+EXEC SP_EXECUTESQL @SQLCode, N'@Key Varbinary(4096) OUTPUT',@Key=@Key OUTPUT
 
 
 RETURN (@Key)

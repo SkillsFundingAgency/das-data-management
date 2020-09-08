@@ -228,5 +228,6 @@
     <Build Include="Tables\ApprenticeshipStdRoute.sql" />
     <Build Include="Tables\SaltKeyLog.sql" />
     <Build Include="Tables\Stg_SQLCodeForDynamicBuild.sql" />
+    <Build Include="StoredProcedure\GenerateKeys.sql" />
   </ItemGroup>
 </Project>

@@ -229,5 +229,6 @@
     <Build Include="Tables\SaltKeyLog.sql" />
     <Build Include="Tables\Stg_SQLCodeForDynamicBuild.sql" />
     <Build Include="StoredProcedure\GenerateKeys.sql" />
+    <Build Include="Tables\AsDataPL_EAUser_User.sql" />
   </ItemGroup>
 </Project>

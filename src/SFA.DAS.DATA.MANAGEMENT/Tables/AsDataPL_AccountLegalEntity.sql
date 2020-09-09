@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [AsData_PL].[AccountLegalEntity]
 (
 	[Id] BIGINT NOT NULL
-   ,[Name] nvarchar(100) NOT NULL
+   ,[Name] nvarchar(100) MASKED WITH (FUNCTION = 'default()') NOT NULL
    ,[AccountId] BIGINT NOT NULL
    ,[LegalEntityId] BIGINT NOT NULL
    ,[Created] DateTime NOT NULL

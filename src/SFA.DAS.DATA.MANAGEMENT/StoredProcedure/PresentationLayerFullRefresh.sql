@@ -77,11 +77,11 @@ IF OBJECT_ID('tempdb..#TColList') IS NOT NULL DROP TABLE #TColList
 CREATE TABLE #TColList
 (OrigList varchar(255),TransformList nvarchar(max))
 
-IF ((SELECT Value FROM Mtd.SourceConfigForImport SCFI
-  CROSS APPLY string_split(ColumnNamesToMask,',')
-  WHERE SourceDatabaseName=@SourceDatabaseName
+IF ((SELECT SCFI_Id FROM Mtd.SourceConfigForImport SCFI
+     WHERE SourceDatabaseName=@SourceDatabaseName
     AND SourceTableName=@ConfigTable
-    AND SourceSchemaName=@ConfigSchema) IS NOT NULL)
+    AND SourceSchemaName=@ConfigSchema
+	AND ColumnNamesToMask<>'') IS NOT NULL)
 
 
 

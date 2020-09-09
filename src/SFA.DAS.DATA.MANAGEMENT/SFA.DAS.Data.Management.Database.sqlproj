@@ -235,5 +235,6 @@
     <Build Include="Tables\AsDataPL_EmployerAgreement.sql" />
     <Build Include="Tables\AsDataPL_EmployerAgreementStatus.sql" />
     <Build Include="Tables\AsDataPL_AccountUserRole.sql" />
+    <Build Include="Tables\AsDataPL_EAU_UserAccountSettings.sql" />
   </ItemGroup>
 </Project>

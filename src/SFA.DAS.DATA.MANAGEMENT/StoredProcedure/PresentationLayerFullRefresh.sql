@@ -72,6 +72,7 @@ SELECT @SQLCode=SQLCode FROM Stg.SQLCode WHERE Type='DBPP'
 
 
 /* Check If ColumnNameToMask exists And Navigate to the Logic*/
+IF OBJECT_ID('tempdb..#TColList') IS NOT NULL DROP TABLE #TColList
 
 IF ((SELECT Value FROM Mtd.SourceConfigForImport SCFI
   CROSS APPLY string_split(ColumnNamesToMask,',')
@@ -79,9 +80,11 @@ IF ((SELECT Value FROM Mtd.SourceConfigForImport SCFI
     AND SourceTableName=@ConfigTable
     AND SourceSchemaName=@ConfigSchema) IS NOT NULL)
 
+
+
 BEGIN
 
-IF OBJECT_ID('tempdb..#TColList') IS NOT NULL DROP TABLE #TColList
+
 
 SELECT value as OrigList
        ,'convert(nvarchar(512),'+replace(replace(replace(@SQLCode,'T1','['+SUBSTRING(REPLACE(Value,'[',''),1,2)+SUBSTRING(REVERSE(REPLACE(Value,']','')),1,2)+']'),'K1','0x'+@K1),'K2','0x'+@k2)+')' as TransformList
@@ -103,8 +106,6 @@ END
 
 ELSE 
 BEGIN
-
-IF OBJECT_ID('tempdb..#TColList') IS NOT NULL DROP TABLE #TColList
 
 SELECT value as OrigList
        ,'convert(nvarchar(512),'+replace(replace(replace(@SQLCode,'T1','['+SUBSTRING(REPLACE(Value,'[',''),1,2)+SUBSTRING(REVERSE(REPLACE(Value,']','')),1,2)+']'),'K1','0x'+@K1),'K2','0x'+@k2)+')' as TransformList

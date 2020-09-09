@@ -1,4 +1,4 @@
-﻿CREATE TABLE [AsData_PL].[EAUser_User]
+﻿CREATE TABLE [AsData_PL].[EAU_User]
 (    
        Id nvarchar(max)
       ,IsActive bit
@@ -7,5 +7,5 @@
       ,FirstName varchar(255)
       ,LastName varchar(255)
       ,FailedLoginAttempts int 
-	  ,UpdatedDate datetime2 default getdate()
+	  ,[Asdm_UpdatedDateTime] datetime2 default getdate()
  )

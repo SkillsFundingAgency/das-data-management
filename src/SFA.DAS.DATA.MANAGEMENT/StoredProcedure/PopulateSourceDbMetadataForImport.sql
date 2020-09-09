@@ -79,10 +79,24 @@ VALUES
 ,('AvmsPlus','VacancyLocationType','dbo','[VacancyLocationTypeId],[CodeName],[ShortName],[FullName]','','')
 ,('AvmsPlus','WageUnit','dbo','[WageUnitId],[CodeName],[ShortName],[FullName]','','')
 ,('AvmsPlus','ApplicationHistory','dbo','[ApplicationHistoryId],[ApplicationId],[ApplicationHistoryEventDate],[ApplicationHistoryEventTypeId],[ApplicationHistoryEventSubTypeId]','[UserName],[Comment]','')
+/* Employer Incentives */
 ,('EmpInc','Accounts','dbo','[Id],[AccountLegalEntityId],[LegalEntityId],[HasSignedIncentivesTerms]','[LegalEntityName]','')
 ,('EmpInc','IncentiveApplication','dbo','[Id],[AccountId],[AccountLegalEntityId],[DateCreated],[Status],[DateSubmitted]','[SubmittedByEmail],[SubmittedByName]','')
 ,('EmpInc','IncentiveApplicationApprenticeship','dbo','[Id],[IncentiveApplicationId],[ApprenticeshipId],[PlannedStartDate],[ApprenticeshipEmployerTypeOnApproval],[TotalIncentiveAmount]','[FirstName],[LastName],[DateOfBirth],[ULN]','')
-,('Users','User','dbo','[Id],[IsActive],[FailedLoginAttempts],[IsLocked]','[Salt],[PasswordProfileId]','[FirstName],[LastName],[Email]')
+
+
+INSERT INTO Mtd.SourceConfigForImport
+(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName)
+/* Accounts and Users */
+VALUES
+ ('Users','User','dbo','[Id],[IsActive],[FailedLoginAttempts],[IsLocked]','[Salt],[PasswordProfileId]','[FirstName],[LastName],[Email]','EAU_User')
+,('Accounts','Account','Employer_Account','[Id],[HashedId],[CreatedDate],[ModifiedDate],[ApprenticeshipEmployerType]','[PublicHashedId]','[Name]','Accounts')
+,('Accounts','EmployerAgreement','Employer_Account','[Id],[TemplateId],[StatusId],[SignedDate],[AccountLegalEntityId],[ExpiredDate],[SignedById]','[SignedByName]','','EmployerAgreement')
+,('Accounts','EmployerAgreementStatus','Employer_Account','[Id],[name]','','','EmployerAgreementStatus')
+,('Accounts','AccountLegalEntity','Employer_Account','[Id],[AccountId],[LegalEntityId],[Created],[Modified],[SignedAgreementVersion],[SignedAgreementId],[PendingAgreementVersion],[PendingAgreementId],[Deleted]','[Address],[PublicHashedId]','[Name]','AccountLegalEntity')
+,('Accounts','LegalEntity','Employer_Account','[Id],[Code],[DateOfIncorporation],[Status],[Source],[PublicSectorDataSource],[Sector]','','','LegalEntity')
+,('Accounts','Membership','Employer_Account','[AccountId],[UserId],[Role],[CreatedDate],[ShowWizard]','','','AccountUserRole')
+
 
 
 

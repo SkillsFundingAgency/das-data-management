@@ -228,6 +228,12 @@
     <Build Include="Tables\ApprenticeshipStdRoute.sql" />
     <Build Include="Tables\SaltKeyLog.sql" />
     <Build Include="Tables\Stg_SQLCodeForDynamicBuild.sql" />
-    <Build Include="Tables\AsDataPL_EAUser_User.sql" />
+    <Build Include="Tables\AsDataPL_EAU_User.sql" />
+    <Build Include="Tables\AsDataPL_Accounts.sql" />
+    <Build Include="Tables\AsDataPL_AccountLegalEntity.sql" />
+    <Build Include="Tables\AsDataPL_LegalEntity.sql" />
+    <Build Include="Tables\AsDataPL_EmployerAgreement.sql" />
+    <Build Include="Tables\AsDataPL_EmployerAgreementStatus.sql" />
+    <Build Include="Tables\AsDataPL_AccountUserRole.sql" />
   </ItemGroup>
 </Project>

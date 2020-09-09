@@ -111,14 +111,6 @@ BEGIN
 
 INSERT INTO #TColList
 (OrigList,TransformList)
-SELECT value as OrigList
-       ,'convert(nvarchar(512),'+replace(replace(replace(@SQLCode,'T1','['+SUBSTRING(REPLACE(Value,'[',''),1,2)+SUBSTRING(REVERSE(REPLACE(Value,']','')),1,2)+']'),'K1','0x'+@K1),'K2','0x'+@k2)+')' as TransformList
-   FROM Mtd.SourceConfigForImport SCFI
-  CROSS APPLY string_split(ColumnNamesToMask,',')
-  WHERE SourceDatabaseName=@SourceDatabaseName
-    AND SourceTableName=@ConfigTable
-    AND SourceSchemaName=@ConfigSchema
-  UNION
  SELECT value as ConfigList,  value as TransformList
    FROM Mtd.SourceConfigForImport SCFI
   CROSS APPLY string_split(ColumnNamesToInclude,',')

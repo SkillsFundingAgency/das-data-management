@@ -90,7 +90,7 @@ INSERT INTO Mtd.SourceConfigForImport
 /* Accounts and Users */
 VALUES
  ('Users','User','dbo','[Id],[IsActive],[FailedLoginAttempts],[IsLocked]','[Salt],[PasswordProfileId]','[FirstName],[LastName],[Email]','EAU_User')
-,('Accounts','Account','Employer_Account','[Id],[HashedId],[CreatedDate],[ModifiedDate],[ApprenticeshipEmployerType]','[PublicHashedId]','[Name]','Accounts')
+,('Accounts','Account','Employer_Account','[Id],[HashedId],[CreatedDate],[ModifiedDate],[ApprenticeshipEmployerType]','[PublicHashedId]','[Name]','Account')
 ,('Accounts','EmployerAgreement','Employer_Account','[Id],[TemplateId],[StatusId],[SignedDate],[AccountLegalEntityId],[ExpiredDate],[SignedById]','[SignedByName]','','EmployerAgreement')
 ,('Accounts','EmployerAgreementStatus','Employer_Account','[Id],[name]','','','EmployerAgreementStatus')
 ,('Accounts','AccountLegalEntity','Employer_Account','[Id],[AccountId],[LegalEntityId],[Created],[Modified],[SignedAgreementVersion],[SignedAgreementId],[PendingAgreementVersion],[PendingAgreementId],[Deleted]','[Address],[PublicHashedId]','[Name]','AccountLegalEntity')

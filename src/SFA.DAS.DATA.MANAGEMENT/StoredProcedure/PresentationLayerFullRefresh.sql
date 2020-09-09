@@ -74,6 +74,9 @@ SELECT @SQLCode=SQLCode FROM Stg.SQLCode WHERE Type='DBPP'
 /* Check If ColumnNameToMask exists And Navigate to the Logic*/
 IF OBJECT_ID('tempdb..#TColList') IS NOT NULL DROP TABLE #TColList
 
+CREATE TABLE #TColList
+(OrigList varchar(255),TransformList nvarchar(max))
+
 IF ((SELECT Value FROM Mtd.SourceConfigForImport SCFI
   CROSS APPLY string_split(ColumnNamesToMask,',')
   WHERE SourceDatabaseName=@SourceDatabaseName
@@ -84,11 +87,10 @@ IF ((SELECT Value FROM Mtd.SourceConfigForImport SCFI
 
 BEGIN
 
-
-
+INSERT INTO #TColList
+(OrigList,TransformList)
 SELECT value as OrigList
        ,'convert(nvarchar(512),'+replace(replace(replace(@SQLCode,'T1','['+SUBSTRING(REPLACE(Value,'[',''),1,2)+SUBSTRING(REVERSE(REPLACE(Value,']','')),1,2)+']'),'K1','0x'+@K1),'K2','0x'+@k2)+')' as TransformList
-   INTO #TColList
    FROM Mtd.SourceConfigForImport SCFI
   CROSS APPLY string_split(ColumnNamesToMask,',')
   WHERE SourceDatabaseName=@SourceDatabaseName
@@ -107,9 +109,10 @@ END
 ELSE 
 BEGIN
 
+INSERT INTO #TColList
+(OrigList,TransformList)
 SELECT value as OrigList
        ,'convert(nvarchar(512),'+replace(replace(replace(@SQLCode,'T1','['+SUBSTRING(REPLACE(Value,'[',''),1,2)+SUBSTRING(REVERSE(REPLACE(Value,']','')),1,2)+']'),'K1','0x'+@K1),'K2','0x'+@k2)+')' as TransformList
-   INTO #TColList
    FROM Mtd.SourceConfigForImport SCFI
   CROSS APPLY string_split(ColumnNamesToMask,',')
   WHERE SourceDatabaseName=@SourceDatabaseName

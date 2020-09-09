@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[AsDataPL_AccountUserRole]
+﻿CREATE TABLE [AsData_PL].[AccountUserRole]
 (
 	[AccountId] BIGINT NOT NULL
    ,[UserId] BIGINT NOT NULL

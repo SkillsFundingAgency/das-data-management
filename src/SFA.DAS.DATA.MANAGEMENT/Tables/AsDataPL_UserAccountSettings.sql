@@ -1,4 +1,4 @@
-﻿CREATE TABLE [AsData_PL].[EAU_UserAccountSettings]
+﻿CREATE TABLE [AsData_PL].[UserAccountSettings]
 (    
          ID BIGINT NOT NULL
         ,UserId BIGINT NOT NULL

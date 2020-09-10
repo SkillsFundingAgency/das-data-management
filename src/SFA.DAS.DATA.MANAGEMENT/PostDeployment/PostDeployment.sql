@@ -350,4 +350,7 @@ END
 IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Va_Vacancy' AND TABLE_SCHEMA = 'AsData_PL')
 BEGIN     
 	 GRANT SELECT ON ASData_PL.Va_Vacancy To BetaUser
-END
+END;
+
+/* Grant UNMASK to BetaUser */
+GRANT UNMASK TO [BetaUser]

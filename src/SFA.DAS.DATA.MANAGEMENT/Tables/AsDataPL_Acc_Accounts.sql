@@ -1,4 +1,4 @@
-﻿CREATE TABLE AsData_Pl.Account
+﻿CREATE TABLE AsData_Pl.Acc_Account
 (
     [Id] BIGINT NOT NULL,
 	[HashedId] nvarchar(100)   NULL,

@@ -1,4 +1,4 @@
-﻿CREATE TABLE [AsData_PL].[AccountLegalEntity]
+﻿CREATE TABLE [AsData_PL].[Acc_AccountLegalEntity]
 (
 	[Id] BIGINT NOT NULL
    ,[Name] nvarchar(100) MASKED WITH (FUNCTION = 'default()') NOT NULL

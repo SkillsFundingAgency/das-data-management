@@ -1,4 +1,4 @@
-﻿CREATE TABLE [AsData_PL].[EmployerAgreement]
+﻿CREATE TABLE [AsData_PL].[Acc_EmployerAgreement]
 (
 	[ID] BIGINT NOT NULL
    ,[TemplateId] Int NOT NULL

@@ -312,3 +312,81 @@ if exists(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Transacti
 Drop View Data_Pub.DAS_TransactionLine
 
 
+/* Clean AT */
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'EAU_UserAccountSettings'
+		      AND TABLE_SCHEMA=N'AsData_PL'
+	      )
+DROP TABLE [ASData_PL].EAU_UserAccountSettings
+
+
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'EAUser_User'
+		      AND TABLE_SCHEMA=N'AsData_PL'
+	      )
+DROP TABLE ASData_PL.EAUser_User
+
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'Account'
+		      AND TABLE_SCHEMA=N'AsData_PL'
+	      )
+DROP TABLE ASData_PL.Account
+
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'AccountLegalEntity'
+		      AND TABLE_SCHEMA=N'AsData_PL'
+	      )
+DROP TABLE ASData_PL.AccountLegalEntity
+
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'AccountUserRole'
+		      AND TABLE_SCHEMA=N'AsData_PL'
+	      )
+DROP TABLE ASData_PL.AccountUserRole
+
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'EmployerAgreement'
+		      AND TABLE_SCHEMA=N'AsData_PL'
+	      )
+DROP TABLE ASData_PL.EmployerAgreement
+
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'LegalEntity'
+		      AND TABLE_SCHEMA=N'AsData_PL'
+	      )
+DROP TABLE ASData_PL.LegalEntity
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'UserAccountSettings'
+		      AND TABLE_SCHEMA=N'AsData_PL'
+	      )
+DROP TABLE ASData_PL.UserAccountSettings
+
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'AsDataPL_AccountUserRole'
+		      AND TABLE_SCHEMA=N'dbo'
+	      )
+DROP TABLE dbo.AsDataPL_AccountUserRole
+
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'AsDataPL_EmployerAgreementStatus'
+		      AND TABLE_SCHEMA=N'dbo'
+	      )
+DROP TABLE dbo.AsDataPL_EmployerAgreementStatus
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'AsDataPL_Va_LegalEntity'
+		      AND TABLE_SCHEMA=N'dbo'
+	      )
+DROP TABLE dbo.AsDataPL_Va_LegalEntity
+
+
+

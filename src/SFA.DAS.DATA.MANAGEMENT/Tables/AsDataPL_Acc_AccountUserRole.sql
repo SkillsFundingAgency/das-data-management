@@ -1,4 +1,4 @@
-﻿CREATE TABLE [AsData_PL].[AccountUserRole]
+﻿CREATE TABLE [AsData_PL].[Acc_AccountUserRole]
 (
 	[AccountId] BIGINT NOT NULL
    ,[UserId] BIGINT NOT NULL

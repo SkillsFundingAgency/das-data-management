@@ -1,4 +1,4 @@
-﻿CREATE TABLE [AsData_PL].[LegalEntity]
+﻿CREATE TABLE [AsData_PL].[Acc_LegalEntity]
 (
 	[Id] BIGINT
    ,[Code] nvarchar(50)

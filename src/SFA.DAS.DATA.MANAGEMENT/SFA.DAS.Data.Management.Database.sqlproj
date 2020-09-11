@@ -227,5 +227,15 @@
     <Build Include="StoredProcedure\CreateDashboardReservationAndCommitmentView.sql" />
     <Build Include="Tables\ApprenticeshipStdRoute.sql" />
     <Build Include="Tables\SaltKeyLog.sql" />
+    <Build Include="Tables\ASData_PL_Acct_AccountHistory.sql" />
+    <Build Include="Tables\ASData_PL_Acct_Paye.sql" />
+    <Build Include="Tables\ASData_PL_Acct_TransferConnectionInvitation.sql" />
+    <Build Include="Tables\ASData_PL_Acct_TransferConnectionInvitationChange.sql" />
+    <Build Include="Tables\ASData_PL_Comt_Accounts.sql" />
+    <Build Include="Tables\ASData_PL_Comt_Commitment.sql" />
+    <Build Include="Tables\ASData_PL_Comt_Apprenticeship.sql" />
+    <Build Include="Tables\ASData_PL_Fin_AccountTransfers.sql" />
+    <Build Include="Tables\ASData_PL_Fin_GetLevyDeclarationAndTopUp.sql" />
+    <Build Include="Tables\ASData_PL_Fin_Payment.sql" />
   </ItemGroup>
 </Project>

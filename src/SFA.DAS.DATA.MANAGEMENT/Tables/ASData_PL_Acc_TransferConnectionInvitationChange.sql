@@ -9,5 +9,5 @@
 	[DeletedByReceiver] [bit] NULL,
 	[UserId] [bigint] NOT NULL,
 	[CreatedDate] [datetime] NOT NULL,
-	CONSTRAINT PK_Acct_TransferConnectionInvitationChange_Id PRIMARY KEY CLUSTERED (Id)
+	CONSTRAINT PK_Acc_TransferConnectionInvitationChange_Id PRIMARY KEY CLUSTERED (Id)
 ) ON [PRIMARY]

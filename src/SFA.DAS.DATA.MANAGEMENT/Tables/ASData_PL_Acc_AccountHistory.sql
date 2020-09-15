@@ -6,6 +6,6 @@
 	[PayeRef] [varchar](20) NOT NULL,
 	[AddedDate] [datetime] NOT NULL,
 	[RemovedDate] [datetime] NULL,
-	CONSTRAINT PK_Acct_AccountHistory_Id PRIMARY KEY CLUSTERED (Id)
+	CONSTRAINT PK_Acc_AccountHistory_Id PRIMARY KEY CLUSTERED (Id)
 )
 ON [PRIMARY]

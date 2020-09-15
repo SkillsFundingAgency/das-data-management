@@ -8,7 +8,12 @@ SELECT AA.HashedId                            as dasAccountId
 	  ,CASE WHEN AA.Name='My Account' THEN 0
 			ELSE 1
 	    END                                   as accountStatus
-	  ,AUR.Role                               as accountRole
+	  ,CASE WHEN AUR.Role=0 THEN 'Unknown'
+	        WHEN AUR.Role=1 THEN 'Owner'
+			WHEN AUR.Role=2 THEN 'Transactor'
+			WHEN AUR.Role=3 THEN 'Viewer'
+			ELSE 'Unknown'
+		END                                   as accountRole
 	  ,AA.CreatedDate                         as accountCreatedDate
 	  ,AA.ModifiedDate                        as accountModifiedDate
 	  ,AA.ApprenticeshipEmployerType          as levyPayingEmployer

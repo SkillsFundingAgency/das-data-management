@@ -4,6 +4,8 @@ SELECT EAUU.ID                   as UserId
       ,EAUU.FirstName            as firstName
       ,EAUU.LastName             as lastName
       ,EAUU.Email                as email
+	  ,1                         as isEmployer
+	  ,'DAS'                     as leadSource
    --   ,UAS.ReceiveNotifications  as ReceiveNotifications
 FROM ASData_PL.EAU_User EAUU
 LEFT

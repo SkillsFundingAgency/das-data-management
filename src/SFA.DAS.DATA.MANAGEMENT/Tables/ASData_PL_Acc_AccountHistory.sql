@@ -1,4 +1,5 @@
-﻿CREATE TABLE [ASData_PL].[Acct_AccountHistory]
+﻿CREATE TABLE [ASData_PL].[Acc_AccountHistory]
+
 (
 	[Id] [bigint] NOT NULL,
 	[AccountId] [bigint] NOT NULL,

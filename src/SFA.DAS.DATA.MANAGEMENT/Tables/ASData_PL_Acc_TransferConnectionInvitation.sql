@@ -1,4 +1,4 @@
-﻿CREATE TABLE [ASData_PL].[Acct_TransferConnectionInvitation]
+﻿CREATE TABLE [ASData_PL].[Acc_TransferConnectionInvitation]
 (
 	[Id] [int] NOT NULL,
 	[SenderAccountId] [bigint] NOT NULL,

@@ -1,8 +1,6 @@
 ﻿CREATE TABLE [ASData_PL].[Fin_Payment]
 (
 	[PaymentId] [uniqueidentifier] NOT NULL,
-	[Ukprn] [bigint] NOT NULL,
-	[Uln] [bigint] NOT NULL,
 	[AccountId] [bigint] NOT NULL,
 	[ApprenticeshipId] [bigint] NOT NULL,
 	[DeliveryPeriodMonth] [int] NOT NULL,

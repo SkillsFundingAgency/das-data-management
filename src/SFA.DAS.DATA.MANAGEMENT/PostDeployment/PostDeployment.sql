@@ -301,25 +301,56 @@ BEGIN
      GRANT SELECT ON AsData_PL.EI_IncentiveApplicationApprenticeship TO BetaUser
 END
 
-
-
-
-
-
-IF DATABASE_PRINCIPAL_ID('MarketoUser') IS NULL
-BEGIN
-	CREATE ROLE [MarketoUser]
+/* Assign select permissions on Vacanacy tables to BetaUser */
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Va_Application' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN     
+	 GRANT SELECT ON ASData_PL.Va_Application To BetaUser
 END
 
-
-IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Users' AND TABLE_SCHEMA = 'ASData_PL')
-BEGIN
-     GRANT SELECT ON ASData_PL.DAS_Users TO MarketoUser
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Va_ApprenticeshipFrameWorkAndOccupation' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN     
+	 GRANT SELECT ON ASData_PL.Va_ApprenticeshipFrameWorkAndOccupation To BetaUser
 END
 
-IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_UserAccountLegalEntity' AND TABLE_SCHEMA = 'ASData_PL')
-BEGIN
-     GRANT SELECT ON ASData_PL.DAS_UserAccountLegalEntity TO MarketoUser
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Va_ApprenticeshipStandard' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN     
+	 GRANT SELECT ON ASData_PL.Va_ApprenticeshipStandard To BetaUser
 END
 
-GRANT UNMASK TO MarketoUser
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Va_Candidate' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN     
+	 GRANT SELECT ON ASData_PL.Va_Candidate To BetaUser
+END
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Va_CandidateDetails' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN     
+	 GRANT SELECT ON ASData_PL.Va_CandidateDetails To BetaUser
+END
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Va_EducationLevel' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN     
+	 GRANT SELECT ON ASData_PL.Va_EducationLevel To BetaUser
+END
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Va_Employer' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN     
+	 GRANT SELECT ON ASData_PL.Va_Employer To BetaUser
+END
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Va_LegalEntity' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN     
+	 GRANT SELECT ON ASData_PL.Va_LegalEntity To BetaUser
+END
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Va_Provider' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN     
+	 GRANT SELECT ON ASData_PL.Va_Provider To BetaUser
+END
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Va_Vacancy' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN     
+	 GRANT SELECT ON ASData_PL.Va_Vacancy To BetaUser
+END;
+
+/* Grant UNMASK to BetaUser */
+GRANT UNMASK TO [BetaUser]

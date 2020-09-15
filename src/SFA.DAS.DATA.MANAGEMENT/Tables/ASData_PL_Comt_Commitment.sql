@@ -18,7 +18,7 @@
 	[AccountLegalEntityId] [bigint] NULL,
 	[IsDraft] [bit] NOT NULL,
 	[WithParty] [smallint] NOT NULL,
-	[RowVersion] [timestamp] NOT NULL,
+	[RowVersion] [timestamp] NULL,
 	[LastUpdatedOn] [datetime2](7) NOT NULL,
 	[Approvals] [smallint] NOT NULL,
 	[EmployerAndProviderApprovedOn] [datetime2](7) NULL,

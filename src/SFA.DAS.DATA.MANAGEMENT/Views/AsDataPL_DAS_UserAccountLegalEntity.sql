@@ -26,6 +26,7 @@ SELECT AA.HashedId                            as dasAccountId
 	  ,AALE.PendingAgreementVersion           as pendingAgreementVersion
 	  ,AALE.Created							  as legalEntityCreatedDate
 	  ,AALE.Modified                          as legalEntityModifiedDate
+	  ,getdate()                              as lastSync
   FROM ASData_PL.EAU_User EAUU
   LEFT
   JOIN ASData_PL.Acc_User AU

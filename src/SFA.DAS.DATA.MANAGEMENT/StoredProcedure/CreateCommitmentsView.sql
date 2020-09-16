@@ -205,7 +205,7 @@ SET @VSQL4=
 
 	 --   , CAST(C.LegalEntityAddress as nvarchar(256))                as LegalEntityRegisteredAddress
 	      , CAST(AcctLE.Address as nvarchar(256))                as LegalEntityRegisteredAddress
-		  , ISNULL(A.MadeRedundant,-1)                           as MadeRedundant
+		  , ISNULL(cast(A.MadeRedundant as int),-1)                           as MadeRedundant
 
 FROM [Comt].[Ext_Tbl_Commitment] C 
 LEFT JOIN [Comt].[Ext_Tbl_Apprenticeship] A

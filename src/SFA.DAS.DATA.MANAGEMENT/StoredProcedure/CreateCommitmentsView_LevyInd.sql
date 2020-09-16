@@ -227,7 +227,7 @@ SET @VSQL4=
 							ELSE null
 							END 
 				  ) as ApprenticeshipEmployerType
-		, ISNULL(A.MadeRedundant,-1)                           as MadeRedundant
+		, ISNULL(cast(A.MadeRedundant as int),-1)                           as MadeRedundant
 
 
 

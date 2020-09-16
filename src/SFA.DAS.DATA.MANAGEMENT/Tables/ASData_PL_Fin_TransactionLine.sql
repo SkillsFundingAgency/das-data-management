@@ -20,4 +20,4 @@
 	[TransferReceiverAccountName] [nvarchar](100) NULL,
 	CONSTRAINT PK_Fin_TransactionLine_Id PRIMARY KEY CLUSTERED (Id)
 )ON [PRIMARY]
-GO
+Go

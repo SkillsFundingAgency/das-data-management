@@ -98,7 +98,7 @@ VALUES
 ,('Accounts','UserAccountSettings','Employer_Account','[ID],[UserId],[AccountId],[ReceiveNotifications]','','','Acc_UserAccountSettings')
 ,('Accounts','User','Employer_Account','[ID],[UserRef],[CorrelationId]','','[Email],[FirstName],[LastName]','Acc_User')
 ,('Accounts','AccountHistory','Employer_Account','[Id],[AccountId],[AddedDate],[RemovedDate]','','[PayeRef]','Acc_AccountHistory')
-,('Accounts','Paye','employer_account','[Ref],[Name],[Aorn]','[AccessToken],[RefreshToken]','[Name]','Acc_Paye')
+,('Accounts','Paye','employer_account','[Ref]','[AccessToken],[RefreshToken],[Aorn]','[Name]','Acc_Paye')
 ,('Accounts','TransferConnectionInvitation','employer_account','[Id],[SenderAccountId],[ReceiverAccountId],[Status],[DeletedBySender],[DeletedByReceiver],[CreatedDate]','[ConnectionHash]','','Acc_TransferConnectionInvitation')
 ,('Accounts','TransferConnectionInvitationChange','employer_account','[Id],[TransferConnectionInvitationId],[SenderAccountId],[ReceiverAccountId],[Status],[DeletedBySender],[DeletedByReceiver],[UserId],[CreatedDate]','','','Acc_TransferConnectionInvitationChange')
 ,('Commitments','Accounts','dbo','[Id],[HashedId],[Created],[Updated],[LevyStatus]','[PublicHashedId],[Name]','','Comt_Accounts')
@@ -107,6 +107,7 @@ VALUES
 ,('Finance','AccountTransfers','employer_financial','[Id],[SenderAccountId],[ReceiverAccountId],[ApprenticeshipId],[CourseName],[CourseLevel],[PeriodEnd],[Amount],[Type],[CreatedDate],[RequiredPaymentId]','[SenderAccountName],[ReceiverAccountName]','','fin_AccountTransfers')
 ,('Finance','GetLevyDeclarationAndTopUp','employer_financial','[Id],[AccountId],[SubmissionDate],[SubmissionId],[LevyDueYTD],[EnglishFraction],[TopUpPercentage],[PayrollYear],[PayrollMonth],[LastSubmission],[CreatedDate],[EndOfYearAdjustment],[EndOfYearAdjustmentAmount],[LevyAllowanceForYear],[DateCeased],[InactiveFrom],[InactiveTo],[HmrcSubmissionId],[NoPaymentForPeriod],[LevyDeclaredInMonth],[TopUp],[TotalAmount]','','[EmpRef]','fin_GetLevyDeclarationAndTopUp')
 ,('Finance','Payment','employer_financial','[PaymentId],[AccountId],[ApprenticeshipId],[DeliveryPeriodMonth],[DeliveryPeriodYear],[CollectionPeriodId],[CollectionPeriodMonth],[CollectionPeriodYear],[EvidenceSubmittedOn],[EmployerAccountVersion],[ApprenticeshipVersion],[FundingSource],[TransactionType],[Amount],[PeriodEnd],[PaymentMetaDataId],[DateImported]','[Ukprn],[Uln]','','fin_Payment')
+,('Finance','TransactionLine','employer_financial','[Id],[AccountId],[DateCreated],[SubmissionId],[TransactionDate],[TransactionType],[LevyDeclared],[Amount],[PeriodEnd],[SfaCoInvestmentAmount],[EmployerCoInvestmentAmount],[EnglishFraction],[TransferSenderAccountId],[TransferReceiverAccountId]','','[EmpRef],[Ukprn],[TransferSenderAccountName],[TransferReceiverAccountName]','fin_TransactionLine')
 
 
 

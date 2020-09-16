@@ -237,5 +237,6 @@
     <Build Include="Tables\ASData_PL_Fin_AccountTransfers.sql" />
     <Build Include="Tables\ASData_PL_Fin_GetLevyDeclarationAndTopUp.sql" />
     <Build Include="Tables\ASData_PL_Fin_Payment.sql" />
+    <Build Include="Tables\ASData_PL_Fin_TransactionLine.sql" />
   </ItemGroup>
 </Project>

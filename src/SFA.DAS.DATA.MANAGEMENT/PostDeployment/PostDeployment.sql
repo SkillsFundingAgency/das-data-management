@@ -301,21 +301,4 @@ BEGIN
      GRANT SELECT ON AsData_PL.EI_IncentiveApplicationApprenticeship TO BetaUser
 END
 
-IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Acct_AccountHistory' AND TABLE_SCHEMA = 'AsData_PL')
-BEGIN
-drop table [ASData_PL].[Acct_AccountHistory]
-End 
-IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Acct_Paye' AND TABLE_SCHEMA = 'AsData_PL')
-Begin 
-drop table [ASData_PL].[Acct_Paye]
-End 
 
-IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Acct_TransferConnectionInvitation' AND TABLE_SCHEMA = 'AsData_PL')
-Begin
-drop table [ASData_PL].[Acct_TransferConnectionInvitation]
-End 
-
-IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Acct_TransferConnectionInvitationChange' AND TABLE_SCHEMA = 'AsData_PL')
-Begin 
-drop table [ASData_PL].[Acct_TransferConnectionInvitationChange]
-End 

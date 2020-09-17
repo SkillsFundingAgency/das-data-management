@@ -30,7 +30,7 @@ SELECT AA.HashedId                            as dasAccountId
   FROM ASData_PL.EAU_User EAUU
   LEFT
   JOIN ASData_PL.Acc_User AU
-    ON EAUU.ID=AU.UserRef
+    ON EAUU.ID =CAST(AU.UserRef as nvarchar(256))
   LEFT
   JOIN AsData_PL.Acc_AccountUserRole AUR
     ON AU.ID=AUR.UserId

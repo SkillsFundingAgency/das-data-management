@@ -9,9 +9,4 @@ SELECT EAUU.ID                   as employerUserId
 	  ,getdate()                 as lastSync
    --   ,UAS.ReceiveNotifications  as ReceiveNotifications
 FROM ASData_PL.EAU_User EAUU
-LEFT
-JOIN ASData_PL.Acc_User AU
-  ON AU.UserRef=EAUU.Id
-LEFT
-JOIN AsData_PL.Acc_UserAccountSettings UAS
-  ON AU.ID=UAS.UserId
+

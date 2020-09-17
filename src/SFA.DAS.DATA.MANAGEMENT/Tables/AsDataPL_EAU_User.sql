@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [AsData_PL].[EAU_User]
 (    
-       Id nvarchar(max)
+       Id uniqueidentifier
       ,IsActive bit
       ,IsLocked bit
       ,Email varchar(255) 

@@ -29,5 +29,6 @@
 	[ContinuationOfId] [bigint] NULL,
 	[MadeRedundant] [bit] NULL,
 	[OriginalStartDate] [datetime] NULL,
+	[Age] [int] NULL
 	CONSTRAINT PK_Comt_Apprenticeship_Id PRIMARY KEY CLUSTERED (Id)
 ) ON [PRIMARY]

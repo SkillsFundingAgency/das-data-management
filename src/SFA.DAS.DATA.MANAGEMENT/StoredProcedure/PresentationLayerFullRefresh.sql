@@ -135,12 +135,6 @@ BEGIN TRANSACTION
 
 Declare @VSQL1 NVARCHAR(MAX)
 
-if CHARINDEX('dateofbirth', lower(ltrim(rtrim(@InsertList)))) > 0 
-Begin 
-	Set @InsertList = @InsertList + ',[Age]' 
-	Set @SelectList = @SelectList + ',DATEDIFF(hour,DateOfBirth,GETDATE())/8766 As [Age]'
-End 
-
 SET @VSQL1=
 
 '

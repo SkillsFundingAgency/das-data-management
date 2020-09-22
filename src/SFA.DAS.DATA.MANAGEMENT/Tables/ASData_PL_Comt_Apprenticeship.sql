@@ -2,6 +2,8 @@
 (
 	[Id] [bigint] NOT NULL,
 	[CommitmentId] [bigint] NOT NULL,	
+	[FirstName]  [NVarchar](100) NULL,
+    [LastName] [NVarchar](100) NULL,
 	[ULN] [nvarchar](50) NULL,
 	[TrainingType] [int] NULL,
 	[TrainingCode] [nvarchar](20) NULL,

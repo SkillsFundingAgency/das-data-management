@@ -31,6 +31,10 @@ select @SPName = 'PresentationLayerFullRefresh-'+SUBSTRING(@PLTableName,CHARINDE
 
 
 
+IF ((SELECT isnull(FullCopyToPL,1) FROM Mtd.SourceConfigForImport where PLTableName=SUBSTRING(@PLTableName,CHARINDEX('.',@PLTableName)+1,LEN(@PLTableName))) <>1)
+	RETURN
+
+
 /* Start Logging Execution */
 
   INSERT INTO Mgmt.Log_Execution_Results

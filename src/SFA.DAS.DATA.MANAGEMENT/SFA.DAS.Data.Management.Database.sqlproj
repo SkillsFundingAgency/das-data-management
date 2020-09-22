@@ -240,5 +240,6 @@
     <Build Include="Tables\ASData_PL_Fin_TransactionLine.sql" />
     <Build Include="Tables\ASData_PL_Resv_Reservation.sql" />
     <Build Include="Tables\ASData_PL_Resv_Course.sql" />
+    <Build Include="StoredProcedure\PresentationLayerFullRefreshWithOtherTables.sql" />
   </ItemGroup>
 </Project>

@@ -2,14 +2,10 @@
 (
    @RunId int
   ,@PLTableName varchar(255)
-  ,@StgTableName varchar(255)
-  ,@ColumnList varchar(max)
-  ,@K1 nvarchar(max) NULL
-  ,@K2 nvarchar(max) NULL
+  ,@StgTableName varchar(255)  
   ,@SourceDatabaseName varchar(255) NULL
   ,@ConfigSchema varchar(255) NULL
   ,@ConfigTable varchar(255) NULL
-  ,@KeyBased bit NULL
 )
 AS
 /* ===============================================================================================================
@@ -20,11 +16,8 @@ AS
 */
 
 BEGIN TRY
-
-
-		DECLARE @LogID int
-
-		DECLARE @SPName Varchar(255)
+		DECLARE @LogID int,@SPName Varchar(255),@SQLCode Nvarchar(255),@K1 nvarchar(max),@K2 nvarchar(max),
+				@InsertList NVARCHAR(MAX),@SelectList NVARCHAR(MAX),@JOINTable1 NVarchar(max),@JOINTable2 NVarchar(max)
 
 		select @SPName = 'PresentationLayerFullRefresh-'+SUBSTRING(@PLTableName,CHARINDEX('.',@PLTableName)+1,LEN(@PLTableName))
 
@@ -45,85 +38,70 @@ BEGIN TRY
 			   ,getdate()
 			   ,0
 
-		  SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
-		   WHERE StoredProcedureName=@SPName
-			 AND RunId=@RunID
+			SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
+			WHERE StoredProcedureName=@SPName
+			AND RunId=@RunID
 
-		/* Preparing Presentation Layer Tables Insert and Select List */
+			SELECT @SQLCode='SELECT @K1=convert(nvarchar(max),'+SQLCode+',2)' From Stg.SQLCode Where [Type]='CRG'
+			EXEC SP_EXECUTESQL @SQLCode, N'@K1 nvarchar(max) OUTPUT',@K1=@K1 OUTPUT
 
+			SELECT @SQLCode='SELECT @K2=convert(nvarchar(max),'+SQLCode+',2)' From Stg.SQLCode Where [Type]='CRG'
+			EXEC SP_EXECUTESQL @SQLCode, N'@K2 nvarchar(max) OUTPUT',@K2=@K2 OUTPUT
+			
+		/* Preparing Presentation Layer Tables Insert and Select List */		
+		SELECT @SQLCode=SQLCode FROM Stg.SQLCode WHERE Type='DBPP'
 
-		DECLARE @InsertList NVARCHAR(MAX),
-				@SelectList NVARCHAR(MAX),
-				@JOINTable1 NVarchar(max),
-				@JOINTable2 NVarchar(max)
-		
-		
+		/* Check If ColumnNameToMask exists And Navigate to the Logic*/
+		IF OBJECT_ID('tempdb..#TColList') IS NOT NULL DROP TABLE #TColList
 
-		IF (ISNULL(@KeyBased,0)=0)
+		CREATE TABLE #TColList
+		(OrigList varchar(255),TransformList nvarchar(max))
+
+		IF ((SELECT SCFI_Id FROM Mtd.SourceConfigForImport SCFI
+				WHERE SourceDatabaseName=@SourceDatabaseName
+			AND SourceTableName=@ConfigTable
+			AND SourceSchemaName=@ConfigSchema
+			AND ColumnNamesToMask<>'') IS NOT NULL)
 		BEGIN
-				SET @InsertList=@ColumnList
-				SET @SelectList=@ColumnList
+
+				INSERT INTO #TColList
+				(OrigList,TransformList)
+				SELECT value as OrigList
+						,'convert(nvarchar(512),'+replace(replace(replace(@SQLCode,'T1','['+SUBSTRING(REPLACE(Value,'[',''),1,2)+SUBSTRING(REVERSE(REPLACE(Value,']','')),1,2)+']'),'K1','0x'+@K1),'K2','0x'+@k2)+')' as TransformList
+					FROM Mtd.SourceConfigForImport SCFI
+					CROSS APPLY string_split(ColumnNamesToMask,',')
+					WHERE SourceDatabaseName=@SourceDatabaseName
+					AND SourceTableName=@ConfigTable
+					AND SourceSchemaName=@ConfigSchema
+					UNION
+					SELECT value as ConfigList,  value as TransformList
+					FROM Mtd.SourceConfigForImport SCFI
+					CROSS APPLY string_split(ColumnNamesToInclude,',')
+					WHERE SourceDatabaseName=@SourceDatabaseName
+					AND SourceTableName=@ConfigTable
+					AND SourceSchemaName=@ConfigSchema
 		END
-		ELSE
+		ELSE 
 		BEGIN
-
-					DECLARE @SQLCode NVARCHAR(MAX)
-
-					SELECT @SQLCode=SQLCode FROM Stg.SQLCode WHERE Type='DBPP'
-
-
-					/* Check If ColumnNameToMask exists And Navigate to the Logic*/
-					IF OBJECT_ID('tempdb..#TColList') IS NOT NULL DROP TABLE #TColList
-
-					CREATE TABLE #TColList
-					(OrigList varchar(255),TransformList nvarchar(max))
-
-					IF ((SELECT SCFI_Id FROM Mtd.SourceConfigForImport SCFI
-						 WHERE SourceDatabaseName=@SourceDatabaseName
-						AND SourceTableName=@ConfigTable
-						AND SourceSchemaName=@ConfigSchema
-						AND ColumnNamesToMask<>'') IS NOT NULL)
-					BEGIN
-
-							INSERT INTO #TColList
-							(OrigList,TransformList)
-							SELECT value as OrigList
-								   ,'convert(nvarchar(512),'+replace(replace(replace(@SQLCode,'T1','['+SUBSTRING(REPLACE(Value,'[',''),1,2)+SUBSTRING(REVERSE(REPLACE(Value,']','')),1,2)+']'),'K1','0x'+@K1),'K2','0x'+@k2)+')' as TransformList
-							   FROM Mtd.SourceConfigForImport SCFI
-							  CROSS APPLY string_split(ColumnNamesToMask,',')
-							  WHERE SourceDatabaseName=@SourceDatabaseName
-								AND SourceTableName=@ConfigTable
-								AND SourceSchemaName=@ConfigSchema
-							  UNION
-							 SELECT value as ConfigList,  value as TransformList
-							   FROM Mtd.SourceConfigForImport SCFI
-							  CROSS APPLY string_split(ColumnNamesToInclude,',')
-							  WHERE SourceDatabaseName=@SourceDatabaseName
-								AND SourceTableName=@ConfigTable
-								AND SourceSchemaName=@ConfigSchema
-					END
-					ELSE 
-					BEGIN
-						INSERT INTO #TColList
-						(OrigList,TransformList)
-						 SELECT value as ConfigList,  value as TransformList
-						   FROM Mtd.SourceConfigForImport SCFI
-						  CROSS APPLY string_split(ColumnNamesToInclude,',')
-						  WHERE SourceDatabaseName=@SourceDatabaseName
-							AND SourceTableName=@ConfigTable
-							AND SourceSchemaName=@ConfigSchema
-					END
-
-					SET @InsertList=STUFF((select ','+OrigList
-											from #TColList AS ColList
-											for XML PATH('')),1,1,'')
-					--SELECT @InsertList
-
-					SET @SelectList=STUFF((select ','+TransformList
-											from #TColList AS ColList
-											for XML PATH('')),1,1,'')
-					--SELECT @SelectList,@InsertList
+			INSERT INTO #TColList
+			(OrigList,TransformList)
+				SELECT value as ConfigList,  value as TransformList
+				FROM Mtd.SourceConfigForImport SCFI
+				CROSS APPLY string_split(ColumnNamesToInclude,',')
+				WHERE SourceDatabaseName=@SourceDatabaseName
+				AND SourceTableName=@ConfigTable
+				AND SourceSchemaName=@ConfigSchema
 		END
+
+		SET @InsertList=STUFF((select ','+OrigList
+								from #TColList AS ColList
+								for XML PATH('')),1,1,'')
+		--SELECT @InsertList
+
+		SET @SelectList=STUFF((select ','+TransformList
+								from #TColList AS ColList
+								for XML PATH('')),1,1,'')
+		--SELECT @SelectList,@InsertList		
 
 		BEGIN TRANSACTION
 

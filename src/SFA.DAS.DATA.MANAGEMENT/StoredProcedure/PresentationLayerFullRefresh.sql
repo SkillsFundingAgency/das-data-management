@@ -22,18 +22,14 @@ AS
 
 BEGIN TRY
 
-
 DECLARE @LogID int
 
 DECLARE @SPName Varchar(255)
 
 select @SPName = 'PresentationLayerFullRefresh-'+SUBSTRING(@PLTableName,CHARINDEX('.',@PLTableName)+1,LEN(@PLTableName))
 
-
-
-IF ((SELECT isnull(FullCopyToPL,1) FROM Mtd.SourceConfigForImport where PLTableName=SUBSTRING(@PLTableName,CHARINDEX('.',@PLTableName)+1,LEN(@PLTableName))) <>1)
+IF ((SELECT isnull([ModelDataToPL],0) FROM Mtd.SourceConfigForImport where PLTableName=SUBSTRING(@PLTableName,CHARINDEX('.',@PLTableName)+1,LEN(@PLTableName)))=1)
 	RETURN
-
 
 /* Start Logging Execution */
 

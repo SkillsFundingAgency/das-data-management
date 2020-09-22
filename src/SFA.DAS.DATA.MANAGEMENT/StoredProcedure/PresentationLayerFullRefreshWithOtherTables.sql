@@ -16,7 +16,7 @@ AS
 */
 
 BEGIN TRY
-		DECLARE @LogID int,@SPName Varchar(255),@SQLCode Nvarchar(255),@K1 nvarchar(max),@K2 nvarchar(max),
+		DECLARE @LogID int,@SPName Varchar(max),@SQLCode Nvarchar(max),@K1 nvarchar(max),@K2 nvarchar(max),
 				@InsertList NVARCHAR(MAX),@SelectList NVARCHAR(MAX),@JOINTable1 NVarchar(max),@JOINTable2 NVarchar(max)
 
 		select @SPName = 'PresentationLayerFullRefresh-'+SUBSTRING(@PLTableName,CHARINDEX('.',@PLTableName)+1,LEN(@PLTableName))
@@ -113,10 +113,10 @@ BEGIN TRY
 
 			Declare @JOINClause NVarchar(max) =  N' FROM '+ @StgTableName + ' aa left join ' + @JOINTable1 + ' ca on aa.id = ca.id  left join ' + @JOINTable2 + ' ea on aa.Id = ea.Id'
 
-					Set @InsertList = @InsertList + ',ComtAccountID,ComtLevyStatus,EIAccountID,HasSignedIncentiveTerms'
+					Set @InsertList = @InsertList + ',ComtAccountID,ComtLevyStatus,EIAccountID,HasSignedIncentivesTerms'
 					Set @SelectList = replace(@SelectList,'[Id]','aa.[Id]')
 					Set @SelectList = replace(@SelectList,'[HashedId]','aa.[HashedId]')
-					Set @SelectList = @SelectList + 'ca.ID,ca.[LevyStatus],ea.ID,ea.HasSignedIncentiveTerms'
+					Set @SelectList = @SelectList + ',ca.ID,ca.[LevyStatus],ea.ID,ea.HasSignedIncentivesTerms'
 
 			SET @VSQL1=
 			'

@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[PresentationLayerFullRefreshWithOtherTables]
+﻿CREATE PROCEDURE [dbo].[PresentationLayerFullRefreshModel]
 (
    @RunId int
   ,@PLTableName varchar(255)
@@ -112,18 +112,20 @@ BEGIN TRY
 			Set @JOINTable1 = 'Stg.Comt_Accounts'; Set @JOINTable2 = 'Stg.EI_Accounts'
 
 			Declare @JOINClause NVarchar(max) =  N' FROM '+ @StgTableName + ' aa left join ' + @JOINTable1 + ' ca on aa.id = ca.id  left join ' + @JOINTable2 + ' ea on aa.Id = ea.Id'
+			Declare @GroupByCaluse NVarchar(max) = N' Group by ' + @SelectList
 
 					Set @InsertList = @InsertList + ',ComtAccountID,ComtLevyStatus,EIAccountID,HasSignedIncentivesTerms'
 					Set @SelectList = replace(@SelectList,'[Id]','aa.[Id]')
 					Set @SelectList = replace(@SelectList,'[HashedId]','aa.[HashedId]')
 					Set @SelectList = @SelectList + ',ca.ID,ca.[LevyStatus],ea.ID,ea.HasSignedIncentivesTerms'
+					Set @GroupByCaluse = N' Group by ' + @SelectList
 
 			SET @VSQL1=
 			'
 			DELETE FROM '+@PLTableName+'
 			INSERT INTO '+@PLTableName+'
 			('+@InsertList+')
-			SELECT '+ @SelectList + @JOINClause
+			SELECT '+ @SelectList + @JOINClause + @GroupByCaluse
 
 		End 
 		Else

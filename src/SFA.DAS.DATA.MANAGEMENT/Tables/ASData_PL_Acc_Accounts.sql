@@ -8,8 +8,8 @@
 	[ApprenticeshipEmployerType] tinyint not null,
 	[PublicHashedId] nvarchar(100) null,
 	[AsDm_UpdatedDateTime] datetime2 default getdate(),
-	[ComtAccountID]  [bigint]  NOT NULL,
-	[ComtLevyStatus] [tinyint]  NOT NULL,
-	[EIAccountID] [bigint]  NOT NULL,
-	[HasSignedIncentiveTerms] [bit]  NOT NULL	
+	[ComtAccountID]  [bigint]  NULL,
+	[ComtLevyStatus] [tinyint]  NULL,
+	[EIAccountID] [bigint]  NULL,
+	[HasSignedIncentiveTerms] [bit] NULL	
 )

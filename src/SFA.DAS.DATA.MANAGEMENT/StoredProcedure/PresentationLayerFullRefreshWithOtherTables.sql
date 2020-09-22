@@ -113,7 +113,7 @@ BEGIN TRY
 
 			Declare @JOINClause NVarchar(max) =  N' FROM '+ @StgTableName + ' aa left join ' + @JOINTable1 + ' ca on aa.id = ca.id  left join ' + @JOINTable2 + ' ea on aa.Id = ea.Id'
 
-					Set @InsertList = @InsertList + 'ComtLevyStatus,ComtAccountID, HasSignedIncentiveTerms, EIAccountID'
+					Set @InsertList = @InsertList + ',ComtAccountID,ComtLevyStatus,EIAccountID,HasSignedIncentiveTerms'
 					Set @SelectList = replace(@SelectList,'[Id]','aa.[Id]')
 					Set @SelectList = replace(@SelectList,'[HashedId]','aa.[HashedId]')
 					Set @SelectList = @SelectList + 'ca.ID,ca.[LevyStatus],ea.ID,ea.HasSignedIncentiveTerms'

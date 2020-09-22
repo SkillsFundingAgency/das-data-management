@@ -99,7 +99,11 @@ VALUES
 ,('Accounts','UserAccountSettings','Employer_Account','[ID],[UserId],[AccountId],[ReceiveNotifications]','','','Acc_UserAccountSettings')
 ,('Accounts','User','Employer_Account','[ID],[UserRef],[CorrelationId]','','[Email],[FirstName],[LastName]','Acc_User')
 
-
+INSERT INTO Mtd.SourceConfigForImport
+(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL)
+/* Apprenticeship Redundancy */
+VALUES 
+('AppRedundancy','apprentice','dbo','[Id],[UpdatesWanted],[ContactableForFeedback],[PreviousTraining],[Employer],[TrainingProvider],[LeftOnApprenticeshipMonths],[LeftOnApprenticeshipYears],[Sectors],[CreatedOn]','[Email],[PhoneNumber],[PostCode],[EmployerLocation],[Ethnicity],[EthnicitySubgroup],[EthnicityText],[Gender],[GenderText]','[FirstName],[LastName],[DateOfBirth]',0)
 
 
 COMMIT TRANSACTION

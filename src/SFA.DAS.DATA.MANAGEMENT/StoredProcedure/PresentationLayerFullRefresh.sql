@@ -4,6 +4,12 @@
   ,@PLTableName varchar(255)
   ,@StgTableName varchar(255)
   ,@ColumnList varchar(max)
+  ,@K1 nvarchar(max) NULL
+  ,@K2 nvarchar(max) NULL
+  ,@SourceDatabaseName varchar(255) NULL
+  ,@ConfigSchema varchar(255) NULL
+  ,@ConfigTable varchar(255) NULL
+  ,@KeyBased bit NULL
 )
 AS
 /* ===============================================================================================================
@@ -18,9 +24,12 @@ BEGIN TRY
 
 
 DECLARE @LogID int
+
 DECLARE @SPName Varchar(255)
 
 select @SPName = 'PresentationLayerFullRefresh-'+SUBSTRING(@PLTableName,CHARINDEX('.',@PLTableName)+1,LEN(@PLTableName))
+
+
 
 /* Start Logging Execution */
 
@@ -43,6 +52,85 @@ select @SPName = 'PresentationLayerFullRefresh-'+SUBSTRING(@PLTableName,CHARINDE
    WHERE StoredProcedureName=@SPName
      AND RunId=@RunID
 
+/* Preparing Presentation Layer Tables Insert and Select List */
+
+
+DECLARE @InsertList NVARCHAR(MAX)
+DECLARE @SelectList NVARCHAR(MAX)
+
+IF (ISNULL(@KeyBased,0)=0)
+BEGIN
+SET @InsertList=@ColumnList
+SET @SelectList=@ColumnList
+END
+ELSE
+BEGIN
+
+DECLARE @SQLCode NVARCHAR(MAX)
+
+SELECT @SQLCode=SQLCode FROM Stg.SQLCode WHERE Type='DBPP'
+
+
+/* Check If ColumnNameToMask exists And Navigate to the Logic*/
+IF OBJECT_ID('tempdb..#TColList') IS NOT NULL DROP TABLE #TColList
+
+CREATE TABLE #TColList
+(OrigList varchar(255),TransformList nvarchar(max))
+
+IF ((SELECT SCFI_Id FROM Mtd.SourceConfigForImport SCFI
+     WHERE SourceDatabaseName=@SourceDatabaseName
+    AND SourceTableName=@ConfigTable
+    AND SourceSchemaName=@ConfigSchema
+	AND ColumnNamesToMask<>'') IS NOT NULL)
+
+
+
+BEGIN
+
+INSERT INTO #TColList
+(OrigList,TransformList)
+SELECT value as OrigList
+       ,'convert(nvarchar(512),'+replace(replace(replace(@SQLCode,'T1','['+SUBSTRING(REPLACE(Value,'[',''),1,2)+SUBSTRING(REVERSE(REPLACE(Value,']','')),1,2)+']'),'K1','0x'+@K1),'K2','0x'+@k2)+')' as TransformList
+   FROM Mtd.SourceConfigForImport SCFI
+  CROSS APPLY string_split(ColumnNamesToMask,',')
+  WHERE SourceDatabaseName=@SourceDatabaseName
+    AND SourceTableName=@ConfigTable
+    AND SourceSchemaName=@ConfigSchema
+  UNION
+ SELECT value as ConfigList,  value as TransformList
+   FROM Mtd.SourceConfigForImport SCFI
+  CROSS APPLY string_split(ColumnNamesToInclude,',')
+  WHERE SourceDatabaseName=@SourceDatabaseName
+    AND SourceTableName=@ConfigTable
+    AND SourceSchemaName=@ConfigSchema
+
+END
+
+ELSE 
+BEGIN
+
+INSERT INTO #TColList
+(OrigList,TransformList)
+ SELECT value as ConfigList,  value as TransformList
+   FROM Mtd.SourceConfigForImport SCFI
+  CROSS APPLY string_split(ColumnNamesToInclude,',')
+  WHERE SourceDatabaseName=@SourceDatabaseName
+    AND SourceTableName=@ConfigTable
+    AND SourceSchemaName=@ConfigSchema
+
+END
+
+SET @InsertList=STUFF((select ','+OrigList
+                        from #TColList AS ColList
+						for XML PATH('')),1,1,'')
+--SELECT @InsertList
+
+SET @SelectList=STUFF((select ','+TransformList
+                        from #TColList AS ColList
+						for XML PATH('')),1,1,'')
+--SELECT @SelectList,@InsertList
+END
+
 BEGIN TRANSACTION
 
 Declare @VSQL1 NVARCHAR(MAX)
@@ -53,8 +141,8 @@ SET @VSQL1=
 DELETE FROM '+@PLTableName+'
 
 INSERT INTO '+@PLTableName+'
-('+@ColumnList+')
-SELECT '+@ColumnList+'
+('+@InsertList+')
+SELECT '+@SelectList+'
   FROM '+@StgTableName+'
 '
 

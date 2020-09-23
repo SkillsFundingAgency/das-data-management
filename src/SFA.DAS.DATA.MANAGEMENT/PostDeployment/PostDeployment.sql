@@ -354,3 +354,23 @@ END;
 
 /* Grant UNMASK to BetaUser */
 GRANT UNMASK TO [BetaUser]
+
+
+/* Provide Users and UserAccountLegalEntity views access to Marketo Team that were designed for them */
+
+IF DATABASE_PRINCIPAL_ID('MarketoUser') IS NULL
+BEGIN
+	CREATE ROLE [MarketoUser]
+END
+
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Users' AND TABLE_SCHEMA = 'ASData_PL')
+BEGIN
+     GRANT SELECT ON ASData_PL.DAS_Users TO MarketoUser
+END
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_UserAccountLegalEntity' AND TABLE_SCHEMA = 'ASData_PL')
+BEGIN
+     GRANT SELECT ON ASData_PL.DAS_UserAccountLegalEntity TO MarketoUser
+END
+

@@ -302,3 +302,6 @@ BEGIN
 END
 
 
+DROP PROCEDURE IF EXISTS [dbo].[PresentationLayerFullRefreshWithOtherTables]
+GO
+

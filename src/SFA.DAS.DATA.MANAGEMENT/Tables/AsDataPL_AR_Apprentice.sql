@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[AsDataPL_AR_Apprentice]
+﻿CREATE TABLE [AsData_PL].[AR_Apprentice]
 (
 	   [Id]  bigint primary Key not null
 	  ,[ApprenticeshipId] bigint

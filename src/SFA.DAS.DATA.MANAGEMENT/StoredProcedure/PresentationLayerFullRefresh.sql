@@ -30,7 +30,6 @@ DECLARE @SPName Varchar(255)
 select @SPName = 'PresentationLayerFullRefresh-'+SUBSTRING(@PLTableName,CHARINDEX('.',@PLTableName)+1,LEN(@PLTableName))
 
 
-
 /* Start Logging Execution */
 
   INSERT INTO Mgmt.Log_Execution_Results
@@ -131,6 +130,27 @@ SET @SelectList=STUFF((select ','+TransformList
 --SELECT @SelectList,@InsertList
 END
 
+IF ((SELECT isnull([ModelDataToPL],0) FROM Mtd.SourceConfigForImport where SourceDatabaseName=@SourceDatabaseName AND SourceTableName=@ConfigTable AND SourceSchemaName=@ConfigSchema)=1)
+/* Execute Below code to transform staging table and make it ready for Presentation Layer Build */
+BEGIN
+IF OBJECT_ID('tempdb..#TStgCopy') IS NOT NULL DROP TABLE #TStgCopy
+
+SELECT *
+  INTO #TStgCopy
+  FROM @StgTableName
+
+BEGIN TRANSACTION
+ 
+DELETE FROM @StgTableName
+
+INSERT INTO @StgTableName
+SELECT @SelectList FROM #TStgCopy
+
+
+COMMIT TRANSACTION
+END
+ELSE
+BEGIN
 BEGIN TRANSACTION
 
 Declare @VSQL1 NVARCHAR(MAX)
@@ -162,7 +182,7 @@ IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = N'''+@Tabl
 DROP TABLE [Stg].'+@TableName+'
 '
 EXEC SP_EXECUTESQL @VSQL2
-
+END
 
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1

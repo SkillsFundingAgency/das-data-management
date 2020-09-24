@@ -99,6 +99,6 @@ EXEC [dbo].[CreateDashboardReservationAndCommitmentView] @RunID
 
 EXEC [dbo].[UpdateApprenticeshipStdRoute] @RunID
 
-
+EXEC [dbo].[CreateDataDictionaryView] @RunID
 
 

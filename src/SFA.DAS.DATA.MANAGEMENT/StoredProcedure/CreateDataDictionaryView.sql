@@ -132,7 +132,7 @@ with filterdata as
 		SELECT  ''ASData_PL'' As SchemaName,''DAS_Dashboard_ReservationAndTraining'' As TableName,''VIEW'' As TableType UNION
 		SELECT  ''ASData_PL'' As SchemaName,''DAS_Dashboard_StdsAndFrameworks'' As TableName,''VIEW'' As TableType  
 )
-SELECT ''Production'' AS DatamartEnvironment,''Presentation'' AS Layer,SCHEMA_NAME(b.schema_id) AS SchemaRoleLink,b.name as DataElementCategory, CONCAT(b.object_id, ''-'', a.column_id) AS DataElementId, a.name as DataElementDescription, UPPER(c.name) AS DataElementType, a.max_length AS DataElementMaxLength_InBytes, a.is_Nullable As DataElementIsNullable, Cast(b.create_date As Date) AS DataAvailableSince, ''AS Information Asset Owner'' AS DataOwner
+SELECT ''Production'' AS DatamartEnvironment,''Presentation'' AS Layer,SCHEMA_NAME(b.schema_id) AS SchemaRoleLink,b.name as DataElementCategory, cast(CONCAT(b.object_id,a.column_id) as bigint) AS DataElementId, a.name as DataElementDescription, UPPER(c.name) AS DataElementType, a.max_length AS DataElementMaxLength_InBytes, a.is_Nullable As DataElementIsNullable, Cast(b.create_date As Date) AS DataAvailableSince, ''AS Information Asset Owner'' AS DataOwner
 FROM sys.columns a
 JOIN sys.views b
 ON a.object_id = b.object_id
@@ -142,7 +142,7 @@ WHERE b.name NOT IN (Select TableName  from filterdata where TableType=''VIEW'')
 
 UNION
 
-SELECT ''Production'' AS DatamartEnvironment,''Presentation'' AS Layer,  SCHEMA_NAME(b.schema_id) AS SchemaRoleLink, b.name as DataElementCategory, CONCAT(b.object_id, ''-'', a.column_id) AS DataElementId, a.name as DataElementDescription, UPPER(c.name) AS DataElementType, a.max_length AS DataElementMaxLength_InBytes, a.is_Nullable As DataElementIsNullable, Cast(b.create_date As Date) AS DataAvailableSince, ''AS Information Asset Owner'' AS DataOwner
+SELECT ''Production'' AS DatamartEnvironment,''Presentation'' AS Layer,  SCHEMA_NAME(b.schema_id) AS SchemaRoleLink, b.name as DataElementCategory, cast(CONCAT(b.object_id,a.column_id) as bigint) AS DataElementId, a.name as DataElementDescription, UPPER(c.name) AS DataElementType, a.max_length AS DataElementMaxLength_InBytes, a.is_Nullable As DataElementIsNullable, Cast(b.create_date As Date) AS DataAvailableSince, ''AS Information Asset Owner'' AS DataOwner
 FROM sys.columns a
 JOIN sys.tables b
 ON a.object_id = b.object_id

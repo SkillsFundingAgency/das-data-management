@@ -61,7 +61,9 @@ with filterdata as
 		SELECT  ''dbo'' As SchemaName,''CandidateEthLookUp'' As TableName,''BASE TABLE''  As TableType UNION
 		SELECT  ''dbo'' As SchemaName,''Commitment'' As TableName,''BASE TABLE''  As TableType UNION
 		SELECT  ''dbo'' As SchemaName,''DataLockStatus'' As TableName,''BASE TABLE''  As TableType UNION
+		SELECT  ''dbo'' As SchemaName,''Employer'' As TableName,''BASE TABLE''  As TableType UNION
 		SELECT  ''dbo'' As SchemaName,''EmployerAccount'' As TableName,''BASE TABLE''  As TableType UNION
+		SELECT  ''dbo'' As SchemaName,''Ext_EPAO_Options'' As TableName,''BASE TABLE''  As TableType UNION
 		SELECT  ''dbo'' As SchemaName,''EmployerAccountLegalEntity'' As TableName,''BASE TABLE''  As TableType UNION
 		SELECT  ''dbo'' As SchemaName,''Provider'' As TableName,''BASE TABLE''  As TableType UNION
 		SELECT  ''dbo'' As SchemaName,''ReferenceData'' As TableName,''BASE TABLE''  As TableType UNION
@@ -69,7 +71,7 @@ with filterdata as
 		SELECT  ''dbo'' As SchemaName,''Stg_FIC_Feedback'' As TableName,''BASE TABLE''  As TableType UNION
 		SELECT  ''dbo'' As SchemaName,''TrainingCourse'' As TableName,''BASE TABLE''  As TableType UNION
 		SELECT  ''dbo'' As SchemaName,''Transfers'' As TableName,''BASE TABLE''  As TableType UNION 
-		SELECT  ''Mgmt'' As SchemaName,''LoadStatus'' As TableName,''BASE TABLE''  As TableType UNION
+		SELECT  ''Mtd'' As SchemaName,''SourceConfigForImport'' As TableName,''BASE TABLE''  As TableType UNION
 		SELECT  ''Mgmt'' As SchemaName,''Log_Error_Details'' As TableName,''BASE TABLE''  As TableType UNION
 		SELECT  ''Mgmt'' As SchemaName,''Log_Execution_Results'' As TableName,''BASE TABLE''  As TableType UNION
 		SELECT  ''Mgmt'' As SchemaName,''Log_Record_Counts'' As TableName,''BASE TABLE''  As TableType UNION

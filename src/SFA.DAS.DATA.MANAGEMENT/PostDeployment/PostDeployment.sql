@@ -389,6 +389,6 @@ End
 
 IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_UserAccountLegalEntity' AND TABLE_SCHEMA = 'ASData_PL')
 BEGIN
-	 GRANT SELECT ON ASData_PL.DAS_Users To BetaUser
+	 GRANT SELECT ON ASData_PL.DAS_UserAccountLegalEntity To BetaUser
 End
 

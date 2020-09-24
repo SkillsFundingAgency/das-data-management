@@ -146,8 +146,7 @@ JOIN sys.tables b
 ON a.object_id = b.object_id
 LEFT JOIN sys.types as c
 ON a.user_type_id = c.user_type_id
-WHERE b.name NOT IN (Select TableName  from filterdata where TableType=''BASE TABLE'') AND SCHEMA_NAME(b.schema_id) IN(Select SchemaName from filterdata where TableType=''BASE TABLE'')
-ORDER BY b.name, a.name ASC '
+WHERE b.name NOT IN (Select TableName  from filterdata where TableType=''BASE TABLE'') AND SCHEMA_NAME(b.schema_id) IN(Select SchemaName from filterdata where TableType=''BASE TABLE'')'
 
 
 EXEC SP_EXECUTESQL @VSQL1

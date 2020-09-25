@@ -133,29 +133,25 @@ END
 IF ((SELECT isnull([ModelDataToPL],0) FROM Mtd.SourceConfigForImport where SourceDatabaseName=@SourceDatabaseName AND SourceTableName=@ConfigTable AND SourceSchemaName=@ConfigSchema)=1)
 /* Execute Below code to transform staging table and make it ready for Presentation Layer Build */
 BEGIN
-IF OBJECT_ID('tempdb..#TStgCopy') IS NOT NULL DROP TABLE #TStgCopy
+
+BEGIN TRANSACTION
 
 DECLARE @VSQL1 NVARCHAR(MAX)
 
 SET @VSQL1=
-'SELECT *
+'
+IF OBJECT_ID(''tempdb..#TStgCopy'') IS NOT NULL DROP TABLE #TStgCopy
+
+SELECT *
    INTO #TStgCopy
-   FROM '+@StgTableName+''
+   FROM '+@StgTableName+'
 
-EXEC SP_EXECUTESQL @VSQL1
-
-BEGIN TRANSACTION
-
-DECLARE @VSQL2 NVARCHAR(MAX)
-
-SET @VSQL2='
- 
 DELETE FROM '+@StgTableName+'
 
 INSERT INTO '+@StgTableName+'
 SELECT '+@SelectList+' FROM #TStgCopy'
 
-EXEC SP_EXECUTESQL @VSQL2
+EXEC SP_EXECUTESQL @VSQL1
 
 
 COMMIT TRANSACTION

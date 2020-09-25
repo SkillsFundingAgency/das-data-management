@@ -39,8 +39,30 @@ BEGIN TRANSACTION
 
 DELETE FROM ASData_PL.AR_Apprentice  
 
+DECLARE @VSQL1 NVARCHAR(MAX)
+
+SET @VSQL1='
+
+INSERT INTO ASData_PL.AR_Apprentice
+(
+       [Id]
+      ,[ApprenticeshipId]
+      ,[UpdatesWanted]
+      ,[ContactableForFeedback]
+      ,[PreviousTraining]
+      ,[Employer]
+      ,[TrainingProvider]
+      ,[LeftOnApprenticeshipMonths]
+      ,[LeftOnApprenticeshipYears]
+      ,[Sectors]
+      ,[CreatedOn]
+      ,[FirstName]
+      ,[LastName]
+      ,[Email]
+      ,[DateOfBirth]
+	  )
 SELECT AR.[Id]  
-	  ,CA.[ApprenticeshipId] 
+	  ,CA.[Id] 
       ,AR.[UpdatesWanted] 
       ,AR.[ContactableForFeedback] 
       ,AR.[PreviousTraining] 
@@ -54,7 +76,7 @@ SELECT AR.[Id]
       ,AR.[LastName] 
 	  ,AR.[Email] 
       ,AR.[DateOfBirth] 
-  FROM (SELECT *, row_number() over(partition by DateOfBirth,EmailAddress order by ID) RN
+  FROM (SELECT *, row_number() over(partition by DateOfBirth,Email order by ID) RN
           FROM Stg.AR_Apprentice) AR
   LEFT
   JOIN ASData_PL.Comt_Apprenticeship CA
@@ -62,7 +84,9 @@ SELECT AR.[Id]
    AND CA.LastName=AR.LastName
    AND CA.DateOfBirth=AR.DateOfBirth
  WHERE AR.RN=1
+ '
 
+ EXEC SP_EXECUTESQL @VSQL1
 
 
 

@@ -12,12 +12,19 @@
   ,@KeyBased bit NULL
 )
 AS
-/* ===============================================================================================================
+/* ==========================================================================================================================================
 -- Author:      Himabindu Uddaraju
 -- Create Date: 24/08/2020
 -- Description: Dynamically Refresh Data Mart Presentation Layer
 --              This is built dynamically such that it can be used for any Full Refresh of Presentation Layer.
--- ===============================================================================================================
+-- Change Control
+     
+     Date				Author       Description
+
+     25/09/2020		     HU		   Logic has been added to do Transformations at Staging Table in cases where it's 
+	                               not a Full Copy to PL but goes via a Custom Logic that loads a Modelled Presentation Layer Tables
+
+-- ==========================================================================================================================================
 */
 
 BEGIN TRY
@@ -27,7 +34,16 @@ DECLARE @LogID int
 
 DECLARE @SPName Varchar(255)
 
-select @SPName = 'PresentationLayerFullRefresh-'+SUBSTRING(@PLTableName,CHARINDEX('.',@PLTableName)+1,LEN(@PLTableName))
+/* Check to see If the Copy to Presentation Layer is not a Full Copy , If it isn't then change Logging and also execute staging Transform Logic and not Full Copy to PL */
+
+IF ((SELECT isnull([ModelDataToPL],0) FROM Mtd.SourceConfigForImport where SourceDatabaseName=@SourceDatabaseName AND SourceTableName=@ConfigTable AND SourceSchemaName=@ConfigSchema)=1)
+BEGIN
+select @SPName = 'StagingTransform-'+SUBSTRING(@StgTableName,CHARINDEX('.',@StgTableName)+1,LEN(@StgTableName))
+END
+ELSE IF ((SELECT isnull([ModelDataToPL],0) FROM Mtd.SourceConfigForImport where SourceDatabaseName=@SourceDatabaseName AND SourceTableName=@ConfigTable AND SourceSchemaName=@ConfigSchema)=0)
+BEGIN
+select @SPName = 'PresentationLayerFullRefresh-'+SUBSTRING(@StgTableName,CHARINDEX('.',@StgTableName)+1,LEN(@StgTableName))
+END
 
 
 /* Start Logging Execution */
@@ -171,6 +187,7 @@ COMMIT TRANSACTION
 END
 ELSE
 BEGIN
+/* If the Load to PL is a Full Copy from Staging without any Transformations then run the below logic */
 BEGIN TRANSACTION
 
 Declare @VSQL3 NVARCHAR(MAX)

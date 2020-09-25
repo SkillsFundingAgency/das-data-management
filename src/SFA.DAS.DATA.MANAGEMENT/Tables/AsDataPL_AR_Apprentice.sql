@@ -13,6 +13,7 @@
       ,[CreatedOn] datetime2(7) not null
 	  ,[FirstName] nvarchar(100) not null
       ,[LastName] nvarchar(100) not null
+	  ,[Email] nvarchar(255) not null
       ,[DateOfBirth] datetime2(7) not null
 	  ,[Asdm_UpdatedDateTime] datetime2 default getdate()
 )

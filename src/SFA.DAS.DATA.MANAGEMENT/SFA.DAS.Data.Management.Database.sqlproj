@@ -240,5 +240,7 @@
     <Build Include="Views\AsDataPL_DAS_UserAccountLegalEntity.sql" />
     <Build Include="Views\AsDataPL_DAS_Users.sql" />
     <Build Include="Tables\AsDataPL_AR_Apprentice.sql" />
+    <Build Include="StoredProcedure\ImportAppRedundancyToPL.sql" />
+    <Build Include="Tables\AsDataPL_Comt_Apprenticeship.sql" />
   </ItemGroup>
 </Project>

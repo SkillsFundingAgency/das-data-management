@@ -148,7 +148,7 @@ SELECT *
 
 Declare @TableName Varchar(255)
 
-SELECT @TableName=SUBSTRING('+@StgTableName+',CHARINDEX(''.'','+@StgTableName+')+1,LEN('+@StgTableName+'))
+SELECT @TableName=SUBSTRING('''+@StgTableName+''',CHARINDEX(''.'','''+@StgTableName+''')+1,LEN('''+@StgTableName+'''))
 
 DECLARE @VSQL2 NVARCHAR(MAX)
 

@@ -82,7 +82,7 @@ SELECT AR.[Id]
   JOIN ASData_PL.Comt_Apprenticeship CA
     ON CA.FirstName=AR.FirstName
    AND CA.LastName=AR.LastName
-   AND CA.DateOfBirth=AR.DateOfBirth
+   AND CONVERT(DATE,CA.DateOfBirth)=CONVERT(DATE,substring(AR.DateOfBirth,1,10))
  WHERE AR.RN=1
  '
 

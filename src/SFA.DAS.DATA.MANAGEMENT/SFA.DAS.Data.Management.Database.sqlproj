@@ -242,5 +242,6 @@
     <Build Include="Tables\AsDataPL_AR_Apprentice.sql" />
     <Build Include="StoredProcedure\ImportAppRedundancyToPL.sql" />
     <Build Include="Tables\AsDataPL_Comt_Apprenticeship.sql" />
+    <Build Include="StoredProcedure\Build_Modelled_PL.sql" />
   </ItemGroup>
 </Project>

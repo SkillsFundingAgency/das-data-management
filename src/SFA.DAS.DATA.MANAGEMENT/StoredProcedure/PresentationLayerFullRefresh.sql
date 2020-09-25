@@ -140,16 +140,29 @@ DECLARE @VSQL1 NVARCHAR(MAX)
 
 SET @VSQL1=
 '
-IF OBJECT_ID(''tempdb..#TStgCopy'') IS NOT NULL DROP TABLE #TStgCopy
+IF OBJECT_ID(''Tempdb..#TStgCopy'') IS NOT NULL DROP TABLE #TStgCopy
 
 SELECT *
    INTO #TStgCopy
    FROM '+@StgTableName+'
 
-DELETE FROM '+@StgTableName+'
+Declare @TableName Varchar(255)
 
-INSERT INTO '+@StgTableName+'
-SELECT '+@SelectList+' FROM #TStgCopy'
+SELECT @TableName=SUBSTRING('+@StgTableName+',CHARINDEX(''.'','+@StgTableName+')+1,LEN('+@StgTableName+'))
+
+DECLARE @VSQL2 NVARCHAR(MAX)
+
+SET @VSQL2=''
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = N''''''+@TableName+'''''' AND TABLE_SCHEMA=N''''Stg'''') 
+DROP TABLE Stg.''+@TableName+''
+''
+EXEC SP_EXECUTESQL @VSQL2
+
+
+SELECT '+@SelectList+'
+  INTO '+@StgTableName+'
+  FROM #TStgCopy'
 
 EXEC SP_EXECUTESQL @VSQL1
 

@@ -188,8 +188,6 @@ SELECT '+@SelectList+'
 
 EXEC SP_EXECUTESQL @VSQL3
 
-COMMIT TRANSACTION
-
 /* Drop Staging Table */
 
 DECLARE @VSQL4 NVARCHAR(MAX)
@@ -203,6 +201,10 @@ DROP TABLE [Stg].'+@TableName+'
 '
 EXEC SP_EXECUTESQL @VSQL4
 END
+
+COMMIT TRANSACTION
+
+
 
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1

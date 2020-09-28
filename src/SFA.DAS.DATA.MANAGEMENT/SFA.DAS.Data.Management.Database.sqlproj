@@ -242,5 +242,6 @@
     <Build Include="Tables\ASData_PL_Resv_Course.sql" />
     <Build Include="StoredProcedure\PresentationLayerFullRefreshModel.sql" />
     <Build Include="Tables\ASData_PL_Acc_Accounts.sql" />
+    <Build Include="StoredProcedure\ImportAccountsToPL.sql" />
   </ItemGroup>
 </Project>

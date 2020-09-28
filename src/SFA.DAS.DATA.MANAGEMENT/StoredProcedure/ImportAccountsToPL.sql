@@ -62,18 +62,26 @@ BEGIN TRY
 					stgAcc.ModifiedDate,
 					stgAcc.ApprenticeshipEmployerType,
 					stgAcc.PublicHashedId,
-					stgAcc.AsDm_UpdatedDateTime,
-					stgcAcc.ComtAccountID,
-					stgcAcc.ComtLevyStatus,
-					stgEAcc.EIAccountID,
+					getdate(),
+					stgcAcc.ID,
+					stgcAcc.LevyStatus,
+					stgEAcc.ID,
 					stgEAcc.HasSignedIncentivesTerms
 				FROM stg.Acc_Account stgAcc LEFT JOIN Stg.Comt_Accounts stgcAcc on 
 				stgAcc.id = stgcAcc.id  LEFT JOIN Stg.EI_Accounts stgEAcc on stgAcc.Id = stgEAcc.Id
 				group by stgAcc.Id,stgAcc.HashedId,stgAcc.Name,stgAcc.CreatedDate,
 					stgAcc.ModifiedDate,stgAcc.ApprenticeshipEmployerType,stgAcc.PublicHashedId,
-					stgAcc.AsDm_UpdatedDateTime,stgcAcc.ComtAccountID,stgcAcc.ComtLevyStatus,
-					stgEAcc.EIAccountID,stgEAcc.HasSignedIncentivesTerms
+					stgcAcc.ID,stgcAcc.LevyStatus,
+					stgEAcc.ID,stgEAcc.HasSignedIncentivesTerms
 
+				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='EI_Accounts' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+				DROP TABLE [Stg].[EI_Accounts]
+
+				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Comt_Accounts' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+				DROP TABLE [Stg].[Comt_Accounts]
+
+				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Acc_Account' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+				DROP TABLE [Stg].[Acc_Account]
 
 		COMMIT TRANSACTION
 
@@ -83,7 +91,6 @@ BEGIN TRY
 					  ,FullJobStatus='Pending'
 				 WHERE LogId=@LogID
 				   AND RunId=@RunId
-
 END TRY
 BEGIN CATCH
 			IF @@TRANCOUNT>0
@@ -124,4 +131,4 @@ BEGIN CATCH
 		 WHERE LogId=@LogID
 		   AND RunID=@RunId
   END CATCH
-GO
+  GO

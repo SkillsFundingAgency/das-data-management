@@ -125,6 +125,12 @@ with filterdata as
 		SELECT  ''Stg'' As SchemaName,''RAA_Vacancies'' As TableName,''BASE TABLE'' As TableType UNION
 		SELECT  ''Stg'' As SchemaName,''SQLCode'' As TableName,''BASE TABLE'' As TableType UNION
 		SELECT  ''StgPmts'' As SchemaName,''DataMatchReport'' As TableName,''BASE TABLE''  As TableType UNION
+		SELECT  ''StgPmts'' As SchemaName,''Job'' As TableName,''BASE TABLE''  As TableType UNION
+		SELECT  ''StgPmts'' As SchemaName,''JobEvent'' As TableName,''BASE TABLE''  As TableType UNION
+		SELECT  ''StgPmts'' As SchemaName,''JobEventStatus'' As TableName,''BASE TABLE''  As TableType UNION
+		SELECT  ''StgPmts'' As SchemaName,''JobProviderEarnings'' As TableName,''BASE TABLE''  As TableType UNION
+		SELECT  ''StgPmts'' As SchemaName,''JobStatus'' As TableName,''BASE TABLE''  As TableType UNION
+		SELECT  ''StgPmts'' As SchemaName,''JobType'' As TableName,''BASE TABLE''  As TableType UNION
 		SELECT  ''Mgmt'' As SchemaName,''LoadStatus'' As TableName,''VIEW'' As TableType UNION
 		SELECT  ''ASData_PL'' As SchemaName,''DAS_Dashboard_Registration'' As TableName,''VIEW'' As TableType UNION
 		SELECT  ''ASData_PL'' As SchemaName,''DAS_Dashboard_Reservation'' As TableName,''VIEW'' As TableType UNION

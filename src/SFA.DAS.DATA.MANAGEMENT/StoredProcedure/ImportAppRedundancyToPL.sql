@@ -88,6 +88,11 @@ SELECT AR.[Id]
 
  EXEC SP_EXECUTESQL @VSQL1
 
+ /* Drop Staging Table as it's no longer required */
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = N'Apprentice' AND TABLE_SCHEMA=N'Stg') 
+DROP TABLE [Stg].Apprentice
+
 
 
 COMMIT TRANSACTION

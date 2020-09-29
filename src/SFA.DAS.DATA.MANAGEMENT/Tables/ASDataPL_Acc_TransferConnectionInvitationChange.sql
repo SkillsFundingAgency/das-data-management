@@ -9,5 +9,6 @@
 	[DeletedByReceiver] [bit] NULL,
 	[UserId] [bigint] NOT NULL,
 	[CreatedDate] [datetime] NOT NULL,
+	[AsDm_UpdatedDateTime] datetime2 default getdate(),
 	CONSTRAINT PK_Acc_TransferConnectionInvitationChange_Id PRIMARY KEY CLUSTERED (Id)
 ) ON [PRIMARY]

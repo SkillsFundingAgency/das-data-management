@@ -3,5 +3,6 @@
 	[Title] [varchar](500) NOT NULL,
 	[Level] [tinyint] NOT NULL,
 	[EffectiveTo] [datetime] NULL,
+	[AsDm_UpdatedDateTime] datetime2 default getdate(),
 PRIMARY KEY CLUSTERED  ([CourseId] ASC )) ON [PRIMARY]
 GO

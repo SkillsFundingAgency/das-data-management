@@ -227,21 +227,22 @@
     <Build Include="StoredProcedure\CreateDashboardReservationAndCommitmentView.sql" />
     <Build Include="Tables\ApprenticeshipStdRoute.sql" />
     <Build Include="Tables\SaltKeyLog.sql" />
-    <Build Include="Tables\ASData_PL_Acc_AccountHistory.sql" />
-    <Build Include="Tables\ASData_PL_Acc_Paye.sql" />
-    <Build Include="Tables\ASData_PL_Acc_TransferConnectionInvitation.sql" />
-    <Build Include="Tables\ASData_PL_Acc_TransferConnectionInvitationChange.sql" />
-    <Build Include="Tables\ASData_PL_Comt_Accounts.sql" />
-    <Build Include="Tables\ASData_PL_Comt_Commitment.sql" />
-    <Build Include="Tables\ASData_PL_Comt_Apprenticeship.sql" />
-    <Build Include="Tables\ASData_PL_Fin_AccountTransfers.sql" />
-    <Build Include="Tables\ASData_PL_Fin_GetLevyDeclarationAndTopUp.sql" />
-    <Build Include="Tables\ASData_PL_Fin_Payment.sql" />
-    <Build Include="Tables\ASData_PL_Fin_TransactionLine.sql" />
-    <Build Include="Tables\ASData_PL_Resv_Reservation.sql" />
-    <Build Include="Tables\ASData_PL_Resv_Course.sql" />
+    <Build Include="Tables\ASDataPL_Acc_AccountHistory.sql" />
+    <Build Include="Tables\ASDataPL_Acc_Paye.sql" />
+    <Build Include="Tables\ASDataPL_Acc_TransferConnectionInvitation.sql" />
+    <Build Include="Tables\ASDataPL_Acc_TransferConnectionInvitationChange.sql" />
+    <Build Include="Tables\ASDataPL_Comt_Accounts.sql" />
+    <Build Include="Tables\ASDataPL_Comt_Commitment.sql" />
+    <Build Include="Tables\ASDataPL_Comt_Apprenticeship.sql" />
+    <Build Include="Tables\ASDataPL_Fin_AccountTransfers.sql" />
+    <Build Include="Tables\ASDataPL_Fin_GetLevyDeclarationAndTopUp.sql" />
+    <Build Include="Tables\ASDataPL_Fin_Payment.sql" />
+    <Build Include="Tables\ASDataPL_Fin_TransactionLine.sql" />
+    <Build Include="Tables\ASDataPL_Resv_Reservation.sql" />
+    <Build Include="Tables\ASDataPL_Resv_Course.sql" />
     <Build Include="StoredProcedure\PresentationLayerFullRefreshModel.sql" />
-    <Build Include="Tables\ASData_PL_Acc_Accounts.sql" />
+    <Build Include="Tables\ASDataPL_Acc_Accounts.sql" />
     <Build Include="StoredProcedure\ImportAccountsToPL.sql" />
+    <Build Include="StoredProcedure\Build_Modelled_PL.sql" />
   </ItemGroup>
 </Project>

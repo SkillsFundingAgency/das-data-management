@@ -17,5 +17,6 @@
 	[PeriodEnd] [varchar](25) NOT NULL,
 	[PaymentMetaDataId] [bigint] NOT NULL,
 	[DateImported] [datetime] NULL,
+	[AsDm_UpdatedDateTime] datetime2 default getdate(),
 	CONSTRAINT PK_Fin_Payment_PaymentId PRIMARY KEY CLUSTERED (PaymentId)
 )ON [PRIMARY]

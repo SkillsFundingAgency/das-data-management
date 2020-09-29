@@ -18,6 +18,7 @@
 	[TransferSenderAccountName] [nvarchar](100) NULL,
 	[TransferReceiverAccountId] [bigint] NULL,
 	[TransferReceiverAccountName] [nvarchar](100) NULL,
+	[AsDm_UpdatedDateTime] datetime2 default getdate(),
 	CONSTRAINT PK_Fin_TransactionLine_Id PRIMARY KEY CLUSTERED (Id)
 )ON [PRIMARY]
 Go

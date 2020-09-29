@@ -23,5 +23,6 @@
 	[LevyDeclaredInMonth] [decimal](19, 4) NULL,
 	[TopUp] [decimal](38, 6) NULL,
 	[TotalAmount] [decimal](38, 6) NULL,
+	[AsDm_UpdatedDateTime] datetime2 default getdate(),
 	CONSTRAINT PK_Fin_GetLevyDeclarationAndTopUp_Id PRIMARY KEY CLUSTERED (Id)
 )ON [PRIMARY]

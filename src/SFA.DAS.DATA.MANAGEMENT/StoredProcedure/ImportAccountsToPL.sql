@@ -47,11 +47,8 @@ BEGIN TRY
 						[CreatedDate],
 						[ModifiedDate],
 						[ApprenticeshipEmployerType],
-						[PublicHashedId],
-						[AsDm_UpdatedDateTime],
-						[ComtAccountID],
-						[ComtLevyStatus],
-						[EIAccountID],
+						[PublicHashedId],											
+						[ComtLevyStatus],						
 						[HasSignedIncentivesTerms]
 				)
 				SELECT 
@@ -61,18 +58,14 @@ BEGIN TRY
 					stgAcc.CreatedDate,
 					stgAcc.ModifiedDate,
 					stgAcc.ApprenticeshipEmployerType,
-					stgAcc.PublicHashedId,
-					getdate(),
-					stgcAcc.ID,
-					stgcAcc.LevyStatus,
-					stgEAcc.ID,
+					stgAcc.PublicHashedId,										
+					stgcAcc.LevyStatus,					
 					stgEAcc.HasSignedIncentivesTerms
 				FROM stg.Acc_Account stgAcc LEFT JOIN Stg.Comt_Accounts stgcAcc on 
 				stgAcc.id = stgcAcc.id  LEFT JOIN Stg.EI_Accounts stgEAcc on stgAcc.Id = stgEAcc.Id
 				group by stgAcc.Id,stgAcc.HashedId,stgAcc.Name,stgAcc.CreatedDate,
 					stgAcc.ModifiedDate,stgAcc.ApprenticeshipEmployerType,stgAcc.PublicHashedId,
-					stgcAcc.ID,stgcAcc.LevyStatus,
-					stgEAcc.ID,stgEAcc.HasSignedIncentivesTerms
+					stgcAcc.LevyStatus,stgEAcc.HasSignedIncentivesTerms
 
 				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='EI_Accounts' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 				DROP TABLE [Stg].[EI_Accounts]

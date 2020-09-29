@@ -11,5 +11,6 @@
 	[Type] [nvarchar](50) NOT NULL,
 	[CreatedDate] [datetime] NOT NULL,
 	[RequiredPaymentId] [uniqueidentifier] NOT NULL,
+	[AsDm_UpdatedDateTime] datetime2 default getdate(),
 	CONSTRAINT PK_Fin_AccountTransfers_Id PRIMARY KEY CLUSTERED (Id)
 )ON [PRIMARY]

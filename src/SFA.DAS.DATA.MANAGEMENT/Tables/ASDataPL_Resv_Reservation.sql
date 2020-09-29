@@ -16,6 +16,7 @@
 	[ConfirmedDate] [datetime] NULL,
 	[CohortId] [bigint] NULL,
 	[DraftApprenticeshipId] [bigint] NULL,
+	[AsDm_UpdatedDateTime] datetime2 default getdate(),
     PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 GO

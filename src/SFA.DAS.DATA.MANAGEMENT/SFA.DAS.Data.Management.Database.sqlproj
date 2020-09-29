@@ -239,5 +239,6 @@
     <Build Include="Tables\AsDataPL_Acc_User.sql" />
     <Build Include="Views\AsDataPL_DAS_UserAccountLegalEntity.sql" />
     <Build Include="Views\AsDataPL_DAS_Users.sql" />
+    <Build Include="StoredProcedure\CreateDataDictionaryView.sql" />
   </ItemGroup>
 </Project>

@@ -374,3 +374,21 @@ BEGIN
      GRANT SELECT ON ASData_PL.DAS_UserAccountLegalEntity TO MarketoUser
 END
 
+
+-- Grant select permissions on DataDictionaryView to Developer
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DataDictionary' AND TABLE_SCHEMA = 'dbo')
+BEGIN
+	GRANT SELECT ON dbo.DataDictionary To Developer,BetaUser
+End
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Users' AND TABLE_SCHEMA = 'ASData_PL')
+BEGIN
+	 GRANT SELECT ON ASData_PL.DAS_Users To BetaUser
+End
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_UserAccountLegalEntity' AND TABLE_SCHEMA = 'ASData_PL')
+BEGIN
+	 GRANT SELECT ON ASData_PL.DAS_UserAccountLegalEntity To BetaUser
+End
+

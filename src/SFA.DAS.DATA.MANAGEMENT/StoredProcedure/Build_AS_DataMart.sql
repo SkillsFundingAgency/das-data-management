@@ -78,7 +78,7 @@ EXEC LoadCandidateConfig @RunId
 
 /* Refresh Payments Snapshot Table */
 
-EXEC ImportPaymentsSnapshot @RunId
+-- EXEC ImportPaymentsSnapshot @RunId
 
 EXEC CreatePaymentsView_LevyInd  @RunId
 
@@ -99,6 +99,6 @@ EXEC [dbo].[CreateDashboardReservationAndCommitmentView] @RunID
 
 EXEC [dbo].[UpdateApprenticeshipStdRoute] @RunID
 
-
+EXEC [dbo].[CreateDataDictionaryView] @RunID
 
 

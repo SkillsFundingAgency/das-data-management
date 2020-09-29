@@ -111,10 +111,6 @@ VALUES
 ,('Reservation','Reservation','dbo','[Id],[AccountId],[IsLevyAccount],[CreatedDate],[StartDate],[ExpiryDate],[Status],[CourseId],[AccountLegalEntityId],[ProviderId],[TransferSenderAccountId],[UserId],[ClonedReservationId],[ConfirmedDate],[CohortId],[DraftApprenticeshipId]','[AccountLegalEntityName]','','resv_Reservation',0)
 ,('Reservation','Course','dbo','[CourseId],[Title],[Level],[EffectiveTo]','','','resv_Course',0)
 
-
-
-
-
 COMMIT TRANSACTION
 
 

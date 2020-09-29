@@ -2,7 +2,7 @@
 (
 	[CandidateDetailsId] BIGINT NOT NULL IDENTITY(1,1) PRIMARY KEY
    ,[CandidateId] BIGINT NOT NULL
-   ,[CandidateEthnicCode] Varchar(25)
-   ,[CandidateEthnicDesc] Varchar(256)
+   ,[CandidateEthnicCode] Varchar(25) MASKED WITH (FUNCTION = 'default()')
+   ,[CandidateEthnicDesc] Varchar(256) MASKED WITH (FUNCTION = 'default()')
    ,[SourceDb] Varchar(256)
 )

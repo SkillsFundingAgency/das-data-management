@@ -1,0 +1,6 @@
+﻿CREATE TABLE [Stg].[SQLCode]
+(
+	[SCId] INT IDENTITY(1,1) NOT NULL PRIMARY KEY
+   ,[SQLCode] VARCHAR(255)
+   ,[Type] VARCHAR(255)
+)

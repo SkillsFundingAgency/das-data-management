@@ -301,7 +301,6 @@ BEGIN
      GRANT SELECT ON AsData_PL.EI_IncentiveApplicationApprenticeship TO BetaUser
 END
 
-
 /* Assign select permissions on Vacanacy tables to BetaUser */
 IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Va_Application' AND TABLE_SCHEMA = 'AsData_PL')
 BEGIN     
@@ -392,6 +391,7 @@ IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_UserAccou
 BEGIN
 	 GRANT SELECT ON ASData_PL.DAS_UserAccountLegalEntity To BetaUser
 End
+
 
 DROP TABLE IF EXISTS [ASData_PL].[EI_Accounts]
 

@@ -67,6 +67,16 @@ BEGIN TRY
 					stgAcc.ModifiedDate,stgAcc.ApprenticeshipEmployerType,stgAcc.PublicHashedId,
 					stgcAcc.LevyStatus,stgEAcc.HasSignedIncentivesTerms
 
+				
+				/*Update ASData_PL.Acc_AccountLegalEntity for HasSignedIncentivesTerms*/
+
+				Update Acc_AccLegalEntity
+				Set Acc_AccLegalEntity.HasSignedIncentivesTerms =  EI_Acc.HasSignedIncentivesTerms				
+				FROM     
+				ASData_PL.Acc_AccountLegalEntity As Acc_AccLegalEntity  INNER JOIN stg.EI_Accounts AS EI_Acc
+				ON Acc_AccLegalEntity.Id = EI_Acc.AccountLegalEntityId   
+				AND Acc_AccLegalEntity.LegalEntityId = EI_Acc.LegalEntityId
+
 				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='EI_Accounts' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 				DROP TABLE [Stg].[EI_Accounts]
 

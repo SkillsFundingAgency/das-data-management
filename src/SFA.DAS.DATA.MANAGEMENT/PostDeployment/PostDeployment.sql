@@ -300,3 +300,7 @@ IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='EI_Incentive
 BEGIN
      GRANT SELECT ON AsData_PL.EI_IncentiveApplicationApprenticeship TO BetaUser
 END
+
+
+DROP PROCEDURE IF EXISTS [dbo].[PresentationLayerFullRefreshModel]
+

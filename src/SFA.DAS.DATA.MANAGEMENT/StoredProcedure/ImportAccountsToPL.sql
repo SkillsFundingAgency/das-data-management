@@ -48,8 +48,7 @@ BEGIN TRY
 						[ModifiedDate],
 						[ApprenticeshipEmployerType],
 						[PublicHashedId],											
-						[ComtLevyStatus],						
-						[HasSignedIncentivesTerms]
+						[ComtLevyStatus]						
 				)
 				SELECT 
 					stgAcc.Id,
@@ -59,13 +58,12 @@ BEGIN TRY
 					stgAcc.ModifiedDate,
 					stgAcc.ApprenticeshipEmployerType,
 					stgAcc.PublicHashedId,										
-					stgcAcc.LevyStatus,					
-					stgEAcc.HasSignedIncentivesTerms
+					stgcAcc.LevyStatus					
 				FROM stg.Acc_Account stgAcc LEFT JOIN Stg.Comt_Accounts stgcAcc on 
 				stgAcc.id = stgcAcc.id  LEFT JOIN Stg.EI_Accounts stgEAcc on stgAcc.Id = stgEAcc.Id
 				group by stgAcc.Id,stgAcc.HashedId,stgAcc.Name,stgAcc.CreatedDate,
 					stgAcc.ModifiedDate,stgAcc.ApprenticeshipEmployerType,stgAcc.PublicHashedId,
-					stgcAcc.LevyStatus,stgEAcc.HasSignedIncentivesTerms
+					stgcAcc.LevyStatus
 
 				
 				/*Update ASData_PL.Acc_AccountLegalEntity for HasSignedIncentivesTerms*/

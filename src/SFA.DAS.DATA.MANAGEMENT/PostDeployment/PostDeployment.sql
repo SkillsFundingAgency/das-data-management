@@ -302,5 +302,97 @@ BEGIN
 END
 
 
-DROP PROCEDURE IF EXISTS [dbo].[PresentationLayerFullRefreshModel]
+/* Assign select permissions on Vacanacy tables to BetaUser */
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Va_Application' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN     
+	 GRANT SELECT ON ASData_PL.Va_Application To BetaUser
+END
 
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Va_ApprenticeshipFrameWorkAndOccupation' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN     
+	 GRANT SELECT ON ASData_PL.Va_ApprenticeshipFrameWorkAndOccupation To BetaUser
+END
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Va_ApprenticeshipStandard' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN     
+	 GRANT SELECT ON ASData_PL.Va_ApprenticeshipStandard To BetaUser
+END
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Va_Candidate' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN     
+	 GRANT SELECT ON ASData_PL.Va_Candidate To BetaUser
+END
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Va_CandidateDetails' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN     
+	 GRANT SELECT ON ASData_PL.Va_CandidateDetails To BetaUser
+END
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Va_EducationLevel' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN     
+	 GRANT SELECT ON ASData_PL.Va_EducationLevel To BetaUser
+END
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Va_Employer' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN     
+	 GRANT SELECT ON ASData_PL.Va_Employer To BetaUser
+END
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Va_LegalEntity' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN     
+	 GRANT SELECT ON ASData_PL.Va_LegalEntity To BetaUser
+END
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Va_Provider' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN     
+	 GRANT SELECT ON ASData_PL.Va_Provider To BetaUser
+END
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Va_Vacancy' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN     
+	 GRANT SELECT ON ASData_PL.Va_Vacancy To BetaUser
+END;
+
+/* Grant UNMASK to BetaUser */
+GRANT UNMASK TO [BetaUser]
+
+
+/* Provide Users and UserAccountLegalEntity views access to Marketo Team that were designed for them */
+
+IF DATABASE_PRINCIPAL_ID('MarketoUser') IS NULL
+BEGIN
+	CREATE ROLE [MarketoUser]
+END
+
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Users' AND TABLE_SCHEMA = 'ASData_PL')
+BEGIN
+     GRANT SELECT ON ASData_PL.DAS_Users TO MarketoUser
+END
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_UserAccountLegalEntity' AND TABLE_SCHEMA = 'ASData_PL')
+BEGIN
+     GRANT SELECT ON ASData_PL.DAS_UserAccountLegalEntity TO MarketoUser
+END
+
+
+-- Grant select permissions on DataDictionaryView to Developer
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DataDictionary' AND TABLE_SCHEMA = 'dbo')
+BEGIN
+	GRANT SELECT ON dbo.DataDictionary To Developer,BetaUser
+End
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Users' AND TABLE_SCHEMA = 'ASData_PL')
+BEGIN
+	 GRANT SELECT ON ASData_PL.DAS_Users To BetaUser
+End
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_UserAccountLegalEntity' AND TABLE_SCHEMA = 'ASData_PL')
+BEGIN
+	 GRANT SELECT ON ASData_PL.DAS_UserAccountLegalEntity To BetaUser
+End
+
+DROP TABLE IF EXISTS [ASData_PL].[EI_Accounts]
+
+DROP TABLE IF EXISTS [ASData_PL].[Comt_Accounts]

@@ -245,5 +245,6 @@
     <Build Include="StoredProcedure\ImportAccountsToPL.sql" />
     <Build Include="StoredProcedure\Build_Modelled_PL.sql" />
     <Build Include="Tables\ASDataPL_Acc_AccountLegalEntity.sql" />
+    <Build Include="StoredProcedure\CreateDataDictionaryView.sql" />
   </ItemGroup>
 </Project>

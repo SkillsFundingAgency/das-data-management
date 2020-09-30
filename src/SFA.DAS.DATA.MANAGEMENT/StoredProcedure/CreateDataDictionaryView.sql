@@ -55,6 +55,8 @@ set @VSQL2  = 'Create View dbo.DataDictionary As
 with filterdata as 
 (
 		SELECT  ''ASData_PL'' As SchemaName,''SaltKeyLog'' As TableName,''BASE TABLE''  As TableType UNION		
+		SELECT  ''ASData_PL'' As SchemaName,''Va_County'' As TableName,''BASE TABLE''  As TableType UNION		
+		SELECT  ''ASData_PL'' As SchemaName,''Va_LocalAuthority'' As TableName,''BASE TABLE''  As TableType UNION		
 		SELECT  ''dbo'' As SchemaName,''Apprentice'' As TableName,''BASE TABLE''  As TableType UNION
 		SELECT  ''dbo'' As SchemaName,''Apprenticeship'' As TableName,''BASE TABLE''  As TableType UNION 
 		SELECT  ''dbo'' As SchemaName,''AssessmentOrganisation'' As TableName,''BASE TABLE''  As TableType UNION

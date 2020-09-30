@@ -393,8 +393,11 @@ BEGIN
 	 GRANT SELECT ON ASData_PL.DAS_UserAccountLegalEntity To BetaUser
 End
 
-DROP TABLE IF EXISTS [ASData_PL].[EI_Accounts]
-
-DROP TABLE IF EXISTS [ASData_PL].[Comt_Accounts]
-
-DROP PROCEDURE IF EXISTS [dbo].[PresentationLayerFullRefreshModel]
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Acc_Account' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN
+     GRANT SELECT ON AsData_PL.Acc_Account TO BetaUser
+END
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Acc_AccountLegalEntity' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN
+     GRANT SELECT ON ASData_PL.Acc_AccountLegalEntity TO BetaUser
+END

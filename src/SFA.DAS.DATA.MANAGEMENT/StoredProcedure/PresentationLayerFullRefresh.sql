@@ -46,8 +46,6 @@ select @SPName = 'PresentationLayerFullRefresh-'+SUBSTRING(@StgTableName,CHARIND
 END
 
 
-
-
 /* Start Logging Execution */
 
   INSERT INTO Mgmt.Log_Execution_Results
@@ -147,7 +145,6 @@ SET @SelectList=STUFF((select ','+TransformList
 						for XML PATH('')),1,1,'')
 --SELECT @SelectList,@InsertList
 END
-
 
 IF ((SELECT isnull([ModelDataToPL],0) FROM Mtd.SourceConfigForImport where SourceDatabaseName=@SourceDatabaseName AND SourceTableName=@ConfigTable AND SourceSchemaName=@ConfigSchema)=1)
 /* Execute Below code to transform staging table and make it ready for Presentation Layer Build */

@@ -226,22 +226,22 @@
     <Build Include="StoredProcedure\CreateDashboardReservationAndCommitmentView.sql" />
     <Build Include="Tables\ApprenticeshipStdRoute.sql" />
     <Build Include="Tables\SaltKeyLog.sql" />
-    <Build Include="Tables\AsDataPL_Acc_AccountHistory.sql" />
-    <Build Include="Tables\AsDataPL_Acc_Paye.sql" />
-    <Build Include="Tables\AsDataPL_Acc_TransferConnectionInvitation.sql" />
-    <Build Include="Tables\AsDataPL_Acc_TransferConnectionInvitationChange.sql" />
-    <Build Include="Tables\AsDataPL_Comt_Commitment.sql" />
-    <Build Include="Tables\AsDataPL_Comt_Apprenticeship.sql" />
-    <Build Include="Tables\AsDataPL_Fin_AccountTransfers.sql" />
-    <Build Include="Tables\AsDataPL_Fin_GetLevyDeclarationAndTopUp.sql" />
-    <Build Include="Tables\AsDataPL_Fin_Payment.sql" />
-    <Build Include="Tables\AsDataPL_Fin_TransactionLine.sql" />
-    <Build Include="Tables\AsDataPL_Resv_Reservation.sql" />
-    <Build Include="Tables\AsDataPL_Resv_Course.sql" />
     <Build Include="Tables\AsDataPL_Acc_Accounts.sql" />
     <Build Include="StoredProcedure\ImportAccountsToPL.sql" />
     <Build Include="StoredProcedure\Build_Modelled_PL.sql" />
     <Build Include="Tables\AsDataPL_Acc_AccountLegalEntity.sql" />
     <Build Include="StoredProcedure\CreateDataDictionaryView.sql" />
+    <Build Include="Tables\AsDataPL_Acc_AccountHistory.sql" />
+    <Build Include="Tables\AsDataPL_Acc_Paye.sql" />
+    <Build Include="Tables\AsDataPL_Acc_TransferConnectionInvitation.sql" />
+    <Build Include="Tables\AsDataPL_Acc_TransferConnectionInvitationChange.sql" />
+    <Build Include="Tables\AsDataPL_Comt_Apprenticeship.sql" />
+    <Build Include="Tables\AsDataPL_Comt_Commitment.sql" />
+    <Build Include="Tables\AsDataPL_Fin_AccountTransfers.sql" />
+    <Build Include="Tables\AsDataPL_Fin_GetLevyDeclarationAndTopUp.sql" />
+    <Build Include="Tables\AsDataPL_Fin_Payment.sql" />
+    <Build Include="Tables\AsDataPL_Fin_TransactionLine.sql" />
+    <Build Include="Tables\AsDataPL_Resv_Course.sql" />
+    <Build Include="Tables\AsDataPL_Resv_Reservation.sql" />
   </ItemGroup>
 </Project>

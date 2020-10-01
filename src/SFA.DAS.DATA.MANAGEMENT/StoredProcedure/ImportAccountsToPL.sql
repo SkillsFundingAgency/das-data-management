@@ -59,21 +59,57 @@ BEGIN TRY
 					stgAcc.ApprenticeshipEmployerType,
 					stgAcc.PublicHashedId,										
 					stgcAcc.LevyStatus					
-				FROM stg.Acc_Account stgAcc LEFT JOIN Stg.Comt_Accounts stgcAcc on 
-				stgAcc.id = stgcAcc.id  LEFT JOIN Stg.EI_Accounts stgEAcc on stgAcc.Id = stgEAcc.Id
-				group by stgAcc.Id,stgAcc.HashedId,stgAcc.Name,stgAcc.CreatedDate,
-					stgAcc.ModifiedDate,stgAcc.ApprenticeshipEmployerType,stgAcc.PublicHashedId,
-					stgcAcc.LevyStatus
+				FROM stg.Acc_Account stgAcc LEFT JOIN Stg.Comt_Accounts stgcAcc on stgAcc.id = stgcAcc.id 
+				group by stgAcc.Id,stgAcc.HashedId,stgAcc.Name,stgAcc.CreatedDate,stgAcc.ModifiedDate,stgAcc.ApprenticeshipEmployerType,
+						 stgAcc.PublicHashedId,stgcAcc.LevyStatus
 
 				
-				/*Update ASData_PL.Acc_AccountLegalEntity for HasSignedIncentivesTerms*/
+				/*Insert ASData_PL.Acc_AccountLegalEntity*/
+				
+				DELETE FROM [ASData_PL].[Acc_AccountLegalEntity]
 
-				Update Acc_AccLegalEntity
-				Set Acc_AccLegalEntity.HasSignedIncentivesTerms =  EI_Acc.HasSignedIncentivesTerms				
-				FROM     
-				ASData_PL.Acc_AccountLegalEntity As Acc_AccLegalEntity  INNER JOIN stg.EI_Accounts AS EI_Acc
-				ON Acc_AccLegalEntity.Id = EI_Acc.AccountLegalEntityId   
-				AND Acc_AccLegalEntity.LegalEntityId = EI_Acc.LegalEntityId
+				INSERT INTO [ASData_PL].[Acc_AccountLegalEntity]
+						   ([Id]
+						   ,[Name]
+						   ,[AccountId]
+						   ,[LegalEntityId]
+						   ,[Created]
+						   ,[Modified]
+						   ,[SignedAgreementVersion]
+						   ,[SignedAgreementId]
+						   ,[PendingAgreementVersion]
+						   ,[PendingAgreementId]
+						   ,[Deleted]
+						   ,[HasSignedIncentivesTerms]
+						   )
+				Select 
+							 Acc_AccLegalEntity.Id
+							,Acc_AccLegalEntity.Name
+							,Acc_AccLegalEntity.AccountId
+							,Acc_AccLegalEntity.LegalEntityId
+							,Acc_AccLegalEntity.Created
+							,Acc_AccLegalEntity.Modified
+							,Acc_AccLegalEntity.SignedAgreementVersion
+							,Acc_AccLegalEntity.SignedAgreementId
+							,Acc_AccLegalEntity.PendingAgreementVersion
+							,Acc_AccLegalEntity.PendingAgreementId
+							,Acc_AccLegalEntity.Deleted		
+							,EI_Acc.HasSignedIncentivesTerms
+					FROM     stg.Acc_AccountLegalEntity As Acc_AccLegalEntity  INNER JOIN stg.EI_Accounts AS EI_Acc
+							ON Acc_AccLegalEntity.Id = EI_Acc.AccountLegalEntityId   
+							AND Acc_AccLegalEntity.LegalEntityId = EI_Acc.LegalEntityId
+					GROUP BY Acc_AccLegalEntity.Id
+							,Acc_AccLegalEntity.Name
+							,Acc_AccLegalEntity.AccountId
+							,Acc_AccLegalEntity.LegalEntityId
+							,Acc_AccLegalEntity.Created
+							,Acc_AccLegalEntity.Modified
+							,Acc_AccLegalEntity.SignedAgreementVersion
+							,Acc_AccLegalEntity.SignedAgreementId
+							,Acc_AccLegalEntity.PendingAgreementVersion
+							,Acc_AccLegalEntity.PendingAgreementId
+							,Acc_AccLegalEntity.Deleted		
+							,EI_Acc.HasSignedIncentivesTerms
 
 				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='EI_Accounts' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 				DROP TABLE [Stg].[EI_Accounts]
@@ -83,6 +119,9 @@ BEGIN TRY
 
 				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Acc_Account' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 				DROP TABLE [Stg].[Acc_Account]
+
+				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Acc_AccountLegalEntity' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+				DROP TABLE [Stg].[Acc_AccountLegalEntity]
 
 		COMMIT TRANSACTION
 
@@ -132,4 +171,3 @@ BEGIN CATCH
 		 WHERE LogId=@LogID
 		   AND RunID=@RunId
   END CATCH
-  GO

@@ -243,5 +243,15 @@
     <Build Include="Tables\AsDataPL_Fin_TransactionLine.sql" />
     <Build Include="Tables\AsDataPL_Resv_Course.sql" />
     <Build Include="Tables\AsDataPL_Resv_Reservation.sql" />
+    <Build Include="Tables\AsDataPL_Acc_AccountUserRole.sql" />
+    <Build Include="Tables\AsDataPL_Acc_EmployerAgreement.sql" />
+    <Build Include="Tables\AsDataPL_Acc_EmployerAgreementStatus.sql" />
+    <Build Include="Tables\AsDataPL_Acc_LegalEntity.sql" />
+    <Build Include="Tables\AsDataPL_Acc_User.sql" />
+    <Build Include="Tables\AsDataPL_Acc_UserAccountSettings.sql" />
+    <Build Include="Tables\AsDataPL_EAU_User.sql" />
+    <Build Include="Views\AsDataPL_DAS_UserAccountLegalEntity.sql" />
+    <Build Include="Views\AsDataPL_DAS_Users.sql" />
+    <Build Include="Tables\Stg_SQLCodeForDynamicBuild.sql" />
   </ItemGroup>
 </Project>

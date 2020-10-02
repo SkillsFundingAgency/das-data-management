@@ -10,7 +10,3 @@
 	[AsDm_UpdatedDateTime] datetime2 default getdate(),	
 	[ComtLevyStatus] [tinyint]  NULL
 )
-
-
-
-

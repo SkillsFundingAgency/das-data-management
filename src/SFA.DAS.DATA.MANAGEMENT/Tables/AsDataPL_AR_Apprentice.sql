@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [AsData_PL].[AR_Apprentice]
 (
-	   [Id]  bigint primary Key not null
+	   [ApprenticeId]  bigint not null
 	  ,[ApprenticeshipId] bigint
       ,[UpdatesWanted] bit not null
       ,[ContactableForFeedback] bit not null
@@ -16,4 +16,5 @@
 	  ,[Email] nvarchar(255) 
       ,[DateOfBirth] datetime2(7) not null
 	  ,[Asdm_UpdatedDateTime] datetime2 default getdate()
+	  , CONSTRAINT [PK_App_ApprenticeId] PRIMARY KEY CLUSTERED([ApprenticeId] ASC)
 )

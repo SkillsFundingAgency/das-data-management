@@ -45,7 +45,7 @@ SET @VSQL1='
 
 INSERT INTO ASData_PL.AR_Apprentice
 (
-       [Id]
+       [ApprenticeId]
       ,[ApprenticeshipId]
       ,[UpdatesWanted]
       ,[ContactableForFeedback]

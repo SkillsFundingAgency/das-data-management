@@ -351,10 +351,47 @@ END
 IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Va_Vacancy' AND TABLE_SCHEMA = 'AsData_PL')
 BEGIN     
 	 GRANT SELECT ON ASData_PL.Va_Vacancy To BetaUser
+END
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Acc_Accounts' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN     
+	 GRANT SELECT ON ASData_PL.Acc_Accounts To BetaUser
 END;
 
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Acc_AccountLegalEntity' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN     
+	 GRANT SELECT ON ASData_PL.Acc_AccountLegalEntity To BetaUser
+END;
+
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Acc_LegalEntity' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN     
+	 GRANT SELECT ON ASData_PL.Acc_LegalEntity To BetaUser
+END;
+
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Comt_Apprenticeship' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN     
+	 GRANT SELECT ON ASData_PL.Comt_Apprenticeship To BetaUser
+END;
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Comt_Commitment' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN     
+	 GRANT SELECT ON ASData_PL.Comt_Commitment To BetaUser
+END;
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='AR_Apprentice' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN     
+	 GRANT SELECT ON ASData_PL.AR_Apprentice To BetaUser
+END;
+
+
+
+
+
 /* Grant UNMASK to BetaUser */
-GRANT UNMASK TO [BetaUser]
+--GRANT UNMASK TO [BetaUser]
 
 
 /* Provide Users and UserAccountLegalEntity views access to Marketo Team that were designed for them */

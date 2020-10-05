@@ -95,7 +95,7 @@ BEGIN TRY
 							,Acc_AccLegalEntity.PendingAgreementId
 							,Acc_AccLegalEntity.Deleted		
 							,EI_Acc.HasSignedIncentivesTerms
-					FROM     stg.Acc_AccountLegalEntity As Acc_AccLegalEntity  INNER JOIN stg.EI_Accounts AS EI_Acc
+					FROM     stg.Acc_AccountLegalEntity As Acc_AccLegalEntity  LEFT JOIN stg.EI_Accounts AS EI_Acc
 							ON Acc_AccLegalEntity.Id = EI_Acc.AccountLegalEntityId   
 							AND Acc_AccLegalEntity.LegalEntityId = EI_Acc.LegalEntityId
 					GROUP BY Acc_AccLegalEntity.Id

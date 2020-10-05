@@ -6,11 +6,11 @@
    ,SourceSchemaName Varchar(256)
    ,ColumnNamesToInclude Varchar(MAX)
    ,ColumnNamesToExclude Varchar(MAX)
-   ,ColumnNamesToMask varchar(max)
+   ,ColumnNamesToMask varchar(max) NULL
    ,IsEnabled bit default(1)
-   ,PLTableName varchar(256)
-   ,FullCopyToPL BIT DEFAULT(1)
-   ,ModelDataToPL BIT 
+   ,PLTableName [varchar](256) NULL
+   ,FullCopyToPL [bit] default(1)
+   ,ModelDataToPL [bit] NULL
    ,AddedDate DateTime2 default(getdate())
    ,UpdatedDate DateTime2
    ,CONSTRAINT [PK_SourceConfigForImport_SCFIId] PRIMARY KEY CLUSTERED (SCFI_ID ASC)

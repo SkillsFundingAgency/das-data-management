@@ -55,6 +55,8 @@ set @VSQL2  = 'Create View dbo.DataDictionary As
 with filterdata as 
 (
 		SELECT  ''ASData_PL'' As SchemaName,''SaltKeyLog'' As TableName,''BASE TABLE''  As TableType UNION		
+		SELECT  ''ASData_PL'' As SchemaName,''Va_County'' As TableName,''BASE TABLE''  As TableType UNION		
+		SELECT  ''ASData_PL'' As SchemaName,''Va_LocalAuthority'' As TableName,''BASE TABLE''  As TableType UNION		
 		SELECT  ''dbo'' As SchemaName,''Apprentice'' As TableName,''BASE TABLE''  As TableType UNION
 		SELECT  ''dbo'' As SchemaName,''Apprenticeship'' As TableName,''BASE TABLE''  As TableType UNION 
 		SELECT  ''dbo'' As SchemaName,''AssessmentOrganisation'' As TableName,''BASE TABLE''  As TableType UNION
@@ -130,7 +132,7 @@ with filterdata as
 		SELECT  ''StgPmts'' As SchemaName,''JobEventStatus'' As TableName,''BASE TABLE''  As TableType UNION
 		SELECT  ''StgPmts'' As SchemaName,''JobProviderEarnings'' As TableName,''BASE TABLE''  As TableType UNION
 		SELECT  ''StgPmts'' As SchemaName,''JobStatus'' As TableName,''BASE TABLE''  As TableType UNION
-		SELECT  ''StgPmts'' As SchemaName,''JobType'' As TableName,''BASE TABLE''  As TableType UNION
+		SELECT  ''StgPmts'' As SchemaName,''JobType'' As TableName,''BASE TABLE''  As TableType UNION		
 		SELECT  ''Mgmt'' As SchemaName,''LoadStatus'' As TableName,''VIEW'' As TableType UNION
 		SELECT  ''ASData_PL'' As SchemaName,''DAS_Dashboard_Registration'' As TableName,''VIEW'' As TableType UNION
 		SELECT  ''ASData_PL'' As SchemaName,''DAS_Dashboard_Reservation'' As TableName,''VIEW'' As TableType UNION
@@ -138,23 +140,32 @@ with filterdata as
 		SELECT  ''ASData_PL'' As SchemaName,''DAS_Dashboard_ReservationAndTraining'' As TableName,''VIEW'' As TableType UNION
 		SELECT  ''ASData_PL'' As SchemaName,''DAS_Dashboard_StdsAndFrameworks'' As TableName,''VIEW'' As TableType  
 )
-SELECT ''Production'' AS DatamartEnvironment,''Presentation'' AS Layer,SCHEMA_NAME(b.schema_id) AS SchemaRoleLink,b.name as DataElementCategory, cast(CONCAT(b.object_id,a.column_id) as bigint) AS DataElementId, a.name as DataElementDescription, UPPER(c.name) AS DataElementType, a.max_length AS DataElementMaxLength_InBytes, a.is_Nullable As DataElementIsNullable, Cast(b.create_date As Date) AS DataAvailableSince, ''AS Information Asset Owner'' AS DataOwner
-FROM sys.columns a
-JOIN sys.views b
-ON a.object_id = b.object_id
-LEFT JOIN sys.types as c
-ON a.user_type_id = c.user_type_id
-WHERE b.name NOT IN (Select TableName  from filterdata where TableType=''VIEW'') AND SCHEMA_NAME(b.schema_id) IN(Select SchemaName from filterdata where TableType=''VIEW'')
+Select distinct DatamartEnvironment,Layer,SchemaRoleLink,DataElementCategory,DataElementId,DataElementDescription,DataElementType,DataElementMaxLength_InBytes,DataElementIsNullable,DataAvailableSince,DataOwner
+FROM
+(
+	SELECT ''Production'' AS DatamartEnvironment,''Presentation'' AS Layer,SCHEMA_NAME(b.schema_id) AS SchemaRoleLink,b.name as DataElementCategory, cast(CONCAT(b.object_id,a.column_id) as bigint) AS DataElementId, a.name as DataElementDescription, UPPER(c.name) AS DataElementType, a.max_length AS DataElementMaxLength_InBytes, a.is_Nullable As DataElementIsNullable, Cast(b.create_date As Date) AS DataAvailableSince, ''AS Information Asset Owner'' AS DataOwner
+	FROM sys.columns a
+	JOIN sys.views b
+	ON a.object_id = b.object_id
+	LEFT JOIN sys.types as c
+	ON a.user_type_id = c.user_type_id
+) As ViewMetadata
+WHERE lower(ltrim(rtrim(ViewMetadata.SchemaRoleLink)) + ''.'' + ltrim(trim(ViewMetadata.DataElementCategory))) NOT IN (Select lower(SchemaName + ''.'' + TableName)  from filterdata where TableType=''VIEW'')
 
 UNION
 
-SELECT ''Production'' AS DatamartEnvironment,''Presentation'' AS Layer,  SCHEMA_NAME(b.schema_id) AS SchemaRoleLink, b.name as DataElementCategory, cast(CONCAT(b.object_id,a.column_id) as bigint) AS DataElementId, a.name as DataElementDescription, UPPER(c.name) AS DataElementType, a.max_length AS DataElementMaxLength_InBytes, a.is_Nullable As DataElementIsNullable, Cast(b.create_date As Date) AS DataAvailableSince, ''AS Information Asset Owner'' AS DataOwner
-FROM sys.columns a
-JOIN sys.tables b
-ON a.object_id = b.object_id
-LEFT JOIN sys.types as c
-ON a.user_type_id = c.user_type_id
-WHERE b.name NOT IN (Select TableName  from filterdata where TableType=''BASE TABLE'') AND SCHEMA_NAME(b.schema_id) IN(Select SchemaName from filterdata where TableType=''BASE TABLE'')'
+Select distinct DatamartEnvironment,Layer,SchemaRoleLink,DataElementCategory,DataElementId,DataElementDescription,DataElementType,DataElementMaxLength_InBytes,DataElementIsNullable,DataAvailableSince,DataOwner
+FROM
+(
+	SELECT ''Production'' AS DatamartEnvironment,''Presentation'' AS Layer,  SCHEMA_NAME(b.schema_id) AS SchemaRoleLink, b.name as DataElementCategory, cast(CONCAT(b.object_id,a.column_id) as bigint) AS DataElementId, a.name as DataElementDescription, UPPER(c.name) AS DataElementType, a.max_length AS DataElementMaxLength_InBytes, a.is_Nullable As DataElementIsNullable, Cast(b.create_date As Date) AS DataAvailableSince, ''AS Information Asset Owner'' AS DataOwner
+	FROM sys.columns a
+	JOIN sys.tables b
+	ON a.object_id = b.object_id
+	LEFT JOIN sys.types as c
+	ON a.user_type_id = c.user_type_id
+	Where b.is_external = 0
+) As TableMetadata 
+WHERE lower(ltrim(rtrim(TableMetadata.SchemaRoleLink)) + ''.'' + ltrim(trim(TableMetadata.DataElementCategory))) NOT IN (Select lower(SchemaName + ''.'' + TableName)  from filterdata where TableType=''BASE TABLE'')'
 
 
 EXEC SP_EXECUTESQL @VSQL1

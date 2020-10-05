@@ -7,9 +7,6 @@
 	[ModifiedDate] datetime null,
 	[ApprenticeshipEmployerType] tinyint not null,
 	[PublicHashedId] nvarchar(100) null,
-	[AsDm_UpdatedDateTime] datetime2 default getdate()
+	[AsDm_UpdatedDateTime] datetime2 default getdate(),	
+	[ComtLevyStatus] [tinyint]  NULL
 )
-
-
-
-

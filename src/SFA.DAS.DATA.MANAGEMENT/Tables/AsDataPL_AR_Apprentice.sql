@@ -16,5 +16,9 @@
 	  ,[Email] nvarchar(255) 
       ,[DateOfBirth] datetime2(7) not null
 	  ,[Asdm_UpdatedDateTime] datetime2 default getdate()
-	  , CONSTRAINT [PK_App_ApprenticeId] PRIMARY KEY CLUSTERED([ApprenticeId] ASC)
 )
+GO
+CREATE NONCLUSTERED INDEX [NCI_AR_App_ApprenticeId] ON [AsData_PL].[AR_Apprentice]([ApprenticeId] ASC)
+GO
+CREATE NONCLUSTERED INDEX [NCI_AR_App_ApprenticeshipId] ON [AsData_PL].[AR_Apprentice]([ApprenticeshipId] ASC)
+GO

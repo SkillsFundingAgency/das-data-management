@@ -67,6 +67,11 @@ GRANT SELECT ON dbo.SourceDbChanges TO Developer
 
 GRANT UNMASK TO Developer
 
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DataDictionary' AND TABLE_SCHEMA = 'dbo')
+BEGIN
+	GRANT SELECT ON dbo.DataDictionary To Developer
+End
+
 
 
 
@@ -386,6 +391,21 @@ BEGIN
 	 GRANT SELECT ON ASData_PL.AR_Apprentice To BetaUser
 END;
 
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DataDictionary' AND TABLE_SCHEMA = 'dbo')
+BEGIN
+	GRANT SELECT ON dbo.DataDictionary To BetaUser
+End
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Users' AND TABLE_SCHEMA = 'ASData_PL')
+BEGIN
+     GRANT SELECT ON ASData_PL.DAS_Users TO BetaUser
+END
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_UserAccountLegalEntity' AND TABLE_SCHEMA = 'ASData_PL')
+BEGIN
+     GRANT SELECT ON ASData_PL.DAS_UserAccountLegalEntity TO BetaUser
+END
+
 
 
 
@@ -413,28 +433,5 @@ BEGIN
 END
 
 
--- Grant select permissions on DataDictionaryView to Developer
 
-IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DataDictionary' AND TABLE_SCHEMA = 'dbo')
-BEGIN
-	GRANT SELECT ON dbo.DataDictionary To Developer,BetaUser
-End
 
-IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Users' AND TABLE_SCHEMA = 'ASData_PL')
-BEGIN
-	 GRANT SELECT ON ASData_PL.DAS_Users To BetaUser
-End
-
-IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_UserAccountLegalEntity' AND TABLE_SCHEMA = 'ASData_PL')
-BEGIN
-	 GRANT SELECT ON ASData_PL.DAS_UserAccountLegalEntity To BetaUser
-End
-
-IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Acc_Account' AND TABLE_SCHEMA = 'AsData_PL')
-BEGIN
-     GRANT SELECT ON AsData_PL.Acc_Account TO BetaUser
-END
-IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Acc_AccountLegalEntity' AND TABLE_SCHEMA = 'AsData_PL')
-BEGIN
-     GRANT SELECT ON ASData_PL.Acc_AccountLegalEntity TO BetaUser
-END

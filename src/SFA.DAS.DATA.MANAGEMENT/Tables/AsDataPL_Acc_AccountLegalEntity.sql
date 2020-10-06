@@ -11,5 +11,6 @@
    ,[PendingAgreementVersion] INT NULL
    ,[PendingAgreementId] BIGINT NULL
    ,[Deleted] DateTime NULL
+   ,[HasSignedIncentivesTerms] [bit] NULL
    ,[AsDm_UpdatedDateTime] datetime2 Default(getdate())
 )

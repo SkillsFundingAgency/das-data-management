@@ -214,7 +214,6 @@
     <Build Include="StoredProcedure\GenerateCopyActivityId.sql" />
     <Build Include="Tables\AsDataPL_Va_CandidateDetails.sql" />
     <Build Include="StoredProcedure\ImportVacanciesCandidateDetails.sql" />
-    <Build Include="Tables\AsDataPL_EI_Accounts.sql" />
     <Build Include="StoredProcedure\PresentationLayerFullRefresh.sql" />
     <Build Include="Tables\AsDataPL_EI_IncentiveApplication.sql" />
     <Build Include="Tables\AsDataPL_EI_IncentiveApplicationApprenticeship.sql" />
@@ -227,18 +226,32 @@
     <Build Include="StoredProcedure\CreateDashboardReservationAndCommitmentView.sql" />
     <Build Include="Tables\ApprenticeshipStdRoute.sql" />
     <Build Include="Tables\SaltKeyLog.sql" />
-    <Build Include="Tables\Stg_SQLCodeForDynamicBuild.sql" />
-    <Build Include="Tables\AsDataPL_Eau_User.sql" />
     <Build Include="Tables\AsDataPL_Acc_Accounts.sql" />
+    <Build Include="StoredProcedure\ImportAccountsToPL.sql" />
+    <Build Include="StoredProcedure\Build_Modelled_PL.sql" />
     <Build Include="Tables\AsDataPL_Acc_AccountLegalEntity.sql" />
-    <Build Include="Tables\AsDataPL_Acc_LegalEntity.sql" />
+    <Build Include="StoredProcedure\CreateDataDictionaryView.sql" />
+    <Build Include="Tables\AsDataPL_Acc_AccountHistory.sql" />
+    <Build Include="Tables\AsDataPL_Acc_Paye.sql" />
+    <Build Include="Tables\AsDataPL_Acc_TransferConnectionInvitation.sql" />
+    <Build Include="Tables\AsDataPL_Acc_TransferConnectionInvitationChange.sql" />
+    <Build Include="Tables\AsDataPL_Comt_Apprenticeship.sql" />
+    <Build Include="Tables\AsDataPL_Comt_Commitment.sql" />
+    <Build Include="Tables\AsDataPL_Fin_AccountTransfers.sql" />
+    <Build Include="Tables\AsDataPL_Fin_GetLevyDeclarationAndTopUp.sql" />
+    <Build Include="Tables\AsDataPL_Fin_Payment.sql" />
+    <Build Include="Tables\AsDataPL_Fin_TransactionLine.sql" />
+    <Build Include="Tables\AsDataPL_Resv_Course.sql" />
+    <Build Include="Tables\AsDataPL_Resv_Reservation.sql" />
+    <Build Include="Tables\AsDataPL_Acc_AccountUserRole.sql" />
     <Build Include="Tables\AsDataPL_Acc_EmployerAgreement.sql" />
     <Build Include="Tables\AsDataPL_Acc_EmployerAgreementStatus.sql" />
-    <Build Include="Tables\AsDataPL_Acc_AccountUserRole.sql" />
-    <Build Include="Tables\AsDataPL_Acc_UserAccountSettings.sql" />
+    <Build Include="Tables\AsDataPL_Acc_LegalEntity.sql" />
     <Build Include="Tables\AsDataPL_Acc_User.sql" />
+    <Build Include="Tables\AsDataPL_Acc_UserAccountSettings.sql" />
+    <Build Include="Tables\AsDataPL_EAU_User.sql" />
     <Build Include="Views\AsDataPL_DAS_UserAccountLegalEntity.sql" />
     <Build Include="Views\AsDataPL_DAS_Users.sql" />
-    <Build Include="StoredProcedure\CreateDataDictionaryView.sql" />
+    <Build Include="Tables\Stg_SQLCodeForDynamicBuild.sql" />
   </ItemGroup>
 </Project>

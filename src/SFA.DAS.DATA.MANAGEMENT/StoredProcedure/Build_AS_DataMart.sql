@@ -102,3 +102,7 @@ EXEC [dbo].[UpdateApprenticeshipStdRoute] @RunID
 EXEC [dbo].[CreateDataDictionaryView] @RunID
 
 
+/* Populate Metadata for Marketo Import */
+
+EXEC [dbo].[PopulateMarketoFilterConfigForImport] @RunId
+

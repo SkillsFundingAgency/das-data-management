@@ -262,5 +262,7 @@
     <Build Include="Tables\AsDataPL_Marketo_Leads.sql" />
     <Build Include="Tables\AsDataPL_Marketo_Programs.sql" />
     <Build Include="Tables\AsDataPL_Marketo_Campaigns.sql" />
+    <Build Include="Tables\Mtd_MarketoFilterConfigForLeadAndActivity.sql" />
+    <Build Include="StoredProcedure\PopulateMarketoFilterConfigForImport.sql" />
   </ItemGroup>
 </Project>

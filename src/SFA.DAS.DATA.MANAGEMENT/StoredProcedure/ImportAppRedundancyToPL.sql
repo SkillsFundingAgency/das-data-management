@@ -90,8 +90,8 @@ SELECT AR.[Id]
 
  /* Drop Staging Table as it's no longer required */
 
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = N'Apprentice' AND TABLE_SCHEMA=N'Stg') 
-DROP TABLE [Stg].Apprentice
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = N'AR_Apprentice' AND TABLE_SCHEMA=N'Stg') 
+DROP TABLE [Stg].AR_Apprentice
 
 
 

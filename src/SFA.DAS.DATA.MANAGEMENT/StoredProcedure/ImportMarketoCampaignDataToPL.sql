@@ -69,7 +69,7 @@ BEGIN TRANSACTION
                   OR Target.ActivityTypeId<>Source.ActivityTypeId
 				  OR Target.CampaignId<>Source.CampaignId
 				  )
-  THEN UPDATE SET Target.LeadId=Source.Leadd
+  THEN UPDATE SET Target.LeadId=Source.LeadId
                  ,Target.CampaignId=Source.CampaignId
 				 ,Target.ActivityTypeId=Source.ActivityTypeId
   WHEN NOT MATCHED BY TARGET 

@@ -1,4 +1,4 @@
-﻿CREATE TABLE [AsData_PL].[Campaign_Leads]
+﻿CREATE TABLE [AsData_PL].[MarketoLeads]
 (
  LeadId bigint
 ,FirstName nvarchar(255)

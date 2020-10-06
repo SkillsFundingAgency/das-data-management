@@ -113,6 +113,16 @@ VALUES
 
 
 
+/* Redundancy */
+
+INSERT INTO Mtd.SourceConfigForImport
+(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
+/* Apprenticeship Redundancy */
+VALUES 
+ ('AppRedundancy','apprentice','dbo','[Id],[UpdatesWanted],[ContactableForFeedback],[PreviousTraining],[Employer],[TrainingProvider],[LeftOnApprenticeshipMonths],[LeftOnApprenticeshipYears],[Sectors],[CreatedOn]','[Email],[PhoneNumber],[PostCode],[EmployerLocation],[Ethnicity],[EthnicitySubgroup],[EthnicityText],[Gender],[GenderText]','[FirstName],[LastName],[DateOfBirth],[Email]',0,1,'AR_Apprentice')
+
+
+
 
 
 COMMIT TRANSACTION

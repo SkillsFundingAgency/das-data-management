@@ -5,6 +5,8 @@
    ,ActivityDate datetime2
    ,ActivityTypeId bigint
    ,CampaignId bigint
+   ,AsDm_CreatedDate Datetime2
+   ,AsDm_UpdatedDate datetime2
 )
 GO
 CREATE NONCLUSTERED INDEX [NCI_MA_LeadId] ON [AsData_PL].[MarketoLeadActivities]([LeadId] ASC)

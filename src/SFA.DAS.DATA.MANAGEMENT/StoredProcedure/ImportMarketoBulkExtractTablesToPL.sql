@@ -55,15 +55,26 @@ MERGE AsData_PL.MarketoLeads as Target
   THEN UPDATE SET Target.FirstName=CASE WHEN Source.FirstName='NULL' THEN NULL ELSE Source.FirstName END
                  ,Target.LastName=CASE WHEN Source.LastName='NULL' THEN NULL ELSE Source.LastName END
 				 ,Target.EmailAddress=CASE WHEN Source.EmailAddress='NULL' THEN NULL ELSE Source.EmailAddress END
+				 ,Target.LeadCreatedAt=TRY_CONVERT(datetime2,CASE WHEN Source.CreatedAt='null' then NULL WHEN Source.CreatedAt LIKE '%+%' THEN SUBSTRING(Source.CreatedAt,1,CHARINDEX('+',Source.CreatedAt)-1) ELSE Source.CreatedAt END,104)
+				 ,Target.LeadUpdatedAt=TRY_CONVERT(datetime2,CASE WHEN Source.UpdatedAt='null' then NULL WHEN Source.UpdatedAt LIKE '%+%' THEN SUBSTRING(Source.UpdatedAt,1,CHARINDEX('+',Source.UpdatedAt)-1) ELSE Source.UpdatedAt END,104)
+				 ,Target.AsDm_UpdatedDate=getdate()
   WHEN NOT MATCHED BY TARGET 
   THEN INSERT (LeadId
               ,FirstName
 			  ,LastName
-			  ,EmailAddress) 
+			  ,EmailAddress
+			  ,LeadCreatedAt
+			  ,LeadUpdatedAt
+			  ,AsDm_CreatedDate
+			  ,AsDm_UpdatedDate) 
        VALUES (TRY_CONVERT(bigint,LeadId)
 	          ,CASE WHEN Source.FirstName='NULL' THEN NULL ELSE Source.FirstName END
 			  ,CASE WHEN Source.LastName='NULL' THEN NULL ELSE Source.LastName END
-			  ,CASE WHEN Source.EmailAddress='NULL' THEN NULL ELSE Source.EmailAddress END);
+			  ,CASE WHEN Source.EmailAddress='NULL' THEN NULL ELSE Source.EmailAddress END
+			  ,TRY_CONVERT(datetime2,CASE WHEN Source.LeadCreatedAt='null' then NULL WHEN Source.LeadCreatedAt LIKE '%+%' THEN SUBSTRING(Source.LeadCreatedAt,1,CHARINDEX('+',Source.LeadCreatedAt)-1) ELSE Source.LeadCreatedAt END,104)
+			  ,TRY_CONVERT(datetime2,CASE WHEN Source.LeadUpdatedAt='null' then NULL WHEN Source.LeadUpdatedAt LIKE '%+%' THEN SUBSTRING(Source.LeadUpdatedAt,1,CHARINDEX('+',Source.LeadUpdatedAt)-1) ELSE Source.LeadUpdatedAt END,104)
+			  ,getdate()
+			  ,getdate());
 
 /* Delta Update MarketoLeadActivities */
 
@@ -77,22 +88,29 @@ MERGE AsData_PL.MarketoLeads as Target
   THEN UPDATE SET Target.LeadId=TRY_CONVERT(bigint,CASE WHEN Source.LeadId='NULL' THEN NULL ELSE Source.LeadId END)
                  ,Target.CampaignId=TRY_CONVERT(bigint,CASE WHEN Source.CampaignId='NULL' THEN NULL ELSE Source.CampaignId END)
 				 ,Target.ActivityTypeId=TRY_CONVERT(bigint,CASE WHEN Source.ActivityTypeId='NULL' THEN NULL ELSE Source.ActivityTypeId END)
+				 ,Target.AsDm_UpdatedDate=getdate()
   WHEN NOT MATCHED BY TARGET 
   THEN INSERT (MarketoGUID
               ,LeadId
 			  ,ActivityDate
 			  ,ActivityTypeId
-			  ,CampaignId) 
+			  ,CampaignId
+			  ,AsDm_CreatedDate
+			  ,AsDm_UpdatedDate) 
        VALUES (Source.MarketoGUID
 	          ,TRY_CONVERT(bigint,CASE WHEN Source.LeadId='NULL' THEN NULL ELSE Source.LeadId END)
 			  ,TRY_CONVERT(datetime2,CASE WHEN Source.ActivityDate='NULL' THEN NULL WHEN Source.ActivityDate LIKE '%+%' THEN SUBSTRING(Source.ActivityDate,1,CHARINDEX('+',Source.ActivityDate)-1) ELSE Source.ActivityDate END,104)
 			  ,CONVERT(bigint,CASE WHEN Source.ActivityTypeId='NULL' THEN NULL ELSE Source.ActivityTypeId END)
-			  ,CONVERT(bigint,CASE WHEN Source.CampaignId='NULL' THEN NULL ELSE Source.CampaignId END));
+			  ,CONVERT(bigint,CASE WHEN Source.CampaignId='NULL' THEN NULL ELSE Source.CampaignId END)
+			  ,getdate()
+			  ,getdate()
+			  );
+
 
 
 /* Delta Update MarketoLeadPrograms */
 
-	    MERGE AsData_PL.MarketoLeadPrograms as Target
+ MERGE AsData_PL.MarketoLeadPrograms as Target
  USING Stg.MarketoLeadPrograms as Source
     ON Target.LeadProgramID=TRY_CONVERT(bigint,Source.ID)
   WHEN MATCHED AND ( ISNULL(Target.FirstName,'NA')<>ISNULL(CASE WHEN Source.FirstName='null' then NULL ELSE Source.FirstName END,'NA')
@@ -114,8 +132,11 @@ MERGE AsData_PL.MarketoLeads as Target
 				 ,Target.ProgramTypeId=TRY_CONVERT(bigint,CASE WHEN Source.ProgramTypeId='null' then NULL ELSE Source.ProgramTypeId END)
 				 ,Target.LeadId=TRY_CONVERT(bigint,CASE WHEN Source.LeadId='null' then NULL ELSE Source.LeadId END)
 				 ,Target.StatusId=CASE WHEN Source.StatusId='null' then NULL ELSE Source.StatusId END
+				 ,Target.AsDm_UpdatedDate=getdate()
+				 ,Target.LeadProgramCreatedAt=TRY_CONVERT(datetime2,CASE WHEN Source.CreatedAt='null' then NULL WHEN Source.CreatedAt LIKE '%+%' THEN SUBSTRING(Source.CreatedAt,1,CHARINDEX('+',Source.CreatedAt)-1) ELSE Source.CreatedAt END,104)
+				 ,Target.LeadProgramUpdatedAt=TRY_CONVERT(datetime2,CASE WHEN Source.UpdatedAt='null' then NULL WHEN Source.UpdatedAt LIKE '%+%' THEN SUBSTRING(Source.UpdatedAt,1,CHARINDEX('+',Source.UpdatedAt)-1) ELSE Source.UpdatedAt END,104)
   WHEN NOT MATCHED BY TARGET 
-  THEN INSERT (LeadProgramId,FirstName,LastName,EmailAddress,MemberDate,ProgramId,ProgramName,ProgramTypeId,LeadId,Status,StatusId) 
+  THEN INSERT (LeadProgramId,FirstName,LastName,EmailAddress,MemberDate,ProgramId,ProgramName,ProgramTypeId,LeadId,Status,StatusId,AsDm_CreatedDate,AsDm_UpdatedDate,LeadProgramCreatedAt,LeadProgramUpdatedAt) 
        VALUES (TRY_CONVERT(bigint,Source.ID)
 	          ,CASE WHEN Source.FirstName='null' then NULL ELSE Source.FirstName END
 	          ,CASE WHEN Source.LastName='null' then NULL ELSE Source.LastName END
@@ -126,7 +147,11 @@ MERGE AsData_PL.MarketoLeads as Target
 			  ,TRY_CONVERT(bigint,CASE WHEN Source.ProgramTypeId='null' then NULL ELSE Source.ProgramTypeId END)
 			  ,TRY_CONVERT(bigint,CASE WHEN Source.LeadId='null' then NULL ELSE Source.LeadId END)
 			  ,CASE WHEN Source.Status='null' then NULL ELSE Source.Status END
-			  ,CASE WHEN Source.StatusId='null' then NULL ELSE Source.StatusId END);
+			  ,CASE WHEN Source.StatusId='null' then NULL ELSE Source.StatusId END
+			  ,getdate()
+			  ,getdate()
+			  ,TRY_CONVERT(datetime2,CASE WHEN Source.CreatedAt='null' then NULL WHEN Source.CreatedAt LIKE '%+%' THEN SUBSTRING(Source.CreatedAt,1,CHARINDEX('+',Source.CreatedAt)-1) ELSE Source.CreatedAt END,104)
+			  ,TRY_CONVERT(datetime2,CASE WHEN Source.UpdatedAt='null' then NULL WHEN Source.UpdatedAt LIKE '%+%' THEN SUBSTRING(Source.UpdatedAt,1,CHARINDEX('+',Source.UpdatedAt)-1) ELSE Source.UpdatedAt END,104));
 
 
 COMMIT TRANSACTION

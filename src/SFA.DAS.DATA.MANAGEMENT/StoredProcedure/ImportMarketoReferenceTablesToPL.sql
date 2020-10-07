@@ -69,6 +69,7 @@ BEGIN TRANSACTION
 				                                                         ELSE Source.UpdatedAt END,'9999-12-31'),104)
 				  , Target.ProgramType = CASE WHEN Source.Type='null' THEN NULL ELSE Source.Type END
 				  , Target.Channel = CASE WHEN Source.Channel='null' THEN NULL ELSE Source.Channel END
+				  , Target.AsDm_UpdatedDate=getdate()
   WHEN NOT MATCHED BY TARGET 
   THEN INSERT (ProgramId
               ,ProgramName
@@ -77,6 +78,8 @@ BEGIN TRANSACTION
 			  ,UpdatedAt
 			  ,ProgramType
 			  ,Channel
+			  ,AsDm_CreatedDate
+			  ,AsDm_UpdatedDate
 			  ) 
        VALUES (Source.id
 	          ,CASE WHEN Source.name='null' THEN NULL ELSE Source.name END
@@ -84,6 +87,8 @@ BEGIN TRANSACTION
 			  ,TRY_CONVERT(datetime2,ISNULL(CASE WHEN Source.CreatedAt='NULL' THEN NULL WHEN Source.CreatedAt LIKE '%+%' THEN SUBSTRING(Source.CreatedAt,1,CHARINDEX('+',Source.CreatedAt)-1) ELSE Source.CreatedAt END,'9999-12-31'),104)
 			  ,TRY_CONVERT(datetime2,ISNULL(CASE WHEN Source.UpdatedAt='NULL' THEN NULL WHEN Source.UpdatedAt LIKE '%+%' THEN SUBSTRING(Source.UpdatedAt,1,CHARINDEX('+',Source.UpdatedAt)-1) ELSE Source.UpdatedAt END,'9999-12-31'),104)
 			  ,CASE WHEN Source.Type='null' THEN NULL ELSE Source.Type END,CASE WHEN Source.Channel='null' THEN NULL ELSE Source.Channel END
+			  ,getdate()
+			  ,getdate()
 			  );
 
 /* Delta Update MarketoCampaigns */
@@ -108,6 +113,7 @@ BEGIN TRANSACTION
 				 ,Target.createdAt=TRY_CONVERT(datetime2,CASE WHEN Source.createdAt='NULL' THEN NULL WHEN Source.CreatedAt LIKE '%+%' THEN SUBSTRING(Source.CreatedAt,1,CHARINDEX('+',Source.CreatedAt)-1) ELSE Source.createdAt END,104)
 				 ,Target.updatedAt=TRY_CONVERT(datetime2,CASE WHEN Source.updatedAt='NULL' THEN NULL WHEN Source.updatedAt LIKE '%+%' THEN SUBSTRING(Source.updatedAt,1,CHARINDEX('+',Source.updatedAt)-1) ELSE Source.updatedAt END,104)
 				 ,Target.Active=Source.Active
+				 ,Target.AsDm_UpdatedDate=getdate()
   WHEN NOT MATCHED BY TARGET 
   THEN INSERT ([CampaignId]
               ,[CampaignName]
@@ -117,7 +123,9 @@ BEGIN TRANSACTION
               ,[WorkspaceName]
               ,[createdAt]
               ,[updatedAt]
-              ,[active]) 
+              ,[active]
+			  ,AsDm_CreatedDate
+			  ,AsDm_UpdatedDate) 
        VALUES (   Source.Id
 	             ,CASE WHEN Source.name='NULL' THEN NULL ELSE Source.name END
                  ,CASE WHEN Source.type='NULL' THEN NULL ELSE Source.type END
@@ -127,6 +135,8 @@ BEGIN TRANSACTION
 				 ,TRY_CONVERT(datetime2,CASE WHEN Source.createdAt='NULL' THEN NULL WHEN Source.CreatedAt LIKE '%+%' THEN SUBSTRING(Source.CreatedAt,1,CHARINDEX('+',Source.CreatedAt)-1) ELSE Source.createdAt END,104)
 				 ,TRY_CONVERT(datetime2,CASE WHEN Source.updatedAt='NULL' THEN NULL WHEN Source.updatedAt LIKE '%+%' THEN SUBSTRING(Source.updatedAt,1,CHARINDEX('+',Source.updatedAt)-1) ELSE Source.updatedAt END,104)
 				 ,Source.Active
+				 ,getdate()
+			     ,getdate()
 				 );
 
 /* Delta Update MarketoActivityTypes */
@@ -139,17 +149,21 @@ MERGE AsData_PL.MarketoActivityTypes as Target
 				   )
   THEN UPDATE SET Target.ActivityTypeName=CASE WHEN Source.name='NULL' THEN NULL ELSE Source.name END
                  ,Target.ActivityTypeDescription=CASE WHEN Source.description='NULL' THEN NULL ELSE Source.description END
-				
+				 ,Target.AsDm_UpdatedDate=getdate()
   WHEN NOT MATCHED BY TARGET 
   THEN INSERT (ActivityTypeId
               ,ActivityTypeName
 			  ,ActivityTypeDescription
+			  ,AsDm_CreatedDate
+			  ,AsDm_UpdatedDate
 			  )
 	   VALUES
 	          (Source.Id
 	          ,CASE WHEN Source.name='NULL' THEN NULL ELSE Source.name END
 	          ,CASE WHEN Source.description='NULL' THEN NULL ELSE Source.description END
-	          );
+			  ,getdate()
+			  ,getdate()
+			  );
 
 
 

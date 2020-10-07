@@ -406,6 +406,37 @@ BEGIN
      GRANT SELECT ON ASData_PL.DAS_UserAccountLegalEntity TO BetaUser
 END
 
+/* Marketo Access */
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='MarketoLeads' AND TABLE_SCHEMA = 'ASData_PL')
+BEGIN
+     GRANT SELECT ON ASData_PL.MarketoLeads TO BetaUser
+END
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='MarketoLeadPrograms' AND TABLE_SCHEMA = 'ASData_PL')
+BEGIN
+     GRANT SELECT ON ASData_PL.MarketoLeadPrograms TO BetaUser
+END
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='MarketoLeadActivities' AND TABLE_SCHEMA = 'ASData_PL')
+BEGIN
+     GRANT SELECT ON ASData_PL.MarketoLeadActivities TO BetaUser
+END
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='MarketoCampaigns' AND TABLE_SCHEMA = 'ASData_PL')
+BEGIN
+     GRANT SELECT ON ASData_PL.MarketoCampaigns TO BetaUser
+END
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='MarketoActivityTypes' AND TABLE_SCHEMA = 'ASData_PL')
+BEGIN
+     GRANT SELECT ON ASData_PL.MarketoActivityTypes TO BetaUser
+END
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='MarketoPrograms' AND TABLE_SCHEMA = 'ASData_PL')
+BEGIN
+     GRANT SELECT ON ASData_PL.MarketoPrograms TO BetaUser
+END
 
 
 

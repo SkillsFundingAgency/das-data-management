@@ -9,5 +9,7 @@
    ,Channel nvarchar(max)
    ,LeadProgramImportStatus BIT DEFAULT(0)
    ,LeadProgramImportDate DateTime2
+   ,AsDm_CreatedDate Datetime2
+   ,AsDm_UpdatedDate datetime2
  ,CONSTRAINT [PK_MP_ProgramId] PRIMARY KEY CLUSTERED([ProgramId] ASC)
 )

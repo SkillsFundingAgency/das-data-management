@@ -42,6 +42,7 @@ IF OBJECT_ID ('tempdb..#tMarketoFilterConfig') IS NOT NULL
 DROP TABLE #tMarketoFilterConfig
 
 SELECT *
+  INTO #tMarketoFilterConfig
   FROM Mtd.MarketoFilterConfig
  WHERE 1=0
 

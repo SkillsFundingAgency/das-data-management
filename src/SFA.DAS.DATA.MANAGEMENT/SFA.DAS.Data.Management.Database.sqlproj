@@ -255,5 +255,15 @@
     <Build Include="Tables\Stg_SQLCodeForDynamicBuild.sql" />
     <Build Include="StoredProcedure\ImportAppRedundancyToPL.sql" />
     <Build Include="Tables\AsDataPL_AR_Apprentice.sql" />
+    <Build Include="StoredProcedure\ImportMarketoBulkExtractTablesToPL.sql" />
+    <Build Include="Tables\AsDataPL_Marketo_Activities.sql" />
+    <Build Include="Tables\AsDataPL_Marketo_ActivityTypes.sql" />
+    <Build Include="Tables\AsDataPL_Marketo_LeadPrograms.sql" />
+    <Build Include="Tables\AsDataPL_Marketo_Leads.sql" />
+    <Build Include="Tables\AsDataPL_Marketo_Programs.sql" />
+    <Build Include="Tables\AsDataPL_Marketo_Campaigns.sql" />
+    <Build Include="Tables\Mtd_MarketoFilterConfigForLeadAndActivity.sql" />
+    <Build Include="StoredProcedure\PopulateMarketoFilterConfigForImport.sql" />
+    <Build Include="StoredProcedure\ImportMarketoReferenceTablesToPL.sql" />
   </ItemGroup>
 </Project>

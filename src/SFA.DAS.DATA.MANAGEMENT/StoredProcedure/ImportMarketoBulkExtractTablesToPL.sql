@@ -206,28 +206,28 @@ MERGE AsData_PL.MarketoLeads as Target
 
 			  MERGE AsData_PL.MarketoSmartCampaigns as Target
  USING Stg.MarketoSmartCampaigns as Source
-    ON Target.SmartCampaignId=TRY_CONVERT(bigint,Source.Id)
+    ON Target.SmartCampaignId=TRY_CONVERT(bigint,Source.id)
   WHEN MATCHED AND ( ISNULL(Target.SmartCampaignName,'NA')<>ISNULL(CASE WHEN Source.name='NULL' THEN NULL ELSE Source.name END,'NA')
                   OR ISNULL(Target.SmartCampaignType,'NA')<>ISNULL(CASE WHEN Source.type='NULL' THEN NULL ELSE Source.type END,'NA')
 				  OR ISNULL(Target.SmartCampaignDesc,'NA')<>ISNULL(CASE WHEN Source.description='NULL' THEN NULL ELSE Source.description END,'NA')
-				  OR ISNULL(Target.ParentProgramId,-1)<>cast(ISNULL(Source.parentprogramId,-1) AS BIGINT)
+				  OR ISNULL(Target.ParentProgramId,-1)<>TRY_CONVERT(BIGINT,ISNULL(Source.parentprogramId,-1))
 				  OR ISNULL(Target.WorkspaceName,'NA')<>ISNULL(CASE WHEN Source.workspace='NULL' THEN NULL ELSE Source.workspace END,'NA')
 				  OR ISNULL(Target.createdAt,'9999-12-31')<>TRY_CONVERT(datetime2,ISNULL(CASE WHEN Source.createdAt='NULL' THEN NULL WHEN Source.CreatedAt LIKE '%+%' THEN SUBSTRING(Source.CreatedAt,1,CHARINDEX('+',Source.CreatedAt)-1) ELSE Source.createdAt END,'9999-12-31'),104)
 				  OR ISNULL(Target.updatedAt,'9999-12-31')<>TRY_CONVERT(datetime2,ISNULL(CASE WHEN Source.updatedAt='NULL' THEN NULL WHEN Source.UpdatedAt LIKE '%+%' THEN SUBSTRING(Source.UpdatedAt,1,CHARINDEX('+',Source.UpdatedAt)-1) ELSE Source.updatedAt END,'9999-12-31'),104)
 				  OR ISNULL(Target.IsActive,'NA')<>ISNULL(CASE WHEN Source.IsActive='NULL' THEN NULL ELSE Source.IsActive END,'NA')
 				  OR ISNULL(Target.Status,'NA')<>ISNULL(CASE WHEN Source.Status='NULL' THEN NULL ELSE Source.Status END,'NA')
-				  OR ISNULL(Target.SmartListId,'-1')<>CAST(ISNULL(CASE WHEN Source.SmartListId='NULL' THEN NULL ELSE Source.SmartListId END,'-1') as bigint)
+				  OR ISNULL(Target.SmartListId,'-1')<>TRY_CONVERT(BIGINT,ISNULL(CASE WHEN Source.SmartListId='NULL' THEN NULL ELSE Source.SmartListId END,'-1'))
 				  )
   THEN UPDATE SET Target.SmartCampaignName=CASE WHEN Source.name='NULL' THEN NULL ELSE Source.name END
                  ,Target.SmartCampaignType=CASE WHEN Source.type='NULL' THEN NULL ELSE Source.type END
 				 ,Target.SmartCampaignDesc=CASE WHEN Source.description='NULL' THEN NULL ELSE Source.description END
-				 ,Target.ParentProgramId=cast(ISNULL(Source.parentprogramId,-1) AS BIGINT)
+				 ,Target.ParentProgramId=TRY_CONVERT(BIGINT,ISNULL(Source.parentprogramId,-1))
 				 ,Target.WorkspaceName=CASE WHEN Source.workspace='NULL' THEN NULL ELSE Source.workspace END
 				 ,Target.createdAt=TRY_CONVERT(datetime2,CASE WHEN Source.createdAt='NULL' THEN NULL WHEN Source.CreatedAt LIKE '%+%' THEN SUBSTRING(Source.CreatedAt,1,CHARINDEX('+',Source.CreatedAt)-1) ELSE Source.createdAt END,104)
 				 ,Target.updatedAt=TRY_CONVERT(datetime2,CASE WHEN Source.updatedAt='NULL' THEN NULL WHEN Source.updatedAt LIKE '%+%' THEN SUBSTRING(Source.updatedAt,1,CHARINDEX('+',Source.updatedAt)-1) ELSE Source.updatedAt END,104)
 				 ,Target.IsActive=CASE WHEN Source.IsActive='NULL' THEN NULL ELSE Source.IsActive END
 				 ,Target.Status=CASE WHEN Source.Status='NULL' THEN NULL ELSE Source.Status END
-				 ,Target.SmartListId=CAST(CASE WHEN Source.SmartListId='NULL' THEN NULL ELSE Source.SmartListId END as bigint)
+				 ,Target.SmartListId=TRY_CONVERT(bigint,CASE WHEN Source.SmartListId='NULL' THEN NULL ELSE Source.SmartListId END)
 				 ,Target.AsDm_UpdatedDate=getdate()
   WHEN NOT MATCHED BY TARGET 
   THEN INSERT ([SmartCampaignId]
@@ -243,17 +243,17 @@ MERGE AsData_PL.MarketoLeads as Target
 			  ,[SmartListId]
 			  ,AsDm_CreatedDate
 			  ,AsDm_UpdatedDate) 
-       VALUES (   CAST(CASE WHEN Source.Id='NULL' THEN NULL ELSE Source.Id END as bigint)
+       VALUES (   TRY_CONVERT(BIGINT,CASE WHEN Source.id='NULL' THEN NULL ELSE Source.id END)
 	             ,CASE WHEN Source.name='NULL' THEN NULL ELSE Source.name END
                  ,CASE WHEN Source.type='NULL' THEN NULL ELSE Source.type END
 				 ,CASE WHEN Source.description='NULL' THEN NULL ELSE Source.description END
-				 ,cast(ISNULL(Source.parentprogramId,-1) AS BIGINT)
+				 ,TRY_CONVERT(bigint,ISNULL(Source.parentprogramId,-1))
 				 ,CASE WHEN Source.workspace='NULL' THEN NULL ELSE Source.workspace END
 				 ,TRY_CONVERT(datetime2,CASE WHEN Source.createdAt='NULL' THEN NULL WHEN Source.CreatedAt LIKE '%+%' THEN SUBSTRING(Source.CreatedAt,1,CHARINDEX('+',Source.CreatedAt)-1) ELSE Source.createdAt END,104)
 				 ,TRY_CONVERT(datetime2,CASE WHEN Source.updatedAt='NULL' THEN NULL WHEN Source.updatedAt LIKE '%+%' THEN SUBSTRING(Source.updatedAt,1,CHARINDEX('+',Source.updatedAt)-1) ELSE Source.updatedAt END,104)
 				 ,CASE WHEN Source.IsActive='NULL' THEN NULL ELSE Source.IsActive END
 				 ,CASE WHEN Source.Status='NULL' THEN NULL ELSE Source.Status END
-				 ,CAST(CASE WHEN Source.SmartListId='NULL' THEN NULL ELSE Source.SmartListId END as bigint)
+				 ,TRY_CONVERT(bigint,CASE WHEN Source.SmartListId='NULL' THEN NULL ELSE Source.SmartListId END)
 				 ,getdate()
 			     ,getdate()
 				 );

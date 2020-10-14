@@ -11,7 +11,6 @@
 	[WorkspaceName] [nvarchar](max) NULL,
 	[createdAt] DATETIME2 NULL,
 	[updatedAt] DATETIME2 NULL,
-	[active] [bit] NULL,
     AsDm_CreatedDate Datetime2,
     AsDm_UpdatedDate datetime2
 )

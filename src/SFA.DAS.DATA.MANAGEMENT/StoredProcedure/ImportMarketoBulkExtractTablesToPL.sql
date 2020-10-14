@@ -161,20 +161,20 @@ MERGE AsData_PL.MarketoLeads as Target
   WHEN MATCHED AND ( ISNULL(Target.CampaignName,'NA')<>ISNULL(CASE WHEN Source.name='NULL' THEN NULL ELSE Source.name END,'NA')
                   OR ISNULL(Target.CampaignType,'NA')<>ISNULL(CASE WHEN Source.type='NULL' THEN NULL ELSE Source.type END,'NA')
 				  OR ISNULL(Target.ProgramName,'NA')<>ISNULL(CASE WHEN Source.programName='NULL' THEN NULL ELSE Source.programName END,'NA')
-				  OR ISNULL(Target.ProgramId,-1)<>ISNULL(Source.programId,-1)
+				  OR ISNULL(Target.ProgramId,-1)<>TRY_CONVERT(BIGINT,ISNULL(Source.programId,-1))
 				  OR ISNULL(Target.WorkspaceName,'NA')<>ISNULL(CASE WHEN Source.WorkspaceName='NULL' THEN NULL ELSE Source.WorkspaceName END,'NA')
 				  OR ISNULL(Target.createdAt,'9999-12-31')<>TRY_CONVERT(datetime2,ISNULL(CASE WHEN Source.createdAt='NULL' THEN NULL WHEN Source.CreatedAt LIKE '%+%' THEN SUBSTRING(Source.CreatedAt,1,CHARINDEX('+',Source.CreatedAt)-1) ELSE Source.createdAt END,'9999-12-31'),104)
 				  OR ISNULL(Target.updatedAt,'9999-12-31')<>TRY_CONVERT(datetime2,ISNULL(CASE WHEN Source.updatedAt='NULL' THEN NULL WHEN Source.UpdatedAt LIKE '%+%' THEN SUBSTRING(Source.UpdatedAt,1,CHARINDEX('+',Source.UpdatedAt)-1) ELSE Source.updatedAt END,'9999-12-31'),104)
-				  OR ISNULL(Target.Active,0)<>ISNULL(Source.Active,0)
+				  OR ISNULL(Target.Active,0)<>TRY_CONVERT(BIT,ISNULL(Source.Active,0))
 				  )
   THEN UPDATE SET Target.CampaignName=CASE WHEN Source.name='NULL' THEN NULL ELSE Source.name END
                  ,Target.CampaignType=CASE WHEN Source.type='NULL' THEN NULL ELSE Source.type END
 				 ,Target.ProgramName=CASE WHEN Source.programName='NULL' THEN NULL ELSE Source.programName END
-				 ,Target.ProgramId=ISNULL(Source.programId,-1)
+				 ,Target.ProgramId=TRY_CONVERT(bigint,ISNULL(Source.programId,-1))
 				 ,Target.WorkspaceName=CASE WHEN Source.WorkspaceName='NULL' THEN NULL ELSE Source.WorkspaceName END
 				 ,Target.createdAt=TRY_CONVERT(datetime2,CASE WHEN Source.createdAt='NULL' THEN NULL WHEN Source.CreatedAt LIKE '%+%' THEN SUBSTRING(Source.CreatedAt,1,CHARINDEX('+',Source.CreatedAt)-1) ELSE Source.createdAt END,104)
 				 ,Target.updatedAt=TRY_CONVERT(datetime2,CASE WHEN Source.updatedAt='NULL' THEN NULL WHEN Source.updatedAt LIKE '%+%' THEN SUBSTRING(Source.updatedAt,1,CHARINDEX('+',Source.updatedAt)-1) ELSE Source.updatedAt END,104)
-				 ,Target.Active=Source.Active
+				 ,Target.Active=TRY_CONVERT(BIT,Source.Active)
 				 ,Target.AsDm_UpdatedDate=getdate()
   WHEN NOT MATCHED BY TARGET 
   THEN INSERT ([CampaignId]
@@ -188,18 +188,20 @@ MERGE AsData_PL.MarketoLeads as Target
               ,[active]
 			  ,AsDm_CreatedDate
 			  ,AsDm_UpdatedDate) 
-       VALUES (   Source.Id
+       VALUES (   TRY_CONVERT(bigint,Source.Id)
 	             ,CASE WHEN Source.name='NULL' THEN NULL ELSE Source.name END
                  ,CASE WHEN Source.type='NULL' THEN NULL ELSE Source.type END
 				 ,CASE WHEN Source.programName='NULL' THEN NULL ELSE Source.programName END
-				 ,ISNULL(Source.programId,-1)
+				 ,TRY_CONVERT(bigint,ISNULL(Source.programId,-1))
 				 ,CASE WHEN Source.WorkspaceName='NULL' THEN NULL ELSE Source.WorkspaceName END
 				 ,TRY_CONVERT(datetime2,CASE WHEN Source.createdAt='NULL' THEN NULL WHEN Source.CreatedAt LIKE '%+%' THEN SUBSTRING(Source.CreatedAt,1,CHARINDEX('+',Source.CreatedAt)-1) ELSE Source.createdAt END,104)
 				 ,TRY_CONVERT(datetime2,CASE WHEN Source.updatedAt='NULL' THEN NULL WHEN Source.updatedAt LIKE '%+%' THEN SUBSTRING(Source.updatedAt,1,CHARINDEX('+',Source.updatedAt)-1) ELSE Source.updatedAt END,104)
-				 ,Source.Active
+				 ,TRY_CONVERT(BIT,Source.Active)
 				 ,getdate()
 			     ,getdate()
 				 );
+
+
 
 
 COMMIT TRANSACTION

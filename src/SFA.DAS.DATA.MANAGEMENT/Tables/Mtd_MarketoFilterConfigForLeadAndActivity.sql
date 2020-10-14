@@ -5,4 +5,6 @@
    ,EndDateFilter nvarchar(100)	
    ,ImportStatus bit default(0)
    ,ImportDate DateTime2
+   ,ActivityImportStatus bit default(0)
+   ,ActivityImportDate DateTime2
 )

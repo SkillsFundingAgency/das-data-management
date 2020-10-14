@@ -66,6 +66,34 @@ SELECT StartDateFilter,EndDateFilter
 					WHERE MFC.StartDateFilter=TMFC.StartDateFilter
 					  and MFC.EndDateFilter=TMFC.EndDateFilter)
 
+/* Load Config For Programs */
+
+IF OBJECT_ID ('tempdb..#tMarketoFilterConfigForPrograms') IS NOT NULL
+DROP TABLE #tMarketoFilterConfigForPrograms
+
+SELECT *
+  INTO #tMarketoFilterConfigForPrograms
+  FROM Mtd.MarketoFilterConfigForPrograms
+ WHERE 1=0
+
+INSERT INTO #tMarketoFilterConfigForPrograms
+(StartDateFilter,EndDateFilter)
+VALUES
+ ('2020-07-01T00:00:00Z','2020-10-31T23:59:59Z') 
+
+
+
+
+/* Insert main Config Table if not already exists */
+INSERT INTO Mtd.MarketoFilterConfigForPrograms
+(StartDateFilter,EndDateFilter)
+SELECT StartDateFilter,EndDateFilter
+  FROM #tMarketoFilterConfigForPrograms tMFC
+ WHERE NOT EXISTS (SELECT 1
+                     FROM Mtd.MarketoFilterConfigForPrograms MFC
+					WHERE MFC.StartDateFilter=TMFC.StartDateFilter
+					  and MFC.EndDateFilter=TMFC.EndDateFilter)
+
 
 COMMIT TRANSACTION
 

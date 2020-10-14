@@ -265,5 +265,6 @@
     <Build Include="Tables\Mtd_MarketoFilterConfigForLeadAndActivity.sql" />
     <Build Include="StoredProcedure\PopulateMarketoFilterConfigForImport.sql" />
     <Build Include="StoredProcedure\ImportMarketoReferenceTablesToPL.sql" />
+    <Build Include="Tables\Mtd_MarketoFilterConfigForPrograms.sql" />
   </ItemGroup>
 </Project>

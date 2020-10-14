@@ -1,4 +1,4 @@
-﻿CREATE TABLE [AsData_PL].[Marketo_SmartCampaigns]
+﻿CREATE TABLE [AsData_PL].[MarketoSmartCampaigns]
 (
 	[SmartCampaignId] [bigint] NULL,
 	[SmartCampaignName] [nvarchar](526) NULL,

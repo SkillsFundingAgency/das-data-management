@@ -438,6 +438,10 @@ BEGIN
      GRANT SELECT ON ASData_PL.MarketoPrograms TO BetaUser
 END
 
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg')
+BEGIN
+     GRANT SELECT ON Stg.GA_SessionData TO BetaUser
+END
 
 
 

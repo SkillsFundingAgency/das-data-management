@@ -15,7 +15,7 @@
 	[ID2] [nvarchar](512) NULL,
 	[ID3] [nvarchar](512) NULL,
 	[MarketoGUID] [nvarchar](512) NULL,
-	[ESFAToken] [nvarchar](512) NULL,
+	[EFSAToken] [nvarchar](512) NULL,
 	[Hits_Page_PagePathLevel1] [nvarchar](Max) NULL,
 	[Hits_Page_PagePathLevel2] [nvarchar](Max) NULL,
 	[Hits_Page_PagePathLevel3] [nvarchar](Max) NULL,

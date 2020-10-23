@@ -467,6 +467,7 @@ BEGIN
      GRANT SELECT ON ASData_PL.DAS_UserAccountLegalEntity TO MarketoUser
 END
 
-
-
-
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.Tables where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg')
+BEGIN
+	EXEC sp_rename 'Stg.GA_SessionData.EFSAToken', 'ESFAToken', 'COLUMN'
+End

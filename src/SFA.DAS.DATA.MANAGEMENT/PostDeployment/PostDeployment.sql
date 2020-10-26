@@ -467,10 +467,33 @@ BEGIN
      GRANT SELECT ON ASData_PL.DAS_UserAccountLegalEntity TO MarketoUser
 END
 
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='GA_SessionData_temp' AND TABLE_SCHEMA = 'Stg')
+BEGIN
+     DROP TABLE Stg.GA_SessionData_temp
+END
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg')
+BEGIN
+	select 
+	[FullVisitorId], [VisitNumber], [VisitId], [VisitStartDateTime], [VisitDate], [VisitorId], [UserId], [ClientId], [Hits_Page_PagePath], 
+	[Hits_Time], [EmployerID], [ID2], [MarketoGUID], [EFSAToken], 
+	[Hits_Page_PagePathLevel1], [Hits_Page_PagePathLevel2], [Hits_Page_PagePathLevel3], [Hits_Page_PagePathLevel4], 
+	[FileName], [StgImportDate]
+	INTO Stg.GA_SessionData_temp
+	From Stg.GA_SessionData
+	
+	Delete from Stg.GA_SessionData
+	
+	DBCC CHECKIDENT ('Stg.GA_SessionData', RESEED, 0);
+
+End
+
 IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.Columns where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg' AND  COLUMN_NAME = 'EFSAToken')
 BEGIN
 	EXEC sp_rename 'Stg.GA_SessionData.EFSAToken', 'ESFAToken', 'COLUMN'
 End
+
 
 IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.Columns where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg' AND  COLUMN_NAME = 'Hits_Page_PagePath')
 BEGIN
@@ -487,14 +510,64 @@ BEGIN
 	ALTER TABLE [stg].[GA_SessionData] ALTER COLUMN [Hits_Page_PagePathLevel2] nvarchar(max) NULL
 End
 
-
 IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.Columns where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg' AND  COLUMN_NAME = 'Hits_Page_PagePathLevel3')
 BEGIN
 	ALTER TABLE [stg].[GA_SessionData] ALTER COLUMN [Hits_Page_PagePathLevel3] nvarchar(max) NULL
 End
 
-
 IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.Columns where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg' AND  COLUMN_NAME = 'Hits_Page_PagePathLevel4')
 BEGIN
 	ALTER TABLE [stg].[GA_SessionData] ALTER COLUMN [Hits_Page_PagePathLevel4] nvarchar(max) NULL
 End
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg')
+BEGIN
+	INSERT INTO [Stg].[GA_SessionData]
+			   ([FullVisitorId]
+			   ,[VisitNumber]
+			   ,[VisitId]
+			   ,[VisitStartDateTime]
+			   ,[VisitDate]
+			   ,[VisitorId]
+			   ,[UserId]
+			   ,[ClientId]
+			   ,[Hits_Page_PagePath]
+			   ,[Hits_Time]
+			   ,[EmployerID]
+			   ,[ID2]
+			   ,[MarketoGUID]
+			   ,[EFSAToken]
+			   ,[Hits_Page_PagePathLevel1]
+			   ,[Hits_Page_PagePathLevel2]
+			   ,[Hits_Page_PagePathLevel3]
+			   ,[Hits_Page_PagePathLevel4]
+			   ,[FileName]
+			   ,[StgImportDate])
+		SELECT [FullVisitorId]
+			  ,[VisitNumber]
+			  ,[VisitId]
+			  ,[VisitStartDateTime]
+			  ,[VisitDate]
+			  ,[VisitorId]
+			  ,[UserId]
+			  ,[ClientId]
+			  ,[Hits_Page_PagePath]
+			  ,[Hits_Time]
+			  ,[EmployerID]
+			  ,[ID2]
+			  ,[MarketoGUID]
+			  ,[EFSAToken]
+			  ,[Hits_Page_PagePathLevel1]
+			  ,[Hits_Page_PagePathLevel2]
+			  ,[Hits_Page_PagePathLevel3]
+			  ,[Hits_Page_PagePathLevel4]
+			  ,[FileName]
+			  ,[StgImportDate]
+		  FROM [Stg].[GA_SessionData_temp]
+End
+
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='GA_SessionData_temp' AND TABLE_SCHEMA = 'stg')
+BEGIN
+     DROP TABLE stg.GA_SessionData_temp
+END

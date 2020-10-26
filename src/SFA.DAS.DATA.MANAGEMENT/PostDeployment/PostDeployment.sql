@@ -37,26 +37,6 @@ GRANT SELECT ON SCHEMA :: Data_Pub TO Developer
 
 GRANT SELECT ON SCHEMA :: Mtd TO Developer
 
-GRANT SELECT ON dbo.Apprentice To Developer
-
-GRANT SELECT ON dbo.Apprenticeship To Developer
-
-GRANT SELECT ON dbo.AssessmentOrganisation To Developer
-
-GRANT SELECT ON dbo.Commitment To Developer
-
-GRANT SELECT ON dbo.DataLockStatus To Developer
-
-GRANT SELECT ON dbo.EmployerAccount To Developer
-
-GRANT SELECT ON dbo.EmployerAccountLegalEntity To Developer
-
-GRANT SELECT ON dbo.Provider To Developer
-
-GRANT SELECT ON dbo.TrainingCourse To Developer
-
-GRANT SELECT ON dbo.Transfers To Developer
-
 GRANT SELECT ON dbo.[ReferenceData] To Developer
 
 GRANT SELECT ON [dbo].[DASCalendarMonth] To Developer

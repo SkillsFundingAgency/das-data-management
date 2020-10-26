@@ -491,7 +491,13 @@ End
 
 IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.Columns where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg' AND  COLUMN_NAME = 'EFSAToken')
 BEGIN
-	EXEC sp_rename 'Stg.GA_SessionData.EFSAToken', 'ESFAToken', 'COLUMN'
+	ALTER TABLE Stg.GA_SessionData DROP COLUMN EFSAToken
+End
+
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.Columns where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg' AND  COLUMN_NAME = 'ESFAToken')
+BEGIN
+	ALTER TABLE Stg.GA_SessionData Add ESFAToken NVarchar(512)
 End
 
 
@@ -536,7 +542,7 @@ BEGIN
 			   ,[EmployerID]
 			   ,[ID2]
 			   ,[MarketoGUID]
-			   ,[EFSAToken]
+			   ,[ESFAToken]
 			   ,[Hits_Page_PagePathLevel1]
 			   ,[Hits_Page_PagePathLevel2]
 			   ,[Hits_Page_PagePathLevel3]

@@ -467,7 +467,34 @@ BEGIN
      GRANT SELECT ON ASData_PL.DAS_UserAccountLegalEntity TO MarketoUser
 END
 
-IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.Tables where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg')
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.Columns where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg' AND  COLUMN_NAME = 'EFSAToken')
 BEGIN
 	EXEC sp_rename 'Stg.GA_SessionData.EFSAToken', 'ESFAToken', 'COLUMN'
+End
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.Columns where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg' AND  COLUMN_NAME = 'Hits_Page_PagePath')
+BEGIN
+	ALTER TABLE [stg].[GA_SessionData] ALTER COLUMN [Hits_Page_PagePath] nvarchar(max) NULL
+End
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.Columns where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg' AND  COLUMN_NAME = 'Hits_Page_PagePathLevel1')
+BEGIN
+	ALTER TABLE [stg].[GA_SessionData] ALTER COLUMN [Hits_Page_PagePathLevel1] nvarchar(max) NULL
+End
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.Columns where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg' AND  COLUMN_NAME = 'Hits_Page_PagePathLevel2')
+BEGIN
+	ALTER TABLE [stg].[GA_SessionData] ALTER COLUMN [Hits_Page_PagePathLevel2] nvarchar(max) NULL
+End
+
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.Columns where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg' AND  COLUMN_NAME = 'Hits_Page_PagePathLevel3')
+BEGIN
+	ALTER TABLE [stg].[GA_SessionData] ALTER COLUMN [Hits_Page_PagePathLevel3] nvarchar(max) NULL
+End
+
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.Columns where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg' AND  COLUMN_NAME = 'Hits_Page_PagePathLevel4')
+BEGIN
+	ALTER TABLE [stg].[GA_SessionData] ALTER COLUMN [Hits_Page_PagePathLevel4] nvarchar(max) NULL
 End

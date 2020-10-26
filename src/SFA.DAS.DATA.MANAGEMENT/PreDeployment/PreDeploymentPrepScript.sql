@@ -392,17 +392,23 @@ DROP TABLE dbo.AsDataPL_Va_LegalEntity
 /* Drop Tables that are no longer used */
 
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
-            WHERE TABLE_NAME = N'Transfers'
+            WHERE TABLE_NAME = N'DataLockStatus'
 		      AND TABLE_SCHEMA=N'dbo'
 	      )
-DROP TABLE dbo.Transfers
+DROP TABLE dbo.DataLockStatus
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'Apprenticeship'
+		      AND TABLE_SCHEMA=N'dbo'
+	      )
+DROP TABLE dbo.Apprenticeship
 
 
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
-            WHERE TABLE_NAME = N'TrainingCourse'
+            WHERE TABLE_NAME = N'Commitment'
 		      AND TABLE_SCHEMA=N'dbo'
 	      )
-DROP TABLE dbo.TrainingCourse
+DROP TABLE dbo.Commitment
 
 
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
@@ -410,6 +416,19 @@ IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
 		      AND TABLE_SCHEMA=N'dbo'
 	      )
 DROP TABLE dbo.Provider
+
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'Apprentice'
+		      AND TABLE_SCHEMA=N'dbo'
+	      )
+DROP TABLE dbo.Apprentice
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'AssessmentOrganisation'
+		      AND TABLE_SCHEMA=N'dbo'
+	      )
+DROP TABLE dbo.AssessmentOrganisation
 
 
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
@@ -425,33 +444,31 @@ IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
 	      )
 DROP TABLE dbo.EmployerAccount
 
-
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
-            WHERE TABLE_NAME = N'DataLockStatus'
+            WHERE TABLE_NAME = N'TrainingCourse'
 		      AND TABLE_SCHEMA=N'dbo'
 	      )
-DROP TABLE dbo.DataLockStatus
+DROP TABLE dbo.TrainingCourse
+
 
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
-            WHERE TABLE_NAME = N'Commitment'
+            WHERE TABLE_NAME = N'Transfers'
 		      AND TABLE_SCHEMA=N'dbo'
 	      )
-DROP TABLE dbo.Commitment
+DROP TABLE dbo.Transfers
 
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
-            WHERE TABLE_NAME = N'AssessmentOrganisation'
-		      AND TABLE_SCHEMA=N'dbo'
-	      )
-DROP TABLE dbo.AssessmentOrganisation
 
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
-            WHERE TABLE_NAME = N'Apprentice'
-		      AND TABLE_SCHEMA=N'dbo'
-	      )
-DROP TABLE dbo.Apprentice
 
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
-            WHERE TABLE_NAME = N'Apprenticeship'
-		      AND TABLE_SCHEMA=N'dbo'
-	      )
-DROP TABLE dbo.Apprenticeship
+
+
+
+
+
+
+
+
+
+
+
+
+

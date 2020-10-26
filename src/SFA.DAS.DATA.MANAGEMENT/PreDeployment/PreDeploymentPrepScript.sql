@@ -389,4 +389,69 @@ IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
 DROP TABLE dbo.AsDataPL_Va_LegalEntity
 
 
+/* Drop Tables that are no longer used */
 
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'Transfers'
+		      AND TABLE_SCHEMA=N'dbo'
+	      )
+DROP TABLE dbo.Transfers
+
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'TrainingCourse'
+		      AND TABLE_SCHEMA=N'dbo'
+	      )
+DROP TABLE dbo.TrainingCourse
+
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'Provider'
+		      AND TABLE_SCHEMA=N'dbo'
+	      )
+DROP TABLE dbo.Provider
+
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'EmployerAccountLegalEntity'
+		      AND TABLE_SCHEMA=N'dbo'
+	      )
+DROP TABLE dbo.EmployerAccountLegalEntity
+
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'EmployerAccount'
+		      AND TABLE_SCHEMA=N'dbo'
+	      )
+DROP TABLE dbo.EmployerAccount
+
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'DataLockStatus'
+		      AND TABLE_SCHEMA=N'dbo'
+	      )
+DROP TABLE dbo.DataLockStatus
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'Commitment'
+		      AND TABLE_SCHEMA=N'dbo'
+	      )
+DROP TABLE dbo.Commitment
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'AssessmentOrganisation'
+		      AND TABLE_SCHEMA=N'dbo'
+	      )
+DROP TABLE dbo.AssessmentOrganisation
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'Apprentice'
+		      AND TABLE_SCHEMA=N'dbo'
+	      )
+DROP TABLE dbo.Apprentice
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'Apprenticeship'
+		      AND TABLE_SCHEMA=N'dbo'
+	      )
+DROP TABLE dbo.Apprenticeship

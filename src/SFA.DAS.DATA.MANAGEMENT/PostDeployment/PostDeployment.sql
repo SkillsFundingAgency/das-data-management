@@ -469,38 +469,38 @@ END
 
 /*stg.GA_SessionData changes */
 
-IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.Columns where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg' AND  COLUMN_NAME = 'ESFAToken')
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.Columns where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg' AND  COLUMN_NAME = 'EFSAToken')
 BEGIN
-	EXEC sp_rename 'Stg.GA_SessionData.ESFAToken', 'EFSAToken', 'COLUMN';  
+	EXEC sp_rename 'Stg.GA_SessionData.EFSAToken', 'ESFAToken', 'COLUMN';  
 End
 
-IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.Columns where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg' AND  COLUMN_NAME = 'ID3')
+IF NOT EXISTS(SELECT 1 from INFORMATION_SCHEMA.Columns where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg' AND  COLUMN_NAME = 'ID3')
 BEGIN	
-	    ALTER TABLE Stg.GA_SessionData DROP COLUMN ID3
+	    ALTER TABLE Stg.GA_SessionData ADD ID3  NVarchar(512)  NULL
 End
 
 IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.Columns where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg' AND  COLUMN_NAME = 'Hits_Page_PagePath')
 BEGIN
-	ALTER TABLE [stg].[GA_SessionData] ALTER COLUMN [Hits_Page_PagePath] nvarchar(512) NULL
+	ALTER TABLE [stg].[GA_SessionData] ALTER COLUMN [Hits_Page_PagePath] nvarchar(Max) NULL
 End
 
 IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.Columns where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg' AND  COLUMN_NAME = 'Hits_Page_PagePathLevel1')
 BEGIN
-	ALTER TABLE [stg].[GA_SessionData] ALTER COLUMN [Hits_Page_PagePathLevel1] nvarchar(512) NULL
+	ALTER TABLE [stg].[GA_SessionData] ALTER COLUMN [Hits_Page_PagePathLevel1] nvarchar(Max) NULL
 End
 
 IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.Columns where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg' AND  COLUMN_NAME = 'Hits_Page_PagePathLevel2')
 BEGIN
-	ALTER TABLE [stg].[GA_SessionData] ALTER COLUMN [Hits_Page_PagePathLevel2] nvarchar(512) NULL
+	ALTER TABLE [stg].[GA_SessionData] ALTER COLUMN [Hits_Page_PagePathLevel2] nvarchar(Max) NULL
 End
 
 IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.Columns where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg' AND  COLUMN_NAME = 'Hits_Page_PagePathLevel3')
 BEGIN
-	ALTER TABLE [stg].[GA_SessionData] ALTER COLUMN [Hits_Page_PagePathLevel3] nvarchar(512) NULL
+	ALTER TABLE [stg].[GA_SessionData] ALTER COLUMN [Hits_Page_PagePathLevel3] nvarchar(Max) NULL
 End
 
 IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.Columns where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg' AND  COLUMN_NAME = 'Hits_Page_PagePathLevel4')
 BEGIN
-	ALTER TABLE [stg].[GA_SessionData] ALTER COLUMN [Hits_Page_PagePathLevel4] nvarchar(512) NULL
+	ALTER TABLE [stg].[GA_SessionData] ALTER COLUMN [Hits_Page_PagePathLevel4] nvarchar(Max) NULL
 End
 

@@ -268,5 +268,6 @@
     <Build Include="Tables\Mtd_MarketoFilterConfigForPrograms.sql" />
     <Build Include="Tables\AsDataPL_Marketo_SmartCampaigns.sql" />
     <Build Include="Tables\Stg_GA_SessionData.sql" />
+    <Build Include="Tables\AsDataPL_AR_Employer.sql" />
   </ItemGroup>
 </Project>

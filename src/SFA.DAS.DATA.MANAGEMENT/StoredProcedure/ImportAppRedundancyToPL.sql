@@ -95,11 +95,8 @@ DROP TABLE [Stg].AR_Apprentice
 
 
 
-COMMIT TRANSACTION
-
 /* Import Apprenticeship Redundancy Employer Data */
 
-BEGIN TRANSACTION
 
 DELETE FROM ASData_PL.AR_Employer  
 

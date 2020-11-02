@@ -30,6 +30,9 @@
         "databaseTier": {
             "type": "string"
         },
+        "databaseSizeBytes": {
+            "type": "string"
+        },
         "containerArray": {
             "type": "array"
         },
@@ -148,6 +151,9 @@
                     },
                     "databaseTier": {
                         "value": "[parameters('databaseTier')]"
+                    },
+                    "databaseSizeBytes": {
+                        "value": "[parameters('databaseSizeBytes')]"
                     }
                 }
             }

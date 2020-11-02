@@ -12,7 +12,7 @@
 	[Hits_Page_PagePath] [nvarchar](512) NULL,
 	[Hits_Time] [nvarchar](512) NULL,
 	[EmployerID] [nvarchar](512) NULL,
-	[ID2] [nvarchar](512) NULL,	
+	[ID2] [nvarchar](512) NULL,
 	[MarketoGUID] [nvarchar](512) NULL,
 	[EFSAToken] [nvarchar](512) NULL,
 	[Hits_Page_PagePathLevel1] [nvarchar](512) NULL,

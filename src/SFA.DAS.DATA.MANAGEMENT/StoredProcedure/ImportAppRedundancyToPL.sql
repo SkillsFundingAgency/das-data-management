@@ -107,7 +107,6 @@ SET @VSQL2='
 INSERT INTO ASData_PL.AR_Employer
 (
       [RedundancyEmployerId]
-	  ,[AccountLegalEntityId]
 	  ,[OrganisationName] 
       ,[Email] 
 	  ,[PhoneNumber] 
@@ -120,7 +119,6 @@ INSERT INTO ASData_PL.AR_Employer
       ,[ContactLastName] 
 	  )
 SELECT AE.[Id]
-	  ,AE.[AccountLegalEntityId]
 	  ,AE.[OrganisationName] 
       ,AE.[Email] 
 	  ,AE.[PhoneNumber] 

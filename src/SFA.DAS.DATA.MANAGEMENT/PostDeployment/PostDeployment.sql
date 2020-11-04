@@ -504,3 +504,9 @@ BEGIN
 	ALTER TABLE [stg].[GA_SessionData] ALTER COLUMN [Hits_Page_PagePathLevel4] nvarchar(Max) NULL
 End
 
+
+update [Stg].[GA_SessionData]
+set ID3 = MarketoGUID
+
+update [Stg].[GA_SessionData]
+set MarketoGUID = ESFAToken

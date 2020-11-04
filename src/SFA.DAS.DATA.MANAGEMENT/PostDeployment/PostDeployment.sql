@@ -504,9 +504,9 @@ BEGIN
 	ALTER TABLE [stg].[GA_SessionData] ALTER COLUMN [Hits_Page_PagePathLevel4] nvarchar(Max) NULL
 End
 
+declare @VSQL1  NVarchar(4000) = 'update [Stg].[GA_SessionData] set ID3 = MarketoGUID'
+EXEC SP_EXECUTESQL @VSQL1
 
-update [Stg].[GA_SessionData]
-set ID3 = MarketoGUID
+set @VSQL1  = 'update [Stg].[GA_SessionData] set MarketoGUID = ESFAToken'
+EXEC SP_EXECUTESQL @VSQL1
 
-update [Stg].[GA_SessionData]
-set MarketoGUID = ESFAToken

@@ -4,8 +4,7 @@
 	  --,[AccountLegalEntityId] bigint not null
 	  ,[OrganisationName] nvarchar(100) not null
       ,[Email] nvarchar(100) not null
-	  ,[PhoneNumber] nvarchar(50) not null
-      ,[ContactableForFeedback] bit not null
+	  ,[ContactableForFeedback] bit not null
 	  ,[Locations] int not null
       ,[Sectors] int not null
 	  ,[ApprenticeshipMoreDetails] nvarchar(max) null

@@ -467,6 +467,46 @@ BEGIN
      GRANT SELECT ON ASData_PL.DAS_UserAccountLegalEntity TO MarketoUser
 END
 
+/*stg.GA_SessionData changes */
 
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.Columns where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg' AND  COLUMN_NAME = 'EFSAToken')
+BEGIN
+	EXEC sp_rename 'Stg.GA_SessionData.EFSAToken', 'ESFAToken', 'COLUMN';  
+End
 
+IF NOT EXISTS(SELECT 1 from INFORMATION_SCHEMA.Columns where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg' AND  COLUMN_NAME = 'ID3')
+BEGIN	
+	    ALTER TABLE Stg.GA_SessionData ADD ID3  NVarchar(512)  NULL
+End
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.Columns where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg' AND  COLUMN_NAME = 'Hits_Page_PagePath')
+BEGIN
+	ALTER TABLE [stg].[GA_SessionData] ALTER COLUMN [Hits_Page_PagePath] nvarchar(Max) NULL
+End
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.Columns where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg' AND  COLUMN_NAME = 'Hits_Page_PagePathLevel1')
+BEGIN
+	ALTER TABLE [stg].[GA_SessionData] ALTER COLUMN [Hits_Page_PagePathLevel1] nvarchar(Max) NULL
+End
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.Columns where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg' AND  COLUMN_NAME = 'Hits_Page_PagePathLevel2')
+BEGIN
+	ALTER TABLE [stg].[GA_SessionData] ALTER COLUMN [Hits_Page_PagePathLevel2] nvarchar(Max) NULL
+End
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.Columns where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg' AND  COLUMN_NAME = 'Hits_Page_PagePathLevel3')
+BEGIN
+	ALTER TABLE [stg].[GA_SessionData] ALTER COLUMN [Hits_Page_PagePathLevel3] nvarchar(Max) NULL
+End
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.Columns where TABLE_NAME='GA_SessionData' AND TABLE_SCHEMA = 'Stg' AND  COLUMN_NAME = 'Hits_Page_PagePathLevel4')
+BEGIN
+	ALTER TABLE [stg].[GA_SessionData] ALTER COLUMN [Hits_Page_PagePathLevel4] nvarchar(Max) NULL
+End
+
+declare @VSQL1  NVarchar(4000) = 'update [Stg].[GA_SessionData] set ID3 = MarketoGUID'
+EXEC SP_EXECUTESQL @VSQL1
+
+set @VSQL1  = 'update [Stg].[GA_SessionData] set MarketoGUID = ESFAToken'
+EXEC SP_EXECUTESQL @VSQL1
 

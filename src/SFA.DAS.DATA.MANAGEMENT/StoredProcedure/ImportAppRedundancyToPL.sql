@@ -95,8 +95,51 @@ DROP TABLE [Stg].AR_Apprentice
 
 
 
-COMMIT TRANSACTION
+/* Import Apprenticeship Redundancy Employer Data */
 
+
+DELETE FROM ASData_PL.AR_Employer  
+
+DECLARE @VSQL2 NVARCHAR(MAX)
+
+SET @VSQL2='
+
+INSERT INTO ASData_PL.AR_Employer
+(
+      [RedundancyEmployerId]
+	  ,[OrganisationName] 
+      ,[Email] 
+	  ,[ContactableForFeedback] 
+	  ,[Locations] 
+	  ,[Sectors] 
+	  ,[ApprenticeshipMoreDetails] 
+      ,[CreatedOn] 
+	  ,[ContactFirstName] 
+      ,[ContactLastName] 
+	  )
+SELECT AE.[Id]
+	  ,AE.[OrganisationName] 
+      ,AE.[Email] 
+	  ,AE.[ContactableForFeedback] 
+	  ,AE.[Locations] 
+	  ,AE.[Sectors] 
+	  ,AE.[ApprenticeshipMoreDetails] 
+      ,AE.[CreatedOn] 
+	  ,AE.[ContactFirstName] 
+      ,AE.[ContactLastName] 
+  FROM Stg.AR_Employer AE
+ '
+
+ EXEC SP_EXECUTESQL @VSQL2
+
+ /* Drop Staging Table as it's no longer required */
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = N'AR_Employer' AND TABLE_SCHEMA=N'Stg') 
+DROP TABLE [Stg].AR_Employer
+
+
+
+COMMIT TRANSACTION
 
 
 UPDATE Mgmt.Log_Execution_Results

@@ -13,7 +13,6 @@
 	[Hits_Time] [nvarchar](512) NULL,
 	[EmployerID] [nvarchar](512) NULL,
 	[ID2] [nvarchar](512) NULL,
-	[ID3] [nvarchar](512) NULL,
 	[MarketoGUID] [nvarchar](512) NULL,
 	[ESFAToken] [nvarchar](512) NULL,
 	[Hits_Page_PagePathLevel1] [nvarchar](max) NULL,
@@ -21,5 +20,6 @@
 	[Hits_Page_PagePathLevel3] [nvarchar](max) NULL,
 	[Hits_Page_PagePathLevel4] [nvarchar](max) NULL,
 	[FileName] [nvarchar](512) NULL,
-	[StgImportDate] [nvarchar] (255)
+	[StgImportDate] [nvarchar] (255),
+	[ID3] [nvarchar](512) NULL
 )

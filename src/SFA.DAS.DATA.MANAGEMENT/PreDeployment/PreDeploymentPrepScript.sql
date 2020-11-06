@@ -464,9 +464,16 @@ IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
 	      )
 DROP TABLE dbo.Stg_FIC_Feedback
 
+/* Drop EI_Accounts Table as the same data exists in Acc_Accounts Table */
 
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'EI_Accounts'
+		      AND TABLE_SCHEMA=N'AsData_PL'
+	      )
+DROP TABLE ASData_PL.EI_Accounts
 
-
+EXEC sp_rename 'AsData_PL.EI_IncentiveApplication', 'UpdatedDateTime', 'AsDm_UpdatedDateTime'
+ 
 
 
 

@@ -472,7 +472,7 @@ IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
 	      )
 DROP TABLE ASData_PL.EI_Accounts
 
-EXEC sp_rename 'AsData_PL.EI_IncentiveApplication', 'UpdatedDateTime', 'AsDm_UpdatedDateTime'
+
  
 
 

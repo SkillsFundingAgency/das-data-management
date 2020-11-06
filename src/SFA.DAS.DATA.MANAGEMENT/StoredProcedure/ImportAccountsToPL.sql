@@ -81,6 +81,10 @@ BEGIN TRY
 						   ,[PendingAgreementId]
 						   ,[Deleted]
 						   ,[HasSignedIncentivesTerms]
+						   ,[IncentivesVrfVendorId]
+						   ,[IncentivesVrfCaseId]
+						   ,[IncentivesVrfCaseStatus]
+						   ,[IncentivesVrfCaseStatusLastUpdatedDateTime]
 						   )
 				Select 
 							 Acc_AccLegalEntity.Id
@@ -95,6 +99,10 @@ BEGIN TRY
 							,Acc_AccLegalEntity.PendingAgreementId
 							,Acc_AccLegalEntity.Deleted		
 							,EI_Acc.HasSignedIncentivesTerms
+							,EI_Acc.VrfVendorId
+						    ,EI_Acc.VrfCaseId
+						    ,EI_Acc.VrfCaseStatus
+						    ,EI_Acc.VrfCaseStatusLastUpdatedDateTime
 					FROM     stg.Acc_AccountLegalEntity As Acc_AccLegalEntity  LEFT JOIN stg.EI_Accounts AS EI_Acc
 							ON Acc_AccLegalEntity.Id = EI_Acc.AccountLegalEntityId   
 							AND Acc_AccLegalEntity.LegalEntityId = EI_Acc.LegalEntityId

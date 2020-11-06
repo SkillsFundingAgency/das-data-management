@@ -249,5 +249,7 @@
     <Build Include="Tables\AsDataPL_Marketo_SmartCampaigns.sql" />
     <Build Include="Tables\Stg_GA_SessionData.sql" />
     <Build Include="Tables\AsDataPL_AR_Employer.sql" />
+    <Build Include="Tables\AsDataPL_EI_ApprenticeshipIncentive.sql" />
+    <Build Include="Tables\AsDataPL_EI_PendingPayment.sql" />
   </ItemGroup>
 </Project>

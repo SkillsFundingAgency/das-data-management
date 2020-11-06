@@ -6,6 +6,6 @@
 	[PlannedStartDate] DATETIME2 NOT NULL,
 	[ApprenticeshipEmployerTypeOnApproval] INT NOT NULL,
 	[TotalIncentiveAmount] MONEY NOT NULL,
-	[EarningsCalculated] bit not null,
+	[EarningsCalculated] bit null,
 	[AsDm_UpdatedDateTime] DateTime2 default(getdate())
 )

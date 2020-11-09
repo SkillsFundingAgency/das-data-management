@@ -270,6 +270,7 @@ BEGIN
 	CREATE ROLE [BetaUser]
 END
 
+/* Assign Permissions on Incentives Tables to Beta User */
 
 IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='EI_Accounts' AND TABLE_SCHEMA = 'AsData_PL')
 BEGIN
@@ -284,6 +285,16 @@ END
 IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='EI_IncentiveApplicationApprenticeship' AND TABLE_SCHEMA = 'AsData_PL')
 BEGIN
      GRANT SELECT ON AsData_PL.EI_IncentiveApplicationApprenticeship TO BetaUser
+END
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='EI_ApprenticeshipIncentive' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN
+     GRANT SELECT ON ASData_PL.EI_ApprenticeshipIncentive TO BetaUser
+END
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='EI_PendingPayment' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN
+     GRANT SELECT ON ASData_PL.EI_PendingPayment TO BetaUser
 END
 
 

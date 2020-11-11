@@ -1,4 +1,4 @@
-CREATE PROCEDURE dbo.SaltKeyLogging
+CREATE PROCEDURE [dbo].[SaltKeyLogging]
 (
    @RunId int,
    @SourceType Varchar(50)
@@ -35,8 +35,9 @@ BEGIN TRY
 		
 		Declare @SaltKeyID BigInt = replace(replace(replace(replace(convert(Nvarchar(25), current_timestamp, 121),'-',''),':',''),'.',''),' ','')				
 		insert into AsData_PL.SaltKeyLog(SaltKeyID,SourceType) Values (@SaltKeyID,@SourceType)
-		delete from AsData_PL.SaltKeyLog Where SaltKeyID != @SaltKeyID
-
+				
+		delete from AsData_PL.SaltKeyLog Where SourceType = @SourceType and SaltKeyID != @SaltKeyID
+							
 		 UPDATE Mgmt.Log_Execution_Results
 		   SET Execution_Status=1
 			  ,EndDateTime=getdate()

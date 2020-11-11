@@ -251,5 +251,16 @@
     <Build Include="Tables\AsDataPL_AR_Employer.sql" />
     <Build Include="Tables\AsDataPL_EI_ApprenticeshipIncentive.sql" />
     <Build Include="Tables\AsDataPL_EI_PendingPayment.sql" />
+    <Build Include="Views\DataPub_DAS_Commitments_V2.sql" />
+    <Build Include="Views\DataPub_DAS_Employer_Account_Transfers_V2.sql" />
+    <Build Include="Views\DataPub_DAS_Employer_Accounts_V2.sql" />
+    <Build Include="Views\DataPub_DAS_Employer_AccountTransactions_V2.sql" />
+    <Build Include="Views\DataPub_DAS_Employer_Agreements_V2.sql" />
+    <Build Include="Views\DataPub_DAS_Employer_LegalEntities_V2.sql" />
+    <Build Include="Views\DataPub_DAS_Employer_PayeSchemes_V2.sql" />
+    <Build Include="Views\DataPub_DAS_Employer_Transfer_Relationship_V2.sql" />
+    <Build Include="Views\DataPub_DAS_LevyDeclarations_V2.sql" />
+    <Build Include="Views\DataPub_DAS_Payments_V2.sql" />
+    <Build Include="Views\ASDataPL_DAS_TransactionLine_V2.sql" />
   </ItemGroup>
 </Project>

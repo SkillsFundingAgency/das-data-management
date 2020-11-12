@@ -297,6 +297,11 @@ BEGIN
      GRANT SELECT ON ASData_PL.EI_PendingPayment TO BetaUser
 END
 
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='EI_CollectionCalendar' AND TABLE_SCHEMA = 'AsData_PL')
+BEGIN
+     GRANT SELECT ON ASData_PL.EI_CollectionCalendar TO BetaUser
+END
+
 
 /* Assign select permissions on Vacanacy tables to BetaUser */
 IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Va_Application' AND TABLE_SCHEMA = 'AsData_PL')

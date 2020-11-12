@@ -5,5 +5,6 @@
   ,ApprenticeshipId bigint not null
   ,EmployerType int not null
   ,IncentiveApplicationApprenticeshipId uniqueidentifier not null
+  ,AccountLegalEntityId bigint null
   ,AsDm_UpdatedDateTime datetime2 default getdate()
 )

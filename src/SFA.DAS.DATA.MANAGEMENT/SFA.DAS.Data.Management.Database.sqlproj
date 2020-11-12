@@ -251,6 +251,5 @@
     <Build Include="Tables\AsDataPL_AR_Employer.sql" />
     <Build Include="Tables\AsDataPL_EI_ApprenticeshipIncentive.sql" />
     <Build Include="Tables\AsDataPL_EI_PendingPayment.sql" />
-    <Build Include="Tables\AsDataPL_EI_CollectionCalendar.sql" />
   </ItemGroup>
 </Project>

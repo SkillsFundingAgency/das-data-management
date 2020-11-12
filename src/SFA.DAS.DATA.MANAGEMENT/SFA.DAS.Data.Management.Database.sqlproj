@@ -262,5 +262,8 @@
     <Build Include="Views\DataPub_DAS_LevyDeclarations_V2.sql" />
     <Build Include="Views\DataPub_DAS_Payments_V2.sql" />
     <Build Include="Views\ASDataPL_DAS_TransactionLine_V2.sql" />
+    <Build Include="Tables\ASDataPL_Comt_Providers.sql" />
+    <Build Include="Views\ASDataPL_DAS_SpendControlNonLevy_V2.sql" />
+    <Build Include="Views\ASDataPL_DAS_SpendControl_V2.sql" />
   </ItemGroup>
 </Project>

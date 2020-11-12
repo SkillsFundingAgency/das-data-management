@@ -1,4 +1,4 @@
-﻿CREATE VIEW [Data_Pub].[DAS_LevyDeclarations_v2]
+﻿CREATE VIEW [Data_Pub].[DAS_LevyDeclarations_V2]
 AS 
 with saltkeydata as 
 (

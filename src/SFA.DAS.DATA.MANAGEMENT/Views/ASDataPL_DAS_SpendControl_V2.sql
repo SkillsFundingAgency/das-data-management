@@ -99,8 +99,8 @@
 						,Acct.HashedId as DasAccountId
 						,ALE.Id as DasLegalEntityId
 						,ALE.Created as LegalEntityCreatedDate
-						,'Suppressed' as DasAccountName
-						,'Suppressed' as LegalEntityName
+						,'Redacted' as DasAccountName
+						,'Redacted' as LegalEntityName
 						,Acct.CreatedDate as AccountCreatedDate
 						,Acct.ModifiedDate as AccountModifiedDate
 						,Acct.ApprenticeshipEmployerType as ApprenticeshipEmployerType

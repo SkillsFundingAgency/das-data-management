@@ -4,7 +4,7 @@ AS
 				ea.Id
 			  , IsNull ( a.HashedId, 'XXXXX' )														AS DasAccountId
 			  , IsNull ( eas.name, 'XXXXX' )														AS EmployerAgreementStatus
-			  , IsNull( Cast ( 'Suppressed' AS VARCHAR(10) ) , 'XXXXX'	 )							AS SignedBy
+			  , IsNull( Cast ( 'Redacted' AS VARCHAR(10) ) , 'XXXXX'	 )							AS SignedBy
 			  , ea.SignedDate																		AS SignedDateTime
 			  , CAST( ea.SignedDate AS Date )														AS SignedDate
 			  , ea.ExpiredDate																		AS ExpiredDateTime

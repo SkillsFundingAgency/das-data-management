@@ -6,9 +6,9 @@ AS
 						 ISNULL(CAST(ale.LegalEntityId * 10 as bigint), -1)                                                AS Id
 						,ISNULL(CAST(a.HashedId as nvarchar(100)),'XXXXXX')												   AS DasAccountId
 						,ISNULL(CAST(ale.LegalEntityId AS bigint), -1)                                                     AS DasLegalEntityId				
-						,'SUPPRESSED'																					   AS LegalEntityName				
-						,'SUPPRESSED'																					   As LegalEntityRegisteredAddress				
-						,'SUPPRESSED'																					   AS LegalEntityRegisteredAddressPostcode								
+						,'Redacted'																					   AS LegalEntityName				
+						,'Redacted'																					   As LegalEntityRegisteredAddress				
+						,'Redacted'																					   AS LegalEntityRegisteredAddressPostcode								
 						-- DO we need a valid postcode field
 						, ISNULL(CAST((CASE 
 								WHEN le.Source = 3 THEN 'Public Body'

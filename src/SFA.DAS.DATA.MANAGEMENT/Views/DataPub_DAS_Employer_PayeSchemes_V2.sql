@@ -10,7 +10,7 @@ AS
 			,CASE 
 			WHEN ah.PayeRef IS NOT NULL THEN convert(NVarchar(500),HASHBYTES('SHA2_512',LTRIM(RTRIM(CONCAT(ah.PayeRef, saltkeydata.SaltKey)))),2) 
 			END AS PAYEReference
-			,'Suppressed'							                                                                     as PAYESchemeName
+			,'Redacted'							                                                                     as PAYESchemeName
 			,ISNULL(Cast(ah.AddedDate AS DateTime),'9999-12-31')                                                         as AddedDate
 			,ah.RemovedDate                                                                                              as RemovedDate
 			,ISNULL(CASE -- make up a last changed date from added/removed.

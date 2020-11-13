@@ -3,11 +3,11 @@ AS
 		SELECT	isnull(CAST(a.Id * 100 as bigint),-1)													as Id
 			,	isnull(CAST(a.HashedId AS nvarchar(100)),'XXXXXX')										as DasAccountId
 			,   isnull(CAST(a.Id as bigint),-1)															as EmployerAccountId
-			,	'Suppressed'																			as DASAccountName
+			,	'Redacted'																			as DASAccountName
 			,	Convert(DATE,a.CreatedDate)																as DateRegistered
 			,	ISNULL(CAST(a.CreatedDate as DateTime),'9999-12-31')									as DateTimeRegistered
 			--Owner Email Address suppressed for Data Protection reasons
-			,	ISNULL(CAST('Suppressed' AS Varchar(10)),'NA')											as OwnerEmail
+			,	ISNULL(CAST('Redacted' AS Varchar(10)),'NA')											as OwnerEmail
 			,  ISNULL(ISNULL(ModifiedDate,CreatedDate),'9999-12-31')									as UpdateDateTime
 			-- Additional Columns for UpdateDateTime represented as a Date
 			,	ISNULL(ISNULL( Convert(DATE,ModifiedDate), Convert(DATE,CreatedDate)),'9999-12-31')		as UpdateDate

@@ -2,7 +2,7 @@
 AS 
 with saltkeydata as 
 (
-	Select TOP 1 SaltKeyID,SaltKey From AsData_PL.SaltKeyLog Where SourceType ='LevyDeclarations'  Order by SaltKeyID DESC 
+	Select TOP 1 SaltKeyID,SaltKey From AsData_PL.SaltKeyLog Where SourceType ='EmployerReference'  Order by SaltKeyID DESC 
 )
 SELECT  ISNULL(CAST(LD.[Id] AS bigint),-1)                                  AS Id
       , ISNULL(CAST(EA.HashedId as nvarchar(100)),'XXXXXX')					AS DASAccountID

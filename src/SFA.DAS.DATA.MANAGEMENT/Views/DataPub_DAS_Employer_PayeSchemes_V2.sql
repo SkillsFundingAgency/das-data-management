@@ -2,13 +2,13 @@
 AS 
 	 with saltkeydata as 
 	 (
-		Select TOP 1 SaltKeyID,SaltKey From AsData_PL.SaltKeyLog Where SourceType ='EmployerPayeSchemes'  Order by SaltKeyID DESC 
+		Select TOP 1 SaltKeyID,SaltKey From AsData_PL.SaltKeyLog Where SourceType ='PayeReference'  Order by SaltKeyID DESC 
 	 )
 	SELECT 
 			 ISNULL(CAST(ah.Id as bigint),-1)																			 as Id
 			,ISNULL(CAST(a.HashedId as nvarchar(100)),'XXXXXX')                                                          as DasAccountId 		
 			,CASE 
-			WHEN ah.PayeRef IS NOT NULL THEN convert(NVarchar(500),HASHBYTES('SHA2_512',LTRIM(RTRIM(CONCAT(ah.PayeRef, saltkeydata.SaltKey)))),2) 
+			WHEN p.Ref IS NOT NULL THEN convert(NVarchar(500),HASHBYTES('SHA2_512',LTRIM(RTRIM(CONCAT(p.Ref, saltkeydata.SaltKey)))),2) 
 			END AS PAYEReference
 			,'Redacted'							                                                                     as PAYESchemeName
 			,ISNULL(Cast(ah.AddedDate AS DateTime),'9999-12-31')                                                         as AddedDate

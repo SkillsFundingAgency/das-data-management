@@ -2,7 +2,7 @@
 AS 
 	 with saltkeydata as 
 	 (
-		Select TOP 1 SaltKeyID,SaltKey From AsData_PL.SaltKeyLog Where SourceType ='PayeReference'  Order by SaltKeyID DESC 
+		Select TOP 1 SaltKeyID,SaltKey From AsData_PL.SaltKeyLog Where SourceType ='EmployerReference'  Order by SaltKeyID DESC 
 	 )
 	SELECT 
 			 ISNULL(CAST(ah.Id as bigint),-1)																			 as Id

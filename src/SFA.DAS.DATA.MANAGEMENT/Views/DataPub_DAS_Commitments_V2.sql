@@ -70,8 +70,8 @@
 					  WHEN LE.Source = 3  THEN 'Public Bodies'
 					  ELSE 'Other'
 				  END) AS Varchar(20))																		as LegalEntitySource
-		   , CAST(COALESCE(LE.ID,-1) AS BIGINT)																as DasLegalEntityId 	   
-			,cast('1900/01/01' as date ) 																	as DateOfBirth
+		   ,CAST(COALESCE(LE.ID,-1) AS BIGINT)																as DasLegalEntityId 	   
+		   ,cast('9999-12-31'  as date) 																	as DateOfBirth
 			,A.Age																							as Age
 		   , CASE WHEN [a].[DateOfBirth] IS NULL	THEN - 1
 				  WHEN DATEPART([M], [a].[DateOfBirth]) > DATEPART([M], [a].[StartDate])

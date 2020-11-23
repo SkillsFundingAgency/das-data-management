@@ -33,7 +33,7 @@
 		CD_ClientId							NVarchar(200), 
 		CD_SearchTerms						NVarchar(512), 
 		CD_UserId							NVarchar(200), 
-		CD_LevyFalg							NVarchar(200), 
+		CD_LevyFlag							NVarchar(200), 
 		CD_EmployerId						NVarchar(200), 
 		CD_ESFAToken						NVarchar(200), 
 		CD_LegalEntityId					NVarchar(200)  

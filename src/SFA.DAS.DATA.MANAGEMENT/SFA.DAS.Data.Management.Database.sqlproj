@@ -265,5 +265,6 @@
     <Build Include="Tables\ASDataPL_Comt_Providers.sql" />
     <Build Include="Views\ASDataPL_DAS_SpendControlNonLevy_V2.sql" />
     <Build Include="Views\ASDataPL_DAS_SpendControl_V2.sql" />
+    <Build Include="Tables\AsDataPL_EI_CollectionCalendar.sql" />
   </ItemGroup>
 </Project>

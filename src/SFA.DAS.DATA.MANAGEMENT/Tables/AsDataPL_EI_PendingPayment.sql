@@ -7,6 +7,8 @@
  ,Amount decimal(9,2) not null
  ,CalculatedDate datetime2(7) not null
  ,PaymentMadeDate datetime2(7) null
+ ,PeriodNumber tinyint null
+ ,PaymentYear smallint null
  ,AccountLegalEntityId bigint null
  ,AsDm_UpdatedDateTime datetime2 default getdate()
 )

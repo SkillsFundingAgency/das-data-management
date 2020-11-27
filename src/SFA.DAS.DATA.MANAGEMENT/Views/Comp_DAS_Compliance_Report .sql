@@ -1,9 +1,9 @@
 ﻿CREATE VIEW [Comp].[DAS_Compliance_Report]
 	AS 
-		
+
 SELECT			
 	CN.DASAccountID		
-	,Acc.DASAccountName		
+	,ISNULL(CAST(Acc.Name as nvarchar(100)),'NA') as DASAccountName	
 	,ISNULL(LD.PayrollYear, '2999') AS PayrollYear
 	,ISNULL(LD.PayrollMonth, '99') AS PayrollMonth		
 	,CN.CalendarYear		
@@ -142,12 +142,11 @@ FROM
 		ON CN.DASAccountID = Pay.DasAccountId	
 		AND CN.CalendarMonth = Pay.CalendarMonth	
 		AND CN.CalendarYear = Pay.CalendarYear	
-	LEFT JOIN [Data_Pub].[DAS_Employer_Accounts_V2] AS Acc
-		ON CN.DasAccountId = Acc.DasAccountId	
-		AND Acc.Flag_Latest = 1
+	LEFT JOIN [ASData_PL].[Acc_Account] AS Acc
+		ON CN.DasAccountId = isnull(CAST(Acc.HashedId AS nvarchar(100)),'XXXXXX')			
 GROUP BY
 	CN.DASAccountID
-	,Acc.DASAccountName
+	,ISNULL(CAST(Acc.Name as nvarchar(100)),'NA')	
 	,LD.PayrollYear
 	,LD.PayrollMonth
 	,CN.CalendarYear
@@ -156,6 +155,5 @@ HAVING
 	SUM(ISNULL(LevyDeclaredInMonth, 0)) > 0
 	OR SUM(ISNULL(PaymentLevy, 0)) > 0
 	OR SUM(ISNULL(PaymentCoInvestedESFA, 0)) > 0 
-
 GO
 

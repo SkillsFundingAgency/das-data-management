@@ -14,20 +14,17 @@ SELECT
 FROM			
 (
 	SELECT DISTINCT		
-		 CASE	
-		 	WHEN LD.PayrollMonth BETWEEN 1 AND 8 THEN LD.PayrollMonth + 4
-		 	ELSE LD.PayrollMonth - 8
-		 END AS CalendarMonth -- align	
-		,CASE	
-			WHEN LD.PayrollMonth BETWEEN 1 AND 8 THEN CONCAT('20', LEFT(LD.PayrollYear, 2))
-			ELSE CONCAT('20', FORMAT(CONVERT(INT, SUBSTRING(LD.PayrollYear, 4, 2)), '00'))
-		END AS CalendarYear
+		 CalCP.CalendarMonthNumber AS CalendarMonth
+		,CalCP.CalendarYear AS CalendarYear
 		 ,LD.PayrollMonth
 		 ,LD.PayrollYear
 		 ,ISNULL(EA.HashedId,'XXXXXX') AS DASAccountID
 	FROM AsData_PL.Acc_Account EA
 	LEFT JOIN ASData_PL.Fin_GetLevyDeclarationAndTopUp AS LD
 		ON EA.ID=LD.AccountId
+	LEFT OUTER JOIN dbo.DASCalendarMonth CalCP -- Calendar Conversion 
+			ON LD.PayrollYear = CalCP.TaxYear
+			AND LD.PayrollMonth = CalCP.TaxMonthNumber
 	WHERE LD.LastSubmission=1
 	UNION		
 	SELECT DISTINCT
@@ -35,20 +32,14 @@ FROM
 		,
 		cp.CalendarYear
 		,
-		CASE	
-			WHEN cp.CalendarMonth BETWEEN 1 AND 4 THEN cp.CalendarMonth + 8
-			ELSE cp.CalendarMonth - 4
-		END AS PayrollMonth	
+		cp.TaxMonthNumber AS PayrollMonth
 		,
-		CASE	
-			WHEN cp.CalendarMonth BETWEEN 1 AND 4 THEN CONCAT(CAST(RIGHT(cp.CalendarYear, 2) -1 AS VARCHAR), '-', CAST(RIGHT(cp.CalendarYear, 2) AS VARCHAR))
-			ELSE CONCAT(CAST(RIGHT(cp.CalendarYear, 2) AS VARCHAR),'-', CAST(RIGHT(cp.CalendarYear, 2) + 1 AS VARCHAR))
-		END AS PayrollYear	
+		cp.TaxYear AS PayrollYear	
 		,
 		DASAccountID	
 	FROM
 	(
-	 SELECT
+	 SELECT		
 		ISNULL(CASE WHEN P.CollectionPeriod <= 12 THEN CalCP.CalendarMonthNumber
 			WHEN P.CollectionPeriod = 13 THEN 9
 			WHEN P.CollectionPeriod = 14 THEN 10
@@ -58,7 +49,9 @@ FROM
 		  WHEN P.CollectionPeriod IN (13,14) THEN
 			CAST( CONCAT('20', SUBSTRING( CAST ( P.AcademicYear AS VARCHAR) , 3, 4)) AS INT )
 		  END, -1) AS CalendarYear,
-		EA.HashedId AS DASAccountID	
+		EA.HashedId AS DASAccountID,
+		CalCP.TaxYear,
+		CalCP.TaxMonthNumber		
 		FROM StgPmts.Payment P
 	
 		LEFT OUTER JOIN dbo.DASCalendarMonth CalCP -- Calendar Conversion for CollectionPeriod Dates

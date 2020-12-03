@@ -38,5 +38,5 @@
 		[CD_ESFAToken]									[NVarchar](500) NULL, 
 		[CD_LegalEntityId]								[NVarchar](500) NULL,
 		[FileName]										[Nvarchar](500) NULL,
-		[StgImportDate]									[Nvarchar](500) NULL
+		[StgImportDate]									[datetime2](7) DEFAULT (getdate())
 )

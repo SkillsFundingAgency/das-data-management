@@ -454,7 +454,10 @@ BEGIN
      GRANT SELECT ON Stg.GA_SessionData TO BetaUser
 END
 
-
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='GA_SessionDataDetail' AND TABLE_SCHEMA = 'Stg')
+BEGIN
+     GRANT SELECT ON Stg.GA_SessionDataDetail TO BetaUser
+END
 
 /* Grant UNMASK to BetaUser */
 --GRANT UNMASK TO [BetaUser]

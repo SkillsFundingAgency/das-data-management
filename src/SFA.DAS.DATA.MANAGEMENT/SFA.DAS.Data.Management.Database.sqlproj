@@ -266,5 +266,6 @@
     <Build Include="Views\ASDataPL_DAS_SpendControlNonLevy_V2.sql" />
     <Build Include="Views\ASDataPL_DAS_SpendControl_V2.sql" />
     <Build Include="Tables\AsDataPL_EI_CollectionCalendar.sql" />
+    <Build Include="Tables\Stg_GA_SessionDataDetail.sql" />
   </ItemGroup>
 </Project>

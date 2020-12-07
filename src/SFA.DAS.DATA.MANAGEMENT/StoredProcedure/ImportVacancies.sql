@@ -226,6 +226,7 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
         left
         join (select vacancyid,min(HistoryDate) HistoryDate
                 from Stg.Avms_VacancyHistory vh
+			   WHERE [VacancyHistoryEventSubTypeId] = 2 --Live
 		       group by vacancyid) VH
           ON VH.VacancyId=V.VacancyId
         left

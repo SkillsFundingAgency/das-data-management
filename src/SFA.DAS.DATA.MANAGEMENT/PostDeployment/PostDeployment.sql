@@ -37,6 +37,8 @@ GRANT SELECT ON SCHEMA :: Data_Pub TO Developer
 
 GRANT SELECT ON SCHEMA :: Mtd TO Developer
 
+GRANT SELECT ON SCHEMA :: Comp TO Developer
+
 GRANT SELECT ON dbo.[ReferenceData] To Developer
 
 GRANT SELECT ON [dbo].[DASCalendarMonth] To Developer

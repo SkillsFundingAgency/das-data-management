@@ -473,16 +473,9 @@ IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
 DROP TABLE ASData_PL.EI_Accounts
 
 
- 
-
-
-
-
-
-
-
-
-
-
-
-
+/* Drop GA_SessionData Table as the same new versioned table deployed GA_SessionDataDetail */
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'GA_SessionData'
+		      AND TABLE_SCHEMA=N'Stg'
+	      )
+DROP TABLE [Stg].[GA_SessionData]

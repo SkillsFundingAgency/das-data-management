@@ -483,3 +483,10 @@ END
 
 
 
+-- drop GA Session Data V1 table
+DROP TABLE IF EXISTS [Stg].[GA_SessionData]
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='GA_SessionDataDetail' AND TABLE_SCHEMA = 'Stg')
+BEGIN
+	TRUNCATE TABLE [Stg].[GA_SessionDataDetail]    
+END

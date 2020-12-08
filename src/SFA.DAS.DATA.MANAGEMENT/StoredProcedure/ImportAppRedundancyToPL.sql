@@ -60,6 +60,11 @@ INSERT INTO ASData_PL.AR_Apprentice
       ,[LastName]
       ,[Email]
       ,[DateOfBirth]
+	  ,[Ethnicity]
+	  ,[EthnicitySubgroup]
+	  ,[EthnicityText]
+	  ,[Gender]
+	  ,[GenderText]
 	  )
 SELECT AR.[Id]  
 	  ,CA.[Id] 
@@ -76,6 +81,11 @@ SELECT AR.[Id]
       ,AR.[LastName] 
 	  ,AR.[Email] 
       ,AR.[DateOfBirth] 
+	  ,AR.[Ethnicity]
+	  ,AR.[EthnicitySubgroup]
+	  ,AR.[EthnicityText]
+	  ,AR.[Gender]
+	  ,AR.[GenderText]
   FROM (SELECT *, row_number() over(partition by DateOfBirth,Email order by ID) RN
           FROM Stg.AR_Apprentice) AR
   LEFT

@@ -268,5 +268,14 @@
     <Build Include="Schemas\Comp.sql" />
     <Build Include="Views\Comp_DAS_Compliance_Report .sql" />
     <Build Include="Tables\Stg_GA_SessionDataDetail.sql" />
+    <Build Include="Tables\ASDataPL_CRSDel_NationalAchievementRate.sql" />
+    <Build Include="Tables\ASDataPL_CRSDel_NationalAchievementRateOverall.sql" />
+    <Build Include="Tables\ASDataPL_CRSDel_ProviderRegistration.sql" />
+    <Build Include="Tables\ASDataPL_CRSDel_ProviderRegistrationFeedbackAttribute.sql" />
+    <Build Include="Tables\ASDataPL_CRSDel_ProviderRegistrationFeedbackRating.sql" />
+    <Build Include="Tables\ASDataPL_CRSDel_ProviderStandard.sql" />
+    <Build Include="Tables\ASDataPL_CRSDel_ProviderStandardLocation.sql" />
+    <Build Include="Tables\ASDataPL_CRSDel_StandardLocation.sql" />
+    <Build Include="Tables\ASDataPL_Provider.sql" />
   </ItemGroup>
 </Project>

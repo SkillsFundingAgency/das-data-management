@@ -127,11 +127,21 @@ VALUES
 ,('AppRedundancy','employer','dbo','[ID],[OrganisationName],[ContactableForFeedback],[Locations],[Sectors],[CreatedOn]','[PhoneNumber]','[Email],[ApprenticeshipMoreDetails],[ContactFirstName],[ContactLastName]',0,1,'AR_Employer')
 
 
-
+/* CRS Delivery Import Configurations */
+INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
+VALUES
+('CRSDelivery','NationalAchievementRate','dbo','[Id],[UkPrn],[Age],[SectorSubjectArea],[ApprenticeshipLevel],[OverallCohort],[OverallAchievementRate]','','',0,0,'CRSDel_NationalAchievementRate'),
+('CRSDelivery','NationalAchievementRateOverall','dbo','[Id],[Age],[SectorSubjectArea],[ApprenticeshipLevel],[OverallCohort],[OverallAchievementRate]','','',0,0,'CRSDel_NationalAchievementRateOverall'),
+('CRSDelivery','Provider','dbo','[Id],[UkPrn],[Name],[TradingName],[EmployerSatisfaction],[LearnerSatisfaction]','[Phone],[Website]','[Email]',0,1,'CRSDel_Provider'),
+('CRSDelivery','ProviderRegistration','dbo','[UkPrn],[StatusDate],[StatusId],[ProviderTypeId],[OrganisationTypeId],[FeedbackTotal],[Postcode],[Lat],[Long]','[Address1],[Address2],[Address3],[Address4],[Town]','',0,0,'CRSDel_ProviderRegistration'),
+('CRSDelivery','ProviderRegistrationFeedbackAttribute','dbo','[UkPrn],[AttributeName],[Weakness],[Strength]','','',0,0,'CRSDel_ProviderRegistrationFeedbackAttribute'),
+('CRSDelivery','ProviderRegistrationFeedbackRating','dbo','[UkPrn],[FeedbackName],[FeedbackCount]','','',0,0,'CRSDel_ProviderRegistrationFeedbackRating'),
+('CRSDelivery','ProviderStandard','dbo','[StandardId],[UkPrn],[StandardInfoUrl]','[Phone],[ContactUrl]','[Email]',0,0,'CRSDel_ProviderStandard'),
+('CRSDelivery','ProviderStandardLocation','dbo','[StandardId],[UkPrn],[LocationId],[DeliveryModes],[Radius],[National]','','',0,0,'CRSDel_ProviderStandardLocation'),
+('CRSDelivery','StandardLocation','dbo','[LocationId],[Name],[Postcode],[Lat],[Long]','[Phone],[Address1],[Address2],[Town],[County]','[Email],[Website]',0,0,'CRSDel_StandardLocation')
 
 
 COMMIT TRANSACTION
-
 
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1

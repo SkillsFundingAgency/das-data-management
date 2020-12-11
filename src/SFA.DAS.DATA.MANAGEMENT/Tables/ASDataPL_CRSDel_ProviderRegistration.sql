@@ -6,7 +6,7 @@
 		[ProviderTypeId]		int			NOT	NULL,
 		[OrganisationTypeId]    int			NOT NULL,
 		[FeedbackTotal]			int			NOT NULL,	
-		[Postcode]				varchar		NULL,
+		[Postcode]				varchar(20)	NULL,
 		[Lat]					float		NULL,
 		[Long]					float		NULL,
 		[AsDm_UpdatedDateTime] [datetime2](7) DEFAULT (getdate()),

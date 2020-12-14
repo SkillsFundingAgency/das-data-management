@@ -65,6 +65,8 @@
 ,VacancySource varchar(255)
 ,OfflineVacancyTypeId_v1 int
 ,CreatedDate datetime
+,DatePosted datetime
+,HasHadLiveStatus bit
 ,IsDeleted_v2 Varchar(100)
 ,DeletedDateTime_v2 DateTime
 ,SubmittedDateTime_v2 DateTime

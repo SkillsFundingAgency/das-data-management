@@ -1,4 +1,4 @@
-﻿CREATE TABLE [ASData_PL].[CRS_FrameworkFundingPeriod](
+﻿CREATE TABLE [ASData_PL].[FAT2_FrameworkFundingPeriod](
 	[Id]							[int]			NOT NULL,
 	[FrameworkId]					[varchar](15)	NOT NULL,
 	[EffectiveFrom]					[datetime]		NOT NULL,

@@ -1,5 +1,5 @@
 ﻿
-CREATE PROCEDURE [dbo].[ImportCRSFrameworkToPL]
+CREATE PROCEDURE [dbo].[ImportFAT2FrameworkToPL]
 (
    @RunId int
 )
@@ -7,7 +7,7 @@ AS
 -- ==========================================================================================================
 -- Author:      Sarma Evani
 -- Create Date: 17/Dec/2020
--- Description: Import, Transform and Load CRS Framework Presentation Layer Table
+-- Description: Import, Transform and Load FAT2 Framework Presentation Layer Table
 -- ==========================================================================================================
 BEGIN TRY
 		DECLARE @LogID int
@@ -25,19 +25,19 @@ BEGIN TRY
 			  SELECT 
 					@RunId
 				   ,'Step-6'
-				   ,'ImportCRSFrameworkToPL'
+				   ,'ImportFAT2FrameworkToPL'
 				   ,getdate()
 				   ,0
 
 			  SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
-			  WHERE StoredProcedureName='ImportCRSFrameworkToPL'
+			  WHERE StoredProcedureName='ImportFAT2FrameworkToPL'
 			  AND RunId=@RunID
 
 			BEGIN TRANSACTION
 
-					DELETE FROM [ASData_PL].[CRS_Framework]
+					DELETE FROM [ASData_PL].[FAT2_Framework]
 
-					INSERT [ASData_PL].[CRS_Framework]
+					INSERT [ASData_PL].[FAT2_Framework]
 					(												
 							[Id],
 							[FrameworkOccupationId],
@@ -86,13 +86,13 @@ BEGIN TRY
 						  ,[ProgrammeType]
 						  ,[HasSubGroups]
 						  ,[ExtendedTitle]
-				  FROM [Stg].[CRS_Framework] stgFramework LEFT JOIN 
+				  FROM [Stg].[FAT2_Framework] stgFramework LEFT JOIN 
 				  [ASData_PL].[Va_ApprenticeshipFrameWorkAndOccupation] PLFrameWorkAndOccupation ON 
 				  stgFramework.Id = PLFrameWorkAndOccupation.ProgrammeId_v2 AND    
 				  stgFramework.FrameworkName = PLFrameWorkAndOccupation.FrameWorkFullName 				
 
-					IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='CRS_Framework' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
-					DROP TABLE [Stg].[CRS_Framework]
+				  IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='FAT2_Framework' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+				  DROP TABLE [Stg].[FAT2_Framework]
 				
 			COMMIT TRANSACTION
 
@@ -126,7 +126,7 @@ BEGIN CATCH
 				ERROR_STATE(),
 				ERROR_SEVERITY(),
 				ERROR_LINE(),
-				'ImportCRSFrameworkToPL',
+				'ImportFAT2FrameworkToPL',
 				ERROR_MESSAGE(),
 				GETDATE(),
 				@RunId as RunId; 

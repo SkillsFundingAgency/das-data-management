@@ -1,11 +1,12 @@
-﻿CREATE TABLE [ASData_PL].[CRS_SectorStandard](
+﻿CREATE TABLE [ASData_PL].[FAT2_StandardSector](
 	[Id]						[int]					NOT NULL,
 	[Title]						[varchar](1000)			NOT NULL,
 	[Level]						[int]					NOT NULL,
 	[IntegratedDegree]			[varchar](100)			NULL,
 	[OverviewOfRole]			[varchar](max)			NOT NULL,
-	[RouteId]					[uniqueidentifier]		NOT NULL,
-	[Route]						[varchar](500)			NOT NULL,
+	[ApprenticeshipStandardId]	[int]					NULL,
+	[SectorId]					[uniqueidentifier]		NOT NULL,
+	[Sector]					[varchar](500)			NOT NULL,
 	[Keywords]					[varchar](max)			NULL,
 	[TypicalJobTitles]			[varchar](max)			NULL,
 	[StandardPageUrl]			[varchar](500)			NOT NULL,

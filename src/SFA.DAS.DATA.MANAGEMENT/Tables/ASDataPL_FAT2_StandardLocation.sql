@@ -1,4 +1,4 @@
-﻿CREATE TABLE [ASData_PL].[CRSDel_StandardLocation]
+﻿CREATE TABLE [ASData_PL].[FAT2_StandardLocation]
 (
 	[LocationId]			int						NOT NULL,
 	[Name]					varchar(250)			NULL,

@@ -1,4 +1,4 @@
-﻿CREATE TABLE [ASData_PL].[CRS_SectorSubjectAreaTier2](
+﻿CREATE TABLE [ASData_PL].[FAT2_SectorSubjectAreaTier2](
 	[SectorSubjectAreaTier2]		[decimal](10, 4)	NOT NULL,
 	[SectorSubjectAreaTier2Desc]	[varchar](500)		NOT NULL,
 	[Name]							[varchar](500)		NOT NULL,

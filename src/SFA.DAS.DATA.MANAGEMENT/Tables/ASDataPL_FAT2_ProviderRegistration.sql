@@ -1,4 +1,4 @@
-﻿CREATE TABLE [ASData_PL].[CRSDel_ProviderRegistration]
+﻿CREATE TABLE [ASData_PL].[FAT2_ProviderRegistration]
 (
 		[UkPrn]					int			NOT NULL,
 		[StatusDate]			datetime    NOT NULL,

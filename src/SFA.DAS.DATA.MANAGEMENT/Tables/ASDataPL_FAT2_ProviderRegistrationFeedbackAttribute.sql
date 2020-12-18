@@ -1,4 +1,4 @@
-﻿CREATE TABLE [ASData_PL].[CRSDel_ProviderRegistrationFeedbackAttribute]
+﻿CREATE TABLE [ASData_PL].[FAT2_ProviderRegistrationFeedbackAttribute]
 (
 		[UkPrn]				int					NOT NULL,
 		[AttributeName]     varchar(100)		NOT NULL,

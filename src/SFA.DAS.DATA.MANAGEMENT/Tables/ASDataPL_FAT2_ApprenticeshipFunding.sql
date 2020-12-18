@@ -1,4 +1,4 @@
-﻿CREATE TABLE [ASData_PL].[CRS_ApprenticeshipFunding](
+﻿CREATE TABLE [ASData_PL].[FAT2_ApprenticeshipFunding](
 	[Id]					[uniqueidentifier]	NOT NULL,
 	[StandardId]			[int]				NOT NULL,
 	[EffectiveFrom]			[datetime]			NOT NULL,

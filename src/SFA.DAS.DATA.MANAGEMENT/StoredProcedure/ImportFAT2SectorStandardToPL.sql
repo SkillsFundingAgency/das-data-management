@@ -1,5 +1,5 @@
 ﻿
-CREATE PROCEDURE [dbo].[ImportCRSSectorStandardToPL]
+CREATE PROCEDURE [dbo].[ImportFAT2SectorStandardToPL]
 (
    @RunId int
 )
@@ -7,7 +7,7 @@ AS
 -- ==========================================================================================================
 -- Author:      Sarma Evani
 -- Create Date: 17/Dec/2020
--- Description: Import, Transform and Load CRS Framework Presentation Layer Table
+-- Description: Import, Transform and Load FAT2 Framework Presentation Layer Table
 -- ==========================================================================================================
 BEGIN TRY
 		DECLARE @LogID int
@@ -25,27 +25,28 @@ BEGIN TRY
 			  SELECT 
 					@RunId
 				   ,'Step-6'
-				   ,'ImportCRSSectorStandardToPL'
+				   ,'ImportFAT2SectorStandardToPL'
 				   ,getdate()
 				   ,0
 
 			  SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
-			  WHERE StoredProcedureName='ImportCRSSectorStandardToPL'
+			  WHERE StoredProcedureName='ImportFAT2SectorStandardToPL'
 			  AND RunId=@RunID
 
 			BEGIN TRANSACTION
 
-					DELETE FROM [ASData_PL].[CRS_SectorStandard]
+					DELETE FROM [ASData_PL].[FAT2_StandardSector]
 
-					INSERT [ASData_PL].[CRS_SectorStandard]
+					INSERT [ASData_PL].[FAT2_StandardSector]
 					(												
 						[Id],
 						[Title],
 						[Level],
 						[IntegratedDegree],
 						[OverviewOfRole],
-						[RouteId],
-						[Route],
+						[ApprenticeshipStandardId],
+						[SectorId],
+						[Sector],
 						[Keywords],
 						[TypicalJobTitles],
 						[StandardPageUrl],
@@ -63,6 +64,7 @@ BEGIN TRY
 						[Level],
 						[IntegratedDegree],
 						[OverviewOfRole],
+						AppStandard.[StandardId],
 						[RouteId],
 						sector.[Route],
 						[Keywords],
@@ -75,14 +77,15 @@ BEGIN TRY
 						[Behaviours],
 						[Duties],
 						[CoreAndOptions]
-					FROM [Stg].[CRS_Standard] std JOIN [Stg].[CRS_Sector] sector 
-					ON std.[RouteId] =  sector.[Id]		
+					FROM [Stg].[FAT2_Standard] std JOIN [Stg].[FAT2_Sector] sector 
+					ON std.[RouteId] =  sector.[Id]	LEFT JOIN [ASData_PL].[Va_ApprenticeshipStandard] AppStandard
+					ON std.Id = AppStandard.LarsCode AND std.Title = AppStandard.StandardFullName
 
-					IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='CRS_Standard' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
-					DROP TABLE [Stg].[CRS_Standard]
+					IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='FAT2_Standard' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+					DROP TABLE [Stg].[FAT2_Standard]
 				
-					IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='CRS_Sector' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
-					DROP TABLE [Stg].[CRS_Sector]
+					IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='FAT2_Sector' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+					DROP TABLE [Stg].[FAT2_Sector]
 
 			COMMIT TRANSACTION
 
@@ -116,7 +119,7 @@ BEGIN CATCH
 				ERROR_STATE(),
 				ERROR_SEVERITY(),
 				ERROR_LINE(),
-				'ImportCRSSectorStandardToPL',
+				'ImportFAT2SectorStandardToPL',
 				ERROR_MESSAGE(),
 				GETDATE(),
 				@RunId as RunId; 

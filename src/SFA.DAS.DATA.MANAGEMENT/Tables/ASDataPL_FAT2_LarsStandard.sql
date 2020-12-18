@@ -1,4 +1,4 @@
-﻿CREATE TABLE [ASData_PL].[CRS_LarsStandard](
+﻿CREATE TABLE [ASData_PL].[FAT2_LarsStandard](
 	[Id]						[uniqueidentifier]	NOT NULL,
 	[StandardId]				[int]				NOT NULL,
 	[Version]					[int]				NOT NULL,

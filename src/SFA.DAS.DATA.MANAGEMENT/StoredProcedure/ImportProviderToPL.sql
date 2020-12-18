@@ -50,23 +50,23 @@ BEGIN TRY
 						[Updated]												
 				)
 				select 
-						CRSProvider.Id,
-						coalesce(ComtProvider.UkPrn,CRSProvider.UkPrn),
-						coalesce(ComtProvider.Name,CRSProvider.Name),
-						CRSProvider.TradingName,
-						CRSProvider.EmployerSatisfaction,
-						CRSProvider.LearnerSatisfaction,
-						CRSProvider.Email,
+						FAT2Provider.Id,
+						coalesce(ComtProvider.UkPrn,FAT2Provider.UkPrn),
+						coalesce(ComtProvider.Name,FAT2Provider.Name),
+						FAT2Provider.TradingName,
+						FAT2Provider.EmployerSatisfaction,
+						FAT2Provider.LearnerSatisfaction,
+						FAT2Provider.Email,
 						ComtProvider.[Created],
 						ComtProvider.[Updated] 
-				From	[Stg].[CRSDel_Provider] CRSProvider FULL OUTER JOIN stg.Comt_Providers  ComtProvider
-				ON		CRSProvider.UkPrn = ComtProvider.UKPRN  AND CRSProvider.Name = ComtProvider.Name 				
+				From	[Stg].[FAT2_Provider] FAT2Provider FULL OUTER JOIN stg.Comt_Providers  ComtProvider
+				ON		FAT2Provider.UkPrn = ComtProvider.UKPRN  AND FAT2Provider.Name = ComtProvider.Name 				
 
 				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Comt_Providers' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 				DROP TABLE [Stg].[Comt_Providers]
 
-				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='CRSDel_Provider' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
-				DROP TABLE [Stg].[CRSDel_Provider]
+				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='FAT2_Provider' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+				DROP TABLE [Stg].[FAT2_Provider]
 				
 		COMMIT TRANSACTION
 

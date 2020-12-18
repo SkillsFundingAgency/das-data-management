@@ -1,4 +1,4 @@
-﻿CREATE TABLE [ASData_PL].[CRSDel_NationalAchievementRate]
+﻿CREATE TABLE [ASData_PL].[FAT2_NationalAchievementRate]
 (
 	[Id]							bigint					NOT NULL,
 	[UkPrn]						    int						NOT NULL,

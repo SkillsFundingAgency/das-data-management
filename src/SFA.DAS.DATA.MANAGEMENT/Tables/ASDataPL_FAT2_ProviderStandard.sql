@@ -1,4 +1,4 @@
-﻿CREATE TABLE [ASData_PL].[CRSDel_ProviderStandard]
+﻿CREATE TABLE [ASData_PL].[FAT2_ProviderStandard]
 (
 		[StandardId]			int					NOT NULL,
 		[UkPrn]					int					NOT NULL,

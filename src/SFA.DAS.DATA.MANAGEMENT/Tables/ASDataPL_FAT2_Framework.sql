@@ -1,4 +1,4 @@
-﻿CREATE TABLE [ASData_PL].[CRS_Framework](
+﻿CREATE TABLE [ASData_PL].[FAT2_Framework](
 	[Id]								[varchar](15)		NOT NULL,
 	[FrameworkOccupationId]				[int]				NULL,
 	[Title]								[varchar](1000)		NOT NULL,

@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [ASData_PL].[Provider]
 (
-	[Id]					[bigint]							NOT NULL,
+	[Id]					[bigint]							NULL,
 	[UkPrn]					[int]								NOT NULL,
 	[Name]					[varchar](1000)						NOT NULL,
 	[TradingName]			[varchar](1000)						NULL,

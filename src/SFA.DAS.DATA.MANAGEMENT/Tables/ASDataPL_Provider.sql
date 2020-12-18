@@ -9,6 +9,5 @@
 	[Email]					[varchar](260)						NULL,
 	[Created]				[datetime2](7)						NULL,
 	[Updated]				[datetime2](7)						NULL,
-	[AsDm_UpdatedDateTime]  [datetime2](7)						DEFAULT (getdate()),
-	PRIMARY KEY CLUSTERED ([UkPrn] ASC) ON [PRIMARY]
+	[AsDm_UpdatedDateTime]  [datetime2](7)						DEFAULT (getdate())
 )

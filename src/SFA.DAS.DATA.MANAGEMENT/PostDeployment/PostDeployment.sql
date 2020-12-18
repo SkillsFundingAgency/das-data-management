@@ -482,3 +482,7 @@ IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_UserAccou
 BEGIN
      GRANT SELECT ON ASData_PL.DAS_UserAccountLegalEntity TO MarketoUser
 END
+
+
+
+DROP PROCEDURE IF EXISTS [dbo].[BuildCRSPresentationLayer]

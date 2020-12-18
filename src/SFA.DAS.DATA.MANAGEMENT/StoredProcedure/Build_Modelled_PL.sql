@@ -16,6 +16,6 @@ EXEC dbo.ImportAccountsToPL @RunId
 
 EXEC dbo.ImportProviderToPL @RunId
 
-EXEC dbo.ImportCRSFrameworkToPL @RunId
+EXEC dbo.ImportFAT2FrameworkToPL @RunId
 
-EXEC dbo.ImportCRSSectorStandardToPL @RunId
+EXEC dbo.ImportFAT2SectorStandardToPL @RunId

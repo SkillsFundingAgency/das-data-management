@@ -281,5 +281,11 @@
     <Build Include="Tables\ASDataPL_CRS_FrameworkFundingPeriod.sql" />
     <Build Include="Tables\ASDataPL_CRS_LarsStandard.sql" />
     <Build Include="Tables\ASDataPL_CRS_SectorSubjectAreaTier2.sql" />
+    <Build Include="StoredProcedure\ImportProviderToPL.sql" />
+    <Build Include="Tables\ASDataPL_CRS_Framework.sql" />
+    <Build Include="Tables\ASDataPL_CRS_SectorStandard.sql" />
+    <Build Include="StoredProcedure\ImportCRSFrameworkToPL.sql" />
+    <Build Include="StoredProcedure\ImportCRSSectorStandardToPL.sql" />
+    <Build Include="StoredProcedure\BuildCRSPresentationLayer.sql" />
   </ItemGroup>
 </Project>

@@ -108,6 +108,8 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
            ,[VacancySource]
            ,[OfflineVacancyTypeId_v1]
            ,[CreatedDate]
+		   ,[DatePosted]
+		   ,[HasHadLiveStatus]
            ,[SourceVacancyId]
            ,[SourceDb])
      SELECT v.VacancyGuid                                     as VacancyGuid
@@ -189,17 +191,25 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
 	        ,v.VacancySourceId                                as VacancySourceId
 	        ,vas.FullName                                     as VacancySource
             ,v.OfflineVacancyTypeId                           as OfflineVacancyTypeId   
-	        ,ISNULL(VH.HistoryDate,V.UpdatedDateTime)         as CreatedDate
+	        ,ISNULL(VH.CreatedDate,V.UpdatedDateTime)         as CreatedDate
+			,VL.DatePosted                                    as DatePosted
+			,CASE WHEN VL.DatePosted IS NULL THEN 0
+			      ELSE 1
+				  END                                         as HasHadLiveStatus
 			,v.VacancyId                                      as SourceVacancyId
 			,'RAAv1'                                          as SourceDb
        FROM Stg.[Avms_Vacancy] V
+	   left
        join Stg.Avms_VacancyStatusType vs 
 	     on V.VacancyStatusId = vs.VacancyStatusTypeId
+	   left
        join Stg.Avms_VacancyOwnerRelationship vor 
 	     on V.VacancyOwnerRelationshipId = vor.VacancyOwnerRelationshipId
+	   left
        join ASData_PL.Va_Employer E 
 	     on vor.EmployerId = e.SourceEmployerId_v1
 		and E.SourceDb='RAAv1'
+	   left
        join (SELECT ps.providersiteid,psr.ProviderID
                from stg.Avms_ProviderSite ps 
                join (SELECT ProviderID,ProviderSiteID
@@ -209,6 +219,7 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
                       WHERE rn=1) PSR
                  ON PSR.ProviderSiteID=PS.ProviderSiteID) Ps
           on vor.ProviderSiteID=ps.ProviderSiteID
+		left
         join ASData_PL.Va_Provider p 
 		  on ps.ProviderID = p.SourceProviderID_v1
 		 and p.SourceDb='RAAv1'
@@ -224,10 +235,15 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
           ON AF.SourceApprenticeshipFrameworkId=V.ApprenticeshipFrameworkId
 	     AND AF.SourceDb='RAAv1'
         left
-        join (select vacancyid,min(HistoryDate) HistoryDate
+        join (select vacancyid,min(HistoryDate) DatePosted
                 from Stg.Avms_VacancyHistory vh
 			   WHERE [VacancyHistoryEventSubTypeId] = 2 --Live
-		       group by vacancyid) VH
+		       group by vacancyid) VL
+          ON VL.VacancyId=V.VacancyId
+		left
+        join (select vacancyid,min(HistoryDate) CreatedDate
+                from Stg.Avms_VacancyHistory vh
+			   group by vacancyid) VH
           ON VH.VacancyId=V.VacancyId
         left
         join Stg.Avms_ApprenticeshipType AT
@@ -313,6 +329,8 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
            ,[VacancySource]
            --,[OfflineVacancyTypeId_v1]
            ,[CreatedDate]
+		   ,[DatePosted]
+		   ,[HasHadLiveStatus]
            ,[IsDeleted_v2]
            ,[DeletedDateTime_v2]
            ,[SubmittedDateTime_v2]
@@ -380,6 +398,10 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
           ,dbo.Fn_ConvertTimeStampToDateTime(v.LastUpdatedTimeStamp) as UpdateDateTime
           ,v.SourceOrigin                                            as VacancySource
           ,dbo.Fn_ConvertTimeStampToDateTime(v.CreatedDateTimeStamp) as CreatedDateTime
+		  ,dbo.Fn_ConvertTimeStampToDateTime(v.[LiveDateTimeStamp])  as DatePosted
+		  ,CASE WHEN v.[LiveDateTimeStamp] is null then 0
+		        ELSE 1
+				END                                                  as HasHadLiveStatus
 		  ,v.IsDeleted                                               as IsDeleted
 		  ,dbo.Fn_ConvertTimeStampToDateTime(v.DeletedDateTimeStamp) as DeletedDateTime
 		  ,dbo.Fn_ConvertTimeStampToDateTime(v.SubmittedDateTimeStamp) as SubmittedDateTime

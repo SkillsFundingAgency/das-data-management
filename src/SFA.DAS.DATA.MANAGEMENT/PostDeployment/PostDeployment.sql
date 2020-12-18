@@ -545,8 +545,6 @@ IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='MarketoProgr
 BEGIN
      GRANT SELECT ON ASData_PL.MarketoPrograms TO DataGov
 END
-
-
 DROP PROCEDURE IF EXISTS [dbo].[ImportCRSFrameworkToPL]
 
 DROP PROCEDURE IF EXISTS [dbo].[ImportCRSSectorStandardToPL]
@@ -578,4 +576,3 @@ DROP TABLE IF EXISTS [ASData_PL].[CRSDel_ProviderStandard]
 DROP TABLE IF EXISTS [ASData_PL].[CRSDel_ProviderStandardLocation]
 
 DROP TABLE IF EXISTS [ASData_PL].[CRSDel_StandardLocation]
-

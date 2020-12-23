@@ -1,5 +1,5 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json",
     "contentVersion": "1.0.0.0",
     "parameters": {
         "resourceEnvironmentName": {
@@ -53,11 +53,34 @@
         "functionsExtensionVersion": {
             "type": "string",
             "defaultValue": "~2.0"
+        },
+        "tags": {
+            "type": "object"
+        },
+        "resourceGroupLocation": {
+            "type": "string"
+        },
+        "sharedEnvVirtualNetworkName": {
+            "type": "string"
+        },
+        "subnetObject": {
+            "type": "object"
+        },
+        "subnetServiceEndpointList": {
+            "type": "array"
+        },
+        "subnetDelegations": {
+            "type": "array"
+        },
+        "sharedEnvResourceGroup": {
+            "type": "string"
         }
+
     },
     "variables": {
         "deploymentUrlBase": "https://raw.githubusercontent.com/SkillsFundingAgency/das-platform-building-blocks/master/templates/",
         "resourceNamePrefix": "[toLower(concat('das-', parameters('resourceEnvironmentName'),'-', parameters('serviceName')))]",
+        "resourceGroupName": "[concat(variables('resourceNamePrefix'),'-rg')]",
         "storageAccountName": "[toLower(concat('das', parameters('resourceEnvironmentName'), parameters('serviceName'), 'str'))]",
         "workerAppServicePlanName": "[concat(variables('resourceNamePrefix'), 'wkr-asp')]",
         "workerHmrcFunctionAppName": "[concat(variables('resourceNamePrefix'),'-hmrcwkr-fa')]",
@@ -68,9 +91,48 @@
     },
     "resources": [
         {
-            "apiVersion": "2017-05-10",
+            "type": "Microsoft.Resources/resourceGroups",
+            "apiVersion": "2020-06-01",
+            "name": "[variables('resourceGroupName')]",
+            "location": "[parameters('resourceGroupLocation')]",
+            "tags": "[parameters('tags')]",
+            "properties": {}
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2020-06-01",
+            "name": "function-app-subnet",
+            "resourceGroup": "[parameters('sharedEnvResourceGroup')]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('deploymentUrlBase'),'subnet.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "virtualNetworkName": {
+                        "value": "[parameters('sharedEnvVirtualNetworkName')]"
+                    },
+                    "subnetName": {
+                        "value": "[parameters('subnetObject').name]"
+                    },
+                    "subnetAddressPrefix": {
+                        "value": "[parameters('subnetObject').addressSpace]"
+                    },
+                    "serviceEndpointList": {
+                        "value": "[parameters('subnetServiceEndpointList')]"
+                    },
+                    "delegations": {
+                        "value": "[parameters('subnetDelegations')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2020-06-01",
             "name": "storage-account",
             "type": "Microsoft.Resources/deployments",
+            "resourceGroup": "[variables('resourceGroupName')]",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
@@ -85,9 +147,10 @@
             }
         },
         {
-            "apiVersion": "2017-05-10",
+            "apiVersion": "2020-06-01",
             "name": "[concat('storage-container', parameters('containerArray')[copyIndex()].name)]",
             "type": "Microsoft.Resources/deployments",
+            "resourceGroup": "[variables('resourceGroupName')]",
             "condition": "[greater(length(parameters('containerArray')), 0)]",
             "properties": {
                 "mode": "Incremental",
@@ -116,7 +179,7 @@
             ]
         },
         {
-            "apiVersion": "2017-05-10",
+            "apiVersion": "2020-06-01",
             "name": "[concat('sql-database', variables('databaseSuffixArray')[copyIndex()])]",
             "type": "Microsoft.Resources/deployments",
             "resourceGroup": "[parameters('sqlServerResourceGroupName')]",
@@ -159,9 +222,10 @@
             }
         },
         {
-            "apiVersion": "2017-05-10",
+            "apiVersion": "2020-06-01",
             "name": "worker-app-service-plan",
             "type": "Microsoft.Resources/deployments",
+            "resourceGroup": "[variables('resourceGroupName')]",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
@@ -182,9 +246,10 @@
             }
         },
         {
-            "apiVersion": "2017-05-10",
+            "apiVersion": "2020-06-01",
             "name": "worker-hmrc-function-app-insights",
             "type": "Microsoft.Resources/deployments",
+            "resourceGroup": "[variables('resourceGroupName')]",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
@@ -202,9 +267,10 @@
             }
         },
         {
-            "apiVersion": "2017-05-10",
+            "apiVersion": "2020-06-01",
             "name": "worker-datamart-function-app-insights",
             "type": "Microsoft.Resources/deployments",
+            "resourceGroup": "[variables('resourceGroupName')]",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
@@ -222,9 +288,10 @@
             }
         },
         {
-            "apiVersion": "2017-05-10",
+            "apiVersion": "2020-06-01",
             "name": "worker-hmrc-function-app",
             "type": "Microsoft.Resources/deployments",
+            "resourceGroup": "[variables('resourceGroupName')]",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
@@ -239,7 +306,10 @@
                         "value": "[variables('workerAppServicePlanName')]"
                     },
                     "appServicePlanResourceGroup": {
-                        "value": "[resourceGroup().name]"
+                        "value": "[variables('resourceGroupName')]"
+                    },
+                    "subnetResourceId": {
+                        "value": "[reference('function-app-subnet').outputs.subnetResourceId.value]"
                     },
                     "functionAppAppSettings": {
                         "value": {
@@ -279,9 +349,10 @@
             ]
         },
         {
-            "apiVersion": "2017-05-10",
+            "apiVersion": "2020-06-01",
             "name": "worker-datamart-function-app",
             "type": "Microsoft.Resources/deployments",
+            "resourceGroup": "[variables('resourceGroupName')]",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
@@ -296,7 +367,10 @@
                         "value": "[variables('workerAppServicePlanName')]"
                     },
                     "appServicePlanResourceGroup": {
-                        "value": "[resourceGroup().name]"
+                        "value": "[variables('resourceGroupName')]"
+                    },
+                    "subnetResourceId": {
+                        "value": "[reference('function-app-subnet').outputs.subnetResourceId.value]"
                     },
                     "functionAppAppSettings": {
                         "value": {
@@ -348,6 +422,10 @@
         "WorkerDatamartFunctionAppName": {
             "type": "string",
             "value": "[variables('workerDatamartFunctionAppName')]"
+        },
+        "ResourceGroupName": {
+            "type": "string",
+            "value": "[variables('resourceGroupName')]"
         }
     }
 }

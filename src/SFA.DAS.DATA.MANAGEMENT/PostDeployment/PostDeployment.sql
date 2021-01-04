@@ -545,34 +545,3 @@ IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='MarketoProgr
 BEGIN
      GRANT SELECT ON ASData_PL.MarketoPrograms TO DataGov
 END
-DROP PROCEDURE IF EXISTS [dbo].[ImportCRSFrameworkToPL]
-
-DROP PROCEDURE IF EXISTS [dbo].[ImportCRSSectorStandardToPL]
-
-DROP TABLE IF EXISTS [ASData_PL].[CRS_ApprenticeshipFunding]
-
-DROP TABLE IF EXISTS [ASData_PL].[CRS_Framework]
-
-DROP TABLE IF EXISTS [ASData_PL].[CRS_FrameworkFundingPeriod]
-
-DROP TABLE IF EXISTS [ASData_PL].[CRS_LarsStandard]
-
-DROP TABLE IF EXISTS [ASData_PL].[CRS_SectorStandard]
-
-DROP TABLE IF EXISTS [ASData_PL].[CRS_SectorSubjectAreaTier2]
-
-DROP TABLE IF EXISTS [ASData_PL].[CRSDel_NationalAchievementRate]
-
-DROP TABLE IF EXISTS [ASData_PL].[CRSDel_NationalAchievementRateOverall]
-
-DROP TABLE IF EXISTS [ASData_PL].[CRSDel_ProviderRegistration]
-
-DROP TABLE IF EXISTS [ASData_PL].[CRSDel_ProviderRegistrationFeedbackAttribute]
-
-DROP TABLE IF EXISTS [ASData_PL].[CRSDel_ProviderRegistrationFeedbackRating]
-
-DROP TABLE IF EXISTS [ASData_PL].[CRSDel_ProviderStandard]
-
-DROP TABLE IF EXISTS [ASData_PL].[CRSDel_ProviderStandardLocation]
-
-DROP TABLE IF EXISTS [ASData_PL].[CRSDel_StandardLocation]

@@ -138,7 +138,7 @@ VALUES
 ('CRSDelivery','ProviderRegistrationFeedbackRating','dbo','[UkPrn],[FeedbackName],[FeedbackCount]','','',1,0,'FAT2_ProviderRegistrationFeedbackRating'),
 ('CRSDelivery','ProviderStandard','dbo','[StandardId],[UkPrn],[StandardInfoUrl]','[Phone],[ContactUrl]','[Email]',1,0,'FAT2_ProviderStandard'),
 ('CRSDelivery','ProviderStandardLocation','dbo','[StandardId],[UkPrn],[LocationId],[DeliveryModes],[Radius],[National]','','',1,0,'FAT2_ProviderStandardLocation'),
-('CRSDelivery','StandardLocation','dbo','[LocationId],[Postcode],[Lat],[Long]','[Phone],[Address1],[Address2],[Town],[County]','[Name],[Email],[Website]',1,0,'FAT2_StandardLocation')
+('CRSDelivery','StandardLocation','dbo','[LocationId],[Postcode]','[Phone],[Address1],[Address2],[Town],[County],[Lat],[Long]','[Name],[Email],[Website]',1,0,'FAT2_StandardLocation')
 
 
 /* CRS Import Configurations */

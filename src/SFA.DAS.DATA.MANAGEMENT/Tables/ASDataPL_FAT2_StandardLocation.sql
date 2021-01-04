@@ -5,8 +5,6 @@
 	[Email]					varchar(260)			NULL,
 	[Website]				varchar(260)			NULL,	
 	[Postcode]				varchar(25)				NULL,	
-	[Lat]					float					NULL,
-	[Long]					float					NULL,
 	[AsDm_UpdatedDateTime] [datetime2](7)	DEFAULT (getdate())
 )
 

@@ -40,7 +40,7 @@ BEGIN TRY
 					INSERT [ASData_PL].[FAT2_Framework]
 					(												
 							[Id],
-							[FrameworkOccupationId],
+							[VaFrameworkOccupationId],
 							[Title],
 							[FrameworkName],
 							[PathwayName],

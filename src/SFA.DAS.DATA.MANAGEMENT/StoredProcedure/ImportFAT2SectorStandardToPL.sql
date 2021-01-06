@@ -44,7 +44,7 @@ BEGIN TRY
 						[Level],
 						[IntegratedDegree],
 						[OverviewOfRole],
-						[ApprenticeshipStandardId],
+						[VaApprenticeshipStandardId],
 						[SectorId],
 						[Sector],
 						[Keywords],

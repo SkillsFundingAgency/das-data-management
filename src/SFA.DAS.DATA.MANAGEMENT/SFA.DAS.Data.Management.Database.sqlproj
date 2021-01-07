@@ -268,5 +268,23 @@
     <Build Include="Schemas\Comp.sql" />
     <Build Include="Views\Comp_DAS_Compliance_Report .sql" />
     <Build Include="Tables\Stg_GA_SessionDataDetail.sql" />
+    <Build Include="Tables\ASDataPL_FAT2_NationalAchievementRate.sql" />
+    <Build Include="Tables\ASDataPL_FAT2_NationalAchievementRateOverall.sql" />
+    <Build Include="Tables\ASDataPL_FAT2_ProviderRegistration.sql" />
+    <Build Include="Tables\ASDataPL_FAT2_ProviderRegistrationFeedbackAttribute.sql" />
+    <Build Include="Tables\ASDataPL_FAT2_ProviderRegistrationFeedbackRating.sql" />
+    <Build Include="Tables\ASDataPL_FAT2_ProviderStandard.sql" />
+    <Build Include="Tables\ASDataPL_FAT2_ProviderStandardLocation.sql" />
+    <Build Include="Tables\ASDataPL_FAT2_StandardLocation.sql" />
+    <Build Include="Tables\ASDataPL_Provider.sql" />
+    <Build Include="Tables\ASDataPL_FAT2_ApprenticeshipFunding.sql" />
+    <Build Include="Tables\ASDataPL_FAT2_FrameworkFundingPeriod.sql" />
+    <Build Include="Tables\ASDataPL_FAT2_LarsStandard.sql" />
+    <Build Include="Tables\ASDataPL_FAT2_SectorSubjectAreaTier2.sql" />
+    <Build Include="StoredProcedure\ImportProviderToPL.sql" />
+    <Build Include="Tables\ASDataPL_FAT2_Framework.sql" />
+    <Build Include="Tables\ASDataPL_FAT2_SectorStandard.sql" />
+    <Build Include="StoredProcedure\ImportFAT2FrameworkToPL.sql" />
+    <Build Include="StoredProcedure\ImportFAT2SectorStandardToPL.sql" />
   </ItemGroup>
 </Project>

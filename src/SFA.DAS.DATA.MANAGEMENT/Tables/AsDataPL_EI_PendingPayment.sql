@@ -10,5 +10,6 @@
  ,PeriodNumber tinyint null
  ,PaymentYear smallint null
  ,AccountLegalEntityId bigint null
+ ,EarningType varchar(20) null
  ,AsDm_UpdatedDateTime datetime2 default getdate()
 )

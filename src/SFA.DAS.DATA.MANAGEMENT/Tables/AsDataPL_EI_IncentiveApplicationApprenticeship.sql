@@ -7,5 +7,6 @@
 	[ApprenticeshipEmployerTypeOnApproval] INT NOT NULL,
 	[TotalIncentiveAmount] MONEY NOT NULL,
 	[EarningsCalculated] bit null,
+	[UKPRN]  BIGINT	NULL,
 	[AsDm_UpdatedDateTime] DateTime2 default(getdate())
 )

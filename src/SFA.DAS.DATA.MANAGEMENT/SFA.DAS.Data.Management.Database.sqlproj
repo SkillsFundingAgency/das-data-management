@@ -47,7 +47,8 @@
     <DefineTrace>true</DefineTrace>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <SuppressTSqlWarnings>SQL72015</SuppressTSqlWarnings>
+    <SuppressTSqlWarnings>
+    </SuppressTSqlWarnings>
   </PropertyGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
@@ -249,7 +250,7 @@
     <Build Include="Tables\Mtd_MarketoFilterConfigForPrograms.sql" />
     <Build Include="Tables\AsDataPL_Marketo_SmartCampaigns.sql" />
     <Build Include="Tables\AsDataPL_AR_Employer.sql" />
-    <Build Include="Tables\AsDataPL_EI_ApprenticeshipIncentive.sql" />
+    <None Include="Tables\AsDataPL_EI_ApprenticeshipIncentive.sql" />
     <Build Include="Tables\AsDataPL_EI_PendingPayment.sql" />
     <Build Include="Views\DataPub_DAS_Commitments_V2.sql" />
     <Build Include="Views\DataPub_DAS_Employer_Account_Transfers_V2.sql" />

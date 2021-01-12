@@ -57,7 +57,7 @@ BEGIN TRY
 					[CD_ClientId],[CD_SearchTerms],[CD_UserId],[CD_LevyFlag],[CD_EmployerId],[CD_ESFAToken],[CD_LegalEntityId],[GA_ImportDate]
 				)
 				Select 
-						[FullVisitorId],[ClientId],[VisitId],[VisitNumber],[VisitStartDateTime],[VisitDate],[VisitorId],[UserId],[Hits_Page_PagePath],  [Hits_Time], [Hits_IsEntrance], [Hits_IsExit], [EmployerId], [ID2], [ID3], [ESFAToken], [EventCategory], [EventAction], [EventLabel_ESFAToken], [EventLabel_Keyword], [EventLabel_Postcode], [EventLabel_WithinDistance], [EventLabel_Level],[CD_ClientId], [CD_SearchTerms], [CD_UserId], [CD_LevyFlag], [CD_EmployerId], [CD_ESFAToken], [CD_LegalEntityId],getdate()
+						[FullVisitorId],GAData.[ClientId],[VisitId],[VisitNumber],[VisitStartDateTime],[VisitDate],[VisitorId],[UserId],[Hits_Page_PagePath],  [Hits_Time], [Hits_IsEntrance], [Hits_IsExit], [EmployerId], [ID2], [ID3], [ESFAToken], [EventCategory], [EventAction], [EventLabel_ESFAToken], [EventLabel_Keyword], [EventLabel_Postcode], [EventLabel_WithinDistance], [EventLabel_Level],[CD_ClientId], [CD_SearchTerms], [CD_UserId], [CD_LevyFlag], [CD_EmployerId], [CD_ESFAToken], [CD_LegalEntityId],getdate()
 				FROM [Stg].[GA_SessionDataDetail] GAData with (nolock) JOIN @StgClientIDs ClientIDs
 				ON GAData.ClientId =  ClientIDs.ClientId
 				Where ClientIDSource ='PL'
@@ -71,7 +71,7 @@ BEGIN TRY
 					[CD_ClientId],[CD_SearchTerms],[CD_UserId],[CD_LevyFlag],[CD_EmployerId],[CD_ESFAToken],[CD_LegalEntityId],[GA_ImportDate]
 				)
 				Select 
-						[FullVisitorId],[ClientId],[VisitId],[VisitNumber],[VisitStartDateTime],[VisitDate],[VisitorId],[UserId],[Hits_Page_PagePath],  [Hits_Time], [Hits_IsEntrance], [Hits_IsExit], [EmployerId], [ID2], [ID3], [ESFAToken], [EventCategory], [EventAction], [EventLabel_ESFAToken], [EventLabel_Keyword], [EventLabel_Postcode], [EventLabel_WithinDistance], [EventLabel_Level],[CD_ClientId], [CD_SearchTerms], [CD_UserId], [CD_LevyFlag], [CD_EmployerId], [CD_ESFAToken], [CD_LegalEntityId],getdate()
+						[FullVisitorId],GAData.[ClientId],[VisitId],[VisitNumber],[VisitStartDateTime],[VisitDate],[VisitorId],[UserId],[Hits_Page_PagePath],  [Hits_Time], [Hits_IsEntrance], [Hits_IsExit], [EmployerId], [ID2], [ID3], [ESFAToken], [EventCategory], [EventAction], [EventLabel_ESFAToken], [EventLabel_Keyword], [EventLabel_Postcode], [EventLabel_WithinDistance], [EventLabel_Level],[CD_ClientId], [CD_SearchTerms], [CD_UserId], [CD_LevyFlag], [CD_EmployerId], [CD_ESFAToken], [CD_LegalEntityId],getdate()
 				FROM [Stg].[GA_SessionDataDetail] GAData with (nolock) JOIN @StgClientIDs ClientIDs
 				ON GAData.ClientId =  ClientIDs.ClientId
 				Where ClientIDSource ='STG'

@@ -290,5 +290,6 @@
     <Build Include="Tables\ASDataPL_EI_LearningPeriod.sql" />
     <Build Include="Tables\ASDataPL_EI_ApprenticeshipDaysInLearning.sql" />
     <Build Include="Tables\ASDataPL_EI_PendingPaymentValidationResult.sql" />
+    <Build Include="Tables\ASDataPL_EI_Payment.sql" />
   </ItemGroup>
 </Project>

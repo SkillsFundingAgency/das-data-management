@@ -554,3 +554,17 @@ DECLARE @RunId int
 EXEC @RunId= dbo.GenerateRunId
 
 EXEC ImportPaymentsSnapshot @RunId
+
+
+
+ALTER TABLE [ASData_PL].[EI_IncentiveApplicationApprenticeship] DROP COLUMN [UKPRN];
+
+
+ALTER TABLE [ASData_PL].[EI_ApprenticeshipIncentive] DROP COLUMN [UKPRN];
+ALTER TABLE [ASData_PL].[EI_ApprenticeshipIncentive] DROP COLUMN [RefreshedLearnerForEarnings];
+ALTER TABLE [ASData_PL].[EI_ApprenticeshipIncentive] DROP COLUMN [HasPossibleChangeOfCircumstances];
+
+
+ALTER TABLE [ASData_PL].[EI_CollectionCalendar] DROP COLUMN [CensusDate];
+ALTER TABLE [ASData_PL].[EI_CollectionCalendar] DROP COLUMN [AcademicYear];
+ALTER TABLE [ASData_PL].[EI_CollectionCalendar] DROP COLUMN [Active];

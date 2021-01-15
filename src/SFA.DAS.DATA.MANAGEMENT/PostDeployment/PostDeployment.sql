@@ -557,14 +557,25 @@ EXEC ImportPaymentsSnapshot @RunId
 
 
 
+IF exists (SELECT * FROM  sys.columns c INNER JOIN  sys.objects t ON (c.[object_id] = t.[object_id]) WHERE t.[object_id] = OBJECT_ID(N'ASData_PL.EI_IncentiveApplicationApprenticeship') AND c.[name] = 'UKPRN')
 ALTER TABLE [ASData_PL].[EI_IncentiveApplicationApprenticeship] DROP COLUMN [UKPRN];
 
 
-ALTER TABLE [ASData_PL].[EI_ApprenticeshipIncentive] DROP COLUMN [UKPRN];
-ALTER TABLE [ASData_PL].[EI_ApprenticeshipIncentive] DROP COLUMN [RefreshedLearnerForEarnings];
-ALTER TABLE [ASData_PL].[EI_ApprenticeshipIncentive] DROP COLUMN [HasPossibleChangeOfCircumstances];
+IF exists (SELECT * FROM  sys.columns c INNER JOIN  sys.objects t ON (c.[object_id] = t.[object_id]) WHERE t.[object_id] = OBJECT_ID(N'ASData_PL.EI_ApprenticeshipIncentive') AND c.[name] = 'UKPRN')
+ALTER TABLE [ASData_PL].[EI_ApprenticeshipIncentive] DROP COLUMN [UKPRN]
+
+IF exists (SELECT * FROM  sys.columns c INNER JOIN  sys.objects t ON (c.[object_id] = t.[object_id]) WHERE t.[object_id] = OBJECT_ID(N'ASData_PL.EI_ApprenticeshipIncentive') AND c.[name] = 'RefreshedLearnerForEarnings')
+ALTER TABLE [ASData_PL].[EI_ApprenticeshipIncentive] DROP COLUMN [RefreshedLearnerForEarnings]
+
+IF exists (SELECT * FROM  sys.columns c INNER JOIN  sys.objects t ON (c.[object_id] = t.[object_id]) WHERE t.[object_id] = OBJECT_ID(N'ASData_PL.EI_ApprenticeshipIncentive') AND c.[name] = 'HasPossibleChangeOfCircumstances')
+ALTER TABLE [ASData_PL].[EI_ApprenticeshipIncentive] DROP COLUMN [HasPossibleChangeOfCircumstances]
 
 
-ALTER TABLE [ASData_PL].[EI_CollectionCalendar] DROP COLUMN [CensusDate];
-ALTER TABLE [ASData_PL].[EI_CollectionCalendar] DROP COLUMN [AcademicYear];
-ALTER TABLE [ASData_PL].[EI_CollectionCalendar] DROP COLUMN [Active];
+IF exists (SELECT * FROM  sys.columns c INNER JOIN  sys.objects t ON (c.[object_id] = t.[object_id]) WHERE t.[object_id] = OBJECT_ID(N'ASData_PL.EI_CollectionCalendar') AND c.[name] = 'CensusDate')
+ALTER TABLE [ASData_PL].[EI_CollectionCalendar] DROP COLUMN [CensusDate]
+
+IF exists (SELECT * FROM  sys.columns c INNER JOIN  sys.objects t ON (c.[object_id] = t.[object_id]) WHERE t.[object_id] = OBJECT_ID(N'ASData_PL.EI_CollectionCalendar') AND c.[name] = 'AcademicYear')
+ALTER TABLE [ASData_PL].[EI_CollectionCalendar] DROP COLUMN [AcademicYear]
+
+IF exists (SELECT * FROM  sys.columns c INNER JOIN  sys.objects t ON (c.[object_id] = t.[object_id]) WHERE t.[object_id] = OBJECT_ID(N'ASData_PL.EI_CollectionCalendar') AND c.[name] = 'Active')
+ALTER TABLE [ASData_PL].[EI_CollectionCalendar] DROP COLUMN [Active]

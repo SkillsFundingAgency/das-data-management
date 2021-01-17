@@ -286,5 +286,12 @@
     <Build Include="Tables\ASDataPL_FAT2_SectorStandard.sql" />
     <Build Include="StoredProcedure\ImportFAT2FrameworkToPL.sql" />
     <Build Include="StoredProcedure\ImportFAT2SectorStandardToPL.sql" />
+    <Build Include="Tables\Stg_FAA_Users.sql" />
+    <Build Include="Tables\Stg_FAA_Traineeships.sql" />
+    <Build Include="Tables\Stg_FAA_Apprenticeships.sql" />
+    <Build Include="Tables\Stg_FAA_SavedSearches.sql" />
+    <Build Include="Tables\Stg_FAA_ContactMessages.sql" />
+    <Build Include="Tables\Stg_FAA_CandidateDob.sql" />
+    <Build Include="Tables\Stg_FAA_CandidatePostCode.sql" />
   </ItemGroup>
 </Project>

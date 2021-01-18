@@ -293,5 +293,6 @@
     <Build Include="Tables\Stg_FAA_ContactMessages.sql" />
     <Build Include="Tables\Stg_FAA_CandidateDob.sql" />
     <Build Include="Tables\Stg_FAA_CandidatePostCode.sql" />
+    <Build Include="Tables\Stg_RAA_VacancyReviews.sql" />
   </ItemGroup>
 </Project>

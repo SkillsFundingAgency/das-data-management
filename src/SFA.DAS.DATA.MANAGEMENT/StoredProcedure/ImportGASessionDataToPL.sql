@@ -39,7 +39,7 @@ BEGIN TRY
 				INSERT INTO @StgClientIDs(ClientId,ClientIDSource)
 				SELECT [ClientId],'STG'
 				FROM   [Stg].[GA_SessionDataDetail]  with (nolock)
-				WHERE  (COALESCE([ESFAToken],[EventLabel_ESFAToken],[CD_ESFAToken]) IS NOT NULL )  Or EmployerID IS NOT NULL 
+				WHERE  (COALESCE([ESFAToken],[EventLabel_ESFAToken],[CD_ESFAToken]) IS NOT NULL )  Or COALESCE(EmployerID,[CD_EmployerId]) IS NOT NULL 
 				GROUP BY  [ClientId]
 		
 				INSERT INTO @StgClientIDs(ClientId,ClientIDSource)

@@ -13,6 +13,8 @@
  ,VacancyReferenceNumber varchar(256) 
  ,IsRecruitVacancy varchar(256) 
  ,ApplyViaEmployerWebsite varchar(256) 
+ ,WithdrawnOrDeclinedReason varchar(512)
+ ,UnsuccessfulReason varchar(512)
  ,RunId bigint  default(-1)
  ,AsDm_CreatedDate datetime2 default(getdate()) 
  ,AsDm_UpdatedDate datetime2 default(getdatE())

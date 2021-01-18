@@ -5,4 +5,6 @@
    ,[LegacyCandidateId] BIGINT
    ,[PostCode] varchar(256)
    ,[RunID] BIGINT
+   ,AsDm_CreatedDate datetime2 default(getdate()) 
+   ,AsDm_UpdatedDate datetime2 default(getdatE())
 )

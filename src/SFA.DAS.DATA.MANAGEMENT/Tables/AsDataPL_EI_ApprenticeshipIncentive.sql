@@ -7,8 +7,8 @@
   ,IncentiveApplicationApprenticeshipId uniqueidentifier not null
   ,AccountLegalEntityId bigint null
   ,UKPRN bigint NULL
-  ,RefreshedLearnerForEarnings bit NOT NULL
-  ,HasPossibleChangeOfCircumstances bit NOT NULL
-  ,PausePayments bit NOT NULL
+  ,RefreshedLearnerForEarnings bit NULL
+  ,HasPossibleChangeOfCircumstances bit NULL
+  ,PausePayments bit NULL
   ,AsDm_UpdatedDateTime datetime2 default getdate()
 )

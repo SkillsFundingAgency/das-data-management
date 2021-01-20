@@ -10,5 +10,6 @@
   ,RefreshedLearnerForEarnings bit NULL
   ,HasPossibleChangeOfCircumstances bit NULL
   ,PausePayments bit NULL
+  ,StartDate datetime2(7) NULL
   ,AsDm_UpdatedDateTime datetime2 default getdate()
 )

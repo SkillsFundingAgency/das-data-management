@@ -81,11 +81,15 @@ VALUES
 /* Employer Incentives */
 ,('EmpInc','Accounts','dbo','[Id],[AccountLegalEntityId],[LegalEntityId],[HasSignedIncentivesTerms],[VrfVendorId],[VrfCaseId],[VrfCaseStatus],[VrfCaseStatusLastUpdatedDateTime]','[LegalEntityName]','',1)
 ,('EmpInc','IncentiveApplication','dbo','[Id],[AccountId],[AccountLegalEntityId],[DateCreated],[Status],[DateSubmitted]','[SubmittedByEmail],[SubmittedByName]','',0)
-,('EmpInc','IncentiveApplicationApprenticeship','dbo','[Id],[IncentiveApplicationId],[ApprenticeshipId],[PlannedStartDate],[ApprenticeshipEmployerTypeOnApproval],[TotalIncentiveAmount],[EarningsCalculated]','[FirstName],[LastName],[DateOfBirth],[ULN]','',0)
-,('EmpInc','ApprenticeshipIncentive','incentives','[Id],[AccountId],[ApprenticeshipId],[EmployerType],[IncentiveApplicationApprenticeshipId],[AccountLegalEntityId]','[FirstName],[LastName],[DateOfBirth],[ULN],[PlannedStartDate]','',0)
-,('EmpInc','PendingPayment','incentives','[Id],[AccountId],[ApprenticeshipIncentiveId],[DueDate],[Amount],[CalculatedDate],[PaymentMadeDate],[PeriodNumber],[PaymentYear],[AccountLegalEntityId]','','',0)
-,('EmpInc','CollectionCalendar','incentives','[Id],[PeriodNumber],[CalendarMonth],[CalendarYear],[EIScheduledOpenDateUTC]','','',0)
-
+,('EmpInc','IncentiveApplicationApprenticeship','dbo','[Id],[IncentiveApplicationId],[ApprenticeshipId],[PlannedStartDate],[ApprenticeshipEmployerTypeOnApproval],[TotalIncentiveAmount],[EarningsCalculated]','[FirstName],[LastName],[DateOfBirth],[ULN]','[UKPRN]',0)
+,('EmpInc','ApprenticeshipIncentive','incentives','[Id],[AccountId],[ApprenticeshipId],[EmployerType],[IncentiveApplicationApprenticeshipId],[AccountLegalEntityId],[RefreshedLearnerForEarnings],[HasPossibleChangeOfCircumstances],[PausePayments],[StartDate]','[FirstName],[LastName],[DateOfBirth],[ULN],[PlannedStartDate]','[UKPRN]',0)
+,('EmpInc','PendingPayment','incentives','[Id],[AccountId],[ApprenticeshipIncentiveId],[DueDate],[Amount],[CalculatedDate],[PaymentMadeDate],[PeriodNumber],[PaymentYear],[AccountLegalEntityId],[EarningType]','','',0)
+,('EmpInc','CollectionCalendar','incentives','[Id],[PeriodNumber],[CalendarMonth],[CalendarYear],[EIScheduledOpenDateUTC],[CensusDate],[AcademicYear],[Active]','','',0)
+,('EmpInc','ApprenticeshipDaysInLearning','incentives','[LearnerId],[NumberOfDaysInLearning],[CollectionPeriodNumber],[CollectionPeriodYear],[CreatedDate],[UpdatedDate]','','',0)
+,('EmpInc','Learner','incentives','[Id],[ApprenticeshipIncentiveId],[ApprenticeshipId],[SubmissionFound],[SubmissionDate],[LearningFound],[HasDataLock],[StartDate],[InLearning],[CreatedDate],[UpdatedDate]','','[Ukprn]',0)
+,('EmpInc','LearningPeriod','incentives','[LearnerId],[StartDate],[EndDate],[CreatedDate]','','',0)
+,('EmpInc','PendingPaymentValidationResult','incentives','[Id],[PendingPaymentId],[Step],[Result],[PeriodNumber],[PaymentYear],[CreatedDateUTC]','','',0)
+,('EmpInc','Payment','incentives','[Id],[ApprenticeshipIncentiveId],[PendingPaymentId],[AccountId],[AccountLegalEntityId],[CalculatedDate],[PaidDate],[SubNominalCode],[PaymentPeriod],[PaymentYear],[Amount]','','',0)
 
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL])

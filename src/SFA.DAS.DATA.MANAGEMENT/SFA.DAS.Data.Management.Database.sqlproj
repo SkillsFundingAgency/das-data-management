@@ -196,7 +196,7 @@
     <Build Include="StoredProcedure\ImportVacanciesCandidateDetails.sql" />
     <Build Include="StoredProcedure\PresentationLayerFullRefresh.sql" />
     <Build Include="Tables\AsDataPL_EI_IncentiveApplication.sql" />
-    <Build Include="Tables\AsDataPL_EI_IncentiveApplicationApprenticeship.sql" />
+    <None Include="Tables\AsDataPL_EI_IncentiveApplicationApprenticeship.sql" />
     <Build Include="StoredProcedure\CreateDashboardRegistrationView.sql" />
     <Build Include="StoredProcedure\CreateDashboardReservationView.sql" />
     <Build Include="StoredProcedure\CreateStdsAndFrameworksView.sql" />
@@ -248,8 +248,8 @@
     <Build Include="Tables\Mtd_MarketoFilterConfigForPrograms.sql" />
     <Build Include="Tables\AsDataPL_Marketo_SmartCampaigns.sql" />
     <Build Include="Tables\AsDataPL_AR_Employer.sql" />
-    <Build Include="Tables\AsDataPL_EI_ApprenticeshipIncentive.sql" />
-    <Build Include="Tables\AsDataPL_EI_PendingPayment.sql" />
+    <None Include="Tables\AsDataPL_EI_ApprenticeshipIncentive.sql" />
+    <None Include="Tables\AsDataPL_EI_PendingPayment.sql" />
     <Build Include="Views\DataPub_DAS_Commitments_V2.sql" />
     <Build Include="Views\DataPub_DAS_Employer_Account_Transfers_V2.sql" />
     <Build Include="Views\DataPub_DAS_Employer_Accounts_V2.sql" />
@@ -264,7 +264,7 @@
     <Build Include="Tables\ASDataPL_Comt_Providers.sql" />
     <Build Include="Views\ASDataPL_DAS_SpendControlNonLevy_V2.sql" />
     <Build Include="Views\ASDataPL_DAS_SpendControl_V2.sql" />
-    <Build Include="Tables\AsDataPL_EI_CollectionCalendar.sql" />
+    <None Include="Tables\AsDataPL_EI_CollectionCalendar.sql" />
     <Build Include="Schemas\Comp.sql" />
     <Build Include="Views\Comp_DAS_Compliance_Report .sql" />
     <Build Include="Tables\Stg_GA_SessionDataDetail.sql" />

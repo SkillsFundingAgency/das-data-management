@@ -286,5 +286,12 @@
     <Build Include="Tables\ASDataPL_FAT2_SectorStandard.sql" />
     <Build Include="StoredProcedure\ImportFAT2FrameworkToPL.sql" />
     <Build Include="StoredProcedure\ImportFAT2SectorStandardToPL.sql" />
+    <Build Include="Tables\ASDataPL_EI_Learner.sql" />
+    <Build Include="Tables\ASDataPL_EI_LearningPeriod.sql" />
+    <Build Include="Tables\ASDataPL_EI_ApprenticeshipDaysInLearning.sql" />
+    <Build Include="Tables\ASDataPL_EI_PendingPaymentValidationResult.sql" />
+    <Build Include="Tables\ASDataPL_EI_Payment.sql" />
+    <Build Include="StoredProcedure\ImportGASessionDataToPL.sql" />
+    <Build Include="Tables\ASDataPL_GA_SessionData.sql" />
   </ItemGroup>
 </Project>

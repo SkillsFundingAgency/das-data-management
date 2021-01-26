@@ -71,7 +71,7 @@ BEGIN TRY
 				[CD_ClientId],[CD_SearchTerms],[CD_UserId],[CD_LevyFlag],[CD_EmployerId],trim(replace(upper([CD_ESFAToken]),'P','')) As [CD_ESFAToken],[CD_LegalEntityId],getdate()
 				FROM [Stg].[GA_SessionDataDetail] GAData with (nolock) JOIN @StgClientIDs ClientIDs
 				ON GAData.ClientId =  ClientIDs.ClientId
-				Where ClientIDSource ='PL' AND GAData.[StgImportDate] > @importdatetime
+				Where GAData.[StgImportDate] > @importdatetime AND ClientIDSource ='PL'
 
 				Insert into [ASData_PL].[GA_SessionData]
 				(
@@ -89,7 +89,7 @@ BEGIN TRY
 				[CD_ClientId],[CD_SearchTerms],[CD_UserId],[CD_LevyFlag],[CD_EmployerId],trim(replace(upper([CD_ESFAToken]),'P','')) As [CD_ESFAToken],[CD_LegalEntityId],getdate()
 				FROM [Stg].[GA_SessionDataDetail] GAData with (nolock) JOIN @StgClientIDs ClientIDs
 				ON GAData.ClientId =  ClientIDs.ClientId
-				Where ClientIDSource ='STG' AND GAData.[StgImportDate] > @importdatetime
+				Where GAData.[StgImportDate] > @importdatetime AND ClientIDSource ='STG'
 		
 				--IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='GA_SessionDataDetail' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 				--TRUNCATE TABLE [Stg].[GA_SessionDataDetail]				

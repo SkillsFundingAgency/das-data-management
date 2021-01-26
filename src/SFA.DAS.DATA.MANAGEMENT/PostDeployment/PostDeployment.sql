@@ -545,12 +545,3 @@ IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='MarketoProgr
 BEGIN
      GRANT SELECT ON ASData_PL.MarketoPrograms TO DataGov
 END
-
-
-/* Run Payments Snaptshot */
-
-DECLARE @RunId int
-
-EXEC @RunId= dbo.GenerateRunId
-
-EXEC ImportPaymentsSnapshot @RunId

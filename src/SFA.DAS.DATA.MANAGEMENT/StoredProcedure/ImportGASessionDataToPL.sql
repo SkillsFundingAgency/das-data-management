@@ -36,9 +36,9 @@ BEGIN TRY
 		BEGIN TRANSACTION				
 
 				if (select count([GASD_Id]) from [ASData_PL].[GA_SessionData]  with (nolock))  > 0 
-					Select @importdatetime  =  max([GA_ImportDate]) from [ASData_PL].[GA_SessionData] with (nolock)
+					Select @importdatetime = ISNULL(max([GA_ImportDate]),cast('01-01-1900'  as datetime2(7))) from [ASData_PL].[GA_SessionData] with (nolock)
 				else
-					Select @importdatetime =   min([StgImportDate]) from [Stg].[GA_SessionDataDetail] with (nolock)
+					Select @importdatetime = dateadd(hour,-1,ISNULL(min([StgImportDate]),cast('01-01-1900'  as datetime2(7)))) from [Stg].[GA_SessionDataDetail] with (nolock)
 
 				DECLARE @StgClientIDs TABLE (ClientId NVARCHAR(500),ClientIDSource  Varchar(50))
 

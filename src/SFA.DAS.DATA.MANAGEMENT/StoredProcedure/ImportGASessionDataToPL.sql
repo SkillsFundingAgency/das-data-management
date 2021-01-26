@@ -38,7 +38,7 @@ BEGIN TRY
 				if (select count([GASD_Id]) from [ASData_PL].[GA_SessionData]  with (nolock))  > 0 
 					Select @importdatetime = ISNULL(max([GA_ImportDate]),cast('01-01-1900'  as datetime2(7))) from [ASData_PL].[GA_SessionData] with (nolock)
 				else
-					Select @importdatetime = dateadd(hour,-1,ISNULL(min([StgImportDate]),cast('01-01-1900'  as datetime2(7)))) from [Stg].[GA_SessionDataDetail] with (nolock)
+					Set @importdatetime = cast('01-01-1900' as datetime2(7))
 
 				DECLARE @StgClientIDs TABLE (ClientId NVARCHAR(500),ClientIDSource  Varchar(50))
 

@@ -10,7 +10,7 @@ AS
 -- ==========================================================================================================
 BEGIN TRY
 		DECLARE @LogID int
-
+		DECLARE @importdatetime datetime2(7) 
 		/* Start Logging Execution */
 
 		  INSERT INTO Mgmt.Log_Execution_Results
@@ -31,15 +31,22 @@ BEGIN TRY
 		  SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
 		  WHERE StoredProcedureName='ImportGASessionDataToPL'
 			 AND RunId=@RunID
+		 
 
 		BEGIN TRANSACTION				
+
+				if (select count([GASD_Id]) from [ASData_PL].[GA_SessionData]  with (nolock))  > 0 
+					Select @importdatetime  =  max([GA_ImportDate]) from [ASData_PL].[GA_SessionData] with (nolock)
+				else
+					Select @importdatetime =   min([StgImportDate]) from [Stg].[GA_SessionDataDetail] with (nolock)
 
 				DECLARE @StgClientIDs TABLE (ClientId NVARCHAR(500),ClientIDSource  Varchar(50))
 
 				INSERT INTO @StgClientIDs(ClientId,ClientIDSource)
 				SELECT [ClientId],'STG'
 				FROM   [Stg].[GA_SessionDataDetail]  with (nolock)
-				WHERE  (COALESCE([ESFAToken],[EventLabel_ESFAToken],[CD_ESFAToken]) IS NOT NULL )  Or COALESCE(EmployerID,[CD_EmployerId]) IS NOT NULL 
+				WHERE  [StgImportDate] > @importdatetime AND 
+				(COALESCE([ESFAToken],[EventLabel_ESFAToken],[CD_ESFAToken]) IS NOT NULL   Or COALESCE(EmployerID,[CD_EmployerId]) IS NOT NULL) 
 				GROUP BY  [ClientId]
 		
 				INSERT INTO @StgClientIDs(ClientId,ClientIDSource)
@@ -64,7 +71,7 @@ BEGIN TRY
 				[CD_ClientId],[CD_SearchTerms],[CD_UserId],[CD_LevyFlag],[CD_EmployerId],trim(replace(upper([CD_ESFAToken]),'P','')) As [CD_ESFAToken],[CD_LegalEntityId],getdate()
 				FROM [Stg].[GA_SessionDataDetail] GAData with (nolock) JOIN @StgClientIDs ClientIDs
 				ON GAData.ClientId =  ClientIDs.ClientId
-				Where ClientIDSource ='PL'
+				Where ClientIDSource ='PL' AND GAData.[StgImportDate] > @importdatetime
 
 				Insert into [ASData_PL].[GA_SessionData]
 				(
@@ -82,7 +89,7 @@ BEGIN TRY
 				[CD_ClientId],[CD_SearchTerms],[CD_UserId],[CD_LevyFlag],[CD_EmployerId],trim(replace(upper([CD_ESFAToken]),'P','')) As [CD_ESFAToken],[CD_LegalEntityId],getdate()
 				FROM [Stg].[GA_SessionDataDetail] GAData with (nolock) JOIN @StgClientIDs ClientIDs
 				ON GAData.ClientId =  ClientIDs.ClientId
-				Where ClientIDSource ='STG'
+				Where ClientIDSource ='STG' AND GAData.[StgImportDate] > @importdatetime
 		
 				--IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='GA_SessionDataDetail' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 				--TRUNCATE TABLE [Stg].[GA_SessionDataDetail]				

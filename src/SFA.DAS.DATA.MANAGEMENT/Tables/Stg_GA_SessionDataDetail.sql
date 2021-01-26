@@ -40,3 +40,5 @@
 		[FileName]										[Nvarchar](500) NULL,
 		[StgImportDate]									[datetime2](7) DEFAULT (getdate())
 )
+GO
+CREATE NONCLUSTERED INDEX NCI_GA_SessionDataDetail_StgImportDate  ON [Stg].[GA_SessionDataDetail] (StgImportDate ASC);

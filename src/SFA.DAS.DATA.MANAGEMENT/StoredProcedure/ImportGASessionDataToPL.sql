@@ -32,6 +32,10 @@ BEGIN TRY
 		  WHERE StoredProcedureName='ImportGASessionDataToPL'
 			 AND RunId=@RunID
 		 
+		IF OBJECT_ID(N'tempdb..#StgClientIDs') IS NOT NULL
+			DROP TABLE #StgClientIDs
+
+		 CREATE TABLE #StgClientIDs(ClientId NVARCHAR(500),ClientIDSource  Varchar(50))
 
 		BEGIN TRANSACTION				
 
@@ -40,19 +44,17 @@ BEGIN TRY
 				else
 					Set @importdatetime = cast('01-01-1900' as datetime2(7))
 
-				DECLARE @StgClientIDs TABLE (ClientId NVARCHAR(500),ClientIDSource  Varchar(50))
-
-				INSERT INTO @StgClientIDs(ClientId,ClientIDSource)
+				INSERT INTO #StgClientIDs(ClientId,ClientIDSource)
 				SELECT [ClientId],'STG'
 				FROM   [Stg].[GA_SessionDataDetail]  with (nolock)
 				WHERE  [StgImportDate] > @importdatetime AND 
 				(COALESCE([ESFAToken],[EventLabel_ESFAToken],[CD_ESFAToken]) IS NOT NULL   Or COALESCE(EmployerID,[CD_EmployerId]) IS NOT NULL) 
 				GROUP BY  [ClientId]
 		
-				INSERT INTO @StgClientIDs(ClientId,ClientIDSource)
+				INSERT INTO #StgClientIDs(ClientId,ClientIDSource)
 				SELECT [ClientId],'PL'
 				FROM   [ASData_PL].[GA_SessionData]  with (nolock)
-				WHERE ClientId   NOT IN (Select ClientId from @StgClientIDs Where ClientIDSource='STG')
+				WHERE ClientId   NOT IN (Select ClientId from #StgClientIDs Where ClientIDSource='STG')
 				GROUP BY [ClientId]
 
 				Insert into [ASData_PL].[GA_SessionData]
@@ -69,7 +71,7 @@ BEGIN TRY
 				[Hits_IsExit],[EmployerId],[ID2],[ID3],trim(replace(upper([ESFAToken]),'P','')) As [ESFAToken],[EventCategory],[EventAction],trim(replace(upper([EventLabel_ESFAToken]),'P','')) As [EventLabel_ESFAToken],
 				[EventLabel_Keyword],[EventLabel_Postcode],[EventLabel_WithinDistance],[EventLabel_Level],
 				[CD_ClientId],[CD_SearchTerms],[CD_UserId],[CD_LevyFlag],[CD_EmployerId],trim(replace(upper([CD_ESFAToken]),'P','')) As [CD_ESFAToken],[CD_LegalEntityId],getdate()
-				FROM [Stg].[GA_SessionDataDetail] GAData with (nolock) JOIN @StgClientIDs ClientIDs
+				FROM [Stg].[GA_SessionDataDetail] GAData with (nolock) JOIN #StgClientIDs ClientIDs
 				ON GAData.ClientId =  ClientIDs.ClientId
 				Where GAData.[StgImportDate] > @importdatetime AND ClientIDSource ='PL'
 
@@ -87,7 +89,7 @@ BEGIN TRY
 				[Hits_IsExit],[EmployerId],[ID2],[ID3],trim(replace(upper([ESFAToken]),'P','')) As [ESFAToken],[EventCategory],[EventAction],trim(replace(upper([EventLabel_ESFAToken]),'P','')) As [EventLabel_ESFAToken],
 				[EventLabel_Keyword],[EventLabel_Postcode],[EventLabel_WithinDistance],[EventLabel_Level],
 				[CD_ClientId],[CD_SearchTerms],[CD_UserId],[CD_LevyFlag],[CD_EmployerId],trim(replace(upper([CD_ESFAToken]),'P','')) As [CD_ESFAToken],[CD_LegalEntityId],getdate()
-				FROM [Stg].[GA_SessionDataDetail] GAData with (nolock) JOIN @StgClientIDs ClientIDs
+				FROM [Stg].[GA_SessionDataDetail] GAData with (nolock) JOIN #StgClientIDs ClientIDs
 				ON GAData.ClientId =  ClientIDs.ClientId
 				Where GAData.[StgImportDate] > @importdatetime AND ClientIDSource ='STG'
 		

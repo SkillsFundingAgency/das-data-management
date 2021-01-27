@@ -41,6 +41,6 @@
 		[StgImportDate]									[datetime2](7) DEFAULT (getdate())
 )
 GO
-CREATE NONCLUSTERED INDEX NCI_GA_SessionDataDetail_StgImportDate  ON [Stg].[GA_SessionDataDetail] (StgImportDate ASC);
+CREATE CLUSTERED INDEX NCI_GA_SessionDataDetail_StgImportDate  ON [Stg].[GA_SessionDataDetail] (StgImportDate ASC);
 GO
 CREATE NONCLUSTERED INDEX NCI_GA_SessionDataDetail_clientId  ON [Stg].[GA_SessionDataDetail] (ClientId ASC);

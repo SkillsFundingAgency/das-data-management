@@ -545,3 +545,6 @@ IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='MarketoProgr
 BEGIN
      GRANT SELECT ON ASData_PL.MarketoPrograms TO DataGov
 END
+
+
+ALTER INDEX ALL ON [Stg].[GA_SessionDataDetailTest] REBUILD

@@ -42,6 +42,8 @@
 )
 WITH (DATA_COMPRESSION = PAGE);
 GO
-CREATE NONCLUSTERED COLUMNSTORE INDEX NCI_GA_SessionDataDetail_StgImportDate  ON [Stg].[GA_SessionDataDetailTest] (StgImportDate,ClientId,ESFAToken,EventLabel_ESFAToken,CD_ESFAToken,EmployerId,CD_EmployerId);
+CREATE NONCLUSTERED INDEX NCI_GA_SessionDataDetail_StgImportDate  ON [Stg].[GA_SessionDataDetail] (StgImportDate ASC);
+GO
+CREATE NONCLUSTERED INDEX NCI_GA_SessionDataDetail_clientId  ON [Stg].[GA_SessionDataDetail] (ClientId ASC);
 GO
 

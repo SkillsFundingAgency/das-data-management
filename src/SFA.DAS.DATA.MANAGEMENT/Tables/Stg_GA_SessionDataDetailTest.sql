@@ -42,8 +42,8 @@
 )
 WITH (DATA_COMPRESSION = PAGE);
 GO
-CREATE NONCLUSTERED INDEX NCI_GA_SessionDataDetailTest_StgImportDate  ON [Stg].[GA_SessionDataDetailTest] (StgImportDate ASC);
+CREATE NONCLUSTERED INDEX NCI_GA_SessionDataDetailTest_StgImportDate  ON [Stg].[GA_SessionDataDetailTest] (StgImportDate ASC) WITH (DATA_COMPRESSION = PAGE);
 GO
-CREATE NONCLUSTERED INDEX NCI_GA_SessionDataDetailTest_clientId  ON [Stg].[GA_SessionDataDetailTest] (ClientId ASC);
+CREATE NONCLUSTERED INDEX NCI_GA_SessionDataDetailTest_clientId  ON [Stg].[GA_SessionDataDetailTest] (ClientId ASC) WITH (DATA_COMPRESSION = PAGE);
 GO
 

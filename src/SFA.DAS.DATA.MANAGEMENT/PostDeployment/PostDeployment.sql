@@ -546,5 +546,6 @@ BEGIN
      GRANT SELECT ON ASData_PL.MarketoPrograms TO DataGov
 END
 
-
-ALTER INDEX ALL ON [Stg].[GA_SessionDataDetailTest] REBUILD
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Stg].[GA_SessionDataDetailTest]') AND type in (N'U'))
+DROP TABLE [Stg].[GA_SessionDataDetailTest]
+GO

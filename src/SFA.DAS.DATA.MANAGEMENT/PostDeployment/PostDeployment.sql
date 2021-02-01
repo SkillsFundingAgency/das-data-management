@@ -545,7 +545,3 @@ IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='MarketoProgr
 BEGIN
      GRANT SELECT ON ASData_PL.MarketoPrograms TO DataGov
 END
-
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Stg].[GA_SessionDataDetailTest]') AND type in (N'U'))
-DROP TABLE [Stg].[GA_SessionDataDetailTest]
-GO

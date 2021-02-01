@@ -11,7 +11,7 @@
  ,CandidateId varchar(256)
  ,LegacyApplicationId varchar(256)
  ,VacancyId varchar(256)
- ,VacancyReferenceNumber varchar(256) 
+ ,VacancyReference varchar(256) 
  ,ApplyViaEmployerWebsite varchar(256) 
  ,RunId bigint  default(-1)
  ,AsDm_CreatedDate datetime2 default(getdate()) 

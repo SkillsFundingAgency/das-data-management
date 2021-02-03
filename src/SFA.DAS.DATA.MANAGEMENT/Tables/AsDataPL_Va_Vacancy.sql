@@ -12,8 +12,8 @@
 ,VacancyAddressLine4 nvarchar(256)
 ,VacancyAddressLine5 nvarchar(256)
 ,VacancyTown nvarchar(128)
-,SkillsRequired nvarchar(256)
-,QualificationsRequired nvarchar(256)
+,SkillsRequired nvarchar(max)
+,QualificationsRequired nvarchar(max)
 ,EmployerId int
 ,EmployerFullName nvarchar(255)
 ,LegalEntitiyId Int

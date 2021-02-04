@@ -245,7 +245,7 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
 		  on ps.ProviderID = p.SourceProviderID_v1
 		 and p.SourceDb='RAAv1'
         LEFT 
-		JOIN (SELECT AST.*,EL.EducationLevelFullName
+		JOIN (SELECT AST.*,EL.EducationLevelFullName,EL.EducationLevelNamev2
         	    FROM ASData_PL.Va_ApprenticeshipStandard AST
 			    LEFT 
 			    JOIN AsData_PL.Va_EducationLevel EL

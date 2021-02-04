@@ -153,14 +153,36 @@ INSERT INTO [ASData_PL].[Va_EducationLevel]
            ([EducationLevelId]
            ,[EducationLevelCodeName]
            ,[EducationLevelShortName]
-           ,[EducationLevelFullName])
-SELECT EducationLevelId as EducationLevelId
-      ,CodeName         as EducationLevelCodeName
-	  ,ShortName        as EducationLevelShortName
-	  ,FullName         as EducationLevelFullName
-  FROM Stg.Avms_EducationLevel
+           ,[EducationLevelFullName]
+		   ,[EducationLevelNamev2])
+SELECT EducationLevelId
+      ,EducationLevelCodeName
+	  ,EducationLevelShortName
+	  ,EducationLevelFullName
+	  ,CASE WHEN EducationLevelCodeName=2 THEN 'Level 2 (GCSE)'
+            WHEN EducationLevelCodeName=3 THEN 'Level 3 (A level)'
+        	WHEN EducationLevelCodeName=4 THEN 'Level 4 (Higher national certificate)'
+			WHEN EducationLevelCodeName=5 THEN 'Level 5 (Higher national diploma)'
+	        WHEN EducationLevelCodeName=6 THEN 'Level 6 (Degree with honours)'
+		    WHEN EducationLevelCodeName=7 THEN 'Level 7 (Master''s degree)'
+	     	ELSE ''
+		END as EducationLevelNamev2
+FROM
+(SELECT EducationLevelId,EducationLevelCodeName,EducationLevelShortName,EducationLevelFullName
+   FROM ASData_PL.Va_EducationLevel
+  UNION
+ SELECT 998,5,5,''
+  WHERE NOT EXISTS (SELECT 1 FROM ASData_PL.Va_EducationLevel vel5
+                     WHERE vel5.EducationLevelCodeName=5)  -- Level5
+  UNION 
+ SELECT 999,7,7,''
+  WHERE NOT EXISTS (SELECT 1 FROM ASData_PL.Va_EducationLevel vel7
+                     WHERE vel7.EducationLevelCodeName=7)   -- Level7
+ ) EL
 
 
+
+  
 
 
 

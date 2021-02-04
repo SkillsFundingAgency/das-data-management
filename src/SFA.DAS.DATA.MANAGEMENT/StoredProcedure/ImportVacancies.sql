@@ -166,7 +166,8 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
                   WHEN V.StandardId is not null then Std.StandardFullName 
                   ELSE '' 
               END                                             as [Framework/Standard Name] 
-            ,Std.EducationLevelFullName                       as EducationLevel
+            ,Std.EducationLevelFullName +' '+Std.EducationLevelNamev2
+			                                                  as EducationLevel
             ,v.[WeeklyWage]                                   as WeeklyWage
             ,v.[WageLowerBound]                               as WageLowerBound
             ,v.[WageUpperBound]                               as WageUpperBound
@@ -418,7 +419,7 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
              END                                                   as [Framework/Standard Name] 
           ,EL.FullName                                             as EducationLevel
 		  ,v.[WageType]                                            as WageType
-          ,v.WageAdditionalInformation                             as WageText
+          ,v.FixedWageYearlyAmount +' '+v.WageAdditionalInformation as WageText
           -- ,[WageUnitId]
           ,v.WageDurationUnit                                      as WageUnitDesc
           ,v.WorkingWeekDescription                                as WorkingWeek

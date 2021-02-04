@@ -385,7 +385,7 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
           ,EmployerAddressLine2                                    as VacancyAddressLine2
           ,EmployerAddressLine3                                    as VacancyAddressLine3
           ,EmployerAddressLine4                                    as VacancyAddressLine4
-          ,EmployerAddressLine4                                    as VacancyTown
+          ,COALESCE(EmployerAddressLine4,EmployerAddressLine3,EmployerAddressLine2) as VacancyTown
           ,Replace(Replace(Replace(Replace(Replace (Skills, '"', ''), '{', ''), '}',''),'[', ''), ']', '') as SkillsRequired
           ,Replace(Replace(Replace(Replace(Replace (Qualifications, '"', ''), '{', ''), '}',''),'[', ''), ']', '') as QualificationsRequired
 		  ,E.EmployerId                                            as EmployerId

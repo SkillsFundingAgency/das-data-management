@@ -421,7 +421,7 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
 		  ,v.[WageType]                                            as WageType
           ,v.FixedWageYearlyAmount +' '+v.WageAdditionalInformation as WageText
           -- ,[WageUnitId]
-          ,v.WageDurationUnit                                      as WageUnitDesc
+          ,'Annually'                                              as WageUnitDesc
           ,v.WorkingWeekDescription                                as WorkingWeek
           ,cast(v.WeeklyHours as decimal(10,2))                    as HoursPerWeek
          --  ,[DurationTypeId]
@@ -429,7 +429,8 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
 	      ,dbo.Fn_ConvertTimeStampToDateTime(v.ClosingDateTimeStamp) as ClosingDateTime
          --  ,[InterviewsFromDate]
           ,dbo.Fn_ConvertTimeStampToDateTime(v.StartDateTimeStamp) as ExpectedStartDate
-          ,v.WageDuration                                          as ExpectedDuration
+          ,v.WageDuration+ ' '+v.WageDurationUnit + CASE WHEN v.WageDuration<>1 then 's' ELSE '' END 
+		                                                           as ExpectedDuration
 		  ,CASE WHEN AP.ApprenticeshipType='Frameworks' THEN 1
                 WHEN AP.ApprenticeshipType='Standards' THEN 2
                 ELSE 0

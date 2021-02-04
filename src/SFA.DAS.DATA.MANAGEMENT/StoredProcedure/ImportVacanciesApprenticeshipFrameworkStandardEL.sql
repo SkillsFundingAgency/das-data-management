@@ -171,11 +171,11 @@ FROM
 (SELECT EducationLevelId,EducationLevelCodeName,EducationLevelShortName,EducationLevelFullName
    FROM ASData_PL.Va_EducationLevel
   UNION
- SELECT 998,5,5,''
+ SELECT 998,5,5,'Higher'
   WHERE NOT EXISTS (SELECT 1 FROM ASData_PL.Va_EducationLevel vel5
                      WHERE vel5.EducationLevelCodeName=5)  -- Level5
   UNION 
- SELECT 999,7,7,''
+ SELECT 999,7,7,'Degree'
   WHERE NOT EXISTS (SELECT 1 FROM ASData_PL.Va_EducationLevel vel7
                      WHERE vel7.EducationLevelCodeName=7)   -- Level7
  ) EL

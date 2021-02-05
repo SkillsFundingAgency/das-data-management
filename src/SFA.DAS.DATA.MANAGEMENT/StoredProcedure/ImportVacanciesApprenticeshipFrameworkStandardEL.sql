@@ -169,7 +169,7 @@ SELECT EducationLevelId
 		END as EducationLevelNamev2
 FROM
 (SELECT EducationLevelId,EducationLevelCodeName,EducationLevelShortName,EducationLevelFullName
-   FROM ASData_PL.Va_EducationLevel
+   FROM Stg.Avms_EducationLevel
   UNION
  SELECT 998,5,5,'Higher'
   WHERE NOT EXISTS (SELECT 1 FROM ASData_PL.Va_EducationLevel vel5

@@ -168,7 +168,7 @@ SELECT EducationLevelId
 	     	ELSE ''
 		END as EducationLevelNamev2
 FROM
-(SELECT EducationLevelId,EducationLevelCodeName,EducationLevelShortName,EducationLevelFullName
+(SELECT EducationLevelId,CodeName as EducationLevelCodeName,ShortName as EducationLevelShortName,FullName as EducationLevelFullName
    FROM Stg.Avms_EducationLevel
   UNION
  SELECT 998,5,5,'Higher'

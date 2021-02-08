@@ -4,4 +4,5 @@
    ,EducationLevelCodeName nvarchar(3)
    ,EducationLevelShortName nvarchar(10)
    ,EducationLevelFullName nvarchar(50)
+   ,EducationLevelNamev2   nvarchar(100)
 )

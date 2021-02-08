@@ -5,11 +5,15 @@
 ,VacancyReferenceNumber int
 ,VacancyStatus Varchar(100)
 ,VacancyTitle nvarchar(max)
-,VacancyLocalAuthorityId int
-,VacancyLocalAuthorityName varchar(255)
 ,VacancyPostcode varchar(25)
-,VacancyCountyId int
-,VacancyCounty varchar(255)
+,VacancyAddressLine1 nvarchar(256)
+,VacancyAddressLine2 nvarchar(256)
+,VacancyAddressLine3 nvarchar(256)
+,VacancyAddressLine4 nvarchar(256)
+,VacancyAddressLine5 nvarchar(256)
+,VacancyTown nvarchar(128)
+,SkillsRequired nvarchar(max)
+,QualificationsRequired nvarchar(max)
 ,EmployerId int
 ,EmployerFullName nvarchar(255)
 ,LegalEntitiyId Int
@@ -73,7 +77,3 @@
 ,SourceVacancyId INT
 ,SourceDb varchar(100)
 )
-
-
-
-

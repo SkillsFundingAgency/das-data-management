@@ -54,6 +54,15 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
            --,[VacancyPostcode]
            --,[VacancyCountyId]
            --,[VacancyCounty]
+		   ,VacancyPostcode
+           ,VacancyAddressLine1
+           ,VacancyAddressLine2
+           ,VacancyAddressLine3
+           ,VacancyAddressLine4
+		   ,VacancyAddressLine5
+           ,VacancyTown
+           ,SkillsRequired
+           ,QualificationsRequired
            ,[EmployerId]
            ,[EmployerFullName]
            --,[LegalEntitiyId]
@@ -116,6 +125,17 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
            ,v.[VacancyReferenceNumber]                        as VacancyReferenceNumber
            ,vs.FullName                                       as VacancyStatus
 	       ,v.[Title]                                         as VacancyTitle
+		   ,v.PostCode                                        as VacancyPostCode
+           ,v.AddressLine1                                    as VacancyAddressLine1
+           ,v.AddressLine2                                    as VacancyAddressLine2
+           ,v.AddressLine3                                    as VacancyAddressLine3
+           ,v.AddressLine4                                    as VacancyAddressLine4
+           ,v.AddressLine5                                    as VacancyAddressLine5
+           ,v.Town                                            as VacancyTown
+           ,Replace(Replace(Replace(
+            Replace(Replace(Replace(sr.skillsrequired, '<ul>', ''), '</ul>', ''), '<li>', ''), '</li>', ','), '<p>', ''), '</p>', '') as SkillsRequired
+		   ,Replace(Replace(Replace(
+            Replace(Replace(Replace(QR.QualificationsRequired, '<ul>', ''), '</ul>', ''), '<li>', ''), '</li>', ','), '<p>', ''), '</p>', '') as QualificationsRequired
 	       ,E.EmployerId                                      as EmployerId
            ,E.FullName                                        as EmployerFullNAME
            ,P.ProviderID                                      as ProviderId
@@ -146,7 +166,8 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
                   WHEN V.StandardId is not null then Std.StandardFullName 
                   ELSE '' 
               END                                             as [Framework/Standard Name] 
-            ,Std.EducationLevelFullName                       as EducationLevel
+            ,Std.EducationLevelFullName +' '+Std.EducationLevelNamev2
+			                                                  as EducationLevel
             ,v.[WeeklyWage]                                   as WeeklyWage
             ,v.[WageLowerBound]                               as WageLowerBound
             ,v.[WageUpperBound]                               as WageUpperBound
@@ -224,7 +245,7 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
 		  on ps.ProviderID = p.SourceProviderID_v1
 		 and p.SourceDb='RAAv1'
         LEFT 
-		JOIN (SELECT AST.*,EL.EducationLevelFullName
+		JOIN (SELECT AST.*,EL.EducationLevelFullName,EL.EducationLevelNamev2
         	    FROM ASData_PL.Va_ApprenticeshipStandard AST
 			    LEFT 
 			    JOIN AsData_PL.Va_EducationLevel EL
@@ -257,6 +278,17 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
         left
         join stg.Avms_WageUnit wu
           on v.WageUnitId=wu.WageUnitId
+		left
+		join (select Value as QualificationsRequired,VacancyId
+                from Stg.Avms_VacancyTextField
+               where Field=2) QR
+		  on QR.VacancyId=V.VacancyId
+		left
+		join (select Value as SkillsRequired,VacancyId
+                from Stg.Avms_VacancyTextField
+               where Field=3) SR
+		  on SR.VacancyId=V.VacancyId
+
 
 
 
@@ -275,6 +307,14 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
            --,[VacancyPostcode]
            --,[VacancyCountyId]
            --,[VacancyCounty]
+		   ,VacancyPostcode
+           ,VacancyAddressLine1
+           ,VacancyAddressLine2
+           ,VacancyAddressLine3
+           ,VacancyAddressLine4
+           ,VacancyTown
+           ,SkillsRequired
+           ,QualificationsRequired
            ,[EmployerId]
            ,[EmployerFullName]
            ,[LegalEntitiyId]
@@ -340,6 +380,14 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
 	      ,cast(VacancyReference as int)                           as VacancyReference
 		  ,cast(VacancyStatus as varchar(100))                     as VacancyStatus
 		  ,VacancyTitle                                            as VacancyTitle
+		  ,EmployerPostCode                                        as VacancyPostCode
+          ,EmployerAddressLine1                                    as VacancyAddressLine1
+          ,EmployerAddressLine2                                    as VacancyAddressLine2
+          ,EmployerAddressLine3                                    as VacancyAddressLine3
+          ,EmployerAddressLine4                                    as VacancyAddressLine4
+          ,COALESCE(EmployerAddressLine4,EmployerAddressLine3,EmployerAddressLine2) as VacancyTown
+          ,Replace(Replace(Replace(Replace(Replace (Skills, '"', ''), '{', ''), '}',''),'[', ''), ']', '') as SkillsRequired
+          ,Replace(Replace(Replace(Replace(Replace (Qualifications, '"', ''), '{', ''), '}',''),'[', ''), ']', '') as QualificationsRequired
 		  ,E.EmployerId                                            as EmployerId
 		  ,E.FullName                                              as EmployerFullName
 		  ,LE.LegalEntityId                                        as LegalEntityId
@@ -371,9 +419,9 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
              END                                                   as [Framework/Standard Name] 
           ,EL.FullName                                             as EducationLevel
 		  ,v.[WageType]                                            as WageType
-          ,v.WageAdditionalInformation                             as WageText
+          ,v.FixedWageYearlyAmount +' '+v.WageAdditionalInformation as WageText
           -- ,[WageUnitId]
-          ,v.WageDurationUnit                                      as WageUnitDesc
+          ,'Annually'                                              as WageUnitDesc
           ,v.WorkingWeekDescription                                as WorkingWeek
           ,cast(v.WeeklyHours as decimal(10,2))                    as HoursPerWeek
          --  ,[DurationTypeId]
@@ -381,7 +429,8 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
 	      ,dbo.Fn_ConvertTimeStampToDateTime(v.ClosingDateTimeStamp) as ClosingDateTime
          --  ,[InterviewsFromDate]
           ,dbo.Fn_ConvertTimeStampToDateTime(v.StartDateTimeStamp) as ExpectedStartDate
-          ,v.WageDuration                                          as ExpectedDuration
+          ,v.WageDuration+ ' '+v.WageDurationUnit + CASE WHEN v.WageDuration<>1 then 's' ELSE '' END 
+		                                                           as ExpectedDuration
 		  ,CASE WHEN AP.ApprenticeshipType='Frameworks' THEN 1
                 WHEN AP.ApprenticeshipType='Standards' THEN 2
                 ELSE 0

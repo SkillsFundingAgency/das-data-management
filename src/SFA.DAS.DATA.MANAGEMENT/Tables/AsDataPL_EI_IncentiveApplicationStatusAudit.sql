@@ -1,7 +1,7 @@
 ﻿
 CREATE TABLE [ASData_PL].[EI_IncentiveApplicationStatusAudit]
 (
-	[IncentiveApplicationStatusAuditId]				[uniqueidentifier]	Primary Key NOT NULL,
+	[Id]											[uniqueidentifier]	Primary Key NOT NULL,
 	[IncentiveApplicationApprenticeshipId]			[uniqueidentifier]				NOT NULL,
 	[Process]										[nvarchar](20)					NOT NULL,
 	[ServiceRequestTaskId]							[nvarchar](100)					NULL,

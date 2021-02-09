@@ -11,7 +11,7 @@
  ,UserCreatedDateTime datetime2
  ,LastSignedInTimeStamp bigint
  ,LastSignedDateTime datetime2
- ,EmployerAccountId varchar(100)
+ ,EmployerAccountId varchar(max)
  ,Ukprn int
  ,RunId bigint  default(-1)
  ,AsDm_CreatedDate datetime2 default(getdate()) 

@@ -19,3 +19,14 @@ EXEC dbo.ImportProviderToPL @RunId
 EXEC dbo.ImportFAT2FrameworkToPL @RunId
 
 EXEC dbo.ImportFAT2SectorStandardToPL @RunId
+
+
+/* Run Payments Snaptshot */
+Declare @StartDate  Date = dateadd(day,-2,cast(getdate() as date)),
+		@EndDate Date = dateadd(day,2,cast(getdate() as date))
+If exists(select DatamartRefreshDate from [Mtd].[RefreshDatasetConfig] where DatamartRefreshDate between @StartDate  And  @EndDate)  
+or exists (select top 1 [EventTime] from [StgPmts].[Payment]  where [EventTime] Between @StartDate And @EndDate)
+Begin 
+	EXEC ImportPaymentsSnapshot @RunId 
+End 
+ 

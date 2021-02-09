@@ -6,5 +6,12 @@
 	[CollectionPeriodYear]				[smallint]			NOT NULL,
 	[CreatedDate]						[datetime2](7)		NULL,
 	[UpdatedDate]						[datetime2](7)		NULL,
-	[AsDm_UpdatedDateTime]				[datetime2](7)		DEFAULT (getdate())
+	[AsDm_UpdatedDateTime]				[datetime2](7)		DEFAULT (getdate()),
+	PRIMARY KEY CLUSTERED 
+	(
+		[LearnerId] ASC,
+		[CollectionPeriodNumber] ASC,
+		[CollectionPeriodYear] ASC
+	)
 ) 
+GO

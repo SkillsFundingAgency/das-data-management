@@ -5,7 +5,7 @@
 ,VacancyReferenceNumber int
 ,VacancyStatus Varchar(100)
 ,VacancyTitle nvarchar(max)
-,VacancyPostcode varchar(25)
+,VacancyPostcode varchar(256)
 ,VacancyAddressLine1 nvarchar(256)
 ,VacancyAddressLine2 nvarchar(256)
 ,VacancyAddressLine3 nvarchar(256)

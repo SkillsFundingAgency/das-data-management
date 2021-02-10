@@ -396,9 +396,7 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
 		  ,cast(v.TrainingProviderUkprn as int)                    as ProviderUkprn
 	      ,v.TrainingProviderName                                  as ProviderName
 		  ,v.TrainingProviderName                                  as ProviderTradingName
-		  ,CASE WHEN EL.CodeName IN (2,3,4) then EL.FullName +' Level Apprenticeship'
-		        ELSE EL.FullName
-			END                                                    as ApprenticeshipType
+		  ,EL.EducationLevelFullName +' Level Apprenticeship'      as ApprenticeshipType
           ,[VacancyDescription]                                    as VacancyShortDesc
           ,[VacancyDescription]                                    as VacancyDesc
 		  ,cast(v.NumberOfPositions as int)                        as NumberOfPositions
@@ -417,7 +415,7 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
 			     then ST.StandardFullName 
                  ELSE '' 
              END                                                   as [Framework/Standard Name] 
-          ,EL.FullName                                             as EducationLevel
+          ,EL.EducationLevelFullName+' '+EL.EducationLevelNamev2   as EducationLevel
 		  ,v.[WageType]                                            as WageType
           ,v.FixedWageYearlyAmount +' '+ISNULL(v.WageAdditionalInformation,'') as WageText
           -- ,[WageUnitId]
@@ -478,8 +476,8 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
 	  JOIN Stg.RAA_ReferenceDataApprenticeshipProgrammes ap
 	    on V.ProgrammeId=ap.ProgrammeId
 	  LEFT 
-	  JOIN Stg.Avms_EducationLevel EL
-        ON EL.CodeName=ap.EducationLevelNumber
+	  JOIN ASData_PL.Va_EducationLevel EL
+        ON EL.EducationLevelCodeName=ap.EducationLevelNumber
 	  LEFT
       JOIN (SELECT AST.*,EL.FullName AS EducationLevel
         	  FROM ASData_PL.Va_ApprenticeshipStandard AST

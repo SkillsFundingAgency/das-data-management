@@ -419,7 +419,7 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
              END                                                   as [Framework/Standard Name] 
           ,EL.FullName                                             as EducationLevel
 		  ,v.[WageType]                                            as WageType
-          ,v.FixedWageYearlyAmount +' '+v.WageAdditionalInformation as WageText
+          ,v.FixedWageYearlyAmount +' '+ISNULL(v.WageAdditionalInformation,'') as WageText
           -- ,[WageUnitId]
           ,'Annually'                                              as WageUnitDesc
           ,v.WorkingWeekDescription                                as WorkingWeek

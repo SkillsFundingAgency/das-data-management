@@ -20,7 +20,6 @@ AS
 
 --EXEC dbo.ImportFAT2SectorStandardToPL @RunId
 
-
 /* Run Payments Snaptshot */
 Declare @StartDate  Date = dateadd(day,-2,cast(getdate() as date)),
 		@EndDate Date = dateadd(day,2,cast(getdate() as date))

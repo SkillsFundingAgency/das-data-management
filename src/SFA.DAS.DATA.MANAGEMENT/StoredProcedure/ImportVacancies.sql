@@ -145,7 +145,8 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
 	 --  , psrt.ProviderSiteRelationshipTypeName as ProviderSiteRelationshipType
 	       ,AT.FullName                                       as ApprenticeshipType
            ,v.[ShortDescription]                              as VacancyShortDescription
-           ,v.[Description]                                   as VacancyDescription
+           ,Replace(Replace(Replace(
+            Replace(Replace(Replace(v.Description, '<ul>', ''), '</ul>', ''), '<li>', ''), '</li>', ','), '<p>', ''), '</p>', '') as VacancyDescription
            ,v.[NumberofPositions]                             as NumberOfPositions
 	       ,CASE WHEN V.ApprenticeshipFrameworkId is not null 
                  then AF.ApprenticehipOccupationFullName
@@ -398,7 +399,8 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
 		  ,v.TrainingProviderName                                  as ProviderTradingName
 		  ,EL.EducationLevelFullName +' Level Apprenticeship'      as ApprenticeshipType
           ,[VacancyDescription]                                    as VacancyShortDesc
-          ,[VacancyDescription]                                    as VacancyDesc
+          ,Replace(Replace(Replace(
+            Replace(Replace(Replace(VacancyDescription, '<ul>', ''), '</ul>', ''), '<li>', ''), '</li>', ','), '<p>', ''), '</p>', '') as VacancyDesc
 		  ,cast(v.NumberOfPositions as int)                        as NumberOfPositions
 	      ,CASE WHEN AP.ApprenticeshipType='Standard' THEN ST.StandardSectorName
                 WHEN AP.ApprenticeshipType='Framework' then AF.ApprenticehipOccupationFullName

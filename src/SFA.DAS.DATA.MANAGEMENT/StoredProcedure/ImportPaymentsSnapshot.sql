@@ -44,7 +44,7 @@ BEGIN TRY
 
 		/* Import Payments Snapshot for Data Science */
 
-				TRUNCATE TABLE ASData_PL.Payments_SS
+				Delete From ASData_PL.Payments_SS
 
 				INSERT INTO ASData_PL.Payments_SS
 				  (

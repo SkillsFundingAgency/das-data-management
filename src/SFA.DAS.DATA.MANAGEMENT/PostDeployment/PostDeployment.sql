@@ -226,6 +226,11 @@ GRANT SELECT ON dbo.Payments_SS TO DataAnalyst
 IF EXISTS(select 1 from sys.views where name='DAS_TransactionLine' and type='v')
 GRANT SELECT ON ASData_PL.DAS_TransactionLine TO DataAnalyst
 
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Payments_SS' AND TABLE_SCHEMA = 'ASData_PL')
+BEGIN
+     GRANT SELECT ON ASData_PL.Payments_SS TO DataAnalyst
+END
+
 /* Finance Role Access */
 
 
@@ -677,9 +682,4 @@ END
 IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='FAT2_StandardSector' AND TABLE_SCHEMA = 'ASData_PL')
 BEGIN
      GRANT SELECT ON ASData_PL.FAT2_StandardSector TO BetaUser
-END
-
-IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Payments_SS' AND TABLE_SCHEMA = 'ASData_PL')
-BEGIN
-     GRANT SELECT ON ASData_PL.Payments_SS TO DataAnalyst
 END

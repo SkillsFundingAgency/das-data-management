@@ -120,6 +120,7 @@
 								 END) AS Varchar(3)),'NA')													as FullyAgreedCommitment
 			  , 'Redacted'																				as LegalEntityRegisteredAddress
 			  , ISNULL(cast(A.MadeRedundant as int),-1)														as MadeRedundant
+			  , C.CreatedOn																					as CreatedOn
 	FROM [ASData_PL].[Comt_Commitment] C 
 	LEFT JOIN [ASData_PL].[Comt_Apprenticeship] A
 	  ON C.Id=A.CommitmentId

@@ -231,6 +231,62 @@ BEGIN
      GRANT SELECT ON ASData_PL.Payments_SS TO DataAnalyst
 END
 
+
+/*  Assign Select access to DataAnalyst on V2 views  */
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_SpendControl_V2' AND TABLE_SCHEMA = 'ASData_PL')
+BEGIN
+     GRANT SELECT ON ASData_PL.DAS_SpendControl_V2 TO DataAnalyst
+END
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_SpendControlNonLevy_V2' AND TABLE_SCHEMA = 'ASData_PL')
+BEGIN
+     GRANT SELECT ON ASData_PL.DAS_SpendControlNonLevy_V2 TO DataAnalyst
+END
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_TransactionLine_V2' AND TABLE_SCHEMA = 'ASData_PL')
+BEGIN
+     GRANT SELECT ON ASData_PL.DAS_TransactionLine_V2 TO DataAnalyst
+END
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Commitments_V2' AND TABLE_SCHEMA = 'Data_Pub')
+BEGIN
+     GRANT SELECT ON Data_Pub.DAS_Commitments_V2 TO DataAnalyst
+END
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Employer_Account_Transfers_V2' AND TABLE_SCHEMA = 'Data_Pub')
+BEGIN
+     GRANT SELECT ON Data_Pub.DAS_Employer_Account_Transfers_V2 TO DataAnalyst
+END
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Employer_Accounts_V2' AND TABLE_SCHEMA = 'Data_Pub')
+BEGIN
+     GRANT SELECT ON Data_Pub.DAS_Employer_Accounts_V2 TO DataAnalyst
+END
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Employer_AccountTransactions_V2' AND TABLE_SCHEMA = 'Data_Pub')
+BEGIN
+     GRANT SELECT ON Data_Pub.DAS_Employer_AccountTransactions_V2 TO DataAnalyst
+END
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Employer_Agreements_V2' AND TABLE_SCHEMA = 'Data_Pub')
+BEGIN
+     GRANT SELECT ON Data_Pub.DAS_Employer_Agreements_V2 TO DataAnalyst
+END
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Employer_LegalEntities_V2' AND TABLE_SCHEMA = 'Data_Pub')
+BEGIN
+     GRANT SELECT ON Data_Pub.DAS_Employer_LegalEntities_V2 TO DataAnalyst
+END
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Employer_PayeSchemes_V2' AND TABLE_SCHEMA = 'Data_Pub')
+BEGIN
+     GRANT SELECT ON Data_Pub.DAS_Employer_PayeSchemes_V2 TO DataAnalyst
+END
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Employer_Transfer_Relationship_V2' AND TABLE_SCHEMA = 'Data_Pub')
+BEGIN
+     GRANT SELECT ON Data_Pub.DAS_Employer_Transfer_Relationship_V2 TO DataAnalyst
+END
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_LevyDeclarations_V2' AND TABLE_SCHEMA = 'Data_Pub')
+BEGIN
+     GRANT SELECT ON Data_Pub.DAS_LevyDeclarations_V2 TO DataAnalyst
+END
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='DAS_Payments_V2' AND TABLE_SCHEMA = 'Data_Pub')
+BEGIN
+     GRANT SELECT ON Data_Pub.DAS_Payments_V2 TO DataAnalyst
+END
+
 /* Finance Role Access */
 
 

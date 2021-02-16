@@ -228,7 +228,7 @@ SET @VSQL4=
 							END 
 				  ) as ApprenticeshipEmployerType
 		, ISNULL(cast(A.MadeRedundant as int),-1)                           as MadeRedundant
-
+		,A.CreatedOn													    as CreatedOn
 
 
 FROM [Comt].[Ext_Tbl_Commitment] C 

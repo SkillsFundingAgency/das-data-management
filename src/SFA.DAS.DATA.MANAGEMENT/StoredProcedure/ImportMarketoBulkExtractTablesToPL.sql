@@ -203,6 +203,59 @@ MERGE AsData_PL.MarketoLeads as Target
 
 
 
+/* Delta Update MarketoLeadActivityLinkClicked */
+
+  MERGE AsData_PL.MarketoLeadActivityLinkClicked as Target
+              USING (SELECT marketoguid,leadid,primaryattributevalueid,primaryattributevalue,JSON_VALUE(AttributesCleansed,'$.ReferrerURL') ReferrerURL
+                            , JSON_VALUE(AttributesCleansed,'$.Link') Link
+							, JSON_VALUE(AttributesCleansed,'$.QueryParameters') QueryParameters
+							, JSON_VALUE(AttributesCleansed,'$.WebpageURL') WebpageURL
+							, CASE WHEN JSON_VALUE(AttributesCleansed,'$.Link') IS not null AND charindex('?',JSON_VALUE(AttributesCleansed,'$.Link'))<>0 then replace(LEFT(JSON_VALUE(AttributesCleansed,'$.Link'),charindex('?',JSON_VALUE(AttributesCleansed,'$.Link'))-1),'https://','')
+							       WHEN JSON_VALUE(AttributesCleansed,'$.Link') IS not null AND charindex('?',JSON_VALUE(AttributesCleansed,'$.Link'))=0 then replace(JSON_VALUE(AttributesCleansed,'$.Link'),'https://','')
+							       WHEN JSON_VALUE(AttributesCleansed,'$.ReferrerURL') IS NOT NULL AND charindex('?',JSON_VALUE(AttributesCleansed,'$.ReferrerURL'))<>0  THEN REPLACE(REPLACE(LEFT(JSON_VALUE(AttributesCleansed,'$.ReferrerURL'),charindex('?',JSON_VALUE(AttributesCleansed,'$.ReferrerURL'))-1),'//',''),'https:','')
+								   WHEN JSON_VALUE(AttributesCleansed,'$.ReferrerURL') IS NOT NULL AND replace(JSON_VALUE(AttributesCleansed,'$.ReferrerURL'),'https://','') like '%info.apprenticeships.gov.uk%' THEN 'info.apprenticeships.gov.uk'--+ISNULL(JSON_VALUE(AttributesCleansed,'$.WebpageURL'),'')
+								   WHEN JSON_VALUE(AttributesCleansed,'$.ReferrerURL') IS NOT NULL AND charindex('?',JSON_VALUE(AttributesCleansed,'$.ReferrerURL'))=0 THEN REPLACE(REPLACE(JSON_VALUE(AttributesCleansed,'$.ReferrerURL'),'//',''),'https:','')
+								 --  WHEN JSON_VALUE(AttributesCleansed,'$.ReferrerURL') IS NOT NULL AND replace(JSON_VALUE(AttributesCleansed,'$.ReferrerURL'),'https://','') like '%info.apprenticeships.gov.uk%' THEN 'info.apprenticeships.gov.uk'+ISNULL(JSON_VALUE(AttributesCleansed,'$.WebpageURL'),'')
+								   ELSE ''
+								   END as PrimaryLink
+                        FROM (select *,REPLACE(REPLACE(substring(attributes,2,len(attributes)-2),'""','"'),' ','') as AttributesCleansed from Stg.MarketoLeadActivities MLA
+                       WHERE ATTRIBUTES LIKE '%Referrer URL%' or Attributes like '%""Link"":%'
+                          or ATTRIBUTES LIKE '%Query Parameters%' or Attributes like '%""Web Page URL"":%') mla
+		               ) as Source
+                 ON Target.MarketoGUID=Source.MarketoGUID
+               WHEN MATCHED THEN UPDATE SET Target.primaryAtttributevalueId=TRY_CONVERT(bigint,CASE WHEN Source.PrimaryAttributeValueID='NULL' THEN NULL ELSE Source.PrimaryAttributeValueID END)
+                                           ,Target.primaryattributevalue=CASE WHEN Source.primaryattributevalue='null' then NULL ELSE Source.primaryattributevalue END
+				                           ,Target.ReferrerURL=CASE WHEN Source.ReferrerURL='null' then NULL ELSE Source.ReferrerURL END
+										   ,Target.Link=CASE WHEN Source.Link='null' then NULL ELSE Source.Link END
+										   ,Target.QueryParameters=CASE WHEN Source.QueryParameters='null' then NULL ELSE Source.QueryParameters END
+										   ,Target.WebpageURL=CASE WHEN Source.WebpageURL='null' then NULL ELSE Source.WebpageURL END
+										   ,Target.PrimaryLink=CASE WHEN Source.PrimaryLink='null' then NULL ELSE Source.PrimaryLink END
+				                           ,Target.AsDm_UpdatedDate=getdate()
+               WHEN NOT MATCHED BY TARGET 
+               THEN INSERT (MarketoGUID
+                           ,LeadId 
+                           ,primaryAtttributevalueId 
+                           ,primaryAttributeValue 
+						   ,ReferrerURL 
+                           ,Link 
+                           ,QueryParameters
+                           ,WebpageURL
+                           ,PrimaryLink
+                           ,AsDm_CreatedDate
+			               ,AsDm_UpdatedDate) 
+                    VALUES (Source.MarketoGUID
+					       ,Source.LeadId
+	                       ,TRY_CONVERT(bigint,CASE WHEN Source.PrimaryAttributeValueID='NULL' THEN NULL ELSE Source.PrimaryAttributeValueID END)
+			               ,CASE WHEN Source.primaryattributevalue='null' then NULL ELSE Source.primaryattributevalue END
+			               ,CASE WHEN Source.ReferrerURL='null' then NULL ELSE Source.ReferrerURL END
+			               ,CASE WHEN Source.Link='null' then NULL ELSE Source.Link END
+						   ,CASE WHEN Source.QueryParameters='null' then NULL ELSE Source.QueryParameters END
+						   ,CASE WHEN Source.WebpageURL='null' then NULL ELSE Source.WebpageURL END
+						   ,CASE WHEN Source.PrimaryLink='null' then NULL ELSE Source.PrimaryLink END
+			               ,getdate()
+			               ,getdate()
+			               );
+
 
 COMMIT TRANSACTION
 END

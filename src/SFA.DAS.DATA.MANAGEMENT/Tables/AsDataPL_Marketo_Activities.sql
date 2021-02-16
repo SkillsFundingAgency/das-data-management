@@ -15,4 +15,6 @@ CREATE NONCLUSTERED INDEX [NCI_MA_ActivityTypeId] ON [AsData_PL].[MarketoLeadAct
 GO
 CREATE NONCLUSTERED INDEX [NCI_MA_CampaignId] ON [AsData_PL].[MarketoLeadActivities](CampaignId ASC)
 GO
+CREATE NONCLUSTERED INDEX [NCI_MA_MarketoGUID] ON [AsData_PL].[MarketoLeadActivities](MarketoGUID ASC)
+GO
 

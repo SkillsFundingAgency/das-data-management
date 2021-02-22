@@ -3,12 +3,12 @@
 	MarketoGUID nvarchar(256)
    ,LeadId bigint
    ,primaryAtttributevalueId BIGINT
-   ,primaryAttributeValue nvarchar(1024)
-   ,ReferrerURL nvarchar(1024)
-   ,Link nvarchar(1024)
-   ,QueryParameters nvarchar(1024)
-   ,WebpageURL nvarchar(1024)
-   ,PrimaryLink nvarchar(1024)
+   ,primaryAttributeValue nvarchar(2048)
+   ,ReferrerURL nvarchar(6000)
+   ,Link nvarchar(6000)
+   ,QueryParameters nvarchar(6000)
+   ,WebpageURL nvarchar(6000)
+   ,PrimaryLink nvarchar(2048)
    ,AsDm_CreatedDate Datetime2
    ,AsDm_UpdatedDate datetime2
 )

@@ -4,11 +4,11 @@
    ,LeadId bigint
    ,primaryAtttributevalueId BIGINT
    ,primaryAttributeValue nvarchar(2048)
-   ,ReferrerURL nvarchar(6000)
-   ,Link nvarchar(6000)
-   ,QueryParameters nvarchar(6000)
-   ,WebpageURL nvarchar(6000)
-   ,PrimaryLink nvarchar(2048)
+   ,ReferrerURL nvarchar(max)
+   ,Link nvarchar(max)
+   ,QueryParameters nvarchar(max)
+   ,WebpageURL nvarchar(4000)
+   ,PrimaryLink nvarchar(4000)
    ,AsDm_CreatedDate Datetime2
    ,AsDm_UpdatedDate datetime2
 )

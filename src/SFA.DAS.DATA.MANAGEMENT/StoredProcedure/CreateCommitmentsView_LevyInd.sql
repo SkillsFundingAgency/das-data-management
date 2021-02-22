@@ -224,7 +224,6 @@ SET @VSQL4=
 		, ISNULL(cast(A.MadeRedundant as int),-1)                           as MadeRedundant
 		,A.CreatedOn													    as CreatedOn
 
-
 FROM [Comt].[Ext_Tbl_Commitment] C 
 LEFT JOIN [Comt].[Ext_Tbl_Apprenticeship] A
   ON C.Id=A.CommitmentId

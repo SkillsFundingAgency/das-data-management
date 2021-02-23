@@ -64,6 +64,7 @@ SELECT	isnull(CAST(a.Id * 100 as bigint),-1)                                    
      , isnull(eps.CountOfCurrentPAYESchemes, 0)                                     AS CountOfCurrentPAYESchemes
 	--Count of currrent Legal Entities
      , isnull(ele.CountOfCurrentLegalEntities, 0)                                   AS CountOfCurrentLegalEntities
+	 , a.ApprenticeshipEmployerType													as ApprenticeshipEmployerType
 FROM  Acct.Ext_Tbl_Account a
 -- Adding Current number of PAYE Schemes
 LEFT JOIN 

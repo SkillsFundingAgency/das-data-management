@@ -3,7 +3,7 @@ AS
 		SELECT	isnull(CAST(a.Id * 100 as bigint),-1)													as Id
 			,	isnull(CAST(a.HashedId AS nvarchar(100)),'XXXXXX')										as DasAccountId
 			,   isnull(CAST(a.Id as bigint),-1)															as EmployerAccountId
-			,	'Redacted'																			as DASAccountName
+			,	'Redacted'																			    as DASAccountName
 			,	Convert(DATE,a.CreatedDate)																as DateRegistered
 			,	ISNULL(CAST(a.CreatedDate as DateTime),'9999-12-31')									as DateTimeRegistered
 			--Owner Email Address suppressed for Data Protection reasons
@@ -17,6 +17,7 @@ AS
 			 , isnull(eps.CountOfCurrentPAYESchemes, 0)													as CountOfCurrentPAYESchemes
 			--Count of currrent Legal Entities
 			 , isnull(ele.CountOfCurrentLegalEntities, 0)												as CountOfCurrentLegalEntities
+			 , a.ApprenticeshipEmployerType																as ApprenticeshipEmployerType
 		FROM [ASData_PL].[Acc_Account] a
 		-- Adding Current number of PAYE Schemes
 		LEFT JOIN 

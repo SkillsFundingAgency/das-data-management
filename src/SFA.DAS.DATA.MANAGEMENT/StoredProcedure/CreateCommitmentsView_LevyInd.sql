@@ -215,7 +215,7 @@ SET @VSQL4=
 	      , CAST(AcctLE.Address as nvarchar(256))                as LegalEntityRegisteredAddress
 
 
-		,  CONVERT(bit, CASE WHEN  isnull(A.Approvals,''0'')  IN(''3'',''7'')
+		,  CONVERT(bit, CASE WHEN  isnull(C.Approvals,''0'')  IN(''3'',''7'')
 								THEN C.ApprenticeshipEmployerTypeOnApproval
 							ELSE null
 							END 

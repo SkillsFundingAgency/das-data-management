@@ -21,8 +21,6 @@ AS
 -- =====================================================================================================
 
 
-
-
 BEGIN TRY
 
 
@@ -217,19 +215,14 @@ SET @VSQL4=
 	      , CAST(AcctLE.Address as nvarchar(256))                as LegalEntityRegisteredAddress
 
 
-		,  CONVERT(bit, CASE WHEN  isnull(A.AgreementStatus,''0'') =''3''
+		,  CONVERT(bit, CASE WHEN  isnull(C.Approvals,''0'')  IN(''3'',''7'')
 								THEN C.ApprenticeshipEmployerTypeOnApproval
 							ELSE null
 							END 
 				  ) as ApprenticeshipEmployerTypeOnApproval
-        , CONVERT(bit, CASE WHEN isnull(A.AgreementStatus,''0'') <> ''3''
-								THEN acct1.ApprenticeshipEmployerType
-							ELSE null
-							END 
-				  ) as ApprenticeshipEmployerType
+        , acct1.ApprenticeshipEmployerType									as ApprenticeshipEmployerType
 		, ISNULL(cast(A.MadeRedundant as int),-1)                           as MadeRedundant
 		,A.CreatedOn													    as CreatedOn
-
 
 FROM [Comt].[Ext_Tbl_Commitment] C 
 LEFT JOIN [Comt].[Ext_Tbl_Apprenticeship] A

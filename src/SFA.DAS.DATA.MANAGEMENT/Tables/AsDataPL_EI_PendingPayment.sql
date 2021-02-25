@@ -11,5 +11,6 @@
  ,PaymentYear smallint null
  ,AccountLegalEntityId bigint null
  ,EarningType varchar(20) null
+ ,ClawedBack BIT NOT NULL DEFAULT 0
  ,AsDm_UpdatedDateTime datetime2 default getdate()
 )

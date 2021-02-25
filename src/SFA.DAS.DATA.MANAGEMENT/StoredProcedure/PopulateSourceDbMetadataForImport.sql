@@ -93,6 +93,7 @@ VALUES
 ,('EmpInc','PendingPaymentValidationResult','incentives','[Id],[PendingPaymentId],[Step],[Result],[PeriodNumber],[PaymentYear],[CreatedDateUTC]','','',0)
 ,('EmpInc','Payment','incentives','[Id],[ApprenticeshipIncentiveId],[PendingPaymentId],[AccountId],[AccountLegalEntityId],[CalculatedDate],[PaidDate],[SubNominalCode],[PaymentPeriod],[PaymentYear],[Amount]','','',0)
 ,('EmpInc','IncentiveApplicationStatusAudit','dbo','[Id],[IncentiveApplicationApprenticeshipId],[Process],[ServiceRequestTaskId],[ServiceRequestCreatedDate],[CreatedDateTime]','','[ServiceRequestDecisionReference]',0)
+,('EmpInc','ClawbackPayment','incentives','[Id],[ApprenticeshipIncentiveId],[PendingPaymentId],[AccountId],[AccountLegalEntityId],[Amount],[DateClawbackCreated],[DateClawbackSent],[CollectionPeriod],[CollectionPeriodYear],[SubNominalCode],[PaymentId]','','',0)
 
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL])

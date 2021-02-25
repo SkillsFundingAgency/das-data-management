@@ -18,6 +18,9 @@
       ,[AllowMarketingMessages_v1] bit
       ,[CandidateGuid] varchar(256)
       ,[Age] int
+	  ,[DateOfBirth] datetime2
+	  ,[RegistrationDate] DateTime2
+	  ,[LastAccessedDate] DateTime2
 	  ,[SourceDb] varchar(100)
 	  ,[SourceCandidateId_v1] Varchar(256)
 	  ,[SourceCandidateId_v2] Varchar(256)

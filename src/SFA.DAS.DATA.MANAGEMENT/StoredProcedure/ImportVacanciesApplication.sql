@@ -103,8 +103,8 @@ INSERT INTO [ASData_PL].[Va_Application]
   and v.SourceDb='RAAv2'
  left
  join AsData_PL.Va_Candidate C
-   on C.CandidateGuid=CAST(AR.CandidateId as Varchar(256))
-  and C.SourceDb='RAAv2'
+   on C.SourceCandidateId_v2=CAST(AR.CandidateId as Varchar(256))
+--  and C.SourceDb='RAAv2'
 
 
 

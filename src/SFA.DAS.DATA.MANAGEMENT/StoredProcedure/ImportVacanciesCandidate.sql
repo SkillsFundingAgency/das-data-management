@@ -59,28 +59,33 @@ INSERT INTO [ASData_PL].[Va_Candidate]
            ,[CandidateGuid]
          --  ,[Age]
            ,[SourceDb]
-           ,[SourceCandidateId_v1])
-SELECT CandidateStatusTypeId
-      ,CASE WHEN CandidateStatusTypeId=1 THEN 'Pre-Registered'
-            WHEN CandidateStatusTypeId=2 THEN 'Activated'
-			WHEN CandidateStatusTypeId=3 THEN 'Registered'
-            WHEN CandidateStatusTypeId=4 THEN 'Suspended'
-            WHEN CandidateStatusTypeId=5 THEN 'Pending Delete'
-            WHEN CandidateStatusTypeId=6 THEN 'Deleted'
+           ,[SourceCandidateId_v1]
+		   ,[SourceCandidateId_v2])
+SELECT C.CandidateStatusTypeId
+      ,CASE WHEN c.CandidateStatusTypeId=1 THEN 'Pre-Registered'
+            WHEN c.CandidateStatusTypeId=2 THEN 'Activated'
+			WHEN c.CandidateStatusTypeId=3 THEN 'Registered'
+            WHEN c.CandidateStatusTypeId=4 THEN 'Suspended'
+            WHEN c.CandidateStatusTypeId=5 THEN 'Pending Delete'
+            WHEN c.CandidateStatusTypeId=6 THEN 'Deleted'
 			ELSE 'Unknown'
 		END
-	   ,ApplicationLimitEnforced
-	   ,LastAccessedDate
-	   ,LastAccessedManageApplications
-	   ,BeingSupportedBy
-	   ,LockedForSupportUntil
-	   ,AllowMarketingMessages
-	   ,Cast(CandidateGuid as Varchar(256))
+	   ,c.ApplicationLimitEnforced
+	   ,c.LastAccessedDate
+	   ,c.LastAccessedManageApplications
+	   ,c.BeingSupportedBy
+	   ,c.LockedForSupportUntil
+	   ,c.AllowMarketingMessages
+	   ,Cast(c.CandidateGuid as Varchar(256))
 	   ,'RAAv1'
-	   ,CandidateId
+	   ,c.CandidateId
+	   ,CD.CandidateId
   FROM Stg.Avms_Candidate C
+  LEFT
+  JOIN Stg.FAA_Candidates CD
+    ON CD.LegacyCandidateId=C.CandidateId
  union
-SELECT DISTINCT 
+ SELECT DISTINCT 
        -1
       ,'N/A'as CandidateStatusDesc
 	  ,NULL as ApplicationLimitEnforced
@@ -89,10 +94,13 @@ SELECT DISTINCT
 	  ,'N/A' as BeingSupportedBy
 	  ,'' as LockedForSupportUntil
 	  ,NULL as AllowMarketingMessages
-	  ,CAST(CandidateId as Varchar(256))
+	  ,CAST(FC.CandidateId as Varchar(256))
 	  ,'RAAv2'
 	  ,''
-   FROM Stg.RAA_ApplicationReviews AR
+	  ,FC.CandidateId
+   FROM Stg.FAA_Candidates FC
+  WHERE NOT EXISTS (SELECT 1 FROM Stg.Avms_Candidate AC
+                     WHERE AC.CandidateId=FC.LegacyCandidateId)
 
 
    

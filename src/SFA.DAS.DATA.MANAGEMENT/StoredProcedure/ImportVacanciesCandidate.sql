@@ -104,7 +104,7 @@ SELECT C.CandidateStatusTypeId
  union
  SELECT DISTINCT 
        -1
-      ,'N/A'as CandidateStatusDesc
+      ,'Registered'as CandidateStatusDesc
 	  ,PC.PostCode
 	  ,NULL as ApplicationLimitEnforced
 	  ,'' as LastAccessedDate

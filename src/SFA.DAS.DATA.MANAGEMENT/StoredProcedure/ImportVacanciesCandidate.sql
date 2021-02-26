@@ -99,7 +99,7 @@ SELECT C.CandidateStatusTypeId
   JOIN Stg.FAA_Candidates CD
     ON CD.LegacyCandidateId=C.CandidateId
   left
-  join (SELECT candidateId,EVENTDATE as RegisteredDate from dbo.candidatehistory where Comment='NAS Exemplar registered Candidate.') ch
+  join (SELECT candidateId,EVENTDATE as RegisteredDate from Stg.Avms_candidatehistory where Comment='NAS Exemplar registered Candidate.') ch
     on ac.CandidateId= ch.CandidateId
  union
  SELECT DISTINCT 

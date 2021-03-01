@@ -95,11 +95,41 @@ SELECT vc.CandidateId                                                  as Candid
    and vav2.SourceDb='RAAv2'
 
 
- 
-
-     
+   
 COMMIT TRANSACTION
 
+BEGIN TRANSACTION
+
+DELETE FROM ASData_PL.Va_SavedSearches
+
+INSERT INTO ASData_PL.Va_SavedSearches
+(      CandidateId 
+      ,CreatedDateTime 
+      ,UpdatedDateTime 
+	  ,SearchLocation 
+	  ,KeyWords 
+	  ,WithInDistance 
+	  ,ApprenticeshipLevel 
+      ,SourceSavedSearchesId 
+	  ,SourceDb
+)
+
+
+SELECT vc.CandidateId                                                  as CandidateId
+	  ,dbo.Fn_ConvertTimeStampToDateTime(fSS.DateCreatedTimeStamp)      as DateCreatedTimeStamp
+	  ,dbo.Fn_ConvertTimeStampToDateTime(fss.DateUpdatedTimeStamp)      as DateUpdatedTimeStamp
+	  ,fss.[Location]
+	  ,fss.Keywords
+	  ,fss.WithInDistance
+	  ,fss.ApprenticeshipLevel
+	  ,Fss.BinaryId                                                     as SourceApprenticeshipId
+	  ,'RAAv2'                                                         as SourceDb
+  FROM Stg.FAA_SavedSearches FSS
+  LEFT
+  JOIN ASData_PL.Va_Candidate VC
+    ON FSS.CandidateId=vc.SourceCandidateId_v2
+    
+COMMIT TRANSACTION
 
 
 UPDATE Mgmt.Log_Execution_Results

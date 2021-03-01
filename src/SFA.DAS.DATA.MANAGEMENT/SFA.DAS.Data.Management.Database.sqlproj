@@ -309,6 +309,8 @@
     <Build Include="Tables\ASDataPL_EI_ClawbackPayment.sql" />
     <Build Include="Tables\Stg_FAA_Candidates.sql" />
     <Build Include="Tables\AsDataPL_Va_Apprenticeships.sql" />
-    <Build Include="StoredProcedure\ImportVacanciesAppTraineeshipsToPL.sql" />
+    <Build Include="StoredProcedure\ImportVacanciesAdditionalInfoToPL.sql" />
+    <Build Include="Tables\AsDataPL_Va_ContactMessages.sql" />
+    <Build Include="Tables\AsDataPL_Va_SavedSearches.sql" />
   </ItemGroup>
 </Project>

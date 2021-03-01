@@ -128,7 +128,7 @@ SELECT C.CandidateStatusTypeId
 	  ,FC.CandidateId
    FROM Stg.FAA_Candidates FC
    LEFT
-   JOIN Stg.FAA_Postcode PC
+   JOIN Stg.FAA_CandidatePostcode PC
      ON PC.CandidateId=FC.CandidateId
    LEFT
    JOIN Stg.FAA_CandidateDob Db

@@ -113,7 +113,7 @@ SELECT C.CandidateStatusTypeId
 	  ,'' as LockedForSupportUntil
 	  ,NULL as AllowMarketingMessages
 	  ,CAST(FC.CandidateId as Varchar(256))
-	  ,CASE WHEN [c].[DateOfBirth] IS NULL	THEN - 1
+	  ,CASE WHEN [DB].[DateOfBirth] IS NULL	THEN - 1
 		      WHEN DATEPART([M], dbo.Fn_ConvertTimeStampToDateTime([Db].[DateOfBirth])) > DATEPART([M], getdate())
 			    OR DATEPART([M], dbo.Fn_ConvertTimeStampToDateTime([Db].[DateOfBirth])) = DATEPART([M], getdate())
 			   AND DATEPART([DD],dbo.Fn_ConvertTimeStampToDateTime([Db].[DateOfBirth])) > DATEPART([DD], getdate())

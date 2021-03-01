@@ -308,5 +308,7 @@
     <Build Include="Tables\AsDataPL_Marketo_ActivityLinkClicked.sql" />
     <Build Include="Tables\ASDataPL_EI_ClawbackPayment.sql" />
     <Build Include="Tables\Stg_FAA_Candidates.sql" />
+    <Build Include="Tables\AsDataPL_Va_Apprenticeships.sql" />
+    <Build Include="StoredProcedure\ImportVacanciesAppTraineeshipsToPL.sql" />
   </ItemGroup>
 </Project>

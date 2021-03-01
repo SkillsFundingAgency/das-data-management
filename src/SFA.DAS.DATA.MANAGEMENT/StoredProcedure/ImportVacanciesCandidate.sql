@@ -100,7 +100,7 @@ SELECT C.CandidateStatusTypeId
     ON CD.LegacyCandidateId=C.CandidateId
   left
   join (SELECT candidateId,EVENTDATE as RegisteredDate from Stg.Avms_candidatehistory where Comment='NAS Exemplar registered Candidate.') ch
-    on ac.CandidateId= ch.CandidateId
+    on c.CandidateId= ch.CandidateId
  union
  SELECT DISTINCT 
        -1

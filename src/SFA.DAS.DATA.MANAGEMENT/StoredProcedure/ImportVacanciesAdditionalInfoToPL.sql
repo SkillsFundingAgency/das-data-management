@@ -42,8 +42,8 @@ DELETE FROM ASData_PL.Va_Apprenticeships
 
 INSERT INTO [ASData_PL].[Va_Candidate]
            (CandidateId 
-           ,ApplicationId 
            ,VacancyId 
+		   ,ApplicationId
            ,VacancyReference 
            ,CreatedDateTime 
            ,UpdatedDateTime 
@@ -60,7 +60,6 @@ INSERT INTO [ASData_PL].[Va_Candidate]
 SELECT vc.CandidateId                                                  as CandidateId
       ,vv.VacancyId                                                    as VacancyId
 	  ,coalesce(va.ApplicationId,vav2.ApplicationId,FA.LEGACYAPPLICATIONID) as ApplicationID
-	  ,vv.VacancyId                                                    as VacancyId
 	  ,vv.VacancyReferenceNumber                                       as VacancyReferenceNumber
 	  ,dbo.Fn_ConvertTimeStampToDateTime(fa.DateCreatedTimeStamp)      as DateCreatedTimeStamp
 	  ,dbo.Fn_ConvertTimeStampToDateTime(fa.DateUpdatedTimeStamp)      as DateUpdatedTimeStamp

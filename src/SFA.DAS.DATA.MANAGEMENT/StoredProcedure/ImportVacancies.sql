@@ -198,8 +198,8 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
                   ELSE 0
               END                                             as TrainingTypeId
 	        ,CASE WHEN V.ApprenticeshipFrameworkId is not null 
-                  then 'Frameworks' 
-                  WHEN V.StandardId is not null then 'Standards'
+                  then 'Framework' 
+                  WHEN V.StandardId is not null then 'Standard'
                   ELSE 'Unknown' 
               END                                             as TrainingTypeDesc
 	        ,v.VacancyTypeId
@@ -429,8 +429,8 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
           ,dbo.Fn_ConvertTimeStampToDateTime(v.StartDateTimeStamp) as ExpectedStartDate
           ,v.WageDuration+ ' '+v.WageDurationUnit + CASE WHEN v.WageDuration<>1 then 's' ELSE '' END 
 		                                                           as ExpectedDuration
-		  ,CASE WHEN AP.ApprenticeshipType='Frameworks' THEN 1
-                WHEN AP.ApprenticeshipType='Standards' THEN 2
+		  ,CASE WHEN AP.ApprenticeshipType='Framework' THEN 1
+                WHEN AP.ApprenticeshipType='Standard' THEN 2
                 ELSE 0
               END                                                  as TrainingTypeId
 	      ,ISNULL(AP.ApprenticeshipType,'Unknown')                 as TrainingTypeFullName

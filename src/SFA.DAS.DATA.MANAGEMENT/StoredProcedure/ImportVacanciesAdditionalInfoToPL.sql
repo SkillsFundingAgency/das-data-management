@@ -40,7 +40,7 @@ BEGIN TRANSACTION
 
 DELETE FROM ASData_PL.Va_Apprenticeships
 
-INSERT INTO [ASData_PL].[Va_Candidate]
+INSERT INTO [ASData_PL].[Va_Apprenticeships]
            (CandidateId 
            ,VacancyId 
 		   ,ApplicationId

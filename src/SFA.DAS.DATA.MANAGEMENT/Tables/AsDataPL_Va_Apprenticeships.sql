@@ -1,6 +1,6 @@
 ﻿CREATE TABLE AsData_PL.[Va_Apprenticeships]
 (     
-       Faa_ApprenticeshipID BIGINT IDENTITY(1,1) PRIMARY KEY
+       Faa_ApprenticeshipID BIGINT IDENTITY(1,1) PRIMARY KEY NOT NULL
       ,CandidateId bigint
       ,ApplicationId bigint
       ,VacancyId bigint

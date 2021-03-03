@@ -131,6 +131,34 @@ SELECT vc.CandidateId                                                  as Candid
 COMMIT TRANSACTION
 
 
+BEGIN TRANSACTION
+
+DELETE FROM ASData_PL.Va_ContactMessages
+
+INSERT INTO ASData_PL.Va_ContactMessages
+(      CreatedDateTime 
+      ,UpdatedDateTime 
+      ,UserId  
+      ,Enquiry 
+      ,SourceContactMessagesId 
+      ,SourceDb 
+)
+SELECT dbo.Fn_ConvertTimeStampToDateTime(CM.DateCreatedTimeStamp)      as DateCreatedTimeStamp
+	  ,dbo.Fn_ConvertTimeStampToDateTime(CM.DateUpdatedTimeStamp)      as DateUpdatedTimeStamp
+	  ,CM.UserId                                                       as UserId
+	  ,CM.Enquiry                                                      as Enquiry
+	  ,CM.BinaryId                                                     as SourceContactMessageId
+	  ,'RAAv2'                                                         as SourceDb
+  FROM Stg.FAA_ContactMessages CM
+
+  
+
+COMMIT TRANSACTION
+
+
+
+
+
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1
       ,EndDateTime=getdate()

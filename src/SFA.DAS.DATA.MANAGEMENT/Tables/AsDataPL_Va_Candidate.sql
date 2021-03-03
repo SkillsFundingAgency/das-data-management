@@ -17,8 +17,7 @@
       ,[LockedForSupportUntil_v1] datetime
       ,[AllowMarketingMessages_v1] bit
       ,[CandidateGuid] varchar(256)
-      ,[Age] int
-	  ,[DateOfBirth] datetime2
+      ,[AgeAtRegistration] int	  
 	  ,[RegistrationDate] DateTime2
 	  ,[LastAccessedDate] DateTime2
 	  ,[SourceDb] varchar(100)

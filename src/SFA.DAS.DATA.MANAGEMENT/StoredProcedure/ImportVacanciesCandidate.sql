@@ -57,8 +57,7 @@ INSERT INTO [ASData_PL].[Va_Candidate]
            ,[LockedForSupportUntil_v1]
            ,[AllowMarketingMessages_v1]
            ,[CandidateGuid]
-           ,[Age]
-		   ,[DateOfBirth]
+           ,[AgeAtRegistration]
 		   ,[RegistrationDate]
 		   ,[LastAccessedDate]
            ,[SourceDb]
@@ -73,7 +72,7 @@ SELECT C.CandidateStatusTypeId
             WHEN c.CandidateStatusTypeId=6 THEN 'Deleted'
 			ELSE 'Unknown'
 		END
-	   ,c.PostCode
+	   ,capc.PostCode
 	   ,c.ApplicationLimitEnforced
 	   ,c.LastAccessedDate
 	   ,c.LastAccessedManageApplications
@@ -81,14 +80,7 @@ SELECT C.CandidateStatusTypeId
 	   ,c.LockedForSupportUntil
 	   ,c.AllowMarketingMessages
 	   ,Cast(c.CandidateGuid as Varchar(256))
-	   ,CASE WHEN [c].[DateOfBirth] IS NULL	THEN - 1
-		      WHEN DATEPART([M], [c].[DateOfBirth]) > DATEPART([M], getdate())
-			    OR DATEPART([M], [c].[DateOfBirth]) = DATEPART([M], getdate())
-			   AND DATEPART([DD], [c].[DateOfBirth]) > DATEPART([DD], getdate())
-			  THEN DATEDIFF(YEAR, [c].[DateOfBirth], getdate()) - 1
-		      ELSE DATEDIFF(YEAR, [c].[DateOfBirth], getdate())
-		END as Age
-	   ,c.[DateOfBirth]
+	   ,CAPC.AgeAtRegistration
 	   ,convert(datetime2,ch.RegisteredDate)
 	   ,convert(datetime2,c.LastAccessedDate)
 	   ,'RAAv1'
@@ -101,11 +93,16 @@ SELECT C.CandidateStatusTypeId
   left
   join (SELECT candidateId,EVENTDATE as RegisteredDate from Stg.Avms_candidatehistory where Comment='NAS Exemplar registered Candidate.') ch
     on c.CandidateId= ch.CandidateId
+  left
+  join Stg.Avms_CandidateAgePostCode CAPC
+    ON CAPC.CandidateId=c.CandidateId
  union
  SELECT DISTINCT 
        -1
       ,'Registered'as CandidateStatusDesc
-	  ,PC.PostCode
+	  ,CASE WHEN CHARINDEX(' ',PC.Postcode)<>0 THEN SUBSTRING(PostCode,1,CHARINDEX(' ',Postcode)) 
+	        ELSE SUBSTRING(Postcode,1,LEN(Postcode)-3) 
+	    END as PostCode
 	  ,NULL as ApplicationLimitEnforced
 	  ,'' as LastAccessedDate
 	  ,'' as LastAccessedManageApplications
@@ -114,13 +111,12 @@ SELECT C.CandidateStatusTypeId
 	  ,NULL as AllowMarketingMessages
 	  ,CAST(FC.CandidateId as Varchar(256))
 	  ,CASE WHEN [DB].[DateOfBirth] IS NULL	THEN - 1
-		      WHEN DATEPART([M], dbo.Fn_ConvertTimeStampToDateTime([Db].[DateOfBirth])) > DATEPART([M], getdate())
-			    OR DATEPART([M], dbo.Fn_ConvertTimeStampToDateTime([Db].[DateOfBirth])) = DATEPART([M], getdate())
-			   AND DATEPART([DD],dbo.Fn_ConvertTimeStampToDateTime([Db].[DateOfBirth])) > DATEPART([DD], getdate())
-			  THEN DATEDIFF(YEAR,dbo.Fn_ConvertTimeStampToDateTime([Db].[DateOfBirth]), getdate()) - 1
-		      ELSE DATEDIFF(YEAR,dbo.Fn_ConvertTimeStampToDateTime([Db].[DateOfBirth]), getdate())
-		END as Age
-	  ,dbo.Fn_ConvertTimeStampToDateTime([Db].[DateOfBirth])
+		      WHEN DATEPART([M], dbo.Fn_ConvertTimeStampToDateTime([DB].[DateOfBirth])) > DATEPART([M], dbo.Fn_ConvertTimeStampToDateTime(FU.ActivationTimeStamp))
+			    OR DATEPART([M], dbo.Fn_ConvertTimeStampToDateTime([DB].[DateOfBirth])) = DATEPART([M], dbo.Fn_ConvertTimeStampToDateTime(FU.ActivationTimeStamp))
+			   AND DATEPART([DD],dbo.Fn_ConvertTimeStampToDateTime([DB].[DateOfBirth])) > DATEPART([DD], dbo.Fn_ConvertTimeStampToDateTime(FU.ActivationTimeStamp))
+			  THEN DATEDIFF(YEAR,dbo.Fn_ConvertTimeStampToDateTime([DB].[DateOfBirth]), dbo.Fn_ConvertTimeStampToDateTime(FU.ActivationTimeStamp)) - 1
+		      ELSE DATEDIFF(YEAR,dbo.Fn_ConvertTimeStampToDateTime([DB].[DateOfBirth]), dbo.Fn_ConvertTimeStampToDateTime(FU.ActivationTimeStamp))
+		END   as AgeAtRegistration
 	  ,dbo.Fn_ConvertTimeStampToDateTime([fu].[ActivationTimeStamp])
 	  ,dbo.Fn_ConvertTimeStampToDateTime([fu].[LastLogInTimeStamp])
 	  ,'RAAv2'

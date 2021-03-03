@@ -45,6 +45,7 @@ INSERT INTO [ASData_PL].[Va_Application]
            ,[VacancyId]
            ,[ApplicationStatusTypeId]
            ,[ApplicationStatusDesc]
+		   ,[CandidateAgeAtApplication]
            ,[BeingSupportedBy]
            ,[LockedForSupportUntil]
            ,[IsWithdrawn]
@@ -55,7 +56,8 @@ INSERT INTO [ASData_PL].[Va_Application]
     SELECT  c.CandidateId                  as CandidateId
            ,v.[VacancyId]                  as VacancyId
            ,AA.[ApplicationStatusTypeId]   as ApplicationStatusTypeId
-	       ,AST.FullName                   as ApplicationStatusDesc 
+	       ,AST.FullName                   as ApplicationStatusDesc
+		   ,SAA.AgeAtApplication           as CandidateAgeAtApplication
            ,[BeingSupportedBy]             as BeingSupportedBy        
            ,[LockedForSupportUntil]        as LockedForSupportUntil
           ,Case when AA.ApplicationStatusTypeId in (4,8) THEN 1
@@ -82,11 +84,21 @@ INSERT INTO [ASData_PL].[Va_Application]
   join ASData_PL.Va_Candidate C
     on c.SourceCandidateId_v1=AA.CandidateId
    AND C.SourceDb='RAAv1'
+  left
+  join Stg.Avms_AgeAtApplication SAA
+    on SAA.ApplicationId=AA.ApplicationId
  UNION
  SELECT C.CandidateId                       as CandidateId
 	   ,v.VacancyId                         as VacancyId
 	   ,-1                                  as ApplicationStatusTypeId       
 	   ,AR.ApplicationStatus                as ApplicationStatusDesc
+	   ,CASE WHEN [FCD].[DateOfBirth] IS NULL	THEN - 1
+		      WHEN DATEPART([M], dbo.Fn_ConvertTimeStampToDateTime([FCD].[DateOfBirth])) > DATEPART([M], dbo.Fn_ConvertTimeStampToDateTime(ar.CreatedDateTimeStamp))
+			    OR DATEPART([M], dbo.Fn_ConvertTimeStampToDateTime([FCD].[DateOfBirth])) = DATEPART([M], dbo.Fn_ConvertTimeStampToDateTime(ar.CreatedDateTimeStamp))
+			   AND DATEPART([DD],dbo.Fn_ConvertTimeStampToDateTime([FCD].[DateOfBirth])) > DATEPART([DD], dbo.Fn_ConvertTimeStampToDateTime(ar.CreatedDateTimeStamp))
+			  THEN DATEDIFF(YEAR,dbo.Fn_ConvertTimeStampToDateTime([FCD].[DateOfBirth]), dbo.Fn_ConvertTimeStampToDateTime(ar.CreatedDateTimeStamp)) - 1
+		      ELSE DATEDIFF(YEAR,dbo.Fn_ConvertTimeStampToDateTime([FCD].[DateOfBirth]), dbo.Fn_ConvertTimeStampToDateTime(ar.CreatedDateTimeStamp))
+		END                                 as CandidateAgeAtApplication
 	   ,'N/A'                               as BeingSupportedBy 
 	   ,''                                  as LockedForSupportUntil
 	   ,CASE WHEN AR.IsWithDrawn='False' then 0
@@ -104,6 +116,9 @@ INSERT INTO [ASData_PL].[Va_Application]
  left
  join AsData_PL.Va_Candidate C
    on C.SourceCandidateId_v2=CAST(AR.CandidateId as Varchar(256))
+ left
+ join Stg.FAA_CandidateDob FCD
+   ON FCD.CandidateId=AR.CandidateId
 --  and C.SourceDb='RAAv2'
 
 

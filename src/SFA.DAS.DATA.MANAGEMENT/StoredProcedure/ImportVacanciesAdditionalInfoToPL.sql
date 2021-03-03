@@ -156,6 +156,48 @@ SELECT dbo.Fn_ConvertTimeStampToDateTime(CM.DateCreatedTimeStamp)      as DateCr
 COMMIT TRANSACTION
 
 
+BEGIN TRANSACTION
+
+DELETE FROM ASData_PL.va_VacancyReviews
+
+
+INSERT INTO ASData_PL.va_VacancyReviews
+(EmployerAccountId 
+  ,CandidateId 
+  ,CreatedDateTime 
+  ,SubmittedDateTime 
+  ,VacancyReference 
+  ,VacancyId 
+  ,ManualOutcome   
+  ,ManualQaFieldIndicator 
+  ,ManualQaFieldChangeRequested 
+  ,ManualQaComment 
+  ,SourceVacancyReviewId 
+  ,SourceDb 
+  )
+SELECT RVR.EmployerAccountId
+      ,vc.CandidateId
+	  ,dbo.Fn_ConvertTimeStampToDateTime(rvr.CreatedTimeStamp)
+	  ,dbo.Fn_ConvertTimeStampToDateTime(rvr.SubmittedTimeStamp)
+	  ,rvr.VacancyReference
+	  ,vv.VacancyId
+	  ,rvr.ManualOutcome
+	  ,rvr.ManualQaFieldIndicator
+	  ,rvr.ManualQaFieldChangeRequested
+	  ,rvr.ManualQaComment
+	  ,RVR.BinaryId
+	  ,'RAAv2'
+  FROM Stg.RAA_VacancyReviews RVR
+  LEFT
+  JOIN ASData_PL.Va_Vacancy vv
+    on vv.VacancyReferenceNumber=RVR.VacancyReference
+  LEFT
+  JOIN ASData_PL.Va_Candidate vc
+    on vc.SourceCandidateId_v2=RVR.UserId
+
+COMMIT TRANSACTION
+
+
 
 
 

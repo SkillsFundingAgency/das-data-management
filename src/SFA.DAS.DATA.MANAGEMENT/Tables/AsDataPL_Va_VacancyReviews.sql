@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[AsDataPL_Va_VacancyReviews]
+﻿CREATE TABLE [AsData_PL].[Va_VacancyReviews]
 (
    VacancyReviewId BIGINT IDENTITY(1,1) NOT NULL PRIMARY KEY
   ,EmployerAccountId VARCHAR(256)

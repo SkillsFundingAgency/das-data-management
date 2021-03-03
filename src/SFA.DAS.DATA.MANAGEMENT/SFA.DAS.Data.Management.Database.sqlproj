@@ -312,5 +312,6 @@
     <Build Include="StoredProcedure\ImportVacanciesAdditionalInfoToPL.sql" />
     <Build Include="Tables\AsDataPL_Va_ContactMessages.sql" />
     <Build Include="Tables\AsDataPL_Va_SavedSearches.sql" />
+    <Build Include="Tables\AsDataPL_Va_VacancyReviews.sql" />
   </ItemGroup>
 </Project>

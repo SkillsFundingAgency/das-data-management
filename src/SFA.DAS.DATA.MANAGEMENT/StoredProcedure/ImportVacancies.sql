@@ -417,7 +417,12 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
              END                                                   as [Framework/Standard Name] 
           ,EL.EducationLevelFullName+' '+EL.EducationLevelNamev2   as EducationLevel
 		  ,v.[WageType]                                            as WageType
-          ,v.FixedWageYearlyAmount +' '+ISNULL(v.WageAdditionalInformation,'') as WageText
+          ,(CASE WHEN v.WageType='NationalMinimumWageForApprentices'
+		        THEN AMW.WageRateInPounds*52*v.WeeklyHours
+				WHEN v.WageType='NationalMinimumWage'
+				THEN NMR.MinWage*52*v.WeeklyHours + '-' + NMR.MaxWage*52*v.WeeklyHours
+				ELSE v.FixedWageYearlyAmount 
+	        END) +' '+ISNULL(v.WageAdditionalInformation,'') as WageText
           -- ,[WageUnitId]
           ,'Annually'                                              as WageUnitDesc
           ,v.WorkingWeekDescription                                as WorkingWeek
@@ -490,6 +495,17 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
 	  JOIN ASData_PL.Va_ApprenticeshipFrameWorkAndOccupation AF
         ON AF.ProgrammeId_v2=V.ProgrammeId
 	   AND AF.SourceDb='RAAv2'
+	  LEFT
+	  JOIN (SELECT StartDate,EndDate,WageRateInPounds
+             FROM  Mtd.NationalMinimumWageRates
+            WHERE AgeGroup='Apprentice') AMW  -- ApprenticeMinimumWage
+		ON dbo.Fn_ConvertTimeStampToDateTime(v.LiveDateTimeStamp) >= AMW.StartDate AND dbo.Fn_ConvertTimeStampToDateTime(v.LiveDateTimeStamp) <= AMW.EndDate
+	  LEFT
+	  JOIN (SELECT StartDate,EndDate, MIN(WageRateInPounds) MinWage,MAX(WageRateInPounds) MaxWage
+              FROM  Mtd.NationalMinimumWageRates
+             WHERE AgeGroup<>'Apprentice'
+          GROUP BY StartDate,EndDate) NMR
+		ON dbo.Fn_ConvertTimeStampToDateTime(v.LiveDateTimeStamp) >= NWR.StartDate AND dbo.Fn_ConvertTimeStampToDateTime(v.LiveDateTimeStamp) <= NWR.EndDate
 
 
 

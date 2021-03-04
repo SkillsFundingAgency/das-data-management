@@ -164,7 +164,7 @@
     <Build Include="StoredProcedure\PopulateSourceDbMetadataForImport.sql" />
     <Build Include="Tables\Mtd_SourceConfigForImport.sql" />
     <Build Include="StoredProcedure\DetectAndLogSourceDbChanges.sql" />
-    <Build Include="Tables\AsDataPL_Va_Application.sql" />
+    <None Include="Tables\AsDataPL_Va_Application.sql" />
     <Build Include="Tables\AsDataPL_Va_ApprenticeshipFrameWorkAndOccupation.sql" />
     <Build Include="Tables\AsDataPL_Va_ApprenticeshipStandard.sql" />
     <Build Include="Tables\AsDataPL_Va_Candidate.sql" />

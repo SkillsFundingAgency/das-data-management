@@ -505,7 +505,7 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
               FROM  Mtd.NationalMinimumWageRates
              WHERE AgeGroup<>'Apprentice'
           GROUP BY StartDate,EndDate) NMR
-		ON dbo.Fn_ConvertTimeStampToDateTime(v.LiveDateTimeStamp) >= NWR.StartDate AND dbo.Fn_ConvertTimeStampToDateTime(v.LiveDateTimeStamp) <= NWR.EndDate
+		ON dbo.Fn_ConvertTimeStampToDateTime(v.LiveDateTimeStamp) >= NMR.StartDate AND dbo.Fn_ConvertTimeStampToDateTime(v.LiveDateTimeStamp) <= NMR.EndDate
 
 
 

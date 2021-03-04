@@ -313,5 +313,7 @@
     <Build Include="Tables\AsDataPL_Va_ContactMessages.sql" />
     <Build Include="Tables\AsDataPL_Va_SavedSearches.sql" />
     <Build Include="Tables\AsDataPL_Va_VacancyReviews.sql" />
+    <Build Include="Tables\Mtd_NationalMinimumWageRates.sql" />
+    <Build Include="StoredProcedure\PopulateMetadataNationalMinimumWageRates.sql" />
   </ItemGroup>
 </Project>

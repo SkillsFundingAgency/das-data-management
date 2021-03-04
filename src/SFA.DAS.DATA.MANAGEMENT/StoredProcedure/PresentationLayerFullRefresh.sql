@@ -86,6 +86,16 @@ DECLARE @SQLCode NVARCHAR(MAX)
 SELECT @SQLCode=SQLCode FROM Stg.SQLCode WHERE Type='DBPP'
 
 
+/* Check If Model Data Is On and there is no column to Mask then Ignore the Refresh */
+
+IF ((SELECT SCFI_Id FROM Mtd.SourceConfigForImport SCFI
+     WHERE SourceDatabaseName=@SourceDatabaseName
+    AND SourceTableName=@ConfigTable
+    AND SourceSchemaName=@ConfigSchema
+	AND ISNULL(ColumnNamesToMask,'')='') IS NOT NULL)
+RETURN;
+
+
 /* Check If ColumnNameToMask exists And Navigate to the Logic*/
 IF OBJECT_ID('tempdb..#TColList') IS NOT NULL DROP TABLE #TColList
 

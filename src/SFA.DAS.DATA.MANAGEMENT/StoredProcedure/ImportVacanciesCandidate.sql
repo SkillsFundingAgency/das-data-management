@@ -99,7 +99,14 @@ SELECT C.CandidateStatusTypeId
  union
  SELECT DISTINCT 
        -1
-      ,'Registered'as CandidateStatusDesc
+      ,CASE WHEN FU.Status=0 THEN 'Unknown'
+	        WHEN FU.Status=10 THEN 'PendingActivation'
+			WHEN FU.Status=20 THEN 'Active'
+			WHEN FU.Status=30 THEN 'Inactive'
+			WHEN FU.Status=90 THEN 'Locked'
+			WHEN FU.Status=100 THEN 'Dormant'
+			WHEN FU.Status=999 THEN 'PendingDeletion'
+		END AS CandidateStatusDesc
 	  ,CASE WHEN CHARINDEX(' ',PC.Postcode)<>0 THEN SUBSTRING(PostCode,1,CHARINDEX(' ',Postcode)) 
 	        ELSE SUBSTRING(Postcode,1,LEN(Postcode)-3) 
 	    END as PostCode

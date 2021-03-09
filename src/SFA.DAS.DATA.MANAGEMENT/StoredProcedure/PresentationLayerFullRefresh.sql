@@ -39,7 +39,9 @@ IF ((SELECT SCFI_Id FROM Mtd.SourceConfigForImport SCFI
      WHERE SourceDatabaseName=@SourceDatabaseName
     AND SourceTableName=@ConfigTable
     AND SourceSchemaName=@ConfigSchema
-	AND ISNULL(ColumnNamesToMask,'')='') IS NOT NULL)
+	AND ISNULL(ColumnNamesToMask,'')=''
+	AND ISNULL(ModelDataToPL,0)=1) IS NOT NULL)
+
 RETURN;
 
 DECLARE @SPName Varchar(255)

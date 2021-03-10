@@ -172,6 +172,25 @@ VALUES
 ('CRS','SectorSubjectAreaTier2','dbo','[SectorSubjectAreaTier2],[SectorSubjectAreaTier2Desc],[EffectiveFrom],[EffectiveTo]','','[Name]',1,0,'FAT2_SectorSubjectAreaTier2'),
 ('CRS','Standard','dbo','[Id],[Level],[IntegratedDegree],[OverviewOfRole],[RouteId],[Keywords],[TypicalJobTitles],[StandardPageUrl],[Version],[RegulatedBody],[Skills],[Knowledge],[Behaviours],[Duties],[CoreAndOptions]','','[Title]',1,1,'FAT2_StandardSector')
 
+/* Roatp Import Configuration */
+
+INSERT INTO Mtd.SourceConfigForImport
+(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)
+VALUES
+   ('Apply','Apply','NA','[ID],[ApplicationId],[OrganisationId],[ReferenceNumber],[ApplicationSubmittedOn],[ApplicationSubmittedBy],[ProviderRoute],[ProviderRouteName],[ApplicationStatus],[OutcomeDateTime],[GatewayReviewStatus],[AssessorReviewStatus],[ModerationStatus],[ModeratorClarificationRequestedOn],[Assessor1Name],[Assessor2Name],[FinancialReviewStatus],[FinancialClarificationRequestedOn],[CreatedAt],[UpdatedAt],[DeletedAt]','','[UKPRN],[OrganisationName],[TradingName],[ApplicationSubmittedBy],[Assessor1Name],[Assessor2Name],[FinancialClarificationRequestedBy],[AssessorName]',0,1
+   ,'SELECT Id,ApplicationId,OrganisationId,UKPRN,JSON_VALUE(ApplyData,''''$.ApplyDetails.ReferenceNumber'''') ReferenceNumber,JSON_VALUE(ApplyData,''''$.ApplyDetails.OrganisationName'''') OrganisationName,JSON_VALUE(ApplyData,''''$.ApplyDetails.TradingName'''') TradingName,JSON_VALUE(ApplyData,''''$.ApplyDetails.ProviderRoute'''') ProviderRoute
+  ,JSON_VALUE(ApplyData,''''$.ApplyDetails.ApplicationSubmittedBy'''') ApplicationSubmittedBy,JSON_VALUE(ApplyData,''''$.ApplyDetails.ApplicationSubmittedOn'''') ApplicattionSubmittedOn,JSON_VALUE(ApplyData,''''$.ApplyDetails.ProviderRouteName'''') ProviderRouteName  ,ApplicationStatus,JSON_VALUE(ApplyData,''''$.GatewayReviewDetails.OutcomeDateTime'''') OutcomeDateTime,GatewayReviewStatus,AssessorReviewStatus,ModerationStatus,JSON_VALUE(ApplyData,''''$.ModeratorReviewDetails.ClarificationRequestedOn'''') ModeratorClarificationRequestedOn
+  ,Assessor1Name,Assessor2Name,FinancialReviewStatus,JSON_VALUE(ApplyData,''''$.FinancialReviewDetails.ClarificationRequestedBy'''') FinancialClarificationRequestedBy,JSON_VALUE(ApplyData,''''$.FinancialReviewDetails.ClarificationRequestedOn'''') FinancialClarificationRequestedOn
+  ,JSON_VALUE(ApplyData,''''$.FinancialReviewDetails.GradedBy'''') AssessorName ,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy,DeletedAt,DeletedBy from dbo.Apply','RP_Apply')
+,('Organisation','Organisation','NA','[Id],[OrganisationType],[Status],[RoEPAOApproved],[RoATPApproved],[CreatedAt],[UpdatedAt],[DeletedAt],[CreatedBy],[UpdatedBy],[DeletedBy],[OrganisationReferenceType],[EndPointAssessmentOrgId],[VerificationId],[PrimaryVerificationSource],[VerificationId],[PrimaryVerificationSource]',''
+,'[Name],[OrganisationUKPRN],[UkprnOnRegister],[PostCode],[ContactNumber],[OrganisationLegalName],[OrganisationTradingName],[VerificationAuthority]',0,1
+   ,'SELECT [Id],[Name],[OrganisationType],[OrganisationUKPRN],[Status],[RoEPAOApproved],[RoATPApproved],[CreatedAt],[CreatedBy],[UpdatedAt],[UpdatedBy],[DeletedAt],[DeletedBy]
+	  ,JSON_VALUE(OrganisationDetails,''''$.RoatpDetails.UkprnOnRegister'''') UkprnOnRegister,JSON_VALUE(OrganisationDetails,''''$.Postcode'''') Postcode,JSON_VALUE(OrganisationDetails,''''$.UKRLPDetails.ContactNumber'''') ContactNumber
+	  ,JSON_VALUE(OrganisationDetails,''''$.OrganisationReferenceType'''') OrganisationReferenceType,JSON_VALUE(OrganisationDetails,''''$.LegalName'''') OrganisationLegalName,JSON_VALUE(OrganisationDetails,''''$.TradingName'''') OrganisationTradingName
+	  ,JSON_VALUE(OrganisationDetails,''''$.EndPointAssessmentOrgId'''') EndPointAssessmentOrgId,JSON_VALUE(OrganisationDetails,''''$.UKRLPDetails.VerificationDetails[0].VerificationAuthority'''') VerificationAuthority,JSON_VALUE(OrganisationDetails,''''$.UKRLPDetails.VerificationDetails[0].VerificationId'''') VerificationId
+	  ,JSON_VALUE(OrganisationDetails,''''$.UKRLPDetails.VerificationDetails[0].PrimaryVerificationSource'''') PrimaryVerificationSource
+  FROM [dbo].[Organisations]','RP_Organisation')
+ 
 
 
 COMMIT TRANSACTION

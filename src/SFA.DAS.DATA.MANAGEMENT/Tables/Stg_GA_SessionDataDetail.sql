@@ -46,7 +46,8 @@
 		[CD_EmployerId]									[NVarchar](500) NULL, 
 		[CD_ESFAToken]									[NVarchar](500) NULL, 
 		[CD_LegalEntityId]								[NVarchar](500) NULL,
-		[CD_IsCookieless]								[NVarchar](10) NULL,
+		[CD_IsCookieLess]								[SmallInt],
+		[ESFATokenFLag]									[SmallInt],
 		[FileName]										[Nvarchar](500) NULL,
 		[StgImportDate]									[datetime2](7) DEFAULT (getdate())
 )

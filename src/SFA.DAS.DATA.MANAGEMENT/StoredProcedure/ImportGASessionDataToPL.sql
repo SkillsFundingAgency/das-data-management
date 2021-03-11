@@ -64,7 +64,7 @@ BEGIN TRY
 					[Hits_Page_PagePath],[Hits_Time],[Hits_IsEntrance],
 					[Hits_IsExit],[Hits_Type],[EmployerId],[ID2],[ID3],[ESFAToken],[EventCategory],[EventAction],[EventLabel_ESFAToken],
 					[EventLabel_Keyword],[EventLabel_Postcode],[EventLabel_WithinDistance],[EventLabel_Level],
-					[CD_ClientId],[CD_SearchTerms],[CD_UserId],[CD_LevyFlag],[CD_EmployerId],[CD_ESFAToken],[CD_LegalEntityId],[CD_IsCookieless],										
+					[CD_ClientId],[CD_SearchTerms],[CD_UserId],[CD_LevyFlag],[CD_EmployerId],[CD_ESFAToken],[CD_LegalEntityId],[CD_IsCookieless],[ESFATokenFlag],										
 					[SignIn],[SignedAgreement],[SignUp],[ReservedFunding],[Commitment],[CreatedAccount],[GovernmentGateway],[AORN],[ApplyNowIncentives],
 					[IncentivesApplyNow],[GA_ImportDate]
 				)
@@ -74,8 +74,8 @@ BEGIN TRY
 				[Hits_Page_PagePath],[Hits_Time],[Hits_IsEntrance],
 				[Hits_IsExit],[EmployerId],[ID2],[ID3],trim(replace(upper([ESFAToken]),'P','')) As [ESFAToken],[EventCategory],[EventAction],trim(replace(upper([EventLabel_ESFAToken]),'P','')) As [EventLabel_ESFAToken],
 				[EventLabel_Keyword],[EventLabel_Postcode],[EventLabel_WithinDistance],[EventLabel_Level],
-				[CD_ClientId],[CD_SearchTerms],[CD_UserId],[CD_LevyFlag],[CD_EmployerId],trim(replace(upper([CD_ESFAToken]),'P','')) As [CD_ESFAToken],[CD_LegalEntityId],[CD_IsCookieless],				
-				case when hits_page_pagePath like '%accounts/agreements/page-company-homepage%' and Preced_hits_page_pagePath  like '%page-service-start%'  Then 1 Else 0 End SignIn,
+				[CD_ClientId],[CD_SearchTerms],[CD_UserId],[CD_LevyFlag],[CD_EmployerId],trim(replace(upper([CD_ESFAToken]),'P','')) As [CD_ESFAToken],[CD_LegalEntityId],[CD_IsCookieless],[ESFATokenFlag],				
+				case when hits_page_pagePath like '%accounts/agreements/page-company-homepage%' and hits_page_pagePath  like '%page-auth-homepage%'  Then 1 Else 0 End SignIn,
                 case when hits_page_pagePath like '%accounts/agreements/accepted-employer-agreement%' Then 1 Else 0 End SignedAgreement,
                 case when (
                         Case when hits_page_pagePath like '%page-confirm-identity' Then 1 
@@ -119,7 +119,7 @@ BEGIN TRY
 					[Hits_Page_PagePath],[Hits_Time],[Hits_IsEntrance],
 					[Hits_IsExit],[Hits_Type],[EmployerId],[ID2],[ID3],[ESFAToken],[EventCategory],[EventAction],[EventLabel_ESFAToken],
 					[EventLabel_Keyword],[EventLabel_Postcode],[EventLabel_WithinDistance],[EventLabel_Level],
-					[CD_ClientId],[CD_SearchTerms],[CD_UserId],[CD_LevyFlag],[CD_EmployerId],[CD_ESFAToken],[CD_LegalEntityId],[CD_IsCookieless],										
+					[CD_ClientId],[CD_SearchTerms],[CD_UserId],[CD_LevyFlag],[CD_EmployerId],[CD_ESFAToken],[CD_LegalEntityId],[CD_IsCookieless],[ESFATokenFlag],										
 					[SignIn],[SignedAgreement],[SignUp],[ReservedFunding],[Commitment],[CreatedAccount],[GovernmentGateway],[AORN],[ApplyNowIncentives],
 					[IncentivesApplyNow],[GA_ImportDate]
 				)
@@ -129,11 +129,11 @@ BEGIN TRY
 				[Hits_Page_PagePath],[Hits_Time],[Hits_IsEntrance],
 				[Hits_IsExit],[EmployerId],[ID2],[ID3],trim(replace(upper([ESFAToken]),'P','')) As [ESFAToken],[EventCategory],[EventAction],trim(replace(upper([EventLabel_ESFAToken]),'P','')) As [EventLabel_ESFAToken],
 				[EventLabel_Keyword],[EventLabel_Postcode],[EventLabel_WithinDistance],[EventLabel_Level],
-				[CD_ClientId],[CD_SearchTerms],[CD_UserId],[CD_LevyFlag],[CD_EmployerId],trim(replace(upper([CD_ESFAToken]),'P','')) As [CD_ESFAToken],[CD_LegalEntityId],[CD_IsCookieless],				
-				case when hits_page_pagePath like '%accounts/agreements/page-company-homepage%' and Preced_hits_page_pagePath  like '%page-service-start%'  Then 1 Else 0 End SignIn,
+				[CD_ClientId],[CD_SearchTerms],[CD_UserId],[CD_LevyFlag],[CD_EmployerId],trim(replace(upper([CD_ESFAToken]),'P','')) As [CD_ESFAToken],[CD_LegalEntityId],[CD_IsCookieless],[ESFATokenFlag],				
+				case when hits_page_pagePath like '%accounts/agreements/page-company-homepage%' and hits_page_pagePath  like '%page-auth-homepage%'  Then 1 Else 0 End SignIn,
                 case when hits_page_pagePath like '%accounts/agreements/accepted-employer-agreement%' Then 1 Else 0 End SignedAgreement,
                 case when (
-                       Case when hits_page_pagePath like '%page-confirm-identity' Then 1 
+                        Case when hits_page_pagePath like '%page-confirm-identity' Then 1 
                             when hits_page_pagePath like '%service/getApprenticeshipFunding/get-government-funding' Then 2 
                             Else 0 
                         End
@@ -161,7 +161,7 @@ BEGIN TRY
                            ) = 2 Then 1 Else 0 End 
                 as AORN,
                 case when hits_page_hostname like '%employer-incentives.manage-apprenticeships.service.gov.uk%' and  hits_page_pagepath like '%/application-complete/%'  Then 1 Else 0 End as ApplyNowIncentives,  
-				case when hits_page_pagepath like '%engage.apprenticeships.gov.uk/Incentives_ApplyNow%' Then 1 Else 0 End As IncentivesApplyNow, 								
+				case when hits_page_pagepath like '%engage.apprenticeships.gov.uk/Incentives_ApplyNow%' Then 1 Else 0 End As IncentivesApplyNow, 
 				getdate()
 				FROM [Stg].[GA_SessionDataDetail] GAData with (nolock) JOIN #StgClientIDs ClientIDs
 				ON GAData.ClientId =  ClientIDs.ClientId

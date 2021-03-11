@@ -32,6 +32,18 @@ BEGIN TRY
 
 DECLARE @LogID int
 
+
+/* Check If Model Data Is On and there is no column to Mask then Ignore the Refresh */
+
+IF ((SELECT SCFI_Id FROM Mtd.SourceConfigForImport SCFI
+     WHERE SourceDatabaseName=@SourceDatabaseName
+    AND SourceTableName=@ConfigTable
+    AND SourceSchemaName=@ConfigSchema
+	AND ISNULL(ColumnNamesToMask,'')=''
+	AND ISNULL(ModelDataToPL,0)=1) IS NOT NULL)
+
+RETURN;
+
 DECLARE @SPName Varchar(255)
 
 /* Check to see If the Copy to Presentation Layer is not a Full Copy , If it isn't then change Logging and also execute staging Transform Logic and not Full Copy to PL */

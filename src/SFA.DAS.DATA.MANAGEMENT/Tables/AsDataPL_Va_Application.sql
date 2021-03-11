@@ -5,6 +5,7 @@
       ,[VacancyId] Bigint 
 	  ,[ApplicationStatusTypeId] Int
 	  ,[ApplicationStatusDesc] Varchar(255)
+	  ,[CandidateAgeAtApplication] int
       ,[BeingSupportedBy] nvarchar(50)
       ,[LockedForSupportUntil] datetime
       ,[IsWithdrawn] bit

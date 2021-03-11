@@ -17,9 +17,12 @@
       ,[LockedForSupportUntil_v1] datetime
       ,[AllowMarketingMessages_v1] bit
       ,[CandidateGuid] varchar(256)
-      ,[Age] int
+      ,[AgeAtRegistration] int	  
+	  ,[RegistrationDate] DateTime2
+	  ,[LastAccessedDate] DateTime2
 	  ,[SourceDb] varchar(100)
 	  ,[SourceCandidateId_v1] Varchar(256)
+	  ,[SourceCandidateId_v2] Varchar(256)
 	 , Foreign Key (CountyId) References [AsData_PL].[Va_County](CountyId)
 	 ,Foreign Key (LocalAuthorityId) References [AsData_PL].[Va_LocalAuthority](LocalAuthorityId)
 	  

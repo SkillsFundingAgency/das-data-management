@@ -45,7 +45,7 @@ INSERT INTO [ASData_PL].[Va_Candidate]
            ,[CandidateStatusTypeDesc]
            --,[CountyId]
            --,[CountyName]
-           --,[PostCode]
+           ,[PostCode]
            --,[LocalAuthorityId]
            --,[LocalAuthorityName]
            --,[UniqueLearnerNumber]
@@ -57,42 +57,90 @@ INSERT INTO [ASData_PL].[Va_Candidate]
            ,[LockedForSupportUntil_v1]
            ,[AllowMarketingMessages_v1]
            ,[CandidateGuid]
-         --  ,[Age]
+           ,[AgeAtRegistration]
+		   ,[RegistrationDate]
+		   ,[LastAccessedDate]
            ,[SourceDb]
-           ,[SourceCandidateId_v1])
-SELECT CandidateStatusTypeId
-      ,CASE WHEN CandidateStatusTypeId=1 THEN 'Pre-Registered'
-            WHEN CandidateStatusTypeId=2 THEN 'Activated'
-			WHEN CandidateStatusTypeId=3 THEN 'Registered'
-            WHEN CandidateStatusTypeId=4 THEN 'Suspended'
-            WHEN CandidateStatusTypeId=5 THEN 'Pending Delete'
-            WHEN CandidateStatusTypeId=6 THEN 'Deleted'
+           ,[SourceCandidateId_v1]
+		   ,[SourceCandidateId_v2])
+SELECT C.CandidateStatusTypeId
+      ,CASE WHEN c.CandidateStatusTypeId=1 THEN 'Pre-Registered'
+            WHEN c.CandidateStatusTypeId=2 THEN 'Activated'
+			WHEN c.CandidateStatusTypeId=3 THEN 'Registered'
+            WHEN c.CandidateStatusTypeId=4 THEN 'Suspended'
+            WHEN c.CandidateStatusTypeId=5 THEN 'Pending Delete'
+            WHEN c.CandidateStatusTypeId=6 THEN 'Deleted'
 			ELSE 'Unknown'
 		END
-	   ,ApplicationLimitEnforced
-	   ,LastAccessedDate
-	   ,LastAccessedManageApplications
-	   ,BeingSupportedBy
-	   ,LockedForSupportUntil
-	   ,AllowMarketingMessages
-	   ,Cast(CandidateGuid as Varchar(256))
+	   ,capc.PostCode
+	   ,c.ApplicationLimitEnforced
+	   ,c.LastAccessedDate
+	   ,c.LastAccessedManageApplications
+	   ,c.BeingSupportedBy
+	   ,c.LockedForSupportUntil
+	   ,c.AllowMarketingMessages
+	   ,Cast(c.CandidateGuid as Varchar(256))
+	   ,CAPC.AgeAtRegistration
+	   ,convert(datetime2,ch.RegisteredDate)
+	   ,convert(datetime2,c.LastAccessedDate)
 	   ,'RAAv1'
-	   ,CandidateId
+	   ,c.CandidateId
+	   ,CD.CandidateId
   FROM Stg.Avms_Candidate C
+  LEFT
+  JOIN Stg.FAA_Candidates CD
+    ON CD.LegacyCandidateId=C.CandidateId
+  left
+  join (SELECT candidateId,EVENTDATE as RegisteredDate from Stg.Avms_candidatehistory where Comment='NAS Exemplar registered Candidate.') ch
+    on c.CandidateId= ch.CandidateId
+  left
+  join Stg.Avms_CandidateAgePostCode CAPC
+    ON CAPC.CandidateId=c.CandidateId
  union
-SELECT DISTINCT 
+ SELECT DISTINCT 
        -1
-      ,'N/A'as CandidateStatusDesc
+      ,CASE WHEN FU.Status=0 THEN 'Unknown'
+	        WHEN FU.Status=10 THEN 'PendingActivation'
+			WHEN FU.Status=20 THEN 'Active'
+			WHEN FU.Status=30 THEN 'Inactive'
+			WHEN FU.Status=90 THEN 'Locked'
+			WHEN FU.Status=100 THEN 'Dormant'
+			WHEN FU.Status=999 THEN 'PendingDeletion'
+		END AS CandidateStatusDesc
+	  ,CASE WHEN CHARINDEX(' ',PC.Postcode)<>0 THEN SUBSTRING(PostCode,1,CHARINDEX(' ',Postcode)) 
+	        ELSE SUBSTRING(Postcode,1,LEN(Postcode)-3) 
+	    END as PostCode
 	  ,NULL as ApplicationLimitEnforced
 	  ,'' as LastAccessedDate
 	  ,'' as LastAccessedManageApplications
 	  ,'N/A' as BeingSupportedBy
 	  ,'' as LockedForSupportUntil
 	  ,NULL as AllowMarketingMessages
-	  ,CAST(CandidateId as Varchar(256))
+	  ,CAST(FC.CandidateId as Varchar(256))
+	  ,CASE WHEN [DB].[DateOfBirth] IS NULL	THEN - 1
+		      WHEN DATEPART([M], dbo.Fn_ConvertTimeStampToDateTime([DB].[DateOfBirth])) > DATEPART([M], dbo.Fn_ConvertTimeStampToDateTime(FU.ActivationTimeStamp))
+			    OR DATEPART([M], dbo.Fn_ConvertTimeStampToDateTime([DB].[DateOfBirth])) = DATEPART([M], dbo.Fn_ConvertTimeStampToDateTime(FU.ActivationTimeStamp))
+			   AND DATEPART([DD],dbo.Fn_ConvertTimeStampToDateTime([DB].[DateOfBirth])) > DATEPART([DD], dbo.Fn_ConvertTimeStampToDateTime(FU.ActivationTimeStamp))
+			  THEN DATEDIFF(YEAR,dbo.Fn_ConvertTimeStampToDateTime([DB].[DateOfBirth]), dbo.Fn_ConvertTimeStampToDateTime(FU.ActivationTimeStamp)) - 1
+		      ELSE DATEDIFF(YEAR,dbo.Fn_ConvertTimeStampToDateTime([DB].[DateOfBirth]), dbo.Fn_ConvertTimeStampToDateTime(FU.ActivationTimeStamp))
+		END   as AgeAtRegistration
+	  ,dbo.Fn_ConvertTimeStampToDateTime([fu].[ActivationTimeStamp])
+	  ,dbo.Fn_ConvertTimeStampToDateTime([fu].[LastLogInTimeStamp])
 	  ,'RAAv2'
 	  ,''
-   FROM Stg.RAA_ApplicationReviews AR
+	  ,FC.CandidateId
+   FROM Stg.FAA_Candidates FC
+   LEFT
+   JOIN Stg.FAA_CandidatePostcode PC
+     ON PC.CandidateId=FC.CandidateId
+   LEFT
+   JOIN Stg.FAA_CandidateDob Db
+     ON Db.CandidateId=FC.CandidateId
+   LEFT
+   JOIN Stg.FAA_Users FU
+     ON FU.BinaryId=fc.CandidateId
+  WHERE NOT EXISTS (SELECT 1 FROM Stg.Avms_Candidate AC
+                     WHERE AC.CandidateId=FC.LegacyCandidateId)
 
 
    

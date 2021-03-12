@@ -748,3 +748,8 @@ IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='Payments_SS'
 BEGIN
      DROP TABLE dbo.Payments_SS
 END
+
+
+TRUNCATE TABLE [Stg].[GA_SessionDataDetail]
+
+TRUNCATE TABLE [ASData_PL].[GA_SessionData]

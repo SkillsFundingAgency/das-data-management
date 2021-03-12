@@ -750,6 +750,3 @@ BEGIN
 END
 
 
-TRUNCATE TABLE [Stg].[GA_SessionDataDetail]
-
-TRUNCATE TABLE [ASData_PL].[GA_SessionData]

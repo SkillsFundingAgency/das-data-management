@@ -479,9 +479,3 @@ IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
 		      AND TABLE_SCHEMA=N'Stg'
 	      )
 DROP TABLE [Stg].[GA_SessionData]
-
-
-
-TRUNCATE TABLE [Stg].[GA_SessionDataDetail]
-
-TRUNCATE TABLE [ASData_PL].[GA_SessionData]

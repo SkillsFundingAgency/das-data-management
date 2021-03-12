@@ -70,6 +70,7 @@ AS
 						, ROW_NUMBER() OVER ( PARTITION BY LegalEntityId, HashedId ORDER BY LegalEntityId, HashedId, 
 						CASE  WHEN isnull( ale.Deleted,convert(datetime, '01 Jan 1900' )) > ale.Created 
 						THEN Convert(DATE, ale.Deleted) ELSE Convert(DATE, ale.Created) END desc) AS RowNumber
+						, convert(bit, a.ApprenticeshipEmployerType)                                                        as ApprenticeshipEmployerType
 				FROM [ASData_PL].[Acc_Account] a
 				JOIN [ASData_PL].[Acc_AccountLegalEntity] ale ON a.ID = ale.AccountID
 				LEFT JOIN [ASData_PL].[Acc_LegalEntity] le ON ale.LegalEntityID = le.ID
@@ -90,7 +91,8 @@ AS
 			   LegalEntityRAGRating,
 			   UpdateDateTime,
 			   UpdateDate,
-			   Flag_Latest
+			   Flag_Latest,
+			   ApprenticeshipEmployerType
 		FROM cte_EmpLEs 
 		WHERE Rownumber = 1
 		GO

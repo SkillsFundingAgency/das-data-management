@@ -130,10 +130,13 @@
 		  , CAST ( P.CollectionPeriodName AS nvarchar(20) )						AS CollectionPeriodName
 		  , CAST ( P.CollectionPeriodMonth AS nvarchar(10) )					AS CollectionPeriodMonth
 		  , CAST ( P.CollectionPeriodYear AS nvarchar(10) )						AS CollectionPeriodYear
+		  , Convert(bit,Ct.ApprenticeshipEmployerTypeOnApproval)  as ApprenticeshipEmployerTypeOnApproval
 		FROM cte_Payment P 
 		LEFT JOIN [ASData_PL].[Acc_Account] Acct ON Acct.Id = P.AccountId
 		LEFT JOIN [ASData_PL].[Comt_Apprenticeship] C
 		  ON P.ApprenticeshipId = C.ID
+        LEFT JOIN [ASData_PL].[Comt_Commitment] Ct
+          ON C.CommitmentID = Ct.Id
 		LEFT JOIN -- transfers
 		( SELECT DISTINCT 
 			SenderAccountId

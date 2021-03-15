@@ -117,7 +117,7 @@ BEGIN
 INSERT INTO #TColList
 (OrigList,TransformList)
 SELECT value as OrigList
-       ,'convert(nvarchar(512),'+replace(replace(replace(@SQLCode,'T1','['+SUBSTRING(REPLACE(Value,'[',''),1,2)+SUBSTRING(REVERSE(REPLACE(Value,']','')),1,2)+substring(value,len(value)/2,2)+']'),'K1','0x'+@K1),'K2','0x'+@k2)+')'+' as '+value as TransformList
+       ,'convert(nvarchar(512),'+replace(replace(replace(@SQLCode,'T1','['+SUBSTRING(REPLACE(Value,'[',''),1,2)+SUBSTRING(REVERSE(REPLACE(Value,']','')),1,2)+CASE WHEN len(REPLACE(REPLACE(value,'[',''),']',''))>4 then SUBSTRING(value,len(value)/2,4) else SUBSTRING(value,len(value)/2,2) end+']'),'K1','0x'+@K1),'K2','0x'+@k2)+')'+' as '+value as TransformList
    FROM Mtd.SourceConfigForImport SCFI
   CROSS APPLY string_split(ColumnNamesToMask,',')
   WHERE SourceDatabaseName=@SourceDatabaseName

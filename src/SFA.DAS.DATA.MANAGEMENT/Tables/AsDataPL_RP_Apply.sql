@@ -30,4 +30,5 @@
    ,UpdatedBy nvarchar(256)
    ,DeletedAt datetime2(7)
    ,DeletedBy nvarchar(256)
+   ,AsDm_UpdatedDateTime DateTime2 default(getdate())
 )

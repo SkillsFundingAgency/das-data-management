@@ -23,4 +23,5 @@
   ,VerificationAuthority nvarchar(256)
   ,VerificationId nvarchar(50)
   ,PrimaryVerificationSource nvarchar(20)
+  ,AsDm_UpdatedDateTime DateTime2 default(getdate())
 )

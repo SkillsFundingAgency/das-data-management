@@ -19,6 +19,7 @@
    ,ModeratorClarificationRequestedOn datetime2
    ,Assessor1Name nvarchar(256)
    ,Assessor2Name nvarchar(256)
+   ,AssessorName nvarchar(256)
    ,FinancialReviewStatus nvarchar(20)
    ,FinancialClarificationRequestedBy nvarchar(256)
    ,FinancialClarificationRequestedOn datetime2(7)

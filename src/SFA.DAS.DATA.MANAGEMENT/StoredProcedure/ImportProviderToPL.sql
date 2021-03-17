@@ -37,28 +37,28 @@ BEGIN TRY
 
 				DELETE FROM [ASData_PL].[Provider]
 
-				INSERT [ASData_PL].[Provider]
-				(																		
-						[UkPrn],
-						[Name],
-						[TradingName],
-						[EmployerSatisfaction],
-						[LearnerSatisfaction],
-						[Email],
-						[Created],
-						[Updated]												
-				)
-				select 						
-						coalesce(ComtProvider.UkPrn,FAT2Provider.UkPrn),
-						coalesce(ComtProvider.Name,FAT2Provider.Name),
-						FAT2Provider.TradingName,
-						FAT2Provider.EmployerSatisfaction,
-						FAT2Provider.LearnerSatisfaction,
-						FAT2Provider.Email,
-						ComtProvider.[Created],
-						ComtProvider.[Updated] 
-				From	[Stg].[FAT2_Provider] FAT2Provider FULL OUTER JOIN stg.Comt_Providers  ComtProvider
-				ON		FAT2Provider.UkPrn = ComtProvider.UKPRN  AND FAT2Provider.Name = ComtProvider.Name 				
+				--INSERT [ASData_PL].[Provider]
+				--(																		
+				--		[UkPrn],
+				--		[Name],
+				--		[TradingName],
+				--		[EmployerSatisfaction],
+				--		[LearnerSatisfaction],
+				--		[Email],
+				--		[Created],
+				--		[Updated]												
+				--)
+				--select 						
+				--		coalesce(ComtProvider.UkPrn,FAT2Provider.UkPrn),
+				--		coalesce(ComtProvider.Name,FAT2Provider.Name),
+				--		FAT2Provider.TradingName,
+				--		FAT2Provider.EmployerSatisfaction,
+				--		FAT2Provider.LearnerSatisfaction,
+				--		FAT2Provider.Email,
+				--		ComtProvider.[Created],
+				--		ComtProvider.[Updated] 
+				--From	[Stg].[FAT2_Provider] FAT2Provider FULL OUTER JOIN stg.Comt_Providers  ComtProvider
+				--ON		FAT2Provider.UkPrn = ComtProvider.UKPRN  AND FAT2Provider.Name = ComtProvider.Name 				
 
 				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Comt_Providers' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 				DROP TABLE [Stg].[Comt_Providers]

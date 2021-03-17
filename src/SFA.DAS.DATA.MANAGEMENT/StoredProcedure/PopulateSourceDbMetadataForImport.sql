@@ -153,11 +153,11 @@ VALUES
 ('CRSDelivery','NationalAchievementRate','dbo','[Id],[Age],[SectorSubjectArea],[ApprenticeshipLevel],[OverallCohort],[OverallAchievementRate]','','[UkPrn]',1,0,'FAT2_NationalAchievementRate'),
 ('CRSDelivery','NationalAchievementRateOverall','dbo','[Id],[Age],[SectorSubjectArea],[ApprenticeshipLevel],[OverallCohort],[OverallAchievementRate]','','',1,0,'FAT2_NationalAchievementRateOverall'),
 ('CRSDelivery','Provider','dbo','[Id],[TradingName],[EmployerSatisfaction],[LearnerSatisfaction]','[Phone],[Website],[MarketingInfo]','[UkPrn],[Name],[Email]',1,1,'Provider'),
-('CRSDelivery','ProviderRegistration','dbo','[UkPrn],[StatusDate],[StatusId],[ProviderTypeId],[OrganisationTypeId],[FeedbackTotal],[Postcode],[Lat],[Long]','[Address1],[Address2],[Address3],[Address4],[Town]','',1,0,'FAT2_ProviderRegistration'),
-('CRSDelivery','ProviderRegistrationFeedbackAttribute','dbo','[UkPrn],[AttributeName],[Weakness],[Strength]','','',1,0,'FAT2_ProviderRegistrationFeedbackAttribute'),
-('CRSDelivery','ProviderRegistrationFeedbackRating','dbo','[UkPrn],[FeedbackName],[FeedbackCount]','','',1,0,'FAT2_ProviderRegistrationFeedbackRating'),
-('CRSDelivery','ProviderStandard','dbo','[StandardId],[UkPrn],[StandardInfoUrl]','[Phone],[ContactUrl]','[Email]',1,0,'FAT2_ProviderStandard'),
-('CRSDelivery','ProviderStandardLocation','dbo','[StandardId],[UkPrn],[LocationId],[DeliveryModes],[Radius],[National]','','',1,0,'FAT2_ProviderStandardLocation'),
+('CRSDelivery','ProviderRegistration','dbo','[UkPrn],[StatusDate],[StatusId],[ProviderTypeId],[OrganisationTypeId],[FeedbackTotal],[Postcode],[Lat],[Long]','[Address1],[Address2],[Address3],[Address4],[Town]','[LegalName]',1,0,'FAT2_ProviderRegistration'),
+('CRSDelivery','ProviderRegistrationFeedbackAttribute','dbo','[AttributeName],[Weakness],[Strength]','','[UkPrn]',1,0,'FAT2_ProviderRegistrationFeedbackAttribute'),
+('CRSDelivery','ProviderRegistrationFeedbackRating','dbo','[FeedbackName],[FeedbackCount]','','[UkPrn]',1,0,'FAT2_ProviderRegistrationFeedbackRating'),
+('CRSDelivery','ProviderStandard','dbo','[StandardId],[StandardInfoUrl]','[Phone],[ContactUrl]','[UkPrn],[Email]',1,0,'FAT2_ProviderStandard'),
+('CRSDelivery','ProviderStandardLocation','dbo','[StandardId],[LocationId],[DeliveryModes],[Radius],[National]','','[UkPrn]',1,0,'FAT2_ProviderStandardLocation'),
 ('CRSDelivery','StandardLocation','dbo','[LocationId],[Postcode]','[Phone],[Address1],[Address2],[Town],[County],[Lat],[Long]','[Name],[Email],[Website]',1,0,'FAT2_StandardLocation')
 
 

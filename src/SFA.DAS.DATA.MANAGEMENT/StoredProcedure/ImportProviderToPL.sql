@@ -38,8 +38,7 @@ BEGIN TRY
 				DELETE FROM [ASData_PL].[Provider]
 
 				INSERT [ASData_PL].[Provider]
-				(												
-						[Id],
+				(																		
 						[UkPrn],
 						[Name],
 						[TradingName],
@@ -49,8 +48,7 @@ BEGIN TRY
 						[Created],
 						[Updated]												
 				)
-				select 
-						FAT2Provider.Id,
+				select 						
 						coalesce(ComtProvider.UkPrn,FAT2Provider.UkPrn),
 						coalesce(ComtProvider.Name,FAT2Provider.Name),
 						FAT2Provider.TradingName,

@@ -119,11 +119,11 @@ INSERT INTO [ASData_PL].[Va_CandidateDetails]
 SELECT VC.CandidateId
       ,ETH.ShortCode
 	  ,ETH.FullName
-	  ,'FAA'
+	  ,'FAA-Cosmos'
   FROM Stg.FAA_CandidateDetails FCD
   JOIN ASData_PL.Va_Candidate VC
-    ON VC.CandidateGuid=FCD.CandidateId
-   AND VC.SourceDb='RAAv2'
+    ON VC.SourceCandidateId_v2=FCD.CandidateId
+--   AND VC.SourceDb='RAAv2'
   LEFT
   JOIN #tRAAv2Eth Eth
     ON FCD.EID=Eth.NID
@@ -174,26 +174,26 @@ INSERT INTO [ASData_PL].[Va_CandidateDetails]
 SELECT VC.CandidateId
       ,ETH.ShortCode
 	  ,ETH.FullName
-	  ,'RAAv1'
+	  ,'FAA-Avms'
   FROM Stg.Avms_CandidateDetails ACD
   JOIN ASData_PL.Va_Candidate VC
     ON VC.SourceCandidateId_v1=ACD.CandidateId
-   AND VC.SourceDb='RAAv1'
+   --AND VC.SourceDb='RAAv1'
   LEFT
   JOIN #tRAAv1Eth Eth
     ON ACD.EID=Eth.NID
- UNION
-SELECT VC.CandidateId
-      ,ETH.ShortCode
-	  ,ETH.FullName
-	  ,'FAA'
-  FROM Stg.FAA_CandidateDetails FCD
-  JOIN ASData_PL.Va_Candidate VC
-    ON VC.SourceCandidateId_v1=FCD.LegacyCandidateId
-   AND VC.SourceDb='RAAv1'
-  LEFT
-  JOIN #tRAAv2Eth Eth
-    ON FCD.EID=Eth.NID
+-- UNION
+--SELECT VC.CandidateId
+--      ,ETH.ShortCode
+--	  ,ETH.FullName
+--	  ,'FAA-CosmosDb'
+--  FROM Stg.FAA_CandidateDetails FCD
+--  JOIN ASData_PL.Va_Candidate VC
+--    ON VC.SourceCandidateId_v1=FCD.LegacyCandidateId
+--  -- AND VC.SourceDb='RAAv1'
+--  LEFT
+--  JOIN #tRAAv2Eth Eth
+--    ON FCD.EID=Eth.NID
 END
 ELSE RAISERROR( 'Ethnicity Lookup for RAAv1 is empty',1,1)
    

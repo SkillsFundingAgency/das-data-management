@@ -100,7 +100,7 @@ BEGIN TRY
                           ) =  2 Then 1 Else 0 End as GovernmentGateway,        
                 Case when (
                             Case when hits_page_pagePath like '%/onboarding/address/update/page-extra-confirm-organisation' Then 1 
-                                when hits_page_pagePath like '%/page-compnay-homepage%' Then 2 
+                                when hits_page_pagePath like '%/page-company-homepage%' Then 2 
                                 Else 0 
                             End
                            ) = 2 Then 1 Else 0 End 
@@ -155,7 +155,7 @@ BEGIN TRY
                           ) =  2 Then 1 Else 0 End as GovernmentGateway,        
                 Case when (
                             Case when hits_page_pagePath like '%/onboarding/address/update/page-extra-confirm-organisation' Then 1 
-                                when hits_page_pagePath like '%/page-compnay-homepage%' Then 2 
+                                when hits_page_pagePath like '%/page-company-homepage%' Then 2 
                                 Else 0 
                             End
                            ) = 2 Then 1 Else 0 End 

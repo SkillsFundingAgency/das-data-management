@@ -54,8 +54,8 @@ BEGIN TRY
 					   ,[VaApprenticeshipStandardId]
 					   ,[OverviewOfRole]
 					   ,[RouteCode]
-					   ,[SectorId]
-					   ,[Sector]
+					   ,[RouteId]
+					   ,[Route]
 					   ,[AssessmentPlanUrl]
 					   ,[ApprovedForDelivery]
 					   ,[TrailBlazerContact]
@@ -92,8 +92,8 @@ BEGIN TRY
 				  ,AppStandard.[StandardId]
 				  ,[OverviewOfRole]
 				  ,[RouteCode]
-				  ,std.[RouteId]
-				  ,sector.[Route]
+				  ,tblRoute.[Id]
+				  ,tblRoute.[Name]
 				  ,[AssessmentPlanUrl]
 				  ,[ApprovedForDelivery]
 				  ,[TrailBlazerContact]
@@ -113,8 +113,8 @@ BEGIN TRY
 				  ,[CoreAndOptions]
 				  ,[IntegratedApprenticeship]
 				  ,[Options]      
-				FROM [Stg].[FAT2_Standard] std JOIN [Stg].[FAT2_Sector] sector 
-				ON std.[RouteId] =  sector.[Id]	LEFT JOIN [ASData_PL].[Va_ApprenticeshipStandard] AppStandard
+				FROM [Stg].[FAT2_Standard] std JOIN [Stg].[FAT2_Route] tblRoute 
+				ON std.[RouteId] =  tblRoute.[Id]	LEFT JOIN [ASData_PL].[Va_ApprenticeshipStandard] AppStandard
 				ON std.LarsCode = AppStandard.LarsCode AND std.Title = AppStandard.StandardFullName
 
 

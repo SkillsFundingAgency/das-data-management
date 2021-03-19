@@ -35,51 +35,89 @@ BEGIN TRY
 
 			BEGIN TRANSACTION
 
-					DELETE FROM [ASData_PL].[FAT2_StandardSector]
+				DELETE FROM [ASData_PL].[FAT2_StandardSector]
 
-					INSERT [ASData_PL].[FAT2_StandardSector]
-					(												
-						[Id],
-						[Title],
-						[Level],
-						[IntegratedDegree],
-						[OverviewOfRole],
-						[VaApprenticeshipStandardId],
-						[SectorId],
-						[Sector],
-						[Keywords],
-						[TypicalJobTitles],
-						[StandardPageUrl],
-						[Version],
-						[RegulatedBody],
-						[Skills],
-						[Knowledge],
-						[Behaviours],
-						[Duties],
-						[CoreAndOptions]
-					)
-					select
-						std.[Id],
-						[Title],
-						[Level],
-						[IntegratedDegree],
-						[OverviewOfRole],
-						AppStandard.[StandardId],
-						[RouteId],
-						sector.[Route],
-						[Keywords],
-						[TypicalJobTitles],
-						[StandardPageUrl],
-						[Version],
-						[RegulatedBody],
-						[Skills],
-						[Knowledge],
-						[Behaviours],
-						[Duties],
-						[CoreAndOptions]
-					FROM [Stg].[FAT2_Standard] std JOIN [Stg].[FAT2_Sector] sector 
-					ON std.[RouteId] =  sector.[Id]	LEFT JOIN [ASData_PL].[Va_ApprenticeshipStandard] AppStandard
-					ON std.Id = AppStandard.LarsCode AND std.Title = AppStandard.StandardFullName
+				INSERT INTO [ASData_PL].[FAT2_StandardSector]
+					   (
+						[StandardUId]
+					   ,[IfateReferenceNumber]
+					   ,[LarsCode]
+					   ,[Status]
+					   ,[EarliestStartDate]
+					   ,[LatestStartDate]
+					   ,[LatestEndDate]
+					   ,[Title]
+					   ,[Level]
+					   ,[TypicalDuration]
+					   ,[MaxFunding]
+					   ,[IntegratedDegree]
+					   ,[VaApprenticeshipStandardId]
+					   ,[OverviewOfRole]
+					   ,[RouteCode]
+					   ,[RouteId]
+					   ,[Route]
+					   ,[AssessmentPlanUrl]
+					   ,[ApprovedForDelivery]
+					   ,[TrailBlazerContact]
+					   ,[EqaProviderName]
+					   ,[EqaProviderContactName]
+					   ,[EqaProviderContactEmail]
+					   ,[EqaProviderWebLink]
+					   ,[Keywords]
+					   ,[TypicalJobTitles]
+					   ,[StandardPageUrl]
+					   ,[Version]
+					   ,[RegulatedBody]
+					   ,[Skills]
+					   ,[Knowledge]
+					   ,[Behaviours]
+					   ,[Duties]
+					   ,[CoreAndOptions]
+					   ,[IntegratedApprenticeship]
+					   ,[Options]
+					   )				
+				SELECT
+				  [StandardUId]
+				  ,[IfateReferenceNumber]
+				  ,std.[LarsCode]
+				  ,[Status]
+				  ,[EarliestStartDate]
+				  ,[LatestStartDate]
+				  ,[LatestEndDate]
+				  ,std.[Title]
+				  ,[Level]
+				  ,[TypicalDuration]
+				  ,[MaxFunding]
+				  ,[IntegratedDegree]
+				  ,AppStandard.[StandardId]
+				  ,[OverviewOfRole]
+				  ,[RouteCode]
+				  ,tblRoute.[Id]
+				  ,tblRoute.[Name]
+				  ,[AssessmentPlanUrl]
+				  ,[ApprovedForDelivery]
+				  ,[TrailBlazerContact]
+				  ,[EqaProviderName]
+				  ,[EqaProviderContactName]
+				  ,[EqaProviderContactEmail]
+				  ,[EqaProviderWebLink]
+				  ,[Keywords]
+				  ,[TypicalJobTitles]
+				  ,[StandardPageUrl]
+				  ,[Version]
+				  ,[RegulatedBody]
+				  ,[Skills]
+				  ,[Knowledge]
+				  ,[Behaviours]
+				  ,[Duties]
+				  ,[CoreAndOptions]
+				  ,[IntegratedApprenticeship]
+				  ,[Options]      
+				FROM [Stg].[FAT2_Standard] std JOIN [Stg].[FAT2_Route] tblRoute 
+				ON std.[RouteId] =  tblRoute.[Id]	LEFT JOIN [ASData_PL].[Va_ApprenticeshipStandard] AppStandard
+				ON std.LarsCode = AppStandard.LarsCode AND std.Title = AppStandard.StandardFullName
+
+
 
 					IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='FAT2_Standard' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 					DROP TABLE [Stg].[FAT2_Standard]

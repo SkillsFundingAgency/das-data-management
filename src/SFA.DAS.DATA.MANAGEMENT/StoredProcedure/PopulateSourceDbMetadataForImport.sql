@@ -152,25 +152,25 @@ INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,Source
 VALUES
 ('CRSDelivery','NationalAchievementRate','dbo','[Id],[Age],[SectorSubjectArea],[ApprenticeshipLevel],[OverallCohort],[OverallAchievementRate]','','[UkPrn]',1,0,'FAT2_NationalAchievementRate'),
 ('CRSDelivery','NationalAchievementRateOverall','dbo','[Id],[Age],[SectorSubjectArea],[ApprenticeshipLevel],[OverallCohort],[OverallAchievementRate]','','',1,0,'FAT2_NationalAchievementRateOverall'),
-('CRSDelivery','Provider','dbo','[Id],[TradingName],[EmployerSatisfaction],[LearnerSatisfaction]','[Phone],[Website]','[UkPrn],[Name],[Email]',1,1,'Provider'),
-('CRSDelivery','ProviderRegistration','dbo','[UkPrn],[StatusDate],[StatusId],[ProviderTypeId],[OrganisationTypeId],[FeedbackTotal],[Postcode],[Lat],[Long]','[Address1],[Address2],[Address3],[Address4],[Town]','',1,0,'FAT2_ProviderRegistration'),
-('CRSDelivery','ProviderRegistrationFeedbackAttribute','dbo','[UkPrn],[AttributeName],[Weakness],[Strength]','','',1,0,'FAT2_ProviderRegistrationFeedbackAttribute'),
-('CRSDelivery','ProviderRegistrationFeedbackRating','dbo','[UkPrn],[FeedbackName],[FeedbackCount]','','',1,0,'FAT2_ProviderRegistrationFeedbackRating'),
-('CRSDelivery','ProviderStandard','dbo','[StandardId],[UkPrn],[StandardInfoUrl]','[Phone],[ContactUrl]','[Email]',1,0,'FAT2_ProviderStandard'),
-('CRSDelivery','ProviderStandardLocation','dbo','[StandardId],[UkPrn],[LocationId],[DeliveryModes],[Radius],[National]','','',1,0,'FAT2_ProviderStandardLocation'),
+('CRSDelivery','Provider','dbo','[TradingName],[EmployerSatisfaction],[LearnerSatisfaction]','[Phone],[Website],[MarketingInfo]','[UkPrn],[Name],[Email]',1,1,'Provider'),
+('CRSDelivery','ProviderRegistration','dbo','[UkPrn],[StatusDate],[StatusId],[ProviderTypeId],[OrganisationTypeId],[FeedbackTotal],[Postcode],[Lat],[Long]','[Address1],[Address2],[Address3],[Address4],[Town]','[LegalName]',1,0,'FAT2_ProviderRegistration'),
+('CRSDelivery','ProviderRegistrationFeedbackAttribute','dbo','[AttributeName],[Weakness],[Strength]','','[UkPrn]',1,0,'FAT2_ProviderRegistrationFeedbackAttribute'),
+('CRSDelivery','ProviderRegistrationFeedbackRating','dbo','[FeedbackName],[FeedbackCount]','','[UkPrn]',1,0,'FAT2_ProviderRegistrationFeedbackRating'),
+('CRSDelivery','ProviderStandard','dbo','[StandardId],[StandardInfoUrl]','[Phone],[ContactUrl]','[UkPrn],[Email]',1,0,'FAT2_ProviderStandard'),
+('CRSDelivery','ProviderStandardLocation','dbo','[StandardId],[LocationId],[DeliveryModes],[Radius],[National]','','[UkPrn]',1,0,'FAT2_ProviderStandardLocation'),
 ('CRSDelivery','StandardLocation','dbo','[LocationId],[Postcode]','[Phone],[Address1],[Address2],[Town],[County],[Lat],[Long]','[Name],[Email],[Website]',1,0,'FAT2_StandardLocation')
 
 
 /* CRS Import Configurations */
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
 VALUES
-('CRS','ApprenticeshipFunding','dbo','[Id],[StandardId],[EffectiveFrom],[EffectiveTo],[MaxEmployerLevyCap],[Duration]','','',1,0,'FAT2_ApprenticeshipFunding'),
+('CRS','ApprenticeshipFunding','dbo','[Id],[StandardUId],[EffectiveFrom],[EffectiveTo],[MaxEmployerLevyCap],[Duration]','','',1,0,'FAT2_ApprenticeshipFunding'),
 ('CRS','Framework','dbo','[Id],[ProgType],[FrameworkCode],[PathwayCode],[Level],[TypicalLengthFrom],[TypicalLengthTo],[TypicalLengthUnit],[Duration],[CurrentFundingCap],[MaxFunding],[Ssa1],[Ssa2],[EffectiveFrom],[EffectiveTo],[IsActiveFramework],[ProgrammeType],[HasSubGroups],[ExtendedTitle]','','[Title],[FrameworkName],[PathwayName]',1,1,'FAT2_Framework'),
 ('CRS','FrameworkFundingPeriod','dbo','[Id],[FrameworkId],[EffectiveFrom],[EffectiveTo],[FundingCap]','','',1,0,'FAT2_FrameworkFundingPeriod'),
-('CRS','LarsStandard','dbo','[Id],[StandardId],[Version],[EffectiveFrom],[EffectiveTo],[LastDateStarts],[SectorSubjectAreaTier2],[OtherBodyApprovalRequired]','','',1,0,'FAT2_LarsStandard'),
-('CRS','Sector','dbo','[Id],[Route]','','',1,1,'FAT2_StandardSector'),
+('CRS','LarsStandard','dbo','[LarsCode],[Version],[EffectiveFrom],[EffectiveTo],[LastDateStarts],[SectorSubjectAreaTier2],[OtherBodyApprovalRequired]','','',1,0,'FAT2_LarsStandard'),
+('CRS','Route','dbo','[Id],[Name]','','',1,1,'FAT2_StandardSector'),
 ('CRS','SectorSubjectAreaTier2','dbo','[SectorSubjectAreaTier2],[SectorSubjectAreaTier2Desc],[EffectiveFrom],[EffectiveTo]','','[Name]',1,0,'FAT2_SectorSubjectAreaTier2'),
-('CRS','Standard','dbo','[Id],[Level],[IntegratedDegree],[OverviewOfRole],[RouteId],[Keywords],[TypicalJobTitles],[StandardPageUrl],[Version],[RegulatedBody],[Skills],[Knowledge],[Behaviours],[Duties],[CoreAndOptions]','','[Title]',1,1,'FAT2_StandardSector')
+('CRS','Standard','dbo','[StandardUId],[IfateReferenceNumber],[LarsCode],[Status],[EarliestStartDate],[LatestStartDate],[LatestEndDate],[Level],[TypicalDuration],[MaxFunding],[IntegratedDegree],[OverviewOfRole],[RouteCode],[RouteId],[AssessmentPlanUrl],[ApprovedForDelivery],[Keywords],[TypicalJobTitles],[StandardPageUrl],[Version],[RegulatedBody],[Skills],[Knowledge],[Behaviours],[Duties],[CoreAndOptions],[IntegratedApprenticeship],[Options]','','[Title],[TrailBlazerContact],[EqaProviderName],[EqaProviderContactName],[EqaProviderContactEmail],[EqaProviderWebLink]',1,1,'FAT2_StandardSector')
 
 /* Roatp Import Configuration */
 

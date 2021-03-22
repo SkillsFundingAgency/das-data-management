@@ -80,7 +80,7 @@ SELECT C.CandidateStatusTypeId                        as CandidateStatusTypeId
 	   ,c.BeingSupportedBy                             as BeingSupportedBy_v1
 	   ,c.LockedForSupportUntil                        as LockedForSupportUntil_v1
 	   ,c.AllowMarketingMessages                       as AllowMarketingMessages_v1
-	   ,Fn_ConvertGuidToBase64(C.CandidateGuid)        as CandidateGuid
+	   ,dbo.Fn_ConvertGuidToBase64(C.CandidateGuid)    as CandidateGuid
 	   ,CAPC.AgeAtRegistration                         as AgeAtRegistration
 	   ,convert(datetime2,ch.RegisteredDate)           as RegistrationDate
 	   ,convert(datetime2,c.LastAccessedDate)          as LastAccessedDate   
@@ -94,7 +94,7 @@ SELECT C.CandidateStatusTypeId                        as CandidateStatusTypeId
   left
   join Stg.Avms_CandidateAgePostCode CAPC
     ON CAPC.CandidateId=c.CandidateId
- WHERE NOT EXISTS (SELECT 1 FROM Stg.FAA_Users FU WHERE FU.BinaryId=Fn_ConvertGuidToBase64(C.CandidateGuid))
+ WHERE NOT EXISTS (SELECT 1 FROM Stg.FAA_Users FU WHERE FU.BinaryId=dbo.Fn_ConvertGuidToBase64(C.CandidateGuid))
  union
  /* Candidates that are In Cosmos Db but not in AVMS */
  SELECT DISTINCT 
@@ -137,7 +137,7 @@ SELECT C.CandidateStatusTypeId                        as CandidateStatusTypeId
    JOIN Stg.FAA_CandidateDob Db
      ON Db.CandidateId=FC.CandidateId
   WHERE NOT EXISTS (SELECT 1 FROM Stg.Avms_Candidate AC
-                     WHERE Fn_ConvertGuidToBase64(C.CandidateGuid)=FU.BinaryId)
+                     WHERE dbo.Fn_ConvertGuidToBase64(C.CandidateGuid)=FU.BinaryId)
 /* Candidates that are in both AVMS and FAA Cosmos Db */
  SELECT DISTINCT 
        -1                                               as CandidateStatusTypeId
@@ -174,7 +174,7 @@ SELECT C.CandidateStatusTypeId                        as CandidateStatusTypeId
    FROM Stg.FAA_Users FU
   INNER
    JOIN Stg.Avms_Candidate AC
-     ON Fn_ConvertGuidToBase64(AC.CandidateGuid)=FU.BinaryId
+     ON dbo.Fn_ConvertGuidToBase64(AC.CandidateGuid)=FU.BinaryId
    LEFT
    JOIN Stg.FAA_CandidatePostcode PC
      ON PC.CandidateId=FC.CandidateId

@@ -15,8 +15,6 @@ BEGIN TRY
 DECLARE @LogID int
 DEClARE @quote varchar(5) = ''''
 
-DECLARE @VSQL nvarchar(max)
-
 /* Start Logging Execution */
 
   INSERT INTO Mgmt.Log_Execution_Results
@@ -41,9 +39,6 @@ DECLARE @VSQL nvarchar(max)
 BEGIN TRANSACTION
 
 DELETE FROM ASData_PL.Va_Application
-
-/* Making it dynamic to help with Compile Issues while deploying */
-SET @VSQL='
 
 INSERT INTO [ASData_PL].[Va_Application]
            ([CandidateId]
@@ -70,13 +65,13 @@ INSERT INTO [ASData_PL].[Va_Application]
 	        END                            as IsWithdrawn
           ,cast([ApplicationGuid] as varchar(256)) as ApplicationGuid
 		  ,AH.HistoryDate                  as CreatedDateTime
-		  ,''RAAv1''                       as SourceDb
+		  ,'RAAv1'                         as SourceDb
 		  ,AA.ApplicationId                as SourceApplicationId
   FROM [Stg].[Avms_Application] AA
   LEFT
   JOIN ASData_PL.Va_Vacancy v
     ON v.SourceVacancyId=AA.VacancyId
-   AND v.SourceDb=''RAAv1''
+   AND v.SourceDb='RAAv1'
   LEFT
   JOIN Stg.Avms_ApplicationStatusType AST
     ON AA.ApplicationStatusTypeId=AST.ApplicationStatusTypeId
@@ -103,30 +98,29 @@ INSERT INTO [ASData_PL].[Va_Application]
 			  THEN DATEDIFF(YEAR,dbo.Fn_ConvertTimeStampToDateTime([FCD].[DateOfBirth]), dbo.Fn_ConvertTimeStampToDateTime(ar.CreatedDateTimeStamp)) - 1
 		      ELSE DATEDIFF(YEAR,dbo.Fn_ConvertTimeStampToDateTime([FCD].[DateOfBirth]), dbo.Fn_ConvertTimeStampToDateTime(ar.CreatedDateTimeStamp))
 		END                                 as CandidateAgeAtApplication
-	   ,''N/A''                             as BeingSupportedBy 
-	   ,''''                                as LockedForSupportUntil
-	   ,CASE WHEN AR.IsWithDrawn=''False'' then 0
-	         WHEN AR.IsWithDrawn=''True'' then 1
+	   ,'N/A'                               as BeingSupportedBy 
+	   ,''                                  as LockedForSupportUntil
+	   ,CASE WHEN AR.IsWithDrawn='False' then 0
+	         WHEN AR.IsWithDrawn='True' then 1
 		 END                                as IsWithdrawn
 	   ,CAST(AR.BinaryId as varchar(256))   as ApplicationGuid
 	   ,dbo.Fn_ConvertTimeStampToDateTime(ar.CreatedDateTimeStamp) as CreatedDateTime
-	   ,''RAAv2''                           as SourceDb
+	   ,'RAAv2'                             as SourceDb
 	   ,AR.SourseSK                         as SourceApplicationId
  from Stg.RAA_ApplicationReviews AR
  left
  join ASData_PL.Va_Vacancy V   
    ON V.VacancyReferenceNumber=ar.VacancyReference
-  and v.SourceDb=''RAAv2''
+  and v.SourceDb='RAAv2'
  left
  join AsData_PL.Va_Candidate C
    on C.SourceCandidateId_v2=CAST(AR.CandidateId as Varchar(256))
  left
  join Stg.FAA_CandidateDob FCD
    ON FCD.CandidateId=AR.CandidateId
---  and C.SourceDb=''RAAv2''
-'
+--  and C.SourceDb='RAAv2'
 
-EXEC SP_EXECUTESQL @VSQL
+
 
 
 COMMIT TRANSACTION

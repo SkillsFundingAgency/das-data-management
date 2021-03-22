@@ -136,8 +136,9 @@ SELECT C.CandidateStatusTypeId                        as CandidateStatusTypeId
    LEFT
    JOIN Stg.FAA_CandidateDob Db
      ON Db.CandidateId=FU.BinaryId
-  WHERE NOT EXISTS (SELECT 1 FROM Stg.Avms_Candidate AC
+  WHERE NOT EXISTS (SELECT 1 FROM Stg.Avms_Candidate C
                      WHERE dbo.Fn_ConvertGuidToBase64(C.CandidateGuid)=FU.BinaryId)
+union
 /* Candidates that are in both AVMS and FAA Cosmos Db */
  SELECT DISTINCT 
        -1                                               as CandidateStatusTypeId

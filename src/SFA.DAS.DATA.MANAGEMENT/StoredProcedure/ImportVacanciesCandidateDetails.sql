@@ -178,7 +178,7 @@ SELECT VC.CandidateId
   FROM Stg.Avms_CandidateDetails ACD
   JOIN ASData_PL.Va_Candidate VC
     ON VC.SourceCandidateId_v1=ACD.CandidateId
-   --AND VC.SourceDb='RAAv1'
+   AND VC.SourceDb='FAA-Avms'
   LEFT
   JOIN #tRAAv1Eth Eth
     ON ACD.EID=Eth.NID

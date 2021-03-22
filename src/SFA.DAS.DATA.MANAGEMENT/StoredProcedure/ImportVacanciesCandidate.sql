@@ -132,10 +132,10 @@ SELECT C.CandidateStatusTypeId                        as CandidateStatusTypeId
    FROM Stg.FAA_Users FU
    LEFT
    JOIN Stg.FAA_CandidatePostcode PC
-     ON PC.CandidateId=FC.CandidateId
+     ON PC.CandidateId=FU.BinaryId
    LEFT
    JOIN Stg.FAA_CandidateDob Db
-     ON Db.CandidateId=FC.CandidateId
+     ON Db.CandidateId=FU.BinaryId
   WHERE NOT EXISTS (SELECT 1 FROM Stg.Avms_Candidate AC
                      WHERE dbo.Fn_ConvertGuidToBase64(C.CandidateGuid)=FU.BinaryId)
 /* Candidates that are in both AVMS and FAA Cosmos Db */
@@ -177,10 +177,10 @@ SELECT C.CandidateStatusTypeId                        as CandidateStatusTypeId
      ON dbo.Fn_ConvertGuidToBase64(AC.CandidateGuid)=FU.BinaryId
    LEFT
    JOIN Stg.FAA_CandidatePostcode PC
-     ON PC.CandidateId=FC.CandidateId
+     ON PC.CandidateId=FU.BinaryId
    LEFT
    JOIN Stg.FAA_CandidateDob Db
-     ON Db.CandidateId=FC.CandidateId
+     ON Db.CandidateId=FU.BinaryId
 
 
 

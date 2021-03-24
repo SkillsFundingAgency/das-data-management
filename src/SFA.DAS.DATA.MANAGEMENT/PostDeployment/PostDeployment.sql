@@ -750,3 +750,33 @@ BEGIN
 END
 
 
+If NOT EXISTS(select COLUMN_NAME from INFORMATION_SCHEMA.COLUMNS  where TABLE_NAME ='GA_SessionDataDetail'  and COLUMN_NAME ='Hits_Page_PageTitle' AND TABLE_SCHEMA='Stg')
+	Alter Table [Stg].[GA_SessionDataDetail] Add [Hits_Page_PageTitle]	[NVarchar](500) NULL
+
+If NOT EXISTS(select COLUMN_NAME from INFORMATION_SCHEMA.COLUMNS  where TABLE_NAME ='GA_SessionDataDetail'  and COLUMN_NAME ='TrafficSource_Campaign' AND TABLE_SCHEMA='Stg')
+	Alter Table [Stg].[GA_SessionDataDetail] Add [TrafficSource_Campaign]	[NVarchar](500) NULL
+
+If NOT EXISTS(select COLUMN_NAME from INFORMATION_SCHEMA.COLUMNS  where TABLE_NAME ='GA_SessionDataDetail'  and COLUMN_NAME ='Precede_Hits_Page_PagePath' AND TABLE_SCHEMA='Stg')
+	Alter Table [Stg].[GA_SessionDataDetail] Add [Precede_Hits_Page_PagePath]  [NVarchar](Max) NULL
+
+If NOT EXISTS(select COLUMN_NAME from INFORMATION_SCHEMA.COLUMNS  where TABLE_NAME ='GA_SessionDataDetail'  and COLUMN_NAME ='Precede_Hits_Page_PagePathLevel1' AND TABLE_SCHEMA='Stg')
+	Alter Table [Stg].[GA_SessionDataDetail] Add [Precede_Hits_Page_PagePathLevel1]	[NVarchar](Max) NULL
+
+If NOT EXISTS(select COLUMN_NAME from INFORMATION_SCHEMA.COLUMNS  where TABLE_NAME ='GA_SessionDataDetail'  and COLUMN_NAME ='Precede_Hits_Page_PagePathLevel2' AND TABLE_SCHEMA='Stg')
+	Alter Table [Stg].[GA_SessionDataDetail] Add [Precede_Hits_Page_PagePathLevel2]	[NVarchar](Max) NULL
+
+If NOT EXISTS(select COLUMN_NAME from INFORMATION_SCHEMA.COLUMNS  where TABLE_NAME ='GA_SessionDataDetail'  and COLUMN_NAME ='Precede_Hits_Page_PagePathLevel3' AND TABLE_SCHEMA='Stg')
+	Alter Table [Stg].[GA_SessionDataDetail] Add [Precede_Hits_Page_PagePathLevel3]	[NVarchar](Max) NULL
+
+If NOT EXISTS(select COLUMN_NAME from INFORMATION_SCHEMA.COLUMNS  where TABLE_NAME ='GA_SessionDataDetail'  and COLUMN_NAME ='Precede_Hits_Page_PagePathLevel4' AND TABLE_SCHEMA='Stg')
+	Alter Table [Stg].[GA_SessionDataDetail] Add [Precede_Hits_Page_PagePathLevel4]	[NVarchar](Max) NULL
+
+If NOT EXISTS(select COLUMN_NAME from INFORMATION_SCHEMA.COLUMNS  where TABLE_NAME ='GA_SessionDataDetail'  and COLUMN_NAME ='Hits_Type' AND TABLE_SCHEMA='Stg')
+	Alter Table [Stg].[GA_SessionDataDetail] Add [Hits_Type]  [NVarchar](50) NULL
+
+If NOT EXISTS(select COLUMN_NAME from INFORMATION_SCHEMA.COLUMNS  where TABLE_NAME ='GA_SessionDataDetail'  and COLUMN_NAME ='CD_IsCookieLess' AND TABLE_SCHEMA='Stg')
+	Alter Table [Stg].[GA_SessionDataDetail] Add [CD_IsCookieLess]	[SmallInt] NULL
+
+If NOT EXISTS(select COLUMN_NAME from INFORMATION_SCHEMA.COLUMNS  where TABLE_NAME ='GA_SessionDataDetail'  and COLUMN_NAME ='ESFATokenFLag' AND TABLE_SCHEMA='Stg')
+	Alter Table [Stg].[GA_SessionDataDetail] Add [ESFATokenFLag]  [SmallInt]  NULL
+

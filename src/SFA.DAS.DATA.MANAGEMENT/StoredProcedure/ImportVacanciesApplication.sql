@@ -83,7 +83,6 @@ INSERT INTO [ASData_PL].[Va_Application]
   left
   join ASData_PL.Va_Candidate C
     on c.SourceCandidateId_v1=AA.CandidateId
-   AND C.SourceDb='RAAv1'
   left
   join Stg.Avms_AgeAtApplication SAA
     on SAA.ApplicationId=AA.ApplicationId

@@ -39,7 +39,17 @@
 		[CD_LegalEntityId]								[NVarchar](500) NULL,		
 		[FileName]										[Nvarchar](500) NULL,
 		[StgImportDate]									[datetime2](7) DEFAULT (getdate()),
-		[Hits_Page_Hostname]							[NVarchar](500) NULL
+		[Hits_Page_Hostname]							[NVarchar](500) NULL,
+		[Hits_Page_PageTitle]							[NVarchar](500) NULL,
+		[TrafficSource_Campaign]						[NVarchar](500) NULL,
+		[Precede_Hits_Page_PagePath]					[NVarchar](Max) NULL,
+		[Precede_Hits_Page_PagePathLevel1]				[NVarchar](Max) NULL,
+		[Precede_Hits_Page_PagePathLevel2]				[NVarchar](Max) NULL,
+		[Precede_Hits_Page_PagePathLevel3]				[NVarchar](Max) NULL,
+		[Precede_Hits_Page_PagePathLevel4]				[NVarchar](Max) NULL,
+		[Hits_Type]										[NVarchar](50) NULL,
+		[CD_IsCookieLess]								[SmallInt] NULL,
+		[ESFATokenFLag]									[SmallInt] NULL
 )
 GO
 CREATE NONCLUSTERED INDEX NCI_GA_SessionDataDetail_StgImportDate  ON [Stg].[GA_SessionDataDetail] (StgImportDate ASC);

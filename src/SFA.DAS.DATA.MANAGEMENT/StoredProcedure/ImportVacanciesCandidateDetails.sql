@@ -178,10 +178,11 @@ SELECT VC.CandidateId
   FROM Stg.Avms_CandidateDetails ACD
   JOIN ASData_PL.Va_Candidate VC
     ON VC.SourceCandidateId_v1=ACD.CandidateId
-   AND VC.SourceDb='FAA-Avms'
+ --  AND VC.SourceDb='FAA-Avms'
   LEFT
   JOIN #tRAAv1Eth Eth
     ON ACD.EID=Eth.NID
+ WHERE NOT EXISTS (SELECT 1 FROM stg.FAA_CandidateDetails where CandidateId=vc.SourceCandidateId_v2)
 -- UNION
 --SELECT VC.CandidateId
 --      ,ETH.ShortCode

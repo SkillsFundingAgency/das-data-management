@@ -749,8 +749,6 @@ BEGIN
      DROP TABLE dbo.Payments_SS
 END
 
-If NOT EXISTS(select COLUMN_NAME from INFORMATION_SCHEMA.COLUMNS  where TABLE_NAME ='GA_SessionDataDetail'  and COLUMN_NAME ='Hits_Page_Hostname' AND TABLE_SCHEMA='Stg')
-	Alter Table [Stg].[GA_SessionDataDetail] Add [Hits_Page_Hostname]	[NVarchar](500) NULL
 
 If NOT EXISTS(select COLUMN_NAME from INFORMATION_SCHEMA.COLUMNS  where TABLE_NAME ='GA_SessionDataDetail'  and COLUMN_NAME ='Hits_Page_PageTitle' AND TABLE_SCHEMA='Stg')
 	Alter Table [Stg].[GA_SessionDataDetail] Add [Hits_Page_PageTitle]	[NVarchar](500) NULL

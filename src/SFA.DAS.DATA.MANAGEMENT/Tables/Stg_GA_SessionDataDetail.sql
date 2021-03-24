@@ -38,7 +38,8 @@
 		[CD_ESFAToken]									[NVarchar](500) NULL, 
 		[CD_LegalEntityId]								[NVarchar](500) NULL,		
 		[FileName]										[Nvarchar](500) NULL,
-		[StgImportDate]									[datetime2](7) DEFAULT (getdate())
+		[StgImportDate]									[datetime2](7) DEFAULT (getdate()),
+		[Hits_Page_Hostname]							[NVarchar](500) NULL
 )
 GO
 CREATE NONCLUSTERED INDEX NCI_GA_SessionDataDetail_StgImportDate  ON [Stg].[GA_SessionDataDetail] (StgImportDate ASC);

@@ -11,7 +11,7 @@ AS
 -- ==========================================================================================================
 BEGIN TRY
 		DECLARE @LogID int
-
+		DECLARE @DynSQL   NVarchar(max)
 		/* Start Logging Execution */
 
 		  INSERT INTO Mgmt.Log_Execution_Results
@@ -36,10 +36,9 @@ BEGIN TRY
 		BEGIN TRANSACTION
 
 				DELETE FROM [ASData_PL].[Provider]
-
-				INSERT [ASData_PL].[Provider]
-				(												
-						[Id],
+				
+				set @DynSQL = ' INSERT [ASData_PL].[Provider]
+				(																		
 						[UkPrn],
 						[Name],
 						[TradingName],
@@ -49,8 +48,7 @@ BEGIN TRY
 						[Created],
 						[Updated]												
 				)
-				select 
-						FAT2Provider.Id,
+				select 						
 						coalesce(ComtProvider.UkPrn,FAT2Provider.UkPrn),
 						coalesce(ComtProvider.Name,FAT2Provider.Name),
 						FAT2Provider.TradingName,
@@ -60,7 +58,9 @@ BEGIN TRY
 						ComtProvider.[Created],
 						ComtProvider.[Updated] 
 				From	[Stg].[FAT2_Provider] FAT2Provider FULL OUTER JOIN stg.Comt_Providers  ComtProvider
-				ON		FAT2Provider.UkPrn = ComtProvider.UKPRN  AND FAT2Provider.Name = ComtProvider.Name 				
+				ON		FAT2Provider.UkPrn = ComtProvider.UKPRN  AND FAT2Provider.Name = ComtProvider.Name '
+				
+				exec SP_EXECUTESQL @DynSQL
 
 				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Comt_Providers' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 				DROP TABLE [Stg].[Comt_Providers]

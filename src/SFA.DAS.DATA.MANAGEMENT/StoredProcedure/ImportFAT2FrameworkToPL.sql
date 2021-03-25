@@ -11,7 +11,7 @@ AS
 -- ==========================================================================================================
 BEGIN TRY
 		DECLARE @LogID int
-
+	    DECLARE @DynSQL   NVarchar(max)
 		/* Start Logging Execution */
 
 			  INSERT INTO Mgmt.Log_Execution_Results
@@ -37,7 +37,7 @@ BEGIN TRY
 
 					DELETE FROM [ASData_PL].[FAT2_Framework]
 
-					INSERT [ASData_PL].[FAT2_Framework]
+					set @DynSQL ='INSERT [ASData_PL].[FAT2_Framework]
 					(												
 							[Id],
 							[VaFrameworkOccupationId],
@@ -89,7 +89,9 @@ BEGIN TRY
 				  FROM [Stg].[FAT2_Framework] stgFramework LEFT JOIN 
 				  [ASData_PL].[Va_ApprenticeshipFrameWorkAndOccupation] PLFrameWorkAndOccupation ON 
 				  stgFramework.Id = PLFrameWorkAndOccupation.ProgrammeId_v2 AND    
-				  stgFramework.FrameworkName = PLFrameWorkAndOccupation.FrameWorkFullName 				
+				  stgFramework.FrameworkName = PLFrameWorkAndOccupation.FrameWorkFullName' 				
+
+				  exec SP_EXECUTESQL @DynSQL
 
 				  IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='FAT2_Framework' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 				  DROP TABLE [Stg].[FAT2_Framework]

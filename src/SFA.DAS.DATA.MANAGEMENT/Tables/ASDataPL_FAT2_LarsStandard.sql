@@ -1,6 +1,5 @@
 ﻿CREATE TABLE [ASData_PL].[FAT2_LarsStandard](
-	[Id]						[uniqueidentifier]	NOT NULL,
-	[StandardId]				[int]				NOT NULL,
+	[LarsCode]					[int]				PRIMARY KEY NOT NULL,
 	[Version]					[int]				NOT NULL,
 	[EffectiveFrom]				[datetime]			NOT NULL,
 	[EffectiveTo]				[datetime]			NULL,

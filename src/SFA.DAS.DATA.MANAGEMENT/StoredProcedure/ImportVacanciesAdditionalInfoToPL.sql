@@ -75,7 +75,7 @@ SELECT vc.CandidateId                                                  as Candid
   FROM Stg.FAA_Apprenticeships FA
   LEFT
   JOIN ASData_PL.Va_Candidate VC
-    ON FA.CandidateId=vc.SourceCandidateId_v2 
+    ON FA.CandidateId=vc.CandidateGuid 
   left
   join ASData_PL.Va_Application VA
     ON VA.SourceApplicationId=FA.LegacyApplicationId
@@ -126,7 +126,7 @@ SELECT vc.CandidateId                                                  as Candid
   FROM Stg.FAA_SavedSearches FSS
   LEFT
   JOIN ASData_PL.Va_Candidate VC
-    ON FSS.CandidateId=vc.SourceCandidateId_v2
+    ON FSS.CandidateId=vc.CandidateGuid
     
 COMMIT TRANSACTION
 
@@ -193,7 +193,7 @@ SELECT RVR.EmployerAccountId
     on vv.VacancyReferenceNumber=RVR.VacancyReference
   LEFT
   JOIN ASData_PL.Va_Candidate vc
-    on vc.SourceCandidateId_v2=RVR.UserId
+    on vc.CandidateGuid=RVR.UserId
 
 COMMIT TRANSACTION
 

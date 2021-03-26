@@ -421,12 +421,14 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
              END                                                   as [Framework/Standard Name] 
           ,EL.EducationLevelFullName+' '+EL.EducationLevelNamev2   as EducationLevel
 		  ,v.[WageType]                                            as WageType
-          ,(CASE WHEN v.WageType='NationalMinimumWageForApprentices'
-		        THEN AMW.WageRateInPounds*52*v.WeeklyHours
-				WHEN v.WageType='NationalMinimumWage'
-				THEN NMR.MinWage*52*v.WeeklyHours + '-' + NMR.MaxWage*52*v.WeeklyHours
-				ELSE v.FixedWageYearlyAmount 
-	        END) +' '+ISNULL(v.WageAdditionalInformation,'') as WageText
+          ,isnull(cast((CASE WHEN v.WageType='NationalMinimumWageForApprentices'
+		                     THEN AMW.WageRateInPounds*52*v.WeeklyHours
+				             WHEN v.WageType='NationalMinimumWage'
+				             THEN NMR.MinWage*52*v.WeeklyHours + '-' + NMR.MaxWage*52*v.WeeklyHours 
+				             ELSE v.FixedWageYearlyAmount 
+	                     END) as varchar),'') 
+						 +' '
+						 +ISNULL(v.WageAdditionalInformation,'')   as WageText
           -- ,[WageUnitId]
           ,'Annually'                                              as WageUnitDesc
           ,v.WorkingWeekDescription                                as WorkingWeek

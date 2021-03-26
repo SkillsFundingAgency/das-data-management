@@ -104,7 +104,7 @@ CREATE VIEW [ASData_PL].[DAS_Payments_LevyInd]
       ,PS.[CollectionPeriodMonth]
       ,PS.[CollectionPeriodYear]
       ,Convert(bit,C.ApprenticeshipEmployerTypeOnApproval)  as ApprenticeshipEmployerTypeOnApproval
-   FROM [dbo].[Payments_SS] PS
+   FROM [AsData_PL].[Payments_SS] PS
   LEFT JOIN  [Comt].[Ext_tbl_Apprenticeship] A
   ON A.Id= PS.CommitmentId
   LEFT JOIN  [Comt].[Ext_tbl_Commitment] C 

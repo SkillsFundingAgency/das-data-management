@@ -118,7 +118,13 @@
 			 , ISNULL(CAST((CASE WHEN C.Approvals IN (3,7) THEN 'Yes'
 								ELSE 'No'
 								 END) AS Varchar(3)),'NA')													as FullyAgreedCommitment
-			  , 'Redacted'																				as LegalEntityRegisteredAddress
+			  , 'Redacted'																				    as LegalEntityRegisteredAddress
+			  ,  CONVERT(bit, CASE WHEN  isnull(C.Approvals,'0')  IN('3','7')
+								   THEN C.ApprenticeshipEmployerTypeOnApproval
+							       ELSE null
+							   END 
+				  )                                                                                         as ApprenticeshipEmployerTypeOnApproval
+              , Acc.ApprenticeshipEmployerType									                            as ApprenticeshipEmployerType
 			  , ISNULL(cast(A.MadeRedundant as int),-1)														as MadeRedundant
 			  , A.CreatedOn																					as CreatedOn
 	FROM [ASData_PL].[Comt_Commitment] C 

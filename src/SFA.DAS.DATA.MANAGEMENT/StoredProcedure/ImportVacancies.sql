@@ -40,6 +40,10 @@ BEGIN TRANSACTION
 
 DELETE FROM ASData_PL.Va_Application  -- Delete Application First to be able to resolve Foreign key conflicts */
 
+DELETE FROM ASData_PL.Va_Apprenticeships -- Delete Apprenticeships First to be able to resolve Foreign key conflicts */
+
+DELETE FROM ASData_PL.va_VacancyReviews -- Delete VacancyReviews First to be able to resolve Foreign key conflicts */
+
 DELETE FROM ASData_PL.Va_Vacancy
 
 /* Load RAAv1 */

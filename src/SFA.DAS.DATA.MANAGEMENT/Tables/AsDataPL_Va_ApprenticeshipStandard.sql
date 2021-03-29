@@ -9,4 +9,5 @@
    ,ApprenticeshipOccupationId int
    ,EducationLevelId int
    ,ApprenticeshipFrameworkStatusType nvarchar(100)
+   ,[AsDm_UpdatedDateTime]  [datetime2](7)						DEFAULT (getdate())
 )

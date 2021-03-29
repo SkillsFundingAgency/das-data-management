@@ -5,4 +5,5 @@
    ,EducationLevelShortName nvarchar(10)
    ,EducationLevelFullName nvarchar(50)
    ,EducationLevelNamev2   nvarchar(100)
+   ,[AsDm_UpdatedDateTime]  [datetime2](7)						DEFAULT (getdate())
 )

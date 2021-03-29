@@ -13,4 +13,5 @@
   ,ManualQaComment varchar(max)
   ,SourceVacancyReviewId varchar(256)
   ,SourceDb varchar(256)
+  ,[AsDm_UpdatedDateTime]  [datetime2](7)						DEFAULT (getdate())
 )

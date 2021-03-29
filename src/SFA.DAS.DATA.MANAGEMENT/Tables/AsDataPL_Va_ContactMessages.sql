@@ -7,4 +7,5 @@
  ,Enquiry varchar(max)
  ,SourceContactMessagesId varchar(256)
  ,SourceDb varchar(100)
+ ,[AsDm_UpdatedDateTime]  [datetime2](7)						DEFAULT (getdate())
  )

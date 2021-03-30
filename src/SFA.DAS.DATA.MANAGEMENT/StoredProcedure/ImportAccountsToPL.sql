@@ -80,6 +80,7 @@ BEGIN TRY
 						   ,[PendingAgreementVersion]
 						   ,[PendingAgreementId]
 						   ,[Deleted]
+						   ,[HashedLegalEntityId]
 						   ,[HasSignedIncentivesTerms]
 						   ,[IncentivesVrfVendorId]
 						   ,[IncentivesVrfCaseId]
@@ -97,7 +98,8 @@ BEGIN TRY
 							,Acc_AccLegalEntity.SignedAgreementId
 							,Acc_AccLegalEntity.PendingAgreementVersion
 							,Acc_AccLegalEntity.PendingAgreementId
-							,Acc_AccLegalEntity.Deleted		
+							,Acc_AccLegalEntity.Deleted	
+							,EI_Acc.HashedLegalEntityId
 							,EI_Acc.HasSignedIncentivesTerms
 							,EI_Acc.VrfVendorId
 						    ,EI_Acc.VrfCaseId
@@ -116,7 +118,8 @@ BEGIN TRY
 							,Acc_AccLegalEntity.SignedAgreementId
 							,Acc_AccLegalEntity.PendingAgreementVersion
 							,Acc_AccLegalEntity.PendingAgreementId
-							,Acc_AccLegalEntity.Deleted		
+							,Acc_AccLegalEntity.Deleted
+							,EI_Acc.HashedLegalEntityId
 							,EI_Acc.HasSignedIncentivesTerms
 							,EI_Acc.VrfVendorId
 						    ,EI_Acc.VrfCaseId

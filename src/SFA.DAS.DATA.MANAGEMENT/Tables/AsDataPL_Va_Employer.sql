@@ -11,4 +11,5 @@
 	  ,[EmployerStatusTypeId_v1] Int
 	  ,[EmployerStatusTypeDesc_v1] varchar(100)
 	  ,[SourceDb] varchar(100)
+	  ,[AsDm_UpdatedDateTime]  [datetime2](7)						DEFAULT (getdate())
 )

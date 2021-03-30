@@ -76,4 +76,5 @@
 ,SubmittedDateTime_v2 DateTime
 ,SourceVacancyId INT
 ,SourceDb varchar(100)
+,[AsDm_UpdatedDateTime]  [datetime2](7)						DEFAULT (getdate())
 )

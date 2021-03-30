@@ -18,4 +18,5 @@
 	,ApprenticehipOccupationFullName nvarchar(100)
 	,ApprenticeshipOccupationStatus varchar(100)
 	,ApprenticeshipOccupationClosedDate datetime
+	,[AsDm_UpdatedDateTime]  [datetime2](7)						DEFAULT (getdate())
 )

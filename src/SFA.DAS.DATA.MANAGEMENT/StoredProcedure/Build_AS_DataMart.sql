@@ -107,3 +107,5 @@ EXEC [dbo].[CreateDataDictionaryView] @RunID
 EXEC [dbo].[PopulateMarketoFilterConfigForImport] @RunId
 
 EXEC [dbo].[PopulateMetadataForRefreshDataset] @RunId
+
+EXEC [dbo].[PopulateMetadataNationalMinimumWageRates] @RunId

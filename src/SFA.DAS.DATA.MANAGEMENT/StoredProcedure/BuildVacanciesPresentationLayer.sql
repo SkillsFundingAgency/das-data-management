@@ -81,6 +81,13 @@ END
 ELSE RAISERROR( 'Import Data From Vacancies Application To PL Failed -Check Log Table For Errors',1,1)
 
 
+/* Import Vacancies Additional Info Data to Presentation Layer */
+
+IF EXISTS (SELECT * FROM Mgmt.Log_Execution_Results where StoredProcedureName='ImportVacanciesApplicationToPL' and Execution_Status=1 and RunId=@RunId)
+BEGIN
+EXEC dbo.ImportVacanciesAdditionalInfoToPL @RunId
+END
+ELSE RAISERROR( 'Import Data From Vacancies Additional Info To PL Failed -Check Log Table For Errors',1,1)
 
 
 

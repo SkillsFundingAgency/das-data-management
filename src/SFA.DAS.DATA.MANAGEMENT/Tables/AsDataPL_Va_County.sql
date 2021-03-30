@@ -4,4 +4,5 @@
  ,CodeName nvarchar(3)
  ,ShortName nvarchar(50)
  ,FullName nvarchar(150)
+ ,[AsDm_UpdatedDateTime]  [datetime2](7)						DEFAULT (getdate())
 )

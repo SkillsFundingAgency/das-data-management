@@ -5,4 +5,5 @@
  ,ShortName nvarchar(50)
  ,FullName nvarchar(100)
  ,CountyId int
+ ,[AsDm_UpdatedDateTime]  [datetime2](7)						DEFAULT (getdate())
  )

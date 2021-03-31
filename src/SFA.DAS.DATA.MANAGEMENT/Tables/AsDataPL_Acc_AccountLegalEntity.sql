@@ -10,8 +10,7 @@
    ,[SignedAgreementId] BIGINT NULL
    ,[PendingAgreementVersion] INT NULL
    ,[PendingAgreementId] BIGINT NULL
-   ,[Deleted] DateTime NULL
-   ,[HashedLegalEntityId]  nvarchar(6) NULL
+   ,[Deleted] DateTime NULL   
    ,[HasSignedIncentivesTerms] [bit] NULL
    ,[IncentivesVrfVendorId] nvarchar(100) null
    ,[IncentivesVrfCaseId] nvarchar(100) null

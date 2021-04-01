@@ -479,8 +479,3 @@ IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
 		      AND TABLE_SCHEMA=N'Stg'
 	      )
 DROP TABLE [Stg].[GA_SessionData]
-
-
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Stg].[PFBE_EmployerFeedback]') AND type in (N'U'))
-DROP TABLE [Stg].[PFBE_EmployerFeedback]
-GO

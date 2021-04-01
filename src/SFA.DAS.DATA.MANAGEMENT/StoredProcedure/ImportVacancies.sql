@@ -40,6 +40,10 @@ BEGIN TRANSACTION
 
 DELETE FROM ASData_PL.Va_Application  -- Delete Application First to be able to resolve Foreign key conflicts */
 
+DELETE FROM ASData_PL.Va_Apprenticeships -- Delete Apprenticeships First to be able to resolve Foreign key conflicts */
+
+DELETE FROM ASData_PL.va_VacancyReviews -- Delete VacancyReviews First to be able to resolve Foreign key conflicts */
+
 DELETE FROM ASData_PL.Va_Vacancy
 
 /* Load RAAv1 */
@@ -198,8 +202,8 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
                   ELSE 0
               END                                             as TrainingTypeId
 	        ,CASE WHEN V.ApprenticeshipFrameworkId is not null 
-                  then 'Frameworks' 
-                  WHEN V.StandardId is not null then 'Standards'
+                  then 'Framework' 
+                  WHEN V.StandardId is not null then 'Standard'
                   ELSE 'Unknown' 
               END                                             as TrainingTypeDesc
 	        ,v.VacancyTypeId
@@ -417,7 +421,14 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
              END                                                   as [Framework/Standard Name] 
           ,EL.EducationLevelFullName+' '+EL.EducationLevelNamev2   as EducationLevel
 		  ,v.[WageType]                                            as WageType
-          ,v.FixedWageYearlyAmount +' '+ISNULL(v.WageAdditionalInformation,'') as WageText
+          ,isnull((CASE WHEN v.WageType='NationalMinimumWageForApprentices'
+		                THEN CAST(AMW.WageRateInPounds*52*v.WeeklyHours as varchar)
+			            WHEN v.WageType='NationalMinimumWage'
+			            THEN CAST(NMR.MinWage*52*v.WeeklyHours as varchar) + '-' + CAST(NMR.MaxWage*52*v.WeeklyHours as Varchar)
+			            ELSE v.FixedWageYearlyAmount 
+	                     END) ,'') 
+						 +' '
+						 +ISNULL(v.WageAdditionalInformation,'')   as WageText
           -- ,[WageUnitId]
           ,'Annually'                                              as WageUnitDesc
           ,v.WorkingWeekDescription                                as WorkingWeek
@@ -429,8 +440,8 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
           ,dbo.Fn_ConvertTimeStampToDateTime(v.StartDateTimeStamp) as ExpectedStartDate
           ,v.WageDuration+ ' '+v.WageDurationUnit + CASE WHEN v.WageDuration<>1 then 's' ELSE '' END 
 		                                                           as ExpectedDuration
-		  ,CASE WHEN AP.ApprenticeshipType='Frameworks' THEN 1
-                WHEN AP.ApprenticeshipType='Standards' THEN 2
+		  ,CASE WHEN AP.ApprenticeshipType='Framework' THEN 1
+                WHEN AP.ApprenticeshipType='Standard' THEN 2
                 ELSE 0
               END                                                  as TrainingTypeId
 	      ,ISNULL(AP.ApprenticeshipType,'Unknown')                 as TrainingTypeFullName
@@ -490,6 +501,17 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
 	  JOIN ASData_PL.Va_ApprenticeshipFrameWorkAndOccupation AF
         ON AF.ProgrammeId_v2=V.ProgrammeId
 	   AND AF.SourceDb='RAAv2'
+	  LEFT
+	  JOIN (SELECT StartDate,EndDate,WageRateInPounds
+             FROM  Mtd.NationalMinimumWageRates
+            WHERE AgeGroup='Apprentice') AMW  -- ApprenticeMinimumWage
+		ON dbo.Fn_ConvertTimeStampToDateTime(v.LiveDateTimeStamp) >= AMW.StartDate AND dbo.Fn_ConvertTimeStampToDateTime(v.LiveDateTimeStamp) <= AMW.EndDate
+	  LEFT
+	  JOIN (SELECT StartDate,EndDate, MIN(WageRateInPounds) MinWage,MAX(WageRateInPounds) MaxWage
+              FROM  Mtd.NationalMinimumWageRates
+             WHERE AgeGroup<>'Apprentice'
+          GROUP BY StartDate,EndDate) NMR
+		ON dbo.Fn_ConvertTimeStampToDateTime(v.LiveDateTimeStamp) >= NMR.StartDate AND dbo.Fn_ConvertTimeStampToDateTime(v.LiveDateTimeStamp) <= NMR.EndDate
 
 
 

@@ -14,4 +14,5 @@
       ,[IsNASProvider_v1] bit
       ,[ProviderToUseFAA_v1] int
 	  ,[SourceDb] Varchar(100)
+	  ,[AsDm_UpdatedDateTime]  [datetime2](7)						DEFAULT (getdate())
 	)

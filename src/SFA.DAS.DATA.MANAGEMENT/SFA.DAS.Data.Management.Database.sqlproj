@@ -313,5 +313,12 @@
     <Build Include="Functions\Fn_ConvertGuidToBase64.sql" />
     <Build Include="Tables\ASDataPL_PFBE_EmployerFeedback.sql" />
     <Build Include="StoredProcedure\ImportEmployerFeedbackStgToLive.sql" />
+    <Build Include="Tables\AsDataPL_Va_Apprenticeships.sql" />
+    <Build Include="Tables\AsDataPL_Va_ContactMessages.sql" />
+    <Build Include="Tables\AsDataPL_Va_SavedSearches.sql" />
+    <Build Include="Tables\AsDataPL_Va_VacancyReviews.sql" />
+    <Build Include="Tables\Mtd_NationalMinimumWageRates.sql" />
+    <Build Include="StoredProcedure\ImportVacanciesAdditionalInfoToPL.sql" />
+    <Build Include="StoredProcedure\PopulateMetadataNationalMinimumWageRates.sql" />
   </ItemGroup>
 </Project>

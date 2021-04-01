@@ -49,9 +49,9 @@ BEGIN TRANSACTION
 						   ,[Ukprn]
 						   ,[AccountId]
 						   ,[DatetimeCompleted]
-						   ,[ProviderName]
-						   ,[ProviderValue]
-						   ,[ProviderRating]
+						   ,[FeedbackName]
+						   ,[FeedbackValue]
+						   ,[Rating]
 						   ,[RunId])	
 					SELECT [id]
 						  ,[Ukprn]

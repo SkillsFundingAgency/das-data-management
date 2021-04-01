@@ -58,7 +58,9 @@ VALUES
 ,('2020-05-01T00:00:00Z','2020-05-31T23:59:59-00:00') 
 ,('2020-06-01T00:00:00Z','2020-06-30T23:59:59-00:00') 
 ,('2020-10-21T00:00:00Z','2020-10-31T23:59:59-00:00') 
-,('2021-02-01T00:00:00Z','2021-02-28T23:59:59-00:00')
+,('2021-02-01T00:00:00Z','2021-02-28T23:59:59-00:00') 
+
+/* Set up config to Import Lead Data from May 2019 to Feb 2020 , set Activity Import Status to 1 so that it doesn't get triggered for Import */
 
 INSERT INTO #tMarketoFilterConfig
 (StartDateFilter,EndDateFilter,ImportStatus,ActivityImportStatus)
@@ -81,8 +83,8 @@ VALUES
 
 /* Insert main Config Table if not already exists */
 INSERT INTO Mtd.MarketoFilterConfig
-(StartDateFilter,EndDateFilter)
-SELECT StartDateFilter,EndDateFilter
+(StartDateFilter,EndDateFilter,ImportStatus,ActivityImportStatus)
+SELECT StartDateFilter,EndDateFilter,ImportStatus,ActivityImportStatus
   FROM #tMarketoFilterConfig tMFC
  WHERE NOT EXISTS (SELECT 1
                      FROM Mtd.MarketoFilterConfig MFC

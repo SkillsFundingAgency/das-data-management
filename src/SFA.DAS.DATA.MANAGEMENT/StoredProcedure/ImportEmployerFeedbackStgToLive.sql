@@ -44,24 +44,24 @@ BEGIN TRANSACTION
 
 				DELETE FROM [ASData_PL].[PFBE_EmployerFeedback]
 
-				INSERT INTO [ASData_PL].[PFBE_EmployerFeedback]
-						   ([EmployerFeedbackBinaryId]
-						   ,[Ukprn]
-						   ,[AccountId]
-						   ,[DatetimeCompleted]
-						   ,[FeedbackName]
-						   ,[FeedbackValue]
-						   ,[ProviderRating]
-						   ,[RunId])	
-					SELECT [id]
-						  ,[Ukprn]
-						  ,[AccountId]
-						  ,[DatetimeCompleted]
-						  ,[FeedbackName]
-						  ,[FeedbackValue]
-						  ,[ProviderRating]
-						  ,@RunId					
-					  FROM [Stg].[PFBE_EmployerFeedback]
+				--INSERT INTO [ASData_PL].[PFBE_EmployerFeedback]
+				--		   ([EmployerFeedbackBinaryId]
+				--		   ,[Ukprn]
+				--		   ,[AccountId]
+				--		   ,[DatetimeCompleted]
+				--		   ,[FeedbackName]
+				--		   ,[FeedbackValue]
+				--		   ,[ProviderRating]
+				--		   ,[RunId])	
+				--	SELECT [id]
+				--		  ,[Ukprn]
+				--		  ,[AccountId]
+				--		  ,[DatetimeCompleted]
+				--		  ,[FeedbackName]
+				--		  ,[FeedbackValue]
+				--		  ,[ProviderRating]
+				--		  ,@RunId					
+				--	  FROM [Stg].[PFBE_EmployerFeedback]
 
 COMMIT TRANSACTION
 

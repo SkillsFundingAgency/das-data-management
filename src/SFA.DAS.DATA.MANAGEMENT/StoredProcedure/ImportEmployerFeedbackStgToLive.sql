@@ -51,14 +51,14 @@ BEGIN TRANSACTION
 						   ,[DatetimeCompleted]
 						   ,[FeedbackName]
 						   ,[FeedbackValue]
-						   ,[Rating]
+						   ,[ProviderRating]
 						   ,[RunId])	
 					SELECT [id]
 						  ,[Ukprn]
 						  ,[AccountId]
 						  ,[DatetimeCompleted]
-						  ,[ProviderName]
-						  ,[providerValue]
+						  ,[FeedbackName]
+						  ,[FeedbackValue]
 						  ,[ProviderRating]
 						  ,@RunId					
 					  FROM [Stg].[PFBE_EmployerFeedback]

@@ -607,6 +607,13 @@ BEGIN
      GRANT SELECT ON ASData_PL.MarketoPrograms TO DataGov
 END
 
+/* ASINTEL - 1554 - Access on Commitments view to Data Gov Role */
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='DAS_Commitments_V2' AND TABLE_SCHEMA = 'Data_Pub')
+BEGIN
+     GRANT SELECT ON Data_Pub.DAS_Commitments_V2 TO DataGov
+END
+
 IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='GA_SessionDataDetail' AND TABLE_SCHEMA = 'Stg')
 BEGIN
      GRANT SELECT ON Stg.GA_SessionDataDetail TO BetaUser

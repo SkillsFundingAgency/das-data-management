@@ -127,6 +127,9 @@
               , Acc.ApprenticeshipEmployerType									                            as ApprenticeshipEmployerType
 			  , ISNULL(cast(A.MadeRedundant as int),-1)														as MadeRedundant
 			  , A.CreatedOn																					as CreatedOn
+			  , Case when AI.[ApprenticeshipId]  IS NOT NULL Then 1  Else 0 End 							As MadeIncentiveClaim
+			  , ISNULL(EIP.PaidDateCount,0)																	As PaidDateCount
+			  , A.StopDate																					As StopDate
 	FROM [ASData_PL].[Comt_Commitment] C 
 	LEFT JOIN [ASData_PL].[Comt_Apprenticeship] A
 	  ON C.Id=A.CommitmentId
@@ -167,4 +170,15 @@
 		   ON RD.Category='Commitments'
 		  AND RD.FieldName='Approvals'
 		  AND RD.FieldValue=C.Approvals
+
+	LEFT JOIN [ASData_PL].[EI_ApprenticeshipIncentive]  AI
+			ON A.ID = AI.[ApprenticeshipId]
+
+	LEFT JOIN 
+			( SELECT [ApprenticeshipIncentiveId],count([PaidDate]) as PaidDateCount      
+			  FROM [ASData_PL].[EI_Payment] 
+			  where [PaidDate]  IS NOT NULL 
+			  GROUP BY [ApprenticeshipIncentiveId] 
+			) EIP ON  
+			AI.ID  = EIP.[ApprenticeshipIncentiveId]
 	GO

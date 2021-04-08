@@ -62,7 +62,6 @@ BEGIN TRY
 				FROM stg.Acc_Account stgAcc LEFT JOIN Stg.Comt_Accounts stgcAcc on stgAcc.id = stgcAcc.id 
 				group by stgAcc.Id,stgAcc.HashedId,stgAcc.Name,stgAcc.CreatedDate,stgAcc.ModifiedDate,stgAcc.ApprenticeshipEmployerType,
 						 stgAcc.PublicHashedId,stgcAcc.LevyStatus
-
 				
 				/*Insert ASData_PL.Acc_AccountLegalEntity*/
 				
@@ -97,7 +96,7 @@ BEGIN TRY
 							,Acc_AccLegalEntity.SignedAgreementId
 							,Acc_AccLegalEntity.PendingAgreementVersion
 							,Acc_AccLegalEntity.PendingAgreementId
-							,Acc_AccLegalEntity.Deleted		
+							,Acc_AccLegalEntity.Deleted	
 							,EI_Acc.HasSignedIncentivesTerms
 							,EI_Acc.VrfVendorId
 						    ,EI_Acc.VrfCaseId
@@ -116,7 +115,7 @@ BEGIN TRY
 							,Acc_AccLegalEntity.SignedAgreementId
 							,Acc_AccLegalEntity.PendingAgreementVersion
 							,Acc_AccLegalEntity.PendingAgreementId
-							,Acc_AccLegalEntity.Deleted		
+							,Acc_AccLegalEntity.Deleted
 							,EI_Acc.HasSignedIncentivesTerms
 							,EI_Acc.VrfVendorId
 						    ,EI_Acc.VrfCaseId

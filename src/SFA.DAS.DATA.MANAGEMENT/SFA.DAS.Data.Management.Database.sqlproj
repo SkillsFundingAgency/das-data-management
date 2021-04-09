@@ -311,6 +311,8 @@
     <Build Include="Tables\AsDataPL_RP_Apply.sql" />
     <Build Include="Tables\AsDataPL_RP_Organisations.sql" />
     <Build Include="Functions\Fn_ConvertGuidToBase64.sql" />
+    <Build Include="Tables\ASDataPL_PFBE_EmployerFeedback.sql" />
+    <Build Include="StoredProcedure\ImportEmployerFeedbackStgToLive.sql" />
     <Build Include="Tables\ASDataPL_EI_ChangeOfCircumstance.sql" />
     <Build Include="Tables\AsDataPL_Va_Apprenticeships.sql" />
     <Build Include="Tables\AsDataPL_Va_ContactMessages.sql" />

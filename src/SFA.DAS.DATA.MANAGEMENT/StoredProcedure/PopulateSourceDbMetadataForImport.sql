@@ -186,7 +186,6 @@ VALUES
       ,'SELECT [Id],[Name],[OrganisationType],[OrganisationUKPRN],[Status],[RoEPAOApproved],[RoATPApproved],[CreatedAt],[CreatedBy],[UpdatedAt],[UpdatedBy],[DeletedAt],[DeletedBy],JSON_VALUE(OrganisationDetails,''''$.RoatpDetails.UkprnOnRegister'''') UkprnOnRegister,CASE WHEN CHARINDEX('''' '''',JSON_VALUE(OrganisationDetails,''''$.Postcode''''))<>0 THEN SUBSTRING(JSON_VALUE(OrganisationDetails,''''$.Postcode''''),1,CHARINDEX('''' '''',JSON_VALUE(OrganisationDetails,''''$.Postcode''''))) ELSE SUBSTRING(JSON_VALUE(OrganisationDetails,''''$.Postcode''''),1,LEN(JSON_VALUE(OrganisationDetails,''''$.Postcode''''))-3) end PostCode,JSON_VALUE(OrganisationDetails,''''$.OrganisationReferenceType'''') OrganisationReferenceType,JSON_VALUE(OrganisationDetails,''''$.LegalName'''') OrganisationLegalName,JSON_VALUE(OrganisationDetails,''''$.TradingName'''') OrganisationTradingName,JSON_VALUE(OrganisationDetails,''''$.EndPointAssessmentOrgId'''') EndPointAssessmentOrgId,JSON_VALUE(OrganisationDetails,''''$.UKRLPDetails.VerificationDetails[0].VerificationAuthority'''') VerificationAuthority,JSON_VALUE(OrganisationDetails,''''$.UKRLPDetails.VerificationDetails[0].VerificationId'''') VerificationId      ,JSON_VALUE(OrganisationDetails,''''$.UKRLPDetails.VerificationDetails[0].PrimaryVerificationSource'''') PrimaryVerificationSource  FROM [dbo].[Organisations]'
       ,'RP_Organisations')
  
-
   /* Assessor Configuration */
 
  INSERT INTO Mtd.SourceConfigForImport

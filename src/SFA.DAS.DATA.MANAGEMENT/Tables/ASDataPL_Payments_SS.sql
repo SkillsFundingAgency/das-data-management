@@ -34,4 +34,5 @@
 		 ,CollectionPeriodName			nvarchar(20) null
 		 ,CollectionPeriodMonth			nvarchar(10) null
 		 ,CollectionPeriodYear			nvarchar(10) null
+		 ,LearningAimFundingLineType    nvarchar(100) null
  )

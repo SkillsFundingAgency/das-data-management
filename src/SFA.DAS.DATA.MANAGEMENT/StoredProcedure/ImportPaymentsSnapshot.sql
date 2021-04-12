@@ -81,6 +81,7 @@ BEGIN TRY
 					   ,CollectionPeriodName
 					   ,CollectionPeriodMonth
 					   ,CollectionPeriodYear
+					   ,LearningAimFundingLineType
 				  )
 
 				  select 
@@ -116,7 +117,8 @@ BEGIN TRY
 						[DASAccountName], 
 						[CollectionPeriodName], 
 						[CollectionPeriodMonth], 
-						[CollectionPeriodYear]
+						[CollectionPeriodYear],
+						[LearningAimFundingLineType]
 				From	[Data_Pub].[DAS_Payments]
  
 		 /* Update Log Execution Results as Success if the query ran succesfully*/

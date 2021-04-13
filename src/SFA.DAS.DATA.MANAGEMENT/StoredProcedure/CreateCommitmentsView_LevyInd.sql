@@ -223,6 +223,9 @@ SET @VSQL4=
         , acct1.ApprenticeshipEmployerType									as ApprenticeshipEmployerType
 		, ISNULL(cast(A.MadeRedundant as int),-1)                           as MadeRedundant
 		,A.CreatedOn													    as CreatedOn
+		, Case when AI.[ApprenticeshipId]  IS NOT NULL Then 1  Else 0 End 							As MadeIncentiveClaim
+		, ISNULL(EIP.PaidDateCount,0)																	As PaidDateCount
+		, A.StopDate																					As StopDate
 
 FROM [Comt].[Ext_Tbl_Commitment] C 
 LEFT JOIN [Comt].[Ext_Tbl_Apprenticeship] A
@@ -269,6 +272,17 @@ LEFT JOIN dbo.ReferenceData RD
        ON RD.Category=''Commitments''
       AND RD.FieldName=''Approvals''
       AND RD.FieldValue=C.Approvals
+
+LEFT JOIN [ASData_PL].[EI_ApprenticeshipIncentive]  AI
+		ON A.ID = AI.[ApprenticeshipId]
+
+LEFT JOIN 
+		( SELECT [ApprenticeshipIncentiveId],count([PaidDate]) as PaidDateCount      
+			FROM [ASData_PL].[EI_Payment] 
+			where [PaidDate]  IS NOT NULL 
+			GROUP BY [ApprenticeshipIncentiveId] 
+		) EIP ON  
+		AI.ID  = EIP.[ApprenticeshipIncentiveId]
 '
 
 EXEC SP_EXECUTESQL @VSQL1

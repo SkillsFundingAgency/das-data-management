@@ -43,7 +43,11 @@ BEGIN TRY
 
 
 		/* Import Payments Snapshot for Data Science */
+		/* Make it dynamic sql to avoid compile errors while deploying */
 
+		Declare @vsql nvarchar(max)
+
+		set @vsql='
 				Delete From ASData_PL.Payments_SS
 
 				INSERT INTO ASData_PL.Payments_SS
@@ -120,6 +124,9 @@ BEGIN TRY
 						[CollectionPeriodYear],
 						[LearningAimFundingLineType]
 				From	[Data_Pub].[DAS_Payments]
+				'
+
+    EXEC SP_EXECUTESQL @VSQL
  
 		 /* Update Log Execution Results as Success if the query ran succesfully*/
 

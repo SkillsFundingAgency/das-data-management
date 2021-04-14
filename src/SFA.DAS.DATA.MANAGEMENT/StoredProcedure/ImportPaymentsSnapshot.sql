@@ -48,7 +48,7 @@ begin transaction
 
 		Declare @vsql nvarchar(max)
 
-		--set @vsql='
+		set @vsql='
 				Delete From ASData_PL.Payments_SS
 
 				INSERT INTO ASData_PL.Payments_SS
@@ -125,9 +125,9 @@ begin transaction
 						[CollectionPeriodYear],
 						[LearningAimFundingLineType]
 				From	[Data_Pub].[DAS_Payments]
-				--'			
+				'			
 
-   -- EXEC SP_EXECUTESQL @VSQL
+    EXEC SP_EXECUTESQL @VSQL
 
 	commit transaction
  

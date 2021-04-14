@@ -122,7 +122,7 @@ BEGIN TRANSACTION
 						[CollectionPeriodName], 
 						[CollectionPeriodMonth], 
 						[CollectionPeriodYear],
-						pv2.[LearningAimFundingLineType]
+						[LearningAimFundingLineType]
 				From	[Data_Pub].[Das_Payments] 				
 						
 

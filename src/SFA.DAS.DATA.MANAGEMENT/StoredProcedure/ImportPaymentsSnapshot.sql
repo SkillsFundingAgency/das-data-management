@@ -44,6 +44,7 @@ BEGIN TRY
 
 		/* Import Payments Snapshot for Data Science */
 		/* Make it dynamic sql to avoid compile errors while deploying */
+begin transaction
 
 		Declare @vsql nvarchar(max)
 
@@ -127,6 +128,8 @@ BEGIN TRY
 				'
 
     EXEC SP_EXECUTESQL @VSQL
+
+	commit transaction
  
 		 /* Update Log Execution Results as Success if the query ran succesfully*/
 

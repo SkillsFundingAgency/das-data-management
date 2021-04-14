@@ -123,7 +123,7 @@ BEGIN TRANSACTION
 						[CollectionPeriodMonth], 
 						[CollectionPeriodYear],
 						[LearningAimFundingLineType]
-				From	[Data_Pub].[Das_Payments] 				
+				From	[Data_Pub].[DAS_Payments_V2] 				
 						
 
 Commit Transaction

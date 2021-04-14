@@ -44,11 +44,11 @@ BEGIN TRY
 
 		/* Import Payments Snapshot for Data Science */
 		/* Make it dynamic sql to avoid compile errors while deploying */
-begin transaction
 
-		Declare @vsql nvarchar(max)
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='DAS_Payments' AND TABLE_SCHEMA='Data_Pub'AND COLUMN_NAME='LearningAimFundingLineType')
+BEGIN
 
-		set @vsql='
+BEGIN TRANSACTION
 				Delete From ASData_PL.Payments_SS
 
 				INSERT INTO ASData_PL.Payments_SS
@@ -88,7 +88,6 @@ begin transaction
 					   ,CollectionPeriodYear
 					   ,LearningAimFundingLineType
 				  )
-
 				  select 
 						[PaymentID], 
 						[UKPRN], 
@@ -123,13 +122,13 @@ begin transaction
 						[CollectionPeriodName], 
 						[CollectionPeriodMonth], 
 						[CollectionPeriodYear],
-						[LearningAimFundingLineType]
-				From	[Data_Pub].[DAS_Payments]
-				'			
+						pv2.[LearningAimFundingLineType]
+				From	[Data_Pub].[Das_Payments] 				
+						
 
-    EXEC @VSQL
+Commit Transaction
 
-	commit transaction
+END
  
 		 /* Update Log Execution Results as Success if the query ran succesfully*/
 

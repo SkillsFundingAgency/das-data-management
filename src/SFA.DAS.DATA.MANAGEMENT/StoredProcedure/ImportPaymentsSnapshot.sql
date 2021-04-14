@@ -127,7 +127,7 @@ begin transaction
 				From	[Data_Pub].[DAS_Payments]
 				'			
 
-    EXEC SP_EXECUTESQL @VSQL
+    EXEC @VSQL
 
 	commit transaction
  

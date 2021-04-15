@@ -5,7 +5,6 @@
 [BatchNumber]								    [Int]					NULL,
 [CertificateReference]							[NVarchar](50)			NULL,
 [CertificateReferenceId]						[Int]					NULL,
-[ContactName]									[NVarchar](100)			NULL,
 [ContactOrganisation]							[NVarchar](200)			NULL,
 [ContactPostCode]								[NVarchar](20)			NULL,
 [CourseOption]									[NVarchar](200)			NULL,

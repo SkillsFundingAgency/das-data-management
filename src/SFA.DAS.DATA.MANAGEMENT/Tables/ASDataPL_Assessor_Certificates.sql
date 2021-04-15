@@ -11,13 +11,9 @@
 [CourseOption]									[NVarchar](200)			NULL,
 [CreatedAt]										[DateTime2](7)			NULL,
 [CreateDay]										[Date]					NULL,	
-[CreatedBy]										[NVarchar](250)			NULL,
 [DeletedAt]										[DateTime2](7)			NULL,
-[DeletedBy]										[NVarchar](250)			NULL,
 [Department]									[NVarchar](200)			NULL,
 [IsPrivatelyFunded]								[Bit]					NULL,
-[LearnerFamilyName]								[NVarchar](200)			NULL,
-[LearnerGivenNames]								[Nvarchar](100)			NULL,
 [LearningStartDate]								[DateTime2](7)			NULL,
 [OrganisationId]								[uniqueidentifier]		NULL,
 [OverallGrade]									[NVarchar](100)			NULL,
@@ -34,6 +30,5 @@
 [Status]										[NVarchar](20)			NULL,
 [ToBePrinted]									[DateTime2](7)			NULL,
 [UpdatedAt]										[DateTime2](7)			NULL,
-[UpdatedBy]										[NVarchar](200)			NULL,
 [AsDm_UpdatedDateTime]							[Datetime2](7)			default getdate()
 )

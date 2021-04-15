@@ -45,9 +45,6 @@ BEGIN TRY
 		/* Import Payments Snapshot for Data Science */
 		/* Make it dynamic sql to avoid compile errors while deploying */
 
-IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='DAS_Payments' AND TABLE_SCHEMA='Data_Pub'AND COLUMN_NAME='LearningAimFundingLineType')
-BEGIN
-
 BEGIN TRANSACTION
 				Delete From ASData_PL.Payments_SS
 
@@ -128,8 +125,7 @@ BEGIN TRANSACTION
 
 Commit Transaction
 
-END
- 
+
 		 /* Update Log Execution Results as Success if the query ran succesfully*/
 
 		UPDATE Mgmt.Log_Execution_Results

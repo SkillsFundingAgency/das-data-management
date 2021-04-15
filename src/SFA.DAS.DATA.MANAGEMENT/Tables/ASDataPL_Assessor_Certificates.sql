@@ -1,7 +1,7 @@
 ﻿Create Table [ASData_PL].[Assessor_Certificates]
 (
 [Id]											[uniqueidentifier]		PRIMARY KEY NOT NULL,
-[AchievementDate]								[DateTime]				NULL,
+[AchievementDate]								[DateTime2](7)			NULL,
 [BatchNumber]								    [Int]					NULL,
 [CertificateReference]							[NVarchar](50)			NULL,
 [CertificateReferenceId]						[Int]					NULL,

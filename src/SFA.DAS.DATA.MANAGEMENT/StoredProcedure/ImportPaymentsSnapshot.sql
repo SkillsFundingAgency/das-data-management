@@ -43,7 +43,9 @@ BEGIN TRY
 
 
 		/* Import Payments Snapshot for Data Science */
+		/* Make it dynamic sql to avoid compile errors while deploying */
 
+BEGIN TRANSACTION
 				Delete From ASData_PL.Payments_SS
 
 				INSERT INTO ASData_PL.Payments_SS
@@ -81,8 +83,8 @@ BEGIN TRY
 					   ,CollectionPeriodName
 					   ,CollectionPeriodMonth
 					   ,CollectionPeriodYear
+					   ,LearningAimFundingLineType
 				  )
-
 				  select 
 						[PaymentID], 
 						[UKPRN], 
@@ -116,9 +118,14 @@ BEGIN TRY
 						[DASAccountName], 
 						[CollectionPeriodName], 
 						[CollectionPeriodMonth], 
-						[CollectionPeriodYear]
-				From	[Data_Pub].[DAS_Payments]
- 
+						[CollectionPeriodYear],
+						[LearningAimFundingLineType]
+				From	[Data_Pub].[DAS_Payments_V2] 				
+						
+
+Commit Transaction
+
+
 		 /* Update Log Execution Results as Success if the query ran succesfully*/
 
 		UPDATE Mgmt.Log_Execution_Results

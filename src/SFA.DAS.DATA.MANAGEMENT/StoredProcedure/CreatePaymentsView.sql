@@ -123,6 +123,7 @@ SELECT
       + RIGHT(''0'' + RTRIM(cast(CalDP.CalendarMonthNumber AS varchar)), 2)
       + ''-01''                                     AS DeliveryDate
     , P.IlrSubmissionDateTime                       AS EvidenceSubmittedOn
+	, P.LearningAimFundingLineType                  AS LearningAimFundingLineType
   FROM StgPmts.Payment P
   LEFT OUTER JOIN dbo.DASCalendarMonth CalCP -- Calendar Conversion for CollectionPeriod Dates
     ON ''20'' + Substring( Cast ( P.AcademicYear AS VARCHAR) , 1, 2) 
@@ -193,6 +194,7 @@ SELECT
   , CAST ( P.CollectionPeriodName AS nvarchar(20) )                   AS CollectionPeriodName
   , CAST ( P.CollectionPeriodMonth AS nvarchar(10) )                  AS CollectionPeriodMonth
   , CAST ( P.CollectionPeriodYear AS nvarchar(10) )                   AS CollectionPeriodYear
+  , P.LearningAimFundingLineType                                      AS LearningAimFundingLineType
 '
 -- Joins
 SET @VSQL4 = '

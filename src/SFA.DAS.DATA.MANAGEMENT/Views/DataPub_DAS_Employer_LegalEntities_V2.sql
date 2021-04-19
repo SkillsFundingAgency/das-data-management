@@ -6,9 +6,10 @@ AS
 						 ISNULL(CAST(ale.LegalEntityId * 10 as bigint), -1)                                                AS Id
 						,ISNULL(CAST(a.HashedId as nvarchar(100)),'XXXXXX')												   AS DasAccountId
 						,ISNULL(CAST(ale.LegalEntityId AS bigint), -1)                                                     AS DasLegalEntityId				
-						,'Redacted'																					   AS LegalEntityName				
-						,'Redacted'																					   As LegalEntityRegisteredAddress				
-						,'Redacted'																					   AS LegalEntityRegisteredAddressPostcode								
+						, ale.Name    																					   AS LegalEntityName				
+					    , CAST(ale.Address as nvarchar(256))                                                                as LegalEntityRegisteredAddress
+                        , CAST(Mgmt.fn_ExtractPostCodeUKFromAddress(UPPER( ale.Address)) as Varchar(8))                     AS LegalEntityRegisteredAddressPostcode
+
 						-- DO we need a valid postcode field
 						, ISNULL(CAST((CASE 
 								WHEN le.Source = 3 THEN 'Public Body'

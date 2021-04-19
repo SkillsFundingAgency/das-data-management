@@ -69,8 +69,8 @@
 					 ,Acct.HashedId as DasAccountId
 					 ,ALE.Id as DasLegalEntityId
 					 ,ALE.Created as LegalEntityCreatedDate
-					 ,'Redacted' as DasAccountName
-					 ,'Redacted' as LegalEntityName
+					 ,acct.Name as DasAccountName
+					 ,ale.Name as LegalEntityName
 				FROM ASData_PL.Acc_Account Acct
 				JOIN ASData_PL.Acc_AccountLegalEntity ALE
 				  ON Acct.Id=ale.AccountId

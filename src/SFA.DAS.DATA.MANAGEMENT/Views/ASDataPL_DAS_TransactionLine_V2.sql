@@ -22,9 +22,9 @@
 					[EmployerCoInvestmentAmount],  
 					[EnglishFraction],  
 					[TransferSenderAccountId],  
-					'Redacted' As [TransferSenderAccountName],  
+					[TransferSenderAccountName] As [TransferSenderAccountName],  
 					[TransferReceiverAccountId],  
-					'Redacted' As [TransferReceiverAccountName]  
+					[TransferReceiverAccountName] As [TransferReceiverAccountName]  
 			FROM [ASData_PL].[Fin_TransactionLine]
 			CROSS JOIN saltkeydata
 GO

@@ -3,7 +3,7 @@ AS
 		SELECT	isnull(CAST(a.Id * 100 as bigint),-1)													as Id
 			,	isnull(CAST(a.HashedId AS nvarchar(100)),'XXXXXX')										as DasAccountId
 			,   isnull(CAST(a.Id as bigint),-1)															as EmployerAccountId
-			,	a.Name          																	    as DASAccountName
+			,	ISNULL(CAST(a.Name as nvarchar(100)),'NA') 											    as DASAccountName
 			,	Convert(DATE,a.CreatedDate)																as DateRegistered
 			,	ISNULL(CAST(a.CreatedDate as DateTime),'9999-12-31')									as DateTimeRegistered
 			--Owner Email Address suppressed for Data Protection reasons

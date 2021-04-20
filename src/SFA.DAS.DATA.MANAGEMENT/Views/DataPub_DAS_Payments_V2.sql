@@ -127,7 +127,7 @@
 			  ELSE '19+'
 			END																	AS PaymentAgeBand 
 		  , P.DeliveryMonthShortNameYear 
-		  , Acct.Name                       									AS DASAccountName 
+		  , CAST ( Acct.Name AS nvarchar(100)) 									AS DASAccountName 
 		  , CAST ( P.CollectionPeriodName AS nvarchar(20) )						AS CollectionPeriodName
 		  , CAST ( P.CollectionPeriodMonth AS nvarchar(10) )					AS CollectionPeriodMonth
 		  , CAST ( P.CollectionPeriodYear AS nvarchar(10) )						AS CollectionPeriodYear

@@ -22,9 +22,9 @@
 					[EmployerCoInvestmentAmount],  
 					[EnglishFraction],  
 					[TransferSenderAccountId],  
-					[TransferSenderAccountName] As [TransferSenderAccountName],  
+					CAST([TransferSenderAccountName] AS NVARCHAR(100)) As [TransferSenderAccountName],  
 					[TransferReceiverAccountId],  
-					[TransferReceiverAccountName] As [TransferReceiverAccountName]  
+					CAST([TransferReceiverAccountName] AS NVARCHAR(100)) As [TransferReceiverAccountName]  
 			FROM [ASData_PL].[Fin_TransactionLine]
 			CROSS JOIN saltkeydata
 GO

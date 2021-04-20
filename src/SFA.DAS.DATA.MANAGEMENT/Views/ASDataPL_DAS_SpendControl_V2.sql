@@ -3,12 +3,12 @@
 			SELECT 
 				 COALESCE(Account.EmployerAccountId, -1)                                   AS EmployerAccountId
 				,COALESCE(Account.DasAccountId, 'XXXXXX')                                  AS DasAccountId
-				,COALESCE(Account.DasAccountName, 'NA')                                    AS DasAccountName
+				,CAST(COALESCE(Account.DasAccountName, 'NA') AS nvarchar(100))             AS DasAccountName
 				,COALESCE(Account.AccountCreatedDate,'9999-12-31')                         AS AccountCreatedDate
 				,COALESCE(Account.AccountModifiedDate,'9999-12-31')                        AS AccountModifiedDate
 				,COALESCE(Account.ApprenticeshipEmployerType,-1)                           AS AccountApprenticeshipEmployerType
 				,COALESCE(Account.DasLegalEntityId,'-1')                                   AS DasLegalEntityId
-				,COALESCE(Account.LegalEntityName,'NA')                                    AS LegalEntityName
+				,CAST(COALESCE(Account.LegalEntityName,'NA') AS nvarchar(100))             AS LegalEntityName
 				,COALESCE(Account.LegalEntityCreatedDate, '9999-12-31')                    AS AccountLegalEntityCreatedDate   
 				,COALESCE(Account.AccountSignedAgreementVersion,-1)                        AS AccountSignedAgreementVersion
 				,CASE WHEN Account.AccountLegalEntityDeleted IS NULL

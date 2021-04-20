@@ -123,6 +123,7 @@ BEGIN TRY
 						    ,EI_Acc.VrfCaseId
 						    ,EI_Acc.VrfCaseStatus
 						    ,EI_Acc.VrfCaseStatusLastUpdatedDateTime
+							,Acc_AccLegalEntity.[Address]
 
 				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='EI_Accounts' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 				DROP TABLE [Stg].[EI_Accounts]

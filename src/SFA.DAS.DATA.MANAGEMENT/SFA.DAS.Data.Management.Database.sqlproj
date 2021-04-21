@@ -323,5 +323,6 @@
     <Build Include="StoredProcedure\PopulateMetadataNationalMinimumWageRates.sql" />
     <Build Include="Tables\ASDataPL_Assessor_Certificates.sql" />
     <Build Include="Tables\ASDataPL_Assessor_OrganisationStandard.sql" />
+    <Build Include="Tables\AsDataPL_FAT2_ShortList.sql" />
   </ItemGroup>
 </Project>

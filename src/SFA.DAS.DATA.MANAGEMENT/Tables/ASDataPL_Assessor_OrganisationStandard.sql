@@ -9,7 +9,7 @@
 	[Comments]							[nvarchar](500)					NULL,
 	[Status]							[nvarchar](10)					NULL,
 	[ContactId]							[uniqueidentifier]				NULL,
-	[DeliveryAreaComments]				[NVarchar](500)					NULL,
+	[DeliveryAreasComments]				[NVarchar](500)					NULL,
 	[StandardReference]					[nvarchar](10)					NULL,
 	[AsDm_UpdatedDateTime]				[Datetime2](7)					default getdate(),
 )

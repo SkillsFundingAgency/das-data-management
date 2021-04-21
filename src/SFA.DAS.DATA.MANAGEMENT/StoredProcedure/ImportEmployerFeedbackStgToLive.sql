@@ -63,6 +63,8 @@ BEGIN TRANSACTION
 						  ,@RunId					
 					  FROM [Stg].[PFBE_EmployerFeedback]
 
+			   DROP TABLE IF EXISTS [Stg].[PFBE_EmployerFeedback]
+
 COMMIT TRANSACTION
 
  /* Update Log Execution Results as Success if the query ran succesfully*/

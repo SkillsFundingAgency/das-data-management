@@ -47,12 +47,18 @@ BEGIN TRANSACTION
 
  MERGE AsData_PL.MarketoPrograms as Target
  USING (SELECT *
-              ,case when ProgramName Like 'MA%' THEN CASE WHEN P2.Pos=0 or P1.Pos=0 or P3.Pos=0 THEN '' ELSE SUBSTRING(substring(ProgramName, P2.Pos + 1, P3.Pos - P2.Pos - 1),1,4)+'-'+ SUBSTRING(substring(ProgramName, P2.Pos + 1, P3.Pos - P2.Pos - 1),5,2)+'-'+ SUBSTRING(substring(ProgramName, P2.Pos + 1, P3.Pos - P2.Pos - 1),7,2) END ELSE '' END as CampaignDate
-              ,case when ProgramName like 'MA%' THEN CASE WHEN P3.Pos=0 or P4.Pos=0 THEN '' ELSE substring(ProgramName, P3.Pos + 1, P4.Pos - P3.Pos - 1) END ELSE '' END as CampaignName
-              ,CASE WHEN ProgramName like 'MA%' THEN case when P4.Pos=0 or P5.Pos=0 THEN '' ELSE substring(ProgramName, P4.Pos + 1, P5.Pos - P4.Pos - 1) END ELSE '' END as CampaignCategory
-		      ,CASE WHEN ProgramName like 'MA%' THEN case when P5.Pos=0 or P6.Pos=0 THEN '' ELSE substring(ProgramName, P5.Pos + 1, P6.Pos - P5.Pos - 1) END ELSE '' END as CampaignWeekName
-		      ,CASE WHEN ProgramName like 'MA%' THEN case when P6.Pos=0 THEN '' ELSE substring(ProgramName, P6.Pos + 1, len(ProgramName)) END ELSE '' END as TargetAudience
-         FROM Stg.MarketoPrograms) as Source
+              ,case when Name Like 'MA%' THEN CASE WHEN P2.Pos=0 or P1.Pos=0 or P3.Pos=0 THEN '' ELSE SUBSTRING(substring(Name, P2.Pos + 1, P3.Pos - P2.Pos - 1),1,4)+'-'+ SUBSTRING(substring(Name, P2.Pos + 1, P3.Pos - P2.Pos - 1),5,2)+'-'+ SUBSTRING(substring(Name, P2.Pos + 1, P3.Pos - P2.Pos - 1),7,2) END ELSE '' END as CampaignDate
+              ,case when Name like 'MA%' THEN CASE WHEN P3.Pos=0 or P4.Pos=0 THEN '' ELSE substring(Name, P3.Pos + 1, P4.Pos - P3.Pos - 1) END ELSE '' END as CampaignName
+              ,CASE WHEN Name like 'MA%' THEN case when P4.Pos=0 or P5.Pos=0 THEN '' ELSE substring(Name, P4.Pos + 1, P5.Pos - P4.Pos - 1) END ELSE '' END as CampaignCategory
+		      ,CASE WHEN Name like 'MA%' THEN case when P5.Pos=0 or P6.Pos=0 THEN '' ELSE substring(Name, P5.Pos + 1, P6.Pos - P5.Pos - 1) END ELSE '' END as CampaignWeekName
+		      ,CASE WHEN Name like 'MA%' THEN case when P6.Pos=0 THEN '' ELSE substring(Name, P6.Pos + 1, len(Name)) END ELSE '' END as TargetAudience
+         FROM Stg.MarketoPrograms
+  cross apply (select (charindex('_', Name))) as P1(Pos)
+  cross apply (select (charindex('_', Name, P1.Pos+1))) as P2(Pos)
+  cross apply (select (charindex('_', Name, P2.Pos+1))) as P3(Pos)
+  cross apply (select (charindex('_', Name, P3.Pos+1))) as P4(Pos)
+  cross apply (select (charindex('_', Name, P4.Pos+1))) as P5(Pos)
+  cross apply (select (charindex('_', Name, P5.Pos+1))) as P6(Pos)) as Source
     ON Target.ProgramId=TRY_CONVERT(BIGINT,CASE WHEN Source.Id='NULL' THEN NULL ELSE Source.Id END)
   WHEN MATCHED AND ( ISNULL(Target.ProgramName,'NA')<>ISNULL(CASE WHEN Source.name='null' THEN NULL ELSE Source.name END,'NA')
                   OR ISNULL(Target.ProgramDescription,'NA')<>ISNULL(CASE WHEN Source.Description='NULL' THEN NULL ELSE Source.Description END,'NA')

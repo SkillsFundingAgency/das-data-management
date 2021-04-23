@@ -16,5 +16,6 @@
    ,[IncentivesVrfCaseId] nvarchar(100) null
    ,[IncentivesVrfCaseStatus] nvarchar(100) null
    ,[IncentivesVrfCaseStatusLastUpdatedDateTime] datetime2(7) null
+   ,[Address] nvarchar(256) null
    ,[AsDm_UpdatedDateTime] datetime2 Default(getdate())
 )

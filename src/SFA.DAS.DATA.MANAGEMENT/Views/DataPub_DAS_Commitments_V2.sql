@@ -64,7 +64,7 @@
 		   , CAST(GETDATE() AS Date)																		as UpdateDate
 		   , ISNULL(CAST(1 AS BIT),-1)																		as Flag_Latest
      	   , CAST(le.code AS VARCHAR(50))																	as LegalEntityCode	
-		   , 'Redacted' 																					as LegalEntityName
+		   , CAST(AcctLE.Name  as varchar(100))                                                             AS LegalEntityName
 		   , CAST((CASE WHEN LE.Source = 1 THEN 'CompaniesHouse'
 					  WHEN LE.Source = 2 THEN 'Charities'
 					  WHEN LE.Source = 3  THEN 'Public Bodies'
@@ -114,11 +114,11 @@
 				   WHEN A.PaymentStatus=5 THEN 6
 				   ELSE 9
 				   END																						as [PaymentStatus_SortOrder]	    
-			 , 'Redacted'																					as DASAccountName
+			 ,  CAST(AcctLE.Name  as nvarchar(100))                                                         AS DASAccountName
 			 , ISNULL(CAST((CASE WHEN C.Approvals IN (3,7) THEN 'Yes'
 								ELSE 'No'
 								 END) AS Varchar(3)),'NA')													as FullyAgreedCommitment
-			  , 'Redacted'																				    as LegalEntityRegisteredAddress
+			  ,  CAST(AcctLE.Address as nvarchar(256))                                                      as LegalEntityRegisteredAddress
 			  ,  CONVERT(bit, CASE WHEN  isnull(C.Approvals,'0')  IN('3','7')
 								   THEN C.ApprenticeshipEmployerTypeOnApproval
 							       ELSE null

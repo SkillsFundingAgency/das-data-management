@@ -325,5 +325,6 @@
     <Build Include="Tables\ASDataPL_Assessor_OrganisationStandard.sql" />
     <Build Include="Tables\Mtd_RolesAndPermissions.sql" />
     <Build Include="StoredProcedure\PopulateMetadataRolesAndPermissions.sql" />
+    <Build Include="StoredProcedure\AssignPermissionsToRoles.sql" />
   </ItemGroup>
 </Project>

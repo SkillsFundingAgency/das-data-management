@@ -46,7 +46,31 @@ BEGIN TRANSACTION
 /* Delta Update MarketoPrograms */
 
  MERGE AsData_PL.MarketoPrograms as Target
- USING Stg.MarketoPrograms as Source
+ USING (SELECT *
+              ,CASE WHEN Name Like 'MA%' THEN CASE WHEN P2.Pos2=0 or P1.Pos1=0 or P3.Pos3=0 THEN '' ELSE SUBSTRING(substring(Name, P2.Pos2 + 1, P3.Pos3 - P2.Pos2 - 1),1,4)+'-'+ SUBSTRING(substring(Name, P2.Pos2 + 1, P3.Pos3 - P2.Pos2 - 1),5,2)+'-'+ SUBSTRING(substring(Name, P2.Pos2 + 1, P3.Pos3 - P2.Pos2 - 1),7,2) END ELSE '' END as CampaignDate
+              ,CASE WHEN Name like 'MA%' THEN CASE WHEN P3.Pos3=0 or P4.Pos4=0 THEN '' ELSE substring(Name, P3.Pos3 + 1, P4.Pos4 - P3.Pos3 - 1) END ELSE '' END as CampaignName
+              ,CASE WHEN Name like 'MA%' THEN CASE WHEN P4.Pos4=0 or P5.Pos5=0 THEN '' ELSE substring(Name, P4.Pos4 + 1, P5.Pos5 - P4.Pos4 - 1) END ELSE '' END as CampaignCategory
+		      ,CASE WHEN Name like 'MA%' THEN CASE WHEN P5.Pos5=0 and P6.Pos6=0 THEN ''
+			                                              WHEN P5.Pos5<>0 and P6.Pos6=0 and substring(Name, P5.Pos5 + 1, len(Name)) like 'Week%' THEN substring(Name, P5.Pos5 + 1, len(Name))
+														  WHEN P5.Pos5<>0 and P6.Pos6<>0 THEN substring(Name, P5.Pos5 + 1, P6.Pos6 - P5.Pos5 - 1)													 
+														  ELSE ''
+												      END 
+					ELSE '' 
+					 END as CampaignWeekName
+		      ,CASE WHEN ProgramName like 'MA%' THEN case when P6.Pos6=0 and substring(Name, P5.Pos5 + 1, len(Name)) not like 'Week%' THEN substring(Name, P5.Pos5 + 1, len(Name)) 
+			                                              when P6.Pos6=0 and substring(Name, P5.Pos5 + 1, len(Name)) like 'Week%' THEN ''
+														  when P6.Pos6<>0 THEN substring(Name, P6.Pos6 + 1, len(Name)) 
+														  ELSE '' 
+													  end
+					ELSE ''
+				     END as TargetAudience
+         FROM Stg.MarketoPrograms
+  cross apply (select (charindex('_', Name))) as P1(Pos1)
+  cross apply (select (charindex('_', Name, P1.Pos1+1))) as P2(Pos2)
+  cross apply (select (charindex('_', Name, P2.Pos2+1))) as P3(Pos3)
+  cross apply (select (charindex('_', Name, P3.Pos3+1))) as P4(Pos4)
+  cross apply (select (charindex('_', Name, P4.Pos4+1))) as P5(Pos5)
+  cross apply (select (charindex('_', Name, P5.Pos5+1))) as P6(Pos6)) as Source
     ON Target.ProgramId=TRY_CONVERT(BIGINT,CASE WHEN Source.Id='NULL' THEN NULL ELSE Source.Id END)
   WHEN MATCHED AND ( ISNULL(Target.ProgramName,'NA')<>ISNULL(CASE WHEN Source.name='null' THEN NULL ELSE Source.name END,'NA')
                   OR ISNULL(Target.ProgramDescription,'NA')<>ISNULL(CASE WHEN Source.Description='NULL' THEN NULL ELSE Source.Description END,'NA')
@@ -58,6 +82,11 @@ BEGIN TRANSACTION
 				                                                           ELSE Source.UpdatedAt END,'9999-12-31'),104)
 				  OR Target.ProgramType <> ISNULL(CASE WHEN Source.Type='null' THEN NULL ELSE Source.Type END,'NA')
 				  OR Target.Channel <> ISNULL(CASE WHEN Source.Channel='null' THEN NULL ELSE Source.Channel END,'NA')
+				  OR ISNULL(Target.CampaignDate,'') <> ISNULL(Source.CampaignDate,'')
+				  OR ISNULL(Target.CampaignName,'') <> ISNULL(Source.CampaignName,'')
+				  OR ISNULL(Target.CampaignCategory,'')<>ISNULL(Source.CampaignCategory,'')
+				  OR ISNULL(Target.CampaignWeekName,'')<>ISNULL(Source.CampaignWeekName,'')
+				  OR ISNULL(Target.TargetAudience,'')<>ISNULL(Source.TargetAudience,'')
 				  )
   THEN UPDATE SET   Target.ProgramName=CASE WHEN Source.name='null' THEN NULL ELSE Source.name END
                   , Target.ProgramDescription=CASE WHEN Source.Description='NULL' THEN NULL ELSE Source.Description END
@@ -69,6 +98,11 @@ BEGIN TRANSACTION
 				                                                         ELSE Source.UpdatedAt END,'9999-12-31'),104)
 				  , Target.ProgramType = CASE WHEN Source.Type='null' THEN NULL ELSE Source.Type END
 				  , Target.Channel = CASE WHEN Source.Channel='null' THEN NULL ELSE Source.Channel END
+				  , Target.CampaignDate=Source.CampaignDate
+				  , Target.CampaignName = Source.CampaignName
+				  , Target.CampaignCategory = Source.CampaignCategory
+				  , Target.CampaignWeekName = Source.CampaignWeekName
+				  , Target.TargetAudience = Source.TargetAudience
 				  , Target.AsDm_UpdatedDate=getdate()
   WHEN NOT MATCHED BY TARGET 
   THEN INSERT (ProgramId
@@ -78,6 +112,11 @@ BEGIN TRANSACTION
 			  ,UpdatedAt
 			  ,ProgramType
 			  ,Channel
+			  ,CampaignName
+			  ,CampaignCategory
+			  ,CampaignWeekName
+			  ,CampaignDate
+			  ,TargetAudience
 			  ,AsDm_CreatedDate
 			  ,AsDm_UpdatedDate
 			  ) 
@@ -87,6 +126,11 @@ BEGIN TRANSACTION
 			  ,TRY_CONVERT(datetime2,ISNULL(CASE WHEN Source.CreatedAt='NULL' THEN NULL WHEN Source.CreatedAt LIKE '%+%' THEN SUBSTRING(Source.CreatedAt,1,CHARINDEX('+',Source.CreatedAt)-1) ELSE Source.CreatedAt END,'9999-12-31'),104)
 			  ,TRY_CONVERT(datetime2,ISNULL(CASE WHEN Source.UpdatedAt='NULL' THEN NULL WHEN Source.UpdatedAt LIKE '%+%' THEN SUBSTRING(Source.UpdatedAt,1,CHARINDEX('+',Source.UpdatedAt)-1) ELSE Source.UpdatedAt END,'9999-12-31'),104)
 			  ,CASE WHEN Source.Type='null' THEN NULL ELSE Source.Type END,CASE WHEN Source.Channel='null' THEN NULL ELSE Source.Channel END
+			  ,CampaignName
+			  ,CampaignCategory
+			  ,CampaignWeekName
+			  ,CampaignDate
+			  ,TargetAudience
 			  ,getdate()
 			  ,getdate()
 			  );

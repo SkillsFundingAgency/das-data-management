@@ -773,3 +773,23 @@ IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='PFBE_Employe
 BEGIN
      GRANT SELECT ON [ASData_PL].[PFBE_EmployerFeedback] TO BetaUser
 END
+
+/* Vacancy User Role for Nigel and Team */
+
+IF DATABASE_PRINCIPAL_ID('VaUser') IS NULL
+BEGIN
+	CREATE ROLE [VaUser]
+END
+
+/* User and Account Legal Entity Access */
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='Va_Vacancy' AND TABLE_SCHEMA = 'ASData_PL')
+BEGIN
+     GRANT SELECT ON ASData_PL.Va_Vacancy TO VaUser
+END
+
+
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='Va_Application' AND TABLE_SCHEMA = 'ASData_PL')
+BEGIN
+     GRANT SELECT ON ASData_PL.Va_Application TO VaUser
+END

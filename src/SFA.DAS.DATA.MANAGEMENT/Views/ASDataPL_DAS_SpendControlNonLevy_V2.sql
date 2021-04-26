@@ -3,8 +3,8 @@
 		SELECT 
 		 COALESCE(Account.EmployerAccountId, -1)                                   AS EmployerAccountId
 		,COALESCE(Account.DasAccountId, 'XXXXXX')                                  AS DasAccountId
-		,COALESCE(Account.DasAccountName, 'NA')                                    AS DasAccountName		
-		,COALESCE(Account.LegalEntityName,'NA')                                    AS LegalEntityName
+		,CAST(COALESCE(Account.DasAccountName, 'NA') AS NVARCHAR(100))             AS DasAccountName		
+		,CAST(COALESCE(Account.LegalEntityName,'NA') AS NVARCHAR(100))             AS LegalEntityName
 		,COALESCE(Account.LegalEntityCreatedDate, '9999-12-31')                    AS AccountLegalEntityCreatedDate   
 		,COALESCE(CONVERT(VARCHAR(255), Reservation.Id), 'NA')                     AS ReservationId                              
 		,CASE 
@@ -69,8 +69,8 @@
 					 ,Acct.HashedId as DasAccountId
 					 ,ALE.Id as DasLegalEntityId
 					 ,ALE.Created as LegalEntityCreatedDate
-					 ,'Redacted' as DasAccountName
-					 ,'Redacted' as LegalEntityName
+					 ,acct.Name as DasAccountName
+					 ,ale.Name as LegalEntityName
 				FROM ASData_PL.Acc_Account Acct
 				JOIN ASData_PL.Acc_AccountLegalEntity ALE
 				  ON Acct.Id=ale.AccountId

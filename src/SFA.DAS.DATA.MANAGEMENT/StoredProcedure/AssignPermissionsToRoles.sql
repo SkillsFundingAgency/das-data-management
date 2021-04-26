@@ -95,7 +95,7 @@ WHILE @@FETCH_STATUS = 0
                 GRANT SELECT ON '+@schemaname+'.'+@ObjectName+' To '+@RoleName+'
 			    END
 			 '
-   EXEC sp_execute @VSQL
+   EXEC sp_executesql @VSQL
    End
    IF @IsSchemaLevelAccess=0 AND @ObjectType='Table'
    BEGIN
@@ -104,7 +104,7 @@ WHILE @@FETCH_STATUS = 0
                 GRANT SELECT ON '+@schemaname+'.'+@ObjectName+' To '+@RoleName+'
 			    END
 			 '
-   EXEC sp_execute @VSQL
+   EXEC sp_executesql @VSQL
    End
    FETCH NEXT FROM Permissions_Cursor INTO @ObjectName,@ObjectType,@RoleName, @SchemaName,@IsSchemaLevelAccess;
    END;

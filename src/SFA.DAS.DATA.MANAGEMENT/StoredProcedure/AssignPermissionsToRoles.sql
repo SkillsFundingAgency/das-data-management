@@ -60,7 +60,7 @@ WHILE @@FETCH_STATUS = 0
       BEGIN
 	   CREATE ROLE ['+@RoleName+']
       END'
-	EXEC @VSQL
+	EXEC sp_executesql @VSQL
    FETCH NEXT FROM Roles_Cursor INTO @RoleName;
    END;
 CLOSE Roles_Cursor;
@@ -86,7 +86,7 @@ WHILE @@FETCH_STATUS = 0
                 GRANT SELECT ON SCHEMA :: '+@SchemaName+ ' TO '+@RoleName+'
 				END
 				'
-   EXEC @VSQL
+   EXEC sp_executesql @VSQL
    END
    IF @IsSchemaLevelAccess=0 AND @ObjectType='View'
    BEGIN
@@ -95,7 +95,7 @@ WHILE @@FETCH_STATUS = 0
                 GRANT SELECT ON '+@schemaname+'.'+@ObjectName+' To '+@RoleName+'
 			    END
 			 '
-   EXEC @VSQL
+   EXEC sp_execute @VSQL
    End
    IF @IsSchemaLevelAccess=0 AND @ObjectType='Table'
    BEGIN
@@ -104,7 +104,7 @@ WHILE @@FETCH_STATUS = 0
                 GRANT SELECT ON '+@schemaname+'.'+@ObjectName+' To '+@RoleName+'
 			    END
 			 '
-   EXEC @VSQL
+   EXEC sp_execute @VSQL
    End
    FETCH NEXT FROM Permissions_Cursor INTO @ObjectName,@ObjectType,@RoleName, @SchemaName,@IsSchemaLevelAccess;
    END;

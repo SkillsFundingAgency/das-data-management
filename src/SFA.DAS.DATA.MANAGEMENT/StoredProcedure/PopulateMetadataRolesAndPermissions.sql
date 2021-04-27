@@ -166,6 +166,15 @@ VALUES
 ('DataGov','ASData_PL','DAS_UserAccountLegalEntity','VIEW',0,1),
 ('DataGov','ASData_PL','DAS_Users','VIEW',0,1),
 ('DataGov','Data_Pub','DAS_Commitments_V2','VIEW',0,1),
+('DataGov','ASData_PL','Comt_Commitment','TABLE',0,1),
+('DataGov','ASData_PL','Comt_Apprenticeship','TABLE',0,1),
+('DataGov','ASData_PL','Acc_AccountLegalEntity','TABLE',0,1),
+('DataGov','ASData_PL','Acc_Account','TABLE',0,1),
+('DataGov','ASData_PL','Acc_LegalEntity','TABLE',0,1),
+('DataGov','ASData_PL','EI_ApprenticeshipIncentive','TABLE',0,1),
+('DataGov','ASData_PL','EI_Payment','TABLE',0,1),
+('DataGov','ASData_PL','ReferenceData','TABLE',0,1),
+('DataGov','ASData_PL','Fin_Payment','TABLE',0,1),
 /* Finance */
 ('Finance','ASData_PL','DAS_SpendControl','VIEW',0,1),
 ('Finance','ASData_PL','DAS_SpendControlNonLevy','VIEW',0,1),
@@ -175,8 +184,10 @@ VALUES
 /* Service Ops */
 ('ServiceOps','Stg','RAA_ApplicationReviews','TABLE',0,1),
 ('ServiceOps','Stg','RAA_ReferenceDataApprenticeshipProgrammes','TABLE',0,1),
-('ServiceOps','Stg','RAA_Vacancies','TABLE',0,1)
-
+('ServiceOps','Stg','RAA_Vacancies','TABLE',0,1),
+/* Va User for Nigel's Team in Data Science */
+('VaUser','ASData_PL','Va_Application','TABLE',0,1),
+('VaUser','ASData_PL','Va_Application','TABLE',0,1)
 
 
 COMMIT TRANSACTION

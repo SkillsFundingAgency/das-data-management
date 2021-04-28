@@ -324,5 +324,7 @@
     <Build Include="Tables\ASDataPL_Assessor_Certificates.sql" />
     <Build Include="Tables\ASDataPL_Assessor_OrganisationStandard.sql" />
     <Build Include="Tables\AsDataPL_FAT2_ShortList.sql" />
+    <Build Include="Tables\AsDataPL_Assessor_Organisations.sql" />
+    <Build Include="Tables\AsDataPL_Assessor_CertificateLogs.sql" />
   </ItemGroup>
 </Project>

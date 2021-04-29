@@ -186,7 +186,7 @@ VALUES
 ('ServiceOps','Stg','RAA_Vacancies','TABLE',0,1),
 /* Va User for Nigel's Team in Data Science */
 ('VaUser','ASData_PL','Va_Application','TABLE',0,1),
-('VaUser','ASData_PL','Va_Application','TABLE',0,1)
+('VaUser','ASData_PL','Va_Vacancy','TABLE',0,1)
 
 
 COMMIT TRANSACTION

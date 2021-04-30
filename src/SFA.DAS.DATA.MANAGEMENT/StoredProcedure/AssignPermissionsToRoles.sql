@@ -94,14 +94,14 @@ WHILE @@FETCH_STATUS = 0
    BEGIN
    IF @ObjectType='SCHEMA'
    BEGIN
-   SET @VSQL='  IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.SCHEMATA where SCHEMA_NAME='''+@SchemaName+''')
+   SET @VSQL='  IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.SCHEMATA where SCHEMA_NAME='''+@ObjectName+''')
                 BEGIN
-                REVOKE '+@PermissionType+' ON SCHEMA :: '+@SchemaName+ ' TO '+@RoleName+'
+                REVOKE '+@PermissionType+' ON SCHEMA :: '+@ObjectName+ ' TO '+@RoleName+'
 				END
 				'
    EXEC sp_executesql @VSQL
    END
-   IF @ObjectType='USER_TABLE'
+   IF @ObjectType='VIEW'
    BEGIN
    SET @VSQL='  IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='''+@ObjectName+''' AND TABLE_SCHEMA = '''+@SchemaName+''')
                 BEGIN
@@ -110,7 +110,7 @@ WHILE @@FETCH_STATUS = 0
 			 '
    EXEC sp_executesql @VSQL
    End
-   IF @ObjectType='VIEW'
+   IF @ObjectType='USER_TABLE'
    BEGIN
    SET @VSQL='  IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='''+@ObjectName+''' AND TABLE_SCHEMA = '''+@SchemaName+''')
                 BEGIN

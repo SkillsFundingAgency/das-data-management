@@ -46,7 +46,7 @@ DECLARE @SchemaName varchar(25)
 DECLARE @IsSchemaLevelAccess bit
 DECLARE @PermissionType varchar(25)
 
-/* Revoke Existing Permissions on a Role before Re-assigning  --- Only for Roles managed by DataMart Team */
+/* Revoke Existing Permissions on a Role before Re-assigning */
 
 IF OBJECT_ID('tempdb..#tRandP') IS NOT NULL
 DROP TABLE #tRandP   
@@ -77,9 +77,6 @@ FROM   sys.database_principals rp
 WHERE  rp.type_desc = 'DATABASE_ROLE'
        AND pm.class_desc <> 'DATABASE'
 	   and  rp.name<>'public'
-	   --and pm.permission_name='SELECT'
-	   and rp.name in (SELECT RoleName from Mtd.RolesAndPermissions) -- Permissions managed by DataMart
-
 
 /* Revoke Permissions on Each Role before Re-assign */
 

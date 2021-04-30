@@ -57,7 +57,7 @@ VALUES
 ('Developer','Data_Pub','','','SELECT',1,1),
 ('Developer','Mtd','','','SELECT',1,1),
 ('Developer','Comp','','','SELECT',1,1),
-('Developer','dbo','DASCalendarMonth','VIEW','SELECT',0,1),
+('Developer','dbo','DASCalendarMonth','TABLE','SELECT',0,1),
 ('Developer','dbo','ReferenceData','TABLE','SELECT',0,1),
 ('Developer','dbo','SourceDbChanges','TABLE','SELECT',0,1),
 ('Developer','dbo','DataDictionary','VIEW','SELECT',0,1),
@@ -174,7 +174,7 @@ VALUES
 ('DataGov','ASData_PL','Acc_LegalEntity','TABLE','SELECT',0,1),
 ('DataGov','ASData_PL','EI_ApprenticeshipIncentive','TABLE','SELECT',0,1),
 ('DataGov','ASData_PL','EI_Payment','TABLE','SELECT',0,1),
-('DataGov','ASData_PL','ReferenceData','TABLE','SELECT',0,1),
+('DataGov','dbo','ReferenceData','TABLE','SELECT',0,1),
 ('DataGov','ASData_PL','Fin_Payment','TABLE','SELECT',0,1),
 /* Finance */
 ('Finance','ASData_PL','DAS_SpendControl','VIEW','SELECT',0,1),

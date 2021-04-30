@@ -5,6 +5,7 @@
    ,[SchemaName] varchar(25)
    ,[ObjectName] varchar(256)
    ,[ObjectType] varchar(10)
+   ,[PermissionType] varchar(25)
    ,[IsSchemaLevelAccess] bit default(0)
    ,[IsEnabled] bit default(1)
 )

@@ -38,13 +38,96 @@ DECLARE @LogID int
 
 BEGIN TRANSACTION
 
-/* Create Role If not Already Exists */
 DECLARE @RoleName varchar(25)
 DECLARE @VSQL NVARCHAR(MAX)
 DECLARE @ObjectName varchar(255)
 DECLARE @ObjectType varchar(10)
 DECLARE @SchemaName varchar(25)
 DECLARE @IsSchemaLevelAccess bit
+DECLARE @PermissionType varchar(25)
+
+/* Revoke Existing Permissions on a Role before Re-assigning  --- Only for Roles managed by DataMart Team */
+
+IF OBJECT_ID('tempdb..#tRandP') IS NOT NULL
+DROP TABLE #tRandP   
+
+CREATE TABLE #tRandP (RoleName varchar(25),PermissionType varchar(50),ObjectType varchar(50),SchemaName varchar(25), ObjectName varchar(256))
+
+INSERT INTO #tRandP
+(RoleName,PermissionType,ObjectType,SchemaName,ObjectName)
+SELECT DISTINCT rp.name,
+                pm.permission_name,
+				ObjectType = CASE
+                               WHEN obj.type_desc IS NULL
+                                     OR obj.type_desc = 'SYSTEM_TABLE' THEN
+                               pm.class_desc
+                               ELSE obj.type_desc
+                             END,
+                s.Name as SchemaName,
+                [ObjectName] = Isnull(ss.name, Object_name(pm.major_id))
+FROM   sys.database_principals rp
+       INNER JOIN sys.database_permissions pm
+               ON pm.grantee_principal_id = rp.principal_id
+       LEFT JOIN sys.schemas ss
+              ON pm.major_id = ss.schema_id
+       LEFT JOIN sys.objects obj
+              ON pm.[major_id] = obj.[object_id]
+       LEFT JOIN sys.schemas s
+              ON s.schema_id = obj.schema_id
+WHERE  rp.type_desc = 'DATABASE_ROLE'
+       AND pm.class_desc <> 'DATABASE'
+	   and  rp.name<>'public'
+	   --and pm.permission_name='SELECT'
+	   and rp.name in (SELECT RoleName from Mtd.RolesAndPermissions) -- Permissions managed by DataMart
+
+
+/* Revoke Permissions on Each Role before Re-assign */
+
+DECLARE Permissions_Cursor CURSOR FOR
+SELECT distinct ObjectName, ObjectType, RoleName, SchemaName, PermissionType
+FROM #tRandP
+
+OPEN Permissions_Cursor;
+FETCH NEXT FROM Permissions_Cursor INTO @ObjectName,@ObjectType,@RoleName, @SchemaName ,@PermissionType;
+
+WHILE @@FETCH_STATUS = 0
+   BEGIN
+   IF @ObjectType='SCHEMA'
+   BEGIN
+   SET @VSQL='  IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.SCHEMATA where SCHEMA_NAME='''+@SchemaName+''')
+                BEGIN
+                REVOKE '+@PermissionType+' ON SCHEMA :: '+@SchemaName+ ' TO '+@RoleName+'
+				END
+				'
+   EXEC sp_executesql @VSQL
+   END
+   IF @ObjectType='USER_TABLE'
+   BEGIN
+   SET @VSQL='  IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='''+@ObjectName+''' AND TABLE_SCHEMA = '''+@SchemaName+''')
+                BEGIN
+                REVOKE '+@PermissionType+' ON '+@schemaname+'.'+@ObjectName+' To '+@RoleName+'
+			    END
+			 '
+   EXEC sp_executesql @VSQL
+   End
+   IF @ObjectType='VIEW'
+   BEGIN
+   SET @VSQL='  IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='''+@ObjectName+''' AND TABLE_SCHEMA = '''+@SchemaName+''')
+                BEGIN
+                REVOKE '+@PermissionType+' ON '+@schemaname+'.'+@ObjectName+' To '+@RoleName+'
+			    END
+			 '
+   EXEC sp_executesql @VSQL
+   End
+   FETCH NEXT FROM Permissions_Cursor INTO @ObjectName,@ObjectType,@RoleName, @SchemaName,@PermissionType;
+   END;
+CLOSE Permissions_Cursor;
+DEALLOCATE Permissions_Cursor;
+
+
+
+
+/* Create Role If not Already Exists */
 
 DECLARE Roles_Cursor CURSOR FOR
 SELECT distinct RoleName
@@ -70,12 +153,12 @@ DEALLOCATE Roles_Cursor;
 /* Assign Permissions to Each Role */
 
 DECLARE Permissions_Cursor CURSOR FOR
-SELECT distinct ObjectName, ObjectType, RoleName, SchemaName, IsSchemaLevelAccess
+SELECT distinct ObjectName, ObjectType, RoleName, SchemaName, IsSchemaLevelAccess, PermissionType
 FROM Mtd.RolesAndPermissions
 WHERE IsEnabled=1;
 
 OPEN Permissions_Cursor;
-FETCH NEXT FROM Permissions_Cursor INTO @ObjectName,@ObjectType,@RoleName, @SchemaName,@IsSchemaLevelAccess;
+FETCH NEXT FROM Permissions_Cursor INTO @ObjectName,@ObjectType,@RoleName, @SchemaName,@IsSchemaLevelAccess,@PermissionType;
 
 WHILE @@FETCH_STATUS = 0
    BEGIN
@@ -83,7 +166,7 @@ WHILE @@FETCH_STATUS = 0
    BEGIN
    SET @VSQL='  IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.SCHEMATA where SCHEMA_NAME='''+@SchemaName+''')
                 BEGIN
-                GRANT SELECT ON SCHEMA :: '+@SchemaName+ ' TO '+@RoleName+'
+                GRANT '+@PermissionType+' ON SCHEMA :: '+@SchemaName+ ' TO '+@RoleName+'
 				END
 				'
    EXEC sp_executesql @VSQL
@@ -92,7 +175,7 @@ WHILE @@FETCH_STATUS = 0
    BEGIN
    SET @VSQL='  IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='''+@ObjectName+''' AND TABLE_SCHEMA = '''+@SchemaName+''')
                 BEGIN
-                GRANT SELECT ON '+@schemaname+'.'+@ObjectName+' To '+@RoleName+'
+                GRANT '+@PermissionType+' ON '+@schemaname+'.'+@ObjectName+' To '+@RoleName+'
 			    END
 			 '
    EXEC sp_executesql @VSQL
@@ -101,12 +184,12 @@ WHILE @@FETCH_STATUS = 0
    BEGIN
    SET @VSQL='  IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='''+@ObjectName+''' AND TABLE_SCHEMA = '''+@SchemaName+''')
                 BEGIN
-                GRANT SELECT ON '+@schemaname+'.'+@ObjectName+' To '+@RoleName+'
+                GRANT '+@PermissionType+' ON '+@schemaname+'.'+@ObjectName+' To '+@RoleName+'
 			    END
 			 '
    EXEC sp_executesql @VSQL
    End
-   FETCH NEXT FROM Permissions_Cursor INTO @ObjectName,@ObjectType,@RoleName, @SchemaName,@IsSchemaLevelAccess;
+   FETCH NEXT FROM Permissions_Cursor INTO @ObjectName,@ObjectType,@RoleName, @SchemaName,@IsSchemaLevelAccess,@PermissionType;
    END;
 CLOSE Permissions_Cursor;
 DEALLOCATE Permissions_Cursor;

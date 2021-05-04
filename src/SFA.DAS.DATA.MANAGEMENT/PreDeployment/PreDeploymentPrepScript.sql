@@ -480,4 +480,4 @@ IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
 	      )
 DROP TABLE [Stg].[GA_SessionData]
 
-GRANT SELECT ON sys.sql_expression_dependencies TO Developer
+REVOKE SELECT ON sys.sql_expression_dependencies TO Developer

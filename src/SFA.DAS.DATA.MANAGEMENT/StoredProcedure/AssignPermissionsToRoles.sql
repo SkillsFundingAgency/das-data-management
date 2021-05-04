@@ -75,7 +75,7 @@ FROM   sys.database_principals rp
        LEFT JOIN sys.schemas s
               ON s.schema_id = obj.schema_id
 WHERE  rp.type_desc = 'DATABASE_ROLE'
-       AND pm.class_desc <> 'DATABASE'
+     --  AND pm.class_desc <> 'DATABASE'
 	   and  rp.name<>'public'
 
 /* Revoke Permissions on Each Role before Re-assign */
@@ -89,7 +89,7 @@ FETCH NEXT FROM Permissions_Cursor INTO @ObjectName,@ObjectType,@RoleName, @Sche
 
 WHILE @@FETCH_STATUS = 0
    BEGIN
-   IF @ObjectType='SCHEMA'
+   IF @ObjectType='SCHEMA'     /* Schema Level Permissions */
    BEGIN
    SET @VSQL='  IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.SCHEMATA where SCHEMA_NAME='''+@ObjectName+''')
                 BEGIN
@@ -98,7 +98,7 @@ WHILE @@FETCH_STATUS = 0
 				'
    EXEC sp_executesql @VSQL
    END
-   IF @ObjectType='VIEW'
+   IF @ObjectType='VIEW'         /* View Level Permissions */
    BEGIN
    SET @VSQL='  IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='''+@ObjectName+''' AND TABLE_SCHEMA = '''+@SchemaName+''')
                 BEGIN
@@ -107,21 +107,29 @@ WHILE @@FETCH_STATUS = 0
 			 '
    EXEC sp_executesql @VSQL
    End
-   IF @ObjectType='USER_TABLE'
+   IF @ObjectType='USER_TABLE'     /* Table Level Permissions */
    BEGIN
    SET @VSQL='  IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='''+@ObjectName+''' AND TABLE_SCHEMA = '''+@SchemaName+''')
                 BEGIN
                 REVOKE '+@PermissionType+' ON '+@schemaname+'.'+@ObjectName+' To '+@RoleName+'
 			    END
 			 '
-   EXEC sp_executesql @VSQL
+   EXEC sp_executesql @VSQL        
    End
-   IF @SchemaName='sys' and @ObjectType<>'SCHEMA'
+   IF @SchemaName='sys' and @ObjectType='VIEW'   /* System Table Permissions */
    BEGIN
    SET @VSQL='  IF EXISTS(SELECT 1 from sys.all_objects where name ='''+@ObjectName+''')
                 BEGIN
                 REVOKE '+@PermissionType+' ON '+@schemaname+'.'+@ObjectName+' To '+@RoleName+'
 			    END
+			 '
+   EXEC sp_executesql @VSQL
+   End
+   IF @ObjectType='DATABASE'  /* Database Level Permissions */
+   BEGIN
+   SET @VSQL='  
+                REVOKE '+@PermissionType+' TO '+@RoleName+'
+
 			 '
    EXEC sp_executesql @VSQL
    End
@@ -169,7 +177,7 @@ FETCH NEXT FROM Permissions_Cursor INTO @ObjectName,@ObjectType,@RoleName, @Sche
 
 WHILE @@FETCH_STATUS = 0
    BEGIN
-   IF @IsSchemaLevelAccess=1
+   IF @IsSchemaLevelAccess=1                       /* Schema Level Permissions */
    BEGIN
    SET @VSQL='  IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.SCHEMATA where SCHEMA_NAME='''+@SchemaName+''')
                 BEGIN
@@ -178,7 +186,7 @@ WHILE @@FETCH_STATUS = 0
 				'
    EXEC sp_executesql @VSQL
    END
-   IF @IsSchemaLevelAccess=0 AND @ObjectType='View'
+   IF @IsSchemaLevelAccess=0 AND @ObjectType='View'   /* View Level Permissions */
    BEGIN
    SET @VSQL='  IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='''+@ObjectName+''' AND TABLE_SCHEMA = '''+@SchemaName+''')
                 BEGIN
@@ -187,7 +195,7 @@ WHILE @@FETCH_STATUS = 0
 			 '
    EXEC sp_executesql @VSQL
    End
-   IF @IsSchemaLevelAccess=0 AND @ObjectType='Table'
+   IF @IsSchemaLevelAccess=0 AND @ObjectType='Table'      /* Table Level Permissions */
    BEGIN
    SET @VSQL='  IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='''+@ObjectName+''' AND TABLE_SCHEMA = '''+@SchemaName+''')
                 BEGIN
@@ -196,12 +204,20 @@ WHILE @@FETCH_STATUS = 0
 			 '
    EXEC sp_executesql @VSQL
    End
-   IF @SchemaName='sys'
+   IF @SchemaName='sys'  /* System Table Permissions */
    BEGIN
    SET @VSQL='  IF EXISTS(SELECT 1 from sys.all_objects where name ='''+@ObjectName+''')
                 BEGIN
                 GRANT '+@PermissionType+' ON '+@schemaname+'.'+@ObjectName+' To '+@RoleName+'
 			    END
+			 '
+   EXEC sp_executesql @VSQL
+   End
+   IF @ObjectType='DATABASE'  /* Database Level Permissions */
+   BEGIN
+   SET @VSQL='  
+                GRANT '+@PermissionType+' TO '+@RoleName+'
+
 			 '
    EXEC sp_executesql @VSQL
    End

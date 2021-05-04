@@ -479,5 +479,3 @@ IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
 		      AND TABLE_SCHEMA=N'Stg'
 	      )
 DROP TABLE [Stg].[GA_SessionData]
-
-REVOKE SELECT ON sys.sql_expression_dependencies TO Developer

@@ -70,7 +70,7 @@ FROM   sys.database_principals rp
                ON pm.grantee_principal_id = rp.principal_id
        LEFT JOIN sys.schemas ss
               ON pm.major_id = ss.schema_id
-       LEFT JOIN sys.objects obj
+       LEFT JOIN sys.all_objects obj
               ON pm.[major_id] = obj.[object_id]
        LEFT JOIN sys.schemas s
               ON s.schema_id = obj.schema_id
@@ -116,6 +116,15 @@ WHILE @@FETCH_STATUS = 0
 			 '
    EXEC sp_executesql @VSQL
    End
+   IF @SchemaName='sys' and @ObjectType<>'SCHEMA'
+   BEGIN
+   SET @VSQL='  IF EXISTS(SELECT 1 from sys.all_objects where TABLE_NAME='''+@ObjectName+''')
+                REVOKE '+@PermissionType+' ON '+@schemaname+'.'+@ObjectName+' To '+@RoleName+'
+			    END
+			 '
+   EXEC sp_executesql @VSQL
+   End
+
    FETCH NEXT FROM Permissions_Cursor INTO @ObjectName,@ObjectType,@RoleName, @SchemaName,@PermissionType;
    END;
 CLOSE Permissions_Cursor;
@@ -181,6 +190,14 @@ WHILE @@FETCH_STATUS = 0
    BEGIN
    SET @VSQL='  IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.TABLES where TABLE_NAME='''+@ObjectName+''' AND TABLE_SCHEMA = '''+@SchemaName+''')
                 BEGIN
+                GRANT '+@PermissionType+' ON '+@schemaname+'.'+@ObjectName+' To '+@RoleName+'
+			    END
+			 '
+   EXEC sp_executesql @VSQL
+   End
+   IF @SchemaName='sys'
+   BEGIN
+   SET @VSQL='  IF EXISTS(SELECT 1 from sys.all_objects where TABLE_NAME='''+@ObjectName+''')
                 GRANT '+@PermissionType+' ON '+@schemaname+'.'+@ObjectName+' To '+@RoleName+'
 			    END
 			 '

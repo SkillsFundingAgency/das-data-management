@@ -119,6 +119,7 @@ WHILE @@FETCH_STATUS = 0
    IF @SchemaName='sys' and @ObjectType<>'SCHEMA'
    BEGIN
    SET @VSQL='  IF EXISTS(SELECT 1 from sys.all_objects where name ='''+@ObjectName+''')
+                BEGIN
                 REVOKE '+@PermissionType+' ON '+@schemaname+'.'+@ObjectName+' To '+@RoleName+'
 			    END
 			 '
@@ -198,6 +199,7 @@ WHILE @@FETCH_STATUS = 0
    IF @SchemaName='sys'
    BEGIN
    SET @VSQL='  IF EXISTS(SELECT 1 from sys.all_objects where name ='''+@ObjectName+''')
+                BEGIN
                 GRANT '+@PermissionType+' ON '+@schemaname+'.'+@ObjectName+' To '+@RoleName+'
 			    END
 			 '

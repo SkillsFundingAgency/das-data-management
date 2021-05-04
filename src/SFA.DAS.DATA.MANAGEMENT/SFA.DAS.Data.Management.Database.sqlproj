@@ -324,5 +324,8 @@
     <Build Include="Tables\ASDataPL_Assessor_Certificates.sql" />
     <Build Include="Tables\ASDataPL_Assessor_OrganisationStandard.sql" />
     <Build Include="Tables\AsDataPL_FAT2_ShortList.sql" />
+    <Build Include="Tables\Mtd_RolesAndPermissions.sql" />
+    <Build Include="StoredProcedure\AssignPermissionsToRoles.sql" />
+    <Build Include="StoredProcedure\PopulateMetadataRolesAndPermissions.sql" />
   </ItemGroup>
 </Project>

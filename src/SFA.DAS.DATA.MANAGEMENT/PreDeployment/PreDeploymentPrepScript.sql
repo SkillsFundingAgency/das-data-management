@@ -332,6 +332,7 @@ select sao.name, ss.name SchemaName
  where sao.name not like '%v2%'
    and SSM.definition like '%EXT_TBL%'
    and sao.type_desc='SQL_STORED_PROCEDURE'
+   and sao.name <> 'Build_AS_DataMart'
 )
 OPEN RemoveExtProcs
 

@@ -109,3 +109,12 @@ EXEC [dbo].[PopulateMarketoFilterConfigForImport] @RunId
 EXEC [dbo].[PopulateMetadataForRefreshDataset] @RunId
 
 EXEC [dbo].[PopulateMetadataNationalMinimumWageRates] @RunId
+
+/* Populate Metadata For Roles and Permissions */
+
+EXEC [dbo].[PopulateMetadataRolesAndPermissions] @RunId
+
+
+/* Grant Permissions to Roles -- Should always be kept last */
+
+EXEC [dbo].[AssignPermissionsToRoles] @RunId

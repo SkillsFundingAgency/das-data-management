@@ -327,5 +327,8 @@
     <Build Include="Tables\AsDataPL_Assessor_Organisations.sql" />
     <Build Include="Tables\AsDataPL_Assessor_CertificateLogs.sql" />
     <Build Include="Views\AsDataPL_DAS_AssessorAssessmentData.sql" />
+    <Build Include="Tables\Mtd_RolesAndPermissions.sql" />
+    <Build Include="StoredProcedure\AssignPermissionsToRoles.sql" />
+    <Build Include="StoredProcedure\PopulateMetadataRolesAndPermissions.sql" />
   </ItemGroup>
 </Project>

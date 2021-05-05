@@ -301,6 +301,32 @@ DROP VIEW IF EXISTS ASData_PL.DAS_SpendControl
 DROP VIEW IF EXISTS [ASData_PL].[DAS_TransactionLine] 
 
 
+/* Drop Procedures that create v1 Views */
+
+DROP PROCEDURE IF EXISTS dbo.CreateCommitmentsView
+DROP PROCEDURE IF EXISTS dbo.CreateCommitmentsView_LevyInd
+DROP PROCEDURE IF EXISTS dbo.CreateDashboardRegistrationView
+DROP PROCEDURE IF EXISTS dbo.CreateDashboardReservationAndCommitmentView
+DROP PROCEDURE IF EXISTS dbo.CreateDashboardReservationAndTrainingView
+DROP PROCEDURE IF EXISTS dbo.CreateDashboardReservationView
+DROP PROCEDURE IF EXISTS dbo.CreateEmployerAccountsView
+DROP PROCEDURE IF EXISTS dbo.CreateEmployerAccountTransactionsView
+DROP PROCEDURE IF EXISTS dbo.CreateEmployerAccountTransfersView
+DROP PROCEDURE IF EXISTS dbo.CreateEmployerAgreementsView
+DROP PROCEDURE IF EXISTS dbo.CreateEmployerLegalEntitiesView
+DROP PROCEDURE IF EXISTS dbo.CreateEmployerLegalEntitiesView_LevyInd
+DROP PROCEDURE IF EXISTS dbo.CreateEmployerPAYESchemesView
+DROP PROCEDURE IF EXISTS dbo.CreateEmployerTransferRelationshipView
+DROP PROCEDURE IF EXISTS dbo.CreateExternalTables
+DROP PROCEDURE IF EXISTS dbo.CreateLevyDeclarationsView
+DROP PROCEDURE IF EXISTS dbo.CreatePaymentsView
+DROP PROCEDURE IF EXISTS dbo.CreatePaymentsView_LevyInd
+DROP PROCEDURE IF EXISTS dbo.CreateSpendControlNonLevyView
+DROP PROCEDURE IF EXISTS dbo.CreateSpendControlView
+DROP PROCEDURE IF EXISTS dbo.CreateSystemExternalTables
+DROP PROCEDURE IF EXISTS dbo.CreateTransactionLineView
+
+
 /* Remove v1 External Tables */
 
 

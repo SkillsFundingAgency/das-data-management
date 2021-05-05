@@ -305,7 +305,8 @@ WHILE(@@FETCH_STATUS=0)
 BEGIN
 
 SET @VSQL='
-DROP VIEW IF EXISTS ['+@SchemaName+'].['+@ViewName+']
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='+@ViewName+' AND TABLE_SCHEMA = '+@SchemaName+')
+DROP VIEW ['+@SchemaName+'].['+@ViewName+']
 '
 EXEC (@VSQL)
 FETCH NEXT FROM RemoveExtViews into @ViewName,@SchemaName
@@ -339,7 +340,11 @@ FETCH NEXT FROM RemoveExtProcs into @ProcName,@SchemaName
 WHILE(@@FETCH_STATUS=0)
 BEGIN
 SET @VSQL='
-DROP PROCEDURE IF EXISTS ['+@SchemaName+'].['+@ProcName+']
+IF EXISTS (select * from INFORMATION_SCHEMA.ROUTINES
+            where ROUTINE_NAME='+@ProcName+'
+              and ROUTINE_SCHEMA='+@SchemaName+'
+		  )
+DROP PROCEDURE ['+@SchemaName+'].['+@ProcName+']
 '
 EXEC (@VSQL)
 FETCH NEXT FROM RemoveExtProcs into @ProcName,@SchemaName

@@ -279,53 +279,75 @@ DELETE LR  FROM
 
   /* Drop v1 Views before Decomissiong External Tables */
 
-DROP VIEW IF EXISTS [Data_Pub].[DAS_Commitments]
-DROP VIEW IF EXISTS [ASData_PL].[DAS_Commitments_LevyInd]
-DROP VIEW IF EXISTS AsData_PL.DAS_Dashboard_Registration
-DROP VIEW IF EXISTS AsData_PL.DAS_Dashboard_ReservationAndCommitment
-DROP VIEW IF EXISTS AsData_PL.DAS_Dashboard_ReservationAndTraining
-DROP VIEW IF EXISTS AsData_PL.DAS_Dashboard_Reservation
-DROP VIEW IF EXISTS Data_Pub.DAS_Employer_Accounts
-DROP VIEW IF EXISTS Data_Pub.DAS_Employer_AccountTransactions
-DROP VIEW IF EXISTS Data_Pub.DAS_Employer_Account_Transfers
-DROP VIEW IF EXISTS Data_Pub.DAS_Employer_Agreements
-DROP VIEW IF EXISTS Data_Pub.DAS_Employer_LegalEntities
-DROP VIEW IF EXISTS ASData_PL.DAS_Employer_LegalEntities_LevyInd
-DROP VIEW IF EXISTS Data_Pub.DAS_Employer_PAYESchemes
-DROP VIEW IF EXISTS Data_Pub.DAS_Employer_Transfer_Relationship 
-DROP VIEW IF EXISTS [Data_Pub].[DAS_LevyDeclarations]  
-DROP VIEW IF EXISTS Data_Pub.DAS_Payments
-DROP VIEW IF EXISTS ASData_PL.DAS_Payments_LevyInd
-DROP VIEW IF EXISTS [ASData_PL].[DAS_SpendControlNonLevy]
-DROP VIEW IF EXISTS ASData_PL.DAS_SpendControl
-DROP VIEW IF EXISTS [ASData_PL].[DAS_TransactionLine] 
+  
+Declare @ViewName VARCHAR(256)
+Declare @SchemaName varchar(25)
+
+Declare RemoveExtViews Cursor for
+(
+ 
+select sao.name, ss.name SchemaName
+  from sys.sql_modules ssm
+  join sys.all_objects sao
+    on ssm.object_id=sao.object_id
+  join sys.schemas ss
+    on ss.schema_id=sao.schema_id
+ where sao.name not like '%v2%'
+   and SSM.definition like '%EXT_TBL%'
+   and sao.type_desc='VIEW'
+)
+OPEN RemoveExtViews
+
+FETCH NEXT FROM RemoveExtViews into @ViewName,@SchemaName
+
+WHILE(@@FETCH_STATUS=0)
+BEGIN
+DECLARE @VSQL NVARCHAR(MAX)
+SET @VSQL='
+DROP VIEW IF EXISTS ['+@SchemaName+'].['+@ViewName+']
+'
+EXEC (@VSQL)
+FETCH NEXT FROM RemoveExtViews into @ViewName,@SchemaName
+END
+
+CLOSE RemoveExtViews
+DEALLOCATE RemoveExtViews
 
 
 /* Drop Procedures that create v1 Views */
 
-DROP PROCEDURE IF EXISTS dbo.CreateCommitmentsView
-DROP PROCEDURE IF EXISTS dbo.CreateCommitmentsView_LevyInd
-DROP PROCEDURE IF EXISTS dbo.CreateDashboardRegistrationView
-DROP PROCEDURE IF EXISTS dbo.CreateDashboardReservationAndCommitmentView
-DROP PROCEDURE IF EXISTS dbo.CreateDashboardReservationAndTrainingView
-DROP PROCEDURE IF EXISTS dbo.CreateDashboardReservationView
-DROP PROCEDURE IF EXISTS dbo.CreateEmployerAccountsView
-DROP PROCEDURE IF EXISTS dbo.CreateEmployerAccountTransactionsView
-DROP PROCEDURE IF EXISTS dbo.CreateEmployerAccountTransfersView
-DROP PROCEDURE IF EXISTS dbo.CreateEmployerAgreementsView
-DROP PROCEDURE IF EXISTS dbo.CreateEmployerLegalEntitiesView
-DROP PROCEDURE IF EXISTS dbo.CreateEmployerLegalEntitiesView_LevyInd
-DROP PROCEDURE IF EXISTS dbo.CreateEmployerPAYESchemesView
-DROP PROCEDURE IF EXISTS dbo.CreateEmployerTransferRelationshipView
-DROP PROCEDURE IF EXISTS dbo.CreateExternalTables
-DROP PROCEDURE IF EXISTS dbo.CreateLevyDeclarationsView
-DROP PROCEDURE IF EXISTS dbo.CreatePaymentsView
-DROP PROCEDURE IF EXISTS dbo.CreatePaymentsView_LevyInd
-DROP PROCEDURE IF EXISTS dbo.CreateSpendControlNonLevyView
-DROP PROCEDURE IF EXISTS dbo.CreateSpendControlView
-DROP PROCEDURE IF EXISTS dbo.CreateSystemExternalTables
-DROP PROCEDURE IF EXISTS dbo.CreateTransactionLineView
+Declare @ProcName VARCHAR(256)
+Declare @SchemaName varchar(25)
 
+Declare RemoveExtProcs Cursor for
+(
+ 
+select sao.name, ss.name SchemaName
+  from sys.sql_modules ssm
+  join sys.all_objects sao
+    on ssm.object_id=sao.object_id
+  join sys.schemas ss
+    on ss.schema_id=sao.schema_id
+ where sao.name not like '%v2%'
+   and SSM.definition like '%EXT_TBL%'
+   and sao.type_desc='SQL_STORED_PROCEDURE'
+)
+OPEN RemoveExtProcs
+
+FETCH NEXT FROM RemoveExtProcs into @ProcName,@SchemaName
+
+WHILE(@@FETCH_STATUS=0)
+BEGIN
+DECLARE @VSQL NVARCHAR(MAX)
+SET @VSQL='
+DROP PROCEDURE IF EXISTS ['+@SchemaName+'].['+@ProcName+']
+'
+EXEC (@VSQL)
+FETCH NEXT FROM RemoveExtProcs into @ProcName,@SchemaName
+END
+
+CLOSE RemoveExtProcs
+DEALLOCATE RemoveExtProcs
 
 /* Remove v1 External Tables */
 

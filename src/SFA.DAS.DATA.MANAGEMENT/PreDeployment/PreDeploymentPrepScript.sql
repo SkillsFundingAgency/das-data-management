@@ -305,7 +305,7 @@ WHILE(@@FETCH_STATUS=0)
 BEGIN
 
 SET @VSQL='
-IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='+@ViewName+' AND TABLE_SCHEMA = '+@SchemaName+')
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='''+@ViewName+''' AND TABLE_SCHEMA = '''+@SchemaName+''')
 DROP VIEW ['+@SchemaName+'].['+@ViewName+']
 '
 EXEC (@VSQL)
@@ -341,8 +341,8 @@ WHILE(@@FETCH_STATUS=0)
 BEGIN
 SET @VSQL='
 IF EXISTS (select * from INFORMATION_SCHEMA.ROUTINES
-            where ROUTINE_NAME='+@ProcName+'
-              and ROUTINE_SCHEMA='+@SchemaName+'
+            where ROUTINE_NAME='''+@ProcName+'''
+              and ROUTINE_SCHEMA='''+@SchemaName+'''
 		  )
 DROP PROCEDURE ['+@SchemaName+'].['+@ProcName+']
 '

@@ -277,30 +277,54 @@ DELETE LR  FROM
   WHERE StartDateTime<'2019-08-15'
 
 
+  /* Drop v1 Views before Decomissiong External Tables */
 
-/* Clear IF Exists External Tables created as part of POC */
+DROP VIEW IF EXISTS [Data_Pub].[DAS_Commitments]
+DROP VIEW IF EXISTS [ASData_PL].[DAS_Commitments_LevyInd]
+DROP VIEW IF EXISTS AsData_PL.DAS_Dashboard_Registration
+DROP VIEW IF EXISTS AsData_PL.DAS_Dashboard_ReservationAndCommitment
+DROP VIEW IF EXISTS AsData_PL.DAS_Dashboard_ReservationAndTraining
+DROP VIEW IF EXISTS AsData_PL.DAS_Dashboard_Reservation
+DROP VIEW IF EXISTS Data_Pub.DAS_Employer_Accounts
+DROP VIEW IF EXISTS Data_Pub.DAS_Employer_AccountTransactions
+DROP VIEW IF EXISTS Data_Pub.DAS_Employer_Account_Transfers
+DROP VIEW IF EXISTS Data_Pub.DAS_Employer_Agreements
+DROP VIEW IF EXISTS Data_Pub.DAS_Employer_LegalEntities
+DROP VIEW IF EXISTS ASData_PL.DAS_Employer_LegalEntities_LevyInd
+DROP VIEW IF EXISTS Data_Pub.DAS_Employer_PAYESchemes
+DROP VIEW IF EXISTS Data_Pub.DAS_Employer_Transfer_Relationship 
+DROP VIEW IF EXISTS [Data_Pub].[DAS_LevyDeclarations]  
+DROP VIEW IF EXISTS Data_Pub.DAS_Payments
+DROP VIEW IF EXISTS ASData_PL.DAS_Payments_LevyInd
+DROP VIEW IF EXISTS [ASData_PL].[DAS_SpendControlNonLevy]
+DROP VIEW IF EXISTS ASData_PL.DAS_SpendControl
+DROP VIEW IF EXISTS [ASData_PL].[DAS_TransactionLine] 
+
+
+/* Remove v1 External Tables */
 
 Declare @ExtTable VARCHAR(256)
+Declare @SchemaId int
 Declare RemoveExt Cursor
 for
-(SELECT name
+(SELECT name, Schema_Id
 from sys.external_tables
 where name like 'Ext_Tbl_%'
 )
 
 OPEN RemoveExt
 
-FETCH NEXT FROM RemoveExt into @ExtTable
+FETCH NEXT FROM RemoveExt into @ExtTable,@SchemaId
 
 WHILE(@@FETCH_STATUS=0)
 BEGIN
 DECLARE @VSQL NVARCHAR(MAX)
 SET @VSQL='
-IF EXISTS ( SELECT * FROM sys.external_tables WHERE object_id = OBJECT_ID('''+@ExtTable+''') ) 
-DROP EXTERNAL TABLE ['+@ExtTable+']
+IF EXISTS ( SELECT * FROM sys.external_tables WHERE name = '''+@ExtTable+''' and schema_id='+@SchemaId+') 
+DROP EXTERNAL TABLE ['+@SchemaId+'].['+@ExtTable+']
 '
 EXEC (@VSQL)
-FETCH NEXT FROM RemoveExt into @ExtTable
+FETCH NEXT FROM RemoveExt into @ExtTable,@SchemaId
 END
 
 CLOSE RemoveExt

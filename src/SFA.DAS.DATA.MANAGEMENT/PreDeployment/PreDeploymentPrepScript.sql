@@ -282,6 +282,7 @@ DELETE LR  FROM
   
 Declare @ViewName VARCHAR(256)
 Declare @SchemaName varchar(25)
+DECLARE @VSQL NVARCHAR(MAX)
 
 Declare RemoveExtViews Cursor for
 (
@@ -302,7 +303,7 @@ FETCH NEXT FROM RemoveExtViews into @ViewName,@SchemaName
 
 WHILE(@@FETCH_STATUS=0)
 BEGIN
-DECLARE @VSQL NVARCHAR(MAX)
+
 SET @VSQL='
 DROP VIEW IF EXISTS ['+@SchemaName+'].['+@ViewName+']
 '
@@ -337,7 +338,6 @@ FETCH NEXT FROM RemoveExtProcs into @ProcName,@SchemaName
 
 WHILE(@@FETCH_STATUS=0)
 BEGIN
-DECLARE @VSQL NVARCHAR(MAX)
 SET @VSQL='
 DROP PROCEDURE IF EXISTS ['+@SchemaName+'].['+@ProcName+']
 '
@@ -369,7 +369,6 @@ FETCH NEXT FROM RemoveExt into @ExtTable,@SchemaId,@SchemaName
 
 WHILE(@@FETCH_STATUS=0)
 BEGIN
-DECLARE @VSQL NVARCHAR(MAX)
 SET @VSQL='
 IF EXISTS ( SELECT * FROM sys.external_tables WHERE name = '''+@ExtTable+''' and schema_id='+@SchemaId+') 
 DROP EXTERNAL TABLE ['+@SchemaName+'].['+@ExtTable+']

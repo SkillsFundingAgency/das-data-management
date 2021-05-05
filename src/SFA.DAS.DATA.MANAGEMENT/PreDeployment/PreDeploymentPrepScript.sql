@@ -303,28 +303,33 @@ DROP VIEW IF EXISTS [ASData_PL].[DAS_TransactionLine]
 
 /* Remove v1 External Tables */
 
+
+
 Declare @ExtTable VARCHAR(256)
-Declare @SchemaId VARCHAR(25)
+Declare @SchemaId varchar(25)
+Declare @SchemaName varchar(25)
 Declare RemoveExt Cursor
 for
-(SELECT name, Schema_Id
-from sys.external_tables
-where name like 'Ext_Tbl_%'
+(SELECT et.name, et.Schema_Id, s.name as SchemaName
+from sys.external_tables et
+join sys.schemas s
+  on et.schema_id=s.schema_id
+where et.name like 'Ext_Tbl_%'
 )
 
 OPEN RemoveExt
 
-FETCH NEXT FROM RemoveExt into @ExtTable,@SchemaId
+FETCH NEXT FROM RemoveExt into @ExtTable,@SchemaId,@SchemaName
 
 WHILE(@@FETCH_STATUS=0)
 BEGIN
 DECLARE @VSQL NVARCHAR(MAX)
 SET @VSQL='
 IF EXISTS ( SELECT * FROM sys.external_tables WHERE name = '''+@ExtTable+''' and schema_id='+@SchemaId+') 
-DROP EXTERNAL TABLE ['+@SchemaId+'].['+@ExtTable+']
+DROP EXTERNAL TABLE ['+@SchemaName+'].['+@ExtTable+']
 '
 EXEC (@VSQL)
-FETCH NEXT FROM RemoveExt into @ExtTable,@SchemaId
+FETCH NEXT FROM RemoveExt into @ExtTable,@SchemaId,@SchemaName
 END
 
 CLOSE RemoveExt

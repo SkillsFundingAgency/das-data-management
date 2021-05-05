@@ -304,7 +304,7 @@ DROP VIEW IF EXISTS [ASData_PL].[DAS_TransactionLine]
 /* Remove v1 External Tables */
 
 Declare @ExtTable VARCHAR(256)
-Declare @SchemaId int
+Declare @SchemaId VARCHAR(25)
 Declare RemoveExt Cursor
 for
 (SELECT name, Schema_Id

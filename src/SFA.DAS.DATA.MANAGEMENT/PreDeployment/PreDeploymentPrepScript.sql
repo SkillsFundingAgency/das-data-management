@@ -317,7 +317,6 @@ DEALLOCATE RemoveExtViews
 /* Drop Procedures that create v1 Views */
 
 Declare @ProcName VARCHAR(256)
-Declare @SchemaName varchar(25)
 
 Declare RemoveExtProcs Cursor for
 (
@@ -355,7 +354,6 @@ DEALLOCATE RemoveExtProcs
 
 Declare @ExtTable VARCHAR(256)
 Declare @SchemaId varchar(25)
-Declare @SchemaName varchar(25)
 Declare RemoveExt Cursor
 for
 (SELECT et.name, et.Schema_Id, s.name as SchemaName

@@ -46,5 +46,5 @@ JOIN
 			) ab
 			WHERE ab.rownumber = 1
 ) 
-cl ON cl.[CertificateId] = ce.[Id] AND ce.[CertificateReferenceId] >= 10000 AND ce.[CreatedBy] <> 'manual'
+cl ON cl.[CertificateId] = ce.[Id]
 

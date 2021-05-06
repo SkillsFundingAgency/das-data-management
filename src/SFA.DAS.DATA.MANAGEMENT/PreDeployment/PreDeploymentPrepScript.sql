@@ -277,30 +277,110 @@ DELETE LR  FROM
   WHERE StartDateTime<'2019-08-15'
 
 
+  /* Drop v1 Views before Decomissiong External Tables */
 
-/* Clear IF Exists External Tables created as part of POC */
+  
+Declare @ViewName VARCHAR(256)
+Declare @SchemaName varchar(25)
+DECLARE @VSQL NVARCHAR(MAX)
+
+Declare RemoveExtViews Cursor for
+(
+ 
+select sao.name, ss.name SchemaName
+  from sys.sql_modules ssm
+  join sys.all_objects sao
+    on ssm.object_id=sao.object_id
+  join sys.schemas ss
+    on ss.schema_id=sao.schema_id
+ where sao.name not like '%v2%'
+   and SSM.definition like '%EXT_TBL%'
+   and sao.type_desc='VIEW'
+)
+OPEN RemoveExtViews
+
+FETCH NEXT FROM RemoveExtViews into @ViewName,@SchemaName
+
+WHILE(@@FETCH_STATUS=0)
+BEGIN
+
+SET @VSQL='
+IF EXISTS(SELECT 1 from INFORMATION_SCHEMA.VIEWS where TABLE_NAME='''+@ViewName+''' AND TABLE_SCHEMA = '''+@SchemaName+''')
+DROP VIEW ['+@SchemaName+'].['+@ViewName+']
+'
+EXEC (@VSQL)
+FETCH NEXT FROM RemoveExtViews into @ViewName,@SchemaName
+END
+
+CLOSE RemoveExtViews
+DEALLOCATE RemoveExtViews
+
+
+/* Drop Procedures that create v1 Views */
+
+Declare @ProcName VARCHAR(256)
+
+Declare RemoveExtProcs Cursor for
+(
+ 
+select sao.name, ss.name SchemaName
+  from sys.sql_modules ssm
+  join sys.all_objects sao
+    on ssm.object_id=sao.object_id
+  join sys.schemas ss
+    on ss.schema_id=sao.schema_id
+ where sao.name not like '%v2%'
+   and SSM.definition like '%EXT_TBL%'
+   and sao.type_desc='SQL_STORED_PROCEDURE'
+   and sao.name <> 'Build_AS_DataMart'
+)
+OPEN RemoveExtProcs
+
+FETCH NEXT FROM RemoveExtProcs into @ProcName,@SchemaName
+
+WHILE(@@FETCH_STATUS=0)
+BEGIN
+SET @VSQL='
+IF EXISTS (select * from INFORMATION_SCHEMA.ROUTINES
+            where ROUTINE_NAME='''+@ProcName+'''
+              and ROUTINE_SCHEMA='''+@SchemaName+'''
+		  )
+DROP PROCEDURE ['+@SchemaName+'].['+@ProcName+']
+'
+EXEC (@VSQL)
+FETCH NEXT FROM RemoveExtProcs into @ProcName,@SchemaName
+END
+
+CLOSE RemoveExtProcs
+DEALLOCATE RemoveExtProcs
+
+/* Remove v1 External Tables */
+
+
 
 Declare @ExtTable VARCHAR(256)
+Declare @SchemaId varchar(25)
 Declare RemoveExt Cursor
 for
-(SELECT name
-from sys.external_tables
-where name like 'Ext_Tbl_%'
+(SELECT et.name, et.Schema_Id, s.name as SchemaName
+from sys.external_tables et
+join sys.schemas s
+  on et.schema_id=s.schema_id
+where et.name like 'Ext_Tbl_%'
 )
 
 OPEN RemoveExt
 
-FETCH NEXT FROM RemoveExt into @ExtTable
+FETCH NEXT FROM RemoveExt into @ExtTable,@SchemaId,@SchemaName
 
 WHILE(@@FETCH_STATUS=0)
 BEGIN
-DECLARE @VSQL NVARCHAR(MAX)
 SET @VSQL='
-IF EXISTS ( SELECT * FROM sys.external_tables WHERE object_id = OBJECT_ID('''+@ExtTable+''') ) 
-DROP EXTERNAL TABLE ['+@ExtTable+']
+IF EXISTS ( SELECT * FROM sys.external_tables WHERE name = '''+@ExtTable+''' and schema_id='+@SchemaId+') 
+DROP EXTERNAL TABLE ['+@SchemaName+'].['+@ExtTable+']
 '
 EXEC (@VSQL)
-FETCH NEXT FROM RemoveExt into @ExtTable
+FETCH NEXT FROM RemoveExt into @ExtTable,@SchemaId,@SchemaName
 END
 
 CLOSE RemoveExt

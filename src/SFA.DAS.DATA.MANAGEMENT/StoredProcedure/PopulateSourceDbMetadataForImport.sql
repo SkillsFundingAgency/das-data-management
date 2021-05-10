@@ -186,24 +186,18 @@ VALUES
 		,'[Name],[OrganisationUKPRN],[UkprnOnRegister],[PostCode],[EndPointAssessmentOrgId],[OrganisationLegalName],[OrganisationTradingName],[VerificationAuthority]',0,1
 		,'SELECT [Id],[Name],[OrganisationType],[OrganisationUKPRN],[Status],[RoEPAOApproved],[RoATPApproved],[CreatedAt],[CreatedBy],[UpdatedAt],[UpdatedBy],[DeletedAt],[DeletedBy],JSON_VALUE(OrganisationDetails,''''$.RoatpDetails.UkprnOnRegister'''') UkprnOnRegister,CASE WHEN CHARINDEX('''' '''',JSON_VALUE(OrganisationDetails,''''$.Postcode''''))<>0 THEN SUBSTRING(JSON_VALUE(OrganisationDetails,''''$.Postcode''''),1,CHARINDEX('''' '''',JSON_VALUE(OrganisationDetails,''''$.Postcode''''))) ELSE SUBSTRING(JSON_VALUE(OrganisationDetails,''''$.Postcode''''),1,LEN(JSON_VALUE(OrganisationDetails,''''$.Postcode''''))-3) end PostCode,JSON_VALUE(OrganisationDetails,''''$.OrganisationReferenceType'''') OrganisationReferenceType,JSON_VALUE(OrganisationDetails,''''$.LegalName'''') OrganisationLegalName,JSON_VALUE(OrganisationDetails,''''$.TradingName'''') OrganisationTradingName,JSON_VALUE(OrganisationDetails,''''$.EndPointAssessmentOrgId'''') EndPointAssessmentOrgId,JSON_VALUE(OrganisationDetails,''''$.UKRLPDetails.VerificationDetails[0].VerificationAuthority'''') VerificationAuthority,JSON_VALUE(OrganisationDetails,''''$.UKRLPDetails.VerificationDetails[0].VerificationId'''') VerificationId      ,JSON_VALUE(OrganisationDetails,''''$.UKRLPDetails.VerificationDetails[0].PrimaryVerificationSource'''') PrimaryVerificationSource  FROM [dbo].[Organisations]'
 		,'RP_Organisations')
-	,('Apply','Appeal','dbo','[Id],[OversightReviewId],[CreatedOn]','[UserName]'
+,('Apply','Appeal','dbo','[Id],[OversightReviewId],[CreatedOn]','[UserName]'
 		,'[Message],[UserId]',0,1
 		,'select [Id],[OversightReviewId],[Message],[UserId],[CreatedOn] from [dbo].[Appeal]','RP_Appeal')
 ,('Apply','AppealUpload','dbo','[Id],[ApplicationId],[AppealId],[FileStorageReference],[CreatedOn]','[UserName]'
 		,'[Filename],[ContentType],[Size],[UserId]',0,1
 		,'select [Id],[ApplicationId],[AppealId],[FileStorageReference],[Filename],[ContentType],[Size],[UserId],[CreatedOn]  from [dbo].[AppealUpload]','RP_AppealUpload')
-,('Apply','ApplySnapshots','dbo','[Id],[ApplicationId],[SnapshotApplicationId],[SnapshotDate],[OrganisationId]',''
-		,'[ApplicationStatus],[ApplyData],[GatewayReviewStatus],[AssessorReviewStatus],[FinancialReviewStatus],[FinancialGrade]',0,1
-		,'select [Id],[ApplicationId],[SnapshotApplicationId],[SnapshotDate],[OrganisationId],[ApplicationStatus],[ApplyData],[GatewayReviewStatus],[AssessorReviewStatus],[FinancialReviewStatus],[FinancialGrade] from [dbo].[ApplySnapshots]','RP_ApplySnapshots')
 ,('Apply','AssessorPageReviewOutcome','dbo','[Id],[ApplicationId],[SequenceNumber],[SectionNumber],[PageId],[CreatedAt],[UpdatedAt]',''
 		,'[Assessor1UserId],[Assessor1ReviewStatus],[Assessor1ReviewComment],[Assessor2UserId],[Assessor2ReviewStatus],[Assessor2ReviewComment],[CreatedBy],[UpdatedBy]',0,1
 		,'select [Id],[ApplicationId],[SequenceNumber],[SectionNumber],[PageId],[Assessor1UserId],[Assessor1ReviewStatus],[Assessor1ReviewComment],[Assessor2UserId],[Assessor2ReviewStatus],[Assessor2ReviewComment],[CreatedAt],[CreatedBy],[UpdatedAt],[UpdatedBy]  from [dbo].[AssessorPageReviewOutcome]','RP_AssessorPageReviewOutcome')
 ,('Apply','Contacts','dbo','[Id],[ApplyOrganisationID],[Status],[IsApproved],[CreatedAt],[UpdatedAt],[DeletedAt]','[Email],[GivenNames],[FamilyName],[ContactDetails]'
 		,'[SigninId],[SigninType],[CreatedBy],[UpdatedBy],[DeletedBy]',0,1
 		,'select [Id],[Email],[GivenNames],[FamilyName],[SigninId],[SigninType],[ApplyOrganisationID],[ContactDetails],[Status],[IsApproved],[CreatedAt],[CreatedBy],[UpdatedAt],[UpdatedBy],[DeletedAt],[DeletedBy]  from [dbo].[Contacts]','RP_Contacts')
-,('Apply','EmailTemplates','dbo','[Id],[Status],[TemplateId],[CreatedAt],[UpdatedAt],[DeletedAt]','[Recipients]'
-		,'[TemplateName],[RecipientTemplate],[CreatedBy],[UpdatedBy],[DeletedBy]',0,1
-		,'select [Id],[Status],[TemplateName],[TemplateId],[RecipientTemplate],[CreatedAt],[CreatedBy],[UpdatedAt],[UpdatedBy],[DeletedAt],[DeletedBy]  from [dbo].[EmailTemplates]','RP_EmailTemplates')
 ,('Apply','FinancialData','dbo','[Id],[ApplicationId]',''
 		,'[TurnOver],[Depreciation],[ProfitLoss],[Dividends],[IntangibleAssets],[Assets],[Liabilities],[ShareholderFunds],[Borrowings],[AccountingReferenceDate],[AccountingPeriod],[AverageNumberofFTEEmployees]',0,1
 		,'select [Id],[ApplicationId],[TurnOver],[Depreciation],[ProfitLoss],[Dividends],[IntangibleAssets],[Assets],[Liabilities],[ShareholderFunds],[Borrowings],[AccountingReferenceDate],[AccountingPeriod],[AverageNumberofFTEEmployees]  from [dbo].[FinancialData]','RP_FinancialData')

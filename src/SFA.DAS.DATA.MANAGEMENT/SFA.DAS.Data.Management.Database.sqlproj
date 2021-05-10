@@ -304,11 +304,9 @@
     <Build Include="Tables\AsDataPL_FAT2_ShortList.sql" />
     <Build Include="Tables\AsDataPL_RP_Appeal.sql" />
     <Build Include="Tables\AsDataPL_RP_AppealUpload.sql" />
-    <Build Include="Tables\AsDataPL_RP_ApplySnapshots.sql" />
     <Build Include="Tables\AsDataPL_RP_OversightReview.sql" />
     <Build Include="Tables\AsDataPL_RP_AssessorPageReviewOutcome.sql" />
     <Build Include="Tables\AsDataPL_RP_Contacts.sql" />
-    <Build Include="Tables\AsDataPL_RP_EmailTemplates.sql" />
     <Build Include="Tables\AsDataPL_RP_FinancialData.sql" />
     <Build Include="Tables\AsDataPL_RP_GatewayAnswer.sql" />
     <Build Include="Tables\AsDataPL_RP_ModeratorPageReviewOutcome.sql" />

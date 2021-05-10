@@ -128,7 +128,6 @@ VALUES
 ('BetaUser','dbo','DataDictionary','VIEW','SELECT',0,1),
 /* Data Analyst */
 ('DataAnalyst','ASData_PL','Payments_SS','TABLE','SELECT',0,1),
-('DataAnalyst','ASData_PL','DAS_Employer_LegalEntities_LevyInd','VIEW','SELECT',0,1),
 ('DataAnalyst','ASData_PL','DAS_SpendControl_V2','VIEW','SELECT',0,1),
 ('DataAnalyst','ASData_PL','DAS_SpendControlNonLevy_V2','VIEW','SELECT',0,1),
 ('DataAnalyst','ASData_PL','DAS_TransactionLine_V2','VIEW','SELECT',0,1),

@@ -192,8 +192,8 @@ VALUES
 ,('Apply','AppealUpload','dbo','[Id],[ApplicationId],[AppealId],[FileStorageReference],[CreatedOn]','[UserName]'
 		,'[Filename],[ContentType],[Size],[UserId]',0,1
 		,'select [Id],[ApplicationId],[AppealId],[FileStorageReference],[Filename],[ContentType],[Size],[UserId],[CreatedOn]  from [dbo].[AppealUpload]','RP_AppealUpload')
-,('Apply','AssessorPageReviewOutcome','dbo','[Id],[ApplicationId],[SequenceNumber],[SectionNumber],[PageId],[CreatedAt],[UpdatedAt]',''
-		,'[Assessor1UserId],[Assessor1ReviewStatus],[Assessor1ReviewComment],[Assessor2UserId],[Assessor2ReviewStatus],[Assessor2ReviewComment],[CreatedBy],[UpdatedBy]',0,1
+,('Apply','AssessorPageReviewOutcome','dbo','[Id],[ApplicationId],[SequenceNumber],[SectionNumber],[PageId],[Assessor1ReviewStatus],[Assessor1ReviewComment],[Assessor2ReviewStatus],[Assessor2ReviewComment],[CreatedAt],[UpdatedAt]',''
+		,'[Assessor1UserId],[Assessor2UserId],[CreatedBy],[UpdatedBy]',0,1
 		,'select [Id],[ApplicationId],[SequenceNumber],[SectionNumber],[PageId],[Assessor1UserId],[Assessor1ReviewStatus],[Assessor1ReviewComment],[Assessor2UserId],[Assessor2ReviewStatus],[Assessor2ReviewComment],[CreatedAt],[CreatedBy],[UpdatedAt],[UpdatedBy]  from [dbo].[AssessorPageReviewOutcome]','RP_AssessorPageReviewOutcome')
 ,('Apply','Contacts','dbo','[Id],[ApplyOrganisationID],[Status],[IsApproved],[CreatedAt],[UpdatedAt],[DeletedAt]','[Email],[GivenNames],[FamilyName],[ContactDetails]'
 		,'[SigninId],[SigninType],[CreatedBy],[UpdatedBy],[DeletedBy]',0,1
@@ -207,9 +207,9 @@ VALUES
 ,('Apply','ModeratorPageReviewOutcome','dbo','[Id],[ApplicationId],[SequenceNumber],[SectionNumber],[PageId],[ClarificationUpdatedAt],[CreatedAt],[UpdatedAt]','[ModeratorUserName],[ClarificationUserName]'
 		,'[ModeratorUserId],[ModeratorReviewStatus],[ModeratorReviewComment],[ClarificationUserId],[ClarificationStatus],[ClarificationComment],[ClarificationResponse],[ClarificationFile],[CreatedBy],[UpdatedBy]',0,1
 		,'select [Id],[ApplicationId],[SequenceNumber],[SectionNumber],[PageId],[ModeratorUserId],[ModeratorReviewStatus],[ModeratorReviewComment],[ClarificationUserId],[ClarificationStatus],[ClarificationComment],[ClarificationResponse],[ClarificationFile],[ClarificationUpdatedAt],[CreatedAt],[CreatedBy],[UpdatedAt],[UpdatedBy] from [dbo].[ModeratorPageReviewOutcome]','RP_ModeratorPageReviewOutcome')
-,('Apply','OversightReview','dbo','[Id],[ApplicationId],[GatewayApproved],[ModerationApproved],[Status],[ApplicationDeterminedDate],[InProgressDate],[CreatedOn],[UpdatedOn]','[UserName],[InProgressUserName]'
-		,'[InternalComments],[ExternalComments],[UserId],[InProgressUserId],[InProgressInternalComments],[InProgressExternalComments]',0,1
-		,'select [Id],[ApplicationId],[GatewayApproved],[ModerationApproved],[Status],[ApplicationDeterminedDate],[InternalComments],[ExternalComments],[UserId],[UserName],[InProgressDate],[InProgressUserId],[InProgressUserName],[InProgressInternalComments],[InProgressExternalComments],[CreatedOn],[UpdatedOn] from [dbo].[OversightReview]','RP_OversightReview')
+,('Apply','OversightReview','dbo','[Id],[ApplicationId],[GatewayApproved],[ModerationApproved],[Status],[ApplicationDeterminedDate],[InternalComments],[ExternalComments],[InProgressDate],[InProgressInternalComments],[InProgressExternalComments],[CreatedOn],[UpdatedOn]','[UserName],[InProgressUserName]'
+		,'[UserId],[InProgressUserId]',0,1
+		,'select [Id],[ApplicationId],[GatewayApproved],[ModerationApproved],[Status],[ApplicationDeterminedDate],[InternalComments],[ExternalComments],[UserId],[InProgressDate],[InProgressUserId],[InProgressInternalComments],[InProgressExternalComments],[CreatedOn],[UpdatedOn] from [dbo].[OversightReview]','RP_OversightReview')
 ,('Apply','SubmittedApplicationAnswers','dbo','[Id],[ApplicationId],[PageId]',''
 		,'[QuestionId],[QuestionType],[Answer],[ColumnHeading]',0,1
 		,'select [Id],[ApplicationId],[PageId],[QuestionId],[QuestionType],[Answer],[ColumnHeading] from [dbo].[SubmittedApplicationAnswers]','RP_SubmittedApplicationAnswers')

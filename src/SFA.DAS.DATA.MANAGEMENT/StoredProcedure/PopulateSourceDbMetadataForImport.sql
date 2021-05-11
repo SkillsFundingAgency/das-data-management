@@ -195,8 +195,8 @@ VALUES
 ,('Apply','AssessorPageReviewOutcome','dbo','[Id],[ApplicationId],[SequenceNumber],[SectionNumber],[PageId],[Assessor1ReviewStatus],[Assessor1ReviewComment],[Assessor2ReviewStatus],[Assessor2ReviewComment],[CreatedAt],[UpdatedAt]',''
 		,'[Assessor1UserId],[Assessor2UserId],[CreatedBy],[UpdatedBy]',0,1
 		,'select [Id],[ApplicationId],[SequenceNumber],[SectionNumber],[PageId],[Assessor1UserId],[Assessor1ReviewStatus],[Assessor1ReviewComment],[Assessor2UserId],[Assessor2ReviewStatus],[Assessor2ReviewComment],[CreatedAt],[CreatedBy],[UpdatedAt],[UpdatedBy]  from [dbo].[AssessorPageReviewOutcome]','RP_AssessorPageReviewOutcome')
-,('Apply','Contacts','dbo','[Id],[ApplyOrganisationID],[Status],[IsApproved],[CreatedAt],[UpdatedAt],[DeletedAt]','[Email],[GivenNames],[FamilyName],[ContactDetails]'
-		,'[SigninId],[SigninType],[CreatedBy],[UpdatedBy],[DeletedBy]',0,1
+,('Apply','Contacts','dbo','[Id],[ApplyOrganisationID],[Status],[IsApproved],[CreatedAt],[UpdatedAt],[DeletedAt]','[Email],[GivenNames],[FamilyName],[ContactDetails],[CreatedBy]'
+		,'[SigninId],[SigninType],[UpdatedBy],[DeletedBy]',0,1
 		,'select [Id],[Email],[GivenNames],[FamilyName],[SigninId],[SigninType],[ApplyOrganisationID],[ContactDetails],[Status],[IsApproved],[CreatedAt],[CreatedBy],[UpdatedAt],[UpdatedBy],[DeletedAt],[DeletedBy]  from [dbo].[Contacts]','RP_Contacts')
 ,('Apply','FinancialData','dbo','[Id],[ApplicationId]',''
 		,'[TurnOver],[Depreciation],[ProfitLoss],[Dividends],[IntangibleAssets],[Assets],[Liabilities],[ShareholderFunds],[Borrowings],[AccountingReferenceDate],[AccountingPeriod],[AverageNumberofFTEEmployees]',0,1

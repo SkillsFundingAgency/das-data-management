@@ -118,7 +118,6 @@ VALUES
 ('BetaUser','ASData_PL','RP_AppealUpload','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','RP_AssessorPageReviewOutcome','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','RP_Contacts','TABLE','SELECT',0,1),
-('BetaUser','ASData_PL','RP_FinancialData','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','RP_GatewayAnswer','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','RP_ModeratorPageReviewOutcome','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','RP_OversightReview','TABLE','SELECT',0,1),

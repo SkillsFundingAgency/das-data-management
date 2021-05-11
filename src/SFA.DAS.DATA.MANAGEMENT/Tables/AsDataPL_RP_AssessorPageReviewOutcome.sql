@@ -12,8 +12,6 @@
 	[Assessor2ReviewStatus]			[nvarchar](20)						NULL,
 	[Assessor2ReviewComment]		[nvarchar](max)						NULL,
 	[CreatedAt]						[datetime2](7)						NULL,
-	[CreatedBy]						[nvarchar](256)						NULL,
 	[UpdatedAt]						[datetime2](7)						NULL,
-	[UpdatedBy]						[nvarchar](256)						NULL,
 	[AsDm_UpdatedDateTime]			[datetime2](7) default getdate()	NULL
  )

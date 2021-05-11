@@ -11,6 +11,5 @@
 	[ClarificationAnswer]					[nvarchar](max)		NULL,
 	[GatewayPageData]						[nvarchar](max)		NULL,
 	[UpdatedAt]								[datetime2](7)		NULL,
-	[UpdatedBy]								[nvarchar](256)		NULL,
 	[AsDm_UpdatedDateTime]					[datetime2](7)		default getdate()	NULL
 )

@@ -15,6 +15,7 @@
 	[ClarificationFile]				[nvarchar](256)					NULL,
 	[ClarificationUpdatedAt]		[datetime2](7)					NULL,
 	[CreatedAt]						[datetime2](7)					NULL,
+	[CreatedBy]						[nvarchar](256)					NULL,
 	[UpdatedAt]						[datetime2](7)					NULL,
 	[AsDm_UpdatedDateTime]			[datetime2](7)	default getdate()	NULL
  )

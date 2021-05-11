@@ -8,6 +8,7 @@
   ,RoEPAOApproved bit not null
   ,RoATPApproved bit not null
   ,CreatedAt datetime2(7)
+  ,CreatedBy nvarchar(256) NULL
   ,UpdatedAt datetime2(7)
   ,DeletedAt datetime2(7)
   ,UkprnOnRegister varchar(20)

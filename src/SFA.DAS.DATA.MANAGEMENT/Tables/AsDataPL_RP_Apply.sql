@@ -23,7 +23,7 @@
    ,FinancialClarificationRequestedBy nvarchar(256)
    ,FinancialClarificationRequestedOn datetime2(7)   
    ,FinancialReviewGradedBy nvarchar(256)
-   ,GetwayUserName nvarchar(256)
+   ,GatewayUserName nvarchar(256)
    ,CreatedAt datetime2(7)
    ,CreatedBy nvarchar(256)
    ,UpdatedAt datetime2(7)

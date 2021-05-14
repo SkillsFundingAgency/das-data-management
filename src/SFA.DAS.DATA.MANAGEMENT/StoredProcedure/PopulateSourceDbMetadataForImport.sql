@@ -159,7 +159,7 @@ VALUES
 ('CRSDelivery','ProviderRegistrationFeedbackRating','dbo','[FeedbackName],[FeedbackCount]','','[UkPrn]',1,0,'FAT2_ProviderRegistrationFeedbackRating'),
 ('CRSDelivery','ProviderStandard','dbo','[StandardId],[StandardInfoUrl]','[Phone],[ContactUrl]','[UkPrn],[Email]',1,0,'FAT2_ProviderStandard'),
 ('CRSDelivery','ProviderStandardLocation','dbo','[StandardId],[LocationId],[DeliveryModes],[Radius],[National]','','[UkPrn]',1,0,'FAT2_ProviderStandardLocation'),
-('CRSDelivery','StandardLocation','dbo','[LocationId]','[Phone],[Address1],[Address2],[Town],[County]','[Name],[Email],[Website],[Postcode],[Lat],[Long]',1,0,'FAT2_StandardLocation'),
+('CRSDelivery','StandardLocation','dbo','[LocationId],[Postcode]','[Phone],[Address1],[Address2],[Town],[County]','[Name],[Email],[Website],[Lat],[Long]',1,0,'FAT2_StandardLocation'),
 ('CRSDelivery','ShortList','dbo','[Id],[ShortlistUserId],[StandardId],[CreatedDate]','[LocationDescription]','[UkPrn],[CourseSector],[Lat],[Long]',1,0,'FAT2_ShortList')
 
 

@@ -6,5 +6,7 @@
 	[StandardId]			[int]				NULL,
 	[CourseSector]			[varchar](1000)		NULL,
 	[CreatedDate]			[datetime]			NULL,
+	[Lat]					[float]				NULL,
+	[Long]					[float]				NULL,
 	[AsDm_UpdatedDateTime]  [datetime2](7)		DEFAULT (getdate())
 )

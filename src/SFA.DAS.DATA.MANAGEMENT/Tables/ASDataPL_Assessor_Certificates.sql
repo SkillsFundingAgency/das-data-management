@@ -9,6 +9,7 @@
 [ContactPostCode]								[NVarchar](20)			NULL,
 [CourseOption]									[NVarchar](200)			NULL,
 [CreatedAt]										[DateTime2](7)			NULL,
+[CreatedBy]										[NVarchar](100)			NULL,
 [CreateDay]										[Date]					NULL,	
 [DeletedAt]										[DateTime2](7)			NULL,
 [Department]									[NVarchar](200)			NULL,
@@ -28,6 +29,7 @@
 [StandardUId]									[NVarchar](50)			NULL,
 [Status]										[NVarchar](20)			NULL,
 [ToBePrinted]									[DateTime2](7)			NULL,
+[Uln]											[BigInt]				NULL,
 [UpdatedAt]										[DateTime2](7)			NULL,
 [AsDm_UpdatedDateTime]							[Datetime2](7)			default getdate()
 )

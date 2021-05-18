@@ -42,6 +42,11 @@ BEGIN TRY
 
                 DELETE FROM ASData_PL.Fin_TransactionLine
 
+				
+                DECLARE @VSQL NVARCHAR(MAX)
+
+                SET @VSQL='
+
 				INSERT INTO ASData_PL.Fin_TransactionLine
 				(     
 				  [Id]
@@ -71,7 +76,7 @@ BEGIN TRY
                       ,[TransactionType]
                       ,[LevyDeclared]
                       ,[Amount]
-                      ,convert(NVarchar(500),HASHBYTES('SHA2_512',LTRIM(RTRIM(CONCAT(EmpRef, saltkeydata.SaltKey)))),2) [EmpRef]
+                      ,convert(NVarchar(500),HASHBYTES(''SHA2_512'',LTRIM(RTRIM(CONCAT(EmpRef, saltkeydata.SaltKey)))),2) [EmpRef]
                       ,[PeriodEnd]
                       ,[Ukprn]
                       ,[SfaCoInvestmentAmount]
@@ -82,7 +87,10 @@ BEGIN TRY
                       ,[TransferReceiverAccountId]
                       ,[TransferReceiverAccountName]
 				 FROM Stg.Fin_TransactionLine FT
-				CROSS JOIN (Select TOP 1 SaltKeyID,SaltKey From AsData_PL.SaltKeyLog Where SourceType ='EmployerReference'  Order by SaltKeyID DESC ) SaltKeyData
+				CROSS JOIN (Select TOP 1 SaltKeyID,SaltKey From AsData_PL.SaltKeyLog Where SourceType =''EmployerReference''  Order by SaltKeyID DESC ) SaltKeyData
+				'
+
+				EXEC SP_EXECUTESQL @VSQL
 
 				 
 
@@ -90,6 +98,8 @@ BEGIN TRY
 
 				DELETE FROM ASData_PL.Fin_GetLevyDeclarationAndTopUp
 
+				SET @VSQL=''
+				SET @VSQL='
 				INSERT INTO ASData_PL.Fin_GetLevyDeclarationAndTopUp
 				(      [Id]
                       ,[AccountId]
@@ -117,7 +127,7 @@ BEGIN TRY
 				)
 				SELECT [Id]
                       ,[AccountId]
-                      ,convert(NVarchar(500),HASHBYTES('SHA2_512',LTRIM(RTRIM(CONCAT(EmpRef, saltkeydata.SaltKey)))),2) [EmpRef]
+                      ,convert(NVarchar(500),HASHBYTES(''SHA2_512'',LTRIM(RTRIM(CONCAT(EmpRef, saltkeydata.SaltKey)))),2) [EmpRef]
                       ,[SubmissionDate]
 					  ,[SubmissionId]
                       ,[LevyDueYTD]
@@ -139,7 +149,10 @@ BEGIN TRY
                       ,[TopUp]
                       ,[TotalAmount]
 				 FROM Stg.Fin_GetLevyDeclarationAndTopUp LD
-				 CROSS JOIN (Select TOP 1 SaltKeyID,SaltKey From AsData_PL.SaltKeyLog Where SourceType ='EmployerReference'  Order by SaltKeyID DESC ) SaltKeyData
+				 CROSS JOIN (Select TOP 1 SaltKeyID,SaltKey From AsData_PL.SaltKeyLog Where SourceType =''EmployerReference''  Order by SaltKeyID DESC ) SaltKeyData
+				 '
+
+				 EXEC SP_EXECUTESQL @VSQL
 
 
 				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Fin_GetLevyDeclarationAndTopUp' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')

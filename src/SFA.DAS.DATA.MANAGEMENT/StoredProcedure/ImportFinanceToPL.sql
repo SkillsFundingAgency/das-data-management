@@ -87,7 +87,7 @@ BEGIN TRY
                       ,[TransferReceiverAccountId]
                       ,[TransferReceiverAccountName]
 				 FROM Stg.Fin_TransactionLine FT
-				CROSS JOIN (Select TOP 1 SaltKeyID,SaltKey From AsData_PL.SaltKeyLog Where SourceType =''EmployerReference''  Order by SaltKeyID DESC ) SaltKeyData
+				CROSS JOIN (Select TOP 1 SaltKeyID,SaltKey From Mgmt.SaltKeyLog Where SourceType =''EmployerReference''  Order by SaltKeyID DESC ) SaltKeyData
 				'
 
 				EXEC SP_EXECUTESQL @VSQL
@@ -149,7 +149,7 @@ BEGIN TRY
                       ,[TopUp]
                       ,[TotalAmount]
 				 FROM Stg.Fin_GetLevyDeclarationAndTopUp LD
-				 CROSS JOIN (Select TOP 1 SaltKeyID,SaltKey From AsData_PL.SaltKeyLog Where SourceType =''EmployerReference''  Order by SaltKeyID DESC ) SaltKeyData
+				 CROSS JOIN (Select TOP 1 SaltKeyID,SaltKey From Mgmt.SaltKeyLog Where SourceType =''EmployerReference''  Order by SaltKeyID DESC ) SaltKeyData
 				 '
 
 				 EXEC SP_EXECUTESQL @VSQL

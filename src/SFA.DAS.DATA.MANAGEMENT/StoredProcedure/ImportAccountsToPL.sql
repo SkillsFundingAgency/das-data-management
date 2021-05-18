@@ -149,7 +149,7 @@ BEGIN TRY
 				SELECT convert(NVarchar(500),HASHBYTES(''SHA2_512'',LTRIM(RTRIM(CONCAT(EmpRef, saltkeydata.SaltKey)))),2) 
 				      ,[Name]
 				  FROM Stg.Acc_Paye AP
-				 CROSS JOIN (Select TOP 1 SaltKeyID,SaltKey From AsData_PL.SaltKeyLog Where SourceType =''EmployerReference''  Order by SaltKeyID DESC ) SaltKeyData
+				 CROSS JOIN (Select TOP 1 SaltKeyID,SaltKey From Mgmt.SaltKeyLog Where SourceType =''EmployerReference''  Order by SaltKeyID DESC ) SaltKeyData
 
 				/* Delete and Transform Account History Data */
 
@@ -168,7 +168,7 @@ BEGIN TRY
 	                  ,[AddedDate] 
 	                  ,[RemovedDate]
 				 FROM Stg.Acc_AccountHistory AP
-				 CROSS JOIN (Select TOP 1 SaltKeyID,SaltKey From AsData_PL.SaltKeyLog Where SourceType =''EmployerReference''  Order by SaltKeyID DESC ) SaltKeyData
+				 CROSS JOIN (Select TOP 1 SaltKeyID,SaltKey From Mgmt.SaltKeyLog Where SourceType =''EmployerReference''  Order by SaltKeyID DESC ) SaltKeyData
 				 '
 				EXEC SP_EXECUTESQL @VSQL
 

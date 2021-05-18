@@ -78,8 +78,8 @@ SELECT AR.[Id]
 		    WHEN DATEPART([M], [AR].[DateOfBirth]) > DATEPART([M], getdate())
 			  OR DATEPART([M], [AR].[DateOfBirth]) = DATEPART([M], getdate())
 			 AND DATEPART([DD],[AR].[DateOfBirth]) > DATEPART([DD], getdate())
-			THEN DATEDIFF(YEAR,[AR].[DateOfBirth]), getdate()) - 1
-		    ELSE DATEDIFF(YEAR,[AR].[DateOfBirth]), getdate())
+			THEN DATEDIFF(YEAR,[AR].[DateOfBirth], getdate()) - 1
+		    ELSE DATEDIFF(YEAR,[AR].[DateOfBirth], getdate())
 		END                                 as Age
 	  ,AR.[Ethnicity]
 	  ,AR.[EthnicitySubgroup]

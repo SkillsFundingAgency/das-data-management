@@ -11,6 +11,8 @@ EXEC dbo.ImportAppRedundancyToPL @RunId
 
 EXEC dbo.ImportAccountsToPL @RunId
 
+EXEC dbo.ImportFinanceToPL @RunId
+
 
 /* Import CRS and CRS Delivery Data to Presentation Layer */
 

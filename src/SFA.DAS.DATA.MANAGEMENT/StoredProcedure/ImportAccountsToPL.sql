@@ -125,6 +125,39 @@ BEGIN TRY
 						    ,EI_Acc.VrfCaseStatusLastUpdatedDateTime
 							,Acc_AccLegalEntity.[Address]
 
+               /* Delete and Transform Paye Data */
+
+                DELETE FROM ASData_PL.Acc_Paye
+
+				INSERT INTO ASData_PL.Acc_Paye
+				(      [Ref]
+	                  ,[Name]
+				)
+				SELECT convert(NVarchar(500),HASHBYTES('SHA2_512',LTRIM(RTRIM(CONCAT(EmpRef, saltkeydata.SaltKey)))),2) 
+				      ,[Name]
+				  FROM Stg.Acc_Paye AP
+				 CROSS JOIN (Select TOP 1 SaltKeyID,SaltKey From AsData_PL.SaltKeyLog Where SourceType ='EmployerReference'  Order by SaltKeyID DESC ) SaltKeyData
+
+				/* Delete and Transform Account History Data */
+
+				DELETE FROM ASData_PL.Acc_AccountHistory
+
+				INSERT INTO ASData_PL.Acc_AccountHistory
+				(      [Id] 
+	                  ,[AccountId]
+	                  ,[PayeRef] 
+	                  ,[AddedDate] 
+	                  ,[RemovedDate]
+				)
+				SELECT [Id] 
+	                  ,[AccountId]
+	                  ,convert(NVarchar(500),HASHBYTES('SHA2_512',LTRIM(RTRIM(CONCAT(EmpRef, saltkeydata.SaltKey)))),2) [PayeRef] 
+	                  ,[AddedDate] 
+	                  ,[RemovedDate]
+				 FROM Stg.Acc_AccountHistory AP
+				 CROSS JOIN (Select TOP 1 SaltKeyID,SaltKey From AsData_PL.SaltKeyLog Where SourceType ='EmployerReference'  Order by SaltKeyID DESC ) SaltKeyData
+
+
 				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='EI_Accounts' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 				DROP TABLE [Stg].[EI_Accounts]
 
@@ -136,6 +169,12 @@ BEGIN TRY
 
 				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Acc_AccountLegalEntity' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 				DROP TABLE [Stg].[Acc_AccountLegalEntity]
+
+				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Acc_Paye' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+				DROP TABLE [Stg].[Acc_Paye]
+
+				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Acc_AccountHistory' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+				DROP TABLE [Stg].[Acc_AccountHistory]
 
 		COMMIT TRANSACTION
 

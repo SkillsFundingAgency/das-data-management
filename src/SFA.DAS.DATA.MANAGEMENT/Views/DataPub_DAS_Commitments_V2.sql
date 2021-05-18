@@ -91,8 +91,8 @@
 								 END BETWEEN 0  AND 18 
 								THEN '16-18'
 							ELSE '19+'
-							 END) as Varchar(5)),'NA')														as [CommitmentAgeAtStartBand]		
-			 , ISNULL(CAST((CASE WHEN P.TotalAmount>0 THEN 'Yes' ELSE 'No' END) as Varchar(3)),'NA')			as RealisedCommitment
+							 END) as Varchar(5)),'NA')                                                      as [CommitmentAgeAtStartBand]
+		    , ISNULL(CAST((CASE WHEN P.TotalAmount>0 THEN 'Yes' ELSE 'No' END) as Varchar(3)),'NA')			as RealisedCommitment
 			 , ISNULL(CAST((CASE WHEN [a].[StartDate] BETWEEN DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0)
 								 AND DATEADD(dd, - 1, DATEADD(mm, DATEDIFF(mm, 0, GETDATE()) + 1, 0))
 								THEN 'Yes'

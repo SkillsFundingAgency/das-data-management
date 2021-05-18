@@ -560,3 +560,10 @@ IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
 	      )
 DROP TABLE [Stg].[GA_SessionData]
 
+/* Drop Salt Key Log and move to a different schema */
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'SaltKeyLog'
+		      AND TABLE_SCHEMA=N'AsData_PL'
+	      )
+DROP TABLE [ASData_PL].[SaltKeyLog]

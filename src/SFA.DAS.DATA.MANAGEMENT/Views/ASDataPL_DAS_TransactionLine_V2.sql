@@ -1,10 +1,6 @@
 ﻿ CREATE VIEW [ASData_PL].[DAS_TransactionLine_V2]  
  AS 
- 		with saltkeydata as 
-		(
-			Select TOP 1 SaltKeyID,SaltKey From AsData_PL.SaltKeyLog Where SourceType ='EmployerReference'  Order by SaltKeyID DESC 
-		)
-		SELECT 
+ 		SELECT 
 					[Id], 
 					[AccountId],  
 					[DateCreated],  
@@ -13,9 +9,7 @@
 					[TransactionType],  
 					[LevyDeclared],  
 					[Amount], 
- 					CASE 
-						WHEN EmpRef IS NOT NULL THEN convert(NVarchar(500),HASHBYTES('SHA2_512',LTRIM(RTRIM(CONCAT(EmpRef, saltkeydata.SaltKey)))),2) 
-					END AS EmpRef,	 
+ 					[EmpRef],	 
 					[PeriodEnd],  
 					[Ukprn],  
 					[SfaCoInvestmentAmount],  
@@ -26,5 +20,5 @@
 					[TransferReceiverAccountId],  
 					CAST([TransferReceiverAccountName] AS NVARCHAR(100)) As [TransferReceiverAccountName]  
 			FROM [ASData_PL].[Fin_TransactionLine]
-			CROSS JOIN saltkeydata
+			
 GO

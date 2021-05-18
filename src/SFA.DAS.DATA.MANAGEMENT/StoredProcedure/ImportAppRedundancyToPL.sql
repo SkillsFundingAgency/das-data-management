@@ -56,10 +56,7 @@ INSERT INTO ASData_PL.AR_Apprentice
       ,[LeftOnApprenticeshipYears]
       ,[Sectors]
       ,[CreatedOn]
-      ,[FirstName]
-      ,[LastName]
-      ,[Email]
-      ,[DateOfBirth]
+      ,[Age]
 	  ,[Ethnicity]
 	  ,[EthnicitySubgroup]
 	  ,[EthnicityText]
@@ -77,10 +74,13 @@ SELECT AR.[Id]
       ,AR.[LeftOnApprenticeshipYears] 
       ,AR.[Sectors] 
       ,AR.[CreatedOn]
-	  ,AR.[FirstName]
-      ,AR.[LastName] 
-	  ,AR.[Email] 
-      ,AR.[DateOfBirth] 
+	  ,CASE WHEN [AR].[DateOfBirth] IS NULL	THEN - 1
+		    WHEN DATEPART([M], [AR].[DateOfBirth]) > DATEPART([M], getdate())
+			  OR DATEPART([M], [AR].[DateOfBirth]) = DATEPART([M], getdate())
+			 AND DATEPART([DD],[AR].[DateOfBirth]) > DATEPART([DD], getdate())
+			THEN DATEDIFF(YEAR,[AR].[DateOfBirth]), getdate()) - 1
+		    ELSE DATEDIFF(YEAR,[AR].[DateOfBirth]), getdate())
+		END                                 as Age
 	  ,AR.[Ethnicity]
 	  ,AR.[EthnicitySubgroup]
 	  ,AR.[EthnicityText]
@@ -89,7 +89,7 @@ SELECT AR.[Id]
   FROM (SELECT *, row_number() over(partition by DateOfBirth,Email order by ID) RN
           FROM Stg.AR_Apprentice) AR
   LEFT
-  JOIN ASData_PL.Comt_Apprenticeship CA
+  JOIN AsData_PL.Comt_Apprenticeship CA
     ON CA.FirstName=AR.FirstName
    AND CA.LastName=AR.LastName
    AND CONVERT(DATE,CA.DateOfBirth)=CONVERT(DATE,substring(AR.DateOfBirth,1,10))
@@ -102,8 +102,6 @@ SELECT AR.[Id]
 
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = N'AR_Apprentice' AND TABLE_SCHEMA=N'Stg') 
 DROP TABLE [Stg].AR_Apprentice
-
-
 
 /* Import Apprenticeship Redundancy Employer Data */
 

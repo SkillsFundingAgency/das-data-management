@@ -11,15 +11,12 @@
       ,[LeftOnApprenticeshipYears] int
       ,[Sectors] int
       ,[CreatedOn] datetime2(7) not null
-	  ,[FirstName] nvarchar(100) not null
-      ,[LastName] nvarchar(100) not null
-	  ,[Email] nvarchar(255) 
 	  ,[Ethnicity] tinyint null
       ,[EthnicitySubgroup] tinyint null
 	  ,[EthnicityText] nvarchar(200) null
 	  ,[Gender] tinyint null
 	  ,[GenderText] nvarchar(200) null
-      ,[DateOfBirth] datetime2(7) not null
+      ,[Age] int null
 	  ,[Asdm_UpdatedDateTime] datetime2 default getdate()
 )
 GO

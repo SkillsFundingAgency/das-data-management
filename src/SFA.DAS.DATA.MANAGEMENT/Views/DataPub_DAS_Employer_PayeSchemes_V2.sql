@@ -1,15 +1,9 @@
 ﻿CREATE VIEW [Data_Pub].[DAS_Employer_PayeSchemes_V2]	
 AS 
-	 with saltkeydata as 
-	 (
-		Select TOP 1 SaltKeyID,SaltKey From AsData_PL.SaltKeyLog Where SourceType ='EmployerReference'  Order by SaltKeyID DESC 
-	 )
 	SELECT 
 			 ISNULL(CAST(ah.Id as bigint),-1)																			 as Id
 			,ISNULL(CAST(a.HashedId as nvarchar(100)),'XXXXXX')                                                          as DasAccountId 		
-			,CASE 
-			WHEN p.Ref IS NOT NULL THEN convert(NVarchar(500),HASHBYTES('SHA2_512',LTRIM(RTRIM(CONCAT(p.Ref, saltkeydata.SaltKey)))),2) 
-			END AS PAYEReference
+			,p.Ref                                                                                                       AS PAYEReference
 			, Cast( p.Name AS nvarchar(100))                                                                             as PAYESchemeName
 			,ISNULL(Cast(ah.AddedDate AS DateTime),'9999-12-31')                                                         as AddedDate
 			,ah.RemovedDate                                                                                              as RemovedDate
@@ -28,5 +22,5 @@ AS
 	FROM [ASData_PL].[Acc_Account] a
 	INNER JOIN [ASData_PL].[Acc_AccountHistory] ah ON a.Id = ah.AccountID
 	INNER JOIN [ASData_PL].[Acc_Paye] p ON ah.PayeRef = p.Ref
-	CROSS JOIN saltkeydata 
+	
 GO

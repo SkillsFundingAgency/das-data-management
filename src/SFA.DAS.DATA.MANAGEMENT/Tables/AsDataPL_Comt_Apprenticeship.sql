@@ -13,7 +13,7 @@
 	[EndDate] [datetime] NULL,
 	[AgreementStatus] [smallint] NOT NULL,
 	[PaymentStatus] [smallint] NOT NULL,
-	[DateOfBirth] [datetime] NULL,	
+	[DateOfBirth] [datetime] Null,
 	[EmployerRef] [nvarchar](50) NULL,
 	[ProviderRef] [nvarchar](50) NULL,
 	[CreatedOn] [datetime] NULL,

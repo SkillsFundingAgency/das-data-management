@@ -176,6 +176,14 @@ BEGIN CATCH
 
 			DECLARE @ErrorId int
 
+		  /* Drop Staging Table even if the Job Fails */
+
+		  	IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Fin_GetLevyDeclarationAndTopUp' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+			DROP TABLE [Stg].[Fin_GetLevyDeclarationAndTopUp]
+
+			IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Fin_TransactionLine' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+			DROP TABLE [Stg].[Fin_TransactionLine]
+
 		  INSERT INTO Mgmt.Log_Error_Details
 			  (UserName
 			  ,ErrorNumber

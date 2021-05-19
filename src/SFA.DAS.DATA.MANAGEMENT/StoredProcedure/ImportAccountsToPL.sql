@@ -186,12 +186,16 @@ BEGIN TRY
 				DROP TABLE [Stg].[Acc_AccountLegalEntity]
 
 				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Acc_Paye' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
-				DROP TABLE [Stg].[Acc_Paye]
+		        DROP TABLE [Stg].[Acc_Paye]
 
-				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Acc_AccountHistory' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
-				DROP TABLE [Stg].[Acc_AccountHistory]
+		       IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Acc_AccountHistory' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+		       DROP TABLE [Stg].[Acc_AccountHistory]
 
 		COMMIT TRANSACTION
+
+		/* Drop Tables even if the Job Fails */
+
+		
 
 				UPDATE Mgmt.Log_Execution_Results
 				   SET Execution_Status=1
@@ -203,6 +207,14 @@ END TRY
 BEGIN CATCH
 			IF @@TRANCOUNT>0
 			ROLLBACK TRANSACTION;
+
+			/* Drop Staging Table even if the Job Fails */
+
+			IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Acc_Paye' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+		    DROP TABLE [Stg].[Acc_Paye]
+
+		    IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Acc_AccountHistory' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+		    DROP TABLE [Stg].[Acc_AccountHistory]
 
 			DECLARE @ErrorId int
 

@@ -146,7 +146,7 @@ BEGIN TRY
 				(      [Ref]
 	                  ,[Name]
 				)
-				SELECT convert(NVarchar(500),HASHBYTES(''SHA2_512'',LTRIM(RTRIM(CONCAT(EmpRef, saltkeydata.SaltKey)))),2) 
+				SELECT convert(NVarchar(500),HASHBYTES(''SHA2_512'',LTRIM(RTRIM(CONCAT(Ref, saltkeydata.SaltKey)))),2) 
 				      ,[Name]
 				  FROM Stg.Acc_Paye AP
 				 CROSS JOIN (Select TOP 1 SaltKeyID,SaltKey From Mgmt.SaltKeyLog Where SourceType =''EmployerReference''  Order by SaltKeyID DESC ) SaltKeyData
@@ -164,7 +164,7 @@ BEGIN TRY
 				)
 				SELECT [Id] 
 	                  ,[AccountId]
-	                  ,convert(NVarchar(500),HASHBYTES(''SHA2_512'',LTRIM(RTRIM(CONCAT(EmpRef, saltkeydata.SaltKey)))),2) [PayeRef] 
+	                  ,convert(NVarchar(500),HASHBYTES(''SHA2_512'',LTRIM(RTRIM(CONCAT(PayeRef, saltkeydata.SaltKey)))),2) [PayeRef] 
 	                  ,[AddedDate] 
 	                  ,[RemovedDate]
 				 FROM Stg.Acc_AccountHistory AP

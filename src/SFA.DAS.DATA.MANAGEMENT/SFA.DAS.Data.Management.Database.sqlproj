@@ -211,7 +211,7 @@
     <Build Include="Views\AsDataPL_DAS_UserAccountLegalEntity.sql" />
     <Build Include="Views\AsDataPL_DAS_Users.sql" />
     <Build Include="Tables\Stg_SQLCodeForDynamicBuild.sql" />
-    <Build Include="StoredProcedure\ImportAppRedundancyToPL.sql" />
+    <Build Include="StoredProcedure\ImportAppRedundancyAndComtToPL.sql" />
     <Build Include="Tables\AsDataPL_AR_Apprentice.sql" />
     <Build Include="StoredProcedure\ImportMarketoBulkExtractTablesToPL.sql" />
     <Build Include="Tables\AsDataPL_Marketo_Activities.sql" />

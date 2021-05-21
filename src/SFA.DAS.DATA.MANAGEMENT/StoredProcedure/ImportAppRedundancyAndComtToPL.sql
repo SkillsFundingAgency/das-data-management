@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[ImportAppRedundancyToPL]
+﻿CREATE PROCEDURE [dbo].[ImportAppRedundancyAndComtToPL]
 (
    @RunId int
 )
@@ -6,7 +6,7 @@ AS
 -- ==========================================================================================================
 -- Author:      Himabindu Uddaraju
 -- Create Date: 24/09/2020
--- Description: Import, Transform and Load Apprenticeship Redundancy Presentation Layer Table
+-- Description: Import, Transform and Load Apprenticeship Redundancy and Commitments Presentation Layer Table
 -- ==========================================================================================================
 
 BEGIN TRY
@@ -27,12 +27,12 @@ DECLARE @LogID int
   SELECT 
         @RunId
 	   ,'Step-6'
-	   ,'ImportAppRedundancyToPL'
+	   ,'ImportAppRedundancyAndComtToPL'
 	   ,getdate()
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
-   WHERE StoredProcedureName='ImportAppRedundancyToPL'
+   WHERE StoredProcedureName='ImportAppRedundancyAndComtToPL'
      AND RunId=@RunID
 
 BEGIN TRANSACTION
@@ -89,7 +89,7 @@ SELECT AR.[Id]
   FROM (SELECT *, row_number() over(partition by DateOfBirth,Email order by ID) RN
           FROM Stg.AR_Apprentice) AR
   LEFT
-  JOIN AsData_PL.Comt_Apprenticeship CA
+  JOIN Stg.Comt_Apprenticeship CA
     ON CA.FirstName=AR.FirstName
    AND CA.LastName=AR.LastName
    AND CONVERT(DATE,CA.DateOfBirth)=CONVERT(DATE,substring(AR.DateOfBirth,1,10))
@@ -140,11 +140,84 @@ SELECT AE.[Id]
 
  EXEC SP_EXECUTESQL @VSQL2
 
- /* Drop Staging Table as it's no longer required */
+  /* Drop Staging Table as it's no longer required */
 
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = N'AR_Employer' AND TABLE_SCHEMA=N'Stg') 
 DROP TABLE [Stg].AR_Employer
 
+ /* Import Commitments Apprenticeship to PL */
+
+ DECLARE @VSQL3 NVARCHAR(MAX)
+
+SET @VSQL3='
+ 
+INSERT INTO [ASData_PL].[Comt_Apprenticeship]
+           ([Id]
+           ,[CommitmentId]
+           ,[ULN]
+           ,[TrainingType]
+           ,[TrainingCode]
+           ,[TrainingName]
+           ,[Cost]
+           ,[StartDate]
+           ,[EndDate]
+           ,[AgreementStatus]
+           ,[PaymentStatus]
+           ,[DateOfBirth]
+           ,[CreatedOn]
+           ,[AgreedOn]
+           ,[PaymentOrder]
+           ,[StopDate]
+           ,[PauseDate]
+           ,[HasHadDataLockSuccess]
+           ,[PendingUpdateOriginator]
+           ,[EPAOrgId]
+           ,[CloneOf]
+           ,[ReservationId]
+           ,[IsApproved]
+           ,[CompletionDate]
+           ,[ContinuationOfId]
+           ,[MadeRedundant]
+           ,[OriginalStartDate]
+           ,[Age]
+           )
+ SELECT    [Id]
+           ,[CommitmentId]
+           ,[ULN]
+           ,[TrainingType]
+           ,[TrainingCode]
+           ,[TrainingName]
+           ,[Cost]
+           ,[StartDate]
+           ,[EndDate]
+           ,[AgreementStatus]
+           ,[PaymentStatus]
+           ,[DateOfBirth]
+           ,[CreatedOn]
+           ,[AgreedOn]
+           ,[PaymentOrder]
+           ,[StopDate]
+           ,[PauseDate]
+           ,[HasHadDataLockSuccess]
+           ,[PendingUpdateOriginator]
+           ,[EPAOrgId]
+           ,[CloneOf]
+           ,[ReservationId]
+           ,[IsApproved]
+           ,[CompletionDate]
+           ,[ContinuationOfId]
+           ,[MadeRedundant]
+           ,[OriginalStartDate]
+           ,[Age]
+    FROM Stg.Comt_Apprenticeship
+'
+
+EXEC SP_EXECUTESQL @VSQL3
+
+  /* Drop Staging Table as it's no longer required */
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = N'Comt_Apprenticeship' AND TABLE_SCHEMA=N'Stg') 
+DROP TABLE [Stg].Comt_Apprenticeship
 
 
 COMMIT TRANSACTION
@@ -162,6 +235,17 @@ END TRY
 BEGIN CATCH
     IF @@TRANCOUNT>0
 	ROLLBACK TRANSACTION;
+
+	/* Drop Staging Table even if it fails */
+
+    IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = N'Comt_Apprenticeship' AND TABLE_SCHEMA=N'Stg') 
+    DROP TABLE [Stg].Comt_Apprenticeship
+
+	
+     /* Drop Staging Table even if it fails */
+
+     IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = N'AR_Apprentice' AND TABLE_SCHEMA=N'Stg') 
+     DROP TABLE [Stg].AR_Apprentice
 
     DECLARE @ErrorId int
 
@@ -182,7 +266,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'ImportAppRedundancyToPL',
+	    'ImportAppRedundancyAndComtToPL',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 

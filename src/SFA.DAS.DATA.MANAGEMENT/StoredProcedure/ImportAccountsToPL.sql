@@ -37,9 +37,13 @@ BEGIN TRY
 
 		BEGIN TRANSACTION
 
-				DELETE FROM [ASData_PL].[Acc_Account]
+		DECLARE @VSQL NVARCHAR(MAX)
 
-				INSERT [ASData_PL].[Acc_Account]
+		DELETE FROM [ASData_PL].[Acc_Account]
+
+        SET @VSQL='
+
+			 INSERT [ASData_PL].[Acc_Account]
 				(
 						[Id],
 						[HashedId],
@@ -62,11 +66,17 @@ BEGIN TRY
 				FROM stg.Acc_Account stgAcc LEFT JOIN Stg.Comt_Accounts stgcAcc on stgAcc.id = stgcAcc.id 
 				group by stgAcc.Id,stgAcc.HashedId,stgAcc.Name,stgAcc.CreatedDate,stgAcc.ModifiedDate,stgAcc.ApprenticeshipEmployerType,
 						 stgAcc.PublicHashedId,stgcAcc.LevyStatus
+              '
+
+			  EXEC SP_EXECUTESQL @VSQL
 				
 				/*Insert ASData_PL.Acc_AccountLegalEntity*/
-				
+
+			  SET @VSQL=''
+			  				
 				DELETE FROM [ASData_PL].[Acc_AccountLegalEntity]
 
+			  SET @VSQL='
 				INSERT INTO [ASData_PL].[Acc_AccountLegalEntity]
 						   ([Id]
 						   ,[Name]
@@ -124,6 +134,44 @@ BEGIN TRY
 						    ,EI_Acc.VrfCaseStatus
 						    ,EI_Acc.VrfCaseStatusLastUpdatedDateTime
 							,Acc_AccLegalEntity.[Address]
+              '
+			   EXEC SP_EXECUTESQL @VSQL
+
+               /* Delete and Transform Paye Data */
+
+                DELETE FROM ASData_PL.Acc_Paye
+
+				SET @VSQL='
+				INSERT INTO ASData_PL.Acc_Paye
+				(      [Ref]
+	                  ,[Name]
+				)
+				SELECT convert(NVarchar(500),HASHBYTES(''SHA2_512'',LTRIM(RTRIM(CONCAT(Ref, saltkeydata.SaltKey)))),2) 
+				      ,[Name]
+				  FROM Stg.Acc_Paye AP
+				 CROSS JOIN (Select TOP 1 SaltKeyID,SaltKey From Mgmt.SaltKeyLog Where SourceType =''EmployerReference''  Order by SaltKeyID DESC ) SaltKeyData
+
+				/* Delete and Transform Account History Data */
+
+				DELETE FROM ASData_PL.Acc_AccountHistory
+
+				INSERT INTO ASData_PL.Acc_AccountHistory
+				(      [Id] 
+	                  ,[AccountId]
+	                  ,[PayeRef] 
+	                  ,[AddedDate] 
+	                  ,[RemovedDate]
+				)
+				SELECT [Id] 
+	                  ,[AccountId]
+	                  ,convert(NVarchar(500),HASHBYTES(''SHA2_512'',LTRIM(RTRIM(CONCAT(PayeRef, saltkeydata.SaltKey)))),2) [PayeRef] 
+	                  ,[AddedDate] 
+	                  ,[RemovedDate]
+				 FROM Stg.Acc_AccountHistory AP
+				 CROSS JOIN (Select TOP 1 SaltKeyID,SaltKey From Mgmt.SaltKeyLog Where SourceType =''EmployerReference''  Order by SaltKeyID DESC ) SaltKeyData
+				 '
+				EXEC SP_EXECUTESQL @VSQL
+
 
 				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='EI_Accounts' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 				DROP TABLE [Stg].[EI_Accounts]
@@ -137,7 +185,17 @@ BEGIN TRY
 				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Acc_AccountLegalEntity' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 				DROP TABLE [Stg].[Acc_AccountLegalEntity]
 
+				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Acc_Paye' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+		        DROP TABLE [Stg].[Acc_Paye]
+
+		       IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Acc_AccountHistory' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+		       DROP TABLE [Stg].[Acc_AccountHistory]
+
 		COMMIT TRANSACTION
+
+		/* Drop Tables even if the Job Fails */
+
+		
 
 				UPDATE Mgmt.Log_Execution_Results
 				   SET Execution_Status=1
@@ -149,6 +207,14 @@ END TRY
 BEGIN CATCH
 			IF @@TRANCOUNT>0
 			ROLLBACK TRANSACTION;
+
+			/* Drop Staging Table even if the Job Fails */
+
+			IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Acc_Paye' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+		    DROP TABLE [Stg].[Acc_Paye]
+
+		    IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Acc_AccountHistory' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+		    DROP TABLE [Stg].[Acc_AccountHistory]
 
 			DECLARE @ErrorId int
 

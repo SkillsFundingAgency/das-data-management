@@ -1,16 +1,9 @@
 ﻿CREATE VIEW [Data_Pub].[DAS_LevyDeclarations_V2]
 AS 
-with saltkeydata as 
-(
-	Select TOP 1 SaltKeyID,SaltKey From AsData_PL.SaltKeyLog Where SourceType ='EmployerReference'  Order by SaltKeyID DESC 
-)
 SELECT  ISNULL(CAST(LD.[Id] AS bigint),-1)                                  AS Id
       , ISNULL(CAST(EA.HashedId as nvarchar(100)),'XXXXXX')					AS DASAccountID
       , ISNULL(CAST(LD.ID as bigint),-1)                                    AS LevyDeclarationID         	              	  
-	  , CASE 
-			WHEN LD.empRef IS NOT NULL THEN convert(NVarchar(500),HASHBYTES('SHA2_512',LTRIM(RTRIM(CONCAT(LD.empRef, saltkeydata.SaltKey)))),2)  
-			Else NULL 
-	    End AS PAYEReference
+	  , LD.EmpRef                                                           AS PAYEReference
 	  , CAST(LD.LevyDueYTD AS decimal(18,5))                                AS LevyDueYearToDate
       , CAST(LD.[LevyAllowanceForYear] as decimal(18,5))                    AS LevyAllowanceForYear
       , LD.[SubmissionDate]                                                 AS SubmissionDateTime
@@ -43,7 +36,6 @@ SELECT  ISNULL(CAST(LD.[Id] AS bigint),-1)                                  AS I
            ON EA.ID=LD.AccountId
 	LEFT JOIN dbo.DASCalendarMonth AS CM 
 	       ON LD.PayrollYear = CM.TaxYear AND LD.PayrollMonth = CM.TaxMonthNumber
-	CROSS JOIN saltkeydata 
  WHERE LD.LastSubmission=1
 GO
 

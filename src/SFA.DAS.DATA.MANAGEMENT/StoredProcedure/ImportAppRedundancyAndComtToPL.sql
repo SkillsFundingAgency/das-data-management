@@ -147,6 +147,8 @@ DROP TABLE [Stg].AR_Employer
 
  /* Import Commitments Apprenticeship to PL */
 
+ DELETE FROM [ASData_PL].[Comt_Apprenticeship]
+
  DECLARE @VSQL3 NVARCHAR(MAX)
 
 SET @VSQL3='

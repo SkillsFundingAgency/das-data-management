@@ -114,6 +114,7 @@ VALUES
 ('BetaUser','ASData_PL','MarketoPrograms','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','MarketoSmartCampaigns','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','PFBE_EmployerFeedback','TABLE','SELECT',0,1),
+('BetaUser','ASData_PL','PubSector_Report','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','Resv_Reservation','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','RP_Apply','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','RP_Organisations','TABLE','SELECT',0,1),

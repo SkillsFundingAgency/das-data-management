@@ -8,7 +8,7 @@
 	[TransactionType] [tinyint] NOT NULL,
 	[LevyDeclared] [decimal](18, 4) NULL,
 	[Amount] [decimal](18, 4) NOT NULL,
-	[EmpRef] [nvarchar](50) NULL,
+	[EmpRef] [nvarchar] (500) NULL,
 	[PeriodEnd] [nvarchar](50) NULL,
 	[Ukprn] [bigint] NULL,
 	[SfaCoInvestmentAmount] [decimal](18, 4) NOT NULL,

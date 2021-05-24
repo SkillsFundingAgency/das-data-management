@@ -3,7 +3,7 @@
 (
 	[Id] [bigint] NOT NULL,
 	[AccountId] [bigint] NOT NULL,
-	[PayeRef] [varchar](20) NOT NULL,
+	[PayeRef] [nvarchar](500) NOT NULL,
 	[AddedDate] [datetime] NOT NULL,
 	[RemovedDate] [datetime] NULL,
 	[AsDm_UpdatedDateTime] datetime2 default getdate(),

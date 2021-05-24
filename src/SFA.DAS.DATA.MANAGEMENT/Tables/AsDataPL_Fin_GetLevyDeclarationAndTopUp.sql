@@ -2,7 +2,7 @@
 (
 	[Id] [bigint] NOT NULL,
 	[AccountId] [bigint] NOT NULL,
-	[EmpRef] [nvarchar](50) NOT NULL,
+	[EmpRef] [nvarchar](500) NOT NULL,
 	[SubmissionDate] [datetime] NULL,
 	[SubmissionId] [bigint] NOT NULL,
 	[LevyDueYTD] [decimal](18, 4) NULL,

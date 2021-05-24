@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [AsData_PL].[PubSector_Report]
 (
-	
+	ReportID							Int							IDENTITY(1,1)  NOT NULL,
 	DasAccountId						NVarchar(20)				NOT NULL,
 	OrganisationName					NVarchar(250)				NULL,
 	DasOrganisationName					NVarchar(250)				NULL,

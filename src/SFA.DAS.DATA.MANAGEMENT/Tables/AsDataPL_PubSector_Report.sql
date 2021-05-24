@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [AsData_PL].[PubSector_Report]
 (
 	
-	DasAccountId						NVarchar(20)  PRIMARY KEY	NOT NULL,
+	DasAccountId						NVarchar(20)				NOT NULL,
 	OrganisationName					NVarchar(250)				NULL,
 	DasOrganisationName					NVarchar(250)				NULL,
 	ReportingPeriod						NVarchar(25)				NULL,

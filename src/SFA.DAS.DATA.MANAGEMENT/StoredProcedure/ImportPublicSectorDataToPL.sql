@@ -34,7 +34,7 @@ BEGIN TRY
 
 			BEGIN TRANSACTION
 
-				DELETE FROM [AsData_PL].[PubSector_Report];
+				TRUNCATE TABLE [AsData_PL].[PubSector_Report];
 				
 				;with basedata As
 				(
@@ -51,10 +51,12 @@ BEGIN TRY
 					  ,[Questions_TargetPlans_Answer]
 					  ,[Questions_TargetPlans_Id]
 					  ,[ReportingPeriod]
-					  ,Case when [ReportingPeriod] = '1718'  Then '1 April 2017 to 31 March 2018'
+					  ,Case when [ReportingPeriod] = '1617'  Then '1 April 2016 to 31 March 2017'
+							when [ReportingPeriod] = '1718'  Then '1 April 2017 to 31 March 2018'
 							when [ReportingPeriod] = '1819'  Then '1 April 2018 to 31 March 2019'
 							when [ReportingPeriod] = '1920'  Then '1 April 2019 to 31 March 2020'
 							when [ReportingPeriod] = '2021'  Then '1 April 2020 to 31 March 2021'
+							when [ReportingPeriod] = '2122'  Then '1 April 2021 to 31 March 2022'
 					   End as [ReportingPeriodLabel]	
 					  ,[SubmittedAt]
 					  ,[SubmittedEmail]
@@ -67,20 +69,20 @@ BEGIN TRY
 					  ,[YourEmployees_AtEnd]
 					  ,[YourEmployees_AtStart]
 					  ,[YourEmployees_NewThisPeriod]     	  
-					  ,(cast([YourApprentices_NewThisPeriod] as float) * 100.0)/ cast(case when [YourEmployees_NewThisPeriod] IS NULL or [YourEmployees_NewThisPeriod] = 0 then 1 Else [YourEmployees_NewThisPeriod] end as decimal(8,3)) As FigureE
-					  ,(cast([YourApprentices_AtEnd] as float) * 100.0)/ cast(case when [YourEmployees_AtEnd] IS NULL or [YourEmployees_AtEnd] = 0 then 1 Else [YourEmployees_AtEnd] end as decimal(8,3)) As FigureF
-					  ,(cast([YourApprentices_AtStart] as float) * 100.0)/ cast(case when [YourEmployees_AtStart] IS NULL or [YourEmployees_AtStart] = 0 then 1 Else [YourEmployees_AtStart] end as decimal(8,3)) As FigureI
+					  ,cast([YourApprentices_NewThisPeriod] as float)/ cast(case when [YourEmployees_NewThisPeriod] IS NULL or [YourEmployees_NewThisPeriod] = 0 then 1 Else [YourEmployees_NewThisPeriod] end as decimal(8,3)) As FigureE
+					  ,cast([YourApprentices_AtEnd] as float) / cast(case when [YourEmployees_AtEnd] IS NULL or [YourEmployees_AtEnd] = 0 then 1 Else [YourEmployees_AtEnd] end as decimal(8,3)) As FigureF
+					  ,cast([YourApprentices_AtStart] as float) / cast(case when [YourEmployees_AtStart] IS NULL or [YourEmployees_AtStart] = 0 then 1 Else [YourEmployees_AtStart] end as decimal(8,3)) As FigureI
 					  ,1 As FlagLatest
 				  FROM [Stg].[PublicSector_Report]
 				)
 				, OutlineActionsAnswers  As 
-				(SELECT [DasAccountId],count(value) As OutlineActionsAnswers_Count FROM basedata CROSS APPLY STRING_SPLIT([Questions_OutlineActions_Answer],' ')  where [Questions_OutlineActions_Answer] != '' group by [DasAccountId])
+				(SELECT [DasAccountId],count(value) As OutlineActionsAnswers_Count FROM basedata CROSS APPLY STRING_SPLIT(trim([Questions_OutlineActions_Answer]),' ')  where [Questions_OutlineActions_Answer] != '' group by [DasAccountId])
 				, TargetPlanAnswers  As 
-				(SELECT [DasAccountId],count(value) As TargetPlanAnswers_Count FROM basedata CROSS APPLY STRING_SPLIT([Questions_TargetPlans_Answer],' ')  where [Questions_TargetPlans_Answer] != '' group by [DasAccountId])
+				(SELECT [DasAccountId],count(value) As TargetPlanAnswers_Count FROM basedata CROSS APPLY STRING_SPLIT(trim([Questions_TargetPlans_Answer]),' ')  where [Questions_TargetPlans_Answer] != '' group by [DasAccountId])
 				, ChallengesAnswers  As 
-				(SELECT [DasAccountId],count(value) As ChallengesAnswers_Count FROM basedata CROSS APPLY STRING_SPLIT([Questions_Challenges_Answer],' ')  where [Questions_Challenges_Answer] != '' group by [DasAccountId])
+				(SELECT [DasAccountId],count(value) As ChallengesAnswers_Count FROM basedata CROSS APPLY STRING_SPLIT(trim([Questions_Challenges_Answer]),' ')  where [Questions_Challenges_Answer] != '' group by [DasAccountId])
 				, AnythingElseAnswers  As 
-				(SELECT [DasAccountId],count(value) As AnythingElseAnswers_Count FROM basedata CROSS APPLY STRING_SPLIT([Questions_AnythingElse_Answer],' ')  where [Questions_AnythingElse_Answer] != '' group by [DasAccountId])
+				(SELECT [DasAccountId],count(value) As AnythingElseAnswers_Count FROM basedata CROSS APPLY STRING_SPLIT(trim([Questions_AnythingElse_Answer]),' ')  where [Questions_AnythingElse_Answer] != '' group by [DasAccountId])
 				INSERT INTO [AsData_PL].[PubSector_Report]
 				(
 						DasAccountId,

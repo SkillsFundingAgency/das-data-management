@@ -33,9 +33,9 @@ BEGIN TRY
 			  AND RunId=@RunID
 
 			BEGIN TRANSACTION
-
-				TRUNCATE TABLE [AsData_PL].[PubSector_Report];
 				
+				DELETE FROM [AsData_PL].[PubSector_Report];
+
 				;with basedata As
 				(
 				SELECT [DasAccountId]
@@ -51,13 +51,7 @@ BEGIN TRY
 					  ,[Questions_TargetPlans_Answer]
 					  ,[Questions_TargetPlans_Id]
 					  ,[ReportingPeriod]
-					  ,Case when [ReportingPeriod] = '1617'  Then '1 April 2016 to 31 March 2017'
-							when [ReportingPeriod] = '1718'  Then '1 April 2017 to 31 March 2018'
-							when [ReportingPeriod] = '1819'  Then '1 April 2018 to 31 March 2019'
-							when [ReportingPeriod] = '1920'  Then '1 April 2019 to 31 March 2020'
-							when [ReportingPeriod] = '2021'  Then '1 April 2020 to 31 March 2021'
-							when [ReportingPeriod] = '2122'  Then '1 April 2021 to 31 March 2022'
-					   End as [ReportingPeriodLabel]	
+					  ,CalendarData.ReportingPeriodLabel
 					  ,[SubmittedAt]
 					  ,[SubmittedEmail]
 					  ,[SubmittedName]
@@ -73,7 +67,10 @@ BEGIN TRY
 					  ,cast([YourApprentices_AtEnd] as float) / cast(case when [YourEmployees_AtEnd] IS NULL or [YourEmployees_AtEnd] = 0 then 1 Else [YourEmployees_AtEnd] end as decimal(8,3)) As FigureF
 					  ,cast([YourApprentices_AtStart] as float) / cast(case when [YourEmployees_AtStart] IS NULL or [YourEmployees_AtStart] = 0 then 1 Else [YourEmployees_AtStart] end as decimal(8,3)) As FigureI
 					  ,1 As FlagLatest
-				  FROM [Stg].[PublicSector_Report]
+				  FROM [Stg].[PublicSector_Report]  LEFT JOIN 
+				  (
+						SELECT distinct replace([TaxYear],'-','') As RptPeriod, '1 April 20' + SUBSTRING([TaxYear],1,2) + ' To 31 March 20' + SUBSTRING([TaxYear],4,2) As ReportingPeriodLabel  FROM [dbo].[DASCalendarMonth]
+				  ) As CalendarData  on [Stg].[PublicSector_Report].[ReportingPeriod] = CalendarData.RptPeriod
 				)
 				, OutlineActionsAnswers  As 
 				(SELECT [DasAccountId],count(value) As OutlineActionsAnswers_Count FROM basedata CROSS APPLY STRING_SPLIT(trim([Questions_OutlineActions_Answer]),' ')  where [Questions_OutlineActions_Answer] != '' group by [DasAccountId])

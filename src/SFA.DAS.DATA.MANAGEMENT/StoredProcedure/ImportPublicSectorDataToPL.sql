@@ -134,9 +134,9 @@ BEGIN TRY
 						,TargetPlanAnswers_Count
 						,[Questions_AnythingElse_Answer]
 						,[AnythingElseAnswers_Count]					  
-						,[SubmittedAt]
-						,[SubmittedEmail]
+						,[SubmittedAt]						
 						,[SubmittedName]		
+						,[SubmittedEmail]
 						,[FlagLatest]
 				from basedata
 				LEFT JOIN  OutlineActionsAnswers OAA on  basedata.DasAccountId =  OAA.DasAccountId

@@ -4,6 +4,9 @@ EXEC [dbo].[Build_AS_DataMart]
 
 /* Alter GA Table to Create Partition Index */
 
+ALTER TABLE AsData_PL.GA_SessionData
+ALTER COLUMN VisitDate date
+
 
 CREATE CLUSTERED INDEX IX_GASessionData_GASD_ID ON AsData_PL.GA_SessionData (GASD_ID)
   WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, 

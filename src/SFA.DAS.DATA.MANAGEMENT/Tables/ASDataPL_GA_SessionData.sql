@@ -5,7 +5,7 @@
 	[VisitId]						[nvarchar](500) NULL,
 	[VisitNumber]					[nvarchar](500) NULL,
 	[VisitStartDateTime]			[nvarchar](500) NULL,
-	[VisitDate]						date NULL,
+	[VisitDate]						[nvarchar](500) NULL,
 	[VisitorId]						[nvarchar](500) NULL,
 	[UserId]						[nvarchar](500) NULL,
 	[Hits_Page_PagePath]			[nvarchar](max) NULL,	

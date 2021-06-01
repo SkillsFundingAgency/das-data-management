@@ -10,6 +10,8 @@
 	[HasDataLock]						[bit]				NULL,
 	[StartDate]							[datetime2](7)		NULL,
 	[InLearning]						[bit]				NULL,	
+	[LearningStoppedDate]				[datetime2](7)		NULL,
+	[LearningResumedDate]				[datetime2](7)		NULL,
 	[CreatedDate]						[datetime2](7)		NULL,
 	[UpdatedDate]						[datetime2](7)		NULL,
 	[AsDm_UpdatedDateTime]				[datetime2](7)	DEFAULT (getdate())

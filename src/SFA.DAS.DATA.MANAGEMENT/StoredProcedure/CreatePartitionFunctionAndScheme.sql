@@ -51,8 +51,11 @@ UPDATE Mgmt.Log_Execution_Results
 
 DECLARE @DatePartitionFunction nvarchar(max) = 
     N'IF EXISTS (SELECT 1 FROM sys.Partition_Functions where name=''PF_DatePartition'')
+	  BEGIN 
+	  IF EXISTS (SELECT 1 FROM sys.Partition_Schemes where name=''PS_DatePartition'')
+      DROP PARTITION SCHEME PS_DatePartition
 	  DROP PARTITION FUNCTION PF_DatePartition
-	  	
+	  END	
 	CREATE PARTITION FUNCTION PF_DatePartition (date) 
     AS RANGE RIGHT FOR VALUES (';  
 DECLARE @i date = '20200101';  
@@ -65,9 +68,6 @@ SET @DatePartitionFunction += '''' + CAST(@i as nvarchar(10))+ '''' + N');';
 EXEC SP_EXECUTESQL @DatePartitionFunction;  
 
 /* Create Partition Scheme */
-IF EXISTS (SELECT 1 FROM sys.Partition_Schemes where name='PS_DatePartition')
-DROP PARTITION SCHEME PS_DatePartition
-
 CREATE PARTITION SCHEME PS_DatePartition 
 AS PARTITION PF_DatePartition
 ALL TO ([PRIMARY]);

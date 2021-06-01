@@ -318,5 +318,6 @@
     <Build Include="Tables\AsDataPL_Assessor_Organisations.sql" />
     <Build Include="Views\AsDataPL_DAS_AssessorAssessmentData.sql" />
     <Build Include="StoredProcedure\ImportFinanceToPL.sql" />
+    <Build Include="StoredProcedure\CreatePartitionFunctionAndScheme.sql" />
   </ItemGroup>
 </Project>

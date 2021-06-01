@@ -42,6 +42,10 @@ EXEC [dbo].[PopulateMetadataNationalMinimumWageRates] @RunId
 
 EXEC [dbo].[PopulateMetadataRolesAndPermissions] @RunId
 
+/* Create Partition Function and Scheme */
+
+EXEC [dbo].[CreatePartitionFunctionAndScheme] @RunId
+
 
 /* Grant Permissions to Roles -- Should always be kept last */
 

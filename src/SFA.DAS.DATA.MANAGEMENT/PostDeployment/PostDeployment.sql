@@ -17,4 +17,4 @@ EXEC [dbo].[Build_AS_DataMart]
 --  WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, 
 --        ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) 
   
---create Nonclustered Index NCI_TokenClientId ON AsData_PL.GA_SessionData(ESFAToken,[EventLabel_ESFAToken],[CD_ESFAToken],clientid) INCLUDE (cd_employerId)
+create Nonclustered Index NCI_TokenClientId ON AsData_PL.GA_SessionData(ESFAToken,[EventLabel_ESFAToken],[CD_ESFAToken],clientid) INCLUDE (cd_employerId)

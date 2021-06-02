@@ -65,6 +65,7 @@
     <Folder Include="Schemas" />
     <Folder Include="PostDeployment" />
     <Folder Include="PreDeployment" />
+    <Folder Include="TablePartitions" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Database.publish.xml" />
@@ -319,5 +320,6 @@
     <Build Include="Views\AsDataPL_DAS_AssessorAssessmentData.sql" />
     <Build Include="StoredProcedure\ImportFinanceToPL.sql" />
     <Build Include="StoredProcedure\CreatePartitionFunctionAndScheme.sql" />
+    <Build Include="TablePartitions\DatePartition.sql" />
   </ItemGroup>
 </Project>

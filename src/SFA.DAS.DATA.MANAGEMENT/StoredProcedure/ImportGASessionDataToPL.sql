@@ -167,8 +167,8 @@ BEGIN TRY
 				ON GAData.ClientId =  ClientIDs.ClientId
 				Where GAData.[StgImportDate] > @importdatetime AND ClientIDSource ='STG'
 		
-				--IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='GA_SessionDataDetail' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
-				--TRUNCATE TABLE [Stg].[GA_SessionDataDetail]				
+				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='GA_SessionDataDetail' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+				TRUNCATE TABLE [Stg].[GA_SessionDataDetail]				
 				
 		COMMIT TRANSACTION
 

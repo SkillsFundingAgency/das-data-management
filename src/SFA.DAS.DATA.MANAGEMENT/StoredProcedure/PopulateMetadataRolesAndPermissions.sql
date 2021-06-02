@@ -182,6 +182,8 @@ VALUES
 /* MarketoUser */
 ('MarketoUser','ASData_PL','DAS_UserAccountLegalEntity','VIEW','SELECT',0,1),
 ('MarketoUser','ASData_PL','DAS_Users','VIEW','SELECT',0,1),
+/* PSR User */
+('PSRUserDfeStats','ASData_PL','PubSector_Report','TABLE','SELECT',0,1),
 /* Service Ops */
 ('ServiceOps','Stg','RAA_ApplicationReviews','TABLE','SELECT',0,1),
 ('ServiceOps','Stg','RAA_ReferenceDataApprenticeshipProgrammes','TABLE','SELECT',0,1),
@@ -189,6 +191,7 @@ VALUES
 /* Va User for Nigel's Team in Data Science */
 ('VaUser','ASData_PL','Va_Application','TABLE','SELECT',0,1),
 ('VaUser','ASData_PL','Va_Vacancy','TABLE','SELECT',0,1)
+
 
 
 COMMIT TRANSACTION

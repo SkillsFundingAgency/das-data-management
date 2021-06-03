@@ -14,4 +14,5 @@
   ,OriginalState_PaymentStatus VARCHAR(25)
   ,UpdatedState_PaymentStatus VARCHAR(25)
   ,CorrelationId UNIQUEIDENTIFIER 
+  ,[AsDm_UpdatedDateTime] datetime2 default getdate(),
 )

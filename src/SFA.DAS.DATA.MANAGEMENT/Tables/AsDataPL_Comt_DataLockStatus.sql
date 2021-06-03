@@ -19,4 +19,5 @@
       ,[EventStatus] tinyint not null
       ,[IsExpired] bit not null
       ,[Expired] datetime null
+	  ,[AsDm_UpdatedDateTime] datetime2 default getdate()
 )

@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [ASData_PL].[GA_SessionData](
 	[GASD_Id]						[bigint] IDENTITY(1,1) NOT NULL,
 	[FullVisitorId]					[nvarchar](500) NULL,
-	[ClientId]						[nvarchar](500) NULL,
+	[ClientId]						[nvarchar](200) NULL,
 	[VisitId]						[nvarchar](500) NULL,
 	[VisitNumber]					[nvarchar](500) NULL,
 	[VisitStartDateTime]			[nvarchar](500) NULL,
@@ -15,20 +15,20 @@
 	[EmployerId]					[nvarchar](500) NULL,
 	[ID2]							[nvarchar](500) NULL,
 	[ID3]							[nvarchar](500) NULL,
-	[ESFAToken]						[nvarchar](500) NULL,
+	[ESFAToken]						[nvarchar](200) NULL,
 	[EventCategory]					[nvarchar](max) NULL,
 	[EventAction]					[nvarchar](max) NULL,	
-	[EventLabel_ESFAToken]			[nvarchar](500) NULL,
+	[EventLabel_ESFAToken]			[nvarchar](200) NULL,
 	[EventLabel_Keyword]			[nvarchar](2000) NULL,
 	[EventLabel_Postcode]			[nvarchar](500) NULL,
 	[EventLabel_WithinDistance]		[nvarchar](500) NULL,
 	[EventLabel_Level]				[nvarchar](500) NULL,	
-	[CD_ClientId]					[nvarchar](500) NULL,
+	[CD_ClientId]					[nvarchar](200) NULL,
 	[CD_SearchTerms]				[nvarchar](2000) NULL,
 	[CD_UserId]						[nvarchar](500) NULL,
 	[CD_LevyFlag]					[nvarchar](500) NULL,
-	[CD_EmployerId]					[nvarchar](500) NULL,
-	[CD_ESFAToken]					[nvarchar](500) NULL,
+	[CD_EmployerId]					[nvarchar](100) NULL,
+	[CD_ESFAToken]					[nvarchar](200) NULL,
 	[CD_LegalEntityId]				[nvarchar](500) NULL,
 	[Hits_Page_Hostname]			[NVarchar](500) NULL,
 	[Hits_Page_PageTitle]			[NVarchar](500) NULL,
@@ -55,7 +55,7 @@ CREATE CLUSTERED INDEX IX_GASessionData_GASD_ID ON AsData_PL.GA_SessionData (GAS
   ON PS_DatePartition(VisitDate)
 GO
 
-CREATE NONCLUSTERED INDEX NIX_GASessionData_ClinetId ON AsData_PL.GA_SessionData (ClientId)
+CREATE NONCLUSTERED INDEX NIX_GASessionData_ClientId ON AsData_PL.GA_SessionData (ClientId)
   WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, 
         ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) 
 GO

@@ -6,5 +6,6 @@
 	[LastDateStarts]			[datetime]			NULL,
 	[SectorSubjectAreaTier2]	[decimal](10, 4)	NOT NULL,
 	[OtherBodyApprovalRequired] [bit]				NOT NULL,
+	[SectorCode]				[int]				NULL,
 	[AsDm_UpdatedDateTime]		[datetime2](7) DEFAULT (getdate())
 )

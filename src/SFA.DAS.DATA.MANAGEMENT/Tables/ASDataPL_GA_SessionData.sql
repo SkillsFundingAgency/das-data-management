@@ -59,10 +59,5 @@ CREATE NONCLUSTERED INDEX NIX_GASessionData_ClinetId ON AsData_PL.GA_SessionData
   WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, 
         ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) 
 GO
-  
-CREATE NONCLUSTERED INDEX NCI_TokenClientId ON AsData_PL.GA_SessionData(ESFAToken,[EventLabel_ESFAToken],[CD_ESFAToken],clientid) 
-      INCLUDE (cd_employerId)
-GO
-
 
   

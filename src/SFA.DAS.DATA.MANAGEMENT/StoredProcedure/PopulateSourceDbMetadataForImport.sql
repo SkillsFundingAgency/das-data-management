@@ -143,7 +143,7 @@ VALUES
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,StagingTableName,PLTableName,[ModelDataToPL],[IsQueryBasedImport],SourceQuery)
 VALUES
-('Commitments','History','dbo','[Id],[EntityType],[EntityId],[CommitmentId],[ApprenticeshipId],[UserId],[UpdatedByRole],[ChangeType],[CreatedOn],[ProviderId],[EmployerAccountId],[OriginalState_PaymentStatus],[UpdatedState_PaymentStatus],[CorrelationId]','[UpdatedByName],[Diff]','','Comt_History','Comt_History',0,1,'SELECT [Id],[EntityType],[EntityId],[CommitmentId],[ApprenticeshipId],[UserId],[UpdatedByRole],[ChangeType],[CreatedOn],[ProviderId],[EmployerAccountId],[UpdatedByName],JSON_VALUE(History.OriginalState, ''''$.PaymentStatus'''') OriginalState_PaymentStatus , JSON_VALUE(History.UpdatedState, ''''$.PaymentStatus'''') UpdatedState_PaymentStatus,[Diff],[CorrelationId] FROM [dbo].[History]')
+('Commitments','History','dbo','[Id],[EntityType],[EntityId],[CommitmentId],[ApprenticeshipId],[UpdatedByRole],[ChangeType],[CreatedOn],[ProviderId],[EmployerAccountId],[OriginalState_PaymentStatus],[UpdatedState_PaymentStatus],[CorrelationId]','[UpdatedByName],[Diff],[UserId]','','Comt_History','Comt_History',0,1,'SELECT [Id],[EntityType],[EntityId],[CommitmentId],[ApprenticeshipId],[UserId],[UpdatedByRole],[ChangeType],[CreatedOn],[ProviderId],[EmployerAccountId],[UpdatedByName],JSON_VALUE(History.OriginalState, ''''$.PaymentStatus'''') OriginalState_PaymentStatus , JSON_VALUE(History.UpdatedState, ''''$.PaymentStatus'''') UpdatedState_PaymentStatus,[Diff],[CorrelationId] FROM [dbo].[History]')
 
 
 /* Redundancy */

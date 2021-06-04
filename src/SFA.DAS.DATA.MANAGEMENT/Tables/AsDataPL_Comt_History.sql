@@ -5,7 +5,6 @@
   ,EntityId BIGINT null
   ,CommitmentId BIGINT null
   ,ApprenticeshipId BIGINT null
-  ,UserId NVARCHAR(50) not null
   ,UpdatedByRole NVARCHAR(50)
   ,ChangeType NVARCHAR(50)
   ,CreatedOn DATETIME

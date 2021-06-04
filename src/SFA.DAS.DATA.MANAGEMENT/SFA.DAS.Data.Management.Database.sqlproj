@@ -321,5 +321,7 @@
     <Build Include="Tables\AsDataPL_EI_ApprenticeshipBreakInLearning.sql" />
     <Build Include="Tables\AsDataPL_PubSector_Report.sql" />
     <Build Include="StoredProcedure\ImportPublicSectorDataToPL.sql" />
+    <Build Include="Tables\AsDataPL_Comt_DataLockStatus.sql" />
+    <Build Include="Tables\AsDataPL_Comt_History.sql" />
   </ItemGroup>
 </Project>

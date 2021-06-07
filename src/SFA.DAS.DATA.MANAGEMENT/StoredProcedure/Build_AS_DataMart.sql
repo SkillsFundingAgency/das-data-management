@@ -42,7 +42,6 @@ EXEC [dbo].[PopulateMetadataNationalMinimumWageRates] @RunId
 
 EXEC [dbo].[PopulateMetadataRolesAndPermissions] @RunId
 
-
 /* Grant Permissions to Roles -- Should always be kept last */
 
 EXEC [dbo].[AssignPermissionsToRoles] @RunId

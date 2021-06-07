@@ -318,7 +318,10 @@
     <Build Include="Tables\AsDataPL_Assessor_Organisations.sql" />
     <Build Include="Views\AsDataPL_DAS_AssessorAssessmentData.sql" />
     <Build Include="StoredProcedure\ImportFinanceToPL.sql" />
+    <Build Include="Tables\AsDataPL_EI_ApprenticeshipBreakInLearning.sql" />
     <Build Include="Tables\AsDataPL_PubSector_Report.sql" />
     <Build Include="StoredProcedure\ImportPublicSectorDataToPL.sql" />
+    <Build Include="Tables\AsDataPL_Comt_DataLockStatus.sql" />
+    <Build Include="Tables\AsDataPL_Comt_History.sql" />
   </ItemGroup>
 </Project>

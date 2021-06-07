@@ -14,5 +14,9 @@
   ,SubmittedDate										datetime2(7)					NULL
   ,CourseName											nvarchar(200)					NULL
   ,[Status]												nvarchar(50)					NULL
+  ,MinimumAgreementVersion								int								NULL
+  ,EmploymentStartDate									datetime2(7)					NULL
+  ,Phase												nvarchar(50)					NULL
+  ,BreakInLearningDayCount								int								NULL
   ,AsDm_UpdatedDateTime									datetime2						default getdate()
 )

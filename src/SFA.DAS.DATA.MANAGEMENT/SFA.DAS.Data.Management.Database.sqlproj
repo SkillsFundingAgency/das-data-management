@@ -65,7 +65,6 @@
     <Folder Include="Schemas" />
     <Folder Include="PostDeployment" />
     <Folder Include="PreDeployment" />
-    <Folder Include="TablePartitions" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Database.publish.xml" />
@@ -323,6 +322,5 @@
     <Build Include="StoredProcedure\ImportPublicSectorDataToPL.sql" />
     <Build Include="Tables\AsDataPL_Comt_DataLockStatus.sql" />
     <Build Include="Tables\AsDataPL_Comt_History.sql" />
-    <Build Include="TablePartitions\DatePartition.sql" />
   </ItemGroup>
 </Project>

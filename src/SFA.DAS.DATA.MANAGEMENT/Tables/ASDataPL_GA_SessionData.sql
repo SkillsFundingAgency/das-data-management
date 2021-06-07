@@ -1,11 +1,11 @@
 ﻿CREATE TABLE [ASData_PL].[GA_SessionData](
 	[GASD_Id]						[bigint] IDENTITY(1,1) NOT NULL,
 	[FullVisitorId]					[nvarchar](500) NULL,
-	[ClientId]						[nvarchar](500) NULL,
+	[ClientId]						[nvarchar](200) NULL,
 	[VisitId]						[nvarchar](500) NULL,
 	[VisitNumber]					[nvarchar](500) NULL,
 	[VisitStartDateTime]			[nvarchar](500) NULL,
-	[VisitDate]						[nvarchar](500) NULL,
+	[VisitDate]						date NULL,
 	[VisitorId]						[nvarchar](500) NULL,
 	[UserId]						[nvarchar](500) NULL,
 	[Hits_Page_PagePath]			[nvarchar](max) NULL,	

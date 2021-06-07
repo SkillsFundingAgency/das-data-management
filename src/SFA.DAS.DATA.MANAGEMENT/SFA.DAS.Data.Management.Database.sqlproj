@@ -65,7 +65,6 @@
     <Folder Include="Schemas" />
     <Folder Include="PostDeployment" />
     <Folder Include="PreDeployment" />
-    <Folder Include="TablePartitions" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Database.publish.xml" />
@@ -319,6 +318,9 @@
     <Build Include="Tables\AsDataPL_Assessor_Organisations.sql" />
     <Build Include="Views\AsDataPL_DAS_AssessorAssessmentData.sql" />
     <Build Include="StoredProcedure\ImportFinanceToPL.sql" />
-    <Build Include="TablePartitions\DatePartition.sql" />
+    <Build Include="Tables\AsDataPL_PubSector_Report.sql" />
+    <Build Include="StoredProcedure\ImportPublicSectorDataToPL.sql" />
+    <Build Include="Tables\AsDataPL_Comt_DataLockStatus.sql" />
+    <Build Include="Tables\AsDataPL_Comt_History.sql" />
   </ItemGroup>
 </Project>

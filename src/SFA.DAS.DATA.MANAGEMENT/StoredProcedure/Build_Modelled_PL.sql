@@ -22,6 +22,9 @@ EXEC dbo.ImportFAT2FrameworkToPL @RunId
 
 EXEC dbo.ImportFAT2SectorStandardToPL @RunId
 
+/* Import Public sector Data to Presentation Layer */
+EXEC dbo.ImportPublicSectorReportDataToPL @RunId
+
 /* Run Payments Snaptshot */
 Declare @StartDate  Date = dateadd(day,-2,cast(getdate() as date)),
 		@EndDate Date = dateadd(day,2,cast(getdate() as date))

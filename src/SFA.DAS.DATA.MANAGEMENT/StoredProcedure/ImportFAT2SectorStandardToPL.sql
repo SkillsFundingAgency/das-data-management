@@ -75,6 +75,7 @@ BEGIN TRY
 						   ,[CoreAndOptions]
 						   ,[IntegratedApprenticeship]
 						   ,[Options]
+						   ,[CoreDuties]
 						   )				
 					SELECT
 					  [StandardUId]
@@ -111,7 +112,8 @@ BEGIN TRY
 					  ,[Duties]
 					  ,[CoreAndOptions]
 					  ,[IntegratedApprenticeship]
-					  ,[Options]      
+					  ,[Options]    
+					  ,[CoreDuties]
 					FROM [Stg].[FAT2_Standard] std JOIN [Stg].[FAT2_Route] tblRoute 
 					ON std.[RouteCode] =  tblRoute.[Id]	LEFT JOIN [ASData_PL].[Va_ApprenticeshipStandard] AppStandard
 					ON std.LarsCode = AppStandard.LarsCode AND std.Title = AppStandard.StandardFullName'

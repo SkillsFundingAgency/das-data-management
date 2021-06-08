@@ -108,7 +108,7 @@ BEGIN TRY
 							,Acc_AccLegalEntity.PendingAgreementVersion
 							,Acc_AccLegalEntity.PendingAgreementId
 							,Acc_AccLegalEntity.Deleted	
-							,EI_Acc.HasSignedIncentivesTerms
+							,NULL As HasSignedIncentivesTerms
 							,EI_Acc.VrfVendorId
 						    ,EI_Acc.VrfCaseId
 						    ,EI_Acc.VrfCaseStatus
@@ -127,8 +127,7 @@ BEGIN TRY
 							,Acc_AccLegalEntity.SignedAgreementId
 							,Acc_AccLegalEntity.PendingAgreementVersion
 							,Acc_AccLegalEntity.PendingAgreementId
-							,Acc_AccLegalEntity.Deleted
-							,EI_Acc.HasSignedIncentivesTerms
+							,Acc_AccLegalEntity.Deleted							
 							,EI_Acc.VrfVendorId
 						    ,EI_Acc.VrfCaseId
 						    ,EI_Acc.VrfCaseStatus

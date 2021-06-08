@@ -11,5 +11,8 @@
 	[WithdrawnByEmployer]						bit						NULL,
 	[WithdrawnByCompliance]						bit						NULL,
 	[CourseName]								nvarchar(126)			NULL,
+	[EmploymentStartDate]						datetime2(7)			NULL,
+	[Phase]										nvarchar(50)			NULL,
+	[HasEligibleEmploymentStartDate]			bit						NULL,
 	[AsDm_UpdatedDateTime]						DateTime2 default(getdate())
 )

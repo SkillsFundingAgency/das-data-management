@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[PopulateSourceDbMetadataForImport]
+﻿	CREATE PROCEDURE [dbo].[PopulateSourceDbMetadataForImport]
 (
    @RunId int
 )
@@ -93,16 +93,17 @@ VALUES
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,[ModelDataToPL])
 VALUES
- ('EmpInc','Accounts','dbo','[Id],[AccountLegalEntityId],[LegalEntityId],[HasSignedIncentivesTerms],[SignedAgreementVersion],[VrfVendorId],[VrfCaseId],[VrfCaseStatus],[VrfCaseStatusLastUpdatedDateTime]','[LegalEntityName],[HashedLegalEntityId]','',1)
+ ('EmpInc','Accounts','dbo','[Id],[AccountLegalEntityId],[LegalEntityId],[SignedAgreementVersion],[VrfVendorId],[VrfCaseId],[VrfCaseStatus],[VrfCaseStatusLastUpdatedDateTime]','[LegalEntityName],[HashedLegalEntityId]','',1)
 ,('EmpInc','IncentiveApplication','dbo','[Id],[AccountId],[AccountLegalEntityId],[DateCreated],[Status],[DateSubmitted]','[SubmittedByEmail],[SubmittedByName]','',0)
-,('EmpInc','IncentiveApplicationApprenticeship','dbo','[Id],[IncentiveApplicationId],[ApprenticeshipId],[PlannedStartDate],[ApprenticeshipEmployerTypeOnApproval],[TotalIncentiveAmount],[EarningsCalculated],[WithdrawnByEmployer],[WithdrawnByCompliance],[CourseName]','[FirstName],[LastName],[DateOfBirth],[ULN]','[UKPRN]',0)
+,('EmpInc','IncentiveApplicationApprenticeship','dbo','[Id],[IncentiveApplicationId],[ApprenticeshipId],[PlannedStartDate],[ApprenticeshipEmployerTypeOnApproval],[TotalIncentiveAmount],[EarningsCalculated],[WithdrawnByEmployer],[WithdrawnByCompliance],[CourseName],[EmploymentStartDate],[Phase],[HasEligibleEmploymentStartDate]','[FirstName],[LastName],[DateOfBirth],[ULN]','[UKPRN]',0)
 ,('EmpInc','IncentiveApplicationStatusAudit','dbo','[Id],[IncentiveApplicationApprenticeshipId],[Process],[ServiceRequestTaskId],[ServiceRequestCreatedDate],[CreatedDateTime]','','[ServiceRequestDecisionReference]',0)
+,('EmpInc','ApprenticeshipBreakInLearning','incentives','[ApprenticeshipIncentiveId],[StartDate],[EndDate]','','',0)
 ,('EmpInc','ApprenticeshipDaysInLearning','incentives','[LearnerId],[NumberOfDaysInLearning],[CollectionPeriodNumber],[CollectionPeriodYear],[CreatedDate],[UpdatedDate]','','',0)
-,('EmpInc','ApprenticeshipIncentive','incentives','[Id],[AccountId],[ApprenticeshipId],[EmployerType],[StartDate],[IncentiveApplicationApprenticeshipId],[AccountLegalEntityId],[RefreshedLearnerForEarnings],[HasPossibleChangeOfCircumstances],[PausePayments],[SubmittedDate],[CourseName],[Status]','[FirstName],[LastName],[DateOfBirth],[ULN],[SubmittedByEmail]','[UKPRN]',0)
+,('EmpInc','ApprenticeshipIncentive','incentives','[Id],[AccountId],[ApprenticeshipId],[EmployerType],[StartDate],[IncentiveApplicationApprenticeshipId],[AccountLegalEntityId],[RefreshedLearnerForEarnings],[HasPossibleChangeOfCircumstances],[PausePayments],[SubmittedDate],[CourseName],[Status],[MinimumAgreementVersion],[EmploymentStartDate],[Phase],[BreakInLearningDayCount]','[FirstName],[LastName],[DateOfBirth],[ULN],[SubmittedByEmail]','[UKPRN]',0)
 ,('EmpInc','ChangeOfCircumstance','incentives','[Id],[ApprenticeshipIncentiveId],[ChangeType],[PreviousValue],[NewValue],[ChangedDate]','','',0)
 ,('EmpInc','ClawbackPayment','incentives','[Id],[ApprenticeshipIncentiveId],[PendingPaymentId],[AccountId],[AccountLegalEntityId],[Amount],[DateClawbackCreated],[DateClawbackSent],[CollectionPeriod],[CollectionPeriodYear],[SubNominalCode],[PaymentId]','','',0)
 ,('EmpInc','CollectionCalendar','incentives','[Id],[PeriodNumber],[CalendarMonth],[CalendarYear],[EIScheduledOpenDateUTC],[CensusDate],[AcademicYear],[Active]','','',0)
-,('EmpInc','Learner','incentives','[Id],[ApprenticeshipIncentiveId],[ApprenticeshipId],[SubmissionFound],[SubmissionDate],[LearningFound],[HasDataLock],[StartDate],[InLearning],[CreatedDate],[UpdatedDate]','[ULN],[RawJSON]','[Ukprn]',0)
+,('EmpInc','Learner','incentives','[Id],[ApprenticeshipIncentiveId],[ApprenticeshipId],[SubmissionFound],[SubmissionDate],[LearningFound],[HasDataLock],[StartDate],[InLearning],[CreatedDate],[UpdatedDate],[LearningStoppedDate],[LearningResumedDate]','[ULN],[RawJSON]','[Ukprn]',0)
 ,('EmpInc','LearningPeriod','incentives','[LearnerId],[StartDate],[EndDate],[CreatedDate]','','',0)
 ,('EmpInc','Payment','incentives','[Id],[ApprenticeshipIncentiveId],[PendingPaymentId],[AccountId],[AccountLegalEntityId],[CalculatedDate],[PaidDate],[SubNominalCode],[PaymentPeriod],[PaymentYear],[Amount]','','',0)
 ,('EmpInc','PendingPayment','incentives','[Id],[AccountId],[ApprenticeshipIncentiveId],[DueDate],[Amount],[CalculatedDate],[PaymentMadeDate],[PeriodNumber],[PaymentYear],[AccountLegalEntityId],[EarningType],[ClawedBack]','','',0)
@@ -143,7 +144,7 @@ VALUES
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,StagingTableName,PLTableName,[ModelDataToPL],[IsQueryBasedImport],SourceQuery)
 VALUES
-('Commitments','History','dbo','[Id],[EntityType],[EntityId],[CommitmentId],[ApprenticeshipId],[UserId],[UpdatedByRole],[ChangeType],[CreatedOn],[ProviderId],[EmployerAccountId],[OriginalState_PaymentStatus],[UpdatedState_PaymentStatus],[CorrelationId]','[UpdatedByName],[Diff]','','Comt_History','Comt_History',0,1,'SELECT [Id],[EntityType],[EntityId],[CommitmentId],[ApprenticeshipId],[UserId],[UpdatedByRole],[ChangeType],[CreatedOn],[ProviderId],[EmployerAccountId],[UpdatedByName],JSON_VALUE(History.OriginalState, ''''$.PaymentStatus'''') OriginalState_PaymentStatus , JSON_VALUE(History.UpdatedState, ''''$.PaymentStatus'''') UpdatedState_PaymentStatus,[Diff],[CorrelationId] FROM [dbo].[History]')
+('Commitments','History','dbo','[Id],[EntityType],[EntityId],[CommitmentId],[ApprenticeshipId],[UpdatedByRole],[ChangeType],[CreatedOn],[ProviderId],[EmployerAccountId],[OriginalState_PaymentStatus],[UpdatedState_PaymentStatus],[CorrelationId]','[UpdatedByName],[Diff],[UserId]','','Comt_History','Comt_History',0,1,'SELECT [Id],[EntityType],[EntityId],[CommitmentId],[ApprenticeshipId],[UserId],[UpdatedByRole],[ChangeType],[CreatedOn],[ProviderId],[EmployerAccountId],[UpdatedByName],JSON_VALUE(History.OriginalState, ''''$.PaymentStatus'''') OriginalState_PaymentStatus , JSON_VALUE(History.UpdatedState, ''''$.PaymentStatus'''') UpdatedState_PaymentStatus,[Diff],[CorrelationId] FROM [dbo].[History]')
 
 
 /* Redundancy */
@@ -177,10 +178,10 @@ VALUES
 ('CRS','ApprenticeshipFunding','dbo','[Id],[StandardUId],[EffectiveFrom],[EffectiveTo],[MaxEmployerLevyCap],[Duration]','','',1,0,'FAT2_ApprenticeshipFunding'),
 ('CRS','Framework','dbo','[Id],[ProgType],[FrameworkCode],[PathwayCode],[Level],[TypicalLengthFrom],[TypicalLengthTo],[TypicalLengthUnit],[Duration],[CurrentFundingCap],[MaxFunding],[Ssa1],[Ssa2],[EffectiveFrom],[EffectiveTo],[IsActiveFramework],[ProgrammeType],[HasSubGroups],[ExtendedTitle]','','[Title],[FrameworkName],[PathwayName]',1,1,'FAT2_Framework'),
 ('CRS','FrameworkFundingPeriod','dbo','[Id],[FrameworkId],[EffectiveFrom],[EffectiveTo],[FundingCap]','','',1,0,'FAT2_FrameworkFundingPeriod'),
-('CRS','LarsStandard','dbo','[LarsCode],[Version],[EffectiveFrom],[EffectiveTo],[LastDateStarts],[SectorSubjectAreaTier2],[OtherBodyApprovalRequired]','','',1,0,'FAT2_LarsStandard'),
+('CRS','LarsStandard','dbo','[LarsCode],[Version],[EffectiveFrom],[EffectiveTo],[LastDateStarts],[SectorSubjectAreaTier2],[OtherBodyApprovalRequired],[SectorCode]','','',1,0,'FAT2_LarsStandard'),
 ('CRS','Route','dbo','[Id],[Name]','','',1,1,'FAT2_StandardSector'),
 ('CRS','SectorSubjectAreaTier2','dbo','[SectorSubjectAreaTier2],[SectorSubjectAreaTier2Desc],[EffectiveFrom],[EffectiveTo]','','[Name]',1,0,'FAT2_SectorSubjectAreaTier2'),
-('CRS','Standard','dbo','[StandardUId],[IfateReferenceNumber],[LarsCode],[Status],[VersionEarliestStartDate],[VersionLatestStartDate],[VersionLatestEndDate],[Level],[ProposedTypicalDuration],[ProposedMaxFunding],[IntegratedDegree],[OverviewOfRole],[RouteCode],[AssessmentPlanUrl],[ApprovedForDelivery],[Keywords],[TypicalJobTitles],[StandardPageUrl],[Version],[RegulatedBody],[Skills],[Knowledge],[Behaviours],[Duties],[CoreAndOptions],[IntegratedApprenticeship],[Options]','','[Title],[TrailBlazerContact],[EqaProviderName],[EqaProviderContactName],[EqaProviderContactEmail],[EqaProviderWebLink]',1,1,'FAT2_StandardSector')
+('CRS','Standard','dbo','[StandardUId],[IfateReferenceNumber],[LarsCode],[Status],[VersionEarliestStartDate],[VersionLatestStartDate],[VersionLatestEndDate],[Level],[ProposedTypicalDuration],[ProposedMaxFunding],[IntegratedDegree],[OverviewOfRole],[RouteCode],[AssessmentPlanUrl],[ApprovedForDelivery],[Keywords],[TypicalJobTitles],[StandardPageUrl],[Version],[RegulatedBody],[Skills],[Knowledge],[Behaviours],[Duties],[CoreAndOptions],[IntegratedApprenticeship],[Options],[CoreDuties]','','[Title],[TrailBlazerContact],[EqaProviderName],[EqaProviderContactName],[EqaProviderContactEmail],[EqaProviderWebLink]',1,1,'FAT2_StandardSector')
 
 /* Roatp Import Configuration */
 

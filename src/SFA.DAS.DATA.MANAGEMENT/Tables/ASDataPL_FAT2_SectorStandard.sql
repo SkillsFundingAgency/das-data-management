@@ -34,5 +34,6 @@
 	[CoreAndOptions]								[bit]				NOT NULL,
 	[IntegratedApprenticeship]						[bit]				NOT NULL,
 	[Options]										[nvarchar](max)		NULL,
+	[CoreDuties]									[nvarchar](max)		NULL,
 	[AsDm_UpdatedDateTime]							[datetime2](7)	DEFAULT (getdate())
 )

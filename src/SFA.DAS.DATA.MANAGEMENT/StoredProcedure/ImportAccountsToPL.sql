@@ -89,7 +89,7 @@ BEGIN TRY
 						   ,[PendingAgreementVersion]
 						   ,[PendingAgreementId]
 						   ,[Deleted]
-						   ,[HasSignedIncentivesTerms]
+						   ,[IsAgreementSigned]
 						   ,[IncentivesVrfVendorId]
 						   ,[IncentivesVrfCaseId]
 						   ,[IncentivesVrfCaseStatus]
@@ -108,7 +108,7 @@ BEGIN TRY
 							,Acc_AccLegalEntity.PendingAgreementVersion
 							,Acc_AccLegalEntity.PendingAgreementId
 							,Acc_AccLegalEntity.Deleted	
-							,NULL As HasSignedIncentivesTerms
+							,EI_Acc.IsAgreementSigned
 							,EI_Acc.VrfVendorId
 						    ,EI_Acc.VrfCaseId
 						    ,EI_Acc.VrfCaseStatus
@@ -127,7 +127,8 @@ BEGIN TRY
 							,Acc_AccLegalEntity.SignedAgreementId
 							,Acc_AccLegalEntity.PendingAgreementVersion
 							,Acc_AccLegalEntity.PendingAgreementId
-							,Acc_AccLegalEntity.Deleted							
+							,Acc_AccLegalEntity.Deleted
+							,EI_Acc.IsAgreementSigned
 							,EI_Acc.VrfVendorId
 						    ,EI_Acc.VrfCaseId
 						    ,EI_Acc.VrfCaseStatus

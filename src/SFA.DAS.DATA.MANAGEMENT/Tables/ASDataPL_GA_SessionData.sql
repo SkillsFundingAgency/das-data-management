@@ -49,3 +49,9 @@
 	[GA_ImportDate]					[datetime2](7) DEFAULT getdate()
 ) 
 GO
+
+CREATE CLUSTERED INDEX IX_GASessionData_GASD_ID ON AsData_PL.GA_SessionData (GASD_ID)
+  WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, 
+        ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) 
+  ON PS_DatePartition(VisitDate)
+GO

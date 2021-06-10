@@ -51,10 +51,8 @@
 ) 
 GO
 
-CREATE CLUSTERED INDEX IX_GASessionData_GASD_ID ON AsData_PL.GA_SessionData (VisitDate,ClientId_Calc,GASD_ID)
+CREATE CLUSTERED INDEX IX_GASessionData_GASD_ID ON AsData_PL.GA_SessionData (VisitDate,ClientId_Calc)
   WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, 
         ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) 
   ON PS_DatePartition(VisitDate)
 GO
-
-

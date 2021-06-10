@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [ASData_PL].[EI_Payment]
 (
-	[Id]								[uniqueidentifier]			NOT NULL,
+	[Id]								[uniqueidentifier]			Primary Key NOT NULL,
 	[ApprenticeshipIncentiveId]			[uniqueidentifier]			NOT NULL,
 	[PendingPaymentId]					[uniqueidentifier]			NOT NULL,
 	[AccountId]							[bigint]					NOT NULL,
@@ -11,6 +11,5 @@
 	[PaymentPeriod]						[tinyint]					NULL,
 	[PaymentYear]						[smallint]					NULL,
 	[Amount]							[decimal](9, 2)				NULL,
-	[AsDm_UpdatedDateTime]				[datetime2](7)				DEFAULT (getdate()),
-	CONSTRAINT PK_EI_Payment_Id PRIMARY KEY CLUSTERED (Id)
+	[AsDm_UpdatedDateTime]				[datetime2](7)				DEFAULT (getdate())
 )

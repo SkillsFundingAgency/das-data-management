@@ -18,5 +18,6 @@
 	[VersionLatestEndDate]			[datetime]			NULL,
 	[VersionApprovedForDelivery]	[datetime]			NULL,
 	[ProposedTypicalDuration]		[int]				NULL,
-	[ProposedMaxFunding]			[int]				NULL
+	[ProposedMaxFunding]			[int]				NULL,
+	[AsDm_UpdatedDateTime]			[Datetime2](7)				default getdate()
 )

@@ -4,5 +4,6 @@
 	[OrganisationStandardId]	[int]						NOT NULL,
 	[DeliveryAreaId]			[int]						NOT NULL,
 	[Comments]					[nvarchar](500)				NULL,
-	[Status]					[nvarchar](10)				NULL
+	[Status]					[nvarchar](10)				NULL,
+	[AsDm_UpdatedDateTime]		[Datetime2](7)				default getdate()
 )

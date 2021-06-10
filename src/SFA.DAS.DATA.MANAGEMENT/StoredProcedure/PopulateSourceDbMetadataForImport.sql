@@ -249,7 +249,7 @@ VALUES
  ,('Assessor','OrganisationStandardVersion','dbo','[StandardUId],[Version],[OrganisationStandardId],[EffectiveFrom],[EffectiveTo],[DateVersionApproved],[Comments],[Status]','','',0,1,
     'Select [StandardUId],[Version],[OrganisationStandardId],[EffectiveFrom],[EffectiveTo],[DateVersionApproved],[Comments],[Status] From [dbo].[OrganisationStandardVersion]',
     'Assessor_OrganisationStandardVersion')
- ,('Assessor','Standards','dbo','[StandardUId],[IFateReferenceNumber],[LarsCode],[Title],[Version],[Level],[Status],[TypicalDuration],[MaxFunding],[IsActive],[LastDateStarts],[EffectiveFrom],[EffectiveTo],[VersionEarliestStartDate],[VersionLatestStartDate],[VersionLatestEndDate],[VersionApprovedForDelivery],[ProposedTypicalDuration],[ProposedMaxFunding]','','[IFateReferenceNumber],[LarsCode]',0,1,
+ ,('Assessor','Standards','dbo','[StandardUId],[Title],[Version],[Level],[Status],[TypicalDuration],[MaxFunding],[IsActive],[LastDateStarts],[EffectiveFrom],[EffectiveTo],[VersionEarliestStartDate],[VersionLatestStartDate],[VersionLatestEndDate],[VersionApprovedForDelivery],[ProposedTypicalDuration],[ProposedMaxFunding]','','[IFateReferenceNumber],[LarsCode]',0,1,
     'Select [StandardUId],[Title],[Version],[Level],[Status],[TypicalDuration],[MaxFunding],[IsActive],[LastDateStarts],[EffectiveFrom],[EffectiveTo],[VersionEarliestStartDate],[VersionLatestStartDate],[VersionLatestEndDate],[VersionApprovedForDelivery],[ProposedTypicalDuration],[ProposedMaxFunding]  From [dbo].[Standards]',
     'Assessor_Standards')
 INSERT INTO Mtd.SourceConfigForImport

@@ -47,7 +47,7 @@
 	[ApplyNowIncentives]			[TinyInt],
 	[IncentivesApplyNow]			[TinyInt],
 	[GA_ImportDate]					[datetime2](7) DEFAULT getdate(),
-	[ClientId_Calc]            as   convert(numeric,REPLACE(ClientId,'.','')) 
+	[ClientId_Calc]            as   convert(decimal(38,0),REPLACE(ClientId,'.','')) 
 ) 
 GO
 

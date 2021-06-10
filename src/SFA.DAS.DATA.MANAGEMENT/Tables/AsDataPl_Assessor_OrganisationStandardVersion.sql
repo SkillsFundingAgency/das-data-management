@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [AsData_PL].[Assessor_OrganisationStandardVersion]
 (
-	[OrganisationStandardVersionID]  [BigInt]			PRIMARY KEY	NOT NULL,
+	[OrganisationStandardVersionID]  [BigInt]			IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	[StandardUId]					 [varchar](20)		NOT NULL,
 	[Version]						 [decimal](18, 1)	NULL,
 	[OrganisationStandardId]		 [int]				NOT NULL,

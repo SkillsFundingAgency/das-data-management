@@ -240,8 +240,18 @@ VALUES
  ,('Assessor','Organisations','dbo','[Id],[CreatedAt],[DeletedAt],[EndPointAssessorOrganisationId],[Status],[UpdatedAt],[OrganisationTypeId],[ApiEnabled],[ApiUser]','','[EndPointAssessorName],[EndPointAssessorUkprn]',0,1,
     'select [Id],[CreatedAt],[DeletedAt],[EndPointAssessorName],[EndPointAssessorOrganisationId],[EndPointAssessorUkprn],[Status],[UpdatedAt],[OrganisationTypeId],[ApiEnabled],[ApiUser] From [dbo].[Organisations]',
     'Assessor_Organisations')
-
-
+ ,('Assessor','OrganisationStandardDeliveryArea','dbo','[Id],[OrganisationStandardId],[DeliveryAreaId],[Comments],[Status]','','',0,1,
+    'select [Id],[OrganisationStandardId],[DeliveryAreaId],[Comments],[Status] From [dbo].[OrganisationStandardDeliveryArea]',
+    'Assessor_OrganisationStandardDeliveryArea')
+ ,('Assessor','DeliveryArea','dbo','[Id],[Area],[Status],[Ordering]','','',0,1,
+    'select [Id],[Area],[Status],[Ordering] From [dbo].[DeliveryArea]',
+    'Assessor_DeliveryArea')
+ ,('Assessor','OrganisationStandardVersion','dbo','[StandardUId],[Version],[OrganisationStandardId],[EffectiveFrom],[EffectiveTo],[DateVersionApproved],[Comments],[Status]','','',0,1,
+    'Select [StandardUId],[Version],[OrganisationStandardId],[EffectiveFrom],[EffectiveTo],[DateVersionApproved],[Comments],[Status] From [dbo].[OrganisationStandardVersion]',
+    'Assessor_OrganisationStandardVersion')
+ ,('Assessor','Standards','dbo','[StandardUId],[IFateReferenceNumber],[LarsCode],[Title],[Version],[Level],[Status],[TypicalDuration],[MaxFunding],[IsActive],[LastDateStarts],[EffectiveFrom],[EffectiveTo],[VersionEarliestStartDate],[VersionLatestStartDate],[VersionLatestEndDate],[VersionApprovedForDelivery],[ProposedTypicalDuration],[ProposedMaxFunding]','','[IFateReferenceNumber],[LarsCode]',0,1,
+    'Select [StandardUId],[Title],[Version],[Level],[Status],[TypicalDuration],[MaxFunding],[IsActive],[LastDateStarts],[EffectiveFrom],[EffectiveTo],[VersionEarliestStartDate],[VersionLatestStartDate],[VersionLatestEndDate],[VersionApprovedForDelivery],[ProposedTypicalDuration],[ProposedMaxFunding]  From [dbo].[Standards]',
+    'Assessor_Standards')
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)
 VALUES

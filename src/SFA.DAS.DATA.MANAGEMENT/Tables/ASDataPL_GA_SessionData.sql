@@ -46,12 +46,15 @@
 	[AORN]							[TinyInt],
 	[ApplyNowIncentives]			[TinyInt],
 	[IncentivesApplyNow]			[TinyInt],
-	[GA_ImportDate]					[datetime2](7) DEFAULT getdate()
+	[GA_ImportDate]					[datetime2](7) DEFAULT getdate(),
+	[ClientId_Calc]            as   convert(bigint,REPLACE(ClientId,'.','')) 
 ) 
 GO
 
-CREATE CLUSTERED INDEX IX_GASessionData_GASD_ID ON AsData_PL.GA_SessionData (VisitDate,ClientId)
+CREATE CLUSTERED INDEX IX_GASessionData_GASD_ID ON AsData_PL.GA_SessionData (ClientId_Calc)
   WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, 
         ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) 
   ON PS_DatePartition(VisitDate)
 GO
+
+

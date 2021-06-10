@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[AsDataPl_Assessor_OrganisationStandardVersion]
+﻿CREATE TABLE [AsData_PL].[Assessor_OrganisationStandardVersion]
 (
 	[StandardUId]				[varchar](20)		PRIMARY KEY NOT NULL,
 	[Version]					[decimal](18, 1)	NULL,

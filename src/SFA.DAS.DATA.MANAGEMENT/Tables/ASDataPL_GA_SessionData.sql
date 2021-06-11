@@ -57,7 +57,7 @@ CREATE CLUSTERED INDEX IX_GASessionData_GASD_ID ON AsData_PL.GA_SessionData (Vis
   ON PS_DatePartition(VisitDate)
 GO
 
-CREATE NONCLUSTERED INDEX NIX_GASessionData_ClientIdToken ON AsData_PL.GA_SessionData(Clientid,ESFAToken,[EventLabel_ESFAToken],[CD_ESFAToken]) INCLUDE (cd_employerId)
+CREATE NONCLUSTERED INDEX NIX_GASessionData_ClientIdToken ON AsData_PL.GA_SessionData(Clientid_calc) INCLUDE (cd_employerId)
   WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, 
         ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) 
 GO

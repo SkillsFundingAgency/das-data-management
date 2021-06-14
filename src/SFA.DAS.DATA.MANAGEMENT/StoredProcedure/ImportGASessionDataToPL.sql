@@ -37,7 +37,9 @@ BEGIN TRY
 
 		 CREATE TABLE #StgClientIDs(ClientId NVARCHAR(500),ClientIDSource  Varchar(50))
 
-		BEGIN TRANSACTION				
+		BEGIN TRANSACTION		
+		        
+				DELETE FROM [ASData_PL].[GA_DataForReporting]		
 
 				if (select count([GASD_Id]) from [ASData_PL].[GA_SessionData]  with (nolock))  > 0 
 					Select @importdatetime = ISNULL(max([GA_ImportDate]),cast('01-01-1900'  as datetime2(7))) from [ASData_PL].[GA_SessionData] with (nolock)
@@ -168,7 +170,21 @@ BEGIN TRY
 				Where GAData.[StgImportDate] > @importdatetime AND ClientIDSource ='STG'
 		
 				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='GA_SessionDataDetail' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
-				TRUNCATE TABLE [Stg].[GA_SessionDataDetail]				
+				TRUNCATE TABLE [Stg].[GA_SessionDataDetail]			
+				
+				/* Insert Into GA Table with required data for Summarized Reporting */
+				INSERT INTO ASData_PL.GA_DataForReporting
+				(CD_EmployerId,ESFATOKEN,ClientId,VisitDate)
+				SELECT DISTINCT
+                      [CD_EmployerId]
+                     ,g.ESFATOKEN
+                     ,ga.ClientId
+                     ,ga.VisitDate
+                  FROM ASData_PL.GA_SessionData as ga with (nolock)
+            INNER JOIN (SELECT  TRY_CONVERT(BIGINT,coalesce(ESFAToken,[EventLabel_ESFAToken],[CD_ESFAToken])) as ESFAToken,clientid	
+                          FROM ASData_PL.GA_SessionData  with (nolock)		
+                         WHERE TRY_CONVERT(BIGINT,coalesce(ESFAToken,[EventLabel_ESFAToken],[CD_ESFAToken])) IS NOT NULL) as g
+                    ON ga.clientid=g.clientid
 				
 		COMMIT TRANSACTION
 

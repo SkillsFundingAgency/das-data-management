@@ -13,7 +13,7 @@ AS
 BEGIN TRY
 
 
-DECLARE @LogID intf
+DECLARE @LogID int
 
 /* Start Logging Execution */
 

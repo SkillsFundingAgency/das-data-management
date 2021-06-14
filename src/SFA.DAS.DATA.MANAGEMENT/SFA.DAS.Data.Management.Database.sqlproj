@@ -325,6 +325,5 @@
     <Build Include="Tables\AsDataPL_Comt_DataLockStatus.sql" />
     <Build Include="Tables\AsDataPL_Comt_History.sql" />
     <Build Include="TablePartitions\DatePartition.sql" />
-    <Build Include="Tables\ASDataPL_GA_DataForReporting.sql" />
   </ItemGroup>
 </Project>

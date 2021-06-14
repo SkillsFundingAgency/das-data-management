@@ -85,17 +85,17 @@ BEGIN TRY
 								,[VersionApprovedForDelivery]
 						   )				
 					SELECT
-					  [StandardUId]
-					  ,[IfateReferenceNumber]
+					  std.[StandardUId]
+					  ,std.[IfateReferenceNumber]
 					  ,std.[LarsCode]
-					  ,[Status]
-					  ,[VersionEarliestStartDate]
-					  ,[VersionLatestStartDate]
-					  ,[VersionLatestEndDate]
+					  ,std.[Status]
+					  ,std.[VersionEarliestStartDate]
+					  ,std.[VersionLatestStartDate]
+					  ,std.[VersionLatestEndDate]
 					  ,std.[Title]
-					  ,[Level]
-					  ,[ProposedTypicalDuration]
-					  ,[ProposedMaxFunding]
+					  ,std.[Level]
+					  ,std.[ProposedTypicalDuration]
+					  ,std.[ProposedMaxFunding]
 					  ,[IntegratedDegree]
 					  ,AppStandard.[StandardId]
 					  ,[OverviewOfRole]
@@ -111,7 +111,7 @@ BEGIN TRY
 					  ,[Keywords]
 					  ,[TypicalJobTitles]
 					  ,[StandardPageUrl]
-					  ,[Version]
+					  ,std.[Version]
 					  ,[RegulatedBody]
 					  ,[Skills]
 					  ,[Knowledge]
@@ -130,7 +130,7 @@ BEGIN TRY
 					  ,AssessorStandard.[VersionApprovedForDelivery]
 					FROM [Stg].[FAT2_Standard] std JOIN [Stg].[FAT2_Route] tblRoute 
 					ON std.[RouteCode] =  tblRoute.[Id]	LEFT JOIN [ASData_PL].[Va_ApprenticeshipStandard] AppStandard ON std.LarsCode = AppStandard.LarsCode AND std.Title = AppStandard.StandardFullName
-					LEFT JOIN [stg].[Assessor_Standards] AssessorStandard ON std.LarsCode = AssessorStandard.LarsCode AND ON std.StandardUId = AssessorStandard.StandardUId'
+					LEFT JOIN [stg].[Assessor_Standards] AssessorStandard ON std.LarsCode = AssessorStandard.LarsCode AND std.StandardUId = AssessorStandard.StandardUId'
 
 					 exec SP_EXECUTESQL @DynSQL
 
@@ -140,6 +140,9 @@ BEGIN TRY
 				
 					IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='FAT2_Sector' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 					DROP TABLE [Stg].[FAT2_Sector]
+
+					IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Assessor_Standards' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+					DROP TABLE [stg].[Assessor_Standards]
 
 			COMMIT TRANSACTION
 

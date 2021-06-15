@@ -172,7 +172,15 @@ BEGIN TRY
 				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='GA_SessionDataDetail' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 				TRUNCATE TABLE [Stg].[GA_SessionDataDetail]			
 				
-				/* Insert Into GA Table with required data for Summarized Reporting */
+			
+		COMMIT TRANSACTION
+
+/* Insert Into GA Table with required data for Summarized Reporting */
+
+    BEGIN TRANSACTION
+
+         DELETE FROM [ASData_PL].[GA_DataForReporting]
+
 				INSERT INTO ASData_PL.GA_DataForReporting
 				(CD_EmployerId,ESFATOKEN,ClientId,VisitDate)
 				SELECT DISTINCT
@@ -185,8 +193,8 @@ BEGIN TRY
                           FROM ASData_PL.GA_SessionData  with (nolock)		
                          WHERE TRY_CONVERT(BIGINT,coalesce(ESFAToken,[EventLabel_ESFAToken],[CD_ESFAToken])) IS NOT NULL) as g
                     ON ga.clientid=g.clientid
-				
-		COMMIT TRANSACTION
+
+   COMMIT TRANSACTION
 
 				UPDATE Mgmt.Log_Execution_Results
 				   SET Execution_Status=1

@@ -79,9 +79,6 @@ BEGIN TRY
 								,[TypicalDuration]
 								,[MaxFunding]
 								,[IsActive]
-								,[LastDateStarts]
-								,[EffectiveFrom]
-								,[EffectiveTo]
 								,[VersionApprovedForDelivery]
 						   )				
 					SELECT
@@ -124,9 +121,6 @@ BEGIN TRY
 					  ,AssessorStandard.[TypicalDuration]
 					  ,AssessorStandard.[MaxFunding]
 					  ,AssessorStandard.[IsActive]
-					  ,AssessorStandard.[LastDateStarts]
-					  ,AssessorStandard.[EffectiveFrom]
-					  ,AssessorStandard.[EffectiveTo]
 					  ,AssessorStandard.[VersionApprovedForDelivery]
 					FROM [Stg].[FAT2_Standard] std JOIN [Stg].[FAT2_Route] tblRoute 
 					ON std.[RouteCode] =  tblRoute.[Id]	LEFT JOIN [ASData_PL].[Va_ApprenticeshipStandard] AppStandard ON std.LarsCode = AppStandard.LarsCode AND std.Title = AppStandard.StandardFullName

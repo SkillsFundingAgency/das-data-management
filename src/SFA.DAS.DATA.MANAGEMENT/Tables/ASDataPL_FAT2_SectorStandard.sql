@@ -38,9 +38,6 @@
 	[TypicalDuration]								[Int]				NULL,
 	[MaxFunding]									[Int]				NULL,	
 	[IsActive]										[Bit]				NULL,
-	[LastDateStarts]								[Datetime]			NULL,
-	[EffectiveFrom]									[Datetime]			NULL,
-	[EffectiveTo]									[DateTime]			NULL,
 	[VersionApprovedForDelivery]					[DateTime]			NULL, 
 	[AsDm_UpdatedDateTime]							[datetime2](7)	DEFAULT (getdate())
 )

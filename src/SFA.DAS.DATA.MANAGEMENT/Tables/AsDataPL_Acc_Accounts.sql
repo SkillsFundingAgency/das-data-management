@@ -9,4 +9,5 @@
 	[PublicHashedId] nvarchar(100) null,
 	[AsDm_UpdatedDateTime] datetime2 default getdate(),	
 	[ComtLevyStatus] [tinyint]  NULL
+	,CONSTRAINT PK_Acc_Account_Id PRIMARY KEY CLUSTERED (Id)
 )

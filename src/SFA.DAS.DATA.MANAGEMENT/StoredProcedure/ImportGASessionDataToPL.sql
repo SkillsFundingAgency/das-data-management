@@ -39,8 +39,6 @@ BEGIN TRY
 
 		BEGIN TRANSACTION		
 		        
-				DELETE FROM [ASData_PL].[GA_DataForReporting]		
-
 				if (select count([GASD_Id]) from [ASData_PL].[GA_SessionData]  with (nolock))  > 0 
 					Select @importdatetime = ISNULL(max([GA_ImportDate]),cast('01-01-1900'  as datetime2(7))) from [ASData_PL].[GA_SessionData] with (nolock)
 				else

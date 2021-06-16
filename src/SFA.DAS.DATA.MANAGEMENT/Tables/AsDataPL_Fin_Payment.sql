@@ -20,3 +20,7 @@
 	[AsDm_UpdatedDateTime] datetime2 default getdate(),
 	CONSTRAINT PK_Fin_Payment_PaymentId PRIMARY KEY CLUSTERED (PaymentId)
 )ON [PRIMARY]
+GO
+
+CREATE NONCLUSTERED INDEX NCI_Fin_Payment_ID ON AsData_PL.Fin_Payment (AccountId,ApprenticeshipId,DeliveryPeriodMonth,DeliveryPeriodYear,CollectionPeriodYear,CollectionPeriodMonth)
+GO

@@ -35,5 +35,9 @@
 	[IntegratedApprenticeship]						[bit]				NOT NULL,
 	[Options]										[nvarchar](max)		NULL,
 	[CoreDuties]									[nvarchar](max)		NULL,
+	[TypicalDuration]								[Int]				NULL,
+	[MaxFunding]									[Int]				NULL,	
+	[IsActive]										[Bit]				NULL,
+	[VersionApprovedForDelivery]					[DateTime]			NULL, 
 	[AsDm_UpdatedDateTime]							[datetime2](7)	DEFAULT (getdate())
 )

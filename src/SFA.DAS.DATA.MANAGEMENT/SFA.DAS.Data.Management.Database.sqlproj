@@ -324,6 +324,9 @@
     <Build Include="StoredProcedure\ImportPublicSectorDataToPL.sql" />
     <Build Include="Tables\AsDataPL_Comt_DataLockStatus.sql" />
     <Build Include="Tables\AsDataPL_Comt_History.sql" />
+    <Build Include="Tables\AsDataPL_Assessor_DeliveryArea.sql" />
+    <Build Include="Tables\AsDataPL_Assessor_OrganisationStandardDeliveryArea.sql" />
+    <Build Include="Tables\AsDataPl_Assessor_OrganisationStandardVersion.sql" />
     <Build Include="TablePartitions\DatePartition.sql" />
   </ItemGroup>
 </Project>

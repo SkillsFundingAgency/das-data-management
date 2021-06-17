@@ -7,9 +7,11 @@ AS
 -- Description: Master Stored Proc that builds Modelled Presentation Layer
 -- =========================================================================
 
-EXEC dbo.ImportAppRedundancyToPL @RunId
+EXEC dbo.ImportAppRedundancyAndComtToPL @RunId
 
 EXEC dbo.ImportAccountsToPL @RunId
+
+EXEC dbo.ImportFinanceToPL @RunId
 
 
 /* Import CRS and CRS Delivery Data to Presentation Layer */
@@ -19,6 +21,9 @@ EXEC dbo.ImportProviderToPL @RunId
 EXEC dbo.ImportFAT2FrameworkToPL @RunId
 
 EXEC dbo.ImportFAT2SectorStandardToPL @RunId
+
+/* Import Public sector Data to Presentation Layer */
+EXEC dbo.ImportPublicSectorReportDataToPL @RunId
 
 /* Run Payments Snaptshot */
 Declare @StartDate  Date = dateadd(day,-2,cast(getdate() as date)),

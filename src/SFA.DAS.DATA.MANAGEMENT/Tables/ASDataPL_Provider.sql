@@ -7,6 +7,6 @@
 	[LearnerSatisfaction]   [decimal](18,0)						NULL,
 	[Email]					[varchar](260)						NULL,
 	[Created]				[datetime2](7)						NULL,
-	[Updated]				[datetime2](7)						NULL,
+	[Updated]				[datetime2](7)						NULL,	
 	[AsDm_UpdatedDateTime]  [datetime2](7)						DEFAULT (getdate())
 )

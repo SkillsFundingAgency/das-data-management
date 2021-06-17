@@ -38,23 +38,25 @@ DECLARE @LogID int
 
 BEGIN TRANSACTION
 
-DELETE FROM [Mtd].[RefreshDatasetConfig]
+--DELETE FROM [Mtd].[RefreshDatasetConfig]
+
+IF OBJECT_ID ('tempdb..#tRefreshDatasetConfig') IS NOT NULL
+DROP TABLE #tRefreshDatasetConfig
+
+SELECT *
+  INTO #tRefreshDatasetConfig
+  FROM Mtd.RefreshDatasetConfig
+ WHERE 1=0
+
+
 
 INSERT INTO [Mtd].[RefreshDatasetConfig](ILRSnapshotReference,Dataset,PaymentsExtractionDate,DatamartRefreshDate)
-Values  ('R01','Payments','11-September-2020','12-September-2020'),
-		('R02','Payments','08-October-2020','09-October-2020'),
-		('R03','Payments','09-November-2020','10-November-2020'),
-		('R04','Payments','08-December-2020','09-December-2020'),
-		('R05','Payments','11-January-2021','12-January-2021'),
-		('R06','Payments','08-February-2021','09-February-2021'),
-		('R07','Payments','08-March-2021','09-March-2021'),
-		('R08','Payments','12-April-2021','13-April-2021'),
-		('R09','Payments','11-May-2021','12-May-2021'),
-		('R10','Payments','08-June-2021','09-June-2021'),
-		('R11','Payments','08-July-2021','09-July-2021'),
-		('R12','Payments','09-August-2021','10-August-2021'),
-		('R13','Payments','16-September-2021','17-September-2021'),
-		('R14','Payments','27-October-2021','28-October-2021')
+SELECT ILRSnapshotReference,Dataset,PaymentsExtractionDate,DatamartRefreshDate
+  FROM #tRefreshDatasetConfig tRDC
+ WHERE NOT EXISTS (SELECT 1
+                     FROM Mtd.[RefreshDatasetConfig] RDC
+					WHERE RDC.PaymentsExtractionDate=tRDC.PaymentsExtractionDate
+					)
 
 COMMIT TRANSACTION
 

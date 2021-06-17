@@ -65,6 +65,7 @@
     <Folder Include="Schemas" />
     <Folder Include="PostDeployment" />
     <Folder Include="PreDeployment" />
+    <Folder Include="TablePartitions" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Database.publish.xml" />
@@ -211,7 +212,7 @@
     <Build Include="Views\AsDataPL_DAS_UserAccountLegalEntity.sql" />
     <Build Include="Views\AsDataPL_DAS_Users.sql" />
     <Build Include="Tables\Stg_SQLCodeForDynamicBuild.sql" />
-    <Build Include="StoredProcedure\ImportAppRedundancyToPL.sql" />
+    <Build Include="StoredProcedure\ImportAppRedundancyAndComtToPL.sql" />
     <Build Include="Tables\AsDataPL_AR_Apprentice.sql" />
     <Build Include="StoredProcedure\ImportMarketoBulkExtractTablesToPL.sql" />
     <Build Include="Tables\AsDataPL_Marketo_Activities.sql" />
@@ -302,8 +303,31 @@
     <Build Include="Tables\ASDataPL_Assessor_Certificates.sql" />
     <Build Include="Tables\ASDataPL_Assessor_OrganisationStandard.sql" />
     <Build Include="Tables\AsDataPL_FAT2_ShortList.sql" />
+    <Build Include="Tables\AsDataPL_RP_Appeal.sql" />
+    <Build Include="Tables\AsDataPL_RP_AppealUpload.sql" />
+    <Build Include="Tables\AsDataPL_RP_OversightReview.sql" />
+    <Build Include="Tables\AsDataPL_RP_AssessorPageReviewOutcome.sql" />
+    <Build Include="Tables\AsDataPL_RP_Contacts.sql" />
+    <Build Include="Tables\AsDataPL_RP_FinancialData.sql" />
+    <Build Include="Tables\AsDataPL_RP_GatewayAnswer.sql" />
+    <Build Include="Tables\AsDataPL_RP_ModeratorPageReviewOutcome.sql" />
+    <Build Include="Tables\AsDataPl_RP_SubmittedApplicationAnswers.sql" />
     <Build Include="Tables\Mtd_RolesAndPermissions.sql" />
     <Build Include="StoredProcedure\AssignPermissionsToRoles.sql" />
     <Build Include="StoredProcedure\PopulateMetadataRolesAndPermissions.sql" />
+    <Build Include="Tables\AsDataPL_Assessor_CertificateLogs.sql" />
+    <Build Include="Tables\AsDataPL_Assessor_Organisations.sql" />
+    <Build Include="Views\AsDataPL_DAS_AssessorAssessmentData.sql" />
+    <Build Include="StoredProcedure\ImportFinanceToPL.sql" />
+    <Build Include="Tables\AsDataPL_EI_ApprenticeshipBreakInLearning.sql" />
+    <Build Include="Tables\AsDataPL_PubSector_Report.sql" />
+    <Build Include="StoredProcedure\ImportPublicSectorDataToPL.sql" />
+    <Build Include="Tables\AsDataPL_Comt_DataLockStatus.sql" />
+    <Build Include="Tables\AsDataPL_Comt_History.sql" />
+    <Build Include="Tables\AsDataPL_Assessor_DeliveryArea.sql" />
+    <Build Include="Tables\AsDataPL_Assessor_OrganisationStandardDeliveryArea.sql" />
+    <Build Include="Tables\AsDataPl_Assessor_OrganisationStandardVersion.sql" />
+    <Build Include="TablePartitions\DatePartition.sql" />
+    <Build Include="Tables\ASDataPL_GA_DataForReporting.sql" />
   </ItemGroup>
 </Project>

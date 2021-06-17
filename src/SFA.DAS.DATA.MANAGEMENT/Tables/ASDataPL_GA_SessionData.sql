@@ -1,11 +1,11 @@
 ﻿CREATE TABLE [ASData_PL].[GA_SessionData](
 	[GASD_Id]						[bigint] IDENTITY(1,1) NOT NULL,
 	[FullVisitorId]					[nvarchar](500) NULL,
-	[ClientId]						[nvarchar](500) NULL,
+	[ClientId]						[nvarchar](200) NULL,
 	[VisitId]						[nvarchar](500) NULL,
 	[VisitNumber]					[nvarchar](500) NULL,
 	[VisitStartDateTime]			[nvarchar](500) NULL,
-	[VisitDate]						[nvarchar](500) NULL,
+	[VisitDate]						date NULL,
 	[VisitorId]						[nvarchar](500) NULL,
 	[UserId]						[nvarchar](500) NULL,
 	[Hits_Page_PagePath]			[nvarchar](max) NULL,	
@@ -48,4 +48,10 @@
 	[IncentivesApplyNow]			[TinyInt],
 	[GA_ImportDate]					[datetime2](7) DEFAULT getdate()
 ) 
+GO
+
+CREATE CLUSTERED INDEX IX_GASessionData_GASD_ID ON AsData_PL.GA_SessionData (GASD_ID)
+  WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, 
+        ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) 
+  ON PS_DatePartition(VisitDate)
 GO

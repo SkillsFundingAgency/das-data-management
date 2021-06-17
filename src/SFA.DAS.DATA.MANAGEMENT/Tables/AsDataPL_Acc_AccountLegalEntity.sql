@@ -18,4 +18,6 @@
    ,[IncentivesVrfCaseStatusLastUpdatedDateTime] datetime2(7) null
    ,[Address] nvarchar(256) null
    ,[AsDm_UpdatedDateTime] datetime2 Default(getdate())
+   ,CONSTRAINT PK_Acc_AccountLegalEntity_Id PRIMARY KEY CLUSTERED (Id)
 )
+GO

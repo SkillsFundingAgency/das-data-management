@@ -81,7 +81,16 @@ VALUES
 ('Commitments','Approvals',4,'TransferSenderAgreed'),
 ('Commitments','Approvals',5,'TransferSenderAndEmployerAgreed'),
 ('Commitments','Approvals',6,'TransferSenderAndProviderAgreed'),
-('Commitments','Approvals',7,'AllAgreed')
+('Commitments','Approvals',7,'AllAgreed'),
+--Roatp
+('Roatp','OversightReviewStatus',1, 'Successful'),
+('Roatp','OversightReviewStatus',2, 'Successful - Already Active'),
+('Roatp','OversightReviewStatus',3, 'Successful - Fitness For Funding'),
+('Roatp','OversightReviewStatus',4, 'Unsuccessful'),
+('Roatp','OversightReviewStatus',5, 'In Progress'),
+('Roatp','OversightReviewStatus',6, 'Rejected'),
+('Roatp','OversightReviewStatus',7, 'Withdrawn'),
+('Roatp','OversightReviewStatus',8, 'Removed')
 
 COMMIT TRANSACTION
 END

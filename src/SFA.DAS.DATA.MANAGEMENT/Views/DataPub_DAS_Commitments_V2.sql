@@ -91,8 +91,8 @@
 								 END BETWEEN 0  AND 18 
 								THEN '16-18'
 							ELSE '19+'
-							 END) as Varchar(5)),'NA')														as [CommitmentAgeAtStartBand]		
-			 , ISNULL(CAST((CASE WHEN P.TotalAmount>0 THEN 'Yes' ELSE 'No' END) as Varchar(3)),'NA')			as RealisedCommitment
+							 END) as Varchar(5)),'NA')                                                      as [CommitmentAgeAtStartBand]
+		    , ISNULL(CAST((CASE WHEN P.TotalAmount>0 THEN 'Yes' ELSE 'No' END) as Varchar(3)),'NA')			as RealisedCommitment
 			 , ISNULL(CAST((CASE WHEN [a].[StartDate] BETWEEN DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0)
 								 AND DATEADD(dd, - 1, DATEADD(mm, DATEDIFF(mm, 0, GETDATE()) + 1, 0))
 								THEN 'Yes'
@@ -144,28 +144,9 @@
 	  ON AcctLE.LegalEntityId = LE.id
 
 
-	LEFT JOIN (SELECT P.ApprenticeshipId 
-			,SUM(P.Amount) as TotalAmount
-			FROM [ASData_PL].[Fin_Payment] P
-		   inner join
-				(select P.AccountId
-					   ,P.ApprenticeshipId as CommitmentId
-					   ,P.DeliveryPeriodMonth
-					   ,P.DeliveryPeriodYear
-					   ,MAX(CAST(P.CollectionPeriodYear AS VARCHAR(255)) + '-' + CAST(P.CollectionPeriodMonth AS VARCHAR(255))) AS Max_CollectionPeriod
-					   ,1 AS Flag_Latest
-				   from [ASData_PL].[Fin_Payment] p
-				  group by
-						P.AccountId
-					   ,P.ApprenticeshipId 
-					   ,P.DeliveryPeriodMonth
-					   ,P.DeliveryPeriodYear
-				 ) as LP ON LP.AccountId=P.AccountId
-						AND LP.CommitmentId=P.ApprenticeshipId
-						AND LP.DeliveryPeriodMonth=P.DeliveryPeriodMonth
-						AND LP.DeliveryPeriodYear=P.DeliveryPeriodYear
-						AND LP.Max_CollectionPeriod=(CAST(P.CollectionPeriodYear as VARCHAR(255))+'-'+ CAST(P.CollectionPeriodMonth AS VARCHAR(255)))
-			  GROUP BY P.ApprenticeshipId) P on P.ApprenticeshipId=A.ID
+	LEFT JOIN (SELECT ApprenticeshipId,SUM(AMOUNT) TotalAmount
+                 FROM stgpmts.Payment
+             GROUP BY ApprenticeshipId) P on P.ApprenticeshipId=A.ID
 	LEFT JOIN dbo.ReferenceData RD
 		   ON RD.Category='Commitments'
 		  AND RD.FieldName='Approvals'

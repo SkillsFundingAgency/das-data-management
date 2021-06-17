@@ -328,5 +328,6 @@
     <Build Include="Tables\AsDataPL_Assessor_OrganisationStandardDeliveryArea.sql" />
     <Build Include="Tables\AsDataPl_Assessor_OrganisationStandardVersion.sql" />
     <Build Include="TablePartitions\DatePartition.sql" />
+    <Build Include="Tables\ASDataPL_GA_DataForReporting.sql" />
   </ItemGroup>
 </Project>

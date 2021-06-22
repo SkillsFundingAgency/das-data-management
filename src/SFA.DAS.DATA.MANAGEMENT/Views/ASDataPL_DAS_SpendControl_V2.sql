@@ -84,8 +84,8 @@
 							   END AS Varchar(50))                                           AS ApprenticeshipPaymentStatus
 				,COALESCE(Commitment.ApprenticeshipEmployerTypeOnApproval,-1)                AS ApprenticeshipEmployerTypeOnApproval
 				,COALESCE(Commitment.TransferSenderId,-1)                                    AS CommitmentTransferSenderId
-				,COALESCE(CONVERT(VARCHAR(255), Payment.PaymentId), 'NA')					 AS PaymentId
-				,COALESCE(Payment.PeriodEnd, 'NA')											 AS PaymentPeriodEnd
+				,COALESCE(CONVERT(VARCHAR(255), Payment.EventId), 'NA')					 AS PaymentId
+				,COALESCE(CAST(Payment.AcademicYear AS VARCHAR(25))+'-R'+CAST(Payment.CollectionPeriod AS varchar(25)), 'NA')												 AS PaymentPeriodEnd
 				,COALESCE(RDFS.FieldDesc, 'NA')                                              AS PaymentFundingSource
 				,COALESCE(RDTT.FieldDesc, 'NA')                                              AS PaymentTransactionType
 				,COALESCE(Payment.ApprenticeshipId, -1)                                      AS PaymentApprenticeshipId
@@ -124,7 +124,7 @@
 			JOIN ASData_PL.Comt_Apprenticeship Apprenticeship
 			  ON Apprenticeship.ReservationId = Reservation.Id
 			LEFT 
-			JOIN ASData_PL.Fin_Payment Payment
+			JOIN StgPmts.Payment Payment
 			  ON Payment.ApprenticeshipId = Apprenticeship.Id 
 			LEFT 
 			JOIN ASData_PL.Comt_Commitment Commitment

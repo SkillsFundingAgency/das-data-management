@@ -49,7 +49,7 @@
 						   ELSE 'Unknown'
 					   END AS Varchar(50))                                           AS ApprenticeshipPaymentStatus
 		,COALESCE(CONVERT(VARCHAR(255), Payment.EventId), 'NA')					     AS PaymentId
-		,COALESCE(CAST(Payment.AcademicYear AS VARCHAR(25))+'-R'+CAST(Payment.CollectionPeriod AS varchar(25)), 'NA') AS PaymentPeriodEnd
+		,CAST(COALESCE(Cast( Payment.AcademicYear AS varchar) + '-R' + RIGHT( '0' + Cast (Payment.CollectionPeriod AS varchar), 2 ),'NA') AS VARCHAR(25)) AS PaymentPeriodEnd
 		,COALESCE(RDFS.FieldDesc, 'NA')                                              AS PaymentFundingSource
 		,COALESCE(RDTT.FieldDesc, 'NA')                                              AS PaymentTransactionType
 		,COALESCE(Payment.ApprenticeshipId, -1)                                      AS PaymentApprenticeshipId

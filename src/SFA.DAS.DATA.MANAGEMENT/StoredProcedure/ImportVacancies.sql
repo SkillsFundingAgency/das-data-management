@@ -386,7 +386,10 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
 		  ,VacancyTitle                                            as VacancyTitle
 		  ,CASE WHEN len(EmployerPostCode)>8 
 		        THEN CASE WHEN Mgmt.fn_ExtractPostCodeUKFromAddress(EmployerPostCode)='ZZ99 9ZZ'
-				          THEN Mgmt.fn_ExtractPostCodeUKFromAddress(ISNULL(EmployerAddressLine1,'')+','+ISNULL(EmployerAddressLine2,'')+','+ISNULL(EmployerAddressLine3,'')+','+ISNULL(EmployerAddressLine4,''))
+				          THEN CASE WHEN Mgmt.fn_ExtractPostCodeUKFromAddress(ISNULL(EmployerAddressLine1,'')+','+ISNULL(EmployerAddressLine2,'')+','+ISNULL(EmployerAddressLine3,'')+','+ISNULL(EmployerAddressLine4,'')) ='ZZ99 9ZZ'
+						            THEN EmployerPostCode
+									ELSE Mgmt.fn_ExtractPostCodeUKFromAddress(ISNULL(EmployerAddressLine1,'')+','+ISNULL(EmployerAddressLine2,'')+','+ISNULL(EmployerAddressLine3,'')+','+ISNULL(EmployerAddressLine4,''))
+							   END
 						  ELSE Mgmt.fn_ExtractPostCodeUKFromAddress(EmployerPostCode)
 					  END
 				ELSE EmployerPostCode

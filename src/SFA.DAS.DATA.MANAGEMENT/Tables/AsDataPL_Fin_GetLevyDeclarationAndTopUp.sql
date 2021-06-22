@@ -26,3 +26,5 @@
 	[AsDm_UpdatedDateTime] datetime2 default getdate(),
 	CONSTRAINT PK_Fin_GetLevyDeclarationAndTopUp_Id PRIMARY KEY CLUSTERED (Id)
 )ON [PRIMARY]
+GO
+CREATE NONCLUSTERED INDEX NCI_Fin_GetLevyDeclarationAndTopUp_Id	 ON [ASData_PL].[Fin_GetLevyDeclarationAndTopUp] (AccountId) INCLUDE (LastSubmission)

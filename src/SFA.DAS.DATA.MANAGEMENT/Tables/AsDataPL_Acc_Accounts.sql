@@ -11,3 +11,7 @@
 	[ComtLevyStatus] [tinyint]  NULL
 	,CONSTRAINT PK_Acc_Account_Id PRIMARY KEY CLUSTERED (Id)
 )
+GO
+
+CREATE NONCLUSTERED INDEX [NCI_ACC_HashedId] ON [AsData_PL].[Acc_Account]([HashedId])
+GO

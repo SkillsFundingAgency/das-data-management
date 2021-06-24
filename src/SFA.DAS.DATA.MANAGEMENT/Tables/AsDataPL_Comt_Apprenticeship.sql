@@ -31,3 +31,8 @@
 	[AsDm_UpdatedDateTime] datetime2 default getdate(),
 	CONSTRAINT PK_Comt_Apprenticeship_Id PRIMARY KEY CLUSTERED (Id)
 ) ON [PRIMARY]
+GO
+CREATE NONCLUSTERED INDEX [NCI_Comt_ReservationId] ON [AsData_PL].[Comt_Apprenticeship]([ReservationId] ASC)
+GO
+CREATE NONCLUSTERED INDEX [NCI_Comt_CommitmentIdId] ON [AsData_PL].[Comt_Apprenticeship]([CommitmentId] ASC)
+GO

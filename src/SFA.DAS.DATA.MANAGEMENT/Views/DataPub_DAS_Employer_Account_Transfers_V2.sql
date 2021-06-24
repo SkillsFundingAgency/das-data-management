@@ -14,11 +14,12 @@ AS
 	INNER JOIN [ASData_PL].[Comt_Apprenticeship] A 
 	  ON AT.ApprenticeshipId = A.ID
 	LEFT OUTER JOIN 
-	( SELECT xp.PaymentID
-	  , xp.ApprenticeshipId
-		, xp.PeriodEnd
-		, xp.Amount
-	  FROM [ASData_PL].[Fin_Payment] xp 
-	  WHERE xp.Fundingsource = 5 
+	(
+	  select sp.EventId  As PaymentID,
+			 sp.ApprenticeshipId,
+			 Cast( sp.AcademicYear AS varchar) + '-R' + RIGHT( '0' + Cast (sp.CollectionPeriod AS varchar),2)  As PeriodEnd,
+			 sp.Amount 
+	  from [StgPmts].[Payment] As sp  
+	  WHERE sp.Fundingsource = 5 
 	) AS p ON at.ApprenticeshipId=p.ApprenticeshipId and at.periodend=p.periodend
 GO

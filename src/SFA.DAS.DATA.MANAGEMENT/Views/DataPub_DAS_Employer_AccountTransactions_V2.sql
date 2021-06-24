@@ -52,15 +52,15 @@
 				UNION ALL
 			-- Payments 
 				SELECT       EA.HashedId AS DasAccountId
-						,    PS.EvidenceSubmittedOn AS CreatedDate
+						,    PS.IlrSubmissionDateTime AS CreatedDate
 						,     NULL as SubmissionDate
 						,     NULL as PayrollMonth
 						,	   NULL as PayrollYear
-						,     PS.CollectionPeriodMonth
-						,     ps.CollectionPeriodYear
+						,     PS.CollectionPeriod
+						,     ps.AcademicYear
 						,    'OUT'+  TT.FieldDesc   AS TransactionType
 						,    ROUND((PS.Amount*-1),2) AS Amount -- Made negative as Payment
-					FROM [ASData_PL].[Fin_Payment] AS PS
+					FROM StgPmts.Payment AS PS
  					LEFT
 					JOIN dbo.ReferenceData TT
 					ON TT.FieldValue=PS.TransactionType

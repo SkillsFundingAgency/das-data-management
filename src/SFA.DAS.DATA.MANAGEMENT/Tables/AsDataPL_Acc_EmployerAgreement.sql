@@ -8,4 +8,5 @@
    ,[ExpiredDate] DateTime NULL
    ,[SignedById] BIGINT NULL
    ,[AsDm_UpdatedDateTime] DateTime2 Default(GetDate())
+   ,CONSTRAINT PK_Acc_EmpAgreement_Id PRIMARY KEY CLUSTERED (Id)
 )

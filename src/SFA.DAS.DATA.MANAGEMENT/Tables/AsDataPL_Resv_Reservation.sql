@@ -20,3 +20,9 @@
     PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 GO
+
+CREATE NONCLUSTERED INDEX [NCI_Resv_CourseId] ON [AsData_PL].[Resv_Reservation]([CourseId] ASC)
+GO
+
+CREATE NONCLUSTERED INDEX [NCI_Resv_Date_IsLevy] ON [AsData_PL].[Resv_Reservation]([CreatedDate],[IsLevyAccount])
+GO

@@ -21,3 +21,7 @@
    ,CONSTRAINT PK_Acc_AccountLegalEntity_Id PRIMARY KEY CLUSTERED (Id)
 )
 GO
+
+CREATE NONCLUSTERED INDEX [NCI_ALE_SignedAgreementId] ON [AsData_PL].[Acc_AccountLegalEntity]([SignedAgreementId] ASC)
+GO
+

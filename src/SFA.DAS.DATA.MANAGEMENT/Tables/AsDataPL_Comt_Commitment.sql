@@ -26,3 +26,7 @@
 	[AsDm_UpdatedDateTime] datetime2 default getdate(),
 	CONSTRAINT PK_Comt_Commitment_Id PRIMARY KEY CLUSTERED (Id)
 )ON [PRIMARY]
+GO
+
+CREATE NONCLUSTERED INDEX [NCI_Comt_ProviderId] ON [AsData_PL].[Comt_Commitment]([ProviderId] ASC)
+GO

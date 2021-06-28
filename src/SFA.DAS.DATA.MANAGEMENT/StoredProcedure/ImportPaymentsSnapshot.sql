@@ -84,6 +84,7 @@ BEGIN TRANSACTION
 					   ,CollectionPeriodMonth
 					   ,CollectionPeriodYear
 					   ,LearningAimFundingLineType
+					   ,SenderAccountId
 				  )
 				  select 
 						[PaymentID], 
@@ -119,7 +120,8 @@ BEGIN TRANSACTION
 						[CollectionPeriodName], 
 						[CollectionPeriodMonth], 
 						[CollectionPeriodYear],
-						[LearningAimFundingLineType]
+						[LearningAimFundingLineType],
+						[SenderAccountId]
 				From	[Data_Pub].[DAS_Payments_V2] 				
 						
 

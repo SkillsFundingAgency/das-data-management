@@ -394,7 +394,7 @@ BEGIN
 			DELETE FROM [Mtd].[RP_LookupQuestionTitles]
 			/* Insert into [Mtd].[RP_LookupQuestionTitles]*/
 			INSERT INTO [Mtd].[RP_LookupQuestionTitles]
-			([SequenceNumber][SectionNumber],[PageId],[QuestionId],[Title])
+			([SequenceNumber],[SectionNumber],[PageId],[QuestionId],[Title])
 				VALUES 				
 					(0, 1, '1', 'PRE-10', 'UKPRN'),
 					(0, 1, '1', 'PRE-20', 'UkrlpLegalName'),
@@ -1030,9 +1030,6 @@ BEGIN
 					(9, 1, '9020', 'FIN-30', 'Do you have permission from your organisation to submit this application?'),
 					(9, 2, '9100', 'FIN-40', 'Do you understand that your organisation must develop and deliver apprenticeship training in line with the Institute for Apprenticeships and Technical Education''s ''quality statement''?'),
 					(9, 3, '9200', 'FIN-50', 'Do you understand that your organisation will not join the RoATP until it completes all post application tasks?');
-
-
-
 
 
 					DELETE FROM [Mtd].[RP_LookupSectionTitles] 

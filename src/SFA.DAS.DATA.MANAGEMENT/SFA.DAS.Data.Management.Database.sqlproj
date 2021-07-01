@@ -329,5 +329,8 @@
     <Build Include="Tables\AsDataPl_Assessor_OrganisationStandardVersion.sql" />
     <Build Include="TablePartitions\DatePartition.sql" />
     <Build Include="Tables\ASDataPL_GA_DataForReporting.sql" />
+    <Build Include="Tables\AsDataPL_AED_CourseDemand.sql" />
+    <Build Include="Tables\AsDataPL_AED_ProviderInterest.sql" />
+    <Build Include="Tables\AsDataPL_AED_CourseDemandNotificationAudit.sql" />
   </ItemGroup>
 </Project>

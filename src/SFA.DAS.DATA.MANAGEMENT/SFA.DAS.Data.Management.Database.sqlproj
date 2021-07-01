@@ -332,5 +332,11 @@
     <Build Include="Tables\AsDataPL_AED_CourseDemand.sql" />
     <Build Include="Tables\AsDataPL_AED_ProviderInterest.sql" />
     <Build Include="Tables\AsDataPL_AED_CourseDemandNotificationAudit.sql" />
+    <Build Include="Tables\Mtd_RP_LookupOversightReviewStatus.sql" />
+    <Build Include="Tables\Mtd_RP_LookupPageTitles.sql" />
+    <Build Include="Tables\Mtd_RP_LookupQuestionTitles.sql" />
+    <Build Include="Tables\Mtd_RP_LookupSectionTitles.sql" />
+    <Build Include="Tables\Mtd_RP_LookupSequenceTitles.sql" />
+    <Build Include="StoredProcedure\LoadRPLookupData.sql" />
   </ItemGroup>
 </Project>

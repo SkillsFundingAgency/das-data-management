@@ -329,5 +329,11 @@
     <Build Include="Tables\AsDataPl_Assessor_OrganisationStandardVersion.sql" />
     <Build Include="TablePartitions\DatePartition.sql" />
     <Build Include="Tables\ASDataPL_GA_DataForReporting.sql" />
+    <Build Include="Tables\Mtd_RP_LookupOversightReviewStatus.sql" />
+    <Build Include="Tables\Mtd_RP_LookupPageTitles.sql" />
+    <Build Include="Tables\Mtd_RP_LookupQuestionTitles.sql" />
+    <Build Include="Tables\Mtd_RP_LookupSectionTitles.sql" />
+    <Build Include="Tables\Mtd_RP_LookupSequenceTitles.sql" />
+    <Build Include="StoredProcedure\LoadRPLookupData.sql" />
   </ItemGroup>
 </Project>

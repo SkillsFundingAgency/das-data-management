@@ -1,7 +1,6 @@
 ﻿CREATE TABLE [AsData_PL].[AED_CourseDemand]
 (
-	Id						uniqueidentifier, 
-	ContactEmailAddress     varchar(255),
+	Id						uniqueidentifier, 	
 	OrganisationName		varchar(1000),
 	NumberOfApprentices     int, 
 	CourseId				int, 

@@ -4,7 +4,9 @@
  ,SFCI_Id BIGINT
  ,DataSetName VARCHAR(25)
  ,DataSetTable VARCHAR(25)
+ ,DataSetSchema VARCHAR(25)
  ,SensitiveColumns VARCHAR(255)
+ ,RetentionPeriodInMonths INT
  ,PreImportRetention BIT
  ,PostImportRetention BIT
  ,IsActive BIT

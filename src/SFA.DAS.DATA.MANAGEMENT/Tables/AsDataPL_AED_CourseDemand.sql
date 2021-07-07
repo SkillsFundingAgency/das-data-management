@@ -2,6 +2,7 @@
 (
 	Id						uniqueidentifier, 	
 	OrganisationName		varchar(1000),
+	ContactEmailAddress		varchar(255),
 	NumberOfApprentices     int, 
 	CourseId				int, 
 	CourseTitle				varchar(1000),

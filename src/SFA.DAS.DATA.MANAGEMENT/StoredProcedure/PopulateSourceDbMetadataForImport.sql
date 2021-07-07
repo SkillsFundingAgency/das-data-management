@@ -263,7 +263,7 @@ VALUES
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)
 VALUES
-   ('EmployerDemand','CourseDemand','dbo','[Id],[OrganisationName],[NumberOfApprentices],[CourseId],[CourseTitle],[CourseLevel],[CourseRoute],[LocationName],[Lat],[Long],[DateCreated],[EmailVerified],[DateEmailVerified],[Stopped],[DateStopped],[ExpiredCourseDemandId],[EntryPoint]','[StopSharingUrl],[StartSharingUrl]','[ContactEmailAddress]',0,1
+   ('EmployerDemand','CourseDemand','dbo','[Id],[OrganisationName],[NumberOfApprentices],[CourseId],[CourseTitle],[CourseLevel],[CourseRoute],[DateCreated],[EmailVerified],[DateEmailVerified],[Stopped],[DateStopped],[ExpiredCourseDemandId],[EntryPoint]','[StopSharingUrl],[StartSharingUrl]','[ContactEmailAddress],[LocationName],[Lat],[Long]',0,1
       ,'select [Id],[ContactEmailAddress],[OrganisationName],[NumberOfApprentices],[CourseId],[CourseTitle],[CourseLevel],[CourseRoute],[LocationName],[Lat],[Long],[DateCreated],[EmailVerified],[DateEmailVerified],[Stopped],[DateStopped],[ExpiredCourseDemandId],[EntryPoint] FROM (SELECT [Id],[ContactEmailAddress],[OrganisationName],[NumberOfApprentices],[CourseId],[CourseTitle],[CourseLevel],[CourseRoute],[LocationName],[Lat],[Long],[DateCreated],[EmailVerified],[DateEmailVerified],[Stopped],[DateStopped],[ExpiredCourseDemandId],[EntryPoint] FROM [dbo].[CourseDemand]) a '
       ,'AED_CourseDemand')
 

@@ -4,6 +4,7 @@
      ,UserRef varchar(255) not null
      ,DisplayName varchar(255) not null
      ,Ukprn bigint not null
+     ,Email varchar(255) not null
      ,IsDeleted bit not null
      ,UserType smallint not null
      ,LastLogin datetime2 null

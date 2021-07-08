@@ -263,15 +263,15 @@ VALUES
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)
 VALUES
-   ('EmployerDemand','CourseDemand','dbo','[Id],[OrganisationName],[NumberOfApprentices],[CourseId],[CourseTitle],[CourseLevel],[CourseRoute],[LocationName],[Lat],[Long],[DateCreated],[EmailVerified],[DateEmailVerified],[Stopped],[DateStopped],[ExpiredCourseDemandId],[EntryPoint]','[ContactEmailAddress],[StopSharingUrl],[StartSharingUrl]','',0,1
-      ,'select [Id],[OrganisationName],[NumberOfApprentices],[CourseId],[CourseTitle],[CourseLevel],[CourseRoute],[LocationName],[Lat],[Long],[DateCreated],[EmailVerified],[DateEmailVerified],[Stopped],[DateStopped],[ExpiredCourseDemandId],[EntryPoint] FROM (SELECT [Id],[OrganisationName],[NumberOfApprentices],[CourseId],[CourseTitle],[CourseLevel],[CourseRoute],STUFF([LocationName],2,charindex('''' '''',[LocationName])-3,REPLICATE(''''*'''',charindex('''' '''',[LocationName])-3)) As [LocationName],STUFF([Lat],6,charindex(''''.'''',[Lat])+1,REPLICATE(''''*'''',charindex(''''.'''',[Lat])+1)) As [Lat],STUFF([Long],6,charindex(''''.'''',[Long])+1,REPLICATE(''''*'''',charindex(''''.'''',[Long])+1)) As [Long],[DateCreated],[EmailVerified],[DateEmailVerified],[Stopped],[DateStopped],[ExpiredCourseDemandId],[EntryPoint] FROM [dbo].[CourseDemand]) a '
+   ('EmployerDemand','CourseDemand','dbo','[Id],[OrganisationName],[NumberOfApprentices],[CourseId],[CourseTitle],[CourseLevel],[CourseRoute],[DateCreated],[EmailVerified],[DateEmailVerified],[Stopped],[DateStopped],[ExpiredCourseDemandId],[EntryPoint]','[StopSharingUrl],[StartSharingUrl]','[ContactEmailAddress],[LocationName],[Lat],[Long]',0,1
+      ,'select [Id],[ContactEmailAddress],[OrganisationName],[NumberOfApprentices],[CourseId],[CourseTitle],[CourseLevel],[CourseRoute],[LocationName],[Lat],[Long],[DateCreated],[EmailVerified],[DateEmailVerified],[Stopped],[DateStopped],[ExpiredCourseDemandId],[EntryPoint] FROM (SELECT [Id],[ContactEmailAddress],[OrganisationName],[NumberOfApprentices],[CourseId],[CourseTitle],[CourseLevel],[CourseRoute],[LocationName],[Lat],[Long],[DateCreated],[EmailVerified],[DateEmailVerified],[Stopped],[DateStopped],[ExpiredCourseDemandId],[EntryPoint] FROM [dbo].[CourseDemand]) a '
       ,'AED_CourseDemand')
 
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL])
 VALUES
    ('EmployerDemand','CourseDemandNotificationAudit','dbo','[Id],[CourseDemandId],[DateCreated],[NotificationType]','','','AED_CourseDemandNotificationAudit',0)
-   ,('EmployerDemand','ProviderInterest','dbo','[Id],[EmployerDemandId],[Website],[DateCreated]','[Email],[Phone]','[Ukprn]','AED_ProviderInterest',0)
+   ,('EmployerDemand','ProviderInterest','dbo','[Id],[EmployerDemandId],[Website],[DateCreated]','[Phone]','[Email],[Ukprn]','AED_ProviderInterest',0)
 
 COMMIT TRANSACTION
 

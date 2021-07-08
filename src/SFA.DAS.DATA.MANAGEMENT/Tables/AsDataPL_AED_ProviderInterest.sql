@@ -2,7 +2,8 @@
 (
 		Id						uniqueidentifier, 
 		EmployerDemandId		uniqueidentifier,
-		Ukprn					int, 	
+		Ukprn					int,
+		Email					varchar(255),
 		Website					varchar(500),
 		DateCreated				datetime,
 		Asdm_UpdatedDateTime	datetime2 default getdate()

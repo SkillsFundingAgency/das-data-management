@@ -223,7 +223,7 @@ BEGIN TRY
            ,[PaymentAmount]
            FROM AsData_PL.Das_SpendControlNonLevy_v2
 							
-             
+COMMIT TRANSACTION             
 
 				UPDATE Mgmt.Log_Execution_Results
 				   SET Execution_Status=1

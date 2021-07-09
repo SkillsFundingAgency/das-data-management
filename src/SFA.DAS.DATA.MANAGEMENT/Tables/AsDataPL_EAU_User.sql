@@ -7,5 +7,7 @@
       ,FirstName varchar(255) 
       ,LastName varchar(255) 
       ,FailedLoginAttempts int 
+      ,IsSuspended bit not null
 	  ,[Asdm_UpdatedDateTime] datetime2 default getdate()
+      ,CONSTRAINT PK_EAU_User_Id PRIMARY KEY CLUSTERED (Id)
  )

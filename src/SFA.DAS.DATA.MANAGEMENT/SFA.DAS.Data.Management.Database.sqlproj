@@ -341,5 +341,6 @@
     <Build Include="Tables\Stg_SpendControl_v2.sql" />
     <Build Include="Tables\Stg_SpendControlNonLevy_v2.sql" />
     <Build Include="StoredProcedure\ImportSpendControlToStgTemp.sql" />
+    <Build Include="Tables\AsDataPL_PAS_User.sql" />
   </ItemGroup>
 </Project>

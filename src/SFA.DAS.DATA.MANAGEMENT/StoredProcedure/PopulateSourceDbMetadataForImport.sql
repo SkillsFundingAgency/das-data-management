@@ -113,7 +113,7 @@ INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL])
 /* Accounts and Users */
 VALUES
- ('Users','User','dbo','[Id],[IsActive],[FailedLoginAttempts],[IsLocked]','[Salt],[PasswordProfileId]','[FirstName],[LastName],[Email]','EAU_User',0)
+ ('Users','User','dbo','[Id],[IsActive],[FailedLoginAttempts],[IsLocked],[IsSuspended]','[Salt],[PasswordProfileId]','[FirstName],[LastName],[Email]','EAU_User',0)
 ,('Accounts','Account','Employer_Account','[Id],[HashedId],[CreatedDate],[ModifiedDate],[ApprenticeshipEmployerType]','','[Name],[PublicHashedId]','Acc_Account',1)
 ,('Accounts','EmployerAgreement','Employer_Account','[Id],[TemplateId],[StatusId],[SignedDate],[AccountLegalEntityId],[ExpiredDate],[SignedById]','[SignedByName]','','Acc_EmployerAgreement',0)
 ,('Accounts','EmployerAgreementStatus','Employer_Account','[Id],[name]','','','Acc_EmployerAgreementStatus',0)
@@ -253,6 +253,7 @@ VALUES
     'Select [StandardUId],[IFateReferenceNumber],[LarsCode],[Title],[Version],[Level],[Status],[TypicalDuration],[MaxFunding],[IsActive],[LastDateStarts],[EffectiveFrom],[EffectiveTo],[VersionEarliestStartDate],[VersionLatestStartDate],[VersionLatestEndDate],[VersionApprovedForDelivery],[ProposedTypicalDuration],[ProposedMaxFunding]  From [dbo].[Standards]',
     'Assessor_Standards')
 
+/* Public Sector Config */
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)
 VALUES
@@ -260,6 +261,7 @@ VALUES
       ,'Select  DasAccountId,OrganisationName,ReportingPeriod,ID_FullTimeEquivalent,SummaryText_FullTimeEquivalent,ZenDeskLabel_FullTimeEquivalent,YourEmployees_AtStart,YourEmployees_AtEnd,YourEmployees_NewThisPeriod,YourApprentices_AtStart,YourApprentices_AtEnd,YourApprentices_NewThisPeriod,FullTimeEquivalent_atStart,Questions_OutlineActions_Id,Questions_OutlineActions_Answer,Questions_Challenges_Id,Questions_Challenges_Answer,Questions_TargetPlans_Id,Questions_TargetPlans_Answer,Questions_AnythingElse_Id,Questions_AnythingElse_Answer,SubmittedAt,STUFF(SubmittedName,2,len(SubmittedName)-2,REPLICATE(''''*'''', len(SubmittedName)-2)) As SubmittedName,STUFF(SubmittedEmail,2,charindex(''''@'''',SubmittedEmail)-3,REPLICATE(''''*'''',charindex(''''@'''',SubmittedEmail)-3)) As SubmittedEmail FROM (select [EmployerId] As DasAccountId,JSON_VALUE(ReportingData,''''$.OrganisationName'''') As OrganisationName,ReportingPeriod,JSON_VALUE(ReportingData,''''$.Questions[0].SubSections[2].Id'''') As ID_FullTimeEquivalent,JSON_VALUE(ReportingData,''''$.Questions[0].SubSections[2].SummaryText'''') As SummaryText_FullTimeEquivalent,JSON_VALUE(ReportingData,''''$.Questions[0].SubSections[2].ZenDeskLabel'''') As ZenDeskLabel_FullTimeEquivalent,case when JSON_VALUE(ReportingData,''''$.Questions[0].SubSections[0].Id'''') = ''''YourEmployees'''' And JSON_VALUE(ReportingData,''''$.Questions[0].SubSections[0].Questions[0].Id'''') = ''''atStart'''' Then JSON_VALUE(ReportingData,''''$.Questions[0].SubSections[0].Questions[0].Answer'''')  Else NUll End As YourEmployees_AtStart,Case when JSON_VALUE(ReportingData,''''$.Questions[0].SubSections[0].Id'''') = ''''YourEmployees'''' And JSON_VALUE(ReportingData,''''$.Questions[0].SubSections[0].Questions[1].Id'''') = ''''atEnd'''' Then JSON_VALUE(ReportingData,''''$.Questions[0].SubSections[0].Questions[1].Answer'''')  Else NUll End As YourEmployees_AtEnd,Case when JSON_VALUE(ReportingData,''''$.Questions[0].SubSections[0].Id'''') = ''''YourEmployees'''' And JSON_VALUE(ReportingData,''''$.Questions[0].SubSections[0].Questions[2].Id'''') = ''''newThisPeriod'''' Then JSON_VALUE(ReportingData,''''$.Questions[0].SubSections[0].Questions[2].Answer'''')  Else NUll End As YourEmployees_NewThisPeriod,case When JSON_VALUE(ReportingData,''''$.Questions[0].SubSections[1].Id'''') = ''''YourApprentices'''' And JSON_VALUE(ReportingData,''''$.Questions[0].SubSections[1].Questions[0].Id'''') = ''''atStart'''' Then JSON_VALUE(ReportingData,''''$.Questions[0].SubSections[1].Questions[0].Answer'''')  Else NUll End As YourApprentices_AtStart,Case when JSON_VALUE(ReportingData,''''$.Questions[0].SubSections[1].Id'''') = ''''YourApprentices'''' And JSON_VALUE(ReportingData,''''$.Questions[0].SubSections[1].Questions[1].Id'''') = ''''atEnd'''' Then JSON_VALUE(ReportingData,''''$.Questions[0].SubSections[1].Questions[1].Answer'''')  Else NUll End As YourApprentices_AtEnd,Case when JSON_VALUE(ReportingData,''''$.Questions[0].SubSections[1].Id'''') = ''''YourApprentices'''' And JSON_VALUE(ReportingData,''''$.Questions[0].SubSections[1].Questions[2].Id'''') = ''''newThisPeriod'''' Then JSON_VALUE(ReportingData,''''$.Questions[0].SubSections[1].Questions[2].Answer'''')  Else NUll End As YourApprentices_NewThisPeriod,Case when JSON_VALUE(ReportingData,''''$.Questions[0].SubSections[2].Id'''') = ''''FullTimeEquivalent'''' And JSON_VALUE(ReportingData,''''$.Questions[0].SubSections[2].Questions[0].Id'''') = ''''atStart'''' Then JSON_VALUE(ReportingData,''''$.Questions[0].SubSections[2].Questions[0].Answer'''')  Else NUll End As FullTimeEquivalent_atStart,JSON_VALUE(ReportingData,''''$.Questions[1].SubSections[0].Questions[0].Id'''') As Questions_OutlineActions_Id,case when JSON_VALUE(ReportingData,''''$.Questions[1].SubSections[0].Questions[0].Id'''') =''''OutlineActions'''' Then JSON_VALUE(ReportingData,''''$.Questions[1].SubSections[0].Questions[0].Answer'''') Else NULL End As Questions_OutlineActions_Answer,JSON_VALUE(ReportingData,''''$.Questions[1].SubSections[1].Questions[0].Id'''') As Questions_Challenges_Id,Case when JSON_VALUE(ReportingData,''''$.Questions[1].SubSections[1].Questions[0].Id'''') =''''Challenges'''' Then JSON_VALUE(ReportingData,''''$.Questions[1].SubSections[1].Questions[0].Answer'''') Else NULL End As Questions_Challenges_Answer,JSON_VALUE(ReportingData,''''$.Questions[1].SubSections[2].Questions[0].Id'''') As Questions_TargetPlans_Id,Case when JSON_VALUE(ReportingData,''''$.Questions[1].SubSections[2].Questions[0].Id'''') = ''''TargetPlans'''' Then JSON_VALUE(ReportingData,''''$.Questions[1].SubSections[2].Questions[0].Answer'''') Else NULL End As Questions_TargetPlans_Answer,JSON_VALUE(ReportingData,''''$.Questions[1].SubSections[3].Questions[0].Id'''') As Questions_AnythingElse_Id,Case when JSON_VALUE(ReportingData,''''$.Questions[1].SubSections[3].Questions[0].Id'''') = ''''AnythingElse'''' Then JSON_VALUE(ReportingData,''''$.Questions[1].SubSections[3].Questions[0].Answer'''') Else NULL End As Questions_AnythingElse_Answer,JSON_VALUE(ReportingData,''''$.Submitted.SubmittedAt'''') As SubmittedAt,JSON_VALUE(ReportingData,''''$.Submitted.SubmittedName'''') As SubmittedName,JSON_VALUE(ReportingData,''''$.Submitted.SubmittedEmail'''') As SubmittedEmail from [dbo].[Report]) As Reportdata '
       ,'PublicSector_Report')
 
+/* Employer Demand Config */
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)
 VALUES
@@ -272,6 +274,16 @@ INSERT INTO Mtd.SourceConfigForImport
 VALUES
    ('EmployerDemand','CourseDemandNotificationAudit','dbo','[Id],[CourseDemandId],[DateCreated],[NotificationType]','','','AED_CourseDemandNotificationAudit',0)
    ,('EmployerDemand','ProviderInterest','dbo','[Id],[EmployerDemandId],[Website],[DateCreated]','[Phone]','[Email],[Ukprn]','AED_ProviderInterest',0)
+
+/* Provider Apprenticeship Service  Config */
+
+
+INSERT INTO Mtd.SourceConfigForImport
+(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
+VALUES
+('ProviderApprenticeshipService','User','dbo','[Id],[IsDeleted],[UserType],[LastLogin]','','[UserRef],[DisplayName],[Ukprn],[Email]','PAS_User',0,1) 
+  
+
 
 COMMIT TRANSACTION
 

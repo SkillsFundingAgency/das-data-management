@@ -43,7 +43,7 @@ BEGIN TRY
 
 		DELETE FROM [Stg].[SpendControl_v2]
 
-        INSERT INTO [Stg].[DAS_SpendControl_V2]
+        INSERT INTO [Stg].[SpendControl_V2]
            ([EmployerAccountId]
            ,[DasAccountId]
            ,[DasAccountName]

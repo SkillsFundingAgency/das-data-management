@@ -17,7 +17,6 @@
   ,MinimumAgreementVersion								int								NULL
   ,EmploymentStartDate									datetime2(7)					NULL
   ,Phase												nvarchar(50)					NULL
-  ,BreakInLearningDayCount								int								NULL
   ,AsDm_UpdatedDateTime									datetime2						default getdate()
   ,CONSTRAINT PK_EI_ApprenticeshipIncentive_Id PRIMARY KEY CLUSTERED (Id)
 )

@@ -338,9 +338,6 @@
     <Build Include="Tables\Mtd_RP_LookupSectionTitles.sql" />
     <Build Include="Tables\Mtd_RP_LookupSequenceTitles.sql" />
     <Build Include="StoredProcedure\LoadRPLookupData.sql" />
-    <Build Include="Tables\Stg_SpendControl_v2.sql" />
-    <Build Include="Tables\Stg_SpendControlNonLevy_v2.sql" />
-    <Build Include="StoredProcedure\ImportSpendControlToStgTemp.sql" />
     <Build Include="Tables\AsDataPL_PAS_User.sql" />
   </ItemGroup>
 </Project>

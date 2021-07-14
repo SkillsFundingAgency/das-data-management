@@ -73,6 +73,7 @@ VALUES
 ('BetaUser','ASData_PL','AED_ProviderInterest','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','AR_Apprentice','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','AR_Employer','TABLE','SELECT',0,1),
+('BetaUser','ASData_PL','Assessor_Apply','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','Assessor_Certificates','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','Assessor_CertificateLogs','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','Assessor_Organisations','TABLE','SELECT',0,1),

@@ -8,6 +8,7 @@
      ,IsDeleted bit not null
      ,UserType smallint not null
      ,LastLogin datetime2 null
+     ,AsDm_UpdatedDateTime	datetime2 default getdate()	NULL
      ,CONSTRAINT PK_Pas_User_Id PRIMARY KEY CLUSTERED (Id)
 )
 GO

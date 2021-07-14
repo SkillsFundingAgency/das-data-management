@@ -34,7 +34,5 @@
    ,DeletedAt							datetime2(7)
    ,Comments							nvarchar(max)
    ,ExternalComments					nvarchar(max) 
-   ,ApplicationType						nvarchar(60)
-   ,StandardReference					nvarchar(10)
    ,AsDm_UpdatedDateTime				DateTime2 default(getdate())
 )

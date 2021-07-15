@@ -1,5 +1,14 @@
 ﻿    CREATE VIEW [ASData_PL].[DAS_SpendControl_V2]
 	AS
+
+	WITH Payments
+	as
+	(
+	 SELECT EventId,ApprenticeshipId,FundingSource,TransactionType,Amount,COALESCE(Cast( Payment.AcademicYear AS varchar) + '-R' + RIGHT( '0' + Cast (Payment.CollectionPeriod AS varchar), 2 ),'NA') as PeriodEnd
+	   FROM StgPmts.Payment
+      WHERE ApprenticeshipId in (select id from ASData_PL.Comt_Apprenticeship where ReservationId in (select id from ASData_PL.Resv_Reservation WHERE YEAR(CreatedDate) > = 2020))
+	)
+		
 			SELECT 
 				 COALESCE(Account.EmployerAccountId, -1)                                   AS EmployerAccountId
 				,COALESCE(Account.DasAccountId, 'XXXXXX')                                  AS DasAccountId
@@ -84,8 +93,8 @@
 							   END AS Varchar(50))                                           AS ApprenticeshipPaymentStatus
 				,COALESCE(Commitment.ApprenticeshipEmployerTypeOnApproval,-1)                AS ApprenticeshipEmployerTypeOnApproval
 				,COALESCE(Commitment.TransferSenderId,-1)                                    AS CommitmentTransferSenderId
-				,COALESCE(CONVERT(VARCHAR(255), Payment.EventId), 'NA')					 AS PaymentId
-			    ,CAST(COALESCE(Cast( Payment.AcademicYear AS varchar) + '-R' + RIGHT( '0' + Cast (Payment.CollectionPeriod AS varchar), 2 ),'NA') AS VARCHAR(25)) AS PaymentPeriodEnd
+				,COALESCE(CONVERT(VARCHAR(255), Payment.EventId), 'NA')					     AS PaymentId
+			    ,CAST(Payment.PeriodEnd AS VARCHAR(25))                                      AS PaymentPeriodEnd
 				,COALESCE(RDFS.FieldDesc, 'NA')                                              AS PaymentFundingSource
 				,COALESCE(RDTT.FieldDesc, 'NA')                                              AS PaymentTransactionType
 				,COALESCE(Payment.ApprenticeshipId, -1)                                      AS PaymentApprenticeshipId
@@ -124,7 +133,7 @@
 			JOIN ASData_PL.Comt_Apprenticeship Apprenticeship
 			  ON Apprenticeship.ReservationId = Reservation.Id
 			LEFT 
-			JOIN StgPmts.Payment Payment
+			JOIN Payments Payment
 			  ON Payment.ApprenticeshipId = Apprenticeship.Id 
 			LEFT 
 			JOIN ASData_PL.Comt_Commitment Commitment

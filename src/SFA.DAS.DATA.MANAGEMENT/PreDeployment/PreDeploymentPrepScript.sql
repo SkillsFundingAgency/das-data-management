@@ -576,3 +576,28 @@ IF EXISTS (select * from INFORMATION_SCHEMA.ROUTINES
               and ROUTINE_SCHEMA='dbo'
 		  )
 DROP PROCEDURE [dbo].[ImportAppRedundancyToPL]
+
+/* Drop Spend Control Temp Proc */
+
+IF EXISTS (select * from INFORMATION_SCHEMA.ROUTINES
+            where ROUTINE_NAME='ImportSpendControlToStgTemp'
+              and ROUTINE_SCHEMA='dbo'
+		  )
+DROP PROCEDURE [dbo].[ImportSpendControlToStgTemp]
+
+/* Drop Temporary Staging Tables */
+
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'SpendControl_v2'
+		      AND TABLE_SCHEMA=N'Stg'
+	      )
+DROP TABLE [Stg].[SpendControl_v2]
+
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'SpendControlNonLevy_v2'
+		      AND TABLE_SCHEMA=N'Stg'
+	      )
+DROP TABLE [Stg].[SpendControlNonLevy_v2]
+

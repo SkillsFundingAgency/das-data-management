@@ -14,7 +14,7 @@
 	[CreatedBy]						[nvarchar](256) NULL,
 	[UpdatedAt]						[datetime2](7) NULL,	
 	[DeletedAt]						[datetime2](7) NULL,	
-	[StandradApplicationType]		[nvarchar](60) NULL,
+	[StandardApplicationType]		[nvarchar](60) NULL,
 	[StandardReference]				[nvarchar](10) NULL,
 	[AsDm_UpdatedDateTime]			[Datetime2](7)		default getdate()
 )

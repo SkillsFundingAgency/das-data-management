@@ -252,6 +252,9 @@ VALUES
  ,('Assessor','Standards','dbo','[StandardUId],[Title],[Version],[Level],[Status],[TypicalDuration],[MaxFunding],[IsActive],[LastDateStarts],[EffectiveFrom],[EffectiveTo],[VersionEarliestStartDate],[VersionLatestStartDate],[VersionLatestEndDate],[VersionApprovedForDelivery],[ProposedTypicalDuration],[ProposedMaxFunding]','','[IFateReferenceNumber],[LarsCode]',1,1,
     'Select [StandardUId],[IFateReferenceNumber],[LarsCode],[Title],[Version],[Level],[Status],[TypicalDuration],[MaxFunding],[IsActive],[LastDateStarts],[EffectiveFrom],[EffectiveTo],[VersionEarliestStartDate],[VersionLatestStartDate],[VersionLatestEndDate],[VersionApprovedForDelivery],[ProposedTypicalDuration],[ProposedMaxFunding]  From [dbo].[Standards]',
     'Assessor_Standards')
+,('Assessor','Apply','dbo','[Id],[ApplicationId],[OrganisationId],[ApplicationStatus],[ReviewStatus],[FinancialReviewStatus],[FinancialDueDate],[StandardCode],[CreatedAt],[UpdatedAt],[DeletedAt],[StandardApplicationType],[StandardReference]','','[SelectedGrade],[GradedBy],[CreatedBy]',0,1,
+    'select [Id],[ApplicationId],[OrganisationId],[ApplicationStatus],[ReviewStatus],[FinancialReviewStatus],[SelectedGrade],[FinancialDueDate],[GradedBy],[StandardCode],[CreatedAt],[CreatedBy],[UpdatedAt],[DeletedAt],[StandardApplicationType],[StandardReference] FROM ( Select [Id],[ApplicationId],[OrganisationId],[ApplicationStatus],[ReviewStatus],[FinancialReviewStatus],JSON_VALUE([FinancialGrade],''''$.SelectedGrade'''') SelectedGrade,JSON_VALUE([FinancialGrade],''''$.FinancialDueDate'''') FinancialDueDate,JSON_VALUE([FinancialGrade],''''$.GradedBy'''') GradedBy,[StandardCode],[CreatedAt],[CreatedBy],[UpdatedAt],[DeletedAt],[StandardApplicationType],[StandardReference]  from [dbo].[Apply] ) As a ',
+    'Assessor_Apply')
 
 /* Public Sector Config */
 INSERT INTO Mtd.SourceConfigForImport

@@ -73,6 +73,7 @@ VALUES
 ('BetaUser','ASData_PL','AED_ProviderInterest','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','AR_Apprentice','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','AR_Employer','TABLE','SELECT',0,1),
+('BetaUser','ASData_PL','Assessor_Apply','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','Assessor_Certificates','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','Assessor_CertificateLogs','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','Assessor_Organisations','TABLE','SELECT',0,1),
@@ -162,8 +163,6 @@ VALUES
 ('DataAnalyst','Data_Pub','DAS_Employer_Transfer_Relationship_V2','VIEW','SELECT',0,1),
 ('DataAnalyst','Data_Pub','DAS_LevyDeclarations_V2','VIEW','SELECT',0,1),
 ('DataAnalyst','Data_Pub','DAS_Payments_V2','VIEW','SELECT',0,1),
-('DataAnalyst','Stg','SpendControl_v2','TABLE','SELECT',0,1),
-('DataAnalyst','Stg','SpendControlNonLevy_v2','TABLE','SELECT',0,1),
 /* DataGov */
 --('DataGov','ASData_PL','MarketoActivityTypes','TABLE','SELECT',0,1),
 --('DataGov','ASData_PL','MarketoCampaigns','TABLE','SELECT',0,1),

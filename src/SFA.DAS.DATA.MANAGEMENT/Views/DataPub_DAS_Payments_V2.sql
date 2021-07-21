@@ -63,6 +63,22 @@
 			  + '-01'															AS DeliveryDate
 			, P.IlrSubmissionDateTime											AS EvidenceSubmittedOn
 			, P.LearningAimFundingLineType                                      AS LearningAimFundingLineType
+			, CAST( CASE WHEN P.CollectionPeriod <=12 THEN 
+				  Cast(CalCP.CalendarYear AS varchar)+ '-'
+				  + RIGHT('0' + RTRIM(cast(CalCP.CalendarMonthNumber AS varchar)), 2)
+				  + '-01'  
+				WHEN P.CollectionPeriod = 13 THEN
+				  '20' + Substring( Cast ( P.AcademicYear AS VARCHAR) , 3, 4) 
+				  + '-09-01'
+				WHEN P.CollectionPeriod = 14 THEN
+				  '20' + Substring( Cast ( P.AcademicYear AS VARCHAR) , 3, 4)
+				  + '-10-01'
+			  END AS VARCHAR (12) ) 
+				+ '-' + CAST( Cast(CalDP.CalendarYear AS varchar) + '-'
+			  + RIGHT('0' + RTRIM(cast(CalDP.CalendarMonthNumber AS varchar)), 2)
+			  + '-01' AS varchar(12) )
+				+ '-' + CAST( P.IlrSubmissionDateTime AS varchar(25) )
+				+ '-' + CAST( P.Id AS VARCHAR(12) )                                 AS PaymentString
 		  FROM StgPmts.Payment P
 		  LEFT OUTER JOIN dbo.DASCalendarMonth CalCP -- Calendar Conversion for CollectionPeriod Dates
 			ON '20' + Substring( Cast ( P.AcademicYear AS VARCHAR) , 1, 2) 
@@ -153,18 +169,12 @@
 		( 
 			SELECT P.AccountId
 				,P.ApprenticeshipId
-				,MIN( CAST( P.CollectionDate AS VARCHAR (12) ) 
-				+ '-' + CAST( P.DeliveryDate AS varchar(12) )
-				+ '-' + CAST( P.EvidenceSubmittedOn AS varchar(25) )
-				+ '-' + CAST( P.Id AS VARCHAR(12) ) ) AS MinPaymentString
+				,MIN( P.PaymentString ) AS MinPaymentString
 		  , 1 AS Flag_FirstPayment
 		  FROM cte_Payment P
 		  GROUP BY P.AccountId, P.ApprenticeshipId  
 		) FP ON P.AccountId = FP.AccountId
-		  AND ( CAST( P.CollectionDate AS VARCHAR (12) ) 
-			+ '-' + CAST( P.DeliveryDate AS varchar(12) )
-			+ '-' + CAST( P.EvidenceSubmittedOn AS varchar(25) )
-			+ '-' + CAST( P.Id AS VARCHAR(12) ) ) = FP.MinPaymentString
+		  AND P.PaymentString = FP.MinPaymentString
 		LEFT JOIN dbo.ReferenceData TT
 		  ON TT.FieldValue = P.TransactionType
 			AND TT.FieldName = 'TransactionType'

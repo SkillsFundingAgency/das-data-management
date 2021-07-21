@@ -55,9 +55,15 @@
 						,    PS.IlrSubmissionDateTime AS CreatedDate
 						,     NULL as SubmissionDate
 						,     NULL as PayrollMonth
-						,	   NULL as PayrollYear
-						,     PS.CollectionPeriod
-						,     ps.AcademicYear
+						,	   NULL as PayrollYear				
+						,      CASE WHEN PS.CollectionPeriod <= 12 THEN CalCP.CalendarMonthNumber
+									WHEN PS.CollectionPeriod = 13 THEN 9
+									WHEN PS.CollectionPeriod = 14 THEN 10
+								END	COLLECTIONMONTH,
+								CASE WHEN PS.CollectionPeriod <= 12 THEN CalCP.CalendarYear
+									WHEN PS.CollectionPeriod IN (13,14) THEN
+									Cast( '20' + Substring( Cast ( PS.AcademicYear AS VARCHAR) , 3, 4) AS INT )
+								END	COLLECTIONYEAR 
 						,    'OUT'+  TT.FieldDesc   AS TransactionType
 						,    ROUND((PS.Amount*-1),2) AS Amount -- Made negative as Payment
 					FROM StgPmts.Payment AS PS
@@ -66,9 +72,12 @@
 					ON TT.FieldValue=PS.TransactionType
 					AND TT.Category='Payments'
 					AND TT.FieldName='TransactionType'
-					LEFT 
-					JOIN [ASData_PL].[Acc_Account] EA ON EA.Id = [PS].AccountId 
-					WHERE PS.FundingSource = 1  -- Only Month coming from balances
+					LEFT JOIN [ASData_PL].[Acc_Account] EA ON EA.Id = [PS].AccountId 
+					LEFT JOIN dbo.DASCalendarMonth CalCP 
+					ON '20' + Substring( Cast ( PS.AcademicYear AS VARCHAR) , 1, 2)
+					  + '/' + Substring( Cast ( PS.AcademicYear AS VARCHAR) , 3, 4) = CalCP.AcademicYear
+					AND PS.CollectionPeriod = CalCP.AcademicMonthNumber
+							WHERE PS.FundingSource = 1  -- Only Month coming from balances
 					) T
 		GO
 

@@ -340,5 +340,8 @@
     <Build Include="StoredProcedure\LoadRPLookupData.sql" />
     <Build Include="Tables\AsDataPL_PAS_User.sql" />
     <Build Include="Tables\AsDataPL_Assessor_Apply.sql" />
+    <Build Include="Tables\AsDataPL_Ecrm_Account.sql" />
+    <Build Include="Tables\AsDataPL_Ecrm_Contact.sql" />
+    <Build Include="StoredProcedure\ImportEcrmTablesToPL.sql" />
   </ItemGroup>
 </Project>

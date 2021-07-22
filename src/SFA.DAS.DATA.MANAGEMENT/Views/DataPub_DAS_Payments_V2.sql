@@ -148,7 +148,7 @@
 		  , CAST ( P.CollectionPeriodMonth AS nvarchar(10) )					AS CollectionPeriodMonth
 		  , CAST ( P.CollectionPeriodYear AS nvarchar(10) )						AS CollectionPeriodYear
 		  , Convert(bit,Comt.ApprenticeshipEmployerTypeOnApproval)  as ApprenticeshipEmployerTypeOnApproval
-		  , P.LearningAimFundingLineType                            as LearningAimFundingLineType
+		  , P.LearningAimFundingLineType                            as LearningAimFundingLineType		  
 		FROM cte_Payment P 
 		LEFT JOIN [ASData_PL].[Acc_Account] Acct ON Acct.Id = P.AccountId
 		LEFT JOIN [ASData_PL].[Comt_Apprenticeship] C

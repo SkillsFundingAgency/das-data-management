@@ -121,7 +121,7 @@ BEGIN TRANSACTION
 						[CollectionPeriodMonth], 
 						[CollectionPeriodYear],
 						[LearningAimFundingLineType],
-						[EAT.SenderAccountId]
+						EAT.[SenderAccountId]
 				From	[Data_Pub].[DAS_Payments_V2]  P		
 				JOIN 	( SELECT DISTINCT SenderAccountId,ApprenticeshipId
 						  FROM [ASData_PL].[Fin_AccountTransfers]

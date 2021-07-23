@@ -24,7 +24,7 @@ AS
 						, le.DateOfIncorporation                                                                             AS LegalEntityCreatedDateTime
 						, CAST(le.Code as nvarchar(50))                                                                      AS LegalEntityNumber 
 						, CAST((CASE
-						WHEN le.Source = 3 THEN le.Code 
+						WHEN le.Source = 1 THEN le.Code 
 						ELSE ''
 						END) AS NVARCHAR(50))																				 AS LegalEntityCompanyReferenceNumber
 						, CAST((CASE

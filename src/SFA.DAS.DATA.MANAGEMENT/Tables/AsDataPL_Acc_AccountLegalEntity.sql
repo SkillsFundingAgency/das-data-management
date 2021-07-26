@@ -17,6 +17,7 @@
    ,[IncentivesVrfCaseStatus] nvarchar(100) null
    ,[IncentivesVrfCaseStatusLastUpdatedDateTime] datetime2(7) null
    ,[Address] nvarchar(256) null
+   ,[HashedLegalEntityId] nvarchar(6) null
    ,[AsDm_UpdatedDateTime] datetime2 Default(getdate())
    ,CONSTRAINT PK_Acc_AccountLegalEntity_Id PRIMARY KEY CLUSTERED (Id)
 )

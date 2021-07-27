@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [AsData_PL].[aComt_CommitmentStatement]
 (
-  	[Id] [bigint] IDENTITY(1,1) NOT NULL,
+  	[Id] [bigint] NOT NULL,
 	[ApprenticeshipId] [bigint] NOT NULL,
 	[CommitmentsApprenticeshipId] [bigint] NOT NULL,
 	[CommitmentsApprovedOn] [datetime2](7) NOT NULL,

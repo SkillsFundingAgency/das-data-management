@@ -84,9 +84,10 @@ BEGIN TRANSACTION
 					   ,CollectionPeriodMonth
 					   ,CollectionPeriodYear
 					   ,LearningAimFundingLineType
+					   ,SenderAccountID
 				  )
 				  select 
-						[PaymentID], 
+						P.[PaymentID], 
 						[UKPRN], 
 						[ULN], 
 						[EmployerAccountID], 
@@ -119,8 +120,14 @@ BEGIN TRANSACTION
 						[CollectionPeriodName], 
 						[CollectionPeriodMonth], 
 						[CollectionPeriodYear],
-						[LearningAimFundingLineType]
-				From	[Data_Pub].[DAS_Payments_V2] 				
+						[LearningAimFundingLineType],
+						paym.[SenderAccountId]
+				From	[Data_Pub].[DAS_Payments_V2]  P		
+				JOIN 	( 				
+						select  distinct [TransferSenderAccountId] As SenderAccountID,
+						       [EventId]  As PaymentID
+						from  [StgPmts].[Payment]
+						) paym ON P.PaymentID = paym.PaymentID 
 						
 
 Commit Transaction

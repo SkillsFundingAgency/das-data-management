@@ -87,7 +87,7 @@ BEGIN TRANSACTION
 					   ,SenderAccountID
 				  )
 				  select 
-						[PaymentID], 
+						P.[PaymentID], 
 						[UKPRN], 
 						[ULN], 
 						[EmployerAccountID], 
@@ -121,11 +121,13 @@ BEGIN TRANSACTION
 						[CollectionPeriodMonth], 
 						[CollectionPeriodYear],
 						[LearningAimFundingLineType],
-						EAT.[SenderAccountId]
+						paym.[SenderAccountId]
 				From	[Data_Pub].[DAS_Payments_V2]  P		
-				JOIN 	( SELECT DISTINCT SenderAccountId,ApprenticeshipId
-						  FROM [ASData_PL].[Fin_AccountTransfers]
-						) EAT ON P.CommitmentID = EAT.ApprenticeshipId 
+				JOIN 	( 				
+						select  distinct [TransferSenderAccountId] As SenderAccountID,
+						       [EventId]  As PaymentID
+						from  [StgPmts].[Payment]
+						) paym ON P.PaymentID = paym.PaymentID 
 						
 
 Commit Transaction

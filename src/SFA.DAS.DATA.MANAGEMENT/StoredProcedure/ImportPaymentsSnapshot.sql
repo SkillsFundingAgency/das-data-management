@@ -129,9 +129,7 @@ BEGIN TRANSACTION
 						from  [StgPmts].[Payment]
 						) paym ON P.PaymentID = paym.PaymentID 
 						
-
 Commit Transaction
-
 
 		 /* Update Log Execution Results as Success if the query ran succesfully*/
 

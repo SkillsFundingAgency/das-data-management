@@ -95,6 +95,7 @@ BEGIN TRY
 						   ,[IncentivesVrfCaseStatus]
 						   ,[IncentivesVrfCaseStatusLastUpdatedDateTime]
 						   ,[Address]
+						   ,[HashedLegalEntityId]
 						   )
 				Select 
 							 Acc_AccLegalEntity.Id
@@ -114,6 +115,7 @@ BEGIN TRY
 						    ,EI_Acc.VrfCaseStatus
 						    ,EI_Acc.VrfCaseStatusLastUpdatedDateTime
 							,Acc_AccLegalEntity.[Address]
+							,EI_Acc.[HashedLegalEntityId]
 					FROM     stg.Acc_AccountLegalEntity As Acc_AccLegalEntity  LEFT JOIN stg.EI_Accounts AS EI_Acc
 							ON Acc_AccLegalEntity.Id = EI_Acc.AccountLegalEntityId   
 							AND Acc_AccLegalEntity.LegalEntityId = EI_Acc.LegalEntityId
@@ -133,6 +135,7 @@ BEGIN TRY
 						    ,EI_Acc.VrfCaseStatus
 						    ,EI_Acc.VrfCaseStatusLastUpdatedDateTime
 							,Acc_AccLegalEntity.[Address]
+							,EI_Acc.[HashedLegalEntityId]
               '
 			   EXEC SP_EXECUTESQL @VSQL
 

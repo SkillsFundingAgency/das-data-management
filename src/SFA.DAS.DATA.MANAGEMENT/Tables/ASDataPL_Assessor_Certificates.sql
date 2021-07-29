@@ -8,6 +8,7 @@
 [ContactOrganisation]							[NVarchar](200)			NULL,
 [ContactPostCode]								[NVarchar](20)			NULL,
 [CourseOption]									[NVarchar](200)			NULL,
+[EPADate]										[DateTime2](7)			NULL,
 [CreatedAt]										[DateTime2](7)			NULL,
 [CreatedBy]										[NVarchar](100)			NULL,
 [CreateDay]										[Date]					NULL,	

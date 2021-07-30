@@ -340,5 +340,9 @@
     <Build Include="StoredProcedure\LoadRPLookupData.sql" />
     <Build Include="Tables\AsDataPL_PAS_User.sql" />
     <Build Include="Tables\AsDataPL_Assessor_Apply.sql" />
+    <Build Include="Tables\AsDataPL_aComt_Apprentice.sql" />
+    <Build Include="Tables\AsDataPL_aComt_Apprenticeship.sql" />
+    <Build Include="Tables\AsDataPL_aComt_CommitmentStatement.sql" />
+    <Build Include="Tables\AsDataPL_aComt_Registration.sql" />
   </ItemGroup>
 </Project>

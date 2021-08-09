@@ -11,7 +11,7 @@
    ,PrimaryLink nvarchar(4000)
    ,AsDm_CreatedDate Datetime2
    ,AsDm_UpdatedDate datetime2
-   ,IsRetentionApplied bit
+   ,IsRetentionApplied bit DEFAULT (0)
    ,RetentionAppliedDate  DateTime2(7)
 )
 GO

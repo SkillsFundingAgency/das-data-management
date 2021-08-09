@@ -342,5 +342,6 @@
     <Build Include="Tables\AsDataPL_Assessor_Apply.sql" />
     <Build Include="Tables\Mtd_DataRetentionConfig.sql" />
     <Build Include="StoredProcedure\PopulateMetadataDataRetention.sql" />
+    <Build Include="StoredProcedure\UpdateRetentionData.sql" />
   </ItemGroup>
 </Project>

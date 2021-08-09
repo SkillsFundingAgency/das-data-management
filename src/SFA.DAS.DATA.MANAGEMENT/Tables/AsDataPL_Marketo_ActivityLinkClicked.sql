@@ -9,6 +9,8 @@
    ,QueryParameters nvarchar(max)
    ,WebpageURL nvarchar(4000)
    ,PrimaryLink nvarchar(4000)
+   ,IsRetentionApplied bit
+   ,RetentionAppliedDate  DateTime2(7)
    ,AsDm_CreatedDate Datetime2
    ,AsDm_UpdatedDate datetime2
 )

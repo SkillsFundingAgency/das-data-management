@@ -13,6 +13,8 @@
 ,StatusId nvarchar(255)
 ,LeadProgramCreatedAt datetime2
 ,LeadProgramUpdatedAt datetime2
+,IsRetentionApplied bit
+,RetentionAppliedDate  DateTime2(7)
 ,AsDm_CreatedDate Datetime2
 ,AsDm_UpdatedDate datetime2
 )

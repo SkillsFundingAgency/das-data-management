@@ -5,8 +5,13 @@
  ,DataSetName VARCHAR(25)
  ,DataSetTable VARCHAR(25)
  ,DataSetSchema VARCHAR(25)
- ,SensitiveColumns VARCHAR(255)
+ ,PrimaryJOINColumn  VARCHAR(50)
  ,RetentionPeriodInMonths INT
+ ,SensitiveColumns VARCHAR(255)
+ ,RetentionColumn VARCHAR(50)
+ ,RefColumn  VARCHAR(50)
+ ,RefDataSetTable  VARCHAR(50)
+ ,RefDataSetSchema VARCHAR(50)
  ,PreImportRetention BIT
  ,PostImportRetention BIT
  ,IsActive BIT

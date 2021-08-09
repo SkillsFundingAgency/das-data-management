@@ -5,6 +5,8 @@
    ,ActivityDate datetime2
    ,ActivityTypeId bigint
    ,CampaignId bigint
+   ,IsRetentionApplied bit
+   ,RetentionAppliedDate  DateTime2(7)
    ,AsDm_CreatedDate Datetime2
    ,AsDm_UpdatedDate datetime2
 )

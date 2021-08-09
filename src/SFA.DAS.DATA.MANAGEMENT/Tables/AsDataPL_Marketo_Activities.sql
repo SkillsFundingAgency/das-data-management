@@ -5,10 +5,10 @@
    ,ActivityDate datetime2
    ,ActivityTypeId bigint
    ,CampaignId bigint
-   ,IsRetentionApplied bit
-   ,RetentionAppliedDate  DateTime2(7)
    ,AsDm_CreatedDate Datetime2
    ,AsDm_UpdatedDate datetime2
+   ,IsRetentionApplied bit
+   ,RetentionAppliedDate  DateTime2(7)
 )
 GO
 CREATE NONCLUSTERED INDEX [NCI_MA_LeadId] ON [AsData_PL].[MarketoLeadActivities]([LeadId] ASC)

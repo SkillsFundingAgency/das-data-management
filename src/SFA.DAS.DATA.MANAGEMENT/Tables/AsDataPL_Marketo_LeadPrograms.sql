@@ -13,10 +13,10 @@
 ,StatusId nvarchar(255)
 ,LeadProgramCreatedAt datetime2
 ,LeadProgramUpdatedAt datetime2
-,IsRetentionApplied bit
-,RetentionAppliedDate  DateTime2(7)
 ,AsDm_CreatedDate Datetime2
 ,AsDm_UpdatedDate datetime2
+,IsRetentionApplied bit
+,RetentionAppliedDate  DateTime2(7)
 )
 go
 CREATE NONCLUSTERED INDEX [NCI_MLP_LeadId] ON [AsData_PL].[MarketoLeadPrograms]([LeadId] ASC)

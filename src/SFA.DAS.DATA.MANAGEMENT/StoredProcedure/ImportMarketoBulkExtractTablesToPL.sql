@@ -43,6 +43,35 @@ BEGIN TRANSACTION
 
 /* Delta Code */
 
+Update Target
+SET  Target.FirstName=CASE WHEN Source.FirstName='NULL' THEN NULL ELSE Source.FirstName END
+    ,Target.LastName=CASE WHEN Source.LastName='NULL' THEN NULL ELSE Source.LastName END
+	,Target.EmailAddress=CASE WHEN Source.EmailAddress='NULL' THEN NULL ELSE Source.EmailAddress END
+	,Target.LeadCreatedAt=Source.LeadCreatedAt
+	,Target.LeadUpdatedAt=Source.LeadUpdatedAt
+	,Target.AsDm_UpdatedDate=getdate()
+	,Target.EmployerHashedID=Source.EmployerHashedId 
+	,Target.ProviderId=Source.ProviderId 
+FROM AsData_PL.MarketoLeads as Target  JOIN 
+(
+		Select distinct MLData.LeadId,MLData.[FirstName],MLData.[LastName],MLData.[EmailAddress],MLData.[LeadCreatedAt],MLData.[LeadUpdatedAt],EmpData.EmployerHashedId,ProviderData.Ukprn As ProviderID
+		from [ASData_PL].[MarketoLeads]  MLData   LEFT JOIN 
+		(			  select ml.LeadId,au.HashedId as EmployerHashedId  from [ASData_PL].[MarketoLeads] ml
+					  inner join (  select au.Email,au.id,aus.AccountId as EmployerAccountId,aa.HashedId from asdata_pl.acc_user au join ASData_PL.Acc_UserAccountSettings aus
+						on au.Id=aus.UserId join ASData_PL.Acc_Account aa on aa.Id=aus.AccountId ) au on ml.EmailAddress=au.Email 
+		) As EmpData ON MLData.LeadId = EmpData.LeadId
+		LEFT JOIN ( select ml.LeadId,PUser.Ukprn from [ASData_PL].[MarketoLeads]  ml JOIN ASData_PL.PAS_User PUser  ON ml.EmailAddress = PUser.Email ) As ProviderData ON MLData.LeadId= ProviderData.LeadId
+) as source
+ON Target.LeadId=Source.LeadId
+where 
+	   ISNULL(Target.FirstName,'NA')<>ISNULL(CASE WHEN Source.FirstName='NULL' THEN NULL ELSE Source.FirstName END,'NA')
+	OR ISNULL(Target.LastName,'NA')<>ISNULL(CASE WHEN Source.LastName='NULL' THEN NULL ELSE Source.LastName END,'NA')
+	OR ISNULL(Target.EmailAddress,'NA')<>ISNULL(CASE WHEN Source.EmailAddress='NULL' THEN NULL ELSE Source.EmailAddress END,'NA')
+	OR ISNULL(Target.LeadCreatedAt,'1900-01-01')<>ISNULL(Source.LeadCreatedAt,'1900-01-01')
+	OR ISNULL(Target.LeadUpdatedAt,'1900-01-01')<>ISNULL(Source.LeadUpdatedAt,'1900-01-01')
+	OR ISNULL(Target.EmployerHashedID,'NA')<>ISNULL(Source.EmployerHashedID,'NA')
+	OR ISNULL(Target.ProviderId,-9999)<>ISNULL(Source.ProviderId,-9999)
+
 /* Delta Update MarketoLeads */
 ;with baseMarketoLeadsData as
 (

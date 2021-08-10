@@ -42,15 +42,9 @@ BEGIN
 BEGIN TRANSACTION
 
 /* Delta Code */
-
 Update Target
-SET  Target.FirstName=CASE WHEN Source.FirstName='NULL' THEN NULL ELSE Source.FirstName END
-    ,Target.LastName=CASE WHEN Source.LastName='NULL' THEN NULL ELSE Source.LastName END
-	,Target.EmailAddress=CASE WHEN Source.EmailAddress='NULL' THEN NULL ELSE Source.EmailAddress END
-	,Target.LeadCreatedAt=Source.LeadCreatedAt
-	,Target.LeadUpdatedAt=Source.LeadUpdatedAt
-	,Target.AsDm_UpdatedDate=getdate()
-	,Target.EmployerHashedID=Source.EmployerHashedId 
+SET  
+	 Target.EmployerHashedID=Source.EmployerHashedId 
 	,Target.ProviderId=Source.ProviderId 
 FROM AsData_PL.MarketoLeads as Target  JOIN 
 (
@@ -63,13 +57,8 @@ FROM AsData_PL.MarketoLeads as Target  JOIN
 		LEFT JOIN ( select ml.LeadId,PUser.Ukprn from [ASData_PL].[MarketoLeads]  ml JOIN ASData_PL.PAS_User PUser  ON ml.EmailAddress = PUser.Email ) As ProviderData ON MLData.LeadId= ProviderData.LeadId
 ) as source
 ON Target.LeadId=Source.LeadId
-where 
-	   ISNULL(Target.FirstName,'NA')<>ISNULL(CASE WHEN Source.FirstName='NULL' THEN NULL ELSE Source.FirstName END,'NA')
-	OR ISNULL(Target.LastName,'NA')<>ISNULL(CASE WHEN Source.LastName='NULL' THEN NULL ELSE Source.LastName END,'NA')
-	OR ISNULL(Target.EmailAddress,'NA')<>ISNULL(CASE WHEN Source.EmailAddress='NULL' THEN NULL ELSE Source.EmailAddress END,'NA')
-	OR ISNULL(Target.LeadCreatedAt,'1900-01-01')<>ISNULL(Source.LeadCreatedAt,'1900-01-01')
-	OR ISNULL(Target.LeadUpdatedAt,'1900-01-01')<>ISNULL(Source.LeadUpdatedAt,'1900-01-01')
-	OR ISNULL(Target.EmployerHashedID,'NA')<>ISNULL(Source.EmployerHashedID,'NA')
+where 	   
+	   ISNULL(Target.EmployerHashedID,'NA')<>ISNULL(Source.EmployerHashedID,'NA')
 	OR ISNULL(Target.ProviderId,-9999)<>ISNULL(Source.ProviderId,-9999)
 
 /* Delta Update MarketoLeads */

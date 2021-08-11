@@ -50,23 +50,23 @@ Declare @UpdateQuery NVarchar(max) = NULL,
 BEGIN TRANSACTION
 			/* Get all the parameter data from Mtd.DataRetentionConfig */
 			Select
-					@PrimaryJOINColumn = PrimaryJOINColumn,
-					@RetentionPeriodInMonths = RetentionPeriodInMonths,
-					@SensitiveColumns = SensitiveColumns,
-					@RetentionColumn = RetentionColumn,
-					@RefColumn = RefColumn,
-					@RefDataSetTable = RefDataSetTable,
-					@RefDataSetSchema = RefDataSetSchema
+					@PrimaryJOINColumn = Case when trim(PrimaryJOINColumn) IS NULL Then '' Else trim(PrimaryJOINColumn) End,
+					@RetentionPeriodInMonths = Case when trim(RetentionPeriodInMonths) IS NULL Then '' Else trim(RetentionPeriodInMonths) End,
+					@SensitiveColumns = Case When trim(SensitiveColumns) IS NULL Then '' Else trim(SensitiveColumns) End,
+					@RetentionColumn = Case When trim(RetentionColumn) IS NULL Then '' Else trim(RetentionColumn) End,
+					@RefColumn = Case When trim(RefColumn) IS NULL Then '' Else trim(RefColumn) End,
+					@RefDataSetTable = Case When trim(RefDataSetTable) IS NULL Then '' Else trim(RefDataSetTable) End,
+					@RefDataSetSchema = Case When trim(RefDataSetSchema) IS NULL Then '' Else trim(RefDataSetSchema) End
 			FROM Mtd.DataRetentionConfig
 			Where DataSetName = @DataSetName AND DataSetTable = @DataSetTable AND DataSetSchema = @DataSetSchema
+			
+			Set @UpdateColsList = '' 
 
-			Set @SensitiveColumns = NULL
-
-			If (@RefDataSetTable = '' Or @RefDataSetTable IS NULL)  And (@RefDataSetSchema = '' Or @RefDataSetSchema IS NULL)
+			If @RefDataSetTable = '' And @RefDataSetSchema = '' 
 			Begin 
 					Set @UpdateClause = 'UPDATE PT '
 					Set @RetentioUpdateCluase = ' SET PT.IsRetentionApplied = 1,PT.RetentionAppliedDate = getdate() '
-					If @SensitiveColumns != '' Or @SensitiveColumns IS NOT NULL 
+					If @SensitiveColumns != '' 
 					Begin 			
 						SELECT @UpdateColsList = COALESCE(@UpdateColsList + ',','') + Value
 						FROM ( Select 'PT.' + Value + ' = NULL' As Value from (select * from STRING_SPLIT (@SensitiveColumns, ',')) As  uc)  ucl
@@ -77,13 +77,13 @@ BEGIN TRANSACTION
 					Set @UpdateQuery  = @UpdateClause + @RetentioUpdateCluase + @UpdateColsList +  @FromClause + @WhereClause
 		
 			End 
-			If (@RefDataSetTable != '' Or @RefDataSetTable IS NOT NULL)  And (@RefDataSetSchema != '' Or @RefDataSetSchema IS NOT NULL)
+			Else If @RefDataSetTable != ''  And @RefDataSetSchema != '' 
 			Begin 
 					Set @UpdateClause = 'UPDATE ST '
 		
 					Set @RetentioUpdateCluase = ' SET ST.IsRetentionApplied = 1,ST.RetentionAppliedDate = getdate() '		
 
-					If @SensitiveColumns != '' Or @SensitiveColumns IS NOT NULL 
+					If @SensitiveColumns != ''  
 					Begin 			
 						SELECT @UpdateColsList = COALESCE(@UpdateColsList + ',','') + Value
 						FROM ( Select 'ST.' + Value + ' = NULL' As Value from (select * from STRING_SPLIT (@SensitiveColumns, ',')) As  uc)  ucl
@@ -96,7 +96,7 @@ BEGIN TRANSACTION
 
 					Set @JOINClause  = ' ON PT.' + @PrimaryJOINColumn + ' = ST.' + @RefColumn				
 
-					If @RetentionColumn  IS NOT NULL or @RetentionColumn != '' 
+					If @RetentionColumn != '' 
 						Set @WhereClause = ' Where Datediff(Month,PT.' + @RetentionColumn + ',GetDate()) >=' + Cast(@RetentionPeriodInMonths As Varchar(10))
 					Else
 						Set @WhereClause = ' Where PT.IsRetentionApplied = 1'		

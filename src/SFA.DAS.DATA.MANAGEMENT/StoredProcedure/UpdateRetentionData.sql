@@ -51,7 +51,7 @@ BEGIN TRANSACTION
 			/* Get all the parameter data from Mtd.DataRetentionConfig */
 			Select
 					@PrimaryJOINColumn = Case when trim(PrimaryJOINColumn) IS NULL Then '' Else trim(PrimaryJOINColumn) End,
-					@RetentionPeriodInMonths = Case when trim(RetentionPeriodInMonths) IS NULL Then '' Else trim(RetentionPeriodInMonths) End,
+					@RetentionPeriodInMonths = Case when RetentionPeriodInMonths IS NULL Then '' Else RetentionPeriodInMonths End,
 					@SensitiveColumns = Case When trim(SensitiveColumns) IS NULL Then '' Else trim(SensitiveColumns) End,
 					@RetentionColumn = Case When trim(RetentionColumn) IS NULL Then '' Else trim(RetentionColumn) End,
 					@RefColumn = Case When trim(RefColumn) IS NULL Then '' Else trim(RefColumn) End,

@@ -2,12 +2,12 @@
 (
   DRC_Id BIGINT Identity(1,1) PRIMARY KEY
  ,SFCI_Id BIGINT
- ,DataSetName VARCHAR(25)
- ,DataSetTable VARCHAR(25)
- ,DataSetSchema VARCHAR(25)
+ ,DataSetName VARCHAR(50)
+ ,DataSetTable VARCHAR(50)
+ ,DataSetSchema VARCHAR(50)
  ,PrimaryJOINColumn  VARCHAR(50)
  ,RetentionPeriodInMonths INT
- ,SensitiveColumns VARCHAR(255)
+ ,SensitiveColumns VARCHAR(500)
  ,RetentionColumn VARCHAR(50)
  ,RefColumn  VARCHAR(50)
  ,RefDataSetTable  VARCHAR(50)

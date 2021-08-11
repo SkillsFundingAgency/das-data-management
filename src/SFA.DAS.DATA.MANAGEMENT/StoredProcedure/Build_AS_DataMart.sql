@@ -40,6 +40,7 @@ EXEC [dbo].[PopulateMetadataForRefreshDataset] @RunId
 
 EXEC [dbo].[PopulateMetadataNationalMinimumWageRates] @RunId
 
+EXEC [dbo].[PopulateMetadataDataRetention] @RunId
 /* Populate Metadata For Roles and Permissions */
 
 EXEC [dbo].[PopulateMetadataRolesAndPermissions] @RunId

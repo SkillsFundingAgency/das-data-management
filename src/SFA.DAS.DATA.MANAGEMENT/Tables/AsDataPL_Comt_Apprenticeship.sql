@@ -27,8 +27,7 @@
 	[ContinuationOfId] [bigint] NULL,
 	[MadeRedundant] [bit] NULL,
 	[OriginalStartDate] [datetime] NULL,
-	[Age] [int] NULL,
-	[Email]  [NVarchar](200) NULL,
+	[Age] [int] NULL,	
 	[AsDm_UpdatedDateTime] datetime2 default getdate(),
 	CONSTRAINT PK_Comt_Apprenticeship_Id PRIMARY KEY CLUSTERED (Id)
 ) ON [PRIMARY]

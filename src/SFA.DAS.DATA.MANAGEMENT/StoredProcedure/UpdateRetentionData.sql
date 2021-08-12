@@ -74,7 +74,7 @@ BEGIN TRANSACTION
 					End
 					Set @FromClause  = ' FROM ' + @DataSetSchema + '.' + @DataSetTable +' PT '
 					Set @WhereClause = ' Where Datediff(Month,PT.' + @RetentionColumn + ',GetDate()) >=' + Cast(@RetentionPeriodInMonths As Varchar(10))
-					Set @UpdateQuery  = @UpdateClause + @RetentioUpdateCluase + @UpdateColsList +  @FromClause + @WhereClause
+					Set @UpdateQuery  = @UpdateClause + @RetentioUpdateCluase + replace(@UpdateColsList,',,',',') +  replace(@FromClause,',,',',') + replace(@WhereClause,',,',',')
 		
 			End 
 			Else If @RefDataSetTable != ''  And @RefDataSetSchema != '' 
@@ -101,7 +101,7 @@ BEGIN TRANSACTION
 					Else
 						Set @WhereClause = ' Where PT.IsRetentionApplied = 1'		
 
-					Set @UpdateQuery  = @UpdateClause + @RetentioUpdateCluase + @UpdateColsList +  @FromClause + @JOINClause + @WhereClause		
+					Set @UpdateQuery  = @UpdateClause + @RetentioUpdateCluase + replace(@UpdateColsList,',,',',') +  replace(@FromClause,',,',',') + @JOINClause + replace(@WhereClause,',,',',')				
 			End 
 
 			exec sp_executeSQL @UpdateQuery

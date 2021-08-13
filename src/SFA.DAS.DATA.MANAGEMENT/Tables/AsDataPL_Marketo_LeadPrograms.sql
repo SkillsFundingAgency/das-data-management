@@ -15,6 +15,8 @@
 ,LeadProgramUpdatedAt datetime2
 ,AsDm_CreatedDate Datetime2
 ,AsDm_UpdatedDate datetime2
+,IsRetentionApplied bit DEFAULT (0)
+,RetentionAppliedDate  DateTime2(7)
 )
 go
 CREATE NONCLUSTERED INDEX [NCI_MLP_LeadId] ON [AsData_PL].[MarketoLeadPrograms]([LeadId] ASC)

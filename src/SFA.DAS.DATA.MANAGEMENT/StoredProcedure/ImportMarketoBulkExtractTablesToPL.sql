@@ -42,11 +42,38 @@ BEGIN
 BEGIN TRANSACTION
 
 /* Delta Code */
+Update Target
+SET  
+	 Target.EmployerHashedID=Source.EmployerHashedId 
+	,Target.ProviderId=Source.ProviderId 
+FROM AsData_PL.MarketoLeads as Target  JOIN 
+(
+		Select distinct MLData.LeadId,MLData.[FirstName],MLData.[LastName],MLData.[EmailAddress],MLData.[LeadCreatedAt],MLData.[LeadUpdatedAt],EmpData.EmployerHashedId,ProviderData.Ukprn As ProviderID
+		from [ASData_PL].[MarketoLeads]  MLData   LEFT JOIN 
+		(			  select ml.LeadId,au.HashedId as EmployerHashedId  from [ASData_PL].[MarketoLeads] ml
+					  inner join (  select au.Email,au.id,aus.AccountId as EmployerAccountId,aa.HashedId from asdata_pl.acc_user au join ASData_PL.Acc_UserAccountSettings aus
+						on au.Id=aus.UserId join ASData_PL.Acc_Account aa on aa.Id=aus.AccountId ) au on ml.EmailAddress=au.Email 
+		) As EmpData ON MLData.LeadId = EmpData.LeadId
+		LEFT JOIN ( select ml.LeadId,PUser.Ukprn from [ASData_PL].[MarketoLeads]  ml JOIN ASData_PL.PAS_User PUser  ON ml.EmailAddress = PUser.Email ) As ProviderData ON MLData.LeadId= ProviderData.LeadId
+) as source
+ON Target.LeadId=Source.LeadId
+where 	   
+	   ISNULL(Target.EmployerHashedID,'NA')<>ISNULL(Source.EmployerHashedID,'NA')
+	OR ISNULL(Target.ProviderId,-9999)<>ISNULL(Source.ProviderId,-9999)
 
 /* Delta Update MarketoLeads */
-
+;with baseMarketoLeadsData as
+(
+		Select distinct MLData.LeadId,MLData.[FirstName],MLData.[LastName],MLData.[EmailAddress],MLData.[CreatedAt],MLData.[UpdatedAt],EmpData.EmployerHashedId,ProviderData.Ukprn As ProviderID
+		from stg.MarketoLeads  MLData   LEFT JOIN 
+		(			  select ml.LeadId,au.HashedId as EmployerHashedId  from stg.MarketoLeads ml
+					  inner join (  select au.Email,au.id,aus.AccountId as EmployerAccountId,aa.HashedId from asdata_pl.acc_user au join ASData_PL.Acc_UserAccountSettings aus
+						on au.Id=aus.UserId join ASData_PL.Acc_Account aa on aa.Id=aus.AccountId ) au on ml.EmailAddress=au.Email 
+		) As EmpData ON MLData.LeadId = EmpData.LeadId
+		LEFT JOIN ( select ml.LeadId,PUser.Ukprn from stg.MarketoLeads  ml JOIN ASData_PL.PAS_User PUser  ON ml.EmailAddress = PUser.Email ) As ProviderData ON MLData.LeadId= ProviderData.LeadId
+)
 MERGE AsData_PL.MarketoLeads as Target
- USING Stg.MarketoLeads as Source
+ USING baseMarketoLeadsData as Source
     ON Target.LeadId=TRY_CONVERT(bigint,Source.LeadId)
   WHEN MATCHED AND ( ISNULL(Target.FirstName,'NA')<>ISNULL(CASE WHEN Source.FirstName='NULL' THEN NULL ELSE Source.FirstName END,'NA')
                   OR ISNULL(Target.LastName,'NA')<>ISNULL(CASE WHEN Source.LastName='NULL' THEN NULL ELSE Source.LastName END,'NA')
@@ -58,6 +85,8 @@ MERGE AsData_PL.MarketoLeads as Target
 				 ,Target.LeadCreatedAt=TRY_CONVERT(datetime2,CASE WHEN Source.CreatedAt='null' then NULL WHEN Source.CreatedAt LIKE '%+%' THEN SUBSTRING(Source.CreatedAt,1,CHARINDEX('+',Source.CreatedAt)-1) ELSE Source.CreatedAt END,104)
 				 ,Target.LeadUpdatedAt=TRY_CONVERT(datetime2,CASE WHEN Source.UpdatedAt='null' then NULL WHEN Source.UpdatedAt LIKE '%+%' THEN SUBSTRING(Source.UpdatedAt,1,CHARINDEX('+',Source.UpdatedAt)-1) ELSE Source.UpdatedAt END,104)
 				 ,Target.AsDm_UpdatedDate=getdate()
+				 ,Target.EmployerHashedID=Source.EmployerHashedId 
+				 ,Target.ProviderId=Source.ProviderId 
   WHEN NOT MATCHED BY TARGET 
   THEN INSERT (LeadId
               ,FirstName
@@ -65,6 +94,8 @@ MERGE AsData_PL.MarketoLeads as Target
 			  ,EmailAddress
 			  ,LeadCreatedAt
 			  ,LeadUpdatedAt
+			  ,EmployerHashedID
+			  ,ProviderID
 			  ,AsDm_CreatedDate
 			  ,AsDm_UpdatedDate) 
        VALUES (TRY_CONVERT(bigint,LeadId)
@@ -73,6 +104,8 @@ MERGE AsData_PL.MarketoLeads as Target
 			  ,CASE WHEN Source.EmailAddress='NULL' THEN NULL ELSE Source.EmailAddress END
 			  ,TRY_CONVERT(datetime2,CASE WHEN Source.CreatedAt='null' then NULL WHEN Source.CreatedAt LIKE '%+%' THEN SUBSTRING(Source.CreatedAt,1,CHARINDEX('+',Source.CreatedAt)-1) ELSE Source.CreatedAt END,104)
 			  ,TRY_CONVERT(datetime2,CASE WHEN Source.UpdatedAt='null' then NULL WHEN Source.UpdatedAt LIKE '%+%' THEN SUBSTRING(Source.UpdatedAt,1,CHARINDEX('+',Source.UpdatedAt)-1) ELSE Source.UpdatedAt END,104)
+			  ,Source.EmployerHashedID
+			  ,Source.ProviderID
 			  ,getdate()
 			  ,getdate());
 

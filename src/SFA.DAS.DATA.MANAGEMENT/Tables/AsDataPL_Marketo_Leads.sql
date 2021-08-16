@@ -6,8 +6,12 @@
 ,EmailAddress nvarchar(255)
 ,LeadCreatedAt datetime2
 ,LeadUpdatedAt datetime2
+,EmployerHashedId  nvarchar(100)
+,ProviderId  bigint NULL
 ,AsDm_CreatedDate Datetime2
 ,AsDm_UpdatedDate datetime2
+,IsRetentionApplied bit DEFAULT (0)
+,RetentionAppliedDate  DateTime2(7)
 ,CONSTRAINT [PK_MLS_LeadId] PRIMARY KEY CLUSTERED([LeadId] ASC)
 )
 go

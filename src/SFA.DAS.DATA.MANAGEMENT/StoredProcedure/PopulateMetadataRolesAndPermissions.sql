@@ -84,6 +84,7 @@ VALUES
 ('BetaUser','ASData_PL','DAS_AssessorAssessmentData','VIEW','SELECT',0,1),
 ('BetaUser','ASData_PL','Comt_Apprenticeship','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','Comt_Commitment','TABLE','SELECT',0,1),
+('BetaUser','ASData_PL','Comt_ApprenticeshipConfirmationStatus','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','EI_ApprenticeshipBreakInLearning','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','EI_ApprenticeshipDaysInLearning','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','EI_ApprenticeshipIncentive','TABLE','SELECT',0,1),

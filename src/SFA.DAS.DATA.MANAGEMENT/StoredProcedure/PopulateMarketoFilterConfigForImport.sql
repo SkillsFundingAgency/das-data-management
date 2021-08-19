@@ -86,7 +86,7 @@ VALUES
 ,('2021-02-19T00:00:00Z','2021-02-20T23:59:59Z')
 ,('2021-04-22T00:00:00Z','2021-04-23T23:59:59Z')
 ,('2021-05-01T00:00:00Z','2021-05-14T23:59:59Z')
-
+,('2021-08-17T00:00:00Z','2021-08-20T00:00:00Z') 
 /* Refresh Last 2 months Marketo Data */
 
 INSERT INTO #tMarketoFilterConfig
@@ -136,6 +136,7 @@ VALUES
 ,('2021-02-19T00:00:00Z','2021-02-20T23:59:59Z')
 ,('2021-04-22T00:00:00Z','2021-04-23T23:59:59Z')
 ,('2021-05-01T00:00:00Z','2021-05-14T23:59:59Z')
+,('2021-08-17T00:00:00Z','2021-08-20T23:59:59Z')
 /* Refresh Last 2 months Marketo Data */
 INSERT INTO #tMarketoFilterConfigForPrograms
 (StartDateFilter,EndDateFilter)

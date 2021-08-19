@@ -48,7 +48,7 @@ SET
 	,Target.ProviderId=Source.ProviderId 
 FROM AsData_PL.MarketoLeads as Target  JOIN 
 (
-		Select MLData.LeadId,MLData.[FirstName],MLData.[LastName],MLData.[EmailAddress],MLData.[LeadCreatedAt],MLData.[LeadUpdatedAt],STRING_AGG(EmpData.EmployerHashedId,',') As EmployerHashedId,STRING_AGG(ProviderData.Ukprn,',') As ProviderID
+		Select MLData.LeadId,MLData.[FirstName],MLData.[LastName],MLData.[EmailAddress],MLData.[LeadCreatedAt],MLData.[LeadUpdatedAt],STRING_AGG(EmpData.EmployerHashedId,',') As EmployerHashedId,STRING_AGG(Cast(ProviderData.Ukprn As NVarchar(20)),',') As ProviderID
 		from [ASData_PL].[MarketoLeads]  MLData   LEFT JOIN 
 		(			  select ml.LeadId,au.HashedId as EmployerHashedId  from [ASData_PL].[MarketoLeads] ml
 					  inner join (  select au.Email,au.id,aus.AccountId as EmployerAccountId,aa.HashedId from asdata_pl.acc_user au join ASData_PL.Acc_UserAccountSettings aus
@@ -60,12 +60,12 @@ FROM AsData_PL.MarketoLeads as Target  JOIN
 ON Target.LeadId=Source.LeadId
 where 	   
 	   ISNULL(Target.EmployerHashedID,'NA')<>ISNULL(Source.EmployerHashedID,'NA')
-	OR ISNULL(Target.ProviderId,-9999)<>ISNULL(Source.ProviderId,-9999)
+	OR ISNULL(Target.ProviderId,'NA')<>ISNULL(Source.ProviderId,'NA')
 
 /* Delta Update MarketoLeads */
 ;with baseMarketoLeadsData as
 (
-		Select MLData.LeadId,MLData.[FirstName],MLData.[LastName],MLData.[EmailAddress],MLData.[CreatedAt],MLData.[UpdatedAt],STRING_AGG(EmpData.EmployerHashedId,',') As EmployerHashedId,STRING_AGG(ProviderData.Ukprn,',') As ProviderID
+		Select MLData.LeadId,MLData.[FirstName],MLData.[LastName],MLData.[EmailAddress],MLData.[CreatedAt],MLData.[UpdatedAt],STRING_AGG(EmpData.EmployerHashedId,',') As EmployerHashedId,STRING_AGG(Cast(ProviderData.Ukprn As NVarchar(20)),',') As ProviderID
 		from stg.MarketoLeads  MLData   LEFT JOIN 
 		(			  select ml.LeadId,au.HashedId as EmployerHashedId  from stg.MarketoLeads ml
 					  inner join (  select au.Email,au.id,aus.AccountId as EmployerAccountId,aa.HashedId from asdata_pl.acc_user au join ASData_PL.Acc_UserAccountSettings aus

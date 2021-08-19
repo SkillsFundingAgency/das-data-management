@@ -7,7 +7,7 @@
 ,LeadCreatedAt datetime2
 ,LeadUpdatedAt datetime2
 ,EmployerHashedId  nvarchar(100)
-,ProviderId  bigint NULL
+,ProviderId  nvarchar(100) NULL
 ,AsDm_CreatedDate Datetime2
 ,AsDm_UpdatedDate datetime2
 ,IsRetentionApplied bit DEFAULT (0)

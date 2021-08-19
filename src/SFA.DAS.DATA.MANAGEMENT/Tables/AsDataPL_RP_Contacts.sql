@@ -5,7 +5,6 @@
 	[SigninType]					[nvarchar](20)						NULL,
 	[ApplyOrganisationID]			[uniqueidentifier]					NULL,	
 	[Status]						[nvarchar](20)						NULL,
-	[IsApproved]					[bit]								NULL,
 	[CreatedAt]						[datetime2](7)						NULL,
 	[CreatedBy]						[nvarchar](256)						NULL,
 	[UpdatedAt]						[datetime2](7)						NULL,

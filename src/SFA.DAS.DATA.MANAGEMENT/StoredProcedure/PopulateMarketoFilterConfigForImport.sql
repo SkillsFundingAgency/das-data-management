@@ -151,7 +151,6 @@ SELECT StartDateFilter,EndDateFilter
 					WHERE MFC.StartDateFilter=TMFC.StartDateFilter
 					  and MFC.EndDateFilter=TMFC.EndDateFilter)
 
-
 COMMIT TRANSACTION
 
 

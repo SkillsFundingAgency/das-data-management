@@ -2,7 +2,7 @@
 (
 	[Id]								[uniqueidentifier]	NOT NULL PRIMARY KEY,
 	[PendingPaymentId]					[uniqueidentifier]  NULL,
-	[Step]								[nvarchar](20)		NULL,
+	[Step]								[nvarchar](50)		NULL,
 	[Result]							[bit]				NULL,
 	[PeriodNumber]						[tinyint]			NULL,
 	[PaymentYear]						[smallint]			NULL,

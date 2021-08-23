@@ -348,5 +348,12 @@
     <Build Include="Tables\AsDataPL_aComt_CommitmentStatement.sql" />
     <Build Include="Tables\AsDataPL_aComt_Registration.sql" />
     <Build Include="Tables\ASDataPL_Comt_ApprenticeshipConfirmationStatus.sql" />
+    <Build Include="Tables\ASDataPL_LTM_Application.sql" />
+    <Build Include="Tables\ASDataPL_LTM_Pledge.sql" />
+    <Build Include="Tables\ASDataPL_LTM_PledgeLevel.sql" />
+    <Build Include="Tables\ASDataPL_LTM_PledgeLocation.sql" />
+    <Build Include="Tables\ASDataPL_LTM_PledgeRole.sql" />
+    <Build Include="Tables\ASDataPL_LTM_PledgeSector.sql" />
+    <Build Include="Tables\ASDataPL_LTM_ApplicationEmailAddress.sql" />
   </ItemGroup>
 </Project>

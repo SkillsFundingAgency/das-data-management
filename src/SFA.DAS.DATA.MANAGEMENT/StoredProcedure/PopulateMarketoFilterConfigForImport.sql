@@ -86,7 +86,7 @@ VALUES
 ,('2021-02-19T00:00:00Z','2021-02-20T23:59:59Z')
 ,('2021-04-22T00:00:00Z','2021-04-23T23:59:59Z')
 ,('2021-05-01T00:00:00Z','2021-05-14T23:59:59Z')
-
+,('2021-08-17T00:00:00Z','2021-08-23T00:00:00Z') 
 /* Refresh Last 2 months Marketo Data */
 
 INSERT INTO #tMarketoFilterConfig
@@ -94,9 +94,6 @@ INSERT INTO #tMarketoFilterConfig
 VALUES
  ('2021-05-15T00:00:00Z','2021-05-31T23:59:59Z')
 ,('2021-06-01T00:00:00Z','2021-06-20T23:59:59Z')
-
-
-
 
 /* Insert main Config Table if not already exists */
 INSERT INTO Mtd.MarketoFilterConfig
@@ -136,6 +133,7 @@ VALUES
 ,('2021-02-19T00:00:00Z','2021-02-20T23:59:59Z')
 ,('2021-04-22T00:00:00Z','2021-04-23T23:59:59Z')
 ,('2021-05-01T00:00:00Z','2021-05-14T23:59:59Z')
+,('2021-08-17T00:00:00Z','2021-08-23T23:59:59Z')
 /* Refresh Last 2 months Marketo Data */
 INSERT INTO #tMarketoFilterConfigForPrograms
 (StartDateFilter,EndDateFilter)
@@ -152,7 +150,6 @@ SELECT StartDateFilter,EndDateFilter
                      FROM Mtd.MarketoFilterConfigForPrograms MFC
 					WHERE MFC.StartDateFilter=TMFC.StartDateFilter
 					  and MFC.EndDateFilter=TMFC.EndDateFilter)
-
 
 COMMIT TRANSACTION
 

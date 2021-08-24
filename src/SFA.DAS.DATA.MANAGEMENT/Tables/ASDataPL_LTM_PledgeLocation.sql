@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[ASDataPL_LTM_PledgeLocation]
+﻿CREATE TABLE [ASData_PL].[LTM_PledgeLocation]
 (
 	[Id] [int]					NOT NULL,
 	[PledgeId] [int]			NOT NULL,

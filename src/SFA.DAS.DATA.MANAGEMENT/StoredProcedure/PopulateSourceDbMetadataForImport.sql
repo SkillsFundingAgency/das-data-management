@@ -310,8 +310,8 @@ VALUES
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL])
 VALUES
- ('LevyTransfer','Application','dbo','[Id],[EmployerAccountId],[PledgeId],[Details],[NumberOfApprentices],[StandardId],[StartDate],[Amount],[HasTrainingProvider],[Sectors],[CreatedOn],[RowVersion]','[PostCode],[FirstName],[LastName],[BusinessWebsite]','','LTM_Application',0)
-,('LevyTransfer','Pledge','dbo','[Id],[EmployerAccountId],[Amount],[RemainingAmount],[IsNamePublic],[CreatedOn],[JobRoles],[Levels],[Sectors],[RowVersion]','','','LTM_Pledge',0)
+ ('LevyTransfer','Application','dbo','[Id],[EmployerAccountId],[PledgeId],[Details],[NumberOfApprentices],[StandardId],[StartDate],[Amount],[HasTrainingProvider],[Sectors],[CreatedOn],[Status],[UpdatedOn]','[PostCode],[FirstName],[LastName],[BusinessWebsite],[RowVersion]','','LTM_Application',0)
+,('LevyTransfer','Pledge','dbo','[Id],[EmployerAccountId],[Amount],[RemainingAmount],[IsNamePublic],[CreatedOn],[JobRoles],[Levels],[Sectors]','[RowVersion]','','LTM_Pledge',0)
 ,('LevyTransfer','PledgeLevel','dbo','[PledgeLevelId],[LevelId],[PledgeId]','','','LTM_PledgeLevel',0)
 ,('LevyTransfer','PledgeLocation','dbo','[Id],[PledgeId],[Name],[Latitude],[Longitude]','','','LTM_PledgeLocation',0)
 ,('LevyTransfer','PledgeRole','dbo','[PledgeRoleId],[RoleId],[PledgeId]','','','LTM_PledgeRole',0)

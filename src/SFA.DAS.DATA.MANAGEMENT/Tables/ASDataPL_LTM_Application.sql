@@ -11,6 +11,7 @@
 	[HasTrainingProvider] [bit]		NOT NULL,
 	[Sectors] [int]					NOT NULL,	
 	[CreatedOn] [datetime2](7)		NOT NULL,
-	[RowVersion] [timestamp]		NOT NULL,
+	[Status] [Tinyint]				NOT NULL,
+	[UpdatedOn] [Datetime2](7)		NULL,
 	[AsDm_UpdatedDateTime] datetime2 default getdate()
 ) ON [PRIMARY]

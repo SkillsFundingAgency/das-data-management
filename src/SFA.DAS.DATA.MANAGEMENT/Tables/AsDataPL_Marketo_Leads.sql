@@ -6,8 +6,8 @@
 ,EmailAddress nvarchar(255)
 ,LeadCreatedAt datetime2
 ,LeadUpdatedAt datetime2
-,EmployerHashedId  nvarchar(200)
-,ProviderId  nvarchar(200) NULL
+,EmployerHashedId  nvarchar(3000)
+,ProviderId  nvarchar(3000) NULL
 ,AsDm_CreatedDate Datetime2
 ,AsDm_UpdatedDate datetime2
 ,IsRetentionApplied bit DEFAULT (0)

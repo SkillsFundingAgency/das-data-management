@@ -355,5 +355,6 @@
     <Build Include="Tables\ASDataPL_LTM_PledgeRole.sql" />
     <Build Include="Tables\ASDataPL_LTM_PledgeSector.sql" />
     <Build Include="Tables\ASDataPL_LTM_ApplicationEmailAddress.sql" />
+    <Build Include="Tables\ASDataPL_LTM_ApplicationStatusHistory.sql" />
   </ItemGroup>
 </Project>

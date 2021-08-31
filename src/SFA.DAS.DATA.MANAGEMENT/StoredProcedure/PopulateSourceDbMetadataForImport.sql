@@ -316,6 +316,7 @@ VALUES
 ,('LevyTransfer','PledgeLocation','dbo','[Id],[PledgeId],[Name],[Latitude],[Longitude]','','','LTM_PledgeLocation',0)
 ,('LevyTransfer','PledgeRole','dbo','[PledgeRoleId],[RoleId],[PledgeId]','','','LTM_PledgeRole',0)
 ,('LevyTransfer','PledgeSector','dbo','[PledgeSectorId],[SectorId],[PledgeId]','','','LTM_PledgeSector',0)
+,('LevyTransfer','ApplicationStatusHistory','dbo','[Id],[ApplicationId],[CreatedOn],[Status]','','','LTM_ApplicationStatusHistory',0)
 
 COMMIT TRANSACTION
 

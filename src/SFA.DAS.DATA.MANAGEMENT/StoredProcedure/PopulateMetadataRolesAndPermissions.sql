@@ -122,6 +122,7 @@ VALUES
 ('BetaUser','ASData_PL','LTM_PledgeLocation','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','LTM_PledgeRole','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','LTM_PledgeSector','TABLE','SELECT',0,1),
+('BetaUser','ASData_PL','LTM_ApplicationStatusHistory','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','MarketoActivityTypes','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','MarketoCampaigns','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','MarketoLeadActivities','TABLE','SELECT',0,1),

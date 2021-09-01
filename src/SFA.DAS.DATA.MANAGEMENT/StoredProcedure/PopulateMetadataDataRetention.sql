@@ -48,12 +48,12 @@ VALUES (-1,'Marketo','MarketoLeads','AsData_PL','LeadID',24,'FirstName,LastName,
 (-1,'Marketo','MarketoLeadPrograms','AsData_PL','LeadID',24,'FirstName,LastName,EmailAddress','','LeadID','MarketoLeads','AsData_PL',1,0,1),
 (-1,'Marketo','MarketoLeadActivityLinkClicked','AsData_PL','LeadID',24,'ReferrerURL,Link,QueryParameters','','LeadID','MarketoLeads','AsData_PL',1,0,1),
 (-1,'Accounts','Acc_Account','AsData_PL','Id',84,'','CreatedDate','','','',0,1,1),
-(-1,'Accounts','Acc_AccountUserRole','AsData_PL','Id',84,'','AccountId','acc_account','AsData_PL',0,1,1),
-(-1,'Accounts','Acc_User','AsData_PL','Id',84,'FirstName,LastName,Email','UserId','acc_account','AsData_PL',0,1,1),
-(-1,'Accounts','EAU_User','AsData_PL','Id',84,'FirstName,LastName,Email','UserRef','acc_user','AsData_PL',0,1,1),
-(-1,'Accounts','Acc_AccountHistory','AsData_PL','AccountId',84,'PayeRef','ID','acc_account','AsData_PL',0,1,1),
-(-1,'Accounts','Acc_AccountLegalEntity','AsData_PL','AccountId',84,'PayeRef','ID','acc_account','AsData_PL',0,1,1),
-(-1,'Accounts','Acc_Paye','AsData_PL','Name',84,'Ref','Name','acc_account','AsData_PL',0,1,1)
+(-1,'Accounts','Acc_AccountUserRole','AsData_PL','Id',84,'','','AccountId','acc_account','AsData_PL',0,1,1),
+(-1,'Accounts','Acc_User','AsData_PL','Id',84,'FirstName,LastName,Email','','UserId','acc_account','AsData_PL',0,1,1),
+(-1,'Accounts','EAU_User','AsData_PL','Id',84,'FirstName,LastName,Email','','UserRef','acc_user','AsData_PL',0,1,1),
+(-1,'Accounts','Acc_AccountHistory','AsData_PL','AccountId',84,'PayeRef','','ID','acc_account','AsData_PL',0,1,1),
+(-1,'Accounts','Acc_AccountLegalEntity','AsData_PL','AccountId',84,'PayeRef','','ID','acc_account','AsData_PL',0,1,1),
+(-1,'Accounts','Acc_Paye','AsData_PL','Name',84,'Ref','','Name','acc_account','AsData_PL',0,1,1)
 COMMIT TRANSACTION
 
 UPDATE Mgmt.Log_Execution_Results

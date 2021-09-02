@@ -52,7 +52,6 @@ VALUES (-1,'Marketo','MarketoLeads','AsData_PL','LeadID',24,'FirstName,LastName,
 (-1,'Accounts','Acc_User','AsData_PL','Id',84,'FirstName,LastName,Email','','UserId','acc_accountuserrole','AsData_PL',0,1,1),
 (-1,'Accounts','EAU_User','AsData_PL','Id',84,'FirstName,LastName,Email','','UserRef','acc_user','AsData_PL',0,1,1),
 (-1,'Accounts','Acc_AccountHistory','AsData_PL','AccountId',84,'PayeRef','','ID','acc_account','AsData_PL',0,1,1),
-(-1,'Accounts','Acc_AccountLegalEntity','AsData_PL','AccountId',84,'PayeRef','','ID','acc_account','AsData_PL',0,1,1),
 (-1,'Accounts','Acc_Paye','AsData_PL','Name',84,'Ref','','Name','acc_account','AsData_PL',0,1,1)
 COMMIT TRANSACTION
 

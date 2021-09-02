@@ -46,13 +46,22 @@ INSERT INTO Mtd.DataRetentionConfig
 VALUES (-1,'Marketo','MarketoLeads','AsData_PL','LeadID',24,'FirstName,LastName,EmailAddress','LeadCreatedAt','','','',1,0,1),
 (-1,'Marketo','MarketoLeadActivities','AsData_PL','LeadID',24,'','','LeadID','MarketoLeads','AsData_PL',1,0,1),
 (-1,'Marketo','MarketoLeadPrograms','AsData_PL','LeadID',24,'FirstName,LastName,EmailAddress','','LeadID','MarketoLeads','AsData_PL',1,0,1),
-(-1,'Marketo','MarketoLeadActivityLinkClicked','AsData_PL','LeadID',24,'ReferrerURL,Link,QueryParameters','','LeadID','MarketoLeads','AsData_PL',1,0,1),
-(-1,'Accounts','Acc_Account','AsData_PL','Id',84,'','CreatedDate','','','',0,1,1),
-(-1,'Accounts','Acc_AccountUserRole','AsData_PL','AccountId',84,'','','Id','acc_account','AsData_PL',0,1,1),
-(-1,'Accounts','Acc_User','AsData_PL','Id',84,'FirstName,LastName,Email','','UserId','acc_accountuserrole','AsData_PL',0,1,1),
-(-1,'Accounts','EAU_User','AsData_PL','Id',84,'FirstName,LastName,Email','','UserRef','acc_user','AsData_PL',0,1,1),
-(-1,'Accounts','Acc_AccountHistory','AsData_PL','AccountId',84,'PayeRef','','ID','acc_account','AsData_PL',0,1,1),
-(-1,'Accounts','Acc_Paye','AsData_PL','Name',84,'Ref','','Name','acc_account','AsData_PL',0,1,1)
+(-1,'Marketo','MarketoLeadActivityLinkClicked','AsData_PL','LeadID',24,'ReferrerURL,Link,QueryParameters','','LeadID','MarketoLeads','AsData_PL',1,0,1)
+
+/* Accounts and Users Retention Config */
+INSERT INTO Mtd.DataRetentionConfig
+( SFCI_Id,DataSetName,DataSetTable,DataSetSchema,DataSetJOINColumn,RetentionPeriodInMonths,SensitiveColumns,RetentionColumn,RefColumn,RefDataSetTable,RefDataSetSchema,PreImportRetention,PostImportRetention,IsActive)
+SELECT SCFI_Id,'Accounts','Acc_Account','AsData_PL','Id',84,'','CreatedDate','','','',0,1,1 FROM Mtd.sourceconfigforimport WHERE SourceDatabaseName='Accounts' and SourceTableName='Account'
+SELECT SCFI_Id,'Accounts','Acc_AccountUserRole','AsData_PL','AccountId',84,'','','Id','acc_account','AsData_PL',0,1,1  FROM Mtd.sourceconfigforimport  WHERE SourceDatabaseName='Accounts' and SourceTableName='Membership'
+SELECT SCFI_Id,'Accounts','Acc_User','AsData_PL','Id',84,'FirstName,LastName,Email','','UserId','acc_accountuserrole','AsData_PL',0,1,1  FROM Mtd.sourceconfigforimport  WHERE SourceDatabaseName='Accounts' and SourceTableName='User'
+SELECT SCFI_Id,'Users','EAU_User','AsData_PL','Id',84,'FirstName,LastName,Email','','UserRef','acc_user','AsData_PL',0,1,1  FROM Mtd.sourceconfigforimport  WHERE SourceDatabaseName='Users' and SourceTableName='User'
+SELECT SCFI_Id,'Accounts','Acc_AccountHistory','AsData_PL','AccountId',84,'PayeRef','','ID','acc_account','AsData_PL',0,1,1  FROM Mtd.sourceconfigforimport  WHERE SourceDatabaseName='Accounts' and SourceTableName='AccountHistory'
+SELECT SCFI_Id,'Accounts','Acc_Paye','AsData_PL','Name',84,'Ref','','Name','acc_account','AsData_PL',0,1,1  FROM Mtd.sourceconfigforimport WHERE SourceDatabaseName='Accounts' and SourceTableName='Paye'
+
+
+
+
+
 COMMIT TRANSACTION
 
 UPDATE Mgmt.Log_Execution_Results

@@ -3,7 +3,7 @@
 (
 	[Id] [bigint] NOT NULL,
 	[AccountId] [bigint] NOT NULL,
-	[PayeRef] [nvarchar](500) NOT NULL,
+	[PayeRef] [nvarchar](500) NULL,
 	[AddedDate] [datetime] NOT NULL,
 	[RemovedDate] [datetime] NULL,
 	[IsRetentionApplied] bit DEFAULT (0),

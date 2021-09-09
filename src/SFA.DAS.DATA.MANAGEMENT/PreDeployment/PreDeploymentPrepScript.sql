@@ -601,3 +601,10 @@ IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
 	      )
 DROP TABLE [Stg].[SpendControlNonLevy_v2]
 
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'aComt_CommitmentStatement'
+		      AND TABLE_SCHEMA=N'AsData_PL'
+	      )
+DROP TABLE [ASData_PL].[aComt_CommitmentStatement]
+

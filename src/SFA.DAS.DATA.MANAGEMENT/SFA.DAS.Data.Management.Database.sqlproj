@@ -345,7 +345,7 @@
     <Build Include="StoredProcedure\UpdateRetentionData.sql" />
     <Build Include="Tables\AsDataPL_aComt_Apprentice.sql" />
     <Build Include="Tables\AsDataPL_aComt_Apprenticeship.sql" />
-    <Build Include="Tables\AsDataPL_aComt_CommitmentStatement.sql" />
+    <Build Include="Tables\AsDataPL_aComt_Revision.sql" />
     <Build Include="Tables\AsDataPL_aComt_Registration.sql" />
     <Build Include="Tables\ASDataPL_Comt_ApprenticeshipConfirmationStatus.sql" />
   </ItemGroup>

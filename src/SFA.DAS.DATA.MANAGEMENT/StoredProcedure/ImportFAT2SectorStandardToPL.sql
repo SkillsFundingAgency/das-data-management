@@ -80,6 +80,11 @@ BEGIN TRY
 								,[MaxFunding]
 								,[IsActive]
 								,[VersionApprovedForDelivery]
+								,[EffectiveFrom]
+								,[EffectiveTo]
+								,[VersionMajor]
+								,[VersionMinor]
+								,[IsLatestVersion]
 						   )				
 					SELECT
 					  std.[StandardUId]
@@ -122,12 +127,17 @@ BEGIN TRY
 					  ,AssessorStandard.[MaxFunding]
 					  ,AssessorStandard.[IsActive]
 					  ,AssessorStandard.[VersionApprovedForDelivery]
+					  ,ComtStandard.EffectiveFrom
+					  ,ComtStandard.EffectiveTo
+					  ,ComtStandard.VersionMajor
+					  ,ComtStandard.VersionMinor
+					  ,ComtStandard.IsLatestVersion
 					FROM [Stg].[FAT2_Standard] std JOIN [Stg].[FAT2_Route] tblRoute 
 					ON std.[RouteCode] =  tblRoute.[Id]	LEFT JOIN [ASData_PL].[Va_ApprenticeshipStandard] AppStandard ON std.LarsCode = AppStandard.LarsCode AND std.Title = AppStandard.StandardFullName
-					LEFT JOIN [stg].[Assessor_Standards] AssessorStandard ON std.LarsCode = AssessorStandard.LarsCode AND std.StandardUId = AssessorStandard.StandardUId'
+					LEFT JOIN [stg].[Assessor_Standards] AssessorStandard ON std.LarsCode = AssessorStandard.LarsCode AND std.StandardUId = AssessorStandard.StandardUId
+					LEFT JOIN [stg].[Comt_Standard] ComtStandard ON std.LarsCode = ComtStandard.LarsCode AND std.StandardUId = ComtStandard.StandardUId'
 
 					 exec SP_EXECUTESQL @DynSQL
-
 
 					IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='FAT2_Standard' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 					DROP TABLE [Stg].[FAT2_Standard]
@@ -137,6 +147,9 @@ BEGIN TRY
 
 					IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Assessor_Standards' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 					DROP TABLE [stg].[Assessor_Standards]
+
+					IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Comt_Standard' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+					DROP TABLE [stg].[Comt_Standard]
 
 			COMMIT TRANSACTION
 

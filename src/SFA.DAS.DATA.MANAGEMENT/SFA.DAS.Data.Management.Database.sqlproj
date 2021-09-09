@@ -350,6 +350,5 @@
     <Build Include="Tables\ASDataPL_Comt_ApprenticeshipConfirmationStatus.sql" />
     <Build Include="Tables\ASDataPL_Comt_ApprenticeshipUpdate.sql" />
     <Build Include="Tables\AsDataPL_Comt_StandardOption.sql" />
-    <Build Include="Tables\AsDataPL_Comt_StandardFunding.sql" />
   </ItemGroup>
 </Project>

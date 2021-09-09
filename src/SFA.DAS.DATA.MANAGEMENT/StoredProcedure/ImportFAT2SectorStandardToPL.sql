@@ -79,9 +79,7 @@ BEGIN TRY
 								,[TypicalDuration]
 								,[MaxFunding]
 								,[IsActive]
-								,[VersionApprovedForDelivery]
-								,[EffectiveFrom]
-								,[EffectiveTo]
+								,[VersionApprovedForDelivery]							
 								,[VersionMajor]
 								,[VersionMinor]
 								,[IsLatestVersion]
@@ -127,8 +125,6 @@ BEGIN TRY
 					  ,AssessorStandard.[MaxFunding]
 					  ,AssessorStandard.[IsActive]
 					  ,AssessorStandard.[VersionApprovedForDelivery]
-					  ,ComtStandard.EffectiveFrom
-					  ,ComtStandard.EffectiveTo
 					  ,ComtStandard.VersionMajor
 					  ,ComtStandard.VersionMinor
 					  ,ComtStandard.IsLatestVersion

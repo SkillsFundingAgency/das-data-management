@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [AsData_PL].[aComt_Registration]
 (
-  	  [ApprenticeId] uniqueidentifier not null
+  	  [RegistrationId] uniqueidentifier not null
 	 ,[CommitmentsApprenticeshipId] bigint not null
 	 ,[CommitmentsApprovedOn] datetime2
 	 ,[EmployerAccountLegalEntityId] [bigint] NOT NULL
@@ -18,5 +18,5 @@
 	 ,[FirstViewedOn] datetime2
 	 ,[SignUpReminderSentOn] datetime2
 	 ,[Asdm_UpdatedDateTime] datetime2 default getdate()
- ,CONSTRAINT PK_aComt_Reg_Id PRIMARY KEY CLUSTERED (ApprenticeId)
+ ,CONSTRAINT PK_aComt_Reg_Id PRIMARY KEY CLUSTERED (RegistrationId)
 )

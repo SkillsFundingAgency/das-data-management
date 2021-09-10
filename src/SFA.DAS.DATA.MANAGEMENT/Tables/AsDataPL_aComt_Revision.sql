@@ -1,4 +1,4 @@
-﻿CREATE TABLE [AsData_PL].[aComt_CommitmentStatement]
+﻿CREATE TABLE [AsData_PL].[aComt_Revision]
 (
   	[Id] [bigint] NOT NULL,
 	[ApprenticeshipId] [bigint] NOT NULL,

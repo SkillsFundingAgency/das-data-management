@@ -144,7 +144,6 @@ VALUES
 
 /* Commitments Query Based Import */
 
-
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,StagingTableName,PLTableName,[ModelDataToPL],[IsQueryBasedImport],SourceQuery)
 VALUES

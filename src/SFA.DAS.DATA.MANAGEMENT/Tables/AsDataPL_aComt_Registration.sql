@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [AsData_PL].[aComt_Registration]
 (
-  	  [RegistrationId] uniqueidentifier not null
+  	  [ApprenticeId] uniqueidentifier not null
 	 ,[CommitmentsApprenticeshipId] bigint not null
 	 ,[CommitmentsApprovedOn] datetime2
 	 ,[EmployerAccountLegalEntityId] [bigint] NOT NULL

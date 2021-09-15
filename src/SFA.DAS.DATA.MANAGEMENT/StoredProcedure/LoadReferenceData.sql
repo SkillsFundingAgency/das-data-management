@@ -81,7 +81,7 @@ VALUES
 ('Commitments','Approvals',4,'TransferSenderAgreed'),
 ('Commitments','Approvals',5,'TransferSenderAndEmployerAgreed'),
 ('Commitments','Approvals',6,'TransferSenderAndProviderAgreed'),
-('Commitments','Approvals',7,'AllAgreed');
+('Commitments','Approvals',7,'AllAgreed'),
 --LevyTransferMatching
 ('LevyTransferMatching','Status',0,'Pending'),
 ('LevyTransferMatching','Status',1,'Approved'),

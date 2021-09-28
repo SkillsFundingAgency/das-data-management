@@ -152,9 +152,12 @@
 		  AND RD.FieldName='Approvals'
 		  AND RD.FieldValue=C.Approvals
 
-	LEFT JOIN [ASData_PL].[EI_ApprenticeshipIncentive]  AI
+	LEFT JOIN (SELECT ID,ApprenticeshipId
+			     FROM (SELECT ID,ApprenticeshipId,ROW_NUMBER() OVER (PARTITION BY ApprenticeshipId ORDER BY SubmittedDate desc) rn
+			             FROM ASData_PL.EI_ApprenticeshipIncentive
+			           ) AI
+			    WHERE Rn=1)  AI
 			ON A.ID = AI.[ApprenticeshipId]
-           and AI.Status<>'withdrawn'
 	LEFT JOIN 
 			( SELECT [ApprenticeshipIncentiveId],count([PaidDate]) as PaidDateCount      
 			  FROM [ASData_PL].[EI_Payment] 

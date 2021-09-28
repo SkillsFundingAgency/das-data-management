@@ -154,7 +154,7 @@
 
 	LEFT JOIN [ASData_PL].[EI_ApprenticeshipIncentive]  AI
 			ON A.ID = AI.[ApprenticeshipId]
-
+           and AI.Status<>'withdrawn'
 	LEFT JOIN 
 			( SELECT [ApprenticeshipIncentiveId],count([PaidDate]) as PaidDateCount      
 			  FROM [ASData_PL].[EI_Payment] 

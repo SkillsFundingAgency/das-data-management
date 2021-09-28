@@ -5,7 +5,7 @@
  ,DataSetName VARCHAR(50)
  ,DataSetTable VARCHAR(50)
  ,DataSetSchema VARCHAR(50)
- ,[DatasetJOINColumn]  VARCHAR(50)
+ ,DataSetJOINColumn  VARCHAR(50)
  ,RetentionPeriodInMonths INT
  ,SensitiveColumns VARCHAR(500)
  ,RetentionColumn VARCHAR(50)

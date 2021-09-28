@@ -11,6 +11,7 @@ SET NOCOUNT ON
 
  DECLARE	@LogID int, 			
 			@DatasetJOINColumn Varchar(50),
+			@DataSetJoinColumn Varchar(50),
 			@RetentionPeriodInMonths Varchar(50),
 			@SensitiveColumns Varchar(50),
 			@RetentionColumn Varchar(50),
@@ -93,8 +94,8 @@ BEGIN TRANSACTION
 						Set @UpdateColsList = ''
 
 					Set @FromClause  = ' FROM ' + @DataSetSchema + '.' + @DataSetTable +' ST ' + ' JOIN ' + @RefDataSetSchema + '.' + @RefDataSetTable + ' PT '				
-
 					Set @JOINClause  = ' ON PT.' + @DatasetJOINColumn + ' = ST.' + @RefColumn				
+					Set @JOINClause  = ' ON PT.' + @RefColumn + ' = ST.' + @DataSetJOINColumn				
 
 					If @RetentionColumn != '' 
 						Set @WhereClause = ' Where Datediff(Month,PT.' + @RetentionColumn + ',GetDate()) >=' + Cast(@RetentionPeriodInMonths As Varchar(10))

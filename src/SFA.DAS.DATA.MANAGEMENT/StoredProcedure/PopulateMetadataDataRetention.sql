@@ -41,7 +41,7 @@ BEGIN TRANSACTION
 DELETE FROM Mtd.DataRetentionConfig
 
 INSERT INTO Mtd.DataRetentionConfig
-( SFCI_Id,DataSetName,DataSetTable,DataSetSchema,DatasetJOINColumn,RetentionPeriodInMonths,SensitiveColumns,RetentionColumn,RefColumn,RefDataSetTable,RefDataSetSchema,PreImportRetention,PostImportRetention,IsActive)
+( SFCI_Id,DataSetName,DataSetTable,DataSetSchema,DataSetJOINColumn,RetentionPeriodInMonths,SensitiveColumns,RetentionColumn,RefColumn,RefDataSetTable,RefDataSetSchema,PreImportRetention,PostImportRetention,IsActive)
 /* Marketo Metadata */
 VALUES (-1,'Marketo','MarketoLeads','AsData_PL','LeadID',24,'FirstName,LastName,EmailAddress','LeadCreatedAt','','','',1,0,1),
 (-1,'Marketo','MarketoLeadActivities','AsData_PL','LeadID',24,'','','LeadID','MarketoLeads','AsData_PL',1,0,1),
@@ -53,6 +53,30 @@ VALUES (-1,'Marketo','MarketoLeads','AsData_PL','LeadID',24,'FirstName,LastName,
 (-1,'Commitment','Comt_DataLockStatus','AsData_PL','ApprenticeshipId',24,'','','Id','Comt_Apprenticeship','AsData_PL',1,0,1),
 (-1,'Commitment','Comt_History','AsData_PL','CommitmentId',24,'','','Id','Comt_Commitment','AsData_PL',1,0,1),
 (-1,'Commitment','Comt_Providers','AsData_PL','UKPRN',24,'Name','Created','','','',1,0,1)
+
+/* Accounts and Users Retention Config */
+INSERT INTO Mtd.DataRetentionConfig
+( SFCI_Id,DataSetName,DataSetTable,DataSetSchema,DataSetJOINColumn,RetentionPeriodInMonths,SensitiveColumns,RetentionColumn,RefColumn,RefDataSetTable,RefDataSetSchema,PreImportRetention,PostImportRetention,IsActive)
+SELECT SCFI_Id,'Accounts','Acc_Account','AsData_PL','Id',84,'','CreatedDate','','','',0,1,1 FROM Mtd.sourceconfigforimport WHERE SourceDatabaseName='Accounts' and SourceTableName='Account'
+INSERT INTO Mtd.DataRetentionConfig
+( SFCI_Id,DataSetName,DataSetTable,DataSetSchema,DataSetJOINColumn,RetentionPeriodInMonths,SensitiveColumns,RetentionColumn,RefColumn,RefDataSetTable,RefDataSetSchema,PreImportRetention,PostImportRetention,IsActive)
+SELECT SCFI_Id,'Accounts','Acc_AccountUserRole','AsData_PL','AccountId',84,'','','Id','acc_account','AsData_PL',0,1,1  FROM Mtd.sourceconfigforimport  WHERE SourceDatabaseName='Accounts' and SourceTableName='Membership'
+INSERT INTO Mtd.DataRetentionConfig
+( SFCI_Id,DataSetName,DataSetTable,DataSetSchema,DataSetJOINColumn,RetentionPeriodInMonths,SensitiveColumns,RetentionColumn,RefColumn,RefDataSetTable,RefDataSetSchema,PreImportRetention,PostImportRetention,IsActive)
+SELECT SCFI_Id,'Accounts','Acc_User','AsData_PL','Id',84,'FirstName,LastName,Email','','UserId','acc_accountuserrole','AsData_PL',0,1,1  FROM Mtd.sourceconfigforimport  WHERE SourceDatabaseName='Accounts' and SourceTableName='User'
+INSERT INTO Mtd.DataRetentionConfig
+( SFCI_Id,DataSetName,DataSetTable,DataSetSchema,DataSetJOINColumn,RetentionPeriodInMonths,SensitiveColumns,RetentionColumn,RefColumn,RefDataSetTable,RefDataSetSchema,PreImportRetention,PostImportRetention,IsActive)
+SELECT SCFI_Id,'Users','EAU_User','AsData_PL','Id',84,'FirstName,LastName,Email','','UserRef','acc_user','AsData_PL',0,1,1  FROM Mtd.sourceconfigforimport  WHERE SourceDatabaseName='Users' and SourceTableName='User'
+INSERT INTO Mtd.DataRetentionConfig
+( SFCI_Id,DataSetName,DataSetTable,DataSetSchema,DataSetJOINColumn,RetentionPeriodInMonths,SensitiveColumns,RetentionColumn,RefColumn,RefDataSetTable,RefDataSetSchema,PreImportRetention,PostImportRetention,IsActive)
+SELECT SCFI_Id,'Accounts','Acc_AccountHistory','AsData_PL','AccountId',84,'PayeRef','','ID','acc_account','AsData_PL',0,1,1  FROM Mtd.sourceconfigforimport  WHERE SourceDatabaseName='Accounts' and SourceTableName='AccountHistory'
+INSERT INTO Mtd.DataRetentionConfig
+( SFCI_Id,DataSetName,DataSetTable,DataSetSchema,DataSetJOINColumn,RetentionPeriodInMonths,SensitiveColumns,RetentionColumn,RefColumn,RefDataSetTable,RefDataSetSchema,PreImportRetention,PostImportRetention,IsActive)
+SELECT SCFI_Id,'Accounts','Acc_Paye','AsData_PL','Name',84,'Ref','','Name','acc_account','AsData_PL',0,1,1  FROM Mtd.sourceconfigforimport WHERE SourceDatabaseName='Accounts' and SourceTableName='Paye'
+
+
+
+
 
 COMMIT TRANSACTION
 

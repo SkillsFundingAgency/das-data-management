@@ -312,7 +312,7 @@ INSERT INTO Mtd.SourceConfigForImport
 VALUES
  ('LevyTransfer','Application','dbo','[Id],[EmployerAccountId],[PledgeId],[Details],[NumberOfApprentices],[StandardId],[StartDate],[Amount],[HasTrainingProvider],[Sectors],[CreatedOn],[Status],[UpdatedOn]','[PostCode],[FirstName],[LastName],[BusinessWebsite],[RowVersion]','','LTM_Application',0)
 ,('LevyTransfer','Pledge','dbo','[Id],[EmployerAccountId],[Amount],[RemainingAmount],[IsNamePublic],[CreatedOn],[JobRoles],[Levels],[Sectors]','[RowVersion]','','LTM_Pledge',0)
-,('LevyTransfer','PledgeLocation','dbo','[Id],[PledgeId],[Name],[Latitude],[Longitude]','','','LTM_PledgeLocation',0)
+,('LevyTransfer','PledgeLocation','dbo','[Id],[PledgeId]','','[Name],[Latitude],[Longitude]','LTM_PledgeLocation',0)
 ,('LevyTransfer','ApplicationStatusHistory','dbo','[Id],[ApplicationId],[CreatedOn],[Status]','','','LTM_ApplicationStatusHistory',0)
 
 COMMIT TRANSACTION

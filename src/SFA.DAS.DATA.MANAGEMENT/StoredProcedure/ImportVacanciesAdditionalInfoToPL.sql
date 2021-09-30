@@ -140,6 +140,7 @@ INSERT INTO ASData_PL.Va_ContactMessages
       ,UpdatedDateTime 
       ,UserId  
       ,Enquiry 
+	  ,Feedback
       ,SourceContactMessagesId 
       ,SourceDb 
 )
@@ -147,6 +148,7 @@ SELECT dbo.Fn_ConvertTimeStampToDateTime(CM.DateCreatedTimeStamp)      as DateCr
 	  ,dbo.Fn_ConvertTimeStampToDateTime(CM.DateUpdatedTimeStamp)      as DateUpdatedTimeStamp
 	  ,CM.UserId                                                       as UserId
 	  ,CM.Enquiry                                                      as Enquiry
+	  ,CM.Details                                                      as Details
 	  ,CM.BinaryId                                                     as SourceContactMessageId
 	  ,'RAAv2'                                                         as SourceDb
   FROM Stg.FAA_ContactMessages CM

@@ -9,6 +9,7 @@
  ,DateUpdatedTimeStamp varchar(256)
  ,UserId varchar(256) 
  ,Enquiry varchar(max)
+ ,Details nvarchar(max)
  ,RunId bigint  default(-1)
  ,AsDm_CreatedDate datetime2 default(getdate()) 
  ,AsDm_UpdatedDate datetime2 default(getdatE())

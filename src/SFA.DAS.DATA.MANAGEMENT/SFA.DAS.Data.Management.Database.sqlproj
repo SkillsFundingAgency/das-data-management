@@ -304,7 +304,7 @@
     <Build Include="Tables\ASDataPL_Assessor_OrganisationStandard.sql" />
     <Build Include="Tables\AsDataPL_FAT2_ShortList.sql" />
     <Build Include="Tables\AsDataPL_RP_Appeal.sql" />
-    <Build Include="Tables\AsDataPL_RP_AppealUpload.sql" />
+    <Build Include="Tables\AsDataPL_RP_AppealFile.sql" />
     <Build Include="Tables\AsDataPL_RP_OversightReview.sql" />
     <Build Include="Tables\AsDataPL_RP_AssessorPageReviewOutcome.sql" />
     <Build Include="Tables\AsDataPL_RP_Contacts.sql" />

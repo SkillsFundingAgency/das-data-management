@@ -220,13 +220,9 @@ VALUES
 ,('Apply','SubmittedApplicationAnswers','dbo','[Id],[ApplicationId],[PageId]',''
 		,'[QuestionId],[QuestionType],[Answer],[ColumnHeading]',0,1
 		,'select [Id],[ApplicationId],[PageId],[QuestionId],[QuestionType],[Answer],[ColumnHeading] from [dbo].[SubmittedApplicationAnswers]','RP_SubmittedApplicationAnswers')
- 
- INSERT INTO Mtd.SourceConfigForImport
-(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName,IsEnabled)
-VALUES
-('Apply','AppealUpload','dbo','[Id],[ApplicationId],[AppealId],[FileStorageReference],[CreatedOn]',''
+,('Apply','AppealFile','dbo','[Id],[ApplicationId],[CreatedOn]',''
 		,'[Filename],[ContentType],[Size],[UserId],[UserName]',0,1
-		,'select [Id],[ApplicationId],[AppealId],[FileStorageReference],[Filename],[ContentType],[Size],STUFF([UserId],2,len([UserId])-2,REPLICATE(''''*'''',len([UserId])-2)) As [UserId],STUFF([UserName],2,len([UserName])-2,REPLICATE(''''*'''',len([UserName])-2)) As [UserName],[CreatedOn]  from [dbo].[AppealUpload]','RP_AppealUpload',0)
+		,'select [Id],[ApplicationId],[Filename],[ContentType],[Size],STUFF([UserId],2,len([UserId])-2,REPLICATE(''''*'''',len([UserId])-2)) As [UserId],STUFF([UserName],2,len([UserName])-2,REPLICATE(''''*'''',len([UserName])-2)) As [UserName],[CreatedOn]  from [dbo].[AppealFile]','RP_AppealFile')
   /* Assessor Configuration for Certificates,OrganisationStandard,CertificateLogs and  Organisations */
 
  INSERT INTO Mtd.SourceConfigForImport

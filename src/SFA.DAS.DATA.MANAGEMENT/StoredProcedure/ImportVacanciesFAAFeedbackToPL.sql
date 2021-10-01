@@ -31,7 +31,7 @@ DECLARE @LogID int
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
-   WHERE StoredProcedureName='ImportFaaFeebackToPL'
+   WHERE StoredProcedureName='ImportFaaFeedbackToPL'
      AND RunId=@RunID
 
 /* Import Vacancy Feedback to PL */

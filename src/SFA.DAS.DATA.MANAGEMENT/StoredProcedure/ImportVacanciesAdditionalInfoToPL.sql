@@ -140,15 +140,13 @@ INSERT INTO ASData_PL.Va_ContactMessages
       ,UpdatedDateTime 
       ,UserId  
       ,Enquiry 
-	  ,Feedback
-      ,SourceContactMessagesId 
+	  ,SourceContactMessagesId 
       ,SourceDb 
 )
 SELECT dbo.Fn_ConvertTimeStampToDateTime(CM.DateCreatedTimeStamp)      as DateCreatedTimeStamp
 	  ,dbo.Fn_ConvertTimeStampToDateTime(CM.DateUpdatedTimeStamp)      as DateUpdatedTimeStamp
 	  ,CM.UserId                                                       as UserId
 	  ,CM.Enquiry                                                      as Enquiry
-	  ,CM.Details                                                      as Details
 	  ,CM.BinaryId                                                     as SourceContactMessageId
 	  ,'RAAv2'                                                         as SourceDb
   FROM Stg.FAA_ContactMessages CM
@@ -199,7 +197,33 @@ SELECT RVR.EmployerAccountId
 
 COMMIT TRANSACTION
 
+/* Import Vacancy Feedback to PL */
 
+BEGIN TRANSACTION
+
+DELETE FROM ASData_PL.Va_FaaFeedback
+
+INSERT INTO ASData_PL.Va_FaaFeedback
+(      CreatedDateTime 
+      ,UserId  
+	  ,TypeCode
+      ,Enquiry 
+	  ,Feedback
+	  ,SourceFeedbackId 
+      ,SourceDb 
+)
+SELECT dbo.Fn_ConvertTimeStampToDateTime(CM.DateCreatedTimeStamp)      as DateCreatedTimeStamp
+	  ,Fb.UserId                                                       as UserId
+	  ,Fb.TypeCode                                                     as TypeCode
+	  ,Fb.Enquiry                                                      as Enquiry
+	  ,Fb.Details                                                      as Feedback
+	  ,CM.BinaryId                                                     as SourceFeedbackId
+	  ,'FAA'                                                           as SourceDb
+  FROM Stg.FAA_Feedback Fb
+
+  
+
+COMMIT TRANSACTION
 
 
 

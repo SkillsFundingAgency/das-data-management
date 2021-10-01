@@ -197,36 +197,6 @@ SELECT RVR.EmployerAccountId
 
 COMMIT TRANSACTION
 
-/* Import Vacancy Feedback to PL */
-
-BEGIN TRANSACTION
-
-DELETE FROM ASData_PL.Va_FaaFeedback
-
-INSERT INTO ASData_PL.Va_FaaFeedback
-(      CreatedDateTime 
-      ,UserId  
-	  ,TypeCode
-      ,Enquiry 
-	  ,Feedback
-	  ,SourceFeedbackId 
-      ,SourceDb 
-)
-SELECT dbo.Fn_ConvertTimeStampToDateTime(Fb.DateCreatedTimeStamp)      as DateCreatedTimeStamp
-	  ,Fb.UserId                                                       as UserId
-	  ,Fb.TypeCode                                                     as TypeCode
-	  ,Fb.Enquiry                                                      as Enquiry
-	  ,Fb.Details                                                      as Feedback
-	  ,Fb.BinaryId                                                     as SourceFeedbackId
-	  ,'FAA'                                                           as SourceDb
-  FROM Stg.FAA_Feedback Fb
-
-  
-
-COMMIT TRANSACTION
-
-
-
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1
       ,EndDateTime=getdate()

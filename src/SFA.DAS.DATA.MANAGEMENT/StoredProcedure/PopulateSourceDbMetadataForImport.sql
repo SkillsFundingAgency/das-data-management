@@ -201,9 +201,6 @@ VALUES
 ,('Apply','Appeal','dbo','[Id],[OversightReviewId],[CreatedOn]',''
 		,'[Message],[UserId],[UserName]',0,1
 		,'select [Id],[OversightReviewId],[Message],STUFF([UserId],2,len([UserId])-2,REPLICATE(''''*'''',len([UserId])-2)) As [UserId],STUFF([UserName],2,len([UserName])-2,REPLICATE(''''*'''',len([UserName])-2)) As [UserName],[CreatedOn] from [dbo].[Appeal]','RP_Appeal')
-,('Apply','AppealUpload','dbo','[Id],[ApplicationId],[AppealId],[FileStorageReference],[CreatedOn]',''
-		,'[Filename],[ContentType],[Size],[UserId],[UserName]',0,1
-		,'select [Id],[ApplicationId],[AppealId],[FileStorageReference],[Filename],[ContentType],[Size],STUFF([UserId],2,len([UserId])-2,REPLICATE(''''*'''',len([UserId])-2)) As [UserId],STUFF([UserName],2,len([UserName])-2,REPLICATE(''''*'''',len([UserName])-2)) As [UserName],[CreatedOn]  from [dbo].[AppealUpload]','RP_AppealUpload')
 ,('Apply','AssessorPageReviewOutcome','dbo','[Id],[ApplicationId],[SequenceNumber],[SectionNumber],[PageId],[Assessor1ReviewStatus],[Assessor1ReviewComment],[Assessor2ReviewStatus],[Assessor2ReviewComment],[CreatedAt],[UpdatedAt]',''
 		,'[Assessor1UserId],[Assessor2UserId],[CreatedBy]',0,1
 		,'select [Id],[ApplicationId],[SequenceNumber],[SectionNumber],[PageId],STUFF([Assessor1UserId],2,len([Assessor1UserId])-2,REPLICATE(''''*'''',len([Assessor1UserId])-2)) As [Assessor1UserId],[Assessor1ReviewStatus],[Assessor1ReviewComment],STUFF([Assessor2UserId],2,len([Assessor2UserId])-2,REPLICATE(''''*'''',len([Assessor2UserId])-2)) As [Assessor2UserId],[Assessor2ReviewStatus],[Assessor2ReviewComment],[CreatedAt],case when TRY_CONVERT(UNIQUEIDENTIFIER,[CreatedBy]) IS NOT NULL Then [CreatedBy] Else  STUFF([CreatedBy],2,len([CreatedBy])-2,REPLICATE(''''*'''',len([CreatedBy])-2)) End As [CreatedBy],[UpdatedAt]  from [dbo].[AssessorPageReviewOutcome]','RP_AssessorPageReviewOutcome')
@@ -226,6 +223,12 @@ VALUES
 		,'[QuestionId],[QuestionType],[Answer],[ColumnHeading]',0,1
 		,'select [Id],[ApplicationId],[PageId],[QuestionId],[QuestionType],[Answer],[ColumnHeading] from [dbo].[SubmittedApplicationAnswers]','RP_SubmittedApplicationAnswers')
  
+ INSERT INTO Mtd.SourceConfigForImport
+(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName,IsEnabled)
+VALUES
+('Apply','AppealUpload','dbo','[Id],[ApplicationId],[AppealId],[FileStorageReference],[CreatedOn]',''
+		,'[Filename],[ContentType],[Size],[UserId],[UserName]',0,1
+		,'select [Id],[ApplicationId],[AppealId],[FileStorageReference],[Filename],[ContentType],[Size],STUFF([UserId],2,len([UserId])-2,REPLICATE(''''*'''',len([UserId])-2)) As [UserId],STUFF([UserName],2,len([UserName])-2,REPLICATE(''''*'''',len([UserName])-2)) As [UserName],[CreatedOn]  from [dbo].[AppealUpload]','RP_AppealUpload',0)
   /* Assessor Configuration for Certificates,OrganisationStandard,CertificateLogs and  Organisations */
 
  INSERT INTO Mtd.SourceConfigForImport

@@ -302,7 +302,21 @@ VALUES
 ,('AComt','Apprenticeship','dbo','[Id],[ApprenticeId],[CreatedOn],[LastViewed]','','','aComt_Apprenticeship',0,1) 
 ,('AComt','Revision','dbo','[Id],[ApprenticeshipId],[CommitmentsApprenticeshipId],[EmployerAccountLegalEntityId],[EmployerName],[TrainingProviderId],[TrainingProviderName],[CourseName],[CourseLevel],[CourseOption],[PlannedStartDate],[PlannedEndDate],[CommitmentsApprovedOn],[TrainingProviderCorrect],[EmployerCorrect],[RolesAndResponsibilitiesCorrect],[ApprenticeshipDetailsCorrect],[HowApprenticeshipDeliveredCorrect],[ConfirmBefore],[ConfirmedOn],[CourseDuration]','','','aComt_Revision',0,1) 
 ,('AComt','Registration','dbo','[RegistrationId],[CommitmentsApprenticeshipId],[CommitmentsApprovedOn],[UserIdentityId],[CreatedOn],[FirstViewedOn],[SignUpReminderSentOn],[EmployerAccountLegalEntityId],[EmployerName],[TrainingProviderId],[TrainingProviderName],[CourseName],[CourseLevel],[CourseOption],[PlannedStartDate],[PlannedEndDate],[CourseDuration]','[FirstName],[LastName],[DateOfBirth],[Email]','','aComt_Registration',0,1) 
+ 
+ /* LTM SQL query based Import */
+ INSERT INTO Mtd.SourceConfigForImport
+(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,StagingTableName,PLTableName,[ModelDataToPL],[IsQueryBasedImport],SourceQuery)
+VALUES
+('LevyTransfer','ApplicationEmailAddress','dbo','[Id],[ApplicationId],[EmailAddress]','','','LTM_ApplicationEmailAddress','LTM_ApplicationEmailAddress',0,1,'Select [Id],[ApplicationId],STUFF([EmailAddress],2,charindex(''''@'''',[EmailAddress])-3,REPLICATE(''''*'''',charindex(''''@'''',[EmailAddress])-3)) As [EmailAddress] From [dbo].[ApplicationEmailAddress]')
 
+/* LTM table based Import */
+INSERT INTO Mtd.SourceConfigForImport
+(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL])
+VALUES
+ ('LevyTransfer','Application','dbo','[Id],[EmployerAccountId],[PledgeId],[Details],[NumberOfApprentices],[StandardId],[StartDate],[Amount],[HasTrainingProvider],[Sectors],[CreatedOn],[Status],[UpdatedOn]','[PostCode],[FirstName],[LastName],[BusinessWebsite],[RowVersion]','','LTM_Application',0)
+,('LevyTransfer','Pledge','dbo','[Id],[EmployerAccountId],[Amount],[RemainingAmount],[IsNamePublic],[CreatedOn],[JobRoles],[Levels],[Sectors]','[RowVersion]','','LTM_Pledge',0)
+,('LevyTransfer','PledgeLocation','dbo','[Id],[PledgeId]','','[Name],[Latitude],[Longitude]','LTM_PledgeLocation',0)
+,('LevyTransfer','ApplicationStatusHistory','dbo','[Id],[ApplicationId],[CreatedOn],[Status]','','','LTM_ApplicationStatusHistory',0)
 
 COMMIT TRANSACTION
 

@@ -353,5 +353,8 @@
     <Build Include="Tables\ASDataPL_LTM_PledgeLocation.sql" />
     <Build Include="Tables\ASDataPL_LTM_ApplicationEmailAddress.sql" />
     <Build Include="Tables\ASDataPL_LTM_ApplicationStatusHistory.sql" />
+    <Build Include="Tables\Stg_FAA_Feedback.sql" />
+    <Build Include="Tables\AsDataPL_Va_Feedback.sql" />
+    <Build Include="StoredProcedure\ImportVacanciesFAAFeedbackToPL.sql" />
   </ItemGroup>
 </Project>

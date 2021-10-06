@@ -140,7 +140,7 @@ INSERT INTO ASData_PL.Va_ContactMessages
       ,UpdatedDateTime 
       ,UserId  
       ,Enquiry 
-      ,SourceContactMessagesId 
+	  ,SourceContactMessagesId 
       ,SourceDb 
 )
 SELECT dbo.Fn_ConvertTimeStampToDateTime(CM.DateCreatedTimeStamp)      as DateCreatedTimeStamp
@@ -196,10 +196,6 @@ SELECT RVR.EmployerAccountId
     on vc.CandidateGuid=RVR.UserId
 
 COMMIT TRANSACTION
-
-
-
-
 
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1

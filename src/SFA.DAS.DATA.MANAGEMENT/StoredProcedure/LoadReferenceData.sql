@@ -82,6 +82,29 @@ VALUES
 ('Commitments','Approvals',5,'TransferSenderAndEmployerAgreed'),
 ('Commitments','Approvals',6,'TransferSenderAndProviderAgreed'),
 ('Commitments','Approvals',7,'AllAgreed'),
+
+--Apprenticeship AgreementStatus
+('Apprenticeship','AgreementStatus',0,'NotAgreed'),
+('Apprenticeship','AgreementStatus',1,'EmployerAgreed'),
+('Apprenticeship','AgreementStatus',2,'ProviderAgreed'),
+('Apprenticeship','AgreementStatus',3,'BothAgreed'),
+
+--Apprenticeship AgreementStatus
+('Apprenticeship','PaymentStatus',0,'PendingApproval'),
+('Apprenticeship','PaymentStatus',1,'Active'),
+('Apprenticeship','PaymentStatus',2,'Paused'),
+('Apprenticeship','PaymentStatus',3,'Cancelled'),
+('Apprenticeship','PaymentStatus',4,'Completed'),
+('Apprenticeship','PaymentStatus',5,'Deleted'),
+
+--ApprenticeshipUpdate
+('Commitments','ApprenticeshipUpdate',0,'Pending'),
+('Commitments','ApprenticeshipUpdate',1,'Approved'),
+('Commitments','ApprenticeshipUpdate',2,'Rejected'),
+('Commitments','ApprenticeshipUpdate',3,'Deleted'),
+('Commitments','ApprenticeshipUpdate',4,'Superceded'),
+('Commitments','ApprenticeshipUpdate',5,'Expired'),
+
 --LevyTransferMatching
 ('LevyTransferMatching','Status',0,'Pending'),
 ('LevyTransferMatching','Status',1,'Approved'),

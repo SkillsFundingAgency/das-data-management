@@ -128,10 +128,13 @@ VALUES
 ,('Accounts','TransferConnectionInvitationChange','employer_account','[Id],[TransferConnectionInvitationId],[SenderAccountId],[ReceiverAccountId],[Status],[DeletedBySender],[DeletedByReceiver],[UserId],[CreatedDate]','','','Acc_TransferConnectionInvitationChange',0)
 ,('Commitments','Accounts','dbo','[Id],[HashedId],[Created],[Updated],[LevyStatus]','[PublicHashedId],[Name]','','Comt_Accounts',1)
 ,('Commitments','Commitment','dbo','[Id],[Reference],[EmployerAccountId],[ProviderId],[CommitmentStatus],[EditStatus],[CreatedOn],[LastAction],[TransferSenderId],[TransferApprovalStatus],[TransferApprovalActionedOn],[Originator],[ApprenticeshipEmployerTypeOnApproval],[IsFullApprovalProcessed],[IsDeleted],[AccountLegalEntityId],[IsDraft],[WithParty],[LastUpdatedOn],[Approvals],[EmployerAndProviderApprovedOn],[ChangeOfPartyRequestId]','[LastUpdatedByEmployerName],[LastUpdatedByEmployerEmail],[LastUpdatedByProviderName],[LastUpdatedByProviderEmail],[TransferApprovalActionedByEmployerName],[TransferApprovalActionedByEmployerEmail],[RowVersion]','','comt_commitment',0)
-,('Commitments','Apprenticeship','dbo','[Id],[CommitmentId],[TrainingType],[TrainingCode],[TrainingName],[Cost],[StartDate],[EndDate],[AgreementStatus],[PaymentStatus],[CreatedOn],[AgreedOn],[PaymentOrder],[StopDate],[PauseDate],[HasHadDataLockSuccess],[PendingUpdateOriginator],[EPAOrgId],[CloneOf],[ReservationId],[IsApproved],[CompletionDate],[ContinuationOfId],[MadeRedundant],[OriginalStartDate],[Age]','[NINumber],[EmployerRef],[ProviderRef]','[FirstName],[LastName],[DateOfBirth],[ULN]','comt_Apprenticeship',1)
+,('Commitments','Apprenticeship','dbo','[Id],[CommitmentId],[TrainingType],[TrainingCode],[TrainingName],[Cost],[StartDate],[EndDate],[AgreementStatus],[PaymentStatus],[CreatedOn],[AgreedOn],[PaymentOrder],[StopDate],[PauseDate],[HasHadDataLockSuccess],[PendingUpdateOriginator],[EPAOrgId],[CloneOf],[ReservationId],[IsApproved],[CompletionDate],[ContinuationOfId],[MadeRedundant],[OriginalStartDate],[TrainingCourseVersion],[TrainingCourseVersionConfirmed],[TrainingCourseOption],[Age]','[NINumber],[EmployerRef],[ProviderRef]','[FirstName],[LastName],[DateOfBirth],[ULN],[StandardUId]','comt_Apprenticeship',1)
+,('Commitments','ApprenticeshipUpdate','dbo','[Id],[ApprenticeshipId],[Originator],[Status],[TrainingType],[TrainingCode],[TrainingName],[TrainingCourseVersion],[TrainingCourseOption],[Cost],[StartDate],[EndDate],[CreatedOn],[UpdateOrigin],[EffectiveFromDate],[EffectiveToDate]','[FirstName],[LastName],[DateOfBirth],[Email]','','comt_ApprenticeshipUpdate',1)
 ,('Commitments','Providers','dbo','[Created],[Updated]','','[Ukprn],[Name]','Comt_Providers',1)
 ,('Commitments','DataLockStatus','dbo','[Id],[DataLockEventId],[DataLockEventDatetime],[PriceEpisodeIdentifier],[ApprenticeshipId],[IlrTrainingCourseCode],[IlrTrainingType],[IlrActualStartDate],[IlrEffectiveFromDate],[IlrPriceEffectiveToDate],[IlrTotalCost],[ErrorCode],[Status],[TriageStatus],[ApprenticeshipUpdateId],[IsResolved],[EventStatus],[IsExpired],[Expired]','','','Comt_DataLockStatus',0)
 ,('Commitments','ApprenticeshipConfirmationStatus','dbo','[ApprenticeshipId],[ApprenticeshipConfirmedOn],[CommitmentsApprovedOn],[ConfirmationOverdueOn]','','','Comt_ApprenticeshipConfirmationStatus',0)
+,('Commitments','Standard','dbo','[StandardUId],[LarsCode],[IFateReferenceNumber],[Version],[Level],[Duration],[MaxFunding],[EffectiveFrom],[EffectiveTo],[VersionMajor],[VersionMinor],[StandardPageUrl],[Status],[IsLatestVersion]','','[Title]','Comt_Standard',1)
+,('Commitments','StandardOption','dbo','[StandardUId],[Option]','','','Comt_StandardOption',0)
 ,('Finance','AccountTransfers','employer_financial','[Id],[SenderAccountId],[ReceiverAccountId],[ApprenticeshipId],[CourseName],[CourseLevel],[PeriodEnd],[Amount],[Type],[CreatedDate],[RequiredPaymentId]','[SenderAccountName],[ReceiverAccountName]','','fin_AccountTransfers',0)
 ,('Finance','GetLevyDeclarationAndTopUp','employer_financial','[Id],[AccountId],[SubmissionDate],[SubmissionId],[LevyDueYTD],[EnglishFraction],[TopUpPercentage],[PayrollYear],[PayrollMonth],[LastSubmission],[CreatedDate],[EndOfYearAdjustment],[EndOfYearAdjustmentAmount],[LevyAllowanceForYear],[DateCeased],[InactiveFrom],[InactiveTo],[HmrcSubmissionId],[NoPaymentForPeriod],[LevyDeclaredInMonth],[TopUp],[TotalAmount]','','[EmpRef]','fin_GetLevyDeclarationAndTopUp',1)
 ,('Finance','Payment','employer_financial','[PaymentId],[AccountId],[ApprenticeshipId],[DeliveryPeriodMonth],[DeliveryPeriodYear],[CollectionPeriodId],[CollectionPeriodMonth],[CollectionPeriodYear],[EvidenceSubmittedOn],[EmployerAccountVersion],[ApprenticeshipVersion],[FundingSource],[TransactionType],[Amount],[PeriodEnd],[PaymentMetaDataId],[DateImported]','[Ukprn],[Uln]','','fin_Payment',0)
@@ -140,7 +143,6 @@ VALUES
 ,('Reservation','Course','dbo','[CourseId],[Title],[Level],[EffectiveTo]','','','resv_Course',0)
 
 /* Commitments Query Based Import */
-
 
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,StagingTableName,PLTableName,[ModelDataToPL],[IsQueryBasedImport],SourceQuery)
@@ -199,9 +201,6 @@ VALUES
 ,('Apply','Appeal','dbo','[Id],[OversightReviewId],[CreatedOn]',''
 		,'[Message],[UserId],[UserName]',0,1
 		,'select [Id],[OversightReviewId],[Message],STUFF([UserId],2,len([UserId])-2,REPLICATE(''''*'''',len([UserId])-2)) As [UserId],STUFF([UserName],2,len([UserName])-2,REPLICATE(''''*'''',len([UserName])-2)) As [UserName],[CreatedOn] from [dbo].[Appeal]','RP_Appeal')
-,('Apply','AppealUpload','dbo','[Id],[ApplicationId],[AppealId],[FileStorageReference],[CreatedOn]',''
-		,'[Filename],[ContentType],[Size],[UserId],[UserName]',0,1
-		,'select [Id],[ApplicationId],[AppealId],[FileStorageReference],[Filename],[ContentType],[Size],STUFF([UserId],2,len([UserId])-2,REPLICATE(''''*'''',len([UserId])-2)) As [UserId],STUFF([UserName],2,len([UserName])-2,REPLICATE(''''*'''',len([UserName])-2)) As [UserName],[CreatedOn]  from [dbo].[AppealUpload]','RP_AppealUpload')
 ,('Apply','AssessorPageReviewOutcome','dbo','[Id],[ApplicationId],[SequenceNumber],[SectionNumber],[PageId],[Assessor1ReviewStatus],[Assessor1ReviewComment],[Assessor2ReviewStatus],[Assessor2ReviewComment],[CreatedAt],[UpdatedAt]',''
 		,'[Assessor1UserId],[Assessor2UserId],[CreatedBy]',0,1
 		,'select [Id],[ApplicationId],[SequenceNumber],[SectionNumber],[PageId],STUFF([Assessor1UserId],2,len([Assessor1UserId])-2,REPLICATE(''''*'''',len([Assessor1UserId])-2)) As [Assessor1UserId],[Assessor1ReviewStatus],[Assessor1ReviewComment],STUFF([Assessor2UserId],2,len([Assessor2UserId])-2,REPLICATE(''''*'''',len([Assessor2UserId])-2)) As [Assessor2UserId],[Assessor2ReviewStatus],[Assessor2ReviewComment],[CreatedAt],case when TRY_CONVERT(UNIQUEIDENTIFIER,[CreatedBy]) IS NOT NULL Then [CreatedBy] Else  STUFF([CreatedBy],2,len([CreatedBy])-2,REPLICATE(''''*'''',len([CreatedBy])-2)) End As [CreatedBy],[UpdatedAt]  from [dbo].[AssessorPageReviewOutcome]','RP_AssessorPageReviewOutcome')
@@ -224,6 +223,12 @@ VALUES
 		,'[QuestionId],[QuestionType],[Answer],[ColumnHeading]',0,1
 		,'select [Id],[ApplicationId],[PageId],[QuestionId],[QuestionType],[Answer],[ColumnHeading] from [dbo].[SubmittedApplicationAnswers]','RP_SubmittedApplicationAnswers')
  
+ INSERT INTO Mtd.SourceConfigForImport
+(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName,IsEnabled)
+VALUES
+('Apply','AppealUpload','dbo','[Id],[ApplicationId],[AppealId],[FileStorageReference],[CreatedOn]',''
+		,'[Filename],[ContentType],[Size],[UserId],[UserName]',0,1
+		,'select [Id],[ApplicationId],[AppealId],[FileStorageReference],[Filename],[ContentType],[Size],STUFF([UserId],2,len([UserId])-2,REPLICATE(''''*'''',len([UserId])-2)) As [UserId],STUFF([UserName],2,len([UserName])-2,REPLICATE(''''*'''',len([UserName])-2)) As [UserName],[CreatedOn]  from [dbo].[AppealUpload]','RP_AppealUpload',0)
   /* Assessor Configuration for Certificates,OrganisationStandard,CertificateLogs and  Organisations */
 
  INSERT INTO Mtd.SourceConfigForImport
@@ -297,9 +302,21 @@ VALUES
 ,('AComt','Apprenticeship','dbo','[Id],[ApprenticeId],[CreatedOn],[LastViewed]','','','aComt_Apprenticeship',0,1) 
 ,('AComt','Revision','dbo','[Id],[ApprenticeshipId],[CommitmentsApprenticeshipId],[EmployerAccountLegalEntityId],[EmployerName],[TrainingProviderId],[TrainingProviderName],[CourseName],[CourseLevel],[CourseOption],[PlannedStartDate],[PlannedEndDate],[CommitmentsApprovedOn],[TrainingProviderCorrect],[EmployerCorrect],[RolesAndResponsibilitiesCorrect],[ApprenticeshipDetailsCorrect],[HowApprenticeshipDeliveredCorrect],[ConfirmBefore],[ConfirmedOn],[CourseDuration]','','','aComt_Revision',0,1) 
 ,('AComt','Registration','dbo','[RegistrationId],[CommitmentsApprenticeshipId],[CommitmentsApprovedOn],[UserIdentityId],[CreatedOn],[FirstViewedOn],[SignUpReminderSentOn],[EmployerAccountLegalEntityId],[EmployerName],[TrainingProviderId],[TrainingProviderName],[CourseName],[CourseLevel],[CourseOption],[PlannedStartDate],[PlannedEndDate],[CourseDuration]','[FirstName],[LastName],[DateOfBirth],[Email]','','aComt_Registration',0,1) 
-
-
  
+ /* LTM SQL query based Import */
+ INSERT INTO Mtd.SourceConfigForImport
+(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,StagingTableName,PLTableName,[ModelDataToPL],[IsQueryBasedImport],SourceQuery)
+VALUES
+('LevyTransfer','ApplicationEmailAddress','dbo','[Id],[ApplicationId],[EmailAddress]','','','LTM_ApplicationEmailAddress','LTM_ApplicationEmailAddress',0,1,'Select [Id],[ApplicationId],STUFF([EmailAddress],2,charindex(''''@'''',[EmailAddress])-3,REPLICATE(''''*'''',charindex(''''@'''',[EmailAddress])-3)) As [EmailAddress] From [dbo].[ApplicationEmailAddress]')
+
+/* LTM table based Import */
+INSERT INTO Mtd.SourceConfigForImport
+(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL])
+VALUES
+ ('LevyTransfer','Application','dbo','[Id],[EmployerAccountId],[PledgeId],[Details],[NumberOfApprentices],[StandardId],[StartDate],[Amount],[HasTrainingProvider],[Sectors],[CreatedOn],[Status],[UpdatedOn]','[PostCode],[FirstName],[LastName],[BusinessWebsite],[RowVersion]','','LTM_Application',0)
+,('LevyTransfer','Pledge','dbo','[Id],[EmployerAccountId],[Amount],[RemainingAmount],[IsNamePublic],[CreatedOn],[JobRoles],[Levels],[Sectors]','[RowVersion]','','LTM_Pledge',0)
+,('LevyTransfer','PledgeLocation','dbo','[Id],[PledgeId]','','[Name],[Latitude],[Longitude]','LTM_PledgeLocation',0)
+,('LevyTransfer','ApplicationStatusHistory','dbo','[Id],[ApplicationId],[CreatedOn],[Status]','','','LTM_ApplicationStatusHistory',0)
 
 COMMIT TRANSACTION
 
@@ -310,7 +327,6 @@ UPDATE Mgmt.Log_Execution_Results
  WHERE LogId=@LogID
    AND RunId=@RunId
 
- 
 END TRY
 BEGIN CATCH
     IF @@TRANCOUNT>0

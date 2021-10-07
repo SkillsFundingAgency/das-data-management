@@ -348,6 +348,13 @@
     <Build Include="Tables\AsDataPL_aComt_Revision.sql" />
     <Build Include="Tables\AsDataPL_aComt_Registration.sql" />
     <Build Include="Tables\ASDataPL_Comt_ApprenticeshipConfirmationStatus.sql" />
+    <Build Include="Tables\ASDataPL_LTM_Application.sql" />
+    <Build Include="Tables\ASDataPL_LTM_Pledge.sql" />
+    <Build Include="Tables\ASDataPL_LTM_PledgeLocation.sql" />
+    <Build Include="Tables\ASDataPL_LTM_ApplicationEmailAddress.sql" />
+    <Build Include="Tables\ASDataPL_LTM_ApplicationStatusHistory.sql" />
+    <Build Include="Tables\ASDataPL_Comt_ApprenticeshipUpdate.sql" />
+    <Build Include="Tables\AsDataPL_Comt_StandardOption.sql" />
     <Build Include="Tables\Stg_FAA_Feedback.sql" />
     <Build Include="Tables\AsDataPL_Va_Feedback.sql" />
     <Build Include="StoredProcedure\ImportVacanciesFAAFeedbackToPL.sql" />

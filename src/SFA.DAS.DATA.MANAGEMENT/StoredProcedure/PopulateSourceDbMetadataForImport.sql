@@ -206,8 +206,8 @@ VALUES
 		,'[Assessor1UserId],[Assessor2UserId],[CreatedBy]',0,1
 		,'select [Id],[ApplicationId],[SequenceNumber],[SectionNumber],[PageId],STUFF([Assessor1UserId],2,len([Assessor1UserId])-2,REPLICATE(''''*'''',len([Assessor1UserId])-2)) As [Assessor1UserId],[Assessor1ReviewStatus],[Assessor1ReviewComment],STUFF([Assessor2UserId],2,len([Assessor2UserId])-2,REPLICATE(''''*'''',len([Assessor2UserId])-2)) As [Assessor2UserId],[Assessor2ReviewStatus],[Assessor2ReviewComment],[CreatedAt],case when TRY_CONVERT(UNIQUEIDENTIFIER,[CreatedBy]) IS NOT NULL Then [CreatedBy] Else  STUFF([CreatedBy],2,len([CreatedBy])-2,REPLICATE(''''*'''',len([CreatedBy])-2)) End As [CreatedBy],[UpdatedAt]  from [dbo].[AssessorPageReviewOutcome]'
 		,'RP_AssessorPageReviewOutcome')
-,('Apply','Contacts','dbo','[Id],[ApplyOrganisationID],[Status],[CreatedAt],[UpdatedAt],[DeletedAt]','[Email],[GivenNames],[FamilyName],[ContactDetails]'
-		,'[SigninId],[SigninType],[CreatedBy]',0,1
+,('Apply','Contacts','dbo','[Id],[ApplyOrganisationID],[Status],[CreatedAt],[UpdatedAt],[DeletedAt]','[GivenNames],[FamilyName],[ContactDetails]'
+		,'[SigninId],[SigninType],[CreatedBy],[Email]',0,1
 		,'select [Id],[Email],[GivenNames],[FamilyName],[SigninId],[SigninType],[ApplyOrganisationID],[ContactDetails],[Status],[CreatedAt],case when TRY_CONVERT(UNIQUEIDENTIFIER,[CreatedBy]) IS NOT NULL Then [CreatedBy] Else  STUFF([CreatedBy],2,len([CreatedBy])-2,REPLICATE(''''*'''',len([CreatedBy])-2)) End As [CreatedBy],[UpdatedAt],[DeletedAt]  from [dbo].[Contacts]'
 		,'RP_Contacts')
 ,('Apply','FinancialData','dbo','[Id],[ApplicationId]',''

@@ -226,8 +226,8 @@ VALUES
 		,'[UserId],[InProgressUserId],[UserName],[InProgressUserName]',0,1
 		,'select [Id],[ApplicationId],[GatewayApproved],[ModerationApproved],[Status],[ApplicationDeterminedDate],[InternalComments],[ExternalComments],STUFF([UserId],2,len([UserId])-2,REPLICATE(''''*'''',len([UserId])-2)) As [UserId],STUFF([UserName],2,len([UserName])-2,REPLICATE(''''*'''',len([UserName])-2)) As [UserName],[InProgressDate],STUFF([InProgressUserId],2,len([InProgressUserId])-2,REPLICATE(''''*'''',len([InProgressUserId])-2)) As [InProgressUserId],STUFF([InProgressUserName],2,len([InProgressUserName])-2,REPLICATE(''''*'''',len([InProgressUserName])-2)) As [InProgressUserName],[InProgressInternalComments],[InProgressExternalComments],[CreatedOn],[UpdatedOn] from [dbo].[OversightReview]'
 		,'RP_OversightReview')
-,('Apply','SubmittedApplicationAnswers','dbo','[Id],[ApplicationId],[PageId]',''
-		,'[QuestionId],[QuestionType],[Answer],[ColumnHeading]',0,1
+,('Apply','SubmittedApplicationAnswers','dbo','[Id],[ApplicationId],[PageId],[Answer]',''
+		,'[QuestionId],[QuestionType],[ColumnHeading]',0,1
 		,'select [Id],[ApplicationId],[PageId],[QuestionId],[QuestionType],[Answer],[ColumnHeading] from [dbo].[SubmittedApplicationAnswers]'
 		,'RP_SubmittedApplicationAnswers')
 ,('Apply','AppealFile','dbo','[Id],[ApplicationId],[CreatedOn]',''

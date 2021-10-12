@@ -3,8 +3,6 @@
 	[Id]										[uniqueidentifier]			NOT NULL,
 	[ApplicationId]								[uniqueidentifier]			NOT NULL,
 	[Status]									[nvarchar](30)				NOT NULL,
-	[HowFailedOnPolicyOrProcesses]				[nvarchar](max)				NULL,
-	[HowFailedOnEvidenceSubmitted]				[nvarchar](max)				NULL,
 	[AppealSubmittedDate]						[datetime2](7)				NULL,
 	[AppealDeterminedDate]						[datetime2](7)				NULL,	
 	[UserId]									[nvarchar](256)				NULL,

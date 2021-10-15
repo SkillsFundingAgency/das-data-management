@@ -228,7 +228,7 @@ VALUES
 		,'RP_OversightReview')
 ,('Apply','SubmittedApplicationAnswers','dbo','[Id],[ApplicationId],[SequenceNumber],[SectionNumber],[PageId],[Answer2],[RowNumber],[ColumnNumber]',''
 		,'[QuestionId],[QuestionType],[ColumnHeading],[Answer1]',1,1
-		,'Select [Id],[ApplicationId],[SequenceNumber],[SectionNumber],[PageId],[QuestionId],[QuestionType],Case when len([Answer]) < 2000 then  [Answer] Else NULL End As [Answer1],Case when len([Answer]) >= 2000 then [Answer] Else NULL End As [Answer2],[ColumnHeading],[RowNumber],[ColumnNumber] FROM [dbo].[SubmittedApplicationAnswers]'
+		,'Select [Id],[ApplicationId],[SequenceNumber],[SectionNumber],[PageId],[QuestionId],[QuestionType],Case when len([Answer]) <= 500 then  [Answer] Else NULL End As [Answer1],Case when len([Answer]) > 500 then [Answer] Else NULL End As [Answer2],[ColumnHeading],[RowNumber],[ColumnNumber] FROM [dbo].[SubmittedApplicationAnswers]'
 		,'RP_SubmittedApplicationAnswers')
 ,('Apply','AppealFile','dbo','[Id],[ApplicationId],[CreatedOn]',''
 		,'[Filename],[ContentType],[Size],[UserId],[UserName]',0,1

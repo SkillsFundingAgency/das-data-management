@@ -58,7 +58,7 @@ BEGIN TRY
 						[PageId],
 						[QuestionId],
 						[QuestionType],
-						ISNULL(Answer1,'') + ISNULL(Answer2,'')
+						ISNULL(Answer1,'') + ISNULL(Answer2,''),
 						[ColumnHeading],
 						[RowNumber],
 						[ColumnNumber]

@@ -226,9 +226,9 @@ VALUES
 		,'[UserId],[InProgressUserId],[UserName],[InProgressUserName]',0,1
 		,'select [Id],[ApplicationId],[GatewayApproved],[ModerationApproved],[Status],[ApplicationDeterminedDate],[InternalComments],[ExternalComments],STUFF([UserId],2,len([UserId])-2,REPLICATE(''''*'''',len([UserId])-2)) As [UserId],STUFF([UserName],2,len([UserName])-2,REPLICATE(''''*'''',len([UserName])-2)) As [UserName],[InProgressDate],STUFF([InProgressUserId],2,len([InProgressUserId])-2,REPLICATE(''''*'''',len([InProgressUserId])-2)) As [InProgressUserId],STUFF([InProgressUserName],2,len([InProgressUserName])-2,REPLICATE(''''*'''',len([InProgressUserName])-2)) As [InProgressUserName],[InProgressInternalComments],[InProgressExternalComments],[CreatedOn],[UpdatedOn] from [dbo].[OversightReview]'
 		,'RP_OversightReview')
-,('Apply','SubmittedApplicationAnswers','dbo','[Id],[ApplicationId],[SequenceNumber],[SectionNumber],[PageId],[RowNumber],[ColumnNumber]',''
-		,'[QuestionId],[QuestionType],[ColumnHeading],[Answer]',0,1
-		,'Select [Id],[ApplicationId],[SequenceNumber],[SectionNumber],[PageId],[QuestionId],[QuestionType],[Answer],[ColumnHeading],[RowNumber],[ColumnNumber] FROM [dbo].[SubmittedApplicationAnswers]'
+,('Apply','SubmittedApplicationAnswers','dbo','[Id],[ApplicationId],[SequenceNumber],[SectionNumber],[PageId],[Answer2],[RowNumber],[ColumnNumber]',''
+		,'[QuestionId],[QuestionType],[ColumnHeading],[Answer1]',1,1
+		,'Select [Id],[ApplicationId],[SequenceNumber],[SectionNumber],[PageId],[QuestionId],[QuestionType],Case when len([Answer]) < 2000 then  [Answer] Else NULL End As [Answer1],Case when len([Answer]) >= 2000 then [Answer] Else NULL End As [Answer2],[ColumnHeading],[RowNumber],[ColumnNumber] FROM [dbo].[SubmittedApplicationAnswers]'
 		,'RP_SubmittedApplicationAnswers')
 ,('Apply','AppealFile','dbo','[Id],[ApplicationId],[CreatedOn]',''
 		,'[Filename],[ContentType],[Size],[UserId],[UserName]',0,1

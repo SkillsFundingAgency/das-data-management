@@ -358,5 +358,6 @@
     <Build Include="Tables\Stg_FAA_Feedback.sql" />
     <Build Include="Tables\AsDataPL_Va_Feedback.sql" />
     <Build Include="StoredProcedure\ImportVacanciesFAAFeedbackToPL.sql" />
+    <Build Include="StoredProcedure\ImportSubmittedApplicationAnswersToPL.sql" />
   </ItemGroup>
 </Project>

@@ -36,7 +36,7 @@ BEGIN TRY
 
 				DELETE FROM [ASData_PL].[RP_SubmittedApplicationAnswers]
 				
-				INSERT [ASData_PL].[RP_SubmittedApplicationAnswers]
+				Set @DynSQL = 'INSERT [ASData_PL].[RP_SubmittedApplicationAnswers]
 				(																		
 						[Id],
 						[ApplicationId],
@@ -58,12 +58,15 @@ BEGIN TRY
 						[PageId],
 						[QuestionId],
 						[QuestionType],
-						ISNULL(Answer1,'') + ISNULL(Answer2,''),
+						ISNULL(Answer1,'''') + ISNULL(Answer2,''''),
 						[ColumnHeading],
 						[RowNumber],
 						[ColumnNumber]
-					FROM [Stg].[RP_SubmittedApplicationAnswers]						
-								
+					FROM [Stg].[RP_SubmittedApplicationAnswers]'						
+
+
+				exec SP_EXECUTESQL @DynSQL									
+
 				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='RP_SubmittedApplicationAnswers' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 				DROP TABLE [Stg].[RP_SubmittedApplicationAnswers]	
 				

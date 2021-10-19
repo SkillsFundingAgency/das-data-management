@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [AsData_PL].[RP_Contacts]
 (
 	[Id]							[uniqueidentifier]					NOT NULL,
+	[Email]							[nvarchar](250)						NULL,
 	[SigninId]						[uniqueidentifier]					NULL,
 	[SigninType]					[nvarchar](20)						NULL,
 	[ApplyOrganisationID]			[uniqueidentifier]					NULL,	

@@ -358,5 +358,9 @@
     <Build Include="Tables\Stg_FAA_Feedback.sql" />
     <Build Include="Tables\AsDataPL_Va_Feedback.sql" />
     <Build Include="StoredProcedure\ImportVacanciesFAAFeedbackToPL.sql" />
+    <Build Include="Tables\ASDataPL_LTM_PledgeJobRole.sql" />
+    <Build Include="Tables\ASDataPL_LTM_PledgeSector.sql" />
+    <Build Include="Tables\ASDataPL_LTM_PledgeLevel.sql" />
+    <Build Include="StoredProcedure\PopulateLTMReferenceData.sql" />
   </ItemGroup>
 </Project>

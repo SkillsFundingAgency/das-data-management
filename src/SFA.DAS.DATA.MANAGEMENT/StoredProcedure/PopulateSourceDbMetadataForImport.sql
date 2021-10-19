@@ -198,37 +198,42 @@ VALUES
 		,'[Name],[OrganisationUKPRN],[UkprnOnRegister],[PostCode],[EndPointAssessmentOrgId],[OrganisationLegalName],[OrganisationTradingName],[VerificationAuthority],[CreatedBy]',0,1
 		,'SELECT [Id],[Name],[OrganisationType],[OrganisationUKPRN],[Status],[RoEPAOApproved],[RoATPApproved],[CreatedAt],case when TRY_CONVERT(UNIQUEIDENTIFIER,[CreatedBy]) IS NOT NULL Then [CreatedBy] Else  STUFF([CreatedBy],2,len([CreatedBy])-2,REPLICATE(''''*'''',len([CreatedBy])-2)) End As [CreatedBy],[UpdatedAt],[DeletedAt],JSON_VALUE(OrganisationDetails,''''$.RoatpDetails.UkprnOnRegister'''') UkprnOnRegister,CASE WHEN CHARINDEX('''' '''',JSON_VALUE(OrganisationDetails,''''$.Postcode''''))<>0 THEN SUBSTRING(JSON_VALUE(OrganisationDetails,''''$.Postcode''''),1,CHARINDEX('''' '''',JSON_VALUE(OrganisationDetails,''''$.Postcode''''))) ELSE SUBSTRING(JSON_VALUE(OrganisationDetails,''''$.Postcode''''),1,LEN(JSON_VALUE(OrganisationDetails,''''$.Postcode''''))-3) end PostCode,JSON_VALUE(OrganisationDetails,''''$.OrganisationReferenceType'''') OrganisationReferenceType,JSON_VALUE(OrganisationDetails,''''$.LegalName'''') OrganisationLegalName,JSON_VALUE(OrganisationDetails,''''$.TradingName'''') OrganisationTradingName,JSON_VALUE(OrganisationDetails,''''$.EndPointAssessmentOrgId'''') EndPointAssessmentOrgId,JSON_VALUE(OrganisationDetails,''''$.UKRLPDetails.VerificationDetails[0].VerificationAuthority'''') VerificationAuthority,JSON_VALUE(OrganisationDetails,''''$.UKRLPDetails.VerificationDetails[0].VerificationId'''') VerificationId,JSON_VALUE(OrganisationDetails,''''$.UKRLPDetails.VerificationDetails[0].PrimaryVerificationSource'''') PrimaryVerificationSource  FROM [dbo].[Organisations]'
 		,'RP_Organisations')
-,('Apply','Appeal','dbo','[Id],[OversightReviewId],[CreatedOn]',''
-		,'[Message],[UserId],[UserName]',0,1
-		,'select [Id],[OversightReviewId],[Message],STUFF([UserId],2,len([UserId])-2,REPLICATE(''''*'''',len([UserId])-2)) As [UserId],STUFF([UserName],2,len([UserName])-2,REPLICATE(''''*'''',len([UserName])-2)) As [UserName],[CreatedOn] from [dbo].[Appeal]','RP_Appeal')
+,('Apply','Appeal','dbo','[Id],[ApplicationId],[Status],[AppealSubmittedDate],[AppealDeterminedDate],[InProgressDate],[CreatedOn],[UpdatedOn]','[InternalComments],[ExternalComments],[InProgressInternalComments],[InProgressExternalComments],[HowFailedOnPolicyOrProcesses],[HowFailedOnEvidenceSubmitted]'
+		,'[UserId],[UserName],[InProgressUserId],[InProgressUserName]',0,1
+		,'select [Id],[ApplicationId],[Status],[AppealSubmittedDate],[AppealDeterminedDate],STUFF([UserId],2,len([UserId])-2,REPLICATE(''''*'''',len([UserId])-2)) As [UserId],STUFF([UserName],2,len([UserName])-2,REPLICATE(''''*'''',len([UserName])-2)) As [UserName],[InProgressDate],STUFF([InProgressUserId],2,len([InProgressUserId])-2,REPLICATE(''''*'''',len([InProgressUserId])-2)) As [InProgressUserId],STUFF([InProgressUserName],2,len([InProgressUserName])-2,REPLICATE(''''*'''',len([InProgressUserName])-2)) As [InProgressUserName],[CreatedOn],[UpdatedOn]   From [dbo].[Appeal]'
+		,'RP_Appeal')
 ,('Apply','AssessorPageReviewOutcome','dbo','[Id],[ApplicationId],[SequenceNumber],[SectionNumber],[PageId],[Assessor1ReviewStatus],[Assessor1ReviewComment],[Assessor2ReviewStatus],[Assessor2ReviewComment],[CreatedAt],[UpdatedAt]',''
 		,'[Assessor1UserId],[Assessor2UserId],[CreatedBy]',0,1
-		,'select [Id],[ApplicationId],[SequenceNumber],[SectionNumber],[PageId],STUFF([Assessor1UserId],2,len([Assessor1UserId])-2,REPLICATE(''''*'''',len([Assessor1UserId])-2)) As [Assessor1UserId],[Assessor1ReviewStatus],[Assessor1ReviewComment],STUFF([Assessor2UserId],2,len([Assessor2UserId])-2,REPLICATE(''''*'''',len([Assessor2UserId])-2)) As [Assessor2UserId],[Assessor2ReviewStatus],[Assessor2ReviewComment],[CreatedAt],case when TRY_CONVERT(UNIQUEIDENTIFIER,[CreatedBy]) IS NOT NULL Then [CreatedBy] Else  STUFF([CreatedBy],2,len([CreatedBy])-2,REPLICATE(''''*'''',len([CreatedBy])-2)) End As [CreatedBy],[UpdatedAt]  from [dbo].[AssessorPageReviewOutcome]','RP_AssessorPageReviewOutcome')
-,('Apply','Contacts','dbo','[Id],[ApplyOrganisationID],[Status],[CreatedAt],[UpdatedAt],[DeletedAt]','[Email],[GivenNames],[FamilyName],[ContactDetails]'
-		,'[SigninId],[SigninType],[CreatedBy]',0,1
-		,'select [Id],[Email],[GivenNames],[FamilyName],[SigninId],[SigninType],[ApplyOrganisationID],[ContactDetails],[Status],[CreatedAt],case when TRY_CONVERT(UNIQUEIDENTIFIER,[CreatedBy]) IS NOT NULL Then [CreatedBy] Else  STUFF([CreatedBy],2,len([CreatedBy])-2,REPLICATE(''''*'''',len([CreatedBy])-2)) End As [CreatedBy],[UpdatedAt],[DeletedAt]  from [dbo].[Contacts]','RP_Contacts')
+		,'select [Id],[ApplicationId],[SequenceNumber],[SectionNumber],[PageId],STUFF([Assessor1UserId],2,len([Assessor1UserId])-2,REPLICATE(''''*'''',len([Assessor1UserId])-2)) As [Assessor1UserId],[Assessor1ReviewStatus],[Assessor1ReviewComment],STUFF([Assessor2UserId],2,len([Assessor2UserId])-2,REPLICATE(''''*'''',len([Assessor2UserId])-2)) As [Assessor2UserId],[Assessor2ReviewStatus],[Assessor2ReviewComment],[CreatedAt],case when TRY_CONVERT(UNIQUEIDENTIFIER,[CreatedBy]) IS NOT NULL Then [CreatedBy] Else  STUFF([CreatedBy],2,len([CreatedBy])-2,REPLICATE(''''*'''',len([CreatedBy])-2)) End As [CreatedBy],[UpdatedAt]  from [dbo].[AssessorPageReviewOutcome]'
+		,'RP_AssessorPageReviewOutcome')
+,('Apply','Contacts','dbo','[Id],[ApplyOrganisationID],[Status],[CreatedAt],[UpdatedAt],[DeletedAt]','[GivenNames],[FamilyName],[ContactDetails]'
+		,'[SigninId],[SigninType],[CreatedBy],[Email]',0,1
+		,'select [Id],[Email],[GivenNames],[FamilyName],[SigninId],[SigninType],[ApplyOrganisationID],[ContactDetails],[Status],[CreatedAt],case when TRY_CONVERT(UNIQUEIDENTIFIER,[CreatedBy]) IS NOT NULL Then [CreatedBy] Else  STUFF([CreatedBy],2,len([CreatedBy])-2,REPLICATE(''''*'''',len([CreatedBy])-2)) End As [CreatedBy],[UpdatedAt],[DeletedAt]  from [dbo].[Contacts]'
+		,'RP_Contacts')
 ,('Apply','FinancialData','dbo','[Id],[ApplicationId]',''
 		,'[TurnOver],[Depreciation],[ProfitLoss],[Dividends],[IntangibleAssets],[Assets],[Liabilities],[ShareholderFunds],[Borrowings],[AccountingReferenceDate],[AccountingPeriod],[AverageNumberofFTEEmployees]',0,1
-		,'select [Id],[ApplicationId],[TurnOver],[Depreciation],[ProfitLoss],[Dividends],[IntangibleAssets],[Assets],[Liabilities],[ShareholderFunds],[Borrowings],[AccountingReferenceDate],[AccountingPeriod],[AverageNumberofFTEEmployees]  from [dbo].[FinancialData]','RP_FinancialData')
+		,'select [Id],[ApplicationId],[TurnOver],[Depreciation],[ProfitLoss],[Dividends],[IntangibleAssets],[Assets],[Liabilities],[ShareholderFunds],[Borrowings],[AccountingReferenceDate],[AccountingPeriod],[AverageNumberofFTEEmployees]  from [dbo].[FinancialData]'
+		,'RP_FinancialData')
 ,('Apply','GatewayAnswer','dbo','[Id],[ApplicationId],[PageId],[UpdatedAt]',''
 		,'[Status],[Comments],[ClarificationComments],[ClarificationDate],[ClarificationBy],[ClarificationAnswer],[GatewayPageData]',0,1
-		,'select [Id],[ApplicationId],[PageId],[Status],[Comments],[ClarificationComments],[ClarificationDate],STUFF([ClarificationBy],2,len([ClarificationBy])-2,REPLICATE(''''*'''',len([ClarificationBy])-2)) As [ClarificationBy],[ClarificationAnswer],[GatewayPageData],[UpdatedAt] from [dbo].[GatewayAnswer]','RP_GatewayAnswer')
+		,'select [Id],[ApplicationId],[PageId],[Status],[Comments],[ClarificationComments],[ClarificationDate],STUFF([ClarificationBy],2,len([ClarificationBy])-2,REPLICATE(''''*'''',len([ClarificationBy])-2)) As [ClarificationBy],[ClarificationAnswer],[GatewayPageData],[UpdatedAt] from [dbo].[GatewayAnswer]'
+		,'RP_GatewayAnswer')
 ,('Apply','ModeratorPageReviewOutcome','dbo','[Id],[ApplicationId],[SequenceNumber],[SectionNumber],[PageId],[ClarificationUpdatedAt],[CreatedAt],[UpdatedAt]',''
 		,'[ModeratorUserId],[ModeratorReviewStatus],[ModeratorReviewComment],[ClarificationUserId],[ClarificationStatus],[ClarificationComment],[ClarificationResponse],[ClarificationFile],[CreatedBy],[ModeratorUserName],[ClarificationUserName]',0,1
-		,'Select [Id],[ApplicationId],[SequenceNumber],[SectionNumber],[PageId],STUFF([ModeratorUserId],2,len([ModeratorUserId])-2,REPLICATE(''''*'''',len([ModeratorUserId])-2)) As [ModeratorUserId],STUFF([ModeratorUserName],2,len([ModeratorUserName])-2,REPLICATE(''''*'''',len([ModeratorUserName])-2)) As [ModeratorUserName],[ModeratorReviewStatus],[ModeratorReviewComment],STUFF([ClarificationUserId],2,len([ClarificationUserId])-2,REPLICATE(''''*'''',len([ClarificationUserId])-2)) As [ClarificationUserId],STUFF([ClarificationUserName],2,len([ClarificationUserName])-2,REPLICATE(''''*'''',len([ClarificationUserName])-2)) As [ClarificationUserName],[ClarificationStatus],[ClarificationComment],[ClarificationResponse],[ClarificationFile],[ClarificationUpdatedAt],[CreatedAt],case when TRY_CONVERT(UNIQUEIDENTIFIER,[CreatedBy]) IS NOT NULL Then [CreatedBy] Else  STUFF([CreatedBy],2,len([CreatedBy])-2,REPLICATE(''''*'''',len([CreatedBy])-2)) End As [CreatedBy],[UpdatedAt] from [dbo].[ModeratorPageReviewOutcome]','RP_ModeratorPageReviewOutcome')
+		,'Select [Id],[ApplicationId],[SequenceNumber],[SectionNumber],[PageId],STUFF([ModeratorUserId],2,len([ModeratorUserId])-2,REPLICATE(''''*'''',len([ModeratorUserId])-2)) As [ModeratorUserId],STUFF([ModeratorUserName],2,len([ModeratorUserName])-2,REPLICATE(''''*'''',len([ModeratorUserName])-2)) As [ModeratorUserName],[ModeratorReviewStatus],[ModeratorReviewComment],STUFF([ClarificationUserId],2,len([ClarificationUserId])-2,REPLICATE(''''*'''',len([ClarificationUserId])-2)) As [ClarificationUserId],STUFF([ClarificationUserName],2,len([ClarificationUserName])-2,REPLICATE(''''*'''',len([ClarificationUserName])-2)) As [ClarificationUserName],[ClarificationStatus],[ClarificationComment],[ClarificationResponse],[ClarificationFile],[ClarificationUpdatedAt],[CreatedAt],case when TRY_CONVERT(UNIQUEIDENTIFIER,[CreatedBy]) IS NOT NULL Then [CreatedBy] Else  STUFF([CreatedBy],2,len([CreatedBy])-2,REPLICATE(''''*'''',len([CreatedBy])-2)) End As [CreatedBy],[UpdatedAt] from [dbo].[ModeratorPageReviewOutcome]'
+		,'RP_ModeratorPageReviewOutcome')
 ,('Apply','OversightReview','dbo','[Id],[ApplicationId],[GatewayApproved],[ModerationApproved],[Status],[ApplicationDeterminedDate],[InternalComments],[ExternalComments],[InProgressDate],[InProgressInternalComments],[InProgressExternalComments],[CreatedOn],[UpdatedOn]',''
 		,'[UserId],[InProgressUserId],[UserName],[InProgressUserName]',0,1
-		,'select [Id],[ApplicationId],[GatewayApproved],[ModerationApproved],[Status],[ApplicationDeterminedDate],[InternalComments],[ExternalComments],STUFF([UserId],2,len([UserId])-2,REPLICATE(''''*'''',len([UserId])-2)) As [UserId],STUFF([UserName],2,len([UserName])-2,REPLICATE(''''*'''',len([UserName])-2)) As [UserName],[InProgressDate],STUFF([InProgressUserId],2,len([InProgressUserId])-2,REPLICATE(''''*'''',len([InProgressUserId])-2)) As [InProgressUserId],STUFF([InProgressUserName],2,len([InProgressUserName])-2,REPLICATE(''''*'''',len([InProgressUserName])-2)) As [InProgressUserName],[InProgressInternalComments],[InProgressExternalComments],[CreatedOn],[UpdatedOn] from [dbo].[OversightReview]','RP_OversightReview')
-,('Apply','SubmittedApplicationAnswers','dbo','[Id],[ApplicationId],[PageId]',''
-		,'[QuestionId],[QuestionType],[Answer],[ColumnHeading]',0,1
-		,'select [Id],[ApplicationId],[PageId],[QuestionId],[QuestionType],[Answer],[ColumnHeading] from [dbo].[SubmittedApplicationAnswers]','RP_SubmittedApplicationAnswers')
- 
- INSERT INTO Mtd.SourceConfigForImport
-(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName,IsEnabled)
-VALUES
-('Apply','AppealUpload','dbo','[Id],[ApplicationId],[AppealId],[FileStorageReference],[CreatedOn]',''
+		,'select [Id],[ApplicationId],[GatewayApproved],[ModerationApproved],[Status],[ApplicationDeterminedDate],[InternalComments],[ExternalComments],STUFF([UserId],2,len([UserId])-2,REPLICATE(''''*'''',len([UserId])-2)) As [UserId],STUFF([UserName],2,len([UserName])-2,REPLICATE(''''*'''',len([UserName])-2)) As [UserName],[InProgressDate],STUFF([InProgressUserId],2,len([InProgressUserId])-2,REPLICATE(''''*'''',len([InProgressUserId])-2)) As [InProgressUserId],STUFF([InProgressUserName],2,len([InProgressUserName])-2,REPLICATE(''''*'''',len([InProgressUserName])-2)) As [InProgressUserName],[InProgressInternalComments],[InProgressExternalComments],[CreatedOn],[UpdatedOn] from [dbo].[OversightReview]'
+		,'RP_OversightReview')
+,('Apply','SubmittedApplicationAnswers','dbo','[Id],[ApplicationId],[SequenceNumber],[SectionNumber],[PageId],[Answer2],[RowNumber],[ColumnNumber]',''
+		,'[QuestionId],[QuestionType],[ColumnHeading],[Answer1]',1,1
+		,'Select [Id],[ApplicationId],[SequenceNumber],[SectionNumber],[PageId],[QuestionId],[QuestionType],Case when len([Answer]) <= 500 then  [Answer] Else NULL End As [Answer1],Case when len([Answer]) > 500 then [Answer] Else NULL End As [Answer2],[ColumnHeading],[RowNumber],[ColumnNumber] FROM [dbo].[SubmittedApplicationAnswers]'
+		,'RP_SubmittedApplicationAnswers')
+,('Apply','AppealFile','dbo','[Id],[ApplicationId],[CreatedOn]',''
 		,'[Filename],[ContentType],[Size],[UserId],[UserName]',0,1
-		,'select [Id],[ApplicationId],[AppealId],[FileStorageReference],[Filename],[ContentType],[Size],STUFF([UserId],2,len([UserId])-2,REPLICATE(''''*'''',len([UserId])-2)) As [UserId],STUFF([UserName],2,len([UserName])-2,REPLICATE(''''*'''',len([UserName])-2)) As [UserName],[CreatedOn]  from [dbo].[AppealUpload]','RP_AppealUpload',0)
+		,'select [Id],[ApplicationId],[Filename],[ContentType],[Size],STUFF([UserId],2,len([UserId])-2,REPLICATE(''''*'''',len([UserId])-2)) As [UserId],STUFF([UserName],2,len([UserName])-2,REPLICATE(''''*'''',len([UserName])-2)) As [UserName],[CreatedOn]  from [dbo].[AppealFile]'
+		,'RP_AppealFile')
   /* Assessor Configuration for Certificates,OrganisationStandard,CertificateLogs and  Organisations */
 
  INSERT INTO Mtd.SourceConfigForImport
@@ -285,15 +290,12 @@ VALUES
    ,('EmployerDemand','ProviderInterest','dbo','[Id],[EmployerDemandId],[Website],[DateCreated]','[Phone]','[Email],[Ukprn]','AED_ProviderInterest',0)
 
 /* Provider Apprenticeship Service  Config */
-
-
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
 VALUES
 ('ProviderApprenticeshipService','User','dbo','[Id],[IsDeleted],[UserType],[LastLogin]','','[UserRef],[DisplayName],[Ukprn],[Email]','PAS_User',0,1) 
   
 /* E Commitments  Config */
-
 
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])

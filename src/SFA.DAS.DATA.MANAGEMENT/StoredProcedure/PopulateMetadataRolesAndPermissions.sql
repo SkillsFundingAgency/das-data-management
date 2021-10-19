@@ -134,6 +134,7 @@ VALUES
 ('BetaUser','ASData_PL','RP_Apply','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','RP_Organisations','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','RP_Appeal','TABLE','SELECT',0,1),
+('BetaUser','ASData_PL','RP_AppealFile','TABLE','SELECT',0,1),
 --('BetaUser','ASData_PL','RP_AppealUpload','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','RP_AssessorPageReviewOutcome','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','RP_Contacts','TABLE','SELECT',0,1),

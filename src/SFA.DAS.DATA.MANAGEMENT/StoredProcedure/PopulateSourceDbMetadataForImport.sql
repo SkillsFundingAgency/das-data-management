@@ -370,5 +370,4 @@ UPDATE Mgmt.Log_Execution_Results
    AND RunID=@RunId
 
   END CATCH
-
 GO

@@ -14,6 +14,7 @@ AS
 			SET NOCOUNT ON
 
 		 DECLARE @LogID int
+		 DECLARE @DynSQL   NVarchar(max)
 
 		/* Start Logging Execution */
 
@@ -40,6 +41,33 @@ AS
 		IF @@TRANCOUNT=0
 		BEGIN
 		BEGIN TRANSACTION
+
+			Set @DynSQL = 'Insert into [ASData_PL].[LTM_Pledge]
+				(
+					[Id],
+					[EmployerAccountId],
+					[Amount],
+					[RemainingAmount],
+					[IsNamePublic],
+					[CreatedOn],
+					[JobRoles],
+					[Levels],
+					[Sectors]					
+				) 
+				SELECT [Id]
+					  ,[EmployerAccountId]
+					  ,[Amount]
+					  ,[RemainingAmount]
+					  ,[IsNamePublic]
+					  ,[CreatedOn]
+					  ,[JobRoles]
+					  ,[Levels]
+					  ,[Sectors]
+			    [stg].[LTM_Pledge]'
+				exec SP_EXECUTESQL @DynSQL
+
+				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='LTM_Pledge' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+				  DROP TABLE [stg].[LTM_Pledge]
 
 				/*Loading Pledge Sector data */				
 				DELETE FROM [ASData_PL].[LTM_PledgeSector]
@@ -80,6 +108,10 @@ AS
 				FROM [ASData_PL].[LTM_Pledge] p
 				join [dbo].[ReferenceData] l on p.jobRoles & l.FieldValue > 0 and l.Category = 'LevyTransferMatching' and l.FieldName = 'JobRole' 
 				order by 1,cast(l.FieldValue as int) asc
+
+
+			  IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='LTM_Pledge' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+				  DROP TABLE [Stg].[FAT2_Framework]
 
 		COMMIT TRANSACTION
 		END

@@ -112,7 +112,7 @@ BEGIN TRY
 					  ,[EqaProviderWebLink]
 					  ,[Keywords]
 					  ,[TypicalJobTitles]
-					  ,[StandardPageUrl]
+					  ,std.[StandardPageUrl]
 					  ,std.[Version]
 					  ,[RegulatedBody]
 					  ,[Skills]

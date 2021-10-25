@@ -109,10 +109,6 @@ AS
 				join [dbo].[ReferenceData] l on p.jobRoles & l.FieldValue > 0 and l.Category = 'LevyTransferMatching' and l.FieldName = 'JobRole' 
 				order by 1,cast(l.FieldValue as int) asc
 
-
-			  IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='LTM_Pledge' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
-				  DROP TABLE [Stg].[FAT2_Framework]
-
 		COMMIT TRANSACTION
 		END
 

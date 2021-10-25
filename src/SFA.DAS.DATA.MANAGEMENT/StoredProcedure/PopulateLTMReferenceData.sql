@@ -80,6 +80,7 @@ AS
 				SELECT p.Id As PledgeID,l.FieldValue,l.FieldDesc 
 				FROM [ASData_PL].[LTM_Pledge] p
 				join [dbo].[ReferenceData] l on p.Sectors & l.FieldValue > 0 and l.Category = 'LevyTransferMatching' and l.FieldName = 'Sector' 
+				GROUP BY p.Id,l.FieldValue,l.FieldDesc
 				order by 1,cast(l.FieldValue as int) asc
 
 
@@ -94,6 +95,7 @@ AS
 				SELECT p.Id As PledgeID,l.FieldValue,l.FieldDesc 
 				FROM [ASData_PL].[LTM_Pledge] p
 				join [dbo].[ReferenceData] l on p.Levels & l.FieldValue > 0 and l.Category = 'LevyTransferMatching' and l.FieldName = 'Level' 
+				Group by p.Id,l.FieldValue,l.FieldDesc
 				order by 1,cast(l.FieldValue as int) asc
 
 				/*Loading Pledge JobRole data */
@@ -107,6 +109,7 @@ AS
 				SELECT p.Id As PledgeID,l.FieldValue,l.FieldDesc 
 				FROM [ASData_PL].[LTM_Pledge] p
 				join [dbo].[ReferenceData] l on p.jobRoles & l.FieldValue > 0 and l.Category = 'LevyTransferMatching' and l.FieldName = 'JobRole' 
+				Group by p.Id,l.FieldValue,l.FieldDesc
 				order by 1,cast(l.FieldValue as int) asc
 
 		COMMIT TRANSACTION

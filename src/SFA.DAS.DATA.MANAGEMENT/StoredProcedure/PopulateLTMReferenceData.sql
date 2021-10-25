@@ -63,7 +63,7 @@ AS
 					  ,[JobRoles]
 					  ,[Levels]
 					  ,[Sectors]
-			    [stg].[LTM_Pledge]'
+			    FROM [stg].[LTM_Pledge]'
 				exec SP_EXECUTESQL @DynSQL
 
 				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='LTM_Pledge' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')

@@ -359,5 +359,7 @@
     <Build Include="Tables\AsDataPL_Va_Feedback.sql" />
     <Build Include="StoredProcedure\ImportVacanciesFAAFeedbackToPL.sql" />
     <Build Include="StoredProcedure\ImportSubmittedApplicationAnswersToPL.sql" />
+    <Build Include="Tables\AsDataPL_Tpr_OrgDetails.sql" />
+    <Build Include="Views\AsDataPL_DAS_TprOrgDetails.sql" />
   </ItemGroup>
 </Project>

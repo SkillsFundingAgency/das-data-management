@@ -34,5 +34,7 @@
    ,DeletedAt							datetime2(7)
    ,Comments							nvarchar(max)
    ,ExternalComments					nvarchar(max) 
+   ,ProviderRouteOnRegister				Int
+   ,ProviderRouteNameOnRegister			Varchar(100)
    ,AsDm_UpdatedDateTime				DateTime2 default(getdate())
 )

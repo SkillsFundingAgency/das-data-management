@@ -31,7 +31,6 @@ EXEC [dbo].[CreateDataDictionaryView] @RunID
 
 EXEC [dbo].[LoadRPLookupData] @RunID
 
-
 /* Populate Metadata for Marketo Import */
 
 EXEC [dbo].[PopulateMarketoFilterConfigForImport] @RunId

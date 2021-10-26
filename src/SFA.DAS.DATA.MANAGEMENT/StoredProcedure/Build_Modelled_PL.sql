@@ -28,6 +28,9 @@ EXEC dbo.ImportPublicSectorReportDataToPL @RunId
 /* SubmittedApplicationAnswers */
 EXEC [dbo].[ImportSubmittedApplicationAnswersToPL] @RunId
 
+/* Populate LTM reference Data */
+EXEC [dbo].[PopulateLTMReferenceData] @RunID
+
 /* Run Payments Snaptshot */
 Declare @StartDate  Date = dateadd(day,-2,cast(getdate() as date)),
 		@EndDate Date = dateadd(day,2,cast(getdate() as date))

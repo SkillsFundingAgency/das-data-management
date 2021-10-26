@@ -57,6 +57,7 @@ VALUES
 ('Developer','Data_Pub','','','SELECT',1,1),
 ('Developer','Mtd','','','SELECT',1,1),
 ('Developer','Comp','','','SELECT',1,1),
+('Developer','AsData_AI','','','SELECT',1,1),
 ('Developer','dbo','DASCalendarMonth','TABLE','SELECT',0,1),
 ('Developer','dbo','ReferenceData','TABLE','SELECT',0,1),
 ('Developer','dbo','SourceDbChanges','TABLE','SELECT',0,1),
@@ -211,7 +212,7 @@ VALUES
 ('VaUser','ASData_PL','Va_Application','TABLE','SELECT',0,1),
 ('VaUser','ASData_PL','Va_Vacancy','TABLE','SELECT',0,1),
 /* Atos User Role for Atos Team working on AI Project */
-('AtosUser','ASData_PL','TprOrgDetails','VIEW','SELECT',0,1)
+('AtosUser','ASData_AI','TprOrgDetails','VIEW','SELECT',0,1)
 
 
 

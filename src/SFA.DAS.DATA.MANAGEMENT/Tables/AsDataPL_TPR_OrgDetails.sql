@@ -2,9 +2,9 @@
 (      
        [TPRUniqueId] bigint
       ,[OrganisationName] varchar(256)
-	  ,[AORN] Varchar(13)
+	  ,[AORN] Varchar(256)
       ,[CompaniesHouseNumber] varchar(256)
-      ,[EmpRef] varchar(100)
+      ,[EmpRef] varchar(256)
       ,[SchemeStartDate] date
       ,[SchemeEndDate] date
       ,[SchemeEndDateCodeDesc] tinyint

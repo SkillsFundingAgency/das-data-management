@@ -42,6 +42,7 @@ AS
 		BEGIN
 		BEGIN TRANSACTION
 
+			DELETE FROM [ASData_PL].[LTM_Pledge]
 			Set @DynSQL = 'Insert into [ASData_PL].[LTM_Pledge]
 				(
 					[Id],

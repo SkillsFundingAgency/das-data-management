@@ -363,5 +363,8 @@
     <Build Include="Tables\ASDataPL_LTM_PledgeLevel.sql" />
     <Build Include="StoredProcedure\PopulateLTMReferenceData.sql" />
     <Build Include="StoredProcedure\ImportSubmittedApplicationAnswersToPL.sql" />
+    <Build Include="Tables\AsDataPL_Tpr_OrgDetails.sql" />
+    <Build Include="Views\AsDataPL_DAS_TprOrgDetails.sql" />
+    <Build Include="Schemas\AsData_AI.sql" />
   </ItemGroup>
 </Project>

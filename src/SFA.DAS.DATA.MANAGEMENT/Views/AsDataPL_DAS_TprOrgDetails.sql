@@ -13,5 +13,6 @@ SELECT [TPRUniqueId]
       ,[RestartDate] 
       ,[TradeClass] 
       ,[TradeClassDescription] 
+      ,[Asdm_UpdatedDateTime]
   FROM [ASData_PL].[Tpr_OrgDetails] TOD
 

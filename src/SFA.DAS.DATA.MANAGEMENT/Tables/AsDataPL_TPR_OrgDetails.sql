@@ -7,7 +7,7 @@
       ,[EmpRef] varchar(256)
       ,[SchemeStartDate] date
       ,[SchemeEndDate] date
-      ,[SchemeEndDateCodeDesc] tinyint
+      ,[SchemeEndDateCodeDesc] varchar(256)
       ,[EmployeeCountDateTaken] date      
       ,[LiveEmployeeCount] int
       ,[RestartDate] date

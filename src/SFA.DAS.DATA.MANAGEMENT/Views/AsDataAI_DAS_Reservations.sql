@@ -1,4 +1,5 @@
-﻿DECLARE @VSQL NVARCHAR(MAX)
+﻿/* Create Reservations View */
+DECLARE @VSQL NVARCHAR(MAX)
 SET @VSQL='
 CREATE VIEW [AsData_AI].[Das_Reservations]
 	AS 
@@ -22,4 +23,5 @@ SELECT Reservation.AccountId                            AS A1
    ON ast.ApprenticeshipOccupationId=ao.ApprenticeshipOccupationId
 where Reservation.IsLevyAccount=0
 '
-EXEC SP_EXECUTESQL @VSQL
+EXEC @VSQL
+

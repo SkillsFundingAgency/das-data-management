@@ -45,8 +45,8 @@ LEFT
 JOIN        Stg.Avms_ApprenticeshipOccupation ao
   on       ast.ApprenticeshipOccupationId=ao.ApprenticeshipOccupationId
 LEFT
-JOIN       [Stg].[Avms_ApprenticeshipFramework] afwk
-  ON       CAST(left(Apprenticeship.trainingcode,3) AS NVARCHAR(50)) = cast (afwk.[CodeName]AS NVARCHAR(50))
+JOIN       [ASData_PL].[Va_ApprenticeshipFrameWorkAndOccupation] afwk
+  ON       CAST(left(Apprenticeship.trainingcode,3) AS NVARCHAR(50)) = cast (afwk.[FrameworkCodeName] AS NVARCHAR(50))
 LEFT
 JOIN       Stg.Avms_ApprenticeshipOccupation ao2
   on       afwk.ApprenticeshipOccupationId=ao2.ApprenticeshipOccupationId

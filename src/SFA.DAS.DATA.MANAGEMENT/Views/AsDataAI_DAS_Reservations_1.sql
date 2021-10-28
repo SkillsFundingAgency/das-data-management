@@ -1,10 +1,12 @@
-﻿CREATE VIEW [AsData_AI].[Das_Reservations]
+﻿DECLARE @VSQL NVARCHAR(MAX)
+SET @VSQL='
+CREATE VIEW [AsData_AI].[Das_Reservations]
 	AS 
 SELECT Reservation.AccountId                            AS A1
       ,Reservation.Id                                   AS A2	
-      ,COALESCE(Reservation.CreatedDate,'9999-12-31') AS A3			
-      ,COALESCE(Reservation.StartDate, '9999-12-31')  AS A4
-      ,COALESCE(Reservation.ExpiryDate,'9999-12-31')  AS A5 
+      ,COALESCE(Reservation.CreatedDate,''9999-12-31'') AS A3			
+      ,COALESCE(Reservation.StartDate, ''9999-12-31'')  AS A4
+      ,COALESCE(Reservation.ExpiryDate,''9999-12-31'')  AS A5 
       ,COALESCE(Reservation.Status, -1)                 AS A6
 	  ,COALESCE(Course.Level, -1)                       AS A7
       ,COALESCE(ao.[ApprenticeshipOccupationId],-1)     AS A8
@@ -19,3 +21,5 @@ SELECT Reservation.AccountId                            AS A1
  JOIN Stg.Avms_ApprenticeshipOccupation ao
    ON ast.ApprenticeshipOccupationId=ao.ApprenticeshipOccupationId
 where Reservation.IsLevyAccount=0
+'
+EXEC SP_EXECUTESQL @VSQL

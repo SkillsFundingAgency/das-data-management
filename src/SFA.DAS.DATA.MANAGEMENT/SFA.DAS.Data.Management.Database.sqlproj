@@ -367,7 +367,7 @@
     <Build Include="Views\AsDataAI_DAS_TprOrgDetails.sql" />
     <Build Include="Schemas\AsData_AI.sql" />
     <Build Include="Views\AsDataAI_DAS_Accounts.sql" />
-    <Build Include="Views\AsDataAI_Das_Commitments.sql" />
-    <Build Include="Views\AsDataAI_Das_Reservations.sql" />
+    <DeploymentExtensionConfiguration Include="Views\AsDataAI_DAS_Commitments.sql" />
+    <DeploymentExtensionConfiguration Include="Views\AsDataAI_DAS_Reservations_1.sql" />
   </ItemGroup>
 </Project>

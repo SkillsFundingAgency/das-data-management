@@ -8,6 +8,7 @@ SELECT Reservation.AccountId                            AS A1
       ,COALESCE(Reservation.Status, -1)                 AS A6
 	  ,COALESCE(Course.Level, -1)                       AS A7
       ,COALESCE(ao.[ApprenticeshipOccupationId],-1)     AS A8
+      ,Reservation.AsDm_UpdatedDateTime                 AS A9
  FROM ASData_PL.Resv_Reservation Reservation
  LEFT
  JOIN ASData_PL.Resv_Course Course

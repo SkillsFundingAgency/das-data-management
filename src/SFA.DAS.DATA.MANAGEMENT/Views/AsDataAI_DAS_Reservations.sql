@@ -1,6 +1,7 @@
 ﻿CREATE VIEW [AsData_AI].[Das_Reservations]
 	AS 
-SELECT Reservation.AccountId                            AS A1
+SELECT DISTINCT 
+       Reservation.AccountId                            AS A1
       ,Reservation.Id                                   AS A2	
       ,COALESCE(Reservation.CreatedDate,'9999-12-31') AS A3			
       ,COALESCE(Reservation.StartDate, '9999-12-31')  AS A4

@@ -1,6 +1,6 @@
 ﻿CREATE VIEW [AsData_AI].[Das_Commitments]
 	AS 
-SELECT 
+SELECT DISTINCT 
        Apprenticeship.Id                                  AS A1								
       ,COALESCE(Apprenticeship.CreatedOn, '9999-12-31') AS A2
       ,COALESCE(Course.Level, -1)                         AS A3 

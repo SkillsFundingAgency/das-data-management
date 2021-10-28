@@ -212,7 +212,10 @@ VALUES
 ('VaUser','ASData_PL','Va_Application','TABLE','SELECT',0,1),
 ('VaUser','ASData_PL','Va_Vacancy','TABLE','SELECT',0,1),
 /* Atos User Role for Atos Team working on AI Project */
-('AtosUser','ASData_AI','DAS_TPROrgDetails','VIEW','SELECT',0,1)
+('AtosUser','ASData_AI','DAS_TPROrgDetails','VIEW','SELECT',0,1),
+('AtosUser','ASData_AI','DAS_Commitments','VIEW','SELECT',0,1),
+('AtosUser','ASData_AI','DAS_Reservations','VIEW','SELECT',0,1),
+('AtosUser','ASData_AI','DAS_Accounts','VIEW','SELECT',0,1)
 
 
 

@@ -11,8 +11,7 @@ SELECT [TPRUniqueId]             AS A1
       ,[EmployeeCountDateTaken]  AS A9      
       ,[LiveEmployeeCount]       AS A10
       ,[RestartDate]             AS A11
-      ,[TradeClass]              AS A12
-      ,[TradeClassDescription]   AS A13 
+      ,left(TOD.TradeClass,1)    AS A12
       ,[Asdm_UpdatedDateTime]    AS A14
   FROM [ASData_PL].[Tpr_OrgDetails] TOD
 

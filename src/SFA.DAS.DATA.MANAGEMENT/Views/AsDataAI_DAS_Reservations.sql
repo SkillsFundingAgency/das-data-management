@@ -1,4 +1,4 @@
-﻿CREATE VIEW [AsData_AI].[Das_Reservations]
+﻿CREATE VIEW [AsData_AI].[DAS_Reservations]
 	AS 
 SELECT DISTINCT 
        Reservation.AccountId                            AS A1

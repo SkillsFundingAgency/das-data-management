@@ -364,7 +364,11 @@
     <Build Include="StoredProcedure\PopulateLTMReferenceData.sql" />
     <Build Include="StoredProcedure\ImportSubmittedApplicationAnswersToPL.sql" />
     <Build Include="Tables\AsDataPL_Tpr_OrgDetails.sql" />
-    <Build Include="Views\AsDataPL_DAS_TprOrgDetails.sql" />
+    <Build Include="Views\AsDataAI_DAS_TprOrgDetails.sql" />
     <Build Include="Schemas\AsData_AI.sql" />
+    <Build Include="Views\AsDataAI_DAS_Accounts.sql" />
+    <Build Include="Views\AsDataAI_DAS_Commitments.sql" />
+    <Build Include="Views\AsDataAI_DAS_Reservations.sql" />
+    <Build Include="Tables\Stg_Avms_ApprenticeshipOccupation.sql" />
   </ItemGroup>
 </Project>

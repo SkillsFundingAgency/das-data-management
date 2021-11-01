@@ -50,11 +50,9 @@ JOIN       [ASData_PL].[Va_ApprenticeshipFrameWorkAndOccupation] afwk
 LEFT
 JOIN       Stg.Avms_ApprenticeshipOccupation ao2
   on       afwk.ApprenticeshipOccupationId=ao2.ApprenticeshipOccupationId
-LEFT
-JOIN       Mgmt.SaltKeyLog SKL 
-  ON       SourceType ='EmployerReference'
- AND       convert(date,SKL.CreatedDateTime)=convert(date,apprenticeship.AsDm_UpdatedDateTime)  
-
+CROSS
+JOIN       (Select TOP 1 SaltKeyID,SaltKey From Mgmt.SaltKeyLog Where SourceType ='EmployerReference'  Order by SaltKeyID DESC ) Skl
+ 
 --LEFT OUTER JOIN ASData_PL.Assessor_Certificates AC
 --on ac.ProviderUkPrn=Commitment.ProviderId
 --and ac.StandardCode=try_convert(int,Apprenticeship.TrainingCode)

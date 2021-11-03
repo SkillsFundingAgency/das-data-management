@@ -1,4 +1,4 @@
-﻿CREATE VIEW [AsData_AI].[DAS_Commitments]
+﻿CREATE VIEW [Pds_AI].[PT_B]
 	AS 
 SELECT DISTINCT 
        Apprenticeship.Id                                  AS B1								

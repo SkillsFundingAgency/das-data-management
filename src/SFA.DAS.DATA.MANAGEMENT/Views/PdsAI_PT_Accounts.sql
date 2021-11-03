@@ -1,4 +1,4 @@
-﻿CREATE VIEW [AsData_AI].[DAS_Accounts]
+﻿CREATE VIEW [Pds_AI].[PT_A]
 	AS 
 SELECT	   DISTINCT
         	COALESCE(Account.ApprenticeshipEmployerType, -1)   AS A1

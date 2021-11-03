@@ -1,4 +1,4 @@
-﻿CREATE VIEW [AsData_AI].[DAS_TPROrgDetails]
+﻿CREATE VIEW [Pds_AI].[PT_D]
 As
 SELECT [TPRUniqueId]             AS D1
 	  ,[AORN]                    AS D2

@@ -3,7 +3,7 @@ As
 SELECT [TPRUniqueId]                 AS D1
 	  ,[AORN]                        AS D2
       ,[CompaniesHouseNumber]        AS D3
-  --    ,[EmpRef]                  AS D4
+      ,[EmpRef]                  AS D4
       ,[PostCode]                    AS D5
       ,[SchemeStartDate]             AS D6 
       ,[SchemeEndDate]               AS D7

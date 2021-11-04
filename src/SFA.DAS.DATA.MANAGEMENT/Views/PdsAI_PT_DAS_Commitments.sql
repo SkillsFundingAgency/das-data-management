@@ -27,6 +27,9 @@ SELECT DISTINCT
 			ELSE DATEDIFF(YEAR, [Apprenticeship].[DateOfBirth], [Apprenticeship].[StartDate]) 
 		END                                              AS B13
        ,Apprenticeship.AsDm_UpdatedDateTime              AS B14 
+       ,CASE WHEN Apprenticeship.CompletionDate is not null THEN 1
+             ELSE O
+         END                                             AS B15
 --,COALESCE(ac.OverallGrade,''N/A'') AS OverallGrade	Would be included later if needed
 FROM		ASData_PL.Comt_Apprenticeship Apprenticeship
 LEFT

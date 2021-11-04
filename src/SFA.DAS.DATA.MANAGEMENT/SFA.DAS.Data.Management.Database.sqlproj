@@ -370,8 +370,8 @@
     <Build Include="Views\PdsAI_PT_FatProviderRegistrationFeedbackRating.sql" />
     <Build Include="Views\PdsAI_PT_FatNationalAcheivementRate.sql" />
     <Build Include="Views\PdsAI_PT_DAS_Marketo.sql" />
-    <Build Include="Views\PdsAI_PT_Accounts.sql" />
-    <Build Include="Views\PdsAI_PT_Commitments.sql" />
+    <Build Include="Views\PdsAI_PT_DAS_Accounts.sql" />
+    <Build Include="Views\PdsAI_PT_DAS_Commitments.sql" />
     <Build Include="Schemas\PDS_AI.sql" />
   </ItemGroup>
 </Project>

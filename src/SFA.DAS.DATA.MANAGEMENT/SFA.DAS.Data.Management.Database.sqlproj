@@ -304,7 +304,7 @@
     <Build Include="Tables\ASDataPL_Assessor_OrganisationStandard.sql" />
     <Build Include="Tables\AsDataPL_FAT2_ShortList.sql" />
     <Build Include="Tables\AsDataPL_RP_Appeal.sql" />
-    <Build Include="Tables\AsDataPL_RP_AppealUpload.sql" />
+    <Build Include="Tables\AsDataPL_RP_AppealFile.sql" />
     <Build Include="Tables\AsDataPL_RP_OversightReview.sql" />
     <Build Include="Tables\AsDataPL_RP_AssessorPageReviewOutcome.sql" />
     <Build Include="Tables\AsDataPL_RP_Contacts.sql" />
@@ -358,5 +358,20 @@
     <Build Include="Tables\Stg_FAA_Feedback.sql" />
     <Build Include="Tables\AsDataPL_Va_Feedback.sql" />
     <Build Include="StoredProcedure\ImportVacanciesFAAFeedbackToPL.sql" />
+    <Build Include="Tables\ASDataPL_LTM_PledgeJobRole.sql" />
+    <Build Include="Tables\ASDataPL_LTM_PledgeSector.sql" />
+    <Build Include="Tables\ASDataPL_LTM_PledgeLevel.sql" />
+    <Build Include="StoredProcedure\PopulateLTMReferenceData.sql" />
+    <Build Include="StoredProcedure\ImportSubmittedApplicationAnswersToPL.sql" />
+    <Build Include="Tables\AsDataPL_Tpr_OrgDetails.sql" />
+    <Build Include="Views\AsDataAI_DAS_TprOrgDetails.sql" />
+    <Build Include="Schemas\AsData_AI.sql" />
+    <Build Include="Views\AsDataAI_DAS_Accounts.sql" />
+    <Build Include="Views\AsDataAI_DAS_Commitments.sql" />
+    <Build Include="Views\AsDataAI_DAS_Reservations.sql" />
+    <Build Include="Tables\Stg_Avms_ApprenticeshipOccupation.sql" />
+    <Build Include="Views\AsDataAI_DAS_FatProviderRegistrationFeedbackRating.sql" />
+    <Build Include="Views\AsDataAI_DAS_FatNationalAcheivementRate.sql" />
+    <Build Include="Views\AsDataAI_DAS_Marketo.sql" />
   </ItemGroup>
 </Project>

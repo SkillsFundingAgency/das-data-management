@@ -57,6 +57,7 @@ VALUES
 ('Developer','Data_Pub','','','SELECT',1,1),
 ('Developer','Mtd','','','SELECT',1,1),
 ('Developer','Comp','','','SELECT',1,1),
+('Developer','AsData_AI','','','SELECT',1,1),
 ('Developer','dbo','DASCalendarMonth','TABLE','SELECT',0,1),
 ('Developer','dbo','ReferenceData','TABLE','SELECT',0,1),
 ('Developer','dbo','SourceDbChanges','TABLE','SELECT',0,1),
@@ -134,6 +135,7 @@ VALUES
 ('BetaUser','ASData_PL','RP_Apply','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','RP_Organisations','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','RP_Appeal','TABLE','SELECT',0,1),
+('BetaUser','ASData_PL','RP_AppealFile','TABLE','SELECT',0,1),
 --('BetaUser','ASData_PL','RP_AppealUpload','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','RP_AssessorPageReviewOutcome','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','RP_Contacts','TABLE','SELECT',0,1),
@@ -208,7 +210,12 @@ VALUES
 ('ServiceOps','Stg','RAA_Vacancies','TABLE','SELECT',0,1),
 /* Va User for Nigel's Team in Data Science */
 ('VaUser','ASData_PL','Va_Application','TABLE','SELECT',0,1),
-('VaUser','ASData_PL','Va_Vacancy','TABLE','SELECT',0,1)
+('VaUser','ASData_PL','Va_Vacancy','TABLE','SELECT',0,1),
+/* Atos User Role for Atos Team working on AI Project */
+('AtosUser','ASData_AI','DAS_TPROrgDetails','VIEW','SELECT',0,1),
+('AtosUser','ASData_AI','DAS_Commitments','VIEW','SELECT',0,1),
+('AtosUser','ASData_AI','DAS_Reservations','VIEW','SELECT',0,1),
+('AtosUser','ASData_AI','DAS_Accounts','VIEW','SELECT',0,1)
 
 
 

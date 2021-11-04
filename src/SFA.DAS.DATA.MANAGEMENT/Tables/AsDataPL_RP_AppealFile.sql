@@ -1,9 +1,7 @@
-﻿CREATE TABLE [AsData_PL].[RP_AppealUpload]
+﻿CREATE TABLE [AsData_PL].[RP_AppealFile]
 (
 	[Id]					[uniqueidentifier]		NOT NULL,
 	[ApplicationId]			[uniqueidentifier]		NULL,
-	[AppealId]				[uniqueidentifier]		NULL,
-	[FileStorageReference]	[uniqueidentifier]		NULL,
 	[Filename]				[nvarchar](256)			NULL,
 	[ContentType]			[nvarchar](256)			NULL,
 	[Size]					[int]					NULL,

@@ -370,5 +370,8 @@
     <Build Include="Views\AsDataAI_DAS_Commitments.sql" />
     <Build Include="Views\AsDataAI_DAS_Reservations.sql" />
     <Build Include="Tables\Stg_Avms_ApprenticeshipOccupation.sql" />
+    <Build Include="Views\AsDataAI_DAS_FatProviderRegistrationFeedbackRating.sql" />
+    <Build Include="Views\AsDataAI_DAS_FatNationalAcheivementRate.sql" />
+    <Build Include="Views\AsDataAI_DAS_Marketo.sql" />
   </ItemGroup>
 </Project>

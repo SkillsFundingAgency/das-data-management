@@ -373,5 +373,6 @@
     <Build Include="Views\PdsAI_PT_DAS_Accounts.sql" />
     <Build Include="Views\PdsAI_PT_DAS_Commitments.sql" />
     <Build Include="Schemas\PDS_AI.sql" />
+    <Build Include="Tables\AsDataPL_Fcast_Balance.sql" />
   </ItemGroup>
 </Project>

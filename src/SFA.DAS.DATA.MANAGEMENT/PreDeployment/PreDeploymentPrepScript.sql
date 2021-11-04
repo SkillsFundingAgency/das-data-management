@@ -608,3 +608,16 @@ IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
 	      )
 DROP TABLE [ASData_PL].[aComt_CommitmentStatement]
 
+/* Drop views as they are renamed */
+
+DROP VIEW IF EXISTS [AsData_AI].[DAS_Accounts];
+DROP VIEW IF EXISTS [AsData_AI].[DAS_Commitments];
+DROP VIEW IF EXISTS [AsData_AI].[DAS_FNAR];
+DROP VIEW IF EXISTS [AsData_AI].[DAS_FPRFR];
+DROP VIEW IF EXISTS [AsData_AI].[DAS_M];
+DROP VIEW IF EXISTS [AsData_AI].[DAS_Reservations];
+DROP VIEW IF EXISTS [AsData_AI].[DAS_TPROrgDetails];
+
+/* Drop schema as it's renamed */
+DROP SCHEMA IF EXISTS [AsData_AI]
+

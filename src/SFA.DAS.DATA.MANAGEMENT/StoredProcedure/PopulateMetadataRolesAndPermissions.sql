@@ -219,7 +219,7 @@ VALUES
 ('AtosUser','Pds_AI','PT_E','VIEW','SELECT',0,1),
 ('AtosUser','Pds_AI','PT_F','VIEW','SELECT',0,1),
 ('AtosUser','Pds_AI','PT_G','VIEW','SELECT',0,1),
-('AtosUser','Stg','AI_TestData','TABLE','SELECT',0,1),
+('AtosUser','Stg','AI_TestData','TABLE','SELECT',0,1)
 
 
 

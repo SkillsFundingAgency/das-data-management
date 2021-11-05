@@ -5,6 +5,12 @@ DROP TABLE IF EXISTS [ASData_PL].[RP_AppealUpload]
 
 /* Atos Test Data -- Only for AT & Test Environments */
 
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'AI_TestData'
+		      AND TABLE_SCHEMA=N'Stg'
+	      )
+DROP TABLE Stg.AI_TestData
+
 CREATE TABLE Stg.AI_TestData(
   id INT NOT NULL,
   target INT NOT NULL,

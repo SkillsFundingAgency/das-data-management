@@ -5,7 +5,6 @@
   ,OrganisationType nvarchar(100)
   ,OrganisationUKPRN int
   ,Status nvarchar(20)
-  ,RoEPAOApproved bit not null
   ,RoATPApproved bit not null
   ,CreatedAt datetime2(7)
   ,CreatedBy nvarchar(256) NULL

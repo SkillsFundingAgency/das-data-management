@@ -5,5 +5,6 @@
    ,FieldName varchar(100)
    ,FieldValue varchar(20)
    ,FieldDesc Varchar(255)
+   ,FieldDetailDesc Varchar(4000)
    ,CONSTRAINT PK_ReferenceData_ID PRIMARY KEY (ID)
 )

@@ -112,6 +112,7 @@ VALUES
 ('LevyTransferMatching','Status',3,'Accepted'),
 ('LevyTransferMatching','Status',4,'FundsUsed'),
 ('LevyTransferMatching','Status',5,'Declined'),
+('LevyTransferMatching','Status',6,'Withdrawn'),
 ('LevyTransferMatching','Level',1,'Level 2 - GCSE'),
 ('LevyTransferMatching','Level',2,'Level 3 - A level'),
 ('LevyTransferMatching','Level',4,'Level 4 - higher national cerificate (HNC)'),

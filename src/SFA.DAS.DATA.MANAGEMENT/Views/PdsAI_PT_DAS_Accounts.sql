@@ -23,7 +23,7 @@ LEFT
 JOIN        ASDATA_PL.Fin_AccountTransfers FAT
   ON        FAT.SenderAccountId=Account.Id
 LEFT
-JOIN       (select accountid,sum(amount)
+JOIN       (select accountid,sum(amount) amount
               from asdata_pl.Fin_TransactionLine
           group by accountid
             having sum(amount)>0) TL

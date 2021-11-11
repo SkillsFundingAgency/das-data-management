@@ -23,6 +23,7 @@
 	[Approvals] [smallint] NOT NULL,
 	[EmployerAndProviderApprovedOn] [datetime2](7) NULL,
 	[ChangeOfPartyRequestId] [bigint] NULL,
+	[PledgeApplicationId]	[int] NULL,
 	[AsDm_UpdatedDateTime] datetime2 default getdate(),
 	CONSTRAINT PK_Comt_Commitment_Id PRIMARY KEY CLUSTERED (Id)
 )ON [PRIMARY]

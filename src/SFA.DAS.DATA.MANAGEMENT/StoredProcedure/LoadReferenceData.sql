@@ -106,12 +106,6 @@ VALUES
 ('Commitments','ApprenticeshipUpdate',5,'Expired'),
 
 --LevyTransferMatching
-('LevyTransferMatching','Status',0,'Pending'),
-('LevyTransferMatching','Status',1,'Approved'),
-('LevyTransferMatching','Status',2,'Rejected'),
-('LevyTransferMatching','Status',3,'Accepted'),
-('LevyTransferMatching','Status',4,'FundsUsed'),
-('LevyTransferMatching','Status',5,'Declined'),
 ('LevyTransferMatching','Level',1,'Level 2 - GCSE'),
 ('LevyTransferMatching','Level',2,'Level 3 - A level'),
 ('LevyTransferMatching','Level',4,'Level 4 - higher national cerificate (HNC)'),
@@ -149,6 +143,17 @@ VALUES
 ('LevyTransferMatching','JobRole',4096,'Protective services'),
 ('LevyTransferMatching','JobRole',8192,'Sales, marketing and procurement'),
 ('LevyTransferMatching','JobRole',16384,'Transport and logistics');
+
+
+INSERT INTO dbo.ReferenceData
+(Category,FieldName,FieldValue,FieldDesc,FieldDetailDesc)
+VALUES
+('LevyTransferMatching','Status',0,'Pending','Pending - default state'),
+('LevyTransferMatching','Status',1,'Approved','Approved by the sender'),
+('LevyTransferMatching','Status',2,'Rejected','Rejected by the sender'),
+('LevyTransferMatching','Status',3,'Accepted','Approved by the sender, accepted by the receiver'),
+('LevyTransferMatching','Status',4,'FundsUsed','Accepted by the receiver and all funds used'),
+('LevyTransferMatching','Status',5,'Declined','Approved by the sender, declined by the receiver')
 
 COMMIT TRANSACTION
 END

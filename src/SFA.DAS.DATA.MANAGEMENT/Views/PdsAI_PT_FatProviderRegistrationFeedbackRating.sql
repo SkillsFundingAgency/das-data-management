@@ -1,4 +1,4 @@
-﻿CREATE VIEW [AsData_AI].[DAS_FPRFR]
+﻿CREATE VIEW [Pds_AI].[PT_E]
 	AS
 SELECT  convert(NVarchar(500),HASHBYTES('SHA2_512',LTRIM(RTRIM(CONCAT(UkPrn , skl.SaltKey)))),2) AS E1
        ,prfr.rn                              AS E2

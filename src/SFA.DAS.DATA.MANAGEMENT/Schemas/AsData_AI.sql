@@ -1,2 +1,0 @@
-﻿CREATE SCHEMA [AsData_AI]
-Go

@@ -57,7 +57,7 @@ VALUES
 ('Developer','Data_Pub','','','SELECT',1,1),
 ('Developer','Mtd','','','SELECT',1,1),
 ('Developer','Comp','','','SELECT',1,1),
-('Developer','AsData_AI','','','SELECT',1,1),
+('Developer','Pds_AI','','','SELECT',1,1),
 ('Developer','dbo','DASCalendarMonth','TABLE','SELECT',0,1),
 ('Developer','dbo','ReferenceData','TABLE','SELECT',0,1),
 ('Developer','dbo','SourceDbChanges','TABLE','SELECT',0,1),
@@ -212,10 +212,14 @@ VALUES
 ('VaUser','ASData_PL','Va_Application','TABLE','SELECT',0,1),
 ('VaUser','ASData_PL','Va_Vacancy','TABLE','SELECT',0,1),
 /* Atos User Role for Atos Team working on AI Project */
-('AtosUser','ASData_AI','DAS_TPROrgDetails','VIEW','SELECT',0,1),
-('AtosUser','ASData_AI','DAS_Commitments','VIEW','SELECT',0,1),
-('AtosUser','ASData_AI','DAS_Reservations','VIEW','SELECT',0,1),
-('AtosUser','ASData_AI','DAS_Accounts','VIEW','SELECT',0,1)
+('AtosUser','Pds_AI','PT_D','VIEW','SELECT',0,1),
+('AtosUser','Pds_AI','PT_B','VIEW','SELECT',0,1),
+('AtosUser','Pds_AI','PT_C','VIEW','SELECT',0,1),
+('AtosUser','Pds_AI','PT_A','VIEW','SELECT',0,1),
+('AtosUser','Pds_AI','PT_E','VIEW','SELECT',0,1),
+('AtosUser','Pds_AI','PT_F','VIEW','SELECT',0,1),
+('AtosUser','Pds_AI','PT_G','VIEW','SELECT',0,1),
+('AtosUser','Stg','AI_TestData','TABLE','SELECT',0,1)
 
 
 

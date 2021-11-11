@@ -1,4 +1,4 @@
-﻿CREATE VIEW [AsData_AI].[DAS_M]
+﻿CREATE VIEW [Pds_AI].[PT_G]
 	AS 
 SELECT  distinct 
        mla.leadid                                        AS G1

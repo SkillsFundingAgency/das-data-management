@@ -32,5 +32,6 @@
 [ToBePrinted]									[DateTime2](7)			NULL,
 [Uln]											[BigInt]				NULL,
 [UpdatedAt]										[DateTime2](7)			NULL,
+[Version]										[Varchar](10)			NULL,
 [AsDm_UpdatedDateTime]							[Datetime2](7)			default getdate()
 )

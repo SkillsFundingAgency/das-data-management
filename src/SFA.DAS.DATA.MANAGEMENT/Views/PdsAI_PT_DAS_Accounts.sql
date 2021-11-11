@@ -10,7 +10,8 @@ SELECT	   DISTINCT
 		   ,CASE WHEN FAT.SenderAccountId is not null then 1
 		         ELSE 0
 			 END                                               AS A7	
-		   ,Account.AsDm_UpdatedDateTime                       AS A8			
+		   ,Account.AsDm_UpdatedDateTime                       AS A8
+		   ,COALESCE(TL.Amount,0)                              AS A9
 FROM		ASData_PL.Acc_Account Account 
 LEFT
 JOIN        (SELECT distinct ale.accountid
@@ -21,4 +22,10 @@ JOIN        (SELECT distinct ale.accountid
 LEFT
 JOIN        ASDATA_PL.Fin_AccountTransfers FAT
   ON        FAT.SenderAccountId=Account.Id
+LEFT
+JOIN       (select accountid,sum(amount)
+              from asdata_pl.Fin_TransactionLine
+          group by accountid
+            having sum(amount)>0) TL
+  ON      TL.AccountId=Account.Id
 

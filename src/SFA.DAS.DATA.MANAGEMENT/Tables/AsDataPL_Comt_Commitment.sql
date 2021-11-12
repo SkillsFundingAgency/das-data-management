@@ -23,6 +23,7 @@
 	[Approvals] [smallint] NOT NULL,
 	[EmployerAndProviderApprovedOn] [datetime2](7) NULL,
 	[ChangeOfPartyRequestId] [bigint] NULL,
+	[PledgeApplicationId]	[int] NULL,
 	[AsDm_UpdatedDateTime] datetime2 default getdate(),
 	[IsRetentionApplied] bit DEFAULT (0),
 	[RetentionAppliedDate]  DateTime2(7),

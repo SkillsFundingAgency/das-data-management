@@ -30,6 +30,9 @@ SELECT DISTINCT
        ,CASE WHEN Apprenticeship.CompletionDate is not null THEN 1
              ELSE 0
          END                                             AS B15
+       ,Apprenticeship.StopDate                          AS B16
+       ,Apprenticeship.EndDate                           AS B17
+       ,Apprenticeship.PauseDate                         AS B18
 --,COALESCE(ac.OverallGrade,''N/A'') AS OverallGrade	Would be included later if needed
 FROM		ASData_PL.Comt_Apprenticeship Apprenticeship
 LEFT

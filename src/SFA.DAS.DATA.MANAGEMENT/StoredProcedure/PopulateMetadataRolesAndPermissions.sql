@@ -219,9 +219,28 @@ VALUES
 ('AtosUser','Pds_AI','PT_E','VIEW','SELECT',0,1),
 ('AtosUser','Pds_AI','PT_F','VIEW','SELECT',0,1),
 ('AtosUser','Pds_AI','PT_G','VIEW','SELECT',0,1),
-('AtosUser','Stg','AI_TestData','TABLE','SELECT',0,1)
+('AtosUser','Stg','AI_TestData','TABLE','SELECT',0,1),
 
-
+/* DataAnalystTier2 This new DataAnalystTier2 role is for Rosie's team*/
+('DataAnalystTier2','ASData_PL','Acc_Account','TABLE','SELECT',0,1),
+('DataAnalystTier2','ASData_PL','Acc_AccountLegalEntity','TABLE','SELECT',0,1),
+('DataAnalystTier2','ASData_PL','Comt_Apprenticeship','TABLE','SELECT',0,1),
+('DataAnalystTier2','ASData_PL','Comt_Commitment','TABLE','SELECT',0,1),
+('DataAnalystTier2','ASData_PL','Comt_StandardOption','TABLE','SELECT',0,1),
+('DataAnalystTier2','ASData_PL','ApprenticeshipStdRoute','TABLE','SELECT',0,1),
+('DataAnalystTier2','ASData_PL','Comt_Providers','TABLE','SELECT',0,1),
+('DataAnalystTier2','ASData_PL','Resv_Reservation','TABLE','SELECT',0,1),
+('DataAnalystTier2','ASData_PL','Payments_SS','TABLE','SELECT',0,1),
+('DataAnalystTier2','StgPmts','EarningEvent','TABLE','SELECT',0,1),
+('DataAnalystTier2','StgPmts','RequiredPaymentEvent','TABLE','SELECT',0,1),
+('DataAnalystTier2','ASData_PL','EI_IncentiveApplicationApprenticeship','TABLE','SELECT',0,1),
+('DataAnalystTier2','ASData_PL','EI_IncentiveApplication','TABLE','SELECT',0,1),
+('DataAnalystTier2','ASData_PL','EI_ApprenticeshipIncentive','TABLE','SELECT',0,1),
+('DataAnalystTier2','ASData_PL','EI_Payment','TABLE','SELECT',0,1),
+('DataAnalystTier2','ASData_PL','EI_IncentiveApplicationStatusAudit','TABLE','SELECT',0,1),
+('DataAnalystTier2','ASData_PL','EI_ClawbackPayment','TABLE','SELECT',0,1),
+('DataAnalystTier2','ASData_PL','Va_Vacancy','TABLE','SELECT',0,1),
+('DataAnalystTier2','ASData_PL','Va_Employer','TABLE','SELECT',0,1)
 
 COMMIT TRANSACTION
 

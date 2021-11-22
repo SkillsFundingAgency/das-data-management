@@ -153,7 +153,8 @@ VALUES
 ('LevyTransferMatching','Status',2,'Rejected','Rejected by the sender'),
 ('LevyTransferMatching','Status',3,'Accepted','Approved by the sender, accepted by the receiver'),
 ('LevyTransferMatching','Status',4,'FundsUsed','Accepted by the receiver and all funds used'),
-('LevyTransferMatching','Status',5,'Declined','Approved by the sender, declined by the receiver')
+('LevyTransferMatching','Status',5,'Declined','Approved by the sender, declined by the receiver'),
+('LevyTransferMatching','Status',6,'Withdrawn','Withdrawn by the receiver')
 
 COMMIT TRANSACTION
 END

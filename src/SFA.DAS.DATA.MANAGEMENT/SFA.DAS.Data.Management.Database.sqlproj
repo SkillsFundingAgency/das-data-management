@@ -375,5 +375,6 @@
     <Build Include="Schemas\PDS_AI.sql" />
     <Build Include="Tables\AsDataPL_Assessor_Learner.sql" />
     <Build Include="Views\PdsAI_PT_DAS_LevyDeclarations.sql" />
+    <Build Include="Tables\AsDataPL_RP_FinancialReview.sql" />
   </ItemGroup>
 </Project>

@@ -47,13 +47,13 @@ VALUES (-1,'Marketo','MarketoLeads','AsData_PL','LeadID',24,'FirstName,LastName,
 (-1,'Marketo','MarketoLeadActivities','AsData_PL','LeadID',24,'','','LeadID','MarketoLeads','AsData_PL',1,0,1),
 (-1,'Marketo','MarketoLeadPrograms','AsData_PL','LeadID',24,'FirstName,LastName,EmailAddress','','LeadID','MarketoLeads','AsData_PL',1,0,1),
 (-1,'Marketo','MarketoLeadActivityLinkClicked','AsData_PL','LeadID',24,'ReferrerURL,Link,QueryParameters','','LeadID','MarketoLeads','AsData_PL',1,0,1),
-(-1,'Commitment','Comt_Commitment','AsData_PL','Id',84,'','CreatedOn','','','',1,0,1),
-(-1,'Commitment','Comt_Apprenticeship','AsData_PL','CommitmentId',84,'DateOfBirth,Age','','Id','Comt_Commitment','AsData_PL',1,0,1),
-(-1,'Commitment','Comt_ApprenticeshipConfirmationStatus','AsData_PL','ApprenticeshipId',84,'','','Id','Comt_Apprenticeship','AsData_PL',1,0,1),
-(-1,'Commitment','Comt_DataLockStatus','AsData_PL','ApprenticeshipId',84,'','','Id','Comt_Apprenticeship','AsData_PL',1,0,1),
-(-1,'Commitment','Comt_History','AsData_PL','CommitmentId',84,'','','Id','Comt_Commitment','AsData_PL',1,0,1),
-(-1,'Commitment','Comt_Providers','AsData_PL','UKPRN',84,'Name','Created','','','',1,0,1),
-(-1,'Commitment','Comt_ApprenticeshipUpdate','AsData_PL','ApprenticeshipId',84,'','CreatedOn','Id','Comt_Apprenticeship','AsData_PL',1,0,1)
+(-1,'Commitment','Comt_Commitment','AsData_PL','Id',24,'','CreatedOn','','','',1,0,1),
+(-1,'Commitment','Comt_Apprenticeship','AsData_PL','CommitmentId',24,'DateOfBirth,Age','','Id','Comt_Commitment','AsData_PL',1,0,1),
+(-1,'Commitment','Comt_ApprenticeshipConfirmationStatus','AsData_PL','ApprenticeshipId',24,'','','Id','Comt_Apprenticeship','AsData_PL',1,0,1),
+(-1,'Commitment','Comt_DataLockStatus','AsData_PL','ApprenticeshipId',24,'','','Id','Comt_Apprenticeship','AsData_PL',1,0,1),
+(-1,'Commitment','Comt_History','AsData_PL','CommitmentId',24,'','','Id','Comt_Commitment','AsData_PL',1,0,1),
+(-1,'Commitment','Comt_Providers','AsData_PL','UKPRN',24,'Name','Created','','','',1,0,1),
+(-1,'Commitment','Comt_ApprenticeshipUpdate','AsData_PL','ApprenticeshipId',24,'','CreatedOn','Id','Comt_Apprenticeship','AsData_PL',1,0,1)
 
 /* Accounts and Users Retention Config */
 INSERT INTO Mtd.DataRetentionConfig

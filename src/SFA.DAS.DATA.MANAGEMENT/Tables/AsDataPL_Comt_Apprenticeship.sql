@@ -40,3 +40,6 @@ CREATE NONCLUSTERED INDEX [NCI_Comt_ReservationId] ON [AsData_PL].[Comt_Apprenti
 GO
 CREATE NONCLUSTERED INDEX [NCI_Comt_CommitmentIdId] ON [AsData_PL].[Comt_Apprenticeship]([CommitmentId] ASC)
 GO
+CREATE NONCLUSTERED INDEX [NCI_Comt_ULN] ON [ASData_PL].[Comt_Apprenticeship] ([ULN] ASC)
+INCLUDE ([CommitmentId],[TrainingType],[TrainingCode],[Cost],[StartDate],[EndDate],[DateOfBirth],[CreatedOn],[StopDate],[PauseDate],[IsApproved],[CompletionDate],[AsDm_UpdatedDateTime])
+GO

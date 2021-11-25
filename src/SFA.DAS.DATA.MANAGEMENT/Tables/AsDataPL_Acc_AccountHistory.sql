@@ -12,3 +12,6 @@
 	CONSTRAINT PK_Acc_AccountHistory_Id PRIMARY KEY CLUSTERED (Id)
 )
 ON [PRIMARY]
+GO
+CREATE NONCLUSTERED INDEX [NCI_Acc_AccountHistory_PayeRef] ON [ASData_PL].[Acc_AccountHistory] ([PayeRef]) INCLUDE ([AccountId])
+GO

@@ -26,3 +26,7 @@ GO
 
 CREATE NONCLUSTERED INDEX [NCI_Resv_Date_IsLevy] ON [AsData_PL].[Resv_Reservation]([CreatedDate],[IsLevyAccount])
 GO
+
+CREATE NONCLUSTERED INDEX [NCI_Resv_IsLevyAccount]
+ON [ASData_PL].[Resv_Reservation] ([IsLevyAccount]) INCLUDE ([AccountId],[CreatedDate],[StartDate],[ExpiryDate],[Status],[CourseId],[AsDm_UpdatedDateTime])
+GO

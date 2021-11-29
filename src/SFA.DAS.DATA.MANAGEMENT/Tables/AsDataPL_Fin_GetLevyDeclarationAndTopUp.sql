@@ -28,3 +28,6 @@
 )ON [PRIMARY]
 GO
 CREATE NONCLUSTERED INDEX NCI_Fin_GetLevyDeclarationAndTopUp_Id	 ON [ASData_PL].[Fin_GetLevyDeclarationAndTopUp] (AccountId) INCLUDE (LastSubmission)
+GO
+CREATE NONCLUSTERED INDEX [NCI_Fin_GetLevyDeclarationAndTopUp_LastSubmission] ON [ASData_PL].[Fin_GetLevyDeclarationAndTopUp] ([LastSubmission],[PayrollYear]) INCLUDE ([EmpRef],[LevyDeclaredInMonth])
+GO

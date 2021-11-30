@@ -52,7 +52,7 @@ VALUES (-1,'Marketo','MarketoLeads','AsData_PL','LeadID',24,'FirstName,LastName,
 (-1,'Commitment','Comt_ApprenticeshipConfirmationStatus','AsData_PL','ApprenticeshipId',24,'','','Id','Comt_Apprenticeship','AsData_PL',1,0,1),
 (-1,'Commitment','Comt_DataLockStatus','AsData_PL','ApprenticeshipId',24,'','','Id','Comt_Apprenticeship','AsData_PL',1,0,1),
 (-1,'Commitment','Comt_History','AsData_PL','CommitmentId',24,'','','Id','Comt_Commitment','AsData_PL',1,0,1),
-(-1,'Commitment','Comt_Providers','AsData_PL','Name',24,'Name,UKPRN','Created','','','',1,0,1),
+(-1,'Commitment','Comt_Providers','AsData_PL','Name',24,'Name','Created','','','',1,0,1),
 (-1,'Commitment','Comt_ApprenticeshipUpdate','AsData_PL','ApprenticeshipId',24,'','CreatedOn','Id','Comt_Apprenticeship','AsData_PL',1,0,1)
 
 /* Accounts and Users Retention Config */

@@ -25,6 +25,8 @@
 	[ChangeOfPartyRequestId] [bigint] NULL,
 	[PledgeApplicationId]	[int] NULL,
 	[AsDm_UpdatedDateTime] datetime2 default getdate(),
+	[IsRetentionApplied] bit DEFAULT (0),
+	[RetentionAppliedDate]  DateTime2(7),
 	CONSTRAINT PK_Comt_Commitment_Id PRIMARY KEY CLUSTERED (Id)
 )ON [PRIMARY]
 GO

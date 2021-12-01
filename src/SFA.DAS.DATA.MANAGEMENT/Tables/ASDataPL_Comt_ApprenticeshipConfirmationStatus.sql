@@ -3,5 +3,7 @@
 	[ApprenticeshipConfirmedOn] [datetime2](7) NULL,
 	[CommitmentsApprovedOn] [datetime2](7) NULL,
 	[ConfirmationOverdueOn] [datetime2](7) NULL,
-	[AsDm_UpdatedDateTime] datetime2 default getdate()
+	[AsDm_UpdatedDateTime] datetime2 default getdate(),
+	[IsRetentionApplied] bit DEFAULT (0),
+	[RetentionAppliedDate]  DateTime2(7)
 )

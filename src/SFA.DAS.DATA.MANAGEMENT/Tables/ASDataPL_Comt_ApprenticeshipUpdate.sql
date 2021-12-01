@@ -16,5 +16,7 @@
 	[UpdateOrigin]						[tinyint]			NULL,
 	[EffectiveFromDate]					[datetime]			NULL,
 	[EffectiveToDate]					[datetime]			NULL,
+	[IsRetentionApplied]				[bit]				NULL,
+	[RetentionAppliedDate]				[datetime2](7)		NULL,
 	[AsDm_UpdatedDateTime] datetime2 default getdate()
 )

@@ -10,7 +10,7 @@ BEGIN TRY
 SET NOCOUNT ON
 
  DECLARE	@LogID int, 			
-			@DataSetJoinColumn Varchar(50),
+			@DatasetJOINColumn Varchar(50),			
 			@RetentionPeriodInMonths Varchar(50),
 			@SensitiveColumns Varchar(50),
 			@RetentionColumn Varchar(50),
@@ -50,7 +50,7 @@ Declare @UpdateQuery NVarchar(max) = NULL,
 BEGIN TRANSACTION
 			/* Get all the parameter data from Mtd.DataRetentionConfig */
 			Select
-					@DataSetJoinColumn = Case when trim(DataSetJOINColumn) IS NULL Then '' Else trim(DataSetJOINColumn) End,
+					@DatasetJOINColumn = Case when trim(DatasetJOINColumn) IS NULL Then '' Else trim(DatasetJOINColumn) End,
 					@RetentionPeriodInMonths = Case when RetentionPeriodInMonths IS NULL Then '' Else RetentionPeriodInMonths End,
 					@SensitiveColumns = Case When trim(SensitiveColumns) IS NULL Then '' Else trim(SensitiveColumns) End,
 					@RetentionColumn = Case When trim(RetentionColumn) IS NULL Then '' Else trim(RetentionColumn) End,
@@ -93,7 +93,7 @@ BEGIN TRANSACTION
 						Set @UpdateColsList = ''
 
 					Set @FromClause  = ' FROM ' + @DataSetSchema + '.' + @DataSetTable +' ST ' + ' JOIN ' + @RefDataSetSchema + '.' + @RefDataSetTable + ' PT '				
-
+					-- Set @JOINClause  = ' ON PT.' + @DatasetJOINColumn + ' = ST.' + @RefColumn				
 					Set @JOINClause  = ' ON PT.' + @RefColumn + ' = ST.' + @DataSetJOINColumn				
 
 					If @RetentionColumn != '' 

@@ -173,12 +173,6 @@ VALUES
 ('DataAnalyst','Data_Pub','DAS_Employer_Transfer_Relationship_V2','VIEW','SELECT',0,1),
 ('DataAnalyst','Data_Pub','DAS_LevyDeclarations_V2','VIEW','SELECT',0,1),
 ('DataAnalyst','Data_Pub','DAS_Payments_V2','VIEW','SELECT',0,1),
-('DataAnalyst','ASData_PL','LTM_Application','TABLE','SELECT',0,1),
-('DataAnalyst','ASData_PL','LTM_Pledge','TABLE','SELECT',0,1),
-('DataAnalyst','ASData_PL','LTM_PledgeJobRole','TABLE','SELECT',0,1),
-('DataAnalyst','ASData_PL','LTM_PledgeLevel','TABLE','SELECT',0,1),
-('DataAnalyst','ASData_PL','LTM_PledgeLocation','TABLE','SELECT',0,1),
-('DataAnalyst','ASData_PL','LTM_PledgeSector','TABLE','SELECT',0,1),
 /* DataGov */
 --('DataGov','ASData_PL','MarketoActivityTypes','TABLE','SELECT',0,1),
 --('DataGov','ASData_PL','MarketoCampaigns','TABLE','SELECT',0,1),
@@ -246,7 +240,15 @@ VALUES
 ('DataAnalystTier2','ASData_PL','EI_IncentiveApplicationStatusAudit','TABLE','SELECT',0,1),
 ('DataAnalystTier2','ASData_PL','EI_ClawbackPayment','TABLE','SELECT',0,1),
 ('DataAnalystTier2','ASData_PL','Va_Vacancy','TABLE','SELECT',0,1),
-('DataAnalystTier2','ASData_PL','Va_Employer','TABLE','SELECT',0,1)
+('DataAnalystTier2','ASData_PL','Va_Employer','TABLE','SELECT',0,1),
+/* DWHUser Data Science DWH User to Import LTM Tables */
+('DWHUser','ASData_PL','LTM_Application','TABLE','SELECT',0,1),
+('DWHUser','ASData_PL','LTM_Pledge','TABLE','SELECT',0,1),
+('DWHUser','ASData_PL','LTM_PledgeJobRole','TABLE','SELECT',0,1),
+('DWHUser','ASData_PL','LTM_PledgeLevel','TABLE','SELECT',0,1),
+('DWHUser','ASData_PL','LTM_PledgeLocation','TABLE','SELECT',0,1),
+('DWHUser','ASData_PL','LTM_PledgeSector','TABLE','SELECT',0,1)
+
 
 COMMIT TRANSACTION
 

@@ -243,13 +243,13 @@ VALUES
 ('DataAnalystTier2','ASData_PL','Va_Employer','TABLE','SELECT',0,1),
 
 /*DWH Lookup tables*/
-('DWHLookupUser','lkp','LARS_Framework','TABLE','ALTER',0,1),
-('DWHLookupUser','lkp','LARSSectorSubjectAreaTier1','TABLE','ALTER',0,1),
-('DWHLookupUser','lkp','LARSSectorSubjectAreaTier2','TABLE','ALTER',0,1),
-('DWHLookupUser','lkp','LARS_Standard','TABLE','ALTER',0,1),
-('DWHLookupUser','lkp','Postcode_GeographicalAttributes','TABLE','ALTER',0,1),
-('DWHLookupUser','lkp','Pst_GOR','TABLE','ALTER',0,1),
-('DWHLookupUser','lkp','Pst_LocalAuthority','TABLE','ALTER',0,1)
+('DWHLkpUser','lkp','LARS_Framework','TABLE','ALTER',0,1),
+('DWHLkpUser','lkp','LARSSectorSubjectAreaTier1','TABLE','ALTER',0,1),
+('DWHLkpUser','lkp','LARSSectorSubjectAreaTier2','TABLE','ALTER',0,1),
+('DWHLkpUser','lkp','LARS_Standard','TABLE','ALTER',0,1),
+('DWHLkpUser','lkp','Postcode_GeographicalAttributes','TABLE','ALTER',0,1),
+('DWHLkpUser','lkp','Pst_GOR','TABLE','ALTER',0,1),
+('DWHLkpUser','lkp','Pst_LocalAuthority','TABLE','ALTER',0,1)
 
 COMMIT TRANSACTION
 

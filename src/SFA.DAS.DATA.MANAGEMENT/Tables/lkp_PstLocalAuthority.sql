@@ -1,4 +1,4 @@
-﻿CREATE TABLE [StgPmts].[Pst_LookupLocalAuthority]
+﻿CREATE TABLE [lkp].[Pst_LocalAuthority]
 (
 	[Pst_LOCAL_AUTHORITY]			[varchar](9) NULL,
 	[Pst_LOCAL_AUTHO_Desc]			[varchar](50) NULL,

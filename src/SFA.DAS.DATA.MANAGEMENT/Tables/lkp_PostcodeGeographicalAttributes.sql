@@ -1,4 +1,4 @@
-﻿CREATE TABLE [StgPmts].[Postcode_LookupGeographicalAttributes](
+﻿CREATE TABLE [lkp].[Postcode_GeographicalAttributes](
 	[Pst_Postcode]							[varchar](8) NOT NULL,
 	[Pst_Country]							[varchar](9) NULL,
 	[Pst_GOR]								[varchar](9) NULL,

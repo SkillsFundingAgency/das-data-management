@@ -1,4 +1,4 @@
-﻿CREATE TABLE [StgPmts].[LARS_LookupFramework]
+﻿CREATE TABLE [lkp].[LARS_Framework]
 (
 	[FworkCode]							[int] NOT NULL,
 	[ProgType]							[int] NOT NULL,

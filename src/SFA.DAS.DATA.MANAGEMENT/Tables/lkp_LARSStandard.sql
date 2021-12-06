@@ -1,4 +1,4 @@
-﻿CREATE TABLE [StgPmts].[LARS_LookupStandard]
+﻿CREATE TABLE [lkp].[LARS_Standard]
 (
 	[StandardCode]				[int]				NOT NULL,
 	[Version]					[int]				NOT NULL,

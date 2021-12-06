@@ -1,4 +1,4 @@
-﻿CREATE TABLE [StgPmts].[Pst_LookupGOR]
+﻿CREATE TABLE [lkp].[Pst_GOR]
 (
 	[Pst_GOR]					[varchar](9) NULL,
 	[Pst_GOR_Gov_Off_Desc]		[varchar](30) NULL,

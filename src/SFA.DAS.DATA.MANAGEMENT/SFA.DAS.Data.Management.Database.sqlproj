@@ -376,5 +376,6 @@
     <Build Include="Tables\AsDataPL_Assessor_Learner.sql" />
     <Build Include="Views\PdsAI_PT_DAS_LevyDeclarations.sql" />
     <Build Include="Tables\AsDataPL_RP_FinancialReview.sql" />
+    <Build Include="Functions\Fn_RemoveHTMLTags.sql" />
   </ItemGroup>
 </Project>

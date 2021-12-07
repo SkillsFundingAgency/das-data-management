@@ -33,6 +33,10 @@ SELECT DISTINCT
        ,Apprenticeship.StopDate                          AS B16
        ,Apprenticeship.EndDate                           AS B17
        ,Apprenticeship.PauseDate                         AS B18
+       ,CASE WHEN InactiveApp.ID IS NOT NULL THEN 1
+             ELSE 0
+         END                                             AS B19
+       ,CompletionDate                                   AS B20
 --,COALESCE(ac.OverallGrade,''N/A'') AS OverallGrade	Would be included later if needed
 FROM		ASData_PL.Comt_Apprenticeship Apprenticeship
 LEFT
@@ -56,6 +60,37 @@ JOIN       [ASData_PL].[Va_ApprenticeshipFrameWorkAndOccupation] afwk
 LEFT
 JOIN       Stg.Avms_ApprenticeshipOccupation ao2
   on       afwk.ApprenticeshipOccupationId=ao2.ApprenticeshipOccupationId
+LEFT
+JOIN      (SELECT distinct [Id]
+             FROM [ASData_PL].[Comt_Apprenticeship] as a
+             left 
+            outer 
+             join (SELECT distinct
+                        [ApprenticeshipId]
+                   FROM [StgPmts].[Payment]
+                  where academicyear in ('2021')
+                  ) as p
+              on  a.id=p.apprenticeshipid
+             left 
+            outer 
+             join (select fieldvalue,Fielddesc
+                     from dbo.ReferenceData
+                    where FieldName='PaymentStatus'
+                      and Category='Apprenticeship') as lkp
+               on  a.paymentstatus=lkp.fieldvalue
+             left 
+            outer 
+             join (SELECT distinct
+                        [ApprenticeshipId],max((cast(eventtime as date))) as Lastpaymentdate
+                   FROM [StgPmts].[Payment]
+                  where academicyear in ('2021','2122')
+                  group by [ApprenticeshipId]) as p2
+              on a.id=p2.apprenticeshipid
+            where (paymentstatus=1 and enddate< '01-Aug-2021' and hashaddatalocksuccess=0) or
+                  ( paymentstatus=1 and enddate< '01-Aug-2021' and p.[ApprenticeshipId] is  null) or
+                  (paymentstatus=1 and enddate< '01-Aug-2021' and p2.[ApprenticeshipId] is not null and p2.lastpaymentdate<enddate)
+                  ) InactiveApp  -- Inactive Apprenticeships with active Payments Status flag
+   on      InactiveApp.Id=Apprenticeship.Id
 CROSS
 JOIN       (Select TOP 1 SaltKeyID,SaltKey From Mgmt.SaltKeyLog Where SourceType ='EmployerReference'  Order by SaltKeyID DESC ) Skl
  

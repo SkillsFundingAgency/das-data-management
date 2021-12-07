@@ -247,7 +247,8 @@ VALUES
 ('DWHUser','ASData_PL','LTM_PledgeJobRole','TABLE','SELECT',0,1),
 ('DWHUser','ASData_PL','LTM_PledgeLevel','TABLE','SELECT',0,1),
 ('DWHUser','ASData_PL','LTM_PledgeLocation','TABLE','SELECT',0,1),
-('DWHUser','ASData_PL','LTM_PledgeSector','TABLE','SELECT',0,1)
+('DWHUser','ASData_PL','LTM_PledgeSector','TABLE','SELECT',0,1),
+('DWHUser','ASData_PL','Resv_Reservation','TABLE','SELECT',0,1)
 
 
 COMMIT TRANSACTION

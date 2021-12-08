@@ -248,7 +248,7 @@ VALUES
 ('DWHLkpUser','lkp','LARS_Standard','TABLE','ALTER',0,1),
 ('DWHLkpUser','lkp','Postcode_GeographicalAttributes','TABLE','ALTER',0,1),
 ('DWHLkpUser','lkp','Pst_GOR','TABLE','ALTER',0,1),
-('DWHLkpUser','lkp','Pst_LocalAuthority','TABLE','ALTER',0,1)
+('DWHLkpUser','lkp','Pst_LocalAuthority','TABLE','ALTER',0,1),
 /* DWHUser Data Science DWH User to Import LTM Tables */
 ('DWHUser','ASData_PL','LTM_Application','TABLE','SELECT',0,1),
 ('DWHUser','ASData_PL','LTM_Pledge','TABLE','SELECT',0,1),

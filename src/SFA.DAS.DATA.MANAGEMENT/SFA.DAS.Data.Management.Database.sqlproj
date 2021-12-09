@@ -376,5 +376,13 @@
     <Build Include="Tables\AsDataPL_Assessor_Learner.sql" />
     <Build Include="Views\PdsAI_PT_DAS_LevyDeclarations.sql" />
     <Build Include="Tables\AsDataPL_RP_FinancialReview.sql" />
+    <Build Include="Tables\lkp_PstGOR.sql" />
+    <Build Include="Tables\lkp_PstLocalAuthority.sql" />
+    <Build Include="Tables\lkp_LARSSectorSubjectAreaTier2.sql" />
+    <Build Include="Tables\lkp_LARSSectorSubjectAreaTier1.sql" />
+    <Build Include="Tables\lkp_LARSStandard.sql" />
+    <Build Include="Tables\lkp_LARSFramework.sql" />
+    <Build Include="Tables\lkp_PostcodeGeographicalAttributes.sql" />
+    <Build Include="Schemas\lkp.sql" />
   </ItemGroup>
 </Project>

@@ -3,5 +3,7 @@
 	[ApprenticeshipIncentiveId]				uniqueidentifier		NOT NULL,
 	[StartDate]								datetime2(7)			NULL,
 	[EndDate]								datetime2(7)			NULL,
+	[CreatedDate]							[datetime2](7)			NULL,
+	[UpdatedDate]							[datetime2](7)			NULL,
 	[AsDm_UpdatedDateTime]					datetime2				default getdate()
 )

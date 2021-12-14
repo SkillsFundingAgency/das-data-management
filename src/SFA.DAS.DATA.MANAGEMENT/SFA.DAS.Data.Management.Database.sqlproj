@@ -332,11 +332,11 @@
     <Build Include="Tables\AsDataPL_AED_CourseDemand.sql" />
     <Build Include="Tables\AsDataPL_AED_ProviderInterest.sql" />
     <Build Include="Tables\AsDataPL_AED_CourseDemandNotificationAudit.sql" />
-    <Build Include="Tables\Mtd_RP_LookupOversightReviewStatus.sql" />
-    <Build Include="Tables\Mtd_RP_LookupPageTitles.sql" />
-    <Build Include="Tables\Mtd_RP_LookupQuestionTitles.sql" />
-    <Build Include="Tables\Mtd_RP_LookupSectionTitles.sql" />
-    <Build Include="Tables\Mtd_RP_LookupSequenceTitles.sql" />
+    <Build Include="Tables\lkp_RP_OversightReviewStatus.sql" />
+    <Build Include="Tables\lkp_RP_PageTitles.sql" />
+    <Build Include="Tables\lkp_RP_QuestionTitles.sql" />
+    <Build Include="Tables\lkp_RP_SectionTitles.sql" />
+    <Build Include="Tables\lkp_RP_SequenceTitles.sql" />
     <Build Include="StoredProcedure\LoadRPLookupData.sql" />
     <Build Include="Tables\AsDataPL_PAS_User.sql" />
     <Build Include="Tables\AsDataPL_Assessor_Apply.sql" />

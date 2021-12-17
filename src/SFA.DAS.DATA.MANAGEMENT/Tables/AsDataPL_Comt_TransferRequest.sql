@@ -5,7 +5,6 @@
 	[TrainingCourses]							[nvarchar](max)		NOT NULL,
 	[Cost]										[money]				NOT NULL,
 	[Status]									[tinyint]			NOT NULL,
-	[TransferApprovalActionedByEmployerEmail]	[nvarchar](255)		NULL,
 	[TransferApprovalActionedOn]				[datetime2](7)		NULL,
 	[CreatedOn]									[datetime2](7)		NOT NULL,
 	[FundingCap]								[money]				NULL,

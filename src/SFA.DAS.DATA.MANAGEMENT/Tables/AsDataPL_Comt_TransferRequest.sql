@@ -9,6 +9,6 @@
 	[CreatedOn]									[datetime2](7)		NOT NULL,
 	[FundingCap]								[money]				NULL,
 	[AutoApproval]								[bit]				NOT NULL,
-	[AsDm_UpdatedDateTime]						datetime2			default getdate()
+	[AsDm_UpdatedDateTime]						[datetime2]			default getdate()
 )
 GO

@@ -13,7 +13,7 @@
 		   , CAST(A.ID as bigint)																			as CommitmentID
 		   , CAST(RD.FieldDesc AS Varchar(50))																as AgreementStatus
 			,CAST(C.ProviderId as bigint)																	as UKPRN
-			,CAST(isnull(A.ULN,-2) as bigint)																as ULN
+			,TRY_CAST(isnull(A.ULN,-2) as bigint)															as ULN
 			,CAST(C.ProviderId as Varchar(255))																as ProviderID
 			,CAST(A.ULN as varchar(255))																	as LearnerID
 			,CAST(C.EmployerAccountId as Varchar(255))														as EmployerAccountID
@@ -130,6 +130,7 @@
 			  , Case when AI.[ApprenticeshipId]  IS NOT NULL Then 1  Else 0 End 							As MadeIncentiveClaim
 			  , ISNULL(EIP.PaidDateCount,0)																	As PaidDateCount
 			  , A.StopDate																					As StopDate
+			  , [PledgeApplicationId]																		As [PledgeApplicationId]
 	FROM [ASData_PL].[Comt_Commitment] C 
 	LEFT JOIN [ASData_PL].[Comt_Apprenticeship] A
 	  ON C.Id=A.CommitmentId

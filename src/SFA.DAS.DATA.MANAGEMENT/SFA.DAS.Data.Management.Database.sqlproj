@@ -385,5 +385,6 @@
     <Build Include="Tables\lkp_PostcodeGeographicalAttributes.sql" />
     <Build Include="Schemas\lkp.sql" />
     <Build Include="Tables\AsDataPL_Comt_TransferRequest.sql" />
+    <Build Include="Tables\AsDataPL_EI_EmploymentCheck.sql" />
   </ItemGroup>
 </Project>

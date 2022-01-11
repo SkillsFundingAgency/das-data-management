@@ -12,4 +12,4 @@
 	[ResultDateTime]				[datetime2](7)		NULL,
 	[AsDm_UpdatedDateTime]			[datetime2]			default getdate()
 ) ON [PRIMARY]
-GO
+GO;

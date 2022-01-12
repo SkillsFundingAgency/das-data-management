@@ -97,7 +97,7 @@ VALUES
 ,('EmpInc','IncentiveApplication','dbo','[Id],[AccountId],[AccountLegalEntityId],[DateCreated],[Status],[DateSubmitted]','[SubmittedByEmail],[SubmittedByName]','',0)
 ,('EmpInc','IncentiveApplicationApprenticeship','dbo','[Id],[IncentiveApplicationId],[ApprenticeshipId],[PlannedStartDate],[ApprenticeshipEmployerTypeOnApproval],[EarningsCalculated],[WithdrawnByEmployer],[WithdrawnByCompliance],[CourseName],[EmploymentStartDate],[Phase],[HasEligibleEmploymentStartDate]','[FirstName],[LastName],[DateOfBirth],[ULN],[TotalIncentiveAmount]','[UKPRN]',0)
 ,('EmpInc','IncentiveApplicationStatusAudit','dbo','[Id],[IncentiveApplicationApprenticeshipId],[Process],[ServiceRequestTaskId],[ServiceRequestCreatedDate],[CreatedDateTime]','','[ServiceRequestDecisionReference]',0)
-,('EmpInc','ApprenticeshipBreakInLearning','incentives','[ApprenticeshipIncentiveId],[StartDate],[EndDate]','','',0)
+,('EmpInc','ApprenticeshipBreakInLearning','incentives','[ApprenticeshipIncentiveId],[StartDate],[EndDate],[CreatedDate],[UpdatedDate]','','',0)
 ,('EmpInc','ApprenticeshipDaysInLearning','incentives','[LearnerId],[NumberOfDaysInLearning],[CollectionPeriodNumber],[CollectionPeriodYear],[CreatedDate],[UpdatedDate]','','',0)
 ,('EmpInc','ApprenticeshipIncentive','incentives','[Id],[AccountId],[ApprenticeshipId],[EmployerType],[StartDate],[IncentiveApplicationApprenticeshipId],[AccountLegalEntityId],[RefreshedLearnerForEarnings],[HasPossibleChangeOfCircumstances],[PausePayments],[SubmittedDate],[CourseName],[Status],[MinimumAgreementVersion],[EmploymentStartDate],[Phase]','[FirstName],[LastName],[DateOfBirth],[ULN],[SubmittedByEmail]','[UKPRN]',0)
 ,('EmpInc','ChangeOfCircumstance','incentives','[Id],[ApprenticeshipIncentiveId],[ChangeType],[PreviousValue],[NewValue],[ChangedDate]','','',0)
@@ -135,6 +135,7 @@ VALUES
 ,('Commitments','ApprenticeshipConfirmationStatus','dbo','[ApprenticeshipId],[ApprenticeshipConfirmedOn],[CommitmentsApprovedOn],[ConfirmationOverdueOn]','','','Comt_ApprenticeshipConfirmationStatus',0)
 ,('Commitments','Standard','dbo','[StandardUId],[LarsCode],[IFateReferenceNumber],[Version],[Level],[Duration],[MaxFunding],[EffectiveFrom],[EffectiveTo],[VersionMajor],[VersionMinor],[StandardPageUrl],[Status],[IsLatestVersion]','','[Title]','Comt_Standard',1)
 ,('Commitments','StandardOption','dbo','[StandardUId],[Option]','','','Comt_StandardOption',0)
+,('Commitments','TransferRequest','dbo','[Id],[CommitmentId],[TrainingCourses],[Cost],[Status],[TransferApprovalActionedOn],[CreatedOn],[FundingCap],[AutoApproval]','[TransferApprovalActionedByEmployerName],[TransferApprovalActionedByEmployerEmail]','','Comt_TransferRequest',0)
 ,('Finance','AccountTransfers','employer_financial','[Id],[SenderAccountId],[ReceiverAccountId],[ApprenticeshipId],[CourseName],[CourseLevel],[PeriodEnd],[Amount],[Type],[CreatedDate],[RequiredPaymentId]','[SenderAccountName],[ReceiverAccountName]','','fin_AccountTransfers',0)
 ,('Finance','GetLevyDeclarationAndTopUp','employer_financial','[Id],[AccountId],[SubmissionDate],[SubmissionId],[LevyDueYTD],[EnglishFraction],[TopUpPercentage],[PayrollYear],[PayrollMonth],[LastSubmission],[CreatedDate],[EndOfYearAdjustment],[EndOfYearAdjustmentAmount],[LevyAllowanceForYear],[DateCeased],[InactiveFrom],[InactiveTo],[HmrcSubmissionId],[NoPaymentForPeriod],[LevyDeclaredInMonth],[TopUp],[TotalAmount]','','[EmpRef]','fin_GetLevyDeclarationAndTopUp',1)
 ,('Finance','Payment','employer_financial','[PaymentId],[AccountId],[ApprenticeshipId],[DeliveryPeriodMonth],[DeliveryPeriodYear],[CollectionPeriodId],[CollectionPeriodMonth],[CollectionPeriodYear],[EvidenceSubmittedOn],[EmployerAccountVersion],[ApprenticeshipVersion],[FundingSource],[TransactionType],[Amount],[PeriodEnd],[PaymentMetaDataId],[DateImported]','[Ukprn],[Uln]','','fin_Payment',0)
@@ -321,7 +322,7 @@ VALUES
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL])
 VALUES
- ('LevyTransfer','Application','dbo','[Id],[EmployerAccountId],[PledgeId],[Details],[NumberOfApprentices],[StandardId],[StartDate],[Amount],[HasTrainingProvider],[Sectors],[CreatedOn],[Status],[UpdatedOn]','[PostCode],[FirstName],[LastName],[BusinessWebsite],[RowVersion]','','LTM_Application',0)
+ ('LevyTransfer','Application','dbo','[Id],[EmployerAccountId],[PledgeId],[Details],[NumberOfApprentices],[StandardId],[StartDate],[Amount],[HasTrainingProvider],[Sectors],[CreatedOn],[Status],[UpdatedOn],[TotalAmount],[NumberOfApprenticesUsed],[AmountUsed]','[PostCode],[FirstName],[LastName],[BusinessWebsite],[RowVersion]','[AdditionalLocation],[SpecificLocation]','LTM_Application',0)
 ,('LevyTransfer','Pledge','dbo','[Id],[EmployerAccountId],[Amount],[RemainingAmount],[IsNamePublic],[CreatedOn],[JobRoles],[Levels],[Sectors]','[RowVersion]','','LTM_Pledge',1)
 ,('LevyTransfer','PledgeLocation','dbo','[Id],[PledgeId]','','[Name],[Latitude],[Longitude]','LTM_PledgeLocation',0)
 ,('LevyTransfer','ApplicationStatusHistory','dbo','[Id],[ApplicationId],[CreatedOn],[Status]','','','LTM_ApplicationStatusHistory',0)

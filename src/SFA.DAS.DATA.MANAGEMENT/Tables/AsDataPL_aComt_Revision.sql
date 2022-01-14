@@ -21,6 +21,9 @@
 	[ConfirmBefore] [datetime2](7) NOT NULL,
 	[ConfirmedOn] [datetime2](7) NULL,
 	[CourseDuration] [int] NULL,
+	[LastViewed] [datetime2](7) NULL,
+	[CreatedOn] [datetime2](7) NULL,
+	[StoppedReceivedOn] [datetime2](7) NULL,
 	[Asdm_UpdatedDateTime] datetime2 default getdate()
  CONSTRAINT PK_aComt_CS_Id PRIMARY KEY CLUSTERED (Id)
 )

@@ -15,7 +15,7 @@
 	[PlannedEndDate] [datetime2](7) NOT NULL,
 	[TrainingProviderCorrect] [bit] NULL,
 	[EmployerCorrect] [bit] NULL,
-	[RolesAndResponsibilitiesCorrect] [bit] NULL,
+	[RolesAndResponsibilitiesConfirmations] [tinyint] NULL,
 	[ApprenticeshipDetailsCorrect] [bit] NULL,
 	[HowApprenticeshipDeliveredCorrect] [bit] NULL,
 	[ConfirmBefore] [datetime2](7) NOT NULL,

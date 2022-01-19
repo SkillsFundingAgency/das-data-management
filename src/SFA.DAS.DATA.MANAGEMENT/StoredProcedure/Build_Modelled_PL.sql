@@ -35,13 +35,24 @@ EXEC [dbo].[PopulateLTMReferenceData] @RunID
 Declare @StartDate  Date = dateadd(day,-2,cast(getdate() as date)),
 		@EndDate Date = dateadd(day,2,cast(getdate() as date))
 If exists(select DatamartRefreshDate from [Mtd].[RefreshDatasetConfig] where DatamartRefreshDate between @StartDate And @EndDate and isnull(IsProcessed,0)<>1)
-or exists (SELECT 1 FROM ( SELECT MAX(EventTime) EventTime from StgPmts.Payment) PMT WHERE EXISTS (SELECT 1 FROM [Mtd].[RefreshDatasetConfig] mtd where YEAR(mtd.DatamartRefreshDate)=YEAR(pmt.EventTime) and MONTH(mtd.DatamartRefreshDate)=MONTH(pmt.EventTime) and ISNULL(IsProcessed,0)<>1))
 Begin
 	EXEC ImportPaymentsSnapshot @RunId
-	
+
 	UPDATE Mtd.RefreshDatasetConfig
 	SET IsProcessed=1
 	where YEAR(DataMartRefreshDate)=YEAR(@StartDate)
     AND MONTH(DataMartRefreshDate)=MONTH(@StartDate)
-End  
+ end
+If exists (SELECT 1 FROM ( SELECT MAX(EventTime) EventTime from StgPmts.Payment) PMT WHERE year(eventtime)=year(@StartDate) and month(eventtime)=month(@EndDate)
+                    and not exists (select 1 from mtd.RefreshDatasetConfig RDC where YEAR(RDC.DatamartRefreshDate)=YEAR(EVENTTIME) AND MONTH(RDC.DataMartRefreshDate)=Month(RDC.DataMartRefreshDate)
+					                                                             and Isprocessed=1))
+BEGIN	
+	EXEC ImportPaymentsSnapshot @RunId
+
+	INSERT INTO Mtd.RefreshDatasetConfig
+	(DataSet,DataMartRefreshDate,IsProcessed)
+	VALUES
+	('Payments',convert(date,getdate()),1)
+End 
+ 
  

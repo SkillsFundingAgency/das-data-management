@@ -43,7 +43,7 @@ Begin
 	where YEAR(DataMartRefreshDate)=YEAR(@StartDate)
     AND MONTH(DataMartRefreshDate)=MONTH(@StartDate)
  end
-If exists (SELECT 1 FROM ( SELECT MAX(EventTime) EventTime from StgPmts.Payment) PMT WHERE year(eventtime)=year(@StartDate) and month(eventtime)=month(@EndDate)
+If exists (SELECT 1 FROM ( SELECT MAX(EventTime) EventTime from StgPmts.Payment) PMT WHERE year(eventtime)=year(getdate()) and month(eventtime)=month(getdate())
                     and not exists (select 1 from mtd.RefreshDatasetConfig RDC where YEAR(RDC.DatamartRefreshDate)=YEAR(EVENTTIME) AND MONTH(RDC.DataMartRefreshDate)=Month(RDC.DataMartRefreshDate)
 					                                                             and Isprocessed=1))
 BEGIN	

@@ -95,7 +95,7 @@ INSERT INTO Mtd.SourceConfigForImport
 VALUES
  ('EmpInc','Accounts','dbo','[Id],[AccountLegalEntityId],[LegalEntityId],[SignedAgreementVersion],[VrfVendorId],[VrfCaseId],[VrfCaseStatus],[VrfCaseStatusLastUpdatedDateTime]','[LegalEntityName]','[HashedLegalEntityId]',1)
 ,('EmpInc','IncentiveApplication','dbo','[Id],[AccountId],[AccountLegalEntityId],[DateCreated],[Status],[DateSubmitted]','[SubmittedByEmail],[SubmittedByName]','',0)
-,('EmpInc','IncentiveApplicationApprenticeship','dbo','[Id],[IncentiveApplicationId],[ApprenticeshipId],[PlannedStartDate],[ApprenticeshipEmployerTypeOnApproval],[EarningsCalculated],[WithdrawnByEmployer],[WithdrawnByCompliance],[CourseName],[EmploymentStartDate],[Phase],[HasEligibleEmploymentStartDate]','[FirstName],[LastName],[DateOfBirth],[ULN],[TotalIncentiveAmount]','[UKPRN]',0)
+,('EmpInc','IncentiveApplicationApprenticeship','dbo','[Id],[IncentiveApplicationId],[ApprenticeshipId],[PlannedStartDate],[ApprenticeshipEmployerTypeOnApproval],[EarningsCalculated],[WithdrawnByEmployer],[WithdrawnByCompliance],[CourseName],[EmploymentStartDate],[Phase]','[FirstName],[LastName],[DateOfBirth],[ULN],[TotalIncentiveAmount]','[UKPRN]',0)
 ,('EmpInc','IncentiveApplicationStatusAudit','dbo','[Id],[IncentiveApplicationApprenticeshipId],[Process],[ServiceRequestTaskId],[ServiceRequestCreatedDate],[CreatedDateTime]','','[ServiceRequestDecisionReference]',0)
 ,('EmpInc','ApprenticeshipBreakInLearning','incentives','[ApprenticeshipIncentiveId],[StartDate],[EndDate],[CreatedDate],[UpdatedDate]','','',0)
 ,('EmpInc','ApprenticeshipDaysInLearning','incentives','[LearnerId],[NumberOfDaysInLearning],[CollectionPeriodNumber],[CollectionPeriodYear],[CreatedDate],[UpdatedDate]','','',0)
@@ -308,8 +308,8 @@ INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
 VALUES
  ('AComt','Apprentice','dbo','[Id],[CreatedOn]','[FirstName],[LastName],[Email],[DateOfBirth]','','aComt_Apprentice',0,1) 
-,('AComt','Apprenticeship','dbo','[Id],[ApprenticeId],[CreatedOn],[LastViewed]','','','aComt_Apprenticeship',0,1) 
-,('AComt','Revision','dbo','[Id],[ApprenticeshipId],[CommitmentsApprenticeshipId],[EmployerAccountLegalEntityId],[EmployerName],[TrainingProviderId],[TrainingProviderName],[CourseName],[CourseLevel],[CourseOption],[PlannedStartDate],[PlannedEndDate],[CommitmentsApprovedOn],[TrainingProviderCorrect],[EmployerCorrect],[RolesAndResponsibilitiesCorrect],[ApprenticeshipDetailsCorrect],[HowApprenticeshipDeliveredCorrect],[ConfirmBefore],[ConfirmedOn],[CourseDuration]','','','aComt_Revision',0,1) 
+,('AComt','Apprenticeship','dbo','[Id],[ApprenticeId],[CreatedOn]','','','aComt_Apprenticeship',0,1) 
+,('AComt','Revision','dbo','[Id],[ApprenticeshipId],[CommitmentsApprenticeshipId],[EmployerAccountLegalEntityId],[EmployerName],[TrainingProviderId],[TrainingProviderName],[CourseName],[CourseLevel],[CourseOption],[PlannedStartDate],[PlannedEndDate],[CommitmentsApprovedOn],[TrainingProviderCorrect],[EmployerCorrect],[RolesAndResponsibilitiesConfirmations],[ApprenticeshipDetailsCorrect],[HowApprenticeshipDeliveredCorrect],[ConfirmBefore],[ConfirmedOn],[CourseDuration],[LastViewed],[CreatedOn],[StoppedReceivedOn]','','','aComt_Revision',0,1) 
 ,('AComt','Registration','dbo','[RegistrationId],[CommitmentsApprenticeshipId],[CommitmentsApprovedOn],[UserIdentityId],[CreatedOn],[FirstViewedOn],[SignUpReminderSentOn],[EmployerAccountLegalEntityId],[EmployerName],[TrainingProviderId],[TrainingProviderName],[CourseName],[CourseLevel],[CourseOption],[PlannedStartDate],[PlannedEndDate],[CourseDuration]','[FirstName],[LastName],[DateOfBirth],[Email]','','aComt_Registration',0,1) 
  
  /* LTM SQL query based Import */

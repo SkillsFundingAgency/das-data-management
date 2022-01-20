@@ -1,5 +1,6 @@
 ﻿CREATE TABLE [Mtd].[RefreshDatasetConfig]
 (
+	ID bigint IDENTITY(1,1),
 	ILRSnapshotReference			Varchar(20),
 	Dataset							Varchar(50),
 	PaymentsExtractionDate			Date,

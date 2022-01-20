@@ -375,12 +375,12 @@ BEGIN CATCH
 
 /* Update Log Execution Results as Fail if there is an Error*/
 
-UPDATE Mgmt.Log_Execution_Results
-   SET Execution_Status=0
-      ,EndDateTime=getdate()
-	  ,ErrorId=@ErrorId
- WHERE LogId=@LogID
-   AND RunID=@RunId
+	UPDATE Mgmt.Log_Execution_Results
+	   SET Execution_Status=0
+		  ,EndDateTime=getdate()
+		  ,ErrorId=@ErrorId
+	 WHERE LogId=@LogID
+	   AND RunID=@RunId
 
   END CATCH
 GO

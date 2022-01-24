@@ -374,7 +374,6 @@ BEGIN CATCH
   SELECT @ErrorId=MAX(ErrorId) FROM Mgmt.Log_Error_Details
 
 /* Update Log Execution Results as Fail if there is an Error*/
-
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=0
       ,EndDateTime=getdate()

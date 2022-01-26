@@ -97,11 +97,24 @@ VALUES
 
 /* Refresh last 1 and half month Marketo Data */
 
+/* Delete previous config that wasn't successful */
+
+Delete from Mtd.MarketoFilterConfig 
+ where StartDateFilter='2021-11-24T00:00:00Z'
+   and EndDateFilter='2021-12-24T23:59:59Z'
+
+Delete from Mtd.MarketoFilterConfig 
+ where StartDateFilter='2021-12-25T00:00:00Z'
+   and EndDateFilter='2022-01-31T23:59:59Z'
+
 INSERT INTO #tMarketoFilterConfig
 (StartDateFilter,EndDateFilter)
 VALUES
-('2021-11-24T00:00:00Z','2021-12-24T23:59:59Z')
-,('2021-12-25T00:00:00Z','2022-01-31T23:59:59Z')
+('2021-11-24T00:00:00Z','2021-12-07T23:59:59Z')
+,('2021-12-08T00:00:00Z','2021-12-21T23:59:59Z')
+,('2021-12-22T00:00:00Z','2022-01-04T23:59:59Z')
+,('2022-01-05T00:00:00Z','2022-01-18T23:59:59Z')
+,('2022-01-19T00:00:00Z','2022-02-06T23:59:59Z')
 
 
 /* Insert main Config Table if not already exists */
@@ -152,11 +165,24 @@ VALUES
 
 /* Refresh last 1 and half month Marketo Data */
 
+/* Delete previous config that wasn't successful */
+
+Delete from Mtd.MarketoFilterConfigForPrograms
+ where StartDateFilter='2021-11-24T00:00:00Z'
+   and EndDateFilter='2021-12-24T23:59:59Z'
+
+Delete from Mtd.MarketoFilterConfigForPrograms
+ where StartDateFilter='2021-12-25T00:00:00Z'
+   and EndDateFilter='2022-01-31T23:59:59Z'
+
 INSERT INTO #tMarketoFilterConfigForPrograms
 (StartDateFilter,EndDateFilter)
 VALUES
-('2021-11-24T00:00:00Z','2021-12-24T23:59:59Z')
-,('2021-12-25T00:00:00Z','2022-01-31T23:59:59Z')
+('2021-11-24T00:00:00Z','2021-12-07T23:59:59Z')
+,('2021-12-08T00:00:00Z','2021-12-21T23:59:59Z')
+,('2021-12-22T00:00:00Z','2022-01-04T23:59:59Z')
+,('2022-01-05T00:00:00Z','2022-01-18T23:59:59Z')
+,('2022-01-19T00:00:00Z','2022-02-06T23:59:59Z')
 
 /* Insert main Config Table if not already exists */
 INSERT INTO Mtd.MarketoFilterConfigForPrograms

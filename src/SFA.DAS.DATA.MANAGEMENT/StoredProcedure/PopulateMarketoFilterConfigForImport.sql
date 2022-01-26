@@ -97,6 +97,16 @@ VALUES
 
 /* Refresh last 1 and half month Marketo Data */
 
+/* Delete previous config that wasn't successful */
+
+Delete from Mtd.MarketoFilterConfig 
+ where StartDateFilter='2021-11-24T00:00:00Z'
+   and EndDateFilter='2021-12-24T23:59:59Z'
+
+Delete from Mtd.MarketoFilterConfig 
+ where StartDateFilter='2021-12-25T00:00:00Z'
+   and EndDateFilter='2022-01-31T23:59:59Z'
+
 INSERT INTO #tMarketoFilterConfig
 (StartDateFilter,EndDateFilter)
 VALUES
@@ -154,6 +164,16 @@ VALUES
 ,('2021-06-01T00:00:00Z','2021-06-20T23:59:59Z')
 
 /* Refresh last 1 and half month Marketo Data */
+
+/* Delete previous config that wasn't successful */
+
+Delete from Mtd.MarketoFilterConfigForPrograms
+ where StartDateFilter='2021-11-24T00:00:00Z'
+   and EndDateFilter='2021-12-24T23:59:59Z'
+
+Delete from Mtd.MarketoFilterConfigForPrograms
+ where StartDateFilter='2021-12-25T00:00:00Z'
+   and EndDateFilter='2022-01-31T23:59:59Z'
 
 INSERT INTO #tMarketoFilterConfigForPrograms
 (StartDateFilter,EndDateFilter)

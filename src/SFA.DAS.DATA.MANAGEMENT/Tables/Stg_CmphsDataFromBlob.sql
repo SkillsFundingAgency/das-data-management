@@ -5,5 +5,7 @@
    ,[Value] nvarchar(max)
    ,[Unit] nvarchar(255)
    ,[CHN] nvarchar(100)
-
 )
+GO
+CREATE NONCLUSTERED INDEX NCI_Staging_CHN ON [Stg].[CmphsDataFromBlob]([CHN] ASC)
+

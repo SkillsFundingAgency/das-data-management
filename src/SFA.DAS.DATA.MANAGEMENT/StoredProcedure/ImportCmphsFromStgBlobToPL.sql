@@ -38,7 +38,7 @@ BEGIN TRY
 		        DELETE FROM ASData_PL.Cmphs_CompaniesHouseDataFromBlob
 
 				INSERT INTO ASData_PL.Cmphs_CompaniesHouseDataFromBlob
-				(CompanyNumber,CurrentAssets,Equity,ImportDateTime)
+				(CompanyNumber,CurrentAssets,Equity)
 				select convert(NVarchar(500),HASHBYTES('SHA2_512',LTRIM(RTRIM(CONCAT(try_convert(varchar(200),CHN) , skl.SaltKey)))),2)
 				      ,CurrentAssets,Equity
                   from (select [chn],[name],[value] from stg.CmphsDataFromBlob) cmp

@@ -391,5 +391,7 @@
     <Build Include="Tables\Management_Cmph_SourceFileList.sql" />
     <Build Include="Tables\Stg_CmphsSourceFileRejectedRecords.sql" />
     <Build Include="Tables\Stg_CmphsDataFromBlob.sql" />
+    <Build Include="StoredProcedure\ImportCmphsFromStgBlobToPL.sql" />
+    <Build Include="Tables\ASDataPL_Cmphs_CompaniesHouseDataFromBlob.sql" />
   </ItemGroup>
 </Project>

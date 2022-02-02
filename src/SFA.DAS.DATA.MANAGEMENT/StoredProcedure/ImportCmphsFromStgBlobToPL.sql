@@ -38,10 +38,14 @@ BEGIN TRY
 		        DELETE FROM ASData_PL.Cmphs_CompaniesHouseDataFromBlob
 
 				INSERT INTO ASData_PL.Cmphs_CompaniesHouseDataFromBlob
-				(CompanyNumber,CurrentAssets,Equity)
-				select convert(NVarchar(500),HASHBYTES('SHA2_512',LTRIM(RTRIM(CONCAT(try_convert(varchar(200),CHN) , skl.SaltKey)))),2)
-				      ,CurrentAssets,Equity
-                  from (select [chn],[name],[value] from stg.CmphsDataFromBlob) cmp
+				(CompanyNumber,CurrentAssets,Equity,SourceFileName)
+				select convert(NVarchar(500),HASHBYTES('SHA2_512',LTRIM(RTRIM(CONCAT(try_convert(varchar(200),REPLICATE('0', 8-LEN(CHN)) + CHN) , skl.SaltKey)))),2)
+				      ,try_convert(decimal(18,5),CurrentAssets) CurrentAssets
+					  ,try_convert(decimal(18,5),Equity) Equity
+					  ,SourceFileName
+                  from (select [chn],SourceFileName,[name],[value]
+				          from stg.cmphsdatafromblob cdfb
+						 ) cmp
                  pivot
                        (
                        MAX([VALUE])
@@ -49,7 +53,7 @@ BEGIN TRY
                        ) piv
 				 CROSS
                   JOIN       (Select TOP 1 SaltKeyID,SaltKey From Mgmt.SaltKeyLog Where SourceType ='EmployerReference'  Order by SaltKeyID DESC ) Skl
-				
+		
 				
 
 				/* Drop Staging Table if PL is successful */

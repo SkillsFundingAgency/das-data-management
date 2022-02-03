@@ -33,7 +33,6 @@ BEGIN TRY
 		  WHERE StoredProcedureName='ImportCmphsFromStgBlobToPL'
 			 AND RunId=@RunID
 
-		BEGIN TRANSACTION
 
 		/* Place Transformed data into Staging Table */
 		    
@@ -265,9 +264,6 @@ BEGIN TRY
 				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='CmphsDataFromBlob' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 				DROP TABLE [Stg].[CmphsDataFromBlob]
 
-				
-				
-		COMMIT TRANSACTION
 
 				UPDATE Mgmt.Log_Execution_Results
 				   SET Execution_Status=1

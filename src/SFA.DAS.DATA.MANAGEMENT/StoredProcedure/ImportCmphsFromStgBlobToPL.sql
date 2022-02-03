@@ -43,7 +43,7 @@ BEGIN TRY
 
 
 
-			select convert(NVarchar(500),HASHBYTES('SHA2_512',LTRIM(RTRIM(CONCAT(try_convert(varchar(200),REPLICATE('0', 8-LEN(CHN)) + CHN) , skl.SaltKey)))),2) CompanyNumber
+			select convert(NVarchar(500),HASHBYTES('SHA2_512',LTRIM(RTRIM(CONCAT(try_convert(nvarchar(512),REPLICATE('0', 8-LEN(CHN)) + CHN) , skl.SaltKey)))),2) AS CompanyNumber
 	               ,[Equity]   
 	               ,CurrentAssets
 			       ,DirectorRemuneration

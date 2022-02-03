@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [Stg].[Cmphs_StgBlobRejectedRecords]
 (
-	[Id] INT NOT NULL PRIMARY KEY,
+	[Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	[CompanyNumber]						varchar(255) NULL,	
 	[Equity]                            nvarchar(255) NULL,
 	[CurrentAssets]                     nvarchar(255) NULL,

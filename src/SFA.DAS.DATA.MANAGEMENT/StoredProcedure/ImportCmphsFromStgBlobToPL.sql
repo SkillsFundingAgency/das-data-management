@@ -92,7 +92,7 @@ BEGIN TRY
 
 				MERGE AsData_PL.Cmphs_CompaniesHouseDataFromBlob as Target
                 USING #StgCHData as Source
-                   ON Target.CompanyNumber=TRY_CONVERT(bigint,Source.CompanyNumber)
+                   ON Target.CompanyNumber=Source.CompanyNumber
 				  and Target.SourceFileName=Source.SourceFileName
 				WHEN MATCHED 
                 THEN UPDATE SET Target.Equity=try_convert(decimal(18,5),Source.Equity)
@@ -226,7 +226,7 @@ BEGIN TRY
 			   ,[ValueaddedTaxPayable]
 			   ,SourceFileName
 			   FROM #StgCHData SCD
-			  WHERE NOT EXISTS (SELECT 1 FROM ASData_PL.Cmphs_CompaniesHouseDataFromBlob
+			  WHERE NOT EXISTS (SELECT 1 FROM ASData_PL.Cmphs_CompaniesHouseDataFromBlob CDFB
 			                 WHERE CDFB.SourceFileName=SCD.SourceFileName
 				     		   AND CDFB.CompanyNumber=SCD.CompanyNumber
 							   AND TRY_CONVERT(nvarchar(255),CDFB.Equity)=TRY_CONVERT(nvarchar(255),SCD.Equity)

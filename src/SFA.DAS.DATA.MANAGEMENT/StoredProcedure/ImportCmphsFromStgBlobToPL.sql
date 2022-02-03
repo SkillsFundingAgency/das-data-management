@@ -264,8 +264,8 @@ BEGIN TRY
 
 				/* Drop Staging Table if PL is successful */
 
-				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='CmphsDataFromBlob' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
-				DROP TABLE [Stg].[CmphsDataFromBlob]
+				--IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='CmphsDataFromBlob' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+				--DROP TABLE [Stg].[CmphsDataFromBlob]
 
 
 				UPDATE Mgmt.Log_Execution_Results

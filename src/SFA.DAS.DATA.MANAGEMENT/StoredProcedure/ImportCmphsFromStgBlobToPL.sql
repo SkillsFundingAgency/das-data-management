@@ -92,7 +92,7 @@ BEGIN TRY
 
 
 				MERGE AsData_PL.Cmphs_CompaniesHouseDataFromBlob as Target
-                USING StgData as Source
+                USING #StgCHData as Source
                    ON Target.CompanyNumber=TRY_CONVERT(bigint,Source.CompanyNumber)
 				  and Target.SourceFileName=Source.SourceFileName
 				WHEN MATCHED 

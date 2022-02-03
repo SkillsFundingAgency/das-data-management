@@ -393,5 +393,7 @@
     <Build Include="Tables\Stg_CmphsDataFromBlob.sql" />
     <Build Include="StoredProcedure\ImportCmphsFromStgBlobToPL.sql" />
     <Build Include="Tables\ASDataPL_Cmphs_CompaniesHouseDataFromBlob.sql" />
+    <Build Include="Tables\Stg_CmphsBlobRejectedRecords.sql" />
+    <Build Include="Views\PdsAI_PT_CompaniesHouseFromBlob.sql" />
   </ItemGroup>
 </Project>

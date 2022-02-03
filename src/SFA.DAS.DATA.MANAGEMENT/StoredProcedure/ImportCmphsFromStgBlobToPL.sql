@@ -35,31 +35,235 @@ BEGIN TRY
 
 		BEGIN TRANSACTION
 
-		        DELETE FROM ASData_PL.Cmphs_CompaniesHouseDataFromBlob
+		/* Place Transformed data into Staging Table */
+		    
+			IF OBJECT_ID(N'tempdb..#StgChData') IS NOT NULL
+            BEGIN
+            DROP TABLE #StgCHData
+            END
 
-				INSERT INTO ASData_PL.Cmphs_CompaniesHouseDataFromBlob
-				(CompanyNumber,CurrentAssets,Equity,SourceFileName)
-				select convert(NVarchar(500),HASHBYTES('SHA2_512',LTRIM(RTRIM(CONCAT(try_convert(varchar(200),REPLICATE('0', 8-LEN(CHN)) + CHN) , skl.SaltKey)))),2)
-				      ,try_convert(decimal(18,5),CurrentAssets) CurrentAssets
-					  ,try_convert(decimal(18,5),Equity) Equity
-					  ,SourceFileName
-                  from (select [chn],SourceFileName,[name],[value]
+
+
+			select convert(NVarchar(500),HASHBYTES('SHA2_512',LTRIM(RTRIM(CONCAT(try_convert(varchar(200),REPLICATE('0', 8-LEN(CHN)) + CHN) , skl.SaltKey)))),2) CompanyNumber
+	               ,[Equity]   
+	               ,CurrentAssets
+			       ,DirectorRemuneration
+			       ,EmployeesTotal
+			       ,GrossProfitLoss
+			       ,IntangibleAssets
+			       ,NetAssetsLiabilities
+			       ,OperatingProfitLoss
+			       ,ProfitLoss
+			       ,ProfitLossOnOrdinaryActivitiesAfterTax
+			       ,ProfitLossOnOrdinaryActivitiesBeforeTax
+			       ,TotalAssetsLessCurrentLiabilities
+			       ,TotalLiabilities
+			       ,TurnoverRevenue
+			       ,WagesSalaries
+			       ,AmountSpecificBankLoan
+			       ,BankBorrowings
+			       ,Creditors
+			       ,DeferredTaxLiabilities
+			       ,FinishedGoodsGoodsForResale
+			       ,GovernmentGrantIncome
+			       ,[ValueaddedTaxPayable]
+			       ,SourceFileName
+			 into  #StgCHData
+             from (select [chn],SourceFileName,[name],[value]
 				          from stg.cmphsdatafromblob cdfb
 						 ) cmp
                  pivot
                        (
                        MAX([VALUE])
-                   for [Name] in (UKCompaniesHouseRegisteredNumber,CurrentAssets,Equity)
+                   for [Name] in (UKCompaniesHouseRegisteredNumber,CurrentAssets,Equity,DirectorRemuneration,EmployeesTotal,GrossProfitLoss
+                                 ,IntangibleAssets,NetAssetsLiabilities,OperatingProfitLoss,ProfitLoss,ProfitLossOnOrdinaryActivitiesAfterTax
+                                 ,ProfitLossOnOrdinaryActivitiesBeforeTax,TotalAssetsLessCurrentLiabilities,TotalLiabilities,TurnoverRevenue
+                                 ,WagesSalaries,AmountSpecificBankLoan,BankBorrowings,Creditors,DeferredTaxLiabilities,FinishedGoodsGoodsForResale
+                                 ,GovernmentGrantIncome,[Value-addedTaxPayable]
+)
                        ) piv
 				 CROSS
                   JOIN       (Select TOP 1 SaltKeyID,SaltKey From Mgmt.SaltKeyLog Where SourceType ='EmployerReference'  Order by SaltKeyID DESC ) Skl
-		
+		    
+
+
+		             
+/* Merge to PL */
+
+
+				MERGE AsData_PL.Cmphs_CompaniesHouseDataFromBlob as Target
+                USING StgData as Source
+                   ON Target.CompanyNumber=TRY_CONVERT(bigint,Source.CompanyNumber)
+				  and Target.SourceFileName=Source.SourceFileName
+				WHEN MATCHED 
+                THEN UPDATE SET Target.Equity=try_convert(decimal(18,5),Source.Equity)
+				               ,Target.CurrentAssets=try_convert(decimal(18,5),Source.CurrentAssets)
+                               ,Target.DirectorRemuneration=try_convert(decimal(18,5),Source.DirectorRemuneration)
+                               ,Target.EmployeesTotal=try_convert(decimal(18,5),Source.EmployeesTotal)
+                               ,Target.GrossProfitLoss=try_convert(decimal(18,5),Source.GrossProfitLoss)
+                               ,Target.IntangibleAssets=try_convert(decimal(18,5),Source.IntangibleAssets)
+                               ,Target.NetAssetsLiabilities=try_convert(decimal(18,5),Source.NetAssetsLiabilities)
+                               ,Target.OperatingProfitLoss=try_convert(decimal(18,5),Source.OperatingProfitLoss)
+                               ,Target.ProfitLoss=try_convert(decimal(18,5),Source.ProfitLoss)
+                               ,Target.ProfitLossOnOrdinaryActivitiesAfterTax=try_convert(decimal(18,5),Source.ProfitLossOnOrdinaryActivitiesAfterTax)
+                               ,Target.ProfitLossOnOrdinaryActivitiesBeforeTax=try_convert(decimal(18,5),Source.ProfitLossOnOrdinaryActivitiesBeforeTax)
+                               ,Target.TotalAssetsLessCurrentLiabilities=try_convert(decimal(18,5),Source.TotalAssetsLessCurrentLiabilities)
+                               ,Target.TotalLiabilities=try_convert(decimal(18,5),Source.TotalLiabilities)
+                               ,Target.TurnoverRevenue=try_convert(decimal(18,5),Source.TurnoverRevenue)
+                               ,Target.WagesSalaries=try_convert(decimal(18,5),Source.WagesSalaries)
+                               ,Target.AmountSpecificBankLoan=try_convert(decimal(18,5),Source.AmountSpecificBankLoan)
+                               ,Target.BankBorrowings=try_convert(decimal(18,5),Source.BankBorrowings)
+                               ,Target.Creditors=try_convert(decimal(18,5),Source.Creditors)
+                               ,Target.DeferredTaxLiabilities=try_convert(decimal(18,5),Source.DeferredTaxLiabilities)
+                               ,Target.FinishedGoodsGoodsForResale=try_convert(decimal(18,5),Source.FinishedGoodsGoodsForResale)
+                               ,Target.GovernmentGrantIncome=try_convert(decimal(18,5),Source.GovernmentGrantIncome)
+                               ,Target.ValueaddedTaxPayable=try_convert(decimal(18,5),Source.ValueaddedTaxPayable)
+							   ,Target.AsDm_UpdatedDateTime=getdate()
+               WHEN NOT MATCHED BY TARGET 
+               THEN INSERT (			   
+			   [CompanyNumber]
+	           ,[Equity]   
+			   ,CurrentAssets
+			   ,DirectorRemuneration
+			   ,EmployeesTotal
+			   ,GrossProfitLoss
+			   ,IntangibleAssets
+			   ,NetAssetsLiabilities
+			   ,OperatingProfitLoss
+			   ,ProfitLoss
+			   ,ProfitLossOnOrdinaryActivitiesAfterTax
+			   ,ProfitLossOnOrdinaryActivitiesBeforeTax
+			   ,TotalAssetsLessCurrentLiabilities
+			   ,TotalLiabilities
+			   ,TurnoverRevenue
+			   ,WagesSalaries
+			   ,AmountSpecificBankLoan
+			   ,BankBorrowings
+			   ,Creditors
+			   ,DeferredTaxLiabilities
+			   ,FinishedGoodsGoodsForResale
+			   ,GovernmentGrantIncome
+			   ,[ValueaddedTaxPayable]
+               ,SourceFileName
+                ) 
+       VALUES (
+	           source.CompanyNumber
+	           ,try_convert(decimal(18,5),source.Equity)
+	           ,try_convert(decimal(18,5),source.CurrentAssets)
+	           ,try_convert(decimal(18,5),source.DirectorRemuneration)
+	           ,try_convert(decimal(18,5),source.EmployeesTotal)
+	           ,try_convert(decimal(18,5),source.GrossProfitLoss)
+	           ,try_convert(decimal(18,5),source.IntangibleAssets)
+	           ,try_convert(decimal(18,5),source.NetAssetsLiabilities)
+	           ,try_convert(decimal(18,5),source.OperatingProfitLoss)
+	           ,try_convert(decimal(18,5),source.ProfitLoss)
+	           ,try_convert(decimal(18,5),source.ProfitLossOnOrdinaryActivitiesAfterTax)
+	           ,try_convert(decimal(18,5),source.ProfitLossOnOrdinaryActivitiesBeforeTax)
+	           ,try_convert(decimal(18,5),source.TotalAssetsLessCurrentLiabilities)
+	           ,try_convert(decimal(18,5),source.TotalLiabilities)
+	           ,try_convert(decimal(18,5),source.TurnoverRevenue)
+	           ,try_convert(decimal(18,5),source.WagesSalaries)
+	           ,try_convert(decimal(18,5),source.AmountSpecificBankLoan)
+	           ,try_convert(decimal(18,5),source.BankBorrowings)
+	           ,try_convert(decimal(18,5),source.Creditors)
+	           ,try_convert(decimal(18,5),source.DeferredTaxLiabilities)
+	           ,try_convert(decimal(18,5),source.FinishedGoodsGoodsForResale)
+	           ,try_convert(decimal(18,5),source.GovernmentGrantIncome)
+	           ,try_convert(decimal(18,5),source.ValueaddedTaxPayable)
+			   ,source.SourceFileName
+              );
+
+
+/* Insert Rejected Records to Staging Rejected Records */
+
+			  INSERT INTO Stg.Cmphs_StgBlobRejectedRecords
+			  ([CompanyNumber]
+	           ,[Equity]   
+			   ,CurrentAssets
+			   ,DirectorRemuneration
+			   ,EmployeesTotal
+			   ,GrossProfitLoss
+			   ,IntangibleAssets
+			   ,NetAssetsLiabilities
+			   ,OperatingProfitLoss
+			   ,ProfitLoss
+			   ,ProfitLossOnOrdinaryActivitiesAfterTax
+			   ,ProfitLossOnOrdinaryActivitiesBeforeTax
+			   ,TotalAssetsLessCurrentLiabilities
+			   ,TotalLiabilities
+			   ,TurnoverRevenue
+			   ,WagesSalaries
+			   ,AmountSpecificBankLoan
+			   ,BankBorrowings
+			   ,Creditors
+			   ,DeferredTaxLiabilities
+			   ,FinishedGoodsGoodsForResale
+			   ,GovernmentGrantIncome
+			   ,[ValueaddedTaxPayable]
+  			   ,SourceFileName)
+			   SELECT 
+			   [CompanyNumber]
+	           ,[Equity]   
+			   ,CurrentAssets
+			   ,DirectorRemuneration
+			   ,EmployeesTotal
+			   ,GrossProfitLoss
+			   ,IntangibleAssets
+			   ,NetAssetsLiabilities
+			   ,OperatingProfitLoss
+			   ,ProfitLoss
+			   ,ProfitLossOnOrdinaryActivitiesAfterTax
+			   ,ProfitLossOnOrdinaryActivitiesBeforeTax
+			   ,TotalAssetsLessCurrentLiabilities
+			   ,TotalLiabilities
+			   ,TurnoverRevenue
+			   ,WagesSalaries
+			   ,AmountSpecificBankLoan
+			   ,BankBorrowings
+			   ,Creditors
+			   ,DeferredTaxLiabilities
+			   ,FinishedGoodsGoodsForResale
+			   ,GovernmentGrantIncome
+			   ,[ValueaddedTaxPayable]
+			   ,SourceFileName
+			   FROM #StgCHData SCD
+			  WHERE NOT EXISTS (SELECT 1 FROM ASData_PL.Cmphs_CompaniesHouseDataFromBlob
+			                 WHERE CDFB.SourceFileName=SCD.SourceFileName
+				     		   AND CDFB.CompanyNumber=SCD.CompanyNumber
+							   AND TRY_CONVERT(nvarchar(255),CDFB.Equity)=TRY_CONVERT(nvarchar(255),SCD.Equity)
+							   AND TRY_CONVERT(nvarchar(255),CDFB.CurrentAssets)=TRY_CONVERT(nvarchar(255),SCD.CurrentAssets)
+                               AND TRY_CONVERT(nvarchar(255),CDFB.DirectorRemuneration)=TRY_CONVERT(nvarchar(255),SCD.DirectorRemuneration)
+                               AND TRY_CONVERT(nvarchar(255),CDFB.EmployeesTotal)=TRY_CONVERT(nvarchar(255),SCD.EmployeesTotal)
+                               AND TRY_CONVERT(nvarchar(255),CDFB.GrossProfitLoss)=TRY_CONVERT(nvarchar(255),SCD.GrossProfitLoss)
+                               AND TRY_CONVERT(nvarchar(255),CDFB.IntangibleAssets)=TRY_CONVERT(nvarchar(255),SCD.IntangibleAssets)
+                               AND TRY_CONVERT(nvarchar(255),CDFB.NetAssetsLiabilities)=TRY_CONVERT(nvarchar(255),SCD.NetAssetsLiabilities)
+                               AND TRY_CONVERT(nvarchar(255),CDFB.OperatingProfitLoss)=TRY_CONVERT(nvarchar(255),SCD.OperatingProfitLoss)
+                               AND TRY_CONVERT(nvarchar(255),CDFB.ProfitLoss)=TRY_CONVERT(nvarchar(255),SCD.ProfitLoss)
+                               AND TRY_CONVERT(nvarchar(255),CDFB.ProfitLossOnOrdinaryActivitiesAfterTax)=TRY_CONVERT(nvarchar(255),SCD.ProfitLossOnOrdinaryActivitiesAfterTax)
+                               AND TRY_CONVERT(nvarchar(255),CDFB.ProfitLossOnOrdinaryActivitiesBeforeTax)=TRY_CONVERT(nvarchar(255),SCD.ProfitLossOnOrdinaryActivitiesBeforeTax)
+                               AND TRY_CONVERT(nvarchar(255),CDFB.TotalAssetsLessCurrentLiabilities)=TRY_CONVERT(nvarchar(255),SCD.TotalAssetsLessCurrentLiabilities)
+                               AND TRY_CONVERT(nvarchar(255),CDFB.TotalLiabilities)=TRY_CONVERT(nvarchar(255),SCD.TotalLiabilities)
+                               AND TRY_CONVERT(nvarchar(255),CDFB.TurnoverRevenue)=TRY_CONVERT(nvarchar(255),SCD.TurnoverRevenue)
+                               AND TRY_CONVERT(nvarchar(255),CDFB.WagesSalaries)=TRY_CONVERT(nvarchar(255),SCD.WagesSalaries)
+                               AND TRY_CONVERT(nvarchar(255),CDFB.AmountSpecificBankLoan)=TRY_CONVERT(nvarchar(255),SCD.AmountSpecificBankLoan)
+                               AND TRY_CONVERT(nvarchar(255),CDFB.BankBorrowings)=TRY_CONVERT(nvarchar(255),SCD.BankBorrowings)
+                               AND TRY_CONVERT(nvarchar(255),CDFB.Creditors)=TRY_CONVERT(nvarchar(255),SCD.Creditors)
+                               AND TRY_CONVERT(nvarchar(255),CDFB.DeferredTaxLiabilities)=TRY_CONVERT(nvarchar(255),SCD.DeferredTaxLiabilities)
+                               AND TRY_CONVERT(nvarchar(255),CDFB.FinishedGoodsGoodsForResale)=TRY_CONVERT(nvarchar(255),SCD.FinishedGoodsGoodsForResale)
+                               AND TRY_CONVERT(nvarchar(255),CDFB.GovernmentGrantIncome)=TRY_CONVERT(nvarchar(255),SCD.GovernmentGrantIncome)
+                               AND TRY_CONVERT(nvarchar(255),CDFB.[ValueaddedTaxPayable])=TRY_CONVERT(nvarchar(255),SCD.[ValueaddedTaxPayable])
+							   
+							   )
+
+				
+
+				
 				
 
 				/* Drop Staging Table if PL is successful */
 
-				--IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='CmphsDataFromBlob' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
-				--DROP TABLE [Stg].[CmphsDataFromBlob]
+				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='CmphsDataFromBlob' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+				DROP TABLE [Stg].[CmphsDataFromBlob]
 
 				
 				

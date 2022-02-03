@@ -9,6 +9,5 @@
    ,[SourceFileName] varchar(255)
    ,[ImportedDateTime] datetime2 default(getdate())
 )
-GO
-CREATE NONCLUSTERED INDEX NCI_Staging_CHN ON [Stg].[CmphsDataFromBlob]([CHN] ASC)
+
 

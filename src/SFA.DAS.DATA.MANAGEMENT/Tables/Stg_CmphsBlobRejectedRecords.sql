@@ -1,0 +1,31 @@
+﻿CREATE TABLE [Stg].[Cmphs_StgBlobRejectedRecords]
+(
+	[Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	[CompanyNumber]						varchar(255) NULL,	
+	[Equity]                            nvarchar(255) NULL,
+	[CurrentAssets]                     nvarchar(255) NULL,
+	[DirectorRemuneration]              nvarchar(255) NULL,
+    [EmployeesTotal]                    nvarchar(255) NULL,
+    [GrossProfitLoss]                   nvarchar(255) null,
+    [IntangibleAssets]                  nvarchar(255) null,
+    [NetAssetsLiabilities]              nvarchar(255) null,
+    [OperatingProfitLoss]               nvarchar(255) null,
+    [ProfitLoss]                        nvarchar(255) null,
+    [ProfitLossOnOrdinaryActivitiesAfterTax] nvarchar(255) null,
+    [ProfitLossOnOrdinaryActivitiesBeforeTax] nvarchar(255) null,
+    [TotalAssetsLessCurrentLiabilities] nvarchar(255) null,
+    [TotalLiabilities]                  nvarchar(255) null,
+    [TurnoverRevenue]                   nvarchar(255) null,
+    [WagesSalaries]                     nvarchar(255) null,
+    [AmountSpecificBankLoan]            nvarchar(255) null,
+    [BankBorrowings]                    nvarchar(255) null,
+    [Creditors]                         nvarchar(255) null,
+    [DeferredTaxLiabilities]            nvarchar(255) null,
+    [FinishedGoodsGoodsForResale]       nvarchar(255) null,
+    [GovernmentGrantIncome]             nvarchar(255) null,
+    [ValueaddedTaxPayable]              nvarchar(255) null,
+	[SourceFileName]                    varchar(255) NULL,
+    [RunId]                             bigint,
+	[AsDm_UpdatedDateTime]			    [Datetime2](7)		default getdate()
+) ON [PRIMARY]
+

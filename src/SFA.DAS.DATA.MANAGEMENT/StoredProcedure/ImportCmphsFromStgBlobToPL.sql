@@ -66,7 +66,7 @@ BEGIN TRY
 			       ,DeferredTaxLiabilities
 			       ,FinishedGoodsGoodsForResale
 			       ,GovernmentGrantIncome
-			       ,[ValueaddedTaxPayable]
+			       ,[Value-addedTaxPayable] AS [ValueaddedTaxPayable]
 			       ,SourceFileName
 			 into  #StgCHData
              from (select [chn],SourceFileName,[name],[value]

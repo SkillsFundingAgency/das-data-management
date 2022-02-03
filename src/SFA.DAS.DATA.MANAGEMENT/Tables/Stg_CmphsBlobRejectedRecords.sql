@@ -25,6 +25,7 @@
     [GovernmentGrantIncome]             nvarchar(255) null,
     [ValueaddedTaxPayable]              nvarchar(255) null,
 	[SourceFileName]                    varchar(255) NULL,
+    [RunId]                             bigint,
 	[AsDm_UpdatedDateTime]			    [Datetime2](7)		default getdate()
 ) ON [PRIMARY]
 

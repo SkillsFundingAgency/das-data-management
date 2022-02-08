@@ -14,7 +14,6 @@
 ,VacancyTown nvarchar(128)
 ,SkillsRequired nvarchar(max)
 ,QualificationsRequired nvarchar(max)
-,PersonalQualities nvarchar(max)
 ,EmployerId int
 ,EmployerFullName nvarchar(255)
 ,LegalEntitiyId Int
@@ -78,4 +77,5 @@
 ,SourceVacancyId INT
 ,SourceDb varchar(100)
 ,[AsDm_UpdatedDateTime]  [datetime2](7)						DEFAULT (getdate())
+,PersonalQualities nvarchar(max)
 )

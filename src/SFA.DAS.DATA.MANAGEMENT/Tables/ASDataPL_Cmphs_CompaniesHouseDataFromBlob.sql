@@ -1,0 +1,28 @@
+﻿CREATE TABLE [ASData_PL].[Cmphs_CompaniesHouseDataFromBlob]
+(	
+	[CompanyNumber]						varchar(255) NULL,	
+	[Equity]                            varchar(255) NULL,
+	[CurrentAssets]                     decimal(18,5) NULL,
+	[DirectorRemuneration]              decimal(18,5) NULL,
+    [EmployeesTotal]                    decimal(18,5) NULL,
+    [GrossProfitLoss]                   decimal(18,5) null,
+    [IntangibleAssets]                  decimal(18,5) null,
+    [NetAssetsLiabilities]              decimal(18,5) null,
+    [OperatingProfitLoss]               decimal(18,5) null,
+    [ProfitLoss]                        decimal(18,5) null,
+    [ProfitLossOnOrdinaryActivitiesAfterTax] decimal(18,5) null,
+    [ProfitLossOnOrdinaryActivitiesBeforeTax] decimal(18,5) null,
+    [TotalAssetsLessCurrentLiabilities] decimal(18,5) null,
+    [TotalLiabilities]                  decimal(18,5) null,
+    [TurnoverRevenue]                   decimal(18,5) null,
+    [WagesSalaries]                     decimal(18,5) null,
+    [AmountSpecificBankLoan]            decimal(18,5) null,
+    [BankBorrowings]                    decimal(18,5) null,
+    [Creditors]                         decimal(18,5) null,
+    [DeferredTaxLiabilities]            decimal(18,5) null,
+    [FinishedGoodsGoodsForResale]       decimal(18,5) null,
+    [GovernmentGrantIncome]             decimal(18,5) null,
+    [ValueaddedTaxPayable]             decimal(18,5) null,
+	[SourceFileName]                    varchar(255) NULL,
+	[AsDm_UpdatedDateTime]			    [Datetime2](7)		default getdate()
+) ON [PRIMARY]

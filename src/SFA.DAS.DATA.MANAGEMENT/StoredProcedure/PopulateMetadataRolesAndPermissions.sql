@@ -228,6 +228,8 @@ VALUES
 ('AtosUser','Pds_AI','PT_F','VIEW','SELECT',0,1),
 ('AtosUser','Pds_AI','PT_G','VIEW','SELECT',0,1),
 ('AtosUser','Stg','AI_TestData','TABLE','SELECT',0,1),
+('AtosUser','Pds_AI','PT_I','VIEW','SELECT',0,1),
+('AtosUser','Pds_AI','PT_J','VIEW','SELECT',0,1),
 
 /* DataAnalystTier2 This new DataAnalystTier2 role is for Rosie's team*/
 ('DataAnalystTier2','ASData_PL','Acc_Account','TABLE','SELECT',0,1),

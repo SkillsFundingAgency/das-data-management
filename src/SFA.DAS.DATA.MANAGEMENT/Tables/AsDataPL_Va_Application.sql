@@ -15,6 +15,6 @@
 	  ,[SourceApplicationId] INT
 	  ,[AsDm_UpdatedDateTime]  [datetime2](7)						DEFAULT (getdate())
 	  ,Foreign Key (CandidateId)  References [AsData_PL].[Va_Candidate](CandidateId)
-	  ,CONSTRAINT  [FK_Application_VacancyId] Foreign Key (VacancyId)  References [AsData_PL].[Va_Vacancy](VacancyId)
+	  ,Foreign Key (VacancyId)  References [AsData_PL].[Va_Vacancy](VacancyId)
  
  )

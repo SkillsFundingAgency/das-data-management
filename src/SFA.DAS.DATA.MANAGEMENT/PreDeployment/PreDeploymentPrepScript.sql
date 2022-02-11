@@ -94,6 +94,30 @@ IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
 DROP TABLE [Comt].[AssessmentOrganisation]
 
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'va_Application'
+		      AND TABLE_SCHEMA=N'asdata_pl'
+	      )
+DROP TABLE asdata_pl.va_Application
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'va_apprenticeships'
+		      AND TABLE_SCHEMA=N'asdata_pl'
+	      )
+DROP TABLE asdata_pl.va_apprenticeships
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'va_VacancyReviews'
+		      AND TABLE_SCHEMA=N'asdata_pl'
+	      )
+DROP TABLE ASData_PL.va_VacancyReviews
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'va_vacancy'
+		      AND TABLE_SCHEMA=N'asdata_pl'
+	      )
+DROP TABLE asdata_pl.va_vacancy
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
             WHERE TABLE_NAME = N'Apprenticeship'
 		      AND TABLE_SCHEMA=N'Comt'
 	      )

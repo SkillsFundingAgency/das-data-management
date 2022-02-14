@@ -106,6 +106,80 @@ BEGIN
         SET @End = @Start + 5
         SET @Length = (@End - @Start) + 1
     END
+
+    
+    SET @Start = CHARINDEX('<ul>', @HTMLText)
+    SET @End = @Start + 3
+    SET @Length = (@End - @Start) + 1
+ 
+    WHILE (@Start > 0 AND @End > 0 AND @Length > 0)
+    BEGIN
+        SET @HTMLText = STUFF(@HTMLText, @Start, @Length, ' ')
+        SET @Start = CHARINDEX('<ul>', @HTMLText)
+        SET @End = @Start + 3
+        SET @Length = (@End - @Start) + 1
+    END
+
+    SET @Start = CHARINDEX('<li>', @HTMLText)
+    SET @End = @Start + 3
+    SET @Length = (@End - @Start) + 1
+ 
+    WHILE (@Start > 0 AND @End > 0 AND @Length > 0)
+    BEGIN
+        SET @HTMLText = STUFF(@HTMLText, @Start, @Length, ' ')
+        SET @Start = CHARINDEX('<li>', @HTMLText)
+        SET @End = @Start + 3
+        SET @Length = (@End - @Start) + 1
+    END
+
+    SET @Start = CHARINDEX('</ul>', @HTMLText)
+    SET @End = @Start + 4
+    SET @Length = (@End - @Start) + 1
+ 
+    WHILE (@Start > 0 AND @End > 0 AND @Length > 0)
+    BEGIN
+        SET @HTMLText = STUFF(@HTMLText, @Start, @Length, ' ')
+        SET @Start = CHARINDEX('</ul>', @HTMLText)
+        SET @End = @Start + 4
+        SET @Length = (@End - @Start) + 1
+    END
+
+    SET @Start = CHARINDEX('</li>', @HTMLText)
+    SET @End = @Start + 4
+    SET @Length = (@End - @Start) + 1
+ 
+    WHILE (@Start > 0 AND @End > 0 AND @Length > 0)
+    BEGIN
+        SET @HTMLText = STUFF(@HTMLText, @Start, @Length, '.')
+        SET @Start = CHARINDEX('</li>', @HTMLText)
+        SET @End = @Start + 4
+        SET @Length = (@End - @Start) + 1
+    END
+
+    SET @Start = CHARINDEX('<p>', @HTMLText)
+    SET @End = @Start + 2
+    SET @Length = (@End - @Start) + 1
+ 
+    WHILE (@Start > 0 AND @End > 0 AND @Length > 0)
+    BEGIN
+        SET @HTMLText = STUFF(@HTMLText, @Start, @Length, ' ')
+        SET @Start = CHARINDEX('<p>', @HTMLText)
+        SET @End = @Start + 2
+        SET @Length = (@End - @Start) + 1
+    END
+
+    
+    SET @Start = CHARINDEX('</p>', @HTMLText)
+    SET @End = @Start + 3
+    SET @Length = (@End - @Start) + 1
+ 
+    WHILE (@Start > 0 AND @End > 0 AND @Length > 0)
+    BEGIN
+        SET @HTMLText = STUFF(@HTMLText, @Start, @Length, ' ')
+        SET @Start = CHARINDEX('</p>', @HTMLText)
+        SET @End = @Start + 3
+        SET @Length = (@End - @Start) + 1
+    END
  
  
     

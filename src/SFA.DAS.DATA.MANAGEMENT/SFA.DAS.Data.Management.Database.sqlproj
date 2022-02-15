@@ -395,5 +395,6 @@
     <Build Include="Tables\ASDataPL_Cmphs_CompaniesHouseDataFromBlob.sql" />
     <Build Include="Tables\Stg_CmphsBlobRejectedRecords.sql" />
     <Build Include="Views\PdsAI_PT_CompaniesHouseFromBlob.sql" />
+    <Build Include="Functions\Fn_RemoveHTMLTags.sql" />
   </ItemGroup>
 </Project>

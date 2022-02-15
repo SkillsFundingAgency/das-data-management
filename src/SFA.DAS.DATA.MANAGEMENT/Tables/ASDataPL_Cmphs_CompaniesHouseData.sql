@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [ASData_PL].[Cmphs_CompaniesHouseData]
-(	
+(	[ID]                                bigint              NULL,
 	[CompanyNumber]						[varchar](255)		NULL,	
 	[CompanyCategory]					[varchar](100)		NULL,
 	[CompanyStatus]						[varchar](100)		NULL,	

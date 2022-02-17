@@ -392,5 +392,13 @@
     <Build Include="Tables\AsDataPL_Assessor_MergeOrganisationStandard.sql" />
     <Build Include="Tables\AsDataPL_Assessor_MergeOrganisationStandardDeliveryArea.sql" />
     <Build Include="Tables\AsDataPL_Assessor_MergeOrganisationStandardVersion.sql" />
+    <Build Include="Tables\ASDataPL_Cmphs_CompaniesHouseDataFromBlob.sql" />
+    <Build Include="Tables\Management_Cmph_SourceFileList.sql" />
+    <Build Include="Tables\Stg_CmphsDataFromBlob.sql" />
+    <Build Include="Tables\Stg_CmphsSourceFileRejectedRecords.sql" />
+    <Build Include="StoredProcedure\ImportCmphsFromStgBlobToPL.sql" />
+    <Build Include="Views\PdsAI_PT_CompaniesHouseFromBlob.sql" />
+    <Build Include="Tables\Stg_CmphsBlobRejectedRecords.sql" />
+    <Build Include="Functions\Fn_RemoveHTMLTags.sql" />
   </ItemGroup>
 </Project>

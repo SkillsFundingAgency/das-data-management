@@ -276,6 +276,18 @@ VALUES
 ,('Assessor','Learner','dbo','[Id],[StdCode],[LearnStartDate],[EpaOrgId],[FundingModel],[ApprenticeshipId],[Source],[CompletionStatus],[PlannedEndDate],[LearnActEndDate],[WithdrawReason],[Outcome],[AchDate],[OutGrade],[Version],[VersionConfirmed],[CourseOption],[StandardUId],[StandardReference],[StandardName],[LastUpdated],[EstimatedEndDate],[ApprovalsStopDate],[ApprovalsPauseDate],[ApprovalsCompletionDate],[ApprovalsPaymentStatus],[LatestIlrs],[LatestApprovals]','[GivenNames],[FamilyName],[LearnRefNumber]','[Uln],[UkPrn]',0,1,
     'SELECT [Id],[StdCode],[LearnStartDate],[EpaOrgId],[FundingModel],[ApprenticeshipId],[Source],[CompletionStatus],[PlannedEndDate],[LearnActEndDate],[WithdrawReason],[Outcome],[AchDate],[OutGrade],[Version],[VersionConfirmed],[CourseOption],[StandardUId],[StandardReference],[StandardName],[LastUpdated],[EstimatedEndDate],[ApprovalsStopDate],[ApprovalsPauseDate],[ApprovalsCompletionDate],[ApprovalsPaymentStatus],[LatestIlrs],[LatestApprovals],[Uln],[UkPrn],[GivenNames],[FamilyName],[LearnRefNumber] FROM [dbo].[Learner]',
     'Assessor_Learner')
+,('Assessor','MergeOrganisations','dbo','[Id],[PrimaryEndPointAssessorOrganisationId],[PrimaryEndPointAssessorOrganisationName],[SecondaryEndPointAssessorOrganisationId],[SecondaryEndPointAssessorOrganisationName],[SecondaryEPAOEffectiveTo],[CreatedAt],[UpdatedAt],[Status],[ApprovedAt],[CompletedAt]','[CreatedBy],[UpdatedBy],[ApprovedBy],[CompletedBy]','',0,1,
+    'SELECT [Id],[PrimaryEndPointAssessorOrganisationId],[PrimaryEndPointAssessorOrganisationName],[SecondaryEndPointAssessorOrganisationId],[SecondaryEndPointAssessorOrganisationName],[SecondaryEPAOEffectiveTo],[CreatedAt],[UpdatedAt],[Status],[CreatedBy],[UpdatedBy],[ApprovedAt],[ApprovedBy],[CompletedAt],[CompletedBy] FROM [dbo].[MergeOrganisations]',
+    'Assessor_MergeOrganisations')
+,('Assessor','MergeOrganisationStandard','dbo','[Id],[EndPointAssessorOrganisationId],[StandardCode],[EffectiveFrom],[EffectiveTo],[DateStandardApprovedOnRegister],[Comments],[Status],[ContactId],[OrganisationStandardData],[MergeOrganisationId],[OrganisationStandardId],[Replicates]','','[StandardReference]',0,1,
+    'SELECT [Id],[EndPointAssessorOrganisationId],[StandardCode],[EffectiveFrom],[EffectiveTo],[DateStandardApprovedOnRegister],[Comments],[Status],[ContactId],[OrganisationStandardData],[StandardReference],[MergeOrganisationId],[OrganisationStandardId],[Replicates]  FROM [dbo].[MergeOrganisationStandard]',
+    'Assessor_MergeOrganisationStandard')
+,('Assessor','MergeOrganisationStandardDeliveryArea','dbo','[Id],[OrganisationStandardId],[DeliveryAreaId],[Comments],[Status],[MergeOrganisationId],[OrganisationStandardDeliveryAreaId],[Replicates]','','',0,1,
+    'SELECT [Id],[OrganisationStandardId],[DeliveryAreaId],[Comments],[Status],[MergeOrganisationId],[OrganisationStandardDeliveryAreaId],[Replicates] FROM [dbo].[MergeOrganisationStandardDeliveryArea]',
+    'Assessor_MergeOrganisationStandardDeliveryArea')
+,('Assessor','MergeOrganisationStandardVersion','dbo','[Id],[StandardUId],[Version],[OrganisationStandardId],[EffectiveFrom],[EffectiveTo],[DateVersionApproved],[Comments],[Status],[MergeOrganisationId],[Replicates]','','',0,1,
+    'SELECT [Id],[StandardUId],[Version],[OrganisationStandardId],[EffectiveFrom],[EffectiveTo],[DateVersionApproved],[Comments],[Status],[MergeOrganisationId],[Replicates] FROM [dbo].[MergeOrganisationStandardVersion]',
+    'Assessor_MergeOrganisationStandardVersion')
 /* Public Sector Config */
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)

@@ -65,13 +65,15 @@ where
 /* Delta Update MarketoLeads */
 ;with baseMarketoLeadsData as
 (
-		Select MLData.LeadId,MLData.[FirstName],MLData.[LastName],MLData.[EmailAddress],MLData.[CreatedAt],MLData.[UpdatedAt],trim(STRING_AGG(EmpData.EmployerHashedId,',')) As EmployerHashedId,trim(STRING_AGG(Cast(ProviderData.Ukprn As NVarchar(20)),',')) As ProviderID
+        Select MLData.LeadId,MLData.[FirstName],MLData.[LastName],MLData.[EmailAddress],MLData.[CreatedAt],MLData.[UpdatedAt],trim(STRING_AGG(EmpData.EmployerHashedId,',')) As EmployerHashedId,trim(STRING_AGG(Cast(ProviderData.Ukprn As NVarchar(20)),',')) As ProviderID
 		from stg.MarketoLeads  MLData   LEFT JOIN 
 		(			  select ml.LeadId,au.HashedId as EmployerHashedId  from stg.MarketoLeads ml
 					  inner join (  select au.Email,au.id,aus.AccountId as EmployerAccountId,aa.HashedId from asdata_pl.acc_user au join ASData_PL.Acc_UserAccountSettings aus
 						on au.Id=aus.UserId join ASData_PL.Acc_Account aa on aa.Id=aus.AccountId ) au on ml.EmailAddress=au.Email 
+			          where ml.LeadId is not null
 		) As EmpData ON MLData.LeadId = EmpData.LeadId
-		LEFT JOIN ( select ml.LeadId,PUser.Ukprn from stg.MarketoLeads  ml JOIN ASData_PL.PAS_User PUser  ON ml.EmailAddress = PUser.Email ) As ProviderData ON MLData.LeadId= ProviderData.LeadId
+		LEFT JOIN ( select ml.LeadId,PUser.Ukprn from stg.MarketoLeads  ml JOIN ASData_PL.PAS_User PUser  ON ml.EmailAddress = PUser.Email where ml.LeadId is not null ) As ProviderData ON MLData.LeadId= ProviderData.LeadId
+		where MLData.LeadId is not null
 		Group by MLData.LeadId,MLData.[FirstName],MLData.[LastName],MLData.[EmailAddress],MLData.[CreatedAt],MLData.[UpdatedAt]
 )
 MERGE AsData_PL.MarketoLeads as Target

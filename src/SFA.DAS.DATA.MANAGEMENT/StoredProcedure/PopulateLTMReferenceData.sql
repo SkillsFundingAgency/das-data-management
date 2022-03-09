@@ -53,7 +53,8 @@ AS
 					[CreatedOn],
 					[JobRoles],
 					[Levels],
-					[Sectors]					
+					[Sectors],
+					[ClosedOn]
 				) 
 				SELECT [Id]
 					  ,[EmployerAccountId]
@@ -64,6 +65,7 @@ AS
 					  ,[JobRoles]
 					  ,[Levels]
 					  ,[Sectors]
+					  ,[ClosedOn]
 			    FROM [stg].[LTM_Pledge]'
 				exec SP_EXECUTESQL @DynSQL
 

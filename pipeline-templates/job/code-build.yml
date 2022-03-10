@@ -1,0 +1,62 @@
+jobs:
+- job: 'CodeBuild'
+  workspace:
+      clean: all
+  variables:
+    - group: BUILD Management Resources
+    - name: buildConfiguration 
+      value: 'release'
+    - name: buildPlatform
+      value: 'any cpu'
+  pool:
+    name: 'DAS - Continuous Integration'
+    demands: Agent.OS -equals Windows_NT
+
+  steps:
+  - task: UseGitVersion@5
+    displayName: GitVersion
+    inputs:
+      versionSpec: 5.x
+      mode: Mainline
+
+  - task: SonarCloudPrepare@1
+    displayName: Prepare SonarCloud analysis configuration
+    condition: and(succeeded(), or(in(variables['Build.SourceBranch'], 'refs/heads/master', 'refs/heads/main'), eq(variables['Build.Reason'], 'PullRequest')))
+    inputs:
+      SonarCloud: ESFA - SonarCloud
+      organization: $(SonarCloudOrganisationKey)
+      scannerMode: MSBuild
+      projectName: "$(Build.DefinitionName)"
+      projectKey: SkillsFundingAgency_das-data-management
+
+  - task: VSBuild@1
+    displayName: 'Build DACPAC'
+    inputs:
+      solution: 'src\**\*.sqlproj'
+      platform: '$(buildPlatform)'
+      configuration: '$(buildConfiguration)'
+      msbuildArgs: '/p:PackageLocation="$(build.artifactstagingdirectory)/publish"'
+
+  - task: SonarCloudAnalyze@1
+    displayName: Run SonarCloud analysis
+    condition: and(succeeded(), or(in(variables['Build.SourceBranch'], 'refs/heads/master', 'refs/heads/main'), eq(variables['Build.Reason'], 'PullRequest')))
+
+  - task: SonarCloudPublish@1
+    displayName: Publish SonarCloud analysis results on build summary
+    condition: and(succeeded(), or(in(variables['Build.SourceBranch'], 'refs/heads/master', 'refs/heads/main'), eq(variables['Build.Reason'], 'PullRequest')))
+    inputs:
+      pollingTimeoutSec: '300'
+
+  - task: CopyFiles@2
+    displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+    inputs:
+      Contents: |
+        azure\**
+        src\**\*.dacpac
+      TargetFolder: '$(build.artifactstagingdirectory)/publish'
+      OverWrite: true
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact'
+    inputs:
+      PathtoPublish: '$(build.artifactstagingdirectory)/publish'

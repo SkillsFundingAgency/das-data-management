@@ -119,6 +119,14 @@ Delete from Mtd.MarketoFilterConfig
  where StartDateFilter='2022-01-19T00:00:00Z'
    and EndDateFilter='2022-02-06T23:59:59Z'
 
+delete from mtd.MarketoFilterConfig
+where StartDateFilter='2022-02-09T00:00:00Z'
+and EndDateFilter='2022-02-17T23:59:59Z'
+
+delete from mtd.MarketoFilterConfig
+where StartDateFilter='2022-02-18T00:00:00Z'
+and EndDateFilter='2022-02-27T23:59:59Z'
+
 INSERT INTO #tMarketoFilterConfig
 (StartDateFilter,EndDateFilter)
 VALUES
@@ -130,8 +138,16 @@ VALUES
 ,('2022-01-26T00:00:00Z','2022-02-01T23:59:59Z')
 ,('2022-02-02T00:00:00Z','2022-02-08T23:59:59Z')
 ,('2022-01-04T23:59:59Z','2022-01-11T23:59:59Z')
-,('2022-02-09T00:00:00Z','2022-02-17T23:59:59Z')
-,('2022-02-18T00:00:00Z','2022-02-27T23:59:59Z')
+,('2022-02-09T00:00:00Z','2022-02-12T23:59:59Z')
+,('2022-02-13T00:00:00Z','2022-02-16T23:59:59Z')
+,('2022-02-17T00:00:00Z','2022-02-20T23:59:59Z')
+,('2022-02-21T00:00:00Z','2022-02-24T23:59:59Z')
+,('2022-02-25T00:00:00Z','2022-02-28T23:59:59Z')
+,('2022-03-01T00:00:00Z','2022-03-04T23:59:59Z')
+,('2022-03-05T00:00:00Z','2022-03-08T23:59:59Z')
+,('2022-03-09T00:00:00Z','2022-03-12T23:59:59Z')
+,('2022-03-13T00:00:00Z','2022-03-16T23:59:59Z')
+,('2022-03-17T00:00:00Z','2022-03-20T23:59:59Z')
 
 
 /* Insert main Config Table if not already exists */
@@ -204,6 +220,14 @@ Delete from Mtd.MarketoFilterConfigForPrograms
  where StartDateFilter='2022-01-19T00:00:00Z'
    and EndDateFilter='2022-02-06T23:59:59Z'
 
+DELETE from mtd.MarketoFilterConfigForPrograms
+where StartDateFilter='2022-02-09T00:00:00Z'
+and EndDateFilter='2022-02-17T23:59:59Z'
+
+DELETE from mtd.MarketoFilterConfigForPrograms
+where StartDateFilter='2022-02-18T00:00:00Z'
+and EndDateFilter='2022-02-27T23:59:59Z'
+
 INSERT INTO #tMarketoFilterConfigForPrograms
 (StartDateFilter,EndDateFilter)
 VALUES
@@ -215,8 +239,16 @@ VALUES
 ,('2022-01-26T00:00:00Z','2022-02-01T23:59:59Z')
 ,('2022-02-02T00:00:00Z','2022-02-08T23:59:59Z')
 ,('2022-01-04T23:59:59Z','2022-01-11T23:59:59Z')
-,('2022-02-09T00:00:00Z','2022-02-17T23:59:59Z')
-,('2022-02-18T00:00:00Z','2022-02-27T23:59:59Z')
+,('2022-02-09T00:00:00Z','2022-02-12T23:59:59Z')
+,('2022-02-13T00:00:00Z','2022-02-16T23:59:59Z')
+,('2022-02-17T00:00:00Z','2022-02-20T23:59:59Z')
+,('2022-02-21T00:00:00Z','2022-02-24T23:59:59Z')
+,('2022-02-25T00:00:00Z','2022-02-28T23:59:59Z')
+,('2022-03-01T00:00:00Z','2022-03-04T23:59:59Z')
+,('2022-03-05T00:00:00Z','2022-03-08T23:59:59Z')
+,('2022-03-09T00:00:00Z','2022-03-12T23:59:59Z')
+,('2022-03-13T00:00:00Z','2022-03-16T23:59:59Z')
+,('2022-03-17T00:00:00Z','2022-03-20T23:59:59Z')
 
 /* Insert main Config Table if not already exists */
 INSERT INTO Mtd.MarketoFilterConfigForPrograms

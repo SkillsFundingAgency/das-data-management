@@ -9,5 +9,6 @@
 	[JobRoles] [int]				NOT NULL,
 	[Levels] [int]					NOT NULL,
 	[Sectors] [int]					NOT NULL,
+	[ClosedOn] [datetime2]         NULL,
 	[AsDm_UpdatedDateTime] datetime2 default getdate()
 ) ON [PRIMARY]

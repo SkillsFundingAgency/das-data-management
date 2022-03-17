@@ -400,5 +400,6 @@
     <Build Include="Views\PdsAI_PT_CompaniesHouseFromBlob.sql" />
     <Build Include="Tables\Stg_CmphsBlobRejectedRecords.sql" />
     <Build Include="Functions\Fn_RemoveHTMLTags.sql" />
+    <Build Include="Tables\Management_Log_Marketo_ExportJobDetails.sql" />
   </ItemGroup>
 </Project>

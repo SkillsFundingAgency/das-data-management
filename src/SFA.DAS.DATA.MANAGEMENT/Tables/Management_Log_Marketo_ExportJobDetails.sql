@@ -1,7 +1,6 @@
 ﻿CREATE TABLE [Mgmt].[Log_Marketo_ExportJobDetails] (
     [LogId]          BIGINT      NOT NULL,
     [RunId]            BIGINT         NOT NULL DEFAULT(-1),
-    [UserName]         VARCHAR (100) NULL,
 	[ADFTaskType] VARCHAR(256) NULL,
     [LogMessage]     VARCHAR (MAX) NULL,
     [LogDateTime]    DATETIME2 (7) default(Getdate()) NULL,

@@ -14,6 +14,7 @@
    ,CampaignCategory varchar(256)
    ,CampaignWeekName varchar(100)
    ,TargetAudience Varchar(100)
+   ,IsDeletedAtSource BIT DEFAULT(0)
    ,AsDm_CreatedDate Datetime2
    ,AsDm_UpdatedDate datetime2
  ,CONSTRAINT [PK_MP_ProgramId] PRIMARY KEY CLUSTERED([ProgramId] ASC)

@@ -133,7 +133,10 @@ BEGIN TRANSACTION
 			  ,TargetAudience
 			  ,getdate()
 			  ,getdate()
-			  );
+			  )
+   WHEN NOT MATCHED BY SOURCE
+   THEN UPDATE SET Target.IsDeletedAtSource=1
+   ;
 
 
 

@@ -401,5 +401,7 @@
     <Build Include="Tables\Stg_CmphsBlobRejectedRecords.sql" />
     <Build Include="Functions\Fn_RemoveHTMLTags.sql" />
     <Build Include="Tables\Management_Log_Marketo_ExportJobDetails.sql" />
+    <Build Include="StoredProcedure\ImportMLOutputToPL.sql" />
+    <Build Include="Tables\AsDataPL_Ml_LevyModelPredictions.sql" />
   </ItemGroup>
 </Project>

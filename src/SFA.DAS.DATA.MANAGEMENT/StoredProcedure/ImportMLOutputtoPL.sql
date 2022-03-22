@@ -40,8 +40,8 @@ BEGIN TRY
 				  [AccountId]
                  ,[LevyModelPredictions]
 				)
-				SELECT [AccountId]
-                      ,[LevyModelPredictions]
+				SELECT [Prop_1]
+                      ,[Prop_2]
 				 FROM Stg.ML_LevyPredictions MLP
 				
 

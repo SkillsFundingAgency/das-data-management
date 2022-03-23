@@ -41,6 +41,11 @@ IF @@TRANCOUNT=0
 BEGIN
 BEGIN TRANSACTION
 
+/* Reset IsDeletedAtSource Field */
+
+Update ASData_PL.MarketoPrograms
+   set IsDeletedAtSource=0
+
 /* Delta Code */
 
 /* Delta Update MarketoPrograms */

@@ -403,5 +403,6 @@
     <Build Include="Tables\Management_Log_Marketo_ExportJobDetails.sql" />
     <Build Include="StoredProcedure\ImportMLOutputToPL.sql" />
     <Build Include="Tables\AsDataPL_Ml_LevyModelPredictions.sql" />
+    <Build Include="Tables\Management_ML_OutputFileLog.sql" />
   </ItemGroup>
 </Project>

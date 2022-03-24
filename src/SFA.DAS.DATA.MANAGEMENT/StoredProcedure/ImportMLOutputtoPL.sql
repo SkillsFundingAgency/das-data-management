@@ -39,9 +39,13 @@ BEGIN TRY
 				(     
 				  [AccountId]
                  ,[LevyModelPredictions]
+				 ,[RunId]
+				 ,[MlOutputLogId]
 				)
 				SELECT [Prop_1]
                       ,[Prop_2]
+					  ,[RunId]
+					  ,[MlOutputLogId]
 				 FROM Stg.ML_LevyPredictions MLP
 				
 

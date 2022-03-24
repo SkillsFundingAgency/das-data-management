@@ -8,6 +8,6 @@
 	[IsLoadedToStaging] bit,
 	[IsLoadedToPL] bit,
 	[LogDateTime] datetime2(7) default(getdate()),
-	CONSTRAINT [PK_ML_ID] PRIMARY KEY CLUSTERED ([Id] ASC),
+	CONSTRAINT [PK_ML_ID] PRIMARY KEY CLUSTERED (MlOutputLogId ASC),
 	CONSTRAINT [FK_ML_RunID] FOREIGN KEY ([RunId]) REFERENCES [Mgmt].[Log_RunId] ([RunId])
  )

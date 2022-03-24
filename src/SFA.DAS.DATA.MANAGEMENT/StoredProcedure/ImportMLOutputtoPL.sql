@@ -54,7 +54,6 @@ BEGIN TRY
 
 
 
-		COMMIT TRANSACTION
 
 				UPDATE Mgmt.Log_Execution_Results
 				   SET Execution_Status=1

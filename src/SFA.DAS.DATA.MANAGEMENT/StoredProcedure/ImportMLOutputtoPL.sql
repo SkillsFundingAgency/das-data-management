@@ -35,6 +35,9 @@ BEGIN TRY
 		   WHERE StoredProcedureName='ImportMLOutputToPL'
 			 AND RunId=@RunID
 
+		DECLARE @VSQL NVARCHAR(MAX)
+
+		SET @VSQL='
 				INSERT INTO ASData_PL.ML_LevyModelPredictions
 				(     
 				  [AccountId]
@@ -47,6 +50,9 @@ BEGIN TRY
 					  ,[RunId]
 					  ,[MlOutputLogId]
 				 FROM Stg.ML_LevyPredictions MLP
+				 '
+
+		 EXEC SP_EXECUTESQL @VSQL
 				
 
 

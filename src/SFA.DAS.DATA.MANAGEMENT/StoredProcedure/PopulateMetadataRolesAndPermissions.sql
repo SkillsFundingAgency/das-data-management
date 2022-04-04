@@ -58,6 +58,7 @@ VALUES
 ('Developer','Mtd','','','SELECT',1,1),
 ('Developer','Comp','','','SELECT',1,1),
 ('Developer','Pds_AI','','','SELECT',1,1),
+('Developer','lkp','','','SELECT',1,1),
 ('Developer','dbo','DASCalendarMonth','TABLE','SELECT',0,1),
 ('Developer','dbo','ReferenceData','TABLE','SELECT',0,1),
 ('Developer','dbo','SourceDbChanges','TABLE','SELECT',0,1),

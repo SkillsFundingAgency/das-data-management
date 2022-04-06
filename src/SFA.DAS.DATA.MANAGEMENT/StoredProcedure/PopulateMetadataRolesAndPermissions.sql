@@ -184,6 +184,7 @@ VALUES
 ('DataAnalyst','ASData_PL','Resv_Reservation','TABLE','SELECT',0,1),
 ('DataAnalyst','dbo','ReferenceData','TABLE','SELECT',0,1),
 ('DataAnalyst','ASData_PL','FAT2_StandardSector','TABLE','SELECT',0,1),
+('DataAnalyst','ASData_PL','PFBE_EmployerFeedback','TABLE','SELECT',0,1),
 /* DataGov */
 --('DataGov','ASData_PL','MarketoActivityTypes','TABLE','SELECT',0,1),
 --('DataGov','ASData_PL','MarketoCampaigns','TABLE','SELECT',0,1),

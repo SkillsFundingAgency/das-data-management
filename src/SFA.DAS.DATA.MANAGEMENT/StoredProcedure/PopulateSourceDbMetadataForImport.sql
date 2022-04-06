@@ -346,6 +346,16 @@ INSERT INTO Mtd.SourceConfigForImport
 VALUES
 ('TPR','Organisation','dbo','[TPRUniqueId],[CompaniesHouseNumber],[AORN],[EmpRef],[SchemeStartDate],[SchemeEndDate],[SchemeEndDateCodeDesc],[RestartDate],[EmployeeCountDateTaken]','','[OrganisationName],[TradeClass],[TradeClassDescription],[PostCode],[LiveEmployeeCount]','TPR_OrgDetails','TPR_OrgDetails',0,1,'SELECT TOrg.TPRUniqueId,TOrg.OrganisationName,convert(NVarchar(500),HASHBYTES(''''SHA2_512'''',LTRIM(RTRIM(CONCAT(CONVERT(NVARCHAR(512),LTRIM(RTRIM(Torg.CompanyRegNo))), @SaltKey)))),2) as CompaniesHouseNumber,TOrg.TradeClass,CASE WHEN left(TOrg.TradeClass,1)=''''S'''' THEN ''''Society Registered'''' WHEN left(TOrg.TradeClass,1)=''''C'''' THEN ''''Limited Company'''' WHEN left(TOrg.TradeClass,1)=''''I'''' THEN ''''Individual Or Sole Trader'''' WHEN left(TOrg.TradeClass,1)=''''P'''' THEN ''''Public Corporation'''' WHEN left(TOrg.TradeClass,1)=''''F'''' THEN ''''Partnership'''' WHEN left(TOrg.TradeClass,1)=''''L'''' THEN ''''Local Authority'''' WHEN left(TOrg.TradeClass,1)=''''E'''' THEN ''''Close Investment Companies'''' ELSE ''''Unknown'''' END as TradeClassDescription,convert(NVarchar(500),HASHBYTES(''''SHA2_512'''',LTRIM(RTRIM(CONCAT(CONVERT(NVARCHAR(512),TOrg.AORN), @SaltKey)))),2) [Aorn],CASE WHEN CHARINDEX('''' '''',toa.Postcode)<>0 THEN SUBSTRING(TOA.PostCode,1,CHARINDEX('''' '''',Postcode)) ELSE SUBSTRING(TOA.Postcode,1,LEN(TOA.Postcode)-3) end as [PostCode],convert(NVarchar(500),HASHBYTES(''''SHA2_512'''',LTRIM(RTRIM(CONCAT(CONVERT(NVARCHAR(512),Tops.PayeScheme), @SaltKey)))),2) [EmpRef],TOPS.SchemeStartDate,TOPS.SchemeEndDate,TOPS.SchemeEndDateCodeDesc,TOPS.RestartDate,TOPS.LiveEmployeeCount,TOPS.EmployeeCountDateTaken FROM Tpr.Organisation TOrg LEFT JOIN Tpr.OrganisationAddress TOA ON Torg.TPRUniqueId=TOA.TprUniqueId LEFT JOIN Tpr.OrganisationPAYEScheme TOPS ON TOPS.TPRUniqueId=TOrg.TPRUniqueId')
 
+/* Employer Feedback SQL Query based Import */
+
+INSERT INTO Mtd.SourceConfigForImport
+(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,StagingTableName,PLTableName,[ModelDataToPL],[IsQueryBasedImport],SourceQuery)
+VALUES
+('Pfbe','EmployerFeedback','dbo','[EmployerFeedbackID],[EmployerFeedbackBinaryId],[DatetimeCompleted],[FeedbackName],[FeedbackValue],[ProviderRating]','','[Ukprn],[AccountId]','Pfbe_EmployerFeedback','Pfbe_EmployerFeedback',0,1,'SELECT  efr.feedbackid as EmployerFeedbackId, efr.id as EmployerFeedbackBinaryId, ef.ukprn as Ukprn, ef.accountid as AccountId, efr.datetimecompleted as DateTimeCompleted,a.attributename as FeedbackName,pa.attributevalue as FeedbackValue,efr.providerrating as ProviderRating FROM EmployerFeedback ef	JOIN EmployerFeedbackResult efr ON ef.FeedbackId = efr.FeedbackId JOIN ProviderAttributes pa ON efr.Id = pa.EmployerFeedbackResultId JOIN Attributes a on pa.AttributeId = a.AttributeId')
+
+
+
+
 COMMIT TRANSACTION
 
 UPDATE Mgmt.Log_Execution_Results

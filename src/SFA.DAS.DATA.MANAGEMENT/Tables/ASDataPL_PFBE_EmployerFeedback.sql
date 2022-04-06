@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [ASData_PL].[PFBE_EmployerFeedback]
 (
 	EmployerFeedbackID						[Bigint]		IDENTITY(1,1)			NOT	NULL Primary key,
+	SrcEmployerFeedbackId                   [BigInt]                                NULL,
 	EmployerFeedbackBinaryId				[uniqueidentifier]						NULL,
 	Ukprn									[BigInt]								NULL,
 	AccountId								[BigInt]								NULL,

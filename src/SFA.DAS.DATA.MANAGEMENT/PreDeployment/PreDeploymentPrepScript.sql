@@ -608,6 +608,13 @@ IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
 	      )
 DROP TABLE [ASData_PL].[aComt_CommitmentStatement]
 
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'MarketoLeadPrograms'
+		      AND TABLE_SCHEMA=N'Stg'
+	      )
+DROP TABLE [Stg].[MarketoLeadPrograms]
+
 /* Drop views as they are renamed */
 
 DROP VIEW IF EXISTS [AsData_AI].[DAS_Accounts];

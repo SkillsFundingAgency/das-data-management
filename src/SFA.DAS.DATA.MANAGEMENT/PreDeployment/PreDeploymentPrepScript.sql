@@ -227,6 +227,14 @@ IF EXISTS (select * from INFORMATION_SCHEMA.ROUTINES
 		  )
 DROP PROCEDURE [dbo].[uSP_Import_Transfers]
 
+/* Drop Pfbe stored proc as it no longer userd */
+
+IF EXISTS (select * from INFORMATION_SCHEMA.ROUTINES
+            where ROUTINE_NAME='ImportEmployerFeedbackStgToLive'
+              and ROUTINE_SCHEMA='dbo'
+		  )
+DROP PROCEDURE [dbo].[ImportEmployerFeedbackStgToLive]
+
 DROP VIEW IF EXISTS dbo.vw_CommitmentSummary ; 
 
 DROP VIEW IF EXISTS vw_Commitments_Apprenticeship_Details;

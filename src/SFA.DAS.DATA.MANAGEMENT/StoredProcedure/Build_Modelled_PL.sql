@@ -44,7 +44,7 @@ Begin
     AND MONTH(DataMartRefreshDate)=MONTH(@StartDate)
  end
 If exists (SELECT 1 FROM ( SELECT MAX(EventTime) EventTime from StgPmts.Payment) PMT WHERE year(eventtime)=year(getdate()) and month(eventtime)=month(getdate())
-                    and not exists (select 1 from mtd.RefreshDatasetConfig RDC where YEAR(RDC.DatamartRefreshDate)=YEAR(EVENTTIME) AND MONTH(RDC.DataMartRefreshDate)=Month(RDC.DataMartRefreshDate)
+                    and not exists (select 1 from mtd.RefreshDatasetConfig RDC where YEAR(RDC.DatamartRefreshDate)=YEAR(EVENTTIME) AND MONTH(RDC.DataMartRefreshDate)=Month(EventTime)
 					                                                             and Isprocessed=1))
 BEGIN	
 	EXEC ImportPaymentsSnapshot @RunId

@@ -6,6 +6,7 @@
    ,[FirstName] nvarchar(512)
    ,[MiddleName] nvarchar(512)
    ,[LastName] nvarchar(512)
+   ,[FullName] nvarchar(512)
    ,[DateOfBirth] nvarchar(512)
    ,[RunID] BIGINT
 )

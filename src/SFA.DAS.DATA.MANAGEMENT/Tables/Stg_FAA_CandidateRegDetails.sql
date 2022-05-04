@@ -3,8 +3,9 @@
 	[SourceSK] BIGINT NOT NULL IDENTITY(1,1) PRIMARY KEY
    ,[CandidateId] Varchar(256)
    ,[LegacyCandidateId] BIGINT
-   ,[FirstName] varchar(255)
-   ,[MiddleName] varchar(255)
-   ,[LastName] varchar(255)
+   ,[FirstName] nvarchar(512)
+   ,[MiddleName] nvarchar(512)
+   ,[LastName] nvarchar(512)
+   ,[DateOfBirth] nvarchar(512)
    ,[RunID] BIGINT
 )

@@ -58,6 +58,7 @@ VALUES
 ('Developer','Mtd','','','SELECT',1,1),
 ('Developer','Comp','','','SELECT',1,1),
 ('Developer','Pds_AI','','','SELECT',1,1),
+('Developer','lkp','','','SELECT',1,1),
 ('Developer','dbo','DASCalendarMonth','TABLE','SELECT',0,1),
 ('Developer','dbo','ReferenceData','TABLE','SELECT',0,1),
 ('Developer','dbo','SourceDbChanges','TABLE','SELECT',0,1),
@@ -183,6 +184,7 @@ VALUES
 ('DataAnalyst','ASData_PL','Resv_Reservation','TABLE','SELECT',0,1),
 ('DataAnalyst','dbo','ReferenceData','TABLE','SELECT',0,1),
 ('DataAnalyst','ASData_PL','FAT2_StandardSector','TABLE','SELECT',0,1),
+('DataAnalyst','ASData_PL','PFBE_EmployerFeedback','TABLE','SELECT',0,1),
 /* DataGov */
 --('DataGov','ASData_PL','MarketoActivityTypes','TABLE','SELECT',0,1),
 --('DataGov','ASData_PL','MarketoCampaigns','TABLE','SELECT',0,1),
@@ -253,6 +255,15 @@ VALUES
 ('DataAnalystTier2','ASData_PL','EI_ClawbackPayment','TABLE','SELECT',0,1),
 ('DataAnalystTier2','ASData_PL','Va_Vacancy','TABLE','SELECT',0,1),
 ('DataAnalystTier2','ASData_PL','Va_Employer','TABLE','SELECT',0,1),
+/* LTM Tables */
+('DataAnalystTier2','ASData_PL','LTM_ApplicationEmailAddress','TABLE','SELECT',0,1),
+('DataAnalystTier2','ASData_PL','LTM_Application','TABLE','SELECT',0,1),
+('DataAnalystTier2','ASData_PL','LTM_Pledge','TABLE','SELECT',0,1),
+('DataAnalystTier2','ASData_PL','LTM_PledgeLocation','TABLE','SELECT',0,1),
+('DataAnalystTier2','ASData_PL','LTM_ApplicationStatusHistory','TABLE','SELECT',0,1),
+('DataAnalystTier2','ASData_PL','LTM_PledgeLevel','TABLE','SELECT',0,1),
+('DataAnalystTier2','ASData_PL','LTM_PledgeJobRole','TABLE','SELECT',0,1),
+('DataAnalystTier2','ASData_PL','LTM_PledgeSector','TABLE','SELECT',0,1),
 /*DWH Lookup tables*/
 ('DWHLkpUser','lkp','LARS_Framework','TABLE','ALTER',0,1),
 ('DWHLkpUser','lkp','LARS_Framework','TABLE','SELECT',0,1),

@@ -8,5 +8,6 @@
    ,[LastName] nvarchar(512)
    ,[FullName] nvarchar(512)
    ,[DateOfBirth] nvarchar(512)
+   ,[EmailAddress] nvarchar(512)
    ,[RunID] BIGINT
 )

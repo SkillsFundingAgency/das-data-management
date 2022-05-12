@@ -402,5 +402,7 @@
     <Build Include="Tables\Management_Log_Marketo_ExportJobDetails.sql" />
     <Build Include="Tables\Stg_FAA_CandidateRegDetails.sql" />
     <Build Include="Tables\AsDataPL_Comt_ApprenticeshipRegDetails.sql" />
+    <Build Include="Tables\AsDataPL_Va_CandidateRegDetails.sql" />
+    <Build Include="StoredProcedure\ImportVacanciesCandidateRegDetails.sql" />
   </ItemGroup>
 </Project>

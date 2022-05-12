@@ -75,7 +75,7 @@ INSERT INTO [ASData_PL].[Va_CandidateRegDetails]
 		   )
 SELECT      VC.[CandidateId] 
            ,ACD.[FirstName]
-		   ,ACD.[LastName]
+		   ,ACD.[SurName]
 		   ,ACD.[MiddleName]
 		   ,ACD.[FullName]
 		   ,ACD.[EmailAddress]

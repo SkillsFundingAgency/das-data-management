@@ -89,9 +89,7 @@ SELECT      VC.[CandidateId]
     ON VC.SourceCandidateId_v1=ACD.CandidateId
  WHERE NOT EXISTS (SELECT 1 FROM stg.FAA_CandidateRegDetails where CandidateId=vc.SourceCandidateId_v2)
 
-   
-
-     
+       
 COMMIT TRANSACTION
 
 UPDATE Mgmt.Log_Execution_Results
@@ -101,6 +99,12 @@ UPDATE Mgmt.Log_Execution_Results
  WHERE LogId=@LogID
    AND RunId=@RunId
 
+/* Truncate staging tables after loading to PL */
+
+ IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Avms_CandidateRegDetails' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+		       DROP TABLE [Stg].[Avms_CandidateDetails]
+
+TRUNCATE TABLE [Stg].[Faa_CandidateDetails]
 
  
 END TRY

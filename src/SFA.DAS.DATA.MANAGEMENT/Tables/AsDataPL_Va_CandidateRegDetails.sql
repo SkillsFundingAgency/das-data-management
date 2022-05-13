@@ -6,6 +6,7 @@
    ,[CandidateLastName] nvarchar(512) --MASKED WITH (FUNCTION = 'default()')
    ,[CandidateMiddleName] nvarchar(512)
    ,[CandidateFullName] nvarchar(512)
+   ,[CandidateDateOfBirth] nvarchar(512)
    ,[CandidateEmail] nvarchar(512)
    ,[SourceDb] Varchar(256)
    ,[AsDm_UpdatedDateTime]  [datetime2](7)						DEFAULT (getdate())

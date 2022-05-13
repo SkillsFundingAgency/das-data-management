@@ -48,6 +48,7 @@ INSERT INTO [ASData_PL].[Va_CandidateRegDetails]
 		   ,[CandidateLastName]
 		   ,[CandidateMiddleName]
 		   ,[CandidateFullName]
+		   ,[CandidateDateOfBirth]
 		   ,[CandidateEmail]
            ,[SourceDb] 
 		   )
@@ -56,6 +57,7 @@ SELECT      VC.[CandidateId]
 		   ,FCD.[LastName]
 		   ,FCD.[MiddleName]
 		   ,FCD.[FullName]
+		   ,FCD.[DateOfBirth]
 		   ,FCD.[EmailAddress]
      	   ,'FAA-Cosmos'
   FROM Stg.FAA_CandidateRegDetails FCD
@@ -70,6 +72,7 @@ INSERT INTO [ASData_PL].[Va_CandidateRegDetails]
 		   ,[CandidateLastName]
 		   ,[CandidateMiddleName]
 		   ,[CandidateFullName]
+		   ,[CandidateDateOfBirth]
 		   ,[CandidateEmail]
            ,[SourceDb] 
 		   )
@@ -78,6 +81,7 @@ SELECT      VC.[CandidateId]
 		   ,ACD.[SurName]
 		   ,ACD.[MiddleName]
 		   ,ACD.[FullName]
+		   ,ACD.[DateOfBirth]
 		   ,ACD.[EmailAddress]
 	       ,'FAA-Avms'
   FROM Stg.Avms_CandidateRegDetails ACD

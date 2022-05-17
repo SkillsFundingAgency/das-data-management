@@ -102,9 +102,9 @@ UPDATE Mgmt.Log_Execution_Results
 /* Truncate staging tables after loading to PL */
 
  IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Avms_CandidateRegDetails' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
-		       DROP TABLE [Stg].[Avms_CandidateDetails]
+		       DROP TABLE [Stg].[Avms_CandidateRegDetails]
 
-TRUNCATE TABLE [Stg].[Faa_CandidateDetails]
+TRUNCATE TABLE [Stg].[Faa_CandidateRegDetails]
 
  
 END TRY

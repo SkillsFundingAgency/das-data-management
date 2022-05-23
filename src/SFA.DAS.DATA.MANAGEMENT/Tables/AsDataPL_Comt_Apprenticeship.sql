@@ -35,6 +35,7 @@
 	[AsDm_UpdatedDateTime] datetime2 default getdate(),
 	[IsRetentionApplied] bit DEFAULT (0),
 	[RetentionAppliedDate]  DateTime2(7),
+	[DeliveryModel] tinyint,
 	CONSTRAINT PK_Comt_Apprenticeship_Id PRIMARY KEY CLUSTERED (Id)
 ) ON [PRIMARY]
 GO

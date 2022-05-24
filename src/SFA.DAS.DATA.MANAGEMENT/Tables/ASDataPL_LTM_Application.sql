@@ -7,7 +7,6 @@
 	[NumberOfApprentices] [int]						NOT NULL,
 	[StandardId] [varchar](20)						NOT NULL,
 	[StartDate] [datetime2](7)						NOT NULL,
-	[Amount] [int]									NOT NULL,
 	[HasTrainingProvider] [bit]						NOT NULL,
 	[Sectors] [int]									NOT NULL,	
 	[CreatedOn] [datetime2](7)						NOT NULL,

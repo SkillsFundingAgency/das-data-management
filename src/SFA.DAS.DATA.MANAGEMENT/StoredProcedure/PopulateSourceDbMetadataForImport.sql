@@ -335,10 +335,11 @@ VALUES
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL])
 VALUES
- ('LevyTransfer','Application','dbo','[Id],[EmployerAccountId],[PledgeId],[Details],[NumberOfApprentices],[StandardId],[StartDate],[Amount],[HasTrainingProvider],[Sectors],[CreatedOn],[Status],[UpdatedOn],[TotalAmount],[NumberOfApprenticesUsed],[AmountUsed]','[PostCode],[FirstName],[LastName],[BusinessWebsite],[RowVersion]','[AdditionalLocation],[SpecificLocation]','LTM_Application',0)
+ ('LevyTransfer','Application','dbo','[Id],[EmployerAccountId],[PledgeId],[Details],[NumberOfApprentices],[StandardId],[StartDate],[HasTrainingProvider],[Sectors],[CreatedOn],[Status],[UpdatedOn],[TotalAmount],[NumberOfApprenticesUsed],[AmountUsed]','[PostCode],[FirstName],[LastName],[BusinessWebsite],[RowVersion]','[AdditionalLocation],[SpecificLocation]','LTM_Application',0)
 ,('LevyTransfer','Pledge','dbo','[Id],[EmployerAccountId],[Amount],[RemainingAmount],[IsNamePublic],[CreatedOn],[JobRoles],[Levels],[Sectors],[ClosedOn]','[RowVersion]','','LTM_Pledge',1)
 ,('LevyTransfer','PledgeLocation','dbo','[Id],[PledgeId]','','[Name],[Latitude],[Longitude]','LTM_PledgeLocation',0)
 ,('LevyTransfer','ApplicationStatusHistory','dbo','[Id],[ApplicationId],[CreatedOn],[Status]','','','LTM_ApplicationStatusHistory',0)
+,('LevyTransfer','ApplicationCostProjection','dbo','[Id],[ApplicationId],[FinancialYear],[Amount]','','','LTM_ApplicationCostProjection',0)
 
 /* TPR SQL query based Import */
 INSERT INTO Mtd.SourceConfigForImport

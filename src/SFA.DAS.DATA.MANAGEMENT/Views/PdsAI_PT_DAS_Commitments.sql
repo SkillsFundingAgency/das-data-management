@@ -37,7 +37,6 @@ SELECT DISTINCT
              ELSE 0
          END                                             AS B19
        ,CompletionDate                                   AS B20
-       ,DeliveryModel                                    As B21
 --,COALESCE(ac.OverallGrade,''N/A'') AS OverallGrade	Would be included later if needed
 FROM		ASData_PL.Comt_Apprenticeship Apprenticeship
 LEFT

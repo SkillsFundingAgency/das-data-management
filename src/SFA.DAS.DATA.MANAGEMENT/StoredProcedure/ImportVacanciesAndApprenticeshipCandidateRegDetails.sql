@@ -1,13 +1,13 @@
-﻿CREATE PROCEDURE [dbo].[ImportVacanciesCandidateRegDetailsToPL]
+﻿CREATE PROCEDURE [dbo].[ImportVacanciesAndApprenticeshipCandidateRegDetailsToPL]
 (
    @RunId int
 )
 AS
--- ================================================================================================
+-- ======================================================================================================================
 -- Author:      Himabindu Uddaraju
 -- Create Date: 12/05/2022
--- Description: Import and Integrate Vacancies Candidate Reg Details from FAA Cosmos and AVMS Dbs
--- ================================================================================================
+-- Description: Import and Integrate Vacancies and Apprenticeship Candidate Reg Details from FAA Cosmos and AVMS Dbs
+-- ======================================================================================================================
 
 BEGIN TRY
 
@@ -37,6 +37,7 @@ DECLARE @LogID int
 
 BEGIN TRANSACTION
 
+/* Import Vacancies Candidate Reg Details */
 
 DELETE FROM ASData_PL.Va_CandidateRegDetails
 
@@ -89,6 +90,26 @@ SELECT      VC.[CandidateId]
     ON VC.SourceCandidateId_v1=ACD.CandidateId
  WHERE NOT EXISTS (SELECT 1 FROM stg.FAA_CandidateRegDetails where CandidateId=vc.SourceCandidateId_v2)
 
+ /* Import Commitments Candidate Reg Details */
+
+ INSERT INTO [ASData_PL].[Comt_ApprenticeshipCandidateRegDetails]
+           ([ApprenticeshipId]
+           ,[CommitmentId]
+           ,[CandidateFirstName]
+           ,[CandidateLastName]
+           ,[CandidateFullName]
+           ,[CandidateDateOfBirth]
+           ,[CandidateEmail]
+		   )
+SELECT [ApprenticeshipId]
+           ,[CommitmentId]
+           ,[CandidateFirstName]
+           ,[CandidateLastName]
+           ,[CandidateFullName]
+           ,[CandidateDateOfBirth]
+           ,[CandidateEmail]
+  FROM Stg.Comt_ApprenticeshipCandidateRegDetails
+
        
 COMMIT TRANSACTION
 
@@ -104,7 +125,13 @@ UPDATE Mgmt.Log_Execution_Results
  IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Avms_CandidateRegDetails' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 		       DROP TABLE [Stg].[Avms_CandidateRegDetails]
 
+
+ IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Comt_ApprenticeshipCandidateRegDetails' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+		       DROP TABLE [Stg].[Comt_ApprenticeshipCandidateRegDetails]
+
+
 TRUNCATE TABLE [Stg].[Faa_CandidateRegDetails]
+
 
  
 END TRY
@@ -146,6 +173,18 @@ UPDATE Mgmt.Log_Execution_Results
 	  ,ErrorId=@ErrorId
  WHERE LogId=@LogID
    AND RunID=@RunId
+
+/* Truncate staging tables even if it fails */
+
+ IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Avms_CandidateRegDetails' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+		       DROP TABLE [Stg].[Avms_CandidateRegDetails]
+
+
+ IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Comt_ApprenticeshipCandidateRegDetails' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+		       DROP TABLE [Stg].[Comt_ApprenticeshipCandidateRegDetails]
+
+
+TRUNCATE TABLE [Stg].[Faa_CandidateRegDetails]
 
   END CATCH
 

@@ -182,6 +182,7 @@ INSERT INTO [ASData_PL].[Comt_Apprenticeship]
            ,[MadeRedundant]
            ,[OriginalStartDate]
            ,[Age]
+           ,[DeliveryModel]
            )
  SELECT    [Id]
            ,[CommitmentId]
@@ -211,6 +212,7 @@ INSERT INTO [ASData_PL].[Comt_Apprenticeship]
            ,[MadeRedundant]
            ,[OriginalStartDate]
            ,[Age]
+           ,[DeliveryModel]
     FROM Stg.Comt_Apprenticeship
 '
 

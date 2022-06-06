@@ -176,6 +176,7 @@ VALUES
 ('DataAnalyst','Data_Pub','DAS_Payments_V2','VIEW','SELECT',0,1),
 /* Data Science access to Import LTM & Reservation Tables */
 ('DataAnalyst','ASData_PL','LTM_Application','TABLE','SELECT',0,1),
+('DataAnalyst','ASData_PL','LTM_ApplicationCostProjection','TABLE','SELECT',0,1),
 ('DataAnalyst','ASData_PL','LTM_Pledge','TABLE','SELECT',0,1),
 ('DataAnalyst','ASData_PL','LTM_PledgeJobRole','TABLE','SELECT',0,1),
 ('DataAnalyst','ASData_PL','LTM_PledgeLevel','TABLE','SELECT',0,1),
@@ -258,6 +259,7 @@ VALUES
 /* LTM Tables */
 ('DataAnalystTier2','ASData_PL','LTM_ApplicationEmailAddress','TABLE','SELECT',0,1),
 ('DataAnalystTier2','ASData_PL','LTM_Application','TABLE','SELECT',0,1),
+('DataAnalystTier2','ASData_PL','LTM_ApplicationCostProjection','TABLE','SELECT',0,1),
 ('DataAnalystTier2','ASData_PL','LTM_Pledge','TABLE','SELECT',0,1),
 ('DataAnalystTier2','ASData_PL','LTM_PledgeLocation','TABLE','SELECT',0,1),
 ('DataAnalystTier2','ASData_PL','LTM_ApplicationStatusHistory','TABLE','SELECT',0,1),

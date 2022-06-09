@@ -66,6 +66,7 @@ SELECT      VC.[CandidateId]
     ON VC.SourceCandidateId_v2=FCD.CandidateId
 
 
+
 INSERT INTO [ASData_PL].[Va_CandidateRegDetails]
            (
 		    [CandidateId] 
@@ -91,6 +92,8 @@ SELECT      VC.[CandidateId]
  WHERE NOT EXISTS (SELECT 1 FROM stg.FAA_CandidateRegDetails where CandidateId=vc.SourceCandidateId_v2)
 
  /* Import Commitments Candidate Reg Details */
+
+ DELETE FROM [ASData_PL].[Comt_ApprenticeshipCandidateRegDetails]
 
  INSERT INTO [ASData_PL].[Comt_ApprenticeshipCandidateRegDetails]
            ([ApprenticeshipId]

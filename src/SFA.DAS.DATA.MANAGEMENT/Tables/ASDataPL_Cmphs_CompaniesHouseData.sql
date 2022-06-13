@@ -4,5 +4,8 @@
 	[CompanyStatus]						[varchar](100)		NULL,	
 	[SICCodeSicText_1]					[varchar](250)		NULL,
 	[ImportDateTime]					[datetime] DEFAULT (getdate()),
-	[ID]                                bigint              NULL
+	[ID]                                bigint              NULL,
+	[CompanyName]						[varchar](200)		 NULL,
+	[RegAddressPostCode]				[varchar](50)		 NULL,
+	[PreviousNameCompanyName]			[varchar](200)		 NULL 
 ) ON [PRIMARY]

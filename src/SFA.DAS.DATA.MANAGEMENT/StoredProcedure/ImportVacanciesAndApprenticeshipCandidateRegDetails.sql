@@ -26,12 +26,12 @@ DECLARE @LogID int
   SELECT 
         @RunId
 	   ,'Step-6'
-	   ,'ImportVacanciesCandidateRegDetailsToPL'
+	   ,'ImportVacanciesAndApprenticeshipCandidateRegDetailsToPL'
 	   ,getdate()
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
-   WHERE StoredProcedureName='ImportVacanciesCandidateRegDetailsToPL'
+   WHERE StoredProcedureName='ImportVacanciesAndApprenticeshipCandidateRegDetailsToPL'
      AND RunId=@RunID
 
 
@@ -161,7 +161,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'ImportVacanciesCandidateRegDetailsToPL',
+	    'ImportVacanciesAndApprenticeshipCandidateRegDetailsToPL',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 

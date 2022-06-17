@@ -76,13 +76,13 @@ ELSE RAISERROR( 'Import Data From Vacancies Candidate Details To PL Failed -Chec
 
 IF EXISTS (SELECT * FROM Mgmt.Log_Execution_Results where StoredProcedureName='ImportVacanciesCandidateDetailsToPL' and Execution_Status=1 and RunId=@RunId)
 BEGIN
-EXEC dbo.ImportVacanciesCandidateRegDetailsToPL @RunId
+EXEC dbo.ImportVacanciesAndApprenticeshipCandidateRegDetailsToPL @RunId
 END
 ELSE RAISERROR( 'Import Data From Vacancies Candidate Reg Details To PL Failed -Check Log Table For Errors',1,1)
 
 /* Import Vacancies Application Data to Presentation Layer */
 
-IF EXISTS (SELECT * FROM Mgmt.Log_Execution_Results where StoredProcedureName='ImportVacanciesCandidateRegDetailsToPL' and Execution_Status=1 and RunId=@RunId)
+IF EXISTS (SELECT * FROM Mgmt.Log_Execution_Results where StoredProcedureName='ImportVacanciesAndApprenticeshipCandidateRegDetailsToPL' and Execution_Status=1 and RunId=@RunId)
 BEGIN
 EXEC dbo.ImportVacanciesApplicationToPL @RunId
 END

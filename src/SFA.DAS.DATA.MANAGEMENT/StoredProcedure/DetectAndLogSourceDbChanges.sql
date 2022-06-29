@@ -31,6 +31,7 @@ FROM
   WHERE SourceDatabaseName=''+@SourceDatabaseName+''
     AND SourceTableName=''+@SourceTableName+''
 	AND SourceSchemaName=''+@SourceSchemaName+''
+    AND NULLIF(ColumnNamesToInclude,'') is NOT Null
   UNION
   SELECT VALUE as ConfigList
    FROM Mtd.SourceConfigForImport SCFI
@@ -38,6 +39,7 @@ FROM
   WHERE SourceDatabaseName=''+@SourceDatabaseName+''
     AND SourceTableName=''+@SourceTableName+''
 	AND SourceSchemaName=''+@SourceSchemaName+''
+    AND NULLIF(ColumnNamesToMask,'') is NOT Null
 	) AS SourceConfigInDM
   WHERE not exists (select LTRIM(RTRIM(value)) as ExistingList
                       from STRING_SPLIT(@cols, ',') Cols 
@@ -63,6 +65,7 @@ FROM
 			   WHERE SourceDatabaseName=''+@SourceDatabaseName+''
                  AND SourceTableName=''+@SourceTableName+''
 	             AND SourceSchemaName=''+@SourceSchemaName+''
+                 AND NULLIF(ColumnNamesToInclude,'') is NOT Null
                UNION
               SELECT VALUE 
                 FROM Mtd.SourceConfigForImport SCFI
@@ -70,13 +73,15 @@ FROM
 			   WHERE SourceDatabaseName=''+@SourceDatabaseName+''
                  AND SourceTableName=''+@SourceTableName+''
 	             AND SourceSchemaName=''+@SourceSchemaName+''
+                 AND NULLIF(ColumnNamesToExclude,'') is NOT Null
 			   UNION
 			  SELECT VALUE as ConfigList
                 FROM Mtd.SourceConfigForImport SCFI
                CROSS APPLY string_split(ColumnNamesToInclude,',')
                WHERE SourceDatabaseName=''+@SourceDatabaseName+''
                  AND SourceTableName=''+@SourceTableName+''
-	            AND SourceSchemaName=''+@SourceSchemaName+'') AS SourceConfigInDM
+	            AND SourceSchemaName=''+@SourceSchemaName+''
+                AND NULLIF(ColumnNamesToInclude,'') is NOT Null) AS SourceConfigInDM
                WHERE LTRIM(RTRIM(SourceConfigInDM.ConfigList))=LTRIM(RTRIM(Value))
 			)
  

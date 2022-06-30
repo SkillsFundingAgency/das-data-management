@@ -31,7 +31,7 @@ FROM
   WHERE SourceDatabaseName=''+@SourceDatabaseName+''
     AND SourceTableName=''+@SourceTableName+''
 	AND SourceSchemaName=''+@SourceSchemaName+''
-    AND (ColumnNamesToInclude is NOT Null and ColumnNamesToInclude <> '')
+    AND NULLIF(ColumnNamesToInclude,'') is NOT NULL
   UNION
   SELECT VALUE as ConfigList
    FROM Mtd.SourceConfigForImport SCFI
@@ -39,7 +39,7 @@ FROM
   WHERE SourceDatabaseName=''+@SourceDatabaseName+''
     AND SourceTableName=''+@SourceTableName+''
 	AND SourceSchemaName=''+@SourceSchemaName+''
-    AND (ColumnNamesToMask is NOT Null and ColumnNamesToMask <> '')
+    AND NULLIF(ColumnNamesToInclude,'') is NOT NULL
 	) AS SourceConfigInDM
   WHERE not exists (select LTRIM(RTRIM(value)) as ExistingList
                       from STRING_SPLIT(@cols, ',') Cols 
@@ -65,7 +65,7 @@ FROM
 			   WHERE SourceDatabaseName=''+@SourceDatabaseName+''
                  AND SourceTableName=''+@SourceTableName+''
 	             AND SourceSchemaName=''+@SourceSchemaName+''
-                 AND (ColumnNamesToInclude is NOT Null and ColumnNamesToInclude <> '')
+                 AND NULLIF(ColumnNamesToInclude,'') is NOT NULL
                UNION
               SELECT VALUE 
                 FROM Mtd.SourceConfigForImport SCFI
@@ -73,7 +73,7 @@ FROM
 			   WHERE SourceDatabaseName=''+@SourceDatabaseName+''
                  AND SourceTableName=''+@SourceTableName+''
 	             AND SourceSchemaName=''+@SourceSchemaName+''
-                 AND (ColumnNamesToExclude is NOT Null and ColumnNamesToExclude <> '')
+                 AND NULLIF(ColumnNamesToInclude,'') is NOT NULL
 			   UNION
 			  SELECT VALUE as ConfigList
                 FROM Mtd.SourceConfigForImport SCFI
@@ -81,11 +81,11 @@ FROM
                WHERE SourceDatabaseName=''+@SourceDatabaseName+''
                  AND SourceTableName=''+@SourceTableName+''
 	            AND SourceSchemaName=''+@SourceSchemaName+''
-                AND (ColumnNamesToInclude is NOT Null and ColumnNamesToInclude <> '')
+                AND NULLIF(ColumnNamesToInclude,'') is NOT NULL
                 ) AS SourceConfigInDM
                WHERE LTRIM(RTRIM(SourceConfigInDM.ConfigList))=LTRIM(RTRIM(Value))
 			)
- 
+    and NULLIF(Value,'') is NOT NULL 
 
  
      

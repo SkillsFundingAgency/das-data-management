@@ -44,7 +44,7 @@ FROM
   WHERE not exists (select LTRIM(RTRIM(value)) as ExistingList
                       from STRING_SPLIT(@cols, ',') Cols 
 				     where LTRIM(RTRIM(SourceConfigInDM.ConfigList))=LTRIM(RTRIM(Cols.value)))
-
+   and NULLIF(Value,'') is NOT NULL 
 					 
 /* Check and Log if there are Deleted Columns that exist in DataMart as part of Include List Config*/
 

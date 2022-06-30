@@ -39,12 +39,12 @@ FROM
   WHERE SourceDatabaseName=''+@SourceDatabaseName+''
     AND SourceTableName=''+@SourceTableName+''
 	AND SourceSchemaName=''+@SourceSchemaName+''
-    AND NULLIF(ColumnNamesToInclude,'') is NOT NULL
+    AND NULLIF(ColumnNamesToMask,'') is NOT NULL
 	) AS SourceConfigInDM
   WHERE not exists (select LTRIM(RTRIM(value)) as ExistingList
                       from STRING_SPLIT(@cols, ',') Cols 
 				     where LTRIM(RTRIM(SourceConfigInDM.ConfigList))=LTRIM(RTRIM(Cols.value)))
-   and NULLIF(Value,'') is NOT NULL 
+   and NULLIF(ConfigList,'') is NOT NULL 
 					 
 /* Check and Log if there are Deleted Columns that exist in DataMart as part of Include List Config*/
 
@@ -67,7 +67,7 @@ FROM
 	             AND SourceSchemaName=''+@SourceSchemaName+''
                  AND NULLIF(ColumnNamesToInclude,'') is NOT NULL
                UNION
-              SELECT VALUE 
+              SELECT VALUE as ConfigList
                 FROM Mtd.SourceConfigForImport SCFI
                CROSS APPLY string_split(ColumnNamesToExclude,',')
 			   WHERE SourceDatabaseName=''+@SourceDatabaseName+''
@@ -85,7 +85,7 @@ FROM
                 ) AS SourceConfigInDM
                WHERE LTRIM(RTRIM(SourceConfigInDM.ConfigList))=LTRIM(RTRIM(Value))
 			)
-    and NULLIF(Value,'') is NOT NULL 
+    and NULLIF(value,'') is NOT NULL 
 
  
      

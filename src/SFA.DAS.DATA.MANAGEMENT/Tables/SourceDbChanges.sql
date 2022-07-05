@@ -2,7 +2,7 @@
 (
 	[SDC_Id] INT IDENTITY(1,1) NOT NULL 
    ,[SourceDatabaseName] Varchar(256)
-   ,[SourceTableName] Varchar(256)
+   ,[SouceTableName] Varchar(256)
    ,[SourceSchemaName] Varchar(256)
    ,[ChangesDetected] Varchar(256)
    ,DetectedDate DateTime2 default(getdate())

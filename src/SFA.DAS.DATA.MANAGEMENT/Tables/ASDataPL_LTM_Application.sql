@@ -17,5 +17,10 @@
 	[NumberOfApprenticesUsed] [int]					NOT NULL,
 	[AmountUsed] [int]								NOT NULL,
 	[UpdatedOn] [Datetime2](7)						NULL,
+	[MatchSector] [bit]								NOT NULL,
+	[MatchLevel] [bit]								NOT NULL,
+	[MatchLocation] [bit]							NOT NULL,
+	[MatchJobRole] [bit]							NOT NULL,
+	[MatchPercentage] [tinyint]						NOT NULL,
 	[AsDm_UpdatedDateTime] datetime2 default getdate()
 ) ON [PRIMARY]

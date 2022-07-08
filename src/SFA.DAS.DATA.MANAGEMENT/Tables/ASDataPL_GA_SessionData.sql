@@ -46,7 +46,10 @@
 	[AORN]							[TinyInt],
 	[ApplyNowIncentives]			[TinyInt],
 	[IncentivesApplyNow]			[TinyInt],
-	[GA_ImportDate]					[datetime2](7) DEFAULT getdate()
+	[GA_ImportDate]					[datetime2](7) DEFAULT getdate(),
+	[CD_VacancyID]		            [NVarchar](500) NULL,
+	[CD_ApprenticeshipID]           [NVarchar](500) NULL,
+	[TrafficSource_Source]          [NVarchar](max) NULL
 ) 
 GO
 

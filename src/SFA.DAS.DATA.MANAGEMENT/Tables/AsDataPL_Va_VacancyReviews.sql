@@ -11,6 +11,10 @@
   ,ManualQaFieldIndicator varchar(256)
   ,ManualQaFieldChangeRequested varchar(256)
   ,ManualQaComment varchar(max)
+  ,SubmissionCount int
+  ,SlaDeadline DATETIME2
+  ,ReviewedDate DATETIME2
+  ,Status varchar(256)
   ,SourceVacancyReviewId varchar(256)
   ,SourceDb varchar(256)
   ,[AsDm_UpdatedDateTime]  [datetime2](7)						DEFAULT (getdate())

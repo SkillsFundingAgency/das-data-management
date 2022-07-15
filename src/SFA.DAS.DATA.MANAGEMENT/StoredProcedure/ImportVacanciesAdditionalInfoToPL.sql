@@ -173,6 +173,10 @@ INSERT INTO ASData_PL.va_VacancyReviews
   ,ManualQaFieldIndicator 
   ,ManualQaFieldChangeRequested 
   ,ManualQaComment 
+  ,SubmissionCount
+  ,ReviewedDate
+  ,SlaDeadline
+  ,Status
   ,SourceVacancyReviewId 
   ,SourceDb 
   )
@@ -186,6 +190,10 @@ SELECT RVR.EmployerAccountId
 	  ,rvr.ManualQaFieldIndicator
 	  ,rvr.ManualQaFieldChangeRequested
 	  ,rvr.ManualQaComment
+	  ,rvr.SubmissionCount
+      ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ReviewedDate)
+      ,dbo.Fn_ConvertTimeStampToDateTime(rvr.SlaDeadline)
+      ,rvr.Status
 	  ,RVR.BinaryId
 	  ,'RAAv2'
   FROM Stg.RAA_VacancyReviews RVR
@@ -225,8 +233,8 @@ SELECT DISTINCT
 	  ,vv.VacancyId
 	  ,rvr.ManualOutcome
 	  ,rvr.SubmissionCount
-      ,rvr.ReviewedDate
-      ,rvr.SlaDeadline
+      ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ReviewedDate)
+      ,dbo.Fn_ConvertTimeStampToDateTime(rvr.SlaDeadline)
       ,rvr.Status
 	  ,RVR.BinaryId
 	  ,'RAAv2'

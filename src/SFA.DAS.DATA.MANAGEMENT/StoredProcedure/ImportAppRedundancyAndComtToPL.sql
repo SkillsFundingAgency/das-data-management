@@ -211,7 +211,7 @@ INSERT INTO [ASData_PL].[Comt_Apprenticeship]
            ,[ContinuationOfId]
            ,[MadeRedundant]
            ,[OriginalStartDate]
-           ,[Age]
+           ,DATEDIFF(hour,DateOfBirth,GETDATE())/8766 as Age
            ,[DeliveryModel]
     FROM Stg.Comt_Apprenticeship
 '

@@ -18,7 +18,7 @@ BEGIN
 or Exclude List Config*/
 
 INSERT INTO dbo.SourceDbChanges
- (SourceDatabaseName,SouceTableName,SourceSchemaName,ChangesDetected)
+ (SourceDatabaseName,SourceTableName,SourceSchemaName,ChangesDetected)
 SELECT  
  ''+@SourceDatabaseName+''
  ,''+@SourceTableName+''
@@ -31,6 +31,7 @@ FROM
   WHERE SourceDatabaseName=''+@SourceDatabaseName+''
     AND SourceTableName=''+@SourceTableName+''
 	AND SourceSchemaName=''+@SourceSchemaName+''
+    AND NULLIF(ColumnNamesToInclude,'') is NOT NULL
   UNION
   SELECT VALUE as ConfigList
    FROM Mtd.SourceConfigForImport SCFI
@@ -38,17 +39,18 @@ FROM
   WHERE SourceDatabaseName=''+@SourceDatabaseName+''
     AND SourceTableName=''+@SourceTableName+''
 	AND SourceSchemaName=''+@SourceSchemaName+''
+    AND NULLIF(ColumnNamesToMask,'') is NOT NULL
 	) AS SourceConfigInDM
   WHERE not exists (select LTRIM(RTRIM(value)) as ExistingList
                       from STRING_SPLIT(@cols, ',') Cols 
 				     where LTRIM(RTRIM(SourceConfigInDM.ConfigList))=LTRIM(RTRIM(Cols.value)))
-
+and NULLIF(ConfigList,'') is NOT NULL 
 					 
 /* Check and Log if there are Deleted Columns that exist in DataMart as part of Include List Config*/
 
 
  INSERT INTO dbo.SourceDbChanges
- (SourceDatabaseName,SouceTableName,SourceSchemaName,ChangesDetected)
+ (SourceDatabaseName,SourceTableName,SourceSchemaName,ChangesDetected)
  SELECT  ''+@SourceDatabaseName+''
         ,''+@SourceTableName+''
 		,''+@SourceSchemaName+''
@@ -63,23 +65,27 @@ FROM
 			   WHERE SourceDatabaseName=''+@SourceDatabaseName+''
                  AND SourceTableName=''+@SourceTableName+''
 	             AND SourceSchemaName=''+@SourceSchemaName+''
+                 AND NULLIF(ColumnNamesToInclude,'') is NOT NULL
                UNION
-              SELECT VALUE 
+              SELECT VALUE as ConfigList
                 FROM Mtd.SourceConfigForImport SCFI
                CROSS APPLY string_split(ColumnNamesToExclude,',')
 			   WHERE SourceDatabaseName=''+@SourceDatabaseName+''
                  AND SourceTableName=''+@SourceTableName+''
 	             AND SourceSchemaName=''+@SourceSchemaName+''
+                 AND NULLIF(ColumnNamesToExclude,'') is NOT NULL
 			   UNION
 			  SELECT VALUE as ConfigList
                 FROM Mtd.SourceConfigForImport SCFI
-               CROSS APPLY string_split(ColumnNamesToInclude,',')
+               CROSS APPLY string_split(ColumnNamesToMask,',')
                WHERE SourceDatabaseName=''+@SourceDatabaseName+''
                  AND SourceTableName=''+@SourceTableName+''
-	            AND SourceSchemaName=''+@SourceSchemaName+'') AS SourceConfigInDM
+	            AND SourceSchemaName=''+@SourceSchemaName+''
+                AND NULLIF(ColumnNamesToMask,'') is NOT NULL
+                ) AS SourceConfigInDM
                WHERE LTRIM(RTRIM(SourceConfigInDM.ConfigList))=LTRIM(RTRIM(Value))
 			)
- 
+and NULLIF(value,'') is NOT NULL 
 
  
      

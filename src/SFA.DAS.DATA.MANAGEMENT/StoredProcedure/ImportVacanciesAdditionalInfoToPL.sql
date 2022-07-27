@@ -203,7 +203,7 @@ SELECT RVR.EmployerAccountId
   LEFT
   JOIN ASData_PL.Va_Candidate vc
     on vc.CandidateGuid=RVR.UserId
- Where ManualQaFieldChangeRequested='false'
+ Where ManualQaFieldChangeRequested='true'
 
 
  /* Insert all successful outcomes , It doesn't require ManualOutcome and QAComment so ignore these columns to reduce volumes of data */

@@ -630,3 +630,11 @@ DROP VIEW IF EXISTS [AsData_AI].[DAS_TPROrgDetails];
 /* Drop schema as it's renamed */
 DROP SCHEMA IF EXISTS [AsData_AI]
 
+/* Drop aComt_Apprentice Table as the same data exists in Appacc_Apprentice Table */
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_NAME = N'aComt_Apprentice'
+		      AND TABLE_SCHEMA=N'AsData_PL'
+	      )
+DROP TABLE ASData_PL.aComt_Apprentice
+

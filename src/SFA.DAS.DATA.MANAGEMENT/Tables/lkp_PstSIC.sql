@@ -1,0 +1,9 @@
+﻿CREATE TABLE [lkp].[Pst_SIC]
+(
+    [SICID] BIGINT IDENTITY(1,1) PRIMARY KEY,
+    [SICCodeSicText] NVARCHAR(MAX) NULL, 
+    [SICCode] BIGINT NULL, 
+    [SICGroup] NVARCHAR(MAX) NULL, 
+    [Count] BIGINT NULL
+) ON [Primary]
+GO

@@ -406,5 +406,7 @@
     <Build Include="Tables\AsDataPL_Va_CandidateRegDetails.sql" />
     <Build Include="Tables\Stg_FAA_CandidateRegDetails.sql" />
     <Build Include="StoredProcedure\ImportVacanciesAndApprenticeshipCandidateRegDetails.sql" />
+    <Build Include="Tables\lkp_PstSIC.sql" />
+    <Build Include="StoredProcedure\LoadSICLookupData.sql" />
   </ItemGroup>
 </Project>

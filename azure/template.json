@@ -41,6 +41,10 @@
         },
         "resourceGroupLocation": {
             "type": "string"
+        },
+        "utcValue": {
+            "type": "string",
+            "defaultValue": "[utcNow('yyMMddHHmmss')]"
         }
 
     },
@@ -63,7 +67,7 @@
         },
         {
             "apiVersion": "2020-06-01",
-            "name": "storage-account",
+            "name": "[concat('storage-account-', parameters('utcValue'))]",
             "type": "Microsoft.Resources/deployments",
             "resourceGroup": "[variables('resourceGroupName')]",
             "properties": {
@@ -84,7 +88,7 @@
         },
         {
             "apiVersion": "2020-06-01",
-            "name": "[concat('storage-container', parameters('containerArray')[copyIndex()].name)]",
+            "name": "[concat('storage-container', parameters('containerArray')[copyIndex()].name,'-', parameters('utcValue'))]",
             "type": "Microsoft.Resources/deployments",
             "resourceGroup": "[variables('resourceGroupName')]",
             "condition": "[greater(length(parameters('containerArray')), 0)]",
@@ -111,12 +115,12 @@
                 "count": "[length(parameters('containerArray'))]"
             },
             "dependsOn": [
-                "storage-account"
+                "[concat('storage-account-', parameters('utcValue'))]"
             ]
         },
         {
             "apiVersion": "2020-06-01",
-            "name": "[concat('sql-database', variables('databaseSuffixArray')[copyIndex()])]",
+            "name": "[concat('sql-database', variables('databaseSuffixArray')[copyIndex()],'-', parameters('utcValue'))]",
             "type": "Microsoft.Resources/deployments",
             "resourceGroup": "[parameters('sqlServerResourceGroupName')]",
             "copy": {

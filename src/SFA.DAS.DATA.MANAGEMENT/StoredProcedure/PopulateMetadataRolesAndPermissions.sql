@@ -187,6 +187,7 @@ VALUES
 ('DataAnalyst','dbo','ReferenceData','TABLE','SELECT',0,1),
 ('DataAnalyst','ASData_PL','FAT2_StandardSector','TABLE','SELECT',0,1),
 ('DataAnalyst','ASData_PL','PFBE_EmployerFeedback','TABLE','SELECT',0,1),
+('DataAnalyst','lkp','','','SELECT',1,1),
 /* DataGov */
 --('DataGov','ASData_PL','MarketoActivityTypes','TABLE','SELECT',0,1),
 --('DataGov','ASData_PL','MarketoCampaigns','TABLE','SELECT',0,1),
@@ -241,6 +242,7 @@ VALUES
 ('AtosUser','Stg','AI_TestData','TABLE','SELECT',0,1),
 ('AtosUser','Pds_AI','PT_I','VIEW','SELECT',0,1),
 ('AtosUser','Pds_AI','PT_J','VIEW','SELECT',0,1),
+('AtosUser','lkp','','','SELECT',1,1),
 
 /* DataAnalystTier2 This new DataAnalystTier2 role is for Rosie's team*/
 ('DataAnalystTier2','ASData_PL','Acc_Account','TABLE','SELECT',0,1),

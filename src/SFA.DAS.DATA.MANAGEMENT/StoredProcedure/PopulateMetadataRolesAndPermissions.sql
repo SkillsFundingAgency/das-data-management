@@ -158,6 +158,7 @@ VALUES
 ('BetaUser','ASData_PL','DAS_UserAccountLegalEntity','VIEW','SELECT',0,1),
 ('BetaUser','ASData_PL','DAS_Users','VIEW','SELECT',0,1),
 ('BetaUser','dbo','DataDictionary','VIEW','SELECT',0,1),
+('BetaUser','lkp','','','SELECT',1,1),
 /* Data Analyst */
 ('DataAnalyst','ASData_PL','Payments_SS','TABLE','SELECT',0,1),
 ('DataAnalyst','ASData_PL','DAS_SpendControl_V2','VIEW','SELECT',0,1),

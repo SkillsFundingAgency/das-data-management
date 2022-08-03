@@ -274,7 +274,9 @@ VALUES
 ('DataAnalystTier2','ASData_PL','LTM_PledgeLevel','TABLE','SELECT',0,1),
 ('DataAnalystTier2','ASData_PL','LTM_PledgeJobRole','TABLE','SELECT',0,1),
 ('DataAnalystTier2','ASData_PL','LTM_PledgeSector','TABLE','SELECT',0,1),
+('DataAnalystTier2','lkp','','','SELECT',1,1),
 /*DWH Lookup tables*/
+/*
 ('DWHLkpUser','lkp','LARS_Framework','TABLE','ALTER',0,1),
 ('DWHLkpUser','lkp','LARS_Framework','TABLE','SELECT',0,1),
 ('DWHLkpUser','lkp','LARS_Framework','TABLE','INSERT',0,1),
@@ -295,9 +297,11 @@ VALUES
 ('DWHLkpUser','lkp','Pst_GOR','TABLE','INSERT',0,1),
 ('DWHLkpUser','lkp','Pst_LocalAuthority','TABLE','ALTER',0,1),
 ('DWHLkpUser','lkp','Pst_LocalAuthority','TABLE','SELECT',0,1),
-('DWHLkpUser','lkp','Pst_LocalAuthority','TABLE','INSERT',0,1)
-
-
+('DWHLkpUser','lkp','Pst_LocalAuthority','TABLE','INSERT',0,1),
+*/
+('DWHLkpUser','lkp','','','ALTER',1,1),
+('DWHLkpUser','lkp','','','SELECT',1,1),
+('DWHLkpUser','lkp','','','INSERT',1,1)
 COMMIT TRANSACTION
 
 

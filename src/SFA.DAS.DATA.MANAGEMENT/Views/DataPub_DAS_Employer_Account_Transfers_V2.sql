@@ -7,7 +7,7 @@ AS
     , MAX( ISNULL(at.eventid,'00000000-0000-0000-0000-000000000000') )                       As RequiredPaymentId
     , ISNULL(CAST(ApprenticeshipId AS bigint),-1)                                            As CommitmentId
     , SUM(CAST(at.Amount as decimal(18,5)))                                                  As Amount
-    , ISNULL(CAST(at.ApprenticeshipEmployerType as nvarchar(50)),'NA')                       As Type
+    , 'Levy'                                                                                 As Type
     , ISNULL(CAST (at.PeriodEnd AS NVARCHAR(10)),'XXXX')                                     As CollectionPeriodName
     , MAX(ISNULL(at.eventtime,'9999-12-31'))                                                 As UpdateDateTime
     FROM (SELECT *,  Cast( sp.AcademicYear AS varchar) + '-R' + RIGHT( '0' + Cast (sp.CollectionPeriod AS varchar),2)  As PeriodEnd

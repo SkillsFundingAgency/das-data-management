@@ -208,22 +208,27 @@ VALUES
 --('DataGov','ASData_PL','Fin_Payment','TABLE','SELECT',0,1),
 --('DataGov','','','DATABASE','VIEW DEFINITION',0,1),
 --('DataGov','sys','sql_expression_dependencies','VIEW','SELECT',0,1),
-
+('DataGov','lkp','','','SELECT',1,1),
 /* Finance */
 ('Finance','ASData_PL','DAS_SpendControl_v2','VIEW','SELECT',0,1),
 ('Finance','ASData_PL','DAS_SpendControlNonLevy_v2','VIEW','SELECT',0,1),
+('Finance','lkp','','','SELECT',1,1),
 /* MarketoUser */
 ('MarketoUser','ASData_PL','DAS_UserAccountLegalEntity','VIEW','SELECT',0,1),
 ('MarketoUser','ASData_PL','DAS_Users','VIEW','SELECT',0,1),
+('MarketoUser','lkp','','','SELECT',1,1),
 /* PSR User */
 ('PSRUserDfeStats','ASData_PL','PubSector_Report','TABLE','SELECT',0,1),
+('PSRUserDfeStats','lkp','','','SELECT',1,1),
 /* Service Ops */
 ('ServiceOps','Stg','RAA_ApplicationReviews','TABLE','SELECT',0,1),
 ('ServiceOps','Stg','RAA_ReferenceDataApprenticeshipProgrammes','TABLE','SELECT',0,1),
 ('ServiceOps','Stg','RAA_Vacancies','TABLE','SELECT',0,1),
+('ServiceOps','lkp','','','SELECT',1,1),
 /* Va User for Nigel's Team in Data Science */
 ('VaUser','ASData_PL','Va_Application','TABLE','SELECT',0,1),
 ('VaUser','ASData_PL','Va_Vacancy','TABLE','SELECT',0,1),
+('VaUser','lkp','','','SELECT',1,1),
 /* Atos User Role for Atos Team working on AI Project */
 ('AtosUser','Pds_AI','PT_D','VIEW','SELECT',0,1),
 ('AtosUser','Pds_AI','PT_B','VIEW','SELECT',0,1),

@@ -9,7 +9,7 @@
  ,DateUpdatedTimeStamp varchar(256)
  ,CandidateId varchar(256)
  ,[Location] varchar(256)
- ,Keywords varchar(256)
+ ,Keywords varchar(1096)
  ,WithinDistance varchar(256) 
  ,ApprenticeshipLevel varchar(256) 
  ,RunId bigint  default(-1)

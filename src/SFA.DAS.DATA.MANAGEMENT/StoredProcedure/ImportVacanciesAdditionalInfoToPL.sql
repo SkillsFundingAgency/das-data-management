@@ -118,7 +118,7 @@ SELECT vc.CandidateId                                                  as Candid
 	  ,dbo.Fn_ConvertTimeStampToDateTime(fSS.DateCreatedTimeStamp)      as DateCreatedTimeStamp
 	  ,dbo.Fn_ConvertTimeStampToDateTime(fss.DateUpdatedTimeStamp)      as DateUpdatedTimeStamp
 	  ,fss.[Location]
-	  ,fss.Keywords
+	  ,LEFT(fss.Keywords,256) as Keywords
 	  ,fss.WithInDistance
 	  ,fss.ApprenticeshipLevel
 	  ,Fss.BinaryId                                                     as SourceApprenticeshipId

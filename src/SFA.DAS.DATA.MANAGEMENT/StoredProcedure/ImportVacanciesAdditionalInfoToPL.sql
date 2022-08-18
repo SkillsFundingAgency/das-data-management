@@ -160,6 +160,7 @@ BEGIN TRANSACTION
 
 DELETE FROM ASData_PL.va_VacancyReviews
 
+/* Insert all the unsuccessful outcomes first with a reason */
 
 INSERT INTO ASData_PL.va_VacancyReviews
 (EmployerAccountId 
@@ -172,6 +173,10 @@ INSERT INTO ASData_PL.va_VacancyReviews
   ,ManualQaFieldIndicator 
   ,ManualQaFieldChangeRequested 
   ,ManualQaComment 
+  ,SubmissionCount
+  ,ReviewedDate
+  ,SlaDeadline
+  ,Status
   ,SourceVacancyReviewId 
   ,SourceDb 
   )
@@ -185,6 +190,10 @@ SELECT RVR.EmployerAccountId
 	  ,rvr.ManualQaFieldIndicator
 	  ,rvr.ManualQaFieldChangeRequested
 	  ,rvr.ManualQaComment
+	  ,rvr.SubmissionCount
+      ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ReviewedDate)
+      ,dbo.Fn_ConvertTimeStampToDateTime(rvr.SlaDeadline)
+      ,rvr.Status
 	  ,RVR.BinaryId
 	  ,'RAAv2'
   FROM Stg.RAA_VacancyReviews RVR
@@ -194,6 +203,50 @@ SELECT RVR.EmployerAccountId
   LEFT
   JOIN ASData_PL.Va_Candidate vc
     on vc.CandidateGuid=RVR.UserId
+ Where ManualQaFieldChangeRequested='true'
+
+
+ /* Insert all successful outcomes , It doesn't require ManualOutcome and QAComment so ignore these columns to reduce volumes of data */
+
+
+ INSERT INTO ASData_PL.va_VacancyReviews
+(EmployerAccountId 
+  ,CandidateId 
+  ,CreatedDateTime 
+  ,SubmittedDateTime 
+  ,VacancyReference 
+  ,VacancyId 
+  ,ManualOutcome   
+  ,SubmissionCount
+  ,ReviewedDate
+  ,SlaDeadline
+  ,Status
+  ,SourceVacancyReviewId 
+  ,SourceDb 
+  )
+SELECT DISTINCT
+       RVR.EmployerAccountId
+      ,vc.CandidateId
+	  ,dbo.Fn_ConvertTimeStampToDateTime(rvr.CreatedTimeStamp)
+	  ,dbo.Fn_ConvertTimeStampToDateTime(rvr.SubmittedTimeStamp)
+	  ,rvr.VacancyReference
+	  ,vv.VacancyId
+	  ,rvr.ManualOutcome
+	  ,rvr.SubmissionCount
+      ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ReviewedDate)
+      ,dbo.Fn_ConvertTimeStampToDateTime(rvr.SlaDeadline)
+      ,rvr.Status
+	  ,RVR.BinaryId
+	  ,'RAAv2'
+  FROM Stg.RAA_VacancyReviews RVR
+  LEFT
+  JOIN ASData_PL.Va_Vacancy vv
+    on vv.VacancyReferenceNumber=RVR.VacancyReference
+  LEFT
+  JOIN ASData_PL.Va_Candidate vc
+    on vc.CandidateGuid=RVR.UserId
+ Where not exists (select 1 from ASData_PL.Va_VacancyReviews VR where vr.SourceVacancyReviewId=rvr.BinaryId)
+
 
 COMMIT TRANSACTION
 

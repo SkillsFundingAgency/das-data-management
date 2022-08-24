@@ -324,8 +324,8 @@ VALUES
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
 VALUES
- ('AComt','Apprentice','dbo','[Id],[CreatedOn]','[FirstName],[LastName],[Email],[DateOfBirth]','','aComt_Apprentice',0,1) 
-,('AComt','Apprenticeship','dbo','[Id],[ApprenticeId],[CreatedOn]','','','aComt_Apprenticeship',0,1) 
+ --('AComt','Apprentice','dbo','[Id],[CreatedOn]','[FirstName],[LastName],[Email],[DateOfBirth]','','aComt_Apprentice',0,1) 
+('AComt','Apprenticeship','dbo','[Id],[ApprenticeId],[CreatedOn]','','','aComt_Apprenticeship',0,1) 
 ,('AComt','Revision','dbo','[Id],[ApprenticeshipId],[CommitmentsApprenticeshipId],[EmployerAccountLegalEntityId],[EmployerName],[TrainingProviderId],[TrainingProviderName],[CourseName],[CourseLevel],[CourseOption],[PlannedStartDate],[PlannedEndDate],[CommitmentsApprovedOn],[TrainingProviderCorrect],[EmployerCorrect],[RolesAndResponsibilitiesConfirmations],[ApprenticeshipDetailsCorrect],[HowApprenticeshipDeliveredCorrect],[ConfirmBefore],[ConfirmedOn],[CourseDuration],[LastViewed],[CreatedOn],[StoppedReceivedOn]','','','aComt_Revision',0,1) 
 ,('AComt','Registration','dbo','[RegistrationId],[CommitmentsApprenticeshipId],[CommitmentsApprovedOn],[UserIdentityId],[CreatedOn],[FirstViewedOn],[SignUpReminderSentOn],[EmployerAccountLegalEntityId],[EmployerName],[TrainingProviderId],[TrainingProviderName],[CourseName],[CourseLevel],[CourseOption],[PlannedStartDate],[PlannedEndDate],[CourseDuration]','[FirstName],[LastName],[DateOfBirth],[Email]','','aComt_Registration',0,1) 
  
@@ -359,6 +359,11 @@ VALUES
 ('Pfbe','EmployerFeedback','dbo','[SrcEmployerFeedbackId],[EmployerFeedbackBinaryId],[DatetimeCompleted],[FeedbackName],[FeedbackValue],[ProviderRating],[FeedbackSource]','','[Ukprn],[AccountId]','Pfbe_EmployerFeedback','Pfbe_EmployerFeedback',0,1,'SELECT  efr.feedbackid as SrcEmployerFeedbackId,efr.id as EmployerFeedbackBinaryId, ef.ukprn as Ukprn, ef.accountid as AccountId, efr.datetimecompleted as DateTimeCompleted,a.attributename as FeedbackName,pa.attributevalue as FeedbackValue,efr.providerrating as ProviderRating,efr.feedbacksource as FeedbackSource FROM EmployerFeedback ef	JOIN EmployerFeedbackResult efr ON ef.FeedbackId = efr.FeedbackId LEFT JOIN ProviderAttributes pa ON efr.Id = pa.EmployerFeedbackResultId LEFT JOIN Attributes a on pa.AttributeId = a.AttributeId')
 
 
+/* E Commitments  Config */
+INSERT INTO Mtd.SourceConfigForImport
+(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
+VALUES
+('Appacc','Apprentice','dbo','[Id],[CreatedOn]','[FirstName],[LastName],[Email],[DateOfBirth]','','aComt_Apprentice',0,1) 
 
 
 COMMIT TRANSACTION

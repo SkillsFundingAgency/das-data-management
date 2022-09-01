@@ -219,9 +219,6 @@ INSERT INTO [ASData_PL].[Comt_Apprenticeship]
            ,[ContinuationOfId]
            ,[MadeRedundant]
            ,[OriginalStartDate]
-<<<<<<< HEAD
-           ,DATEDIFF(hour,DateOfBirth,GETDATE())/8766 as Age
-=======
            ,CASE WHEN [DateOfBirth] IS NULL	THEN - 1 
 		        WHEN DATEPART([M], [DateOfBirth]) > DATEPART([M], getdate()) 
 		          OR DATEPART([M], [DateOfBirth]) = DATEPART([M], getdate()) 
@@ -229,7 +226,6 @@ INSERT INTO [ASData_PL].[Comt_Apprenticeship]
 		        THEN DATEDIFF(YEAR,[DateOfBirth], getdate()) - 1 
 		        ELSE DATEDIFF(YEAR,[DateOfBirth], getdate()) 
             END                 as Age
->>>>>>> master
            ,[DeliveryModel]
     FROM Stg.Comt_Apprenticeship
 '

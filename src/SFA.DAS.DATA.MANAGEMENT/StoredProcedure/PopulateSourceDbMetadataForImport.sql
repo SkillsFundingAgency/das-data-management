@@ -363,7 +363,7 @@ VALUES
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
 VALUES
-('Appacc','Apprentice','dbo','[Id],[CreatedOn]','[FirstName],[LastName],[Email],[DateOfBirth]','','aComt_Apprentice',0,1)
+('Appacc','Apprentice','dbo','[Id],[CreatedOn]','[FirstName],[LastName],[Email],[DateOfBirth]','','aComt_Apprentice',0,1) 
 
 
 /* Apprentice Feedback Config */
@@ -375,8 +375,6 @@ VALUES
 ,('Appfb','ApprenticeFeedbackResult','dbo','[Id],[ApprenticeFeedbackTargetId],[StandardUId],[DateTimeCompleted],[ProviderRating],[AllowContact]','','','Appfb_ApprenticeFeedbackResult',0,1)
 ,('Appfb','ProviderAttribute','dbo','[ApprenticeFeedbackResultId],[AttributeId],[AttributeValue]','','','Appfb_ProviderAttribute',0,1)
 ,('Appfb','Attribute','dbo','[AttributeId],[AttributeName],[Category]','','','Appfb_Attribute',0,1)
-
-
 
 COMMIT TRANSACTION
 

@@ -2,5 +2,6 @@
 (
 	[AttributeId] [int] NULL,
 	[AttributeName] [nvarchar](100) NULL,
+	[AsDm_UpdatedDateTime] datetime2 default getdate(),
 	[Category] [nvarchar](100) NULL
 )

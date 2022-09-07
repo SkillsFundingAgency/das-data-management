@@ -14,4 +14,5 @@
 	[EligibilityCalculationDate] [datetime2](7) NULL,
 	[CreatedOn] [datetime2](7) NULL DEFAULT (getdate()),
 	[UpdatedOn] [datetime2](7) NULL DEFAULT (getdate()),
+	[AsDm_UpdatedDateTime] datetime2 default getdate()
 )

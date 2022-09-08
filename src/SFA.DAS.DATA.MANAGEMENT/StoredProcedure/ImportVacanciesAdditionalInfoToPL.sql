@@ -223,6 +223,8 @@ SELECT RVR.EmployerAccountId
   ,Status
   ,SourceVacancyReviewId 
   ,SourceDb 
+  ,closedDate
+  ,ReviewedByUserEmail
   )
 SELECT DISTINCT
        RVR.EmployerAccountId
@@ -238,6 +240,8 @@ SELECT DISTINCT
       ,rvr.Status
 	  ,RVR.BinaryId
 	  ,'RAAv2'
+    ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ReviewedDate)
+    ,ReviewedByUserEmail
   FROM Stg.RAA_VacancyReviews RVR
   LEFT
   JOIN ASData_PL.Va_Vacancy vv

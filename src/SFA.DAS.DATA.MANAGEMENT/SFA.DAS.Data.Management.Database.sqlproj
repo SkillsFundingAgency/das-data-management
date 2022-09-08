@@ -24,6 +24,7 @@
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseSet>True</TargetDatabaseSet>
     <TargetDatabase>SFA.DAS.Data.Management.Database</TargetDatabase>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -408,5 +409,9 @@
     <Build Include="StoredProcedure\ImportVacanciesAndApprenticeshipCandidateRegDetails.sql" />
     <Build Include="Tables\lkp_PstSIC.sql" />
     <Build Include="StoredProcedure\LoadSICLookupData.sql" />
+    <Build Include="Tables\ASData_PL_Appfb_ApprenticeFeedbackResult.sql" />
+    <Build Include="Tables\ASData_PL_Appfb_ApprenticeFeedbackTarget.sql" />
+    <Build Include="Tables\ASData_PL_Appfb_Attribute.sql" />
+    <Build Include="Tables\ASData_PL_Appfb_ProviderAttribute.sql" />
   </ItemGroup>
 </Project>

@@ -19,6 +19,8 @@
  ,status varchar(256)
  ,closedDate varchar(256)
  ,ReviewedByUserEmail varchar(256)
+ ,ManualQaBeforeEdit varchar(1024)
+ ,ManualQaAfterEdit varchar(1024)
  ,RunId bigint  default(-1)
  ,AsDm_CreatedDate datetime2 default(getdate()) 
  ,AsDm_UpdatedDate datetime2 default(getdatE())

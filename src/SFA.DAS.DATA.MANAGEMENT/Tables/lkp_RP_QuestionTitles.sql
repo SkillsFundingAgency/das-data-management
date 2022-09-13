@@ -1,4 +1,4 @@
-﻿CREATE TABLE [Mtd].[RP_LookupQuestionTitles]
+﻿CREATE TABLE [lkp].[RP_QuestionTitles]
 (
 	[SequenceNumber]			INT NOT NULL,
 	[SectionNumber]				INT NOT NULL,

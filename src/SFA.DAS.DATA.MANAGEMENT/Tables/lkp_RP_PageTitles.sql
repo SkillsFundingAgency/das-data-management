@@ -1,4 +1,4 @@
-﻿CREATE TABLE [Mtd].[RP_LookupPageTitles]
+﻿CREATE TABLE [lkp].[RP_PageTitles]
 (
 	[SequenceNumber]			INT NOT NULL,
 	[SectionNumber]				INT NOT NULL,

@@ -42,10 +42,10 @@ IF @@TRANCOUNT=0
 BEGIN
 	BEGIN TRANSACTION
 
-	DELETE FROM [Mtd].[RP_LookupOversightReviewStatus]
+	DELETE FROM [lkp].[RP_OversightReviewStatus]
 
-	/* Isert into [Mtd].[RP_LookupOversightReviewStatus] */
-	INSERT INTO [Mtd].[RP_LookupOversightReviewStatus] 
+	/* Isert into [lkp].[RP_OversightReviewStatus] */
+	INSERT INTO [lkp].[RP_OversightReviewStatus] 
 	([Status],[Description]) 
 	VALUES 
 	(1, 'Successful'),
@@ -59,9 +59,9 @@ BEGIN
 
 
 
-	DELETE FROM [Mtd].[RP_LookupPageTitles]
-	/* insert into [Mtd].[RP_LookupPageTitles]*/
-	INSERT INTO [Mtd].[RP_LookupPageTitles]
+	DELETE FROM [lkp].[RP_PageTitles]
+	/* insert into [lkp].[RP_PageTitles] */
+	INSERT INTO [lkp].[RP_PageTitles]
 	([SequenceNumber],[SectionNumber],[PageId],[Title])	
 	VALUES
 			(0, 1, '1', 'Preamble'),
@@ -438,9 +438,9 @@ BEGIN
 			(9, 3, '9200', 'Do you understand that your organisation will not join the RoATP until it completes all post application tasks?'),
 			(9, 3, '10006', 'Before you submit your application');
 
-			DELETE FROM [Mtd].[RP_LookupQuestionTitles]
-			/* Insert into [Mtd].[RP_LookupQuestionTitles]*/
-			INSERT INTO [Mtd].[RP_LookupQuestionTitles]
+			DELETE FROM [lkp].[RP_QuestionTitles]
+			/* Insert into [lkp].[RP_QuestionTitles] */
+			INSERT INTO [lkp].[RP_QuestionTitles]
 			([SequenceNumber],[SectionNumber],[PageId],[QuestionId],[Title])
 				VALUES 				
 					(0, 1, '1', 'PRE-10', 'UKPRN'),
@@ -1186,10 +1186,10 @@ BEGIN
 
 
 
-					DELETE FROM [Mtd].[RP_LookupSectionTitles] 
+					DELETE FROM [lkp].[RP_SectionTitles] 
 
-					/*  Insert into [Mtd].[RP_LookupSectionTitles] */
-					INSERT INTO [Mtd].[RP_LookupSectionTitles] 
+					/*  Insert into [lkp].[RP_SectionTitles] */
+					INSERT INTO [lkp].[RP_SectionTitles] 
 					([SequenceNumber],[SectionNumber],[Title]) 
 					VALUES
 						(0, 1, 'Preamble'),
@@ -1243,9 +1243,9 @@ BEGIN
 						(9, 4, 'Submit application');
 
 
-						DELETE FROM [Mtd].[RP_LookupSequenceTitles] 
-						/* Inserting into [Mtd].[RP_LookupSequenceTitles] */
-						INSERT INTO [Mtd].[RP_LookupSequenceTitles] 
+						DELETE FROM [lkp].[RP_SequenceTitles] 
+						/* Inserting into [lkp].[RP_SequenceTitles] */
+						INSERT INTO [lkp].[RP_SequenceTitles] 
 						([SequenceNumber],[Title]) 
 						VALUES
 						(0, 'Preamble'),

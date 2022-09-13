@@ -1,4 +1,4 @@
-﻿CREATE TABLE [Mtd].[RP_LookupSequenceTitles]
+﻿CREATE TABLE [lkp].[RP_SequenceTitles]
 (
 	[SequenceNumber]	INT				NOT NULL,
 	[Title]				NVARCHAR(100)

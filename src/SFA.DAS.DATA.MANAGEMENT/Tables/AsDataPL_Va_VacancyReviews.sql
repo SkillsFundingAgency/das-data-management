@@ -14,8 +14,8 @@
   ,SubmissionCount int
   ,SlaDeadline DATETIME2
   ,ReviewedDate DATETIME2
-  ,closedDate DATETIME2
-  ,ReviewedByUserEmail varchar(256)
+  ,ClosedDate DATETIME2
+  ,ReviewedByUser varchar(256)
   ,Status varchar(256)
   ,SourceVacancyReviewId varchar(256)
   ,SourceDb varchar(256)

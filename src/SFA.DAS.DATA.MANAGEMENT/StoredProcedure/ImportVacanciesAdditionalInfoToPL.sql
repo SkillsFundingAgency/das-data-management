@@ -175,6 +175,8 @@ INSERT INTO ASData_PL.va_VacancyReviews
   ,ManualQaComment 
   ,SubmissionCount
   ,ReviewedDate
+  ,ClosedDate  
+  ,ReviewedByUser
   ,SlaDeadline
   ,Status
   ,SourceVacancyReviewId 
@@ -192,6 +194,8 @@ SELECT RVR.EmployerAccountId
 	  ,rvr.ManualQaComment
 	  ,rvr.SubmissionCount
       ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ReviewedDate)
+	  ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ClosedDate)	 
+	  ,LEFT(rvr.ReviewedByUserEmail, CHARINDEX('@', rvr.ReviewedByUserEmail)-1)
       ,dbo.Fn_ConvertTimeStampToDateTime(rvr.SlaDeadline)
       ,rvr.Status
 	  ,RVR.BinaryId
@@ -219,6 +223,8 @@ SELECT RVR.EmployerAccountId
   ,ManualOutcome   
   ,SubmissionCount
   ,ReviewedDate
+  ,ClosedDate  
+  ,ReviewedByUser
   ,SlaDeadline
   ,Status
   ,SourceVacancyReviewId 
@@ -236,6 +242,8 @@ SELECT DISTINCT
 	  ,rvr.ManualOutcome
 	  ,rvr.SubmissionCount
       ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ReviewedDate)
+	  ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ClosedDate)	 
+	  ,LEFT(rvr.ReviewedByUserEmail, CHARINDEX('@', rvr.ReviewedByUserEmail)-1)
       ,dbo.Fn_ConvertTimeStampToDateTime(rvr.SlaDeadline)
       ,rvr.Status
 	  ,RVR.BinaryId

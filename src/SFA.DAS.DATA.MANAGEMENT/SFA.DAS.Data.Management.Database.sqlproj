@@ -414,5 +414,6 @@
     <Build Include="Tables\ASData_PL_Appfb_ApprenticeFeedbackTarget.sql" />
     <Build Include="Tables\ASData_PL_Appfb_Attribute.sql" />
     <Build Include="Tables\ASData_PL_Appfb_ProviderAttribute.sql" />
+    <Build Include="StoredProcedure\TestImportVacanciesAdditionalInfoToPL.sql" />
   </ItemGroup>
 </Project>

@@ -195,7 +195,7 @@ SELECT RVR.EmployerAccountId
 	  ,rvr.SubmissionCount
       ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ReviewedDate)
 	  ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ClosedDate)	 
-	  ,LEFT(rvr.ReviewedByUserEmail, CHARINDEX('@', rvr.ReviewedByUserEmail)-1)
+	  ,LEFT(rvr.ReviewedByUserEmail, CHARINDEX('@', rvr.ReviewedByUserEmail)-1) as ReviewedByUser
       ,dbo.Fn_ConvertTimeStampToDateTime(rvr.SlaDeadline)
       ,rvr.Status
 	  ,RVR.BinaryId
@@ -243,7 +243,7 @@ SELECT DISTINCT
 	  ,rvr.SubmissionCount
       ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ReviewedDate)
 	  ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ClosedDate)	 
-	  ,LEFT(rvr.ReviewedByUserEmail, CHARINDEX('@', rvr.ReviewedByUserEmail)-1)
+	  ,LEFT(rvr.ReviewedByUserEmail, CHARINDEX('@', rvr.ReviewedByUserEmail)-1) as ReviewedByUser
       ,dbo.Fn_ConvertTimeStampToDateTime(rvr.SlaDeadline)
       ,rvr.Status
 	  ,RVR.BinaryId

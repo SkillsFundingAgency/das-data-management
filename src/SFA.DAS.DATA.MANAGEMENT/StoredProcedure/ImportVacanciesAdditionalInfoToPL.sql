@@ -245,9 +245,7 @@ SELECT DISTINCT
       ,dbo.Fn_ConvertTimeStampToDateTime(rvr.SlaDeadline)
       ,rvr.Status
 	  ,RVR.BinaryId
-	  ,'RAAv2'
-    ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ReviewedDate)
-    ,ReviewedByUserEmail
+	  ,'RAAv2'    
   FROM Stg.RAA_VacancyReviews RVR
   LEFT
   JOIN ASData_PL.Va_Vacancy vv

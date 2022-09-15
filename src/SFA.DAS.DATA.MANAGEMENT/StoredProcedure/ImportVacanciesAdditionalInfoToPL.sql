@@ -228,9 +228,7 @@ SELECT RVR.EmployerAccountId
   ,SlaDeadline
   ,Status
   ,SourceVacancyReviewId 
-  ,SourceDb 
-  ,closedDate
-  ,ReviewedByUserEmail
+  ,SourceDb   
   )
 SELECT DISTINCT
        RVR.EmployerAccountId

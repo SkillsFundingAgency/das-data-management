@@ -7,6 +7,7 @@ AS
 -- Author:      Himabindu Uddaraju
 -- Create Date: 04/03/2021
 -- Description: Populate Metadata for National Minimum Wage Rates
+-- we can get the details from this link https://www.acas.org.uk/national-minimum-wage-entitlement
 -- =========================================================================
 */
 
@@ -47,7 +48,14 @@ INSERT INTO Mtd.NationalMinimumWageRates
 ,WageRateInPounds
 )
 VALUES
- ('2021-04-01','2022-03-31','23 and Over',8.91)
+ ('2022-04-01','2023-03-31','23 and Over',9.50)
+,('2022-04-01','2023-03-31','21 to 22',9.18)
+,('2022-04-01','2023-03-31','18 to 20',6.83)
+,('2022-04-01','2023-03-31','Under 18',4.81)
+,('2022-04-01','2023-03-31','Apprentice',4.81)
+
+-- Apr 2022 to Mar 2023
+,('2021-04-01','2022-03-31','23 and Over',8.91)
 ,('2021-04-01','2022-03-31','21 to 22',8.36)
 ,('2021-04-01','2022-03-31','18 to 20',6.56)
 ,('2021-04-01','2022-03-31','Under 18',4.62)

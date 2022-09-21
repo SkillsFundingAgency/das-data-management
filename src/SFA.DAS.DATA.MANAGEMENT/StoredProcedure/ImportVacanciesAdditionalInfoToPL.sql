@@ -241,7 +241,7 @@ SELECT DISTINCT
 	  ,rvr.SubmissionCount
       ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ReviewedDate)
 	  ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ClosedDate)	 
-	  ,LEFT(rvr.ReviewedByUserEmail, CHARINDEX('@', rvr.ReviewedByUserEmail)-1) as ReviewedByUser
+	  ,rvr.ReviewedByUserEmail
       ,dbo.Fn_ConvertTimeStampToDateTime(rvr.SlaDeadline)
       ,rvr.Status
 	  ,RVR.BinaryId
@@ -255,6 +255,23 @@ SELECT DISTINCT
     on vc.CandidateGuid=RVR.UserId
  Where not exists (select 1 from ASData_PL.Va_VacancyReviews VR where vr.SourceVacancyReviewId=rvr.BinaryId)
 
+
+DELETE FROM [AsData_PL].[Va_VacancyReviewsManualQaEdit]
+
+INSERT INTO ASData_PL.Va_VacancyReviewsManualQaEdit
+(ManualQaEditFieldIndicator 
+  ,ManualQaEditBefore 
+  ,ManualQaEditAfter 
+  ,SourceVacancyReviewId 
+  ,SourceDb   
+  )
+SELECT 
+    ManualQaEditFieldIndicator
+    ,ManualQaEditBefore 
+    ,ManualQaEditAfter
+	  ,BinaryId
+	  ,'RAAv2'
+  FROM Stg.RAA_VacancyReviewsManualQaEdit
 
 COMMIT TRANSACTION
 

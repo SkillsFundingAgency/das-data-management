@@ -244,11 +244,7 @@ VALUES
 		,'[Comments],[ExternalComments]',0,1
 		,'select [Id],[ApplicationId],[Status],[SelectedGrade],[FinancialDueDate],[GradedOn],[Comments],[ExternalComments],[ClarificationRequestedOn],[ClarificationResponse]  from [dbo].[FinancialReview]'
 		,'RP_FinancialReview')
-
-INSERT INTO Mtd.SourceConfigForImport
-(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)
-VALUES
-('Apply','OrganisationAddresses','dbo','[Id],[OrganisationId],[AddressType],[AddressLine1],[AddressLine2],[AddressLine3],[City],[Postcode]','','',0,1,'select [Id],[OrganisationId],[AddressType],[AddressLine1],[AddressLine2],[AddressLine3],[City],[Postcode] from [dbo].[OrganisationAddresses]','RP_OrganisationAddresses')
+,('Apply','OrganisationAddresses','dbo','[Id],[OrganisationId],[AddressType]','[AddressLine1]','[AddressLine2]','[AddressLine3],[City],[Postcode]','','',0,1,'select [Id],[OrganisationId],[AddressType],[AddressLine1],[AddressLine2],[AddressLine3],[City],[Postcode] from [dbo].[OrganisationAddresses]','RP_OrganisationAddresses')
 
  /* Assessor Configuration for Certificates,OrganisationStandard,CertificateLogs and  Organisations */
 

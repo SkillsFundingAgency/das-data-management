@@ -240,9 +240,9 @@ VALUES
 		,'[Filename],[ContentType],[Size],[UserId],[UserName]',0,1
 		,'select [Id],[ApplicationId],[Filename],[ContentType],[Size],STUFF([UserId],2,len([UserId])-2,REPLICATE(''''*'''',len([UserId])-2)) As [UserId],STUFF([UserName],2,len([UserName])-2,REPLICATE(''''*'''',len([UserName])-2)) As [UserName],[CreatedOn]  from [dbo].[AppealFile]'
 		,'RP_AppealFile')
-,('Apply','OrganisationAddresses','dbo','[Id],[OrganisationId],[AddressType],[AddressLine1],[AddressLine2],[AddressLine3]','[City],[Postcode]'
+,('Apply','OrganisationAddresses','dbo','[Id]',''
 		,'',0,1
-		,'select [Id],[OrganisationId],[AddressType],[AddressLine1],[AddressLine2],[AddressLine3],[City],[Postcode] from [dbo].[OrganisationAddresses]'
+		,'select [Id] from [dbo].[OrganisationAddresses]'
 		,'RP_OrganisationAddresses')
 ,('Apply','FinancialReview','dbo','[Id],[ApplicationId],[Status],[SelectedGrade],[FinancialDueDate],[GradedOn],[ClarificationRequestedOn],[ClarificationResponse]',''
 		,'[Comments],[ExternalComments]',0,1

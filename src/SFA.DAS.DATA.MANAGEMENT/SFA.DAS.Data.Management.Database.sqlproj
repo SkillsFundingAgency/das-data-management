@@ -281,6 +281,7 @@
     <Build Include="Tables\Stg_FAA_Traineeships.sql" />
     <Build Include="Tables\Stg_FAA_Users.sql" />
     <Build Include="Tables\Stg_RAA_VacancyReviews.sql" />
+    <Build Include="Tables\Stg_RAA_VacancyReviewsManualQaEdit.sql" />
     <Build Include="Tables\AsDataPL_EI_IncentiveApplicationStatusAudit.sql" />
     <Build Include="StoredProcedure\PopulateMetadataForRefreshDataset.sql" />
     <Build Include="Tables\Mtd_RefreshDatasetConfig.sql" />
@@ -297,6 +298,7 @@
     <Build Include="Tables\AsDataPL_Va_ContactMessages.sql" />
     <Build Include="Tables\AsDataPL_Va_SavedSearches.sql" />
     <Build Include="Tables\AsDataPL_Va_VacancyReviews.sql" />
+    <Build Include="Tables\AsDataPL_Va_VacancyReviewsManualQaEdit.sql" />
     <Build Include="Tables\Mtd_NationalMinimumWageRates.sql" />
     <Build Include="StoredProcedure\ImportVacanciesAdditionalInfoToPL.sql" />
     <Build Include="StoredProcedure\PopulateMetadataNationalMinimumWageRates.sql" />
@@ -413,5 +415,6 @@
     <Build Include="Tables\ASData_PL_Appfb_ApprenticeFeedbackTarget.sql" />
     <Build Include="Tables\ASData_PL_Appfb_Attribute.sql" />
     <Build Include="Tables\ASData_PL_Appfb_ProviderAttribute.sql" />
+    <Build Include="StoredProcedure\UpdateRAAVacancyReviews.sql" />
   </ItemGroup>
 </Project>

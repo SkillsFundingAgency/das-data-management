@@ -175,6 +175,8 @@ INSERT INTO ASData_PL.va_VacancyReviews
   ,ManualQaComment 
   ,SubmissionCount
   ,ReviewedDate
+  ,ClosedDate  
+  ,ReviewedByUser
   ,SlaDeadline
   ,Status
   ,SourceVacancyReviewId 
@@ -192,6 +194,8 @@ SELECT RVR.EmployerAccountId
 	  ,rvr.ManualQaComment
 	  ,rvr.SubmissionCount
       ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ReviewedDate)
+	  ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ClosedDate)	 
+	  ,rvr.ReviewedByUserEmail
       ,dbo.Fn_ConvertTimeStampToDateTime(rvr.SlaDeadline)
       ,rvr.Status
 	  ,RVR.BinaryId
@@ -219,10 +223,12 @@ SELECT RVR.EmployerAccountId
   ,ManualOutcome   
   ,SubmissionCount
   ,ReviewedDate
+  ,ClosedDate  
+  ,ReviewedByUser
   ,SlaDeadline
   ,Status
   ,SourceVacancyReviewId 
-  ,SourceDb 
+  ,SourceDb   
   )
 SELECT DISTINCT
        RVR.EmployerAccountId
@@ -234,10 +240,12 @@ SELECT DISTINCT
 	  ,rvr.ManualOutcome
 	  ,rvr.SubmissionCount
       ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ReviewedDate)
+	  ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ClosedDate)	 
+	  ,rvr.ReviewedByUserEmail
       ,dbo.Fn_ConvertTimeStampToDateTime(rvr.SlaDeadline)
       ,rvr.Status
 	  ,RVR.BinaryId
-	  ,'RAAv2'
+	  ,'RAAv2'    
   FROM Stg.RAA_VacancyReviews RVR
   LEFT
   JOIN ASData_PL.Va_Vacancy vv
@@ -247,6 +255,23 @@ SELECT DISTINCT
     on vc.CandidateGuid=RVR.UserId
  Where not exists (select 1 from ASData_PL.Va_VacancyReviews VR where vr.SourceVacancyReviewId=rvr.BinaryId)
 
+
+DELETE FROM [AsData_PL].[Va_VacancyReviewsManualQaEdit]
+
+INSERT INTO ASData_PL.Va_VacancyReviewsManualQaEdit
+(ManualQaEditFieldIndicator 
+  ,ManualQaEditBefore 
+  ,ManualQaEditAfter 
+  ,SourceVacancyReviewId 
+  ,SourceDb   
+  )
+SELECT 
+    ManualQaEditFieldIndicator
+    ,ManualQaEditBefore 
+    ,ManualQaEditAfter
+	  ,BinaryId
+	  ,'RAAv2'
+  FROM Stg.RAA_VacancyReviewsManualQaEdit
 
 COMMIT TRANSACTION
 

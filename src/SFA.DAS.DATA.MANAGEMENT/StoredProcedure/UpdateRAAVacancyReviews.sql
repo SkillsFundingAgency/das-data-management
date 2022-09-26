@@ -31,7 +31,7 @@ SET NOCOUNT ON
 BEGIN TRANSACTION
 
 UPDATE Stg.RAA_VacancyReviews
-SET ReviewedByUserEmail = LEFT(@Email, (CASE WHEN (CHARINDEX('@', ReviewedByUserEmail) = 0) THEN LEN(ReviewedByUserEmail) ELSE CHARINDEX('@', ReviewedByUserEmail)-1 END))
+SET ReviewedByUserEmail = LEFT(ReviewedByUserEmail, (CASE WHEN (CHARINDEX('@', ReviewedByUserEmail) = 0) THEN LEN(ReviewedByUserEmail) ELSE CHARINDEX('@', ReviewedByUserEmail)-1 END))
 Where ReviewedByUserEmail is not null
 
 COMMIT TRANSACTION

@@ -5,6 +5,9 @@
   ,OrganisationType nvarchar(100)
   ,OrganisationUKPRN int
   ,Status nvarchar(20)
+  ,TradingName nvarchar (400) NULL
+  ,CompanyRegistrationNumber nvarchar (20) NULL
+  ,CharityRegistrationNumber nvarchar (20) NULL
   ,RoATPApproved bit not null
   ,CreatedAt datetime2(7)
   ,CreatedBy nvarchar(256) NULL

@@ -49,7 +49,7 @@ BEGIN TRY
           and dateposted >= '01-Aug-2018'
           and VacancyTypeDesc NOT LIKE 'Traineeship%'
           and (
-                  wagetype in ( 'Competitive salary', 'To be agreed upon appointment', 'Unwaged' )
+                  wagetype in ( 'Competitive salary', 'To be agreed upon appointment', 'Unwaged','Unspecified' )
                   or [WageText] like '%unknown%'
               )
     UNION ALL

@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[AsDataPL_Va_VacancyWages]
+﻿CREATE TABLE [AsData_PL].[Va_VacancyWages]
 (
 	[VacancyId] INT NOT NULL PRIMARY KEY
    ,[NumberOfPositions] int

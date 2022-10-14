@@ -489,7 +489,7 @@ BEGIN CATCH
            ERROR_STATE(),
            ERROR_SEVERITY(),
            ERROR_LINE(),
-           'ImportVacanciesEmployerToPL',
+           'PopulateMinMaxWages',
            ERROR_MESSAGE(),
            GETDATE(),
            @RunId as RunId;

@@ -155,6 +155,10 @@ VALUES
  ('Commitments','History','dbo','[Id],[EntityType],[EntityId],[CommitmentId],[ApprenticeshipId],[UpdatedByRole],[ChangeType],[CreatedOn],[ProviderId],[EmployerAccountId],[OriginalState_PaymentStatus],[UpdatedState_PaymentStatus],[CorrelationId]','[UpdatedByName],[Diff],[UserId]','','Comt_History','Comt_History',0,1,'SELECT [Id],[EntityType],[EntityId],[CommitmentId],[ApprenticeshipId],[UserId],[UpdatedByRole],[ChangeType],[CreatedOn],[ProviderId],[EmployerAccountId],[UpdatedByName],JSON_VALUE(History.OriginalState, ''''$.PaymentStatus'''') OriginalState_PaymentStatus , JSON_VALUE(History.UpdatedState, ''''$.PaymentStatus'''') UpdatedState_PaymentStatus,[Diff],[CorrelationId] FROM [dbo].[History]')
 ,('Commitments','RegDetails','dbo','[ApprenticeshipId],[CommitmentId],[CandidateFirstName],[CandidateLastName],[CandidateFullName],[CandidateDateOfBirth],[CandidateEmail]','','','Comt_ApprenticeshipCandidateRegDetails','Comt_ApprenticeshipCandidateRegDetails',1,1,'SELECT [Id] as ApprenticeshipId,[CommitmentId],convert(NVarchar(500),HASHBYTES(''''SHA2_512'''',LTRIM(RTRIM(CONCAT(CONVERT(NVARCHAR(512),LTRIM(RTRIM(CONVERT(VARCHAR(255),firstname)))), @SaltKey)))),2) as Candidatefirstname,convert(NVarchar(500),HASHBYTES(''''SHA2_512'''',LTRIM(RTRIM(CONCAT(CONVERT(NVARCHAR(512),LTRIM(RTRIM(CONVERT(VARCHAR(255),lastname)))), @SaltKey)))),2) as Candidatelastname, convert(NVarchar(500),HASHBYTES(''''SHA2_512'''',LTRIM(RTRIM(CONCAT(CONVERT(NVARCHAR(512),LTRIM(RTRIM(CONVERT(VARCHAR(255),concat(isnull(ltrim(rtrim(firstname)),''''''''),isnull(ltrim(rtrim(lastname)),'''''''')))))), @SaltKey)))),2) as CandidateFullName,convert(NVarchar(500),HASHBYTES(''''SHA2_512'''',LTRIM(RTRIM(CONCAT(CONVERT(NVARCHAR(512),LTRIM(RTRIM(CONVERT(date,DateOfBirth)))), @SaltKey)))),2) as CandidateDateOfBirth, convert(NVarchar(500),HASHBYTES(''''SHA2_512'''',LTRIM(RTRIM(CONCAT(CONVERT(NVARCHAR(512),LTRIM(RTRIM(CONVERT(VARCHAR(255),Email)))), @SaltKey)))),2) as CandidateEmail FROM [dbo].[Apprenticeship]')
 
+INSERT INTO Mtd.SourceConfigForImport
+(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
+VALUES
+('Commitments','ChangeOfPartyRequest','dbo','[Id],[ApprenticeshipId],[DeliveryModel]','','','Comt_ChangeOfPartyRequest',0,1) 
 
 /* Redundancy */
 
@@ -326,8 +330,8 @@ INSERT INTO Mtd.SourceConfigForImport
 VALUES
  --('AComt','Apprentice','dbo','[Id],[CreatedOn]','[FirstName],[LastName],[Email],[DateOfBirth]','','aComt_Apprentice',0,1) 
 ('AComt','Apprenticeship','dbo','[Id],[ApprenticeId],[CreatedOn]','','','aComt_Apprenticeship',0,1) 
-,('AComt','Revision','dbo','[Id],[ApprenticeshipId],[CommitmentsApprenticeshipId],[EmployerAccountLegalEntityId],[EmployerName],[TrainingProviderId],[TrainingProviderName],[CourseName],[CourseLevel],[CourseOption],[PlannedStartDate],[PlannedEndDate],[CommitmentsApprovedOn],[TrainingProviderCorrect],[EmployerCorrect],[RolesAndResponsibilitiesConfirmations],[ApprenticeshipDetailsCorrect],[HowApprenticeshipDeliveredCorrect],[ConfirmBefore],[ConfirmedOn],[CourseDuration],[LastViewed],[CreatedOn],[StoppedReceivedOn]','','','aComt_Revision',0,1) 
-,('AComt','Registration','dbo','[RegistrationId],[CommitmentsApprenticeshipId],[CommitmentsApprovedOn],[UserIdentityId],[CreatedOn],[FirstViewedOn],[SignUpReminderSentOn],[EmployerAccountLegalEntityId],[EmployerName],[TrainingProviderId],[TrainingProviderName],[CourseName],[CourseLevel],[CourseOption],[PlannedStartDate],[PlannedEndDate],[CourseDuration]','[FirstName],[LastName],[DateOfBirth],[Email]','','aComt_Registration',0,1) 
+,('AComt','Revision','dbo','[Id],[ApprenticeshipId],[CommitmentsApprenticeshipId],[EmployerAccountLegalEntityId],[EmployerName],[TrainingProviderId],[TrainingProviderName],[CourseName],[CourseLevel],[CourseOption],[PlannedStartDate],[PlannedEndDate],[CommitmentsApprovedOn],[TrainingProviderCorrect],[EmployerCorrect],[RolesAndResponsibilitiesConfirmations],[ApprenticeshipDetailsCorrect],[HowApprenticeshipDeliveredCorrect],[ConfirmBefore],[ConfirmedOn],[CourseDuration],[LastViewed],[CreatedOn],[StoppedReceivedOn],[DeliveryModel]','','','aComt_Revision',0,1) 
+,('AComt','Registration','dbo','[RegistrationId],[CommitmentsApprenticeshipId],[CommitmentsApprovedOn],[UserIdentityId],[CreatedOn],[FirstViewedOn],[SignUpReminderSentOn],[EmployerAccountLegalEntityId],[EmployerName],[TrainingProviderId],[TrainingProviderName],[CourseName],[CourseLevel],[CourseOption],[PlannedStartDate],[PlannedEndDate],[CourseDuration],[DeliveryModel]','[FirstName],[LastName],[DateOfBirth],[Email]','','aComt_Registration',0,1) 
  
  /* LTM SQL query based Import */
  INSERT INTO Mtd.SourceConfigForImport
@@ -374,6 +378,13 @@ VALUES
 ,('Appfb','ApprenticeFeedbackResult','dbo','[Id],[ApprenticeFeedbackTargetId],[StandardUId],[DateTimeCompleted],[ProviderRating],[AllowContact]','','','Appfb_ApprenticeFeedbackResult',0,1)
 ,('Appfb','ProviderAttribute','dbo','[ApprenticeFeedbackResultId],[AttributeId],[AttributeValue]','','','Appfb_ProviderAttribute',0,1)
 ,('Appfb','Attribute','dbo','[AttributeId],[AttributeName],[Category]','','','Appfb_Attribute',0,1)
+
+/* Rofjaa  Config */
+
+INSERT INTO Mtd.SourceConfigForImport
+(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
+VALUES
+('Rofjaa','Agency','dbo','[LegalEntityId],[IsGrantFunded],[EffectiveFrom],[CreatedDate],[LastUpdatedDate]','','','Rofjaa_Agency',0,1) 
 
 COMMIT TRANSACTION
 

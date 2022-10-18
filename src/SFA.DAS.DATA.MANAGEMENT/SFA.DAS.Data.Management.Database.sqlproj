@@ -414,6 +414,7 @@
     <Build Include="Tables\ASData_PL_Appfb_Attribute.sql" />
     <Build Include="Tables\ASData_PL_Appfb_ProviderAttribute.sql" />
     <Build Include="StoredProcedure\UpdateRAAVacancyReviews.sql" />
+    <Build Include="StoredProcedure\GetChildPipelines.sql" />
     <Build Include="Tables\Management_Pipeline.sql" />
     <Build Include="Tables\Management_PipelineController.sql" />
   </ItemGroup>

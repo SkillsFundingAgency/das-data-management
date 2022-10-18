@@ -5,5 +5,5 @@ CREATE TABLE [Mgmt].[Config_PipelineController](
 	[ChildPipelineId] int not null,
 	[IsEnabled] BIT not null, 
 	[ExecutionOrder] int not null,
-	CONSTRAINT [PK_PipelineController]_PipelineControllerId] PRIMARY KEY CLUSTERED (PipelineControllerId ASC)
+	CONSTRAINT [PK_PipelineController_PipelineControllerId] PRIMARY KEY CLUSTERED (PipelineControllerId ASC)
 	)

@@ -384,7 +384,7 @@ VALUES
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
 VALUES
-('Rofjaa','Agency','dbo','[LegalEntityId],[IsGrantFunded],[EffectiveFrom],[CreatedDate],[LastUpdatedDate]','','','Rofjaa_Agency',0,1) 
+('Rofjaa','Agency','dbo','[LegalEntityId],[IsGrantFunded]','','','Rofjaa_Agency',0,1) 
 
 COMMIT TRANSACTION
 

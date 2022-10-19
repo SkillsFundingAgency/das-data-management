@@ -280,7 +280,7 @@
     <Build Include="Tables\Stg_FAA_SavedSearches.sql" />
     <Build Include="Tables\Stg_FAA_Traineeships.sql" />
     <Build Include="Tables\Stg_FAA_Users.sql" />
-    <Build Include="Tables\Stg_RAA_VacancyReviews.sql" />    
+    <Build Include="Tables\Stg_RAA_VacancyReviews.sql" />
     <Build Include="Tables\AsDataPL_EI_IncentiveApplicationStatusAudit.sql" />
     <Build Include="StoredProcedure\PopulateMetadataForRefreshDataset.sql" />
     <Build Include="Tables\Mtd_RefreshDatasetConfig.sql" />
@@ -414,5 +414,7 @@
     <Build Include="Tables\ASData_PL_Appfb_Attribute.sql" />
     <Build Include="Tables\ASData_PL_Appfb_ProviderAttribute.sql" />
     <Build Include="StoredProcedure\UpdateRAAVacancyReviews.sql" />
+    <Build Include="Tables\ASData_PL_Rofjaa_Agency.sql" />
+    <Build Include="Tables\AsDataPL_Comt_ChangeOfPartyRequest.sql" />
   </ItemGroup>
 </Project>

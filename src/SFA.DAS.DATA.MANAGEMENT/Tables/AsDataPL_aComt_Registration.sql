@@ -17,6 +17,7 @@
 	 ,[CreatedOn] datetime2
 	 ,[FirstViewedOn] datetime2
 	 ,[SignUpReminderSentOn] datetime2
+	 ,[DeliveryModel] [int] NULL
 	 ,[Asdm_UpdatedDateTime] datetime2 default getdate()
  ,CONSTRAINT PK_aComt_Reg_Id PRIMARY KEY CLUSTERED (RegistrationId)
 )

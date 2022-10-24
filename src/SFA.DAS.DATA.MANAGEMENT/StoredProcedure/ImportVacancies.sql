@@ -409,7 +409,7 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
           ,Replace(Replace(Replace(Replace(Replace (Qualifications, '"', ''), '{', ''), '}',''),'[', ''), ']', '') as QualificationsRequired
           ,Replace(Replace(Replace(Replace(Replace (Skills, '"', ''), '{', ''), '}',''),'[', ''), ']', '') as PersonalQualities
 		  ,E.EmployerId                                            as EmployerId
-		  ,E.FullName                                              as EmployerFullName
+		  ,V.EmployerName                                          as EmployerFullName
 		  ,LE.LegalEntityId                                        as LegalEntityId
 		  ,LE.LegalEntityName                                      as LegalEntityName
 		  ,P.ProviderID                                            as ProviderId

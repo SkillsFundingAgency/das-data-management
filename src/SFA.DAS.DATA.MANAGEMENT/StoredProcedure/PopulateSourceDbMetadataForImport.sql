@@ -110,7 +110,7 @@ VALUES
 ,('EmpInc','Payment','incentives','[Id],[ApprenticeshipIncentiveId],[PendingPaymentId],[AccountId],[AccountLegalEntityId],[CalculatedDate],[PaidDate],[SubNominalCode],[PaymentPeriod],[PaymentYear],[Amount]','','',0)
 ,('EmpInc','PendingPayment','incentives','[Id],[AccountId],[ApprenticeshipIncentiveId],[DueDate],[Amount],[CalculatedDate],[PaymentMadeDate],[PeriodNumber],[PaymentYear],[AccountLegalEntityId],[EarningType],[ClawedBack]','','',0)
 ,('EmpInc','PendingPaymentValidationResult','incentives','[Id],[PendingPaymentId],[Step],[Result],[PeriodNumber],[PaymentYear],[CreatedDateUTC]','','',0)
-,('EmpInc','EmploymentCheck','incentives','[Id],[ApprenticeshipIncentiveId],[CheckType],[MinimumDate],[MaximumDate],[CorrelationId],[Result],[CreatedDateTime],[UpdatedDateTime],[ResultDateTime]','','',0)
+,('EmpInc','EmploymentCheck','incentives','[Id],[ApprenticeshipIncentiveId],[CheckType],[MinimumDate],[MaximumDate],[CorrelationId],[Result],[CreatedDateTime],[UpdatedDateTime],[ResultDateTime],[ErrorType]','','',0)
 
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL])

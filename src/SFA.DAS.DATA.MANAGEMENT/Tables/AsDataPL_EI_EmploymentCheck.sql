@@ -10,6 +10,7 @@
 	[CreatedDateTime]				[datetime2](7)		NOT NULL,
 	[UpdatedDateTime]				[datetime2](7)		NULL,
 	[ResultDateTime]				[datetime2](7)		NULL,
+	[ErrorType]						[nvarchar](50)		NULL,
 	[AsDm_UpdatedDateTime]			[datetime2]			default getdate()
 ) ON [PRIMARY]
 GO;

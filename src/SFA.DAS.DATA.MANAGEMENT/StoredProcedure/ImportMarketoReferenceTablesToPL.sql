@@ -52,7 +52,7 @@ Update ASData_PL.MarketoPrograms
 
  MERGE AsData_PL.MarketoPrograms as Target
  USING (SELECT *
-              ,CASE WHEN (Name Like 'MA%' OR updatedAt >= '2022-10-13') THEN CASE WHEN P2.Pos2=0 or P1.Pos1=0 or P3.Pos3=0 THEN '' ELSE CAST(CAST(CAST(substring(Name, P2.Pos2 + 1, P3.Pos3 - P2.Pos2 - 1) as char(8)) as date)as varchar(20)) END ELSE '' END as CampaignDate
+              ,CASE WHEN (Name Like 'MA%' OR updatedAt >= '2022-10-13') THEN CASE WHEN P2.Pos2=0 or P1.Pos1=0 or P3.Pos3=0 THEN '' ELSE CAST(TRY_CAST(CAST(substring(Name, P2.Pos2 + 1, P3.Pos3 - P2.Pos2 - 1) as char(8)) as date)as varchar(20)) END ELSE '' END as CampaignDate
               ,CASE WHEN (Name Like 'MA%' OR updatedAt >= '2022-10-13') THEN CASE WHEN P3.Pos3=0 or P4.Pos4=0 THEN '' ELSE substring(Name, P3.Pos3 + 1, P4.Pos4 - P3.Pos3 - 1) END ELSE '' END as CampaignName
               ,CASE WHEN (Name Like 'MA%' OR updatedAt >= '2022-10-13') THEN CASE WHEN P4.Pos4=0 or P5.Pos5=0 THEN '' ELSE substring(Name, P4.Pos4 + 1, P5.Pos5 - P4.Pos4 - 1) END ELSE '' END as CampaignCategory
 		      ,CASE WHEN (Name Like 'MA%' OR updatedAt >= '2022-10-13') THEN CASE WHEN P5.Pos5=0 and P6.Pos6=0 THEN ''

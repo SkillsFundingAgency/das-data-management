@@ -421,5 +421,6 @@
     <Build Include="StoredProcedure\GetChildPipelines.sql" />
     <Build Include="Tables\Management_Pipeline.sql" />
     <Build Include="Tables\Management_PipelineController.sql" />
+    <Build Include="StoredProcedure\PopulatePipelineController.sql" />
   </ItemGroup>
 </Project>

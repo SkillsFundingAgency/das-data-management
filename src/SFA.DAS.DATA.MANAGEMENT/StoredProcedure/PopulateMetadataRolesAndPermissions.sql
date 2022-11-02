@@ -87,6 +87,7 @@ VALUES
 ('BetaUser','ASData_PL','Comt_Apprenticeship','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','Comt_Commitment','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','Comt_ApprenticeshipConfirmationStatus','TABLE','SELECT',0,1),
+('BetaUser','ASData_PL','Comt_ApprenticeshipPriorLearning','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','Comt_ApprenticeshipUpdate','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','Comt_StandardOption','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','EI_ApprenticeshipBreakInLearning','TABLE','SELECT',0,1),

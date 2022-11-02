@@ -418,5 +418,6 @@
     <Build Include="Tables\AsDataPL_Comt_ChangeOfPartyRequest.sql" />
     <Build Include="Tables\AsDataPL_Va_VacancyWages.sql" />
     <Build Include="StoredProcedure\PopulateMinMaxWages.sql" />
+    <Build Include="Tables\ASDataPL_Comt_ApprenticeshipPriorLearning.sql" />
   </ItemGroup>
 </Project>

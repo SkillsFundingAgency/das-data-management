@@ -46,7 +46,9 @@ EXEC [dbo].[PopulateMetadataDataRetention] @RunId
 
 EXEC [dbo].[PopulateMetadataRolesAndPermissions] @RunId
 
+EXEC [dbo].[PopulatePipelineController] @RunId
 
 /* Grant Permissions to Roles -- Should always be kept last */
 
 EXEC [dbo].[AssignPermissionsToRoles] @RunId
+

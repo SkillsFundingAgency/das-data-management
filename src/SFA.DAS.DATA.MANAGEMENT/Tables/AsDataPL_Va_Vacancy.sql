@@ -2,7 +2,7 @@
 (
  VacancyId BIGINT IDENTITY(1,1) PRIMARY KEY
 ,VacancyGuid varchar(256)
-,VacancyReferenceNumber int
+,VacancyReferenceNumber bigint
 ,VacancyStatus Varchar(100)
 ,VacancyTitle nvarchar(max)
 ,VacancyPostcode varchar(256)

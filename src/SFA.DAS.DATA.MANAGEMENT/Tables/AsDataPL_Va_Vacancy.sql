@@ -2,15 +2,15 @@
 (
  VacancyId BIGINT IDENTITY(1,1) PRIMARY KEY
 ,VacancyGuid varchar(256)
-,VacancyReferenceNumber bigint
+,VacancyReferenceNumber int
 ,VacancyStatus Varchar(100)
 ,VacancyTitle nvarchar(max)
 ,VacancyPostcode varchar(256)
-,VacancyAddressLine1 nvarchar(max)
-,VacancyAddressLine2 nvarchar(max)
-,VacancyAddressLine3 nvarchar(max)
-,VacancyAddressLine4 nvarchar(max)
-,VacancyAddressLine5 nvarchar(max)
+,VacancyAddressLine1 nvarchar(256)
+,VacancyAddressLine2 nvarchar(256)
+,VacancyAddressLine3 nvarchar(256)
+,VacancyAddressLine4 nvarchar(256)
+,VacancyAddressLine5 nvarchar(256)
 ,VacancyTown nvarchar(128)
 ,SkillsRequired nvarchar(max)
 ,QualificationsRequired nvarchar(max)

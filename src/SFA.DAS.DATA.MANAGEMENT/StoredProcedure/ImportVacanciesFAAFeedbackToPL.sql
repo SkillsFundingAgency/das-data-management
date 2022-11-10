@@ -49,14 +49,14 @@ INSERT INTO ASData_PL.Va_FaaFeedback
 	  ,SourceFeedbackId 
       ,SourceDb 
 )
-SELECT dbo.Fn_ConvertTimeStampToDateTime(DateCreatedTimeStamp)      as DateCreatedTimeStamp
-	  ,UserId                                                       as UserId
-	  ,TypeCode                                                     as TypeCode
-	  ,Enquiry                                                      as Enquiry
-	  ,Details                                                      as Feedback
-	  ,BinaryId                                                     as SourceFeedbackId
+SELECT dbo.Fn_ConvertTimeStampToDateTime(Fb.DateCreatedTimeStamp)      as DateCreatedTimeStamp
+	  ,Fb.UserId                                                       as UserId
+	  ,Fb.TypeCode                                                     as TypeCode
+	  ,Fb.Enquiry                                                      as Enquiry
+	  ,Fb.Details                                                      as Feedback
+	  ,Fb.BinaryId                                                     as SourceFeedbackId
 	  ,'FAA'                                                           as SourceDb
-  FROM Stg.FAA_Feedback 
+  FROM Stg.FAA_Feedback Fb
 
   
 

@@ -113,40 +113,6 @@ SELECT [ApprenticeshipId]
            ,[CandidateEmail]
   FROM Stg.Comt_ApprenticeshipCandidateRegDetails
 
-/* Import LocalAuthority to PL */
-
-DELETE FROM [ASData_PL].[Va_LocalAuthority]
- 
-INSERT INTO [ASData_PL].[Va_LocalAuthority]
-           ([LocalAuthorityId]
-		  ,[CodeName]
-		  ,[ShortName]
-		  ,[FullName]
-		  ,[CountyId]
-		   )
-SELECT    [LocalAuthorityId]
-		  ,[CodeName]
-		  ,[ShortName]
-		  ,[FullName]
-		  ,[CountyId]
-  FROM Stg.Avms_LocalAuthority
-
-/* Import County to PL */
-
-DELETE FROM [ASData_PL].[Va_County]
-
-INSERT INTO [ASData_PL].[Va_County]
-           ([CountyId]
-           ,[CodeName]
-           ,[ShortName]
-           ,[FullName]
-		   )
-SELECT [CountyId]
-           ,[CodeName]
-           ,[ShortName]
-           ,[FullName]
-  FROM Stg.Avms_County
-  
 
 COMMIT TRANSACTION
 

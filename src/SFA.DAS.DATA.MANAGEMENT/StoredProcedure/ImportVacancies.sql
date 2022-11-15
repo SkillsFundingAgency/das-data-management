@@ -387,7 +387,7 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
            ,[SourceVacancyId]
            ,[SourceDb])
    SELECT  cast(v.BinaryId as varchar(256))                        as VacancyGuid
-	      ,cast(VacancyReference as int)                           as VacancyReference
+	      ,cast(VacancyReference as bigint)                           as VacancyReference
 		  ,cast(VacancyStatus as varchar(100))                     as VacancyStatus
 		  ,VacancyTitle                                            as VacancyTitle
 		  ,CASE WHEN len(EmployerPostCode)>8 

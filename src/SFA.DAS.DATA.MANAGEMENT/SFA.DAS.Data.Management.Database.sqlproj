@@ -423,5 +423,6 @@
     <Build Include="Tables\Management_PipelineController.sql" />
     <Build Include="StoredProcedure\PopulatePipelineController.sql" />
     <Build Include="Tables\ASDataPL_Comt_ApprenticeshipPriorLearning.sql" />
+    <Build Include="StoredProcedure\ImportVaCountyLocalAuthorityToPL.sql" />
   </ItemGroup>
 </Project>

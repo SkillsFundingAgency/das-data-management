@@ -187,6 +187,7 @@ VALUES
 ('DataAnalyst','dbo','ReferenceData','TABLE','SELECT',0,1),
 ('DataAnalyst','ASData_PL','FAT2_StandardSector','TABLE','SELECT',0,1),
 ('DataAnalyst','ASData_PL','PFBE_EmployerFeedback','TABLE','SELECT',0,1),
+('DataAnalyst','ASData_PL','Appfb_ApprenticeFeedback','VIEW','SELECT',0,1),
 ('DataAnalyst','lkp','','','SELECT',1,1),
 /* DataGov */
 --('DataGov','ASData_PL','MarketoActivityTypes','TABLE','SELECT',0,1),

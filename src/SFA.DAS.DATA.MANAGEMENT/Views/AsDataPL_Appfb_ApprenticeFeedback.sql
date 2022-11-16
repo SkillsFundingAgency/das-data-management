@@ -198,5 +198,3 @@ FROM LatestResultsCTE lr
         ON at.ApprenticeshipId = app.Id
 WHERE [Published_FAT?] = 1 -- Only included FAT published in results for DWH
 
-ORDER BY UKPRN,
-         AttributeId

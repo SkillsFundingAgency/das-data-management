@@ -49,8 +49,8 @@ INSERT INTO [ASData_PL].[Va_Candidate]
            --,[LocalAuthorityId]
            --,[LocalAuthorityName]
            --,[UniqueLearnerNumber]
-           --,[Gender]
-           ,[ApplicationLimitEnforced_v1]
+           ,[Gender]		   
+		   ,[ApplicationLimitEnforced_v1]
            ,[LastAccessedDate_v1]
            ,[LastAccessedManageApplications_v1]
            ,[BeingSupportedBy_v1]
@@ -93,7 +93,7 @@ SELECT C.CandidateStatusTypeId                        as CandidateStatusTypeId
     on c.CandidateId= ch.CandidateId
   left
   join Stg.Avms_CandidateAgePostCode CAPC
-    ON CAPC.CandidateId=c.CandidateId
+    ON CAPC.CandidateId=c.CandidateId  
  WHERE NOT EXISTS (SELECT 1 FROM Stg.FAA_Users FU WHERE FU.BinaryId=dbo.Fn_ConvertGuidToBase64(C.CandidateGuid))
  union
  /* Candidates that are In Cosmos Db but not in AVMS */

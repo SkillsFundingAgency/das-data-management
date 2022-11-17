@@ -9,7 +9,8 @@
       ,[LocalAuthorityId] int
 	  ,[LocalAuthorityName] Varchar(255)
       ,[UniqueLearnerNumber] Bigint
-      ,[Gender] Int
+      ,[Gender] nvarchar(50)
+      ,[DisabilityStatus] nvarchar(255)
       ,[ApplicationLimitEnforced_v1] Bit
       ,[LastAccessedDate_v1] DateTime
       ,[LastAccessedManageApplications_v1] datetime

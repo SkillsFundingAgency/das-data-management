@@ -427,5 +427,9 @@
     <Build Include="StoredProcedure\ImportVaCountyLocalAuthorityToPL.sql" />
     <Build Include="Tables\Stg_FAA_CandidateEducationHistory.sql" />
     <Build Include="Tables\Stg_FAA_CandidateGenderDisabilityStatus.sql" />
+    <Build Include="StoredProcedure\LoadCandidateGendrLookup.sql" />
+    <Build Include="Tables\Stg_CandidateGenderConfig.sql" />
+    <Build Include="StoredProcedure\LoadCandidateDisabilityLookup.sql" />
+    <Build Include="Tables\Stg_CandidateDisabilityConfig.sql" />
   </ItemGroup>
 </Project>

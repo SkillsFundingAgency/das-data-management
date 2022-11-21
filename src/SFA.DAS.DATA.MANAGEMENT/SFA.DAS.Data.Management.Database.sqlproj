@@ -401,6 +401,8 @@
     <Build Include="Views\PdsAI_PT_CompaniesHouseFromBlob.sql" />
     <Build Include="Tables\Stg_CmphsBlobRejectedRecords.sql" />
     <Build Include="Functions\Fn_RemoveHTMLTags.sql" />
+    <Build Include="Functions\Fn_CleanseHTMLText.sql" />
+    <Build Include="Functions\Fn_CleanseJSONText.sql" />
     <Build Include="Tables\Management_Log_Marketo_ExportJobDetails.sql" />
     <Build Include="Tables\ASDataPL_LTM_ApplicationCostProjection.sql" />
     <Build Include="Tables\AsDataPL_Comt_ApprenticeshipFlexibleEmployment.sql" />

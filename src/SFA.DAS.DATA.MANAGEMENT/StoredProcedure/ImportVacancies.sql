@@ -137,9 +137,9 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
            ,v.AddressLine4                                    as VacancyAddressLine4
            ,v.AddressLine5                                    as VacancyAddressLine5
            ,v.Town                                            as VacancyTown
-           ,dbo.fn_RemoveHtmlTags(sr.skillsrequired)          as SkillsRequired
-		   ,dbo.fn_RemoveHtmlTags(QR.QualificationsRequired)  as QualificationsRequired
-           ,dbo.Fn_RemoveHtmlTags(PQ.PersonalQualities)       as PersonalQualities
+           ,dbo.Fn_CleanseHTMLText(sr.skillsrequired)          as SkillsRequired
+		   ,dbo.Fn_CleanseHTMLText(QR.QualificationsRequired)  as QualificationsRequired
+           ,dbo.Fn_CleanseHTMLText(PQ.PersonalQualities)       as PersonalQualities
 	       ,E.EmployerId                                      as EmployerId
            ,E.FullName                                        as EmployerFullNAME
            ,P.ProviderID                                      as ProviderId
@@ -149,7 +149,7 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
 	 --  , psrt.ProviderSiteRelationshipTypeName as ProviderSiteRelationshipType
 	       ,AT.FullName                                       as ApprenticeshipType
            ,v.[ShortDescription]                              as VacancyShortDescription
-           ,dbo.Fn_RemoveHtmlTags(v.[Description])            as VacancyDescription
+           ,dbo.Fn_CleanseHTMLText(v.[Description])            as VacancyDescription
            ,v.[NumberofPositions]                             as NumberOfPositions
 	       ,CASE WHEN V.ApprenticeshipFrameworkId is not null 
                  then AF.ApprenticehipOccupationFullName
@@ -387,7 +387,7 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
            ,[SourceVacancyId]
            ,[SourceDb])
    SELECT  cast(v.BinaryId as varchar(256))                        as VacancyGuid
-	      ,cast(VacancyReference as int)                           as VacancyReference
+	      ,cast(VacancyReference as bigint)                           as VacancyReference
 		  ,cast(VacancyStatus as varchar(100))                     as VacancyStatus
 		  ,VacancyTitle                                            as VacancyTitle
 		  ,CASE WHEN len(EmployerPostCode)>8 
@@ -405,9 +405,9 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
           ,EmployerAddressLine3                                    as VacancyAddressLine3
           ,EmployerAddressLine4                                    as VacancyAddressLine4
           ,COALESCE(EmployerAddressLine4,EmployerAddressLine3,EmployerAddressLine2) as VacancyTown
-          ,Replace(Replace(Replace(Replace(Replace (Skills, '"', ''), '{', ''), '}',''),'[', ''), ']', '') as SkillsRequired
-          ,Replace(Replace(Replace(Replace(Replace (Qualifications, '"', ''), '{', ''), '}',''),'[', ''), ']', '') as QualificationsRequired
-          ,Replace(Replace(Replace(Replace(Replace (Skills, '"', ''), '{', ''), '}',''),'[', ''), ']', '') as PersonalQualities
+          ,dbo.Fn_CleanseJSONText([Skills])  as SkillsRequired
+          ,dbo.Fn_CleanseJSONText([Qualifications]) as QualificationsRequired
+          ,dbo.Fn_CleanseJSONText([Skills]) as PersonalQualities
 		  ,E.EmployerId                                            as EmployerId
 		  ,V.EmployerName                                          as EmployerFullName
 		  ,LE.LegalEntityId                                        as LegalEntityId
@@ -417,8 +417,8 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
 	      ,v.TrainingProviderName                                  as ProviderName
 		  ,v.TrainingProviderName                                  as ProviderTradingName
 		  ,EL.EducationLevelFullName +' Level Apprenticeship'      as ApprenticeshipType
-          ,dbo.fn_removehtmltags([VacancyDescription])             as VacancyShortDesc
-          ,dbo.fn_removehtmltags([VacancyDescription])             as VacancyDesc
+          ,dbo.Fn_CleanseHTMLText([VacancyDescription])             as VacancyShortDesc
+          ,dbo.Fn_CleanseHTMLText([VacancyDescription])             as VacancyDesc
 		  ,cast(v.NumberOfPositions as int)                        as NumberOfPositions
 	      ,CASE WHEN AP.ApprenticeshipType='Standard' THEN ST.StandardSectorName
                 WHEN AP.ApprenticeshipType='Framework' then AF.ApprenticehipOccupationFullName

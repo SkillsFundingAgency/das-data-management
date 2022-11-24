@@ -113,7 +113,7 @@ SELECT [ApprenticeshipId]
            ,[CandidateEmail]
   FROM Stg.Comt_ApprenticeshipCandidateRegDetails
 
-       
+
 COMMIT TRANSACTION
 
 UPDATE Mgmt.Log_Execution_Results

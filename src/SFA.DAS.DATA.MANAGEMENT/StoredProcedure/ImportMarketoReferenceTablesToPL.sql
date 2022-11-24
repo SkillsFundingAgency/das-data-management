@@ -52,23 +52,23 @@ Update ASData_PL.MarketoPrograms
 
  MERGE AsData_PL.MarketoPrograms as Target
  USING (SELECT *
-              ,CASE WHEN (Name Like 'MA%' OR updatedAt >= '2022-10-13') THEN CASE WHEN P2.Pos2=0 or P1.Pos1=0 or P3.Pos3=0 THEN '' ELSE CAST(TRY_CAST(CAST(substring(Name, P2.Pos2 + 1, P3.Pos3 - P2.Pos2 - 1) as char(8)) as date)as varchar(20)) END ELSE '' END as CampaignDate
+ ,CASE WHEN (Name Like 'MA%' OR updatedAt >= '2022-10-13') THEN CASE WHEN P2.Pos2=0 or P1.Pos1=0 or P3.Pos3=0 THEN '' ELSE CASE WHEN LEN(substring(Name, P2.Pos2 + 1, P3.Pos3 - P2.Pos2 - 1)) = 6 OR LEN(substring(Name, P2.Pos2 + 1, P3.Pos3 - P2.Pos2 - 1)) =8 THEN CAST(ISNULL(TRY_CAST(CAST(substring(Name, P2.Pos2 + 1, P3.Pos3 - P2.Pos2 - 1) as char(8)) as date),'')as varchar(20)) ELSE '' END END ELSE '' END as CampaignDate
               ,CASE WHEN (Name Like 'MA%' OR updatedAt >= '2022-10-13') THEN CASE WHEN P3.Pos3=0 or P4.Pos4=0 THEN '' ELSE substring(Name, P3.Pos3 + 1, P4.Pos4 - P3.Pos3 - 1) END ELSE '' END as CampaignName
               ,CASE WHEN (Name Like 'MA%' OR updatedAt >= '2022-10-13') THEN CASE WHEN P4.Pos4=0 or P5.Pos5=0 THEN '' ELSE substring(Name, P4.Pos4 + 1, P5.Pos5 - P4.Pos4 - 1) END ELSE '' END as CampaignCategory
-		      ,CASE WHEN (Name Like 'MA%' OR updatedAt >= '2022-10-13') THEN CASE WHEN P5.Pos5=0 and P6.Pos6=0 THEN ''
-			                                       WHEN P5.Pos5<>0 and P6.Pos6=0 and substring(Name, P5.Pos5 + 1, len(Name)) like 'Week%' THEN substring(Name, P5.Pos5 + 1, len(Name))
-												   WHEN P5.Pos5<>0 and P6.Pos6<>0 THEN substring(Name, P5.Pos5 + 1, P6.Pos6 - P5.Pos5 - 1)													 
-												   ELSE ''
-											   END 
-					ELSE '' 
-					 END as CampaignWeekName
-		      ,CASE WHEN (Name Like 'MA%' OR updatedAt >= '2022-10-13') THEN case when P6.Pos6=0 and substring(Name, P5.Pos5 + 1, len(Name)) not like 'Week%' THEN substring(Name, P5.Pos5 + 1, len(Name)) 
-			                                       when P6.Pos6=0 and substring(Name, P5.Pos5 + 1, len(Name)) like 'Week%' THEN ''
-												   when P6.Pos6<>0 THEN substring(Name, P6.Pos6 + 1, len(Name)) 
-												   ELSE '' 
-											   end
-					ELSE ''
-				     END as TargetAudience
+       ,CASE WHEN (Name Like 'MA%' OR updatedAt >= '2022-10-13') THEN CASE WHEN P5.Pos5=0 and P6.Pos6=0 THEN ''
+                                        WHEN P5.Pos5<>0 and P6.Pos6=0 and substring(Name, P5.Pos5 + 1, len(Name)) like 'Week%' THEN substring(Name, P5.Pos5 + 1, len(Name))
+    WHEN P5.Pos5<>0 and P6.Pos6<>0 THEN substring(Name, P5.Pos5 + 1, P6.Pos6 - P5.Pos5 - 1) 
+    ELSE ''
+    END
+ ELSE ''
+ END as CampaignWeekName
+       ,CASE WHEN (Name Like 'MA%' OR updatedAt >= '2022-10-13') THEN case when P6.Pos6=0 and substring(Name, P5.Pos5 + 1, len(Name)) not like 'Week%' THEN substring(Name, P5.Pos5 + 1, len(Name))
+                                        when P6.Pos6=0 and substring(Name, P5.Pos5 + 1, len(Name)) like 'Week%' THEN ''
+    when P6.Pos6<>0 THEN substring(Name, P6.Pos6 + 1, len(Name))
+    ELSE ''
+    end
+ ELSE ''
+      END as TargetAudience
          FROM Stg.MarketoPrograms
   cross apply (select (charindex('_', Name))) as P1(Pos1)
   cross apply (select (charindex('_', Name, P1.Pos1+1))) as P2(Pos2)

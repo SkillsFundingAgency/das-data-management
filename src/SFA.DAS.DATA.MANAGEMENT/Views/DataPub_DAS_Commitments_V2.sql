@@ -131,10 +131,10 @@
 			  , ISNULL(EIP.PaidDateCount,0)																	As PaidDateCount
 			  , A.StopDate																					As StopDate
 			  , [PledgeApplicationId]																		As [PledgeApplicationId]
-			  , [DeliveryModel]  
+			  , [DeliveryModel]                                                                             As [DeliveryModel]
 			  , rpl.[DurationReducedBy]
       		  , rpl.[PriceReducedBy]
-      		  , rpl.[IsAccelerated]                                                                           As [DeliveryModel]
+      		  , rpl.[IsAccelerated]
 	FROM [ASData_PL].[Comt_Commitment] C 
 	LEFT JOIN [ASData_PL].[Comt_Apprenticeship] A
 	  ON C.Id=A.CommitmentId

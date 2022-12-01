@@ -118,7 +118,7 @@ VALUES
 ('BetaUser','ASData_PL','FAT2_ShortList','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','FAT2_StandardLocation','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','FAT2_StandardSector','TABLE','SELECT',0,1),
-('BetaUser','ASData_PL','GA_SessionData','TABLE','SELECT',0,1),
+
 --('BetaUser','ASData_PL','LTM_Application','TABLE','SELECT',0,1),
 --('BetaUser','ASData_PL','LTM_ApplicationEmailAddress','TABLE','SELECT',0,1),
 --('BetaUser','ASData_PL','LTM_Pledge','TABLE','SELECT',0,1),
@@ -154,7 +154,6 @@ VALUES
 ('BetaUser','ASData_PL','Va_LegalEntity','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','Va_Provider','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','Va_Vacancy','TABLE','SELECT',0,1),
-('BetaUser','Stg','GA_SessionDataDetail','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','DAS_UserAccountLegalEntity','VIEW','SELECT',0,1),
 ('BetaUser','ASData_PL','DAS_Users','VIEW','SELECT',0,1),
 ('BetaUser','dbo','DataDictionary','VIEW','SELECT',0,1),

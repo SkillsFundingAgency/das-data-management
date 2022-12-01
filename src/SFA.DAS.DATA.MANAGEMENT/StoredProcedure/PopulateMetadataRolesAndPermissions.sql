@@ -118,7 +118,6 @@ VALUES
 ('BetaUser','ASData_PL','FAT2_ShortList','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','FAT2_StandardLocation','TABLE','SELECT',0,1),
 ('BetaUser','ASData_PL','FAT2_StandardSector','TABLE','SELECT',0,1),
-
 --('BetaUser','ASData_PL','LTM_Application','TABLE','SELECT',0,1),
 --('BetaUser','ASData_PL','LTM_ApplicationEmailAddress','TABLE','SELECT',0,1),
 --('BetaUser','ASData_PL','LTM_Pledge','TABLE','SELECT',0,1),

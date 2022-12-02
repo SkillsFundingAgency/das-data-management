@@ -70,8 +70,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Database.publish.xml" />
-    <None Include="StoredProcedure\Blank.txt" />
-    <None Include="Views\Blank1.txt" />
     <Build Include="Schemas\Comt.sql" />
     <PostDeploy Include="PostDeployment\PostDeployment.sql" />
     <Build Include="Schemas\Mgmt.sql" />

@@ -53,7 +53,12 @@ INSERT INTO [Mgmt].[Pipeline]
 ,(17,'ImportLTMToDM')
 ,(18,'ImportAppfbToDM')
 ,(19,'ImportRofjaaToDM')
-
+,(100,'Master-ImportVacanciesToDataMart')
+,(101,'ImportRAAToDataMart')
+,(102,'ImportAvmsToDataMart')
+,(103,'ImportAvmsCandidateToDataMart')
+,(104,'ImportFAACandidateToDataMart')
+,(105,'ImportFAAToDataMart')
 
 DELETE FROM [Mgmt].[Config_PipelineController]
 
@@ -78,6 +83,11 @@ VALUES
 ,(1	,17	,1	,17)
 ,(1	,18	,1	,18)
 ,(1	,19	,1	,19)
+,(100,101,1	,1)
+,(100,102,1	,2)
+,(100,103,1	,3)
+,(100,104,1	,4)
+,(100,105,1	,5)
 
 COMMIT TRANSACTION
 

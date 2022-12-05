@@ -24,12 +24,6 @@ IF EXISTS ( SELECT * FROM sys.external_tables WHERE object_id = OBJECT_ID('dbo.E
 GO
 
 
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
-            WHERE TABLE_NAME = N'Stg_FIU_GA_Feedback'
-		      AND TABLE_SCHEMA=N'fdb'
-	      )
-DROP TABLE [fdb].[Stg_FIU_GA_Feedback]
-
 
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
             WHERE TABLE_NAME = N'JobProgress'
@@ -117,24 +111,12 @@ IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
 	      )
 DROP TABLE [Mtd].Commitments_Metadata
 
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
-            WHERE TABLE_NAME = N'Metadata_GA_Hierarchy'
-		      AND TABLE_SCHEMA=N'Mtd'
-	      )
-DROP TABLE [Mtd].Metadata_GA_Hierarchy
-
 
 IF EXISTS (select * from INFORMATION_SCHEMA.ROUTINES
             where ROUTINE_NAME='usp_Manage_Commitments_Lookup'
               and ROUTINE_SCHEMA='Mtd'
 		  )
 DROP PROCEDURE Mtd.uSP_Manage_Commitments_Lookup
-
-IF EXISTS (select * from INFORMATION_SCHEMA.ROUTINES
-            where ROUTINE_NAME='usp_Manage_GA_Hierarchy_Metadata'
-              and ROUTINE_SCHEMA='Mtd'
-		  )
-DROP PROCEDURE Mtd.usp_Manage_GA_Hierarchy_Metadata
 
 
 IF EXISTS (select * from INFORMATION_SCHEMA.ROUTINES
@@ -239,9 +221,6 @@ DROP VIEW IF EXISTS dbo.vw_CommitmentSummary ;
 
 DROP VIEW IF EXISTS vw_Commitments_Apprenticeship_Details;
 
-DROP VIEW IF EXISTS dbo.vw_FIU_GA_Data ; 
-
-DROP VIEW IF EXISTS dbo.vw_FIU_GA_Segmented_View;
 
 /* Clear Previous Runs to allow Changing Run_Id to RunID */
 
@@ -559,14 +538,6 @@ IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
 		      AND TABLE_SCHEMA=N'AsData_PL'
 	      )
 DROP TABLE ASData_PL.EI_Accounts
-
-
-/* Drop GA_SessionData Table as the same new versioned table deployed GA_SessionDataDetail */
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
-            WHERE TABLE_NAME = N'GA_SessionData'
-		      AND TABLE_SCHEMA=N'Stg'
-	      )
-DROP TABLE [Stg].[GA_SessionData]
 
 /* Drop Salt Key Log and move to a different schema */
 

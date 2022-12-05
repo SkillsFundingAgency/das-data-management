@@ -70,8 +70,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Database.publish.xml" />
-    <None Include="StoredProcedure\Blank.txt" />
-    <None Include="Views\Blank1.txt" />
     <Build Include="Schemas\Comt.sql" />
     <PostDeploy Include="PostDeployment\PostDeployment.sql" />
     <Build Include="Schemas\Mgmt.sql" />
@@ -248,7 +246,6 @@
     <Build Include="Tables\AsDataPL_EI_CollectionCalendar.sql" />
     <Build Include="Schemas\Comp.sql" />
     <Build Include="Views\Comp_DAS_Compliance_Report .sql" />
-    <Build Include="Tables\Stg_GA_SessionDataDetail.sql" />
     <Build Include="Tables\ASDataPL_FAT2_NationalAchievementRate.sql" />
     <Build Include="Tables\ASDataPL_FAT2_NationalAchievementRateOverall.sql" />
     <Build Include="Tables\ASDataPL_FAT2_ProviderRegistration.sql" />
@@ -272,8 +269,6 @@
     <Build Include="Tables\ASDataPL_EI_ApprenticeshipDaysInLearning.sql" />
     <Build Include="Tables\ASDataPL_EI_PendingPaymentValidationResult.sql" />
     <Build Include="Tables\ASDataPL_EI_Payment.sql" />
-    <Build Include="StoredProcedure\ImportGASessionDataToPL.sql" />
-    <Build Include="Tables\ASDataPL_GA_SessionData.sql" />
     <Build Include="Tables\Stg_FAA_Apprenticeships.sql" />
     <Build Include="Tables\Stg_FAA_CandidateDob.sql" />
     <Build Include="Tables\Stg_FAA_CandidatePostCode.sql" />
@@ -329,7 +324,6 @@
     <Build Include="Tables\AsDataPL_Assessor_OrganisationStandardDeliveryArea.sql" />
     <Build Include="Tables\AsDataPl_Assessor_OrganisationStandardVersion.sql" />
     <Build Include="TablePartitions\DatePartition.sql" />
-    <Build Include="Tables\ASDataPL_GA_DataForReporting.sql" />
     <Build Include="Tables\AsDataPL_AED_CourseDemand.sql" />
     <Build Include="Tables\AsDataPL_AED_ProviderInterest.sql" />
     <Build Include="Tables\AsDataPL_AED_CourseDemandNotificationAudit.sql" />

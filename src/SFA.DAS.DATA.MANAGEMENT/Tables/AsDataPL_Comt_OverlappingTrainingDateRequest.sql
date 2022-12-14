@@ -7,6 +7,7 @@
 	[Status] SMALLINT NOT NULL, 
 	[CreatedOn] DATETIME2 NOT NULL ,
 	[ActionedOn] DATETIME2 NULL,
-	[NotifiedServiceDeskOn] DATETIME2 NULL
+	[NotifiedServiceDeskOn] DATETIME2 NULL,
+	[AsDm_UpdatedDateTime] datetime2 default getdate()
 )
 GO

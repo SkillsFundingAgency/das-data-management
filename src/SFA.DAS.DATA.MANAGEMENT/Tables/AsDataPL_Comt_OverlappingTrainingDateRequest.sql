@@ -4,7 +4,7 @@
 	[DraftApprenticeshipId] BIGINT NOT NULL,
 	[PreviousApprenticeshipId] BIGINT NOT NULL,
 	[ResolutionType] SMALLINT NULL,
-	[Status] SMALLINT NOT NULL DEFAULT 0, 
+	[Status] SMALLINT NOT NULL, 
 	[CreatedOn] DATETIME2 NOT NULL ,
 	[ActionedOn] DATETIME2 NULL,
 	[NotifiedServiceDeskOn] DATETIME2 NULL,

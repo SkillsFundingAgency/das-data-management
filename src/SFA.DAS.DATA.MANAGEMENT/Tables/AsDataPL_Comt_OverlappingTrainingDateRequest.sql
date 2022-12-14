@@ -8,7 +8,7 @@
 	[CreatedOn] DATETIME2 NOT NULL ,
 	[ActionedOn] DATETIME2 NULL,
 	[NotifiedServiceDeskOn] DATETIME2 NULL,
-	[RowVersion] timestamp NOT NULL,
-	[AsDm_UpdatedDateTime] datetime2 default getdate()
+	[RowVersion] timestamp NULL
+	
 )
 GO

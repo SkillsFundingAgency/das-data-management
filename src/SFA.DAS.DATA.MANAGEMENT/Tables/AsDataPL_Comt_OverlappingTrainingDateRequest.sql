@@ -7,7 +7,6 @@
 	[Status] SMALLINT NOT NULL, 
 	[CreatedOn] DATETIME2 NOT NULL ,
 	[ActionedOn] DATETIME2 NULL,
-	[NotifiedServiceDeskOn] DATETIME2 NULL,
-	[RowVersion] timestamp NULL
+	[NotifiedServiceDeskOn] DATETIME2 NULL
 )
 GO

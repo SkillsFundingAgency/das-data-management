@@ -151,7 +151,7 @@ VALUES
 ,('Reservation','Course','dbo','[CourseId],[Title],[Level],[EffectiveTo]','','','resv_Course',0)
 
 /* Commitments Query Based Import */
-
+/*
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,StagingTableName,PLTableName,[ModelDataToPL],[IsQueryBasedImport],SourceQuery)
 VALUES
@@ -162,7 +162,7 @@ INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
 VALUES
 ('Commitments','ChangeOfPartyRequest','dbo','[Id],[ApprenticeshipId],[DeliveryModel]','','','Comt_ChangeOfPartyRequest',0,1) 
-
+*/
 /* Redundancy */
 
 INSERT INTO Mtd.SourceConfigForImport

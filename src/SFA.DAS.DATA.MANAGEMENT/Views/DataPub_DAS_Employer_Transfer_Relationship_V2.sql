@@ -15,7 +15,7 @@
 			  ,ISNULL(Cast (1 AS BIT),-1)									as IsLatest
 			  ,CAST(b.Hashedid as nvarchar(100))							as SenderDasAccountID
 			  ,CAST(c.Hashedid as nvarchar(100))							as RecieverDasAccountID
-   FROM [ASData_PL].[Acc_TransferConnectionInvitation] a
+   FROM [ASData_PL].[Fin_TransferConnectionInvitation] a
      LEFT JOIN [ASData_PL].[Acc_Account]  b
    ON a.[SenderAccountId] = b.Id
      LEFT JOIN [ASData_PL].[Acc_Account] c
@@ -25,7 +25,7 @@
 		    SELECT TransferConnectionInvitationID
 			       , max(CreatedDate) as CreatedDate 
 				   , max(UserId) as UserID
-			FROM [ASData_PL].[Acc_TransferConnectionInvitationChange]
+			FROM [ASData_PL].[Fin_TransferConnectionInvitationChange]
 			WHERE [Status] = 1
 			GROUP BY TransferConnectionInvitationID
 		  ) d
@@ -35,7 +35,7 @@
 		    SELECT TransferConnectionInvitationID
 			       , max(CreatedDate) as CreatedDate 
 				   , max(UserId) as UserID
-			FROM [ASData_PL].[Acc_TransferConnectionInvitationChange]
+			FROM [ASData_PL].[Fin_TransferConnectionInvitationChange]
 			WHERE [Status] = 2
 			GROUP BY TransferConnectionInvitationID
 		  ) e
@@ -45,7 +45,7 @@
 		    SELECT TransferConnectionInvitationID
 			       , max(CreatedDate) as CreatedDate 
 				   , max(UserId) as UserID
-			FROM [ASData_PL].[Acc_TransferConnectionInvitationChange]
+			FROM [ASData_PL].[Fin_TransferConnectionInvitationChange]
 			WHERE [Status] = 3
 			GROUP BY TransferConnectionInvitationID
 		  ) f
@@ -54,7 +54,7 @@
 	      (
 		    SELECT TransferConnectionInvitationID,
 			        max(CreatedDate) as CreatedDate 
-			FROM [ASData_PL].[Acc_TransferConnectionInvitationChange]
+			FROM [ASData_PL].[Fin_TransferConnectionInvitationChange]
 			GROUP BY TransferConnectionInvitationID
 		  ) g
 	ON a.id = g.TransferConnectionInvitationID

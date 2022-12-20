@@ -1,4 +1,4 @@
-﻿CREATE TABLE [ASData_PL].[Acc_TransferConnectionInvitationChange]
+﻿CREATE TABLE [ASData_PL].[Fin_TransferConnectionInvitationChange]
 (
 	[Id] [int] NOT NULL,
 	[TransferConnectionInvitationId] [int] NOT NULL,
@@ -10,5 +10,5 @@
 	[UserId] [bigint] NOT NULL,
 	[CreatedDate] [datetime] NOT NULL,
 	[AsDm_UpdatedDateTime] datetime2 default getdate(),
-	CONSTRAINT PK_Acc_TransferConnectionInvitationChange_Id PRIMARY KEY CLUSTERED (Id)
+	CONSTRAINT PK_Fin_TransferConnectionInvitationChange_Id PRIMARY KEY CLUSTERED (Id)
 ) ON [PRIMARY]

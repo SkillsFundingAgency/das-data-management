@@ -191,8 +191,8 @@
     <Build Include="StoredProcedure\CreateDataDictionaryView.sql" />
     <Build Include="Tables\AsDataPL_Acc_AccountHistory.sql" />
     <Build Include="Tables\AsDataPL_Acc_Paye.sql" />
-    <Build Include="Tables\AsDataPL_Acc_TransferConnectionInvitation.sql" />
-    <Build Include="Tables\AsDataPL_Acc_TransferConnectionInvitationChange.sql" />
+    <Build Include="Tables\AsDataPL_Fin_TransferConnectionInvitation.sql" />
+    <Build Include="Tables\AsDataPL_FIn_TransferConnectionInvitationChange.sql" />
     <Build Include="Tables\AsDataPL_Comt_Apprenticeship.sql" />
     <Build Include="Tables\AsDataPL_Comt_Commitment.sql" />
     <Build Include="Tables\AsDataPL_Fin_AccountTransfers.sql" />

@@ -379,7 +379,7 @@ VALUES
  ('Appfb','ApprenticeFeedbackTarget','dbo','[Id],[ApprenticeId],[ApprenticeshipId],[Status],[ProviderName],[LarsCode],[StandardName],[FeedbackEligibility],[EligibilityCalculationDate],[CreatedOn],[UpdatedOn]','[StartDate],[EndDate],[StandardUId]','[Ukprn]','Appfb_ApprenticeFeedbackTarget',0,1)
 ,('Appfb','ApprenticeFeedbackResult','dbo','[Id],[ApprenticeFeedbackTargetId],[StandardUId],[DateTimeCompleted],[ProviderRating],[AllowContact]','','','Appfb_ApprenticeFeedbackResult',0,1)
 ,('Appfb','ProviderAttribute','dbo','[ApprenticeFeedbackResultId],[AttributeId],[AttributeValue]','','','Appfb_ProviderAttribute',0,1)
-,('Appfb','Attribute','dbo','[AttributeId],[AttributeName],[Category]','','','Appfb_Attribute',0,1)
+,('Appfb','Attribute','dbo','[AttributeId],[AttributeName],[Category],[AttributeType],[Ordering]','','','Appfb_Attribute',0,1)
 ,('Appfb','ApprenticeExitSurvey','dbo','[Id],[ApprenticeFeedbackTargetId],[StandardUId],[DateTimeCompleted],[DidNotCompleteApprenticeship],[AllowContact],[PrimaryReason]','','','Appfb_ApprenticeExitSurvey',0,1)
 ,('Appfb','ExitSurveyAttribute','dbo','[ApprenticeExitSurveyId],[AttributeId],[AttributeValue]','','','Appfb_ExitSurveyAttribute',0,1)
 

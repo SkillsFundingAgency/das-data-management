@@ -43,8 +43,7 @@ DELETE FROM Mtd.DataRetentionConfig
 INSERT INTO Mtd.DataRetentionConfig
 ( SFCI_Id,DataSetName,DataSetTable,DataSetSchema,DataSetJOINColumn,RetentionPeriodInMonths,SensitiveColumns,RetentionColumn,RefColumn,RefDataSetTable,RefDataSetSchema,PreImportRetention,PostImportRetention,IsActive)
 /* Marketo Metadata */
-VALUES (-1,'Marketo','MarketoLeads','AsData_PL','LeadID',24,'FirstName,LastName,EmailAddress','LeadCreatedAt','','','',1,0,1),
-(-1,'Marketo','MarketoLeadActivities','AsData_PL','LeadID',24,'','','LeadID','MarketoLeads','AsData_PL',1,0,1),
+VALUES (-1,'Marketo','MarketoLeadActivities','AsData_PL','LeadID',24,'','','LeadID','MarketoLeads','AsData_PL',1,0,1),
 (-1,'Marketo','MarketoLeadPrograms','AsData_PL','LeadID',24,'FirstName,LastName,EmailAddress','','LeadID','MarketoLeads','AsData_PL',1,0,1),
 (-1,'Marketo','MarketoLeadActivityLinkClicked','AsData_PL','LeadID',24,'ReferrerURL,Link,QueryParameters','','LeadID','MarketoLeads','AsData_PL',1,0,1),
 (-1,'Commitment','Comt_Commitment','AsData_PL','Id',84,'','CreatedOn','','','',1,0,1),

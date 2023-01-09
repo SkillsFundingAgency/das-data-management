@@ -600,26 +600,3 @@ DROP VIEW IF EXISTS [AsData_AI].[DAS_TPROrgDetails];
 
 /* Drop schema as it's renamed */
 DROP SCHEMA IF EXISTS [AsData_AI]
-
-
-/* Clear Previous runs  */
-
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
-            WHERE TABLE_NAME = N'MarketoActivityTypes'
-		      AND TABLE_SCHEMA=N'AsData_PL'
-	      )
-DELETE MAT  FROM 
-  AsData_PL.MarketoActivityTypes MAT
-  WHERE ActivityTypeId > 11 
-
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
-            WHERE TABLE_NAME = N'MarketoLeadActivities'
-		      AND TABLE_SCHEMA=N'AsData_PL'
-	      )
-DELETE MLA  FROM 
-  AsData_PL.MarketoLeadActivities MLA
-  WHERE ActivityTypeId > 11 
-
-
-  
-

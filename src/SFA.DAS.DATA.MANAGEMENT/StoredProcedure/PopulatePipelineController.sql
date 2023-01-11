@@ -8,6 +8,8 @@ BEGIN TRY
 
 DECLARE @LogID int
 
+BEGIN TRANSACTION
+
 /* Start Logging Execution */
 
   INSERT INTO Mgmt.Log_Execution_Results

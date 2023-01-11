@@ -126,7 +126,7 @@ MERGE AsData_PL.MarketoLeads as Target
                  ,Target.CampaignId=TRY_CONVERT(bigint,CASE WHEN Source.CampaignId='NULL' THEN NULL ELSE Source.CampaignId END)
 				 ,Target.ActivityTypeId=TRY_CONVERT(bigint,CASE WHEN Source.ActivityTypeId='NULL' THEN NULL ELSE Source.ActivityTypeId END)
 				 ,Target.AsDm_UpdatedDate=getdate()
-  WHEN NOT MATCHED BY TARGET 
+  WHEN NOT MATCHED BY TARGET AND SOURCE.ActivityTypeId <= 11
   THEN INSERT (MarketoGUID
               ,LeadId
 			  ,ActivityDate

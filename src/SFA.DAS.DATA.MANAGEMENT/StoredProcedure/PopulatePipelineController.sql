@@ -27,7 +27,9 @@ DECLARE @LogID int
 
 SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
 WHERE StoredProcedureName='PopulatePipelineController'
-    AND RunId=@RunID
+    AND RunId=@
+	
+BEGIN TRANSACTION
 
 DELETE FROM [Mgmt].[Pipeline]
 

@@ -59,8 +59,8 @@ INSERT INTO ASData_PL.va_VacancyReviews
 SELECT 
 	RVR.EmployerAccountId
       ,vc.CandidateId
-	  ,rvr.CreatedTimeStamp
-	  ,rvr.SubmittedTimeStamp
+	  ,dbo.Fn_ConvertTimeStampToDateTime(rvr.CreatedTimeStamp)
+	  ,dbo.Fn_ConvertTimeStampToDateTime(rvr.SubmittedTimeStamp)
 	  ,rvr.VacancyReference
 	  ,vv.VacancyId
 	  ,rvr.ManualOutcome
@@ -68,11 +68,11 @@ SELECT
 	  ,CASE WHEN ManualQaFieldChangeRequested='true' THEN rvr.ManualQaFieldChangeRequested ELSE NULL END
 	  ,CASE WHEN ManualQaFieldChangeRequested='true' THEN rvr.ManualQaComment ELSE NULL END	
 	  ,rvr.SubmissionCount
-      ,rvr.ReviewedDate
-	  ,rvr.ClosedDate	 
+    ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ReviewedDate)
+	  ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ClosedDate)	 
 	  ,rvr.ReviewedByUserEmail
-      ,rvr.SlaDeadline
-      ,rvr.Status
+    ,dbo.Fn_ConvertTimeStampToDateTime(rvr.SlaDeadline)   
+    ,rvr.Status
 	  ,RVR.BinaryId
 	  ,'RAAv2'
   FROM Stg.RAA_VacancyReviews RVR

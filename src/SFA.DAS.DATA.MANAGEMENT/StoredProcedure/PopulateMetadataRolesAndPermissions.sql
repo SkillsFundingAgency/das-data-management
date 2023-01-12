@@ -207,8 +207,8 @@ VALUES
 --('DataGov','ASData_PL','EI_Payment','TABLE','SELECT',0,1),
 --('DataGov','dbo','ReferenceData','TABLE','SELECT',0,1),
 --('DataGov','ASData_PL','Fin_Payment','TABLE','SELECT',0,1),
---('DataGov','','','DATABASE','VIEW DEFINITION',0,1),
---('DataGov','sys','sql_expression_dependencies','VIEW','SELECT',0,1),
+('DataGov','','','DATABASE','VIEW DEFINITION',0,1),
+('DataGov','sys','sql_expression_dependencies','VIEW','SELECT',0,1),
 ('DataGov','lkp','','','SELECT',1,1),
 /* Finance */
 ('Finance','ASData_PL','DAS_SpendControl_v2','VIEW','SELECT',0,1),

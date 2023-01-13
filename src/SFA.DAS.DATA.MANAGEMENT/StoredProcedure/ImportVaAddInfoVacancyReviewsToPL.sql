@@ -82,7 +82,37 @@ SELECT
   LEFT
   JOIN ASData_PL.Va_Candidate vc
     on vc.CandidateGuid=RVR.UserId
+where ManualQaFieldChangeRequested='true'
 
+  UNION all
+  SELECT 
+  DISTINCT
+	RVR.EmployerAccountId
+      ,vc.CandidateId
+	  ,dbo.Fn_ConvertTimeStampToDateTime(rvr.CreatedTimeStamp)
+	  ,dbo.Fn_ConvertTimeStampToDateTime(rvr.SubmittedTimeStamp)
+	  ,rvr.VacancyReference
+	  ,vv.VacancyId
+	  ,rvr.ManualOutcome
+	  ,NULL 
+	  ,NULL 
+	  ,NULL 	
+	  ,rvr.SubmissionCount
+    ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ReviewedDate)
+	  ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ClosedDate)	 
+	  ,rvr.ReviewedByUserEmail
+    ,dbo.Fn_ConvertTimeStampToDateTime(rvr.SlaDeadline)   
+    ,rvr.Status
+	  ,RVR.BinaryId
+	  ,'RAAv2'
+  FROM Stg.RAA_VacancyReviews RVR
+  LEFT
+  JOIN ASData_PL.Va_Vacancy vv
+    on vv.VacancyReferenceNumber=RVR.VacancyReference
+  LEFT
+  JOIN ASData_PL.Va_Candidate vc
+    on vc.CandidateGuid=RVR.UserId  
+Where not exists (select 1 from (select BinaryId from Stg.RAA_VacancyReviews where ManualQaFieldChangeRequested='true') vr where vr.BinaryId=rvr.BinaryId )
 
 COMMIT TRANSACTION
 

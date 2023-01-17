@@ -295,6 +295,10 @@
     <Build Include="Tables\AsDataPL_Va_VacancyReviews.sql" />
     <Build Include="Tables\Mtd_NationalMinimumWageRates.sql" />
     <Build Include="StoredProcedure\ImportVacanciesAdditionalInfoToPL.sql" />
+    <Build Include="StoredProcedure\ImportVaAddInfoApprenticeshipsToPL.sql" />
+    <Build Include="StoredProcedure\ImportVaAddInfoSavedSearchesToPL.sql" />
+    <Build Include="StoredProcedure\ImportVaAddInfoContactMessagesToPL.sql" />
+    <Build Include="StoredProcedure\ImportVaAddInfoVacancyReviewsToPL.sql" />
     <Build Include="StoredProcedure\PopulateMetadataNationalMinimumWageRates.sql" />
     <Build Include="Tables\ASDataPL_Assessor_Certificates.sql" />
     <Build Include="Tables\ASDataPL_Assessor_OrganisationStandard.sql" />

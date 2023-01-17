@@ -2,7 +2,7 @@
 (
 	[LegalEntityId] [bigint] NULL,
 	[IsGrantFunded] [bit] NULL,
-	[EffectiveFrom] [datetime2](7) NOT NULL,
+	[EffectiveFrom] [datetime2](7) default getdate() NOT NULL,
 	[EffectiveTo] [datetime2](7) NULL,
 	[RemovalReason] [nvarchar](max) NULL,
 	[CreatedDate] [datetime2](7) NULL,

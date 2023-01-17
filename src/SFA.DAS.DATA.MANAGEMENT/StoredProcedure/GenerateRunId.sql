@@ -1,4 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[GenerateRunId]
+@PipelineName as varchar(250) = NULL
 AS
 -- =========================================================================
 -- Author:      Himabindu Uddaraju
@@ -14,8 +15,8 @@ DECLARE @DateStamp VARCHAR(10)
 DECLARE @LogID int
 
 INSERT INTO [Mgmt].[Log_RunId]
-(StartDateTime)
-Values(GETDATE())
+(StartDateTime,PipelineName)
+Values(GETDATE(),@PipelineName)
 
 SELECT @RunId=MAX(RunId) FROM [Mgmt].[Log_RunId]
 

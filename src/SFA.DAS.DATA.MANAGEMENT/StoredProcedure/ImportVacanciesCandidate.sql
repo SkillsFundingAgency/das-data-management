@@ -50,11 +50,7 @@ INSERT INTO [ASData_PL].[Va_Candidate]
            --,[LocalAuthorityName]
            --,[UniqueLearnerNumber]
            --,[Gender]
-		   --,[DisabilityStatus]
-		   --,[InstitutionName]
-		   --,[SchoolStartYear]
-		   --,[SchoolEndYear]
-		   ,[ApplicationLimitEnforced_v1]
+           ,[ApplicationLimitEnforced_v1]
            ,[LastAccessedDate_v1]
            ,[LastAccessedManageApplications_v1]
            ,[BeingSupportedBy_v1]
@@ -78,11 +74,6 @@ SELECT C.CandidateStatusTypeId                        as CandidateStatusTypeId
 			ELSE 'Unknown'
 		END                                            as CandidateStatusTypeDesc
 	   ,capc.PostCode                                  as Postcode
-	   --,cgc.FullName								   as Gender
-	  -- ,cd.FullName									   as DisabilityStatus	
-	  -- ,sa.OtherSchoolName							   as InstitutionName
-	  -- ,cast(year(sa.StartDate)as int)				   as SchoolStartYear
-	  -- ,cast(year(sa.EndDate)as int)				   as SchoolEndYear
 	   ,c.ApplicationLimitEnforced                     as ApplicationLimitEnforced_v1
 	   ,c.LastAccessedDate                             as LastAccessedDate_v1
 	   ,c.LastAccessedManageApplications               as LastAccessedManageApplications_v1
@@ -102,16 +93,7 @@ SELECT C.CandidateStatusTypeId                        as CandidateStatusTypeId
     on c.CandidateId= ch.CandidateId
   left
   join Stg.Avms_CandidateAgePostCode CAPC
-    ON CAPC.CandidateId=c.CandidateId 
-  /* left
-  join Stg.Avms_CandidateGender CGC
-	ON CGC.CandidateGenderId= C.Gender
-  left
-  join Stg.Avms_CandidateDisability CD
-	ON CD.CandidateDisabilityId= C.Disability
-  left
-  join Stg.Avms_SchoolAttended SA
-	ON SA.CandidateId = C.CandidateId */
+    ON CAPC.CandidateId=c.CandidateId
  WHERE NOT EXISTS (SELECT 1 FROM Stg.FAA_Users FU WHERE FU.BinaryId=dbo.Fn_ConvertGuidToBase64(C.CandidateGuid))
  union
  /* Candidates that are In Cosmos Db but not in AVMS */
@@ -128,11 +110,6 @@ SELECT C.CandidateStatusTypeId                        as CandidateStatusTypeId
 	  ,CASE WHEN CHARINDEX(' ',PC.Postcode)<>0 THEN SUBSTRING(PC.PostCode,1,CHARINDEX(' ',PC.PostCode)) 
 	        ELSE SUBSTRING(PC.Postcode,1,LEN(PC.Postcode)-3) 
 	    END                                             as PostCode
-	  /* ,cgc.Category										as Gender
-	  ,cdc.Category									    as DisabilityStatus	
-	  ,ceh.Institution  							    as InstitutionName
-	  ,ceh.FromYear							            as SchoolStartYear
-	  ,ceh.ToYear									    as SchoolEndYear */
 	  ,NULL                                             as ApplicationLimitEnforced_v1
 	  ,''                                               as LastAccessedDate_v1
 	  ,''                                               as LastAccessedManageApplications_v1
@@ -159,16 +136,6 @@ SELECT C.CandidateStatusTypeId                        as CandidateStatusTypeId
    LEFT
    JOIN Stg.FAA_CandidateDob Db
      ON Db.CandidateId=FU.BinaryId
-   /* LEFT
-   JOIN Stg.FAA_CandidateGenderDisabilityStatus CGDC
-	 ON CGDC.CandidateId=FU.BinaryId
-   LEFT
-   JOIN Stg.FAA_CandidateEducationHistory CEH
-	 ON CEH.CandidateId=FU.BinaryId
-   JOIN Stg.CandidateGenderConfig CGC
-     ON CGC.ShortCode= cgdc.Gender
-   JOIN Stg.CandidateDisabilityConfig CDC
-	 ON CDC.ShortCode=cgdc.DisabilityStatus */
   WHERE NOT EXISTS (SELECT 1 FROM Stg.Avms_Candidate C
                      WHERE dbo.Fn_ConvertGuidToBase64(C.CandidateGuid)=FU.BinaryId)
 union
@@ -186,11 +153,6 @@ union
 	  ,CASE WHEN CHARINDEX(' ',PC.Postcode)<>0 THEN SUBSTRING(PC.PostCode,1,CHARINDEX(' ',PC.PostCode)) 
 	        ELSE SUBSTRING(PC.Postcode,1,LEN(PC.Postcode)-3) 
 	    END                                             as PostCode
-	  /* ,cgc.Category										as Gender
-	  ,cdc.Category									    as DisabilityStatus	
-	  ,ceh.Institution  							    as InstitutionName
-	  ,ceh.FromYear							            as SchoolStartYear
-	  ,ceh.ToYear									    as SchoolEndYear */
 	  ,ac.ApplicationLimitEnforced                      as ApplicationLimitEnforced_v1
 	  ,ac.LastAccessedDate                              as LastAccessedDate_v1
 	  ,ac.LastAccessedManageApplications                as LastAccessedManageApplications_v1
@@ -217,20 +179,10 @@ union
    LEFT
    JOIN Stg.FAA_CandidatePostcode PC
      ON PC.CandidateId=FU.BinaryId
-  /*  LEFT
+   LEFT
    JOIN Stg.FAA_CandidateDob Db
      ON Db.CandidateId=FU.BinaryId
-   LEFT
-   JOIN Stg.FAA_CandidateGenderDisabilityStatus CGDC
-	 ON CGDC.CandidateId=FU.BinaryId
-   LEFT
-   JOIN Stg.FAA_CandidateEducationHistory CEH
-	 ON CEH.CandidateId=FU.BinaryId
-   JOIN Stg.CandidateGenderConfig CGC
-     ON CGC.ShortCode= cgdc.Gender
-   JOIN Stg.CandidateDisabilityConfig CDC
-	 ON CDC.ShortCode=cgdc.DisabilityStatus
- */
+
 
 
 

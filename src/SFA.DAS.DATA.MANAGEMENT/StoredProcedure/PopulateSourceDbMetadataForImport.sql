@@ -129,8 +129,6 @@ VALUES
 ,('Accounts','User','Employer_Account','[ID],[UserRef],[CorrelationId]','','[Email],[FirstName],[LastName]','Acc_User',0)
 ,('Accounts','AccountHistory','Employer_Account','[Id],[AccountId],[AddedDate],[RemovedDate]','','[PayeRef]','Acc_AccountHistory',1)
 ,('Accounts','Paye','employer_account','[Name]','[AccessToken],[RefreshToken],[Aorn]','[Ref]','Acc_Paye',1)
-,('Accounts','TransferConnectionInvitation','employer_account','[Id],[SenderAccountId],[ReceiverAccountId],[Status],[DeletedBySender],[DeletedByReceiver],[CreatedDate]','[ConnectionHash]','','Acc_TransferConnectionInvitation',0)
-,('Accounts','TransferConnectionInvitationChange','employer_account','[Id],[TransferConnectionInvitationId],[SenderAccountId],[ReceiverAccountId],[Status],[DeletedBySender],[DeletedByReceiver],[UserId],[CreatedDate]','','','Acc_TransferConnectionInvitationChange',0)
 ,('Commitments','Accounts','dbo','[Id],[HashedId],[Created],[Updated],[LevyStatus]','[PublicHashedId],[Name]','','Comt_Accounts',1)
 ,('Commitments','Commitment','dbo','[Id],[Reference],[EmployerAccountId],[ProviderId],[CommitmentStatus],[EditStatus],[CreatedOn],[LastAction],[TransferSenderId],[TransferApprovalStatus],[TransferApprovalActionedOn],[Originator],[ApprenticeshipEmployerTypeOnApproval],[IsFullApprovalProcessed],[IsDeleted],[AccountLegalEntityId],[IsDraft],[WithParty],[LastUpdatedOn],[Approvals],[EmployerAndProviderApprovedOn],[ChangeOfPartyRequestId],[PledgeApplicationId]','[LastUpdatedByEmployerName],[LastUpdatedByEmployerEmail],[LastUpdatedByProviderName],[LastUpdatedByProviderEmail],[TransferApprovalActionedByEmployerName],[TransferApprovalActionedByEmployerEmail],[RowVersion]','','comt_commitment',0)
 ,('Commitments','Apprenticeship','dbo','[Id],[CommitmentId],[TrainingType],[TrainingCode],[TrainingName],[Cost],[StartDate],[EndDate],[AgreementStatus],[PaymentStatus],[CreatedOn],[AgreedOn],[PaymentOrder],[StopDate],[PauseDate],[HasHadDataLockSuccess],[PendingUpdateOriginator],[EPAOrgId],[CloneOf],[ReservationId],[IsApproved],[CompletionDate],[ContinuationOfId],[MadeRedundant],[OriginalStartDate],[TrainingCourseVersion],[TrainingCourseVersionConfirmed],[TrainingCourseOption],[DeliveryModel]','[NINumber],[EmployerRef],[ProviderRef]','[FirstName],[LastName],[DateOfBirth],[ULN],[StandardUId]','comt_Apprenticeship',1)
@@ -143,10 +141,13 @@ VALUES
 ,('Commitments','StandardOption','dbo','[StandardUId],[Option]','','','Comt_StandardOption',0)
 ,('Commitments','ApprenticeshipPriorLearning','dbo','[ApprenticeshipId],[DurationReducedBy],[PriceReducedBy],[IsAccelerated]','','','Comt_ApprenticeshipPriorLearning',0)
 ,('Commitments','TransferRequest','dbo','[Id],[CommitmentId],[TrainingCourses],[Cost],[Status],[TransferApprovalActionedOn],[CreatedOn],[FundingCap],[AutoApproval]','[TransferApprovalActionedByEmployerName],[TransferApprovalActionedByEmployerEmail]','','Comt_TransferRequest',0)
+,('Commitments','OverlappingTrainingDateRequest','dbo','[Id],[DraftApprenticeshipId],[PreviousApprenticeshipId],[ResolutionType],[Status],[CreatedOn],[ActionedOn],[NotifiedServiceDeskOn]','[RequestCreatedByProviderEmail],[RowVersion]','','Comt_OverlappingTrainingDateRequest',0)
 ,('Finance','AccountTransfers','employer_financial','[Id],[SenderAccountId],[ReceiverAccountId],[ApprenticeshipId],[CourseName],[CourseLevel],[PeriodEnd],[Amount],[Type],[CreatedDate],[RequiredPaymentId]','[SenderAccountName],[ReceiverAccountName]','','fin_AccountTransfers',0)
 ,('Finance','GetLevyDeclarationAndTopUp','employer_financial','[Id],[AccountId],[SubmissionDate],[SubmissionId],[LevyDueYTD],[EnglishFraction],[TopUpPercentage],[PayrollYear],[PayrollMonth],[LastSubmission],[CreatedDate],[EndOfYearAdjustment],[EndOfYearAdjustmentAmount],[LevyAllowanceForYear],[DateCeased],[InactiveFrom],[InactiveTo],[HmrcSubmissionId],[NoPaymentForPeriod],[LevyDeclaredInMonth],[TopUp],[TotalAmount]','','[EmpRef]','fin_GetLevyDeclarationAndTopUp',1)
 ,('Finance','Payment','employer_financial','[PaymentId],[AccountId],[ApprenticeshipId],[DeliveryPeriodMonth],[DeliveryPeriodYear],[CollectionPeriodId],[CollectionPeriodMonth],[CollectionPeriodYear],[EvidenceSubmittedOn],[EmployerAccountVersion],[ApprenticeshipVersion],[FundingSource],[TransactionType],[Amount],[PeriodEnd],[PaymentMetaDataId],[DateImported]','[Ukprn],[Uln]','','fin_Payment',0)
 ,('Finance','TransactionLine','employer_financial','[Id],[AccountId],[DateCreated],[SubmissionId],[TransactionDate],[TransactionType],[LevyDeclared],[Amount],[PeriodEnd],[SfaCoInvestmentAmount],[EmployerCoInvestmentAmount],[EnglishFraction],[TransferSenderAccountId],[TransferReceiverAccountId],[TransferSenderAccountName],[TransferReceiverAccountName]','','[EmpRef],[Ukprn]','fin_TransactionLine',1)
+,('Finance','TransferConnectionInvitation','employer_financial','[Id],[SenderAccountId],[ReceiverAccountId],[Status],[DeletedBySender],[DeletedByReceiver],[CreatedDate]','','','fin_TransferConnectionInvitation',0)
+,('Finance','TransferConnectionInvitationChange','employer_financial','[Id],[TransferConnectionInvitationId],[SenderAccountId],[ReceiverAccountId],[Status],[DeletedBySender],[DeletedByReceiver],[UserId],[CreatedDate]','','','fin_TransferConnectionInvitationChange',0)
 ,('Reservation','Reservation','dbo','[Id],[AccountId],[IsLevyAccount],[CreatedDate],[StartDate],[ExpiryDate],[Status],[CourseId],[AccountLegalEntityId],[ProviderId],[TransferSenderAccountId],[UserId],[ClonedReservationId],[ConfirmedDate],[CohortId],[DraftApprenticeshipId]','[AccountLegalEntityName]','','resv_Reservation',0)
 ,('Reservation','Course','dbo','[CourseId],[Title],[Level],[EffectiveTo]','','','resv_Course',0)
 
@@ -380,14 +381,16 @@ VALUES
  ('Appfb','ApprenticeFeedbackTarget','dbo','[Id],[ApprenticeId],[ApprenticeshipId],[Status],[ProviderName],[LarsCode],[StandardName],[FeedbackEligibility],[EligibilityCalculationDate],[CreatedOn],[UpdatedOn]','[StartDate],[EndDate],[StandardUId]','[Ukprn]','Appfb_ApprenticeFeedbackTarget',0,1)
 ,('Appfb','ApprenticeFeedbackResult','dbo','[Id],[ApprenticeFeedbackTargetId],[StandardUId],[DateTimeCompleted],[ProviderRating],[AllowContact]','','','Appfb_ApprenticeFeedbackResult',0,1)
 ,('Appfb','ProviderAttribute','dbo','[ApprenticeFeedbackResultId],[AttributeId],[AttributeValue]','','','Appfb_ProviderAttribute',0,1)
-,('Appfb','Attribute','dbo','[AttributeId],[AttributeName],[Category]','','','Appfb_Attribute',0,1)
+,('Appfb','Attribute','dbo','[AttributeId],[AttributeName],[Category],[AttributeType],[Ordering]','','','Appfb_Attribute',0,1)
+,('Appfb','ApprenticeExitSurvey','dbo','[Id],[ApprenticeFeedbackTargetId],[StandardUId],[DateTimeCompleted],[DidNotCompleteApprenticeship],[AllowContact],[PrimaryReason]','','','Appfb_ApprenticeExitSurvey',0,1)
+,('Appfb','ExitSurveyAttribute','dbo','[ApprenticeExitSurveyId],[AttributeId],[AttributeValue]','','','Appfb_ExitSurveyAttribute',0,1)
 
 /* Rofjaa  Config */
 
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
 VALUES
-('Rofjaa','Agency','dbo','[LegalEntityId],[IsGrantFunded]','','','Rofjaa_Agency',0,1) 
+('Rofjaa','Agency','dbo','[LegalEntityId],[IsGrantFunded],[EffectiveFrom],[EffectiveTo],[RemovalReason],[CreatedDate],[LastUpdatedDate]','','','Rofjaa_Agency',0,1) 
 
 COMMIT TRANSACTION
 

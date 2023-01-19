@@ -156,7 +156,7 @@ MERGE AsData_PL.MarketoActivityTypes as Target
   THEN UPDATE SET Target.ActivityTypeName=CASE WHEN Source.name='NULL' THEN NULL ELSE Source.name END
                  ,Target.ActivityTypeDescription=CASE WHEN Source.description='NULL' THEN NULL ELSE Source.description END
 				 ,Target.AsDm_UpdatedDate=getdate()
-  WHEN NOT MATCHED BY TARGET 
+  WHEN NOT MATCHED BY TARGET AND SOURCE.Id <= 11
   THEN INSERT (ActivityTypeId
               ,ActivityTypeName
 			  ,ActivityTypeDescription

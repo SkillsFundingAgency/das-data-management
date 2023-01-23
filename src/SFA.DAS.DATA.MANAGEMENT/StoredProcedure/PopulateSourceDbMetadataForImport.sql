@@ -84,7 +84,7 @@ VALUES
 ,('AvmsPlus','ApplicationHistory','dbo','[ApplicationHistoryId],[ApplicationId],[ApplicationHistoryEventDate],[ApplicationHistoryEventTypeId],[ApplicationHistoryEventSubTypeId]','[UserName],[Comment]','',1)
 ,('AvmsPlus','VacancyTextField','dbo','[VacancyTextFieldId],[VacancyId],[Field],[Value]','','',1)
 ,('AvmsPlus','VacancyTextFieldValue','dbo','[VacancyTextFieldValueId],[CodeName],[ShortName],[FullName]','','',1)
-,('AvmsPlus','SchoolAttended','dbo',' [SchoolAttendedId],[CandidateId],[OtherSchoolName]','[SchoolId],[OtherSchoolTown],[ApplicationId],[StartDate],[EndDate]','',1)
+,('AvmsPlus','SchoolAttended','dbo',' [SchoolAttendedId],[CandidateId],[OtherSchoolName],[ApplicationId],[StartDate],[EndDate]','[SchoolId],[OtherSchoolTown]','',1)
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)
 VALUES

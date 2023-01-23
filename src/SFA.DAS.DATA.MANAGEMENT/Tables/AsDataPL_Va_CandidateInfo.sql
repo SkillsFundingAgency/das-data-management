@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[AsData_PL}.[Va_CandidateInfo]
+﻿CREATE TABLE [AsData_PL].[Va_CandidateInfo]
 (
 	[CDId] BIGINT NOT NULL IDENTITY(1,1) PRIMARY KEY
    ,[CandidateId] BIGINT NOT NULL

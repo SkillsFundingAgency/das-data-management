@@ -435,5 +435,6 @@
     <Build Include="StoredProcedure\LoadCandidateDisabilityLookup.sql" />
     <Build Include="Tables\Stg_CandidateDisabilityConfig.sql" />
     <Build Include="Tables\AsDataPL_Va_CandidateInfo.sql" />
+    <Build Include="StoredProcedure\ImportVacanciesCandidateInfoToPL.sql" />
   </ItemGroup>
 </Project>

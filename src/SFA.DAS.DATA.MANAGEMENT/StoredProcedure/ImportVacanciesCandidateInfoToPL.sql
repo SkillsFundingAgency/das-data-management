@@ -39,14 +39,16 @@ BEGIN TRY
 
     INSERT INTO [ASData_PL].[Va_CandidateInfo]
     (
-        [CandidateId],
+        [SourceCandidateId_v1],
+	    [SourceCandidateId_v2], 
         [Gender],
         [DisabilityStatus],
         [InstitutionName],
         [SourceDb]
     )
     /* Insert Candidate school,gender and disability Details for RAAv1(AVMS) from FAA to Presentation Layer Table */
-    SELECT C.CandidateId as CandidateId,
+    SELECT C.CandidateId as SourceCandidateId_v1,
+            '' as SourceCandidateId_v2,
            cgc.FullName as Gender,
            cd.Category as DisabilityStatus,
            s.OtherSchoolName as InstitutionName,
@@ -91,7 +93,8 @@ BEGIN TRY
     union
     /* Insert Candidate school,gender and disability Details for RAAv2(Cosmos) from FAA to Presentation Layer Table*/
     SELECT DISTINCT
-        FU.BinaryId as CandidateId,
+         ''as SourceCandidateId_v1,
+        FU.BinaryId as SourceCandidateId_v2,
         cgc.Category as Gender,
         cdc.Category as DisabilityStatus,
         ceh.Institution as InstitutionName,

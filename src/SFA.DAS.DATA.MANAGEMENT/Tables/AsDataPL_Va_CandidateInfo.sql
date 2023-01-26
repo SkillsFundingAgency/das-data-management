@@ -1,7 +1,8 @@
 ﻿CREATE TABLE [AsData_PL].[Va_CandidateInfo]
 (
 	[CDId] BIGINT NOT NULL IDENTITY(1,1) PRIMARY KEY
-   ,[CandidateId] BIGINT NOT NULL
+    ,[SourceCandidateId_v1] Varchar(256)
+	,[SourceCandidateId_v2] Varchar(256)
    ,[Gender] nvarchar(50)
    ,[DisabilityStatus] nvarchar(255)
    ,[InstitutionName] nvarchar(max)

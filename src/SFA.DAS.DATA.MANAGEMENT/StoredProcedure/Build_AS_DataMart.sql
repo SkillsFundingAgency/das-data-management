@@ -23,6 +23,10 @@ EXEC LoadCandidateEthLookUp @RunId
 
 EXEC LoadCandidateConfig @RunId
 
+EXEC LoadCandidateDisabilityLookup @RunId
+
+EXEC LoadCandidateGendrLookup @RunId
+
 EXEC [dbo].[CreateStdsAndFrameworksView] @RunID
 
 EXEC [dbo].[UpdateApprenticeshipStdRoute] @RunID

@@ -187,6 +187,7 @@ VALUES
 ('DataAnalyst','ASData_PL','PFBE_EmployerFeedback','TABLE','SELECT',0,1),
 ('DataAnalyst','ASData_PL','Appfb_ApprenticeFeedback','VIEW','SELECT',0,1),
 ('DataAnalyst','lkp','','','SELECT',1,1),
+('DataAnalyst','ASData_PL','Va_CandidateInfo','TABLE','SELECT',0,1),
 /* DataGov */
 --('DataGov','ASData_PL','MarketoActivityTypes','TABLE','SELECT',0,1),
 --('DataGov','ASData_PL','MarketoCampaigns','TABLE','SELECT',0,1),

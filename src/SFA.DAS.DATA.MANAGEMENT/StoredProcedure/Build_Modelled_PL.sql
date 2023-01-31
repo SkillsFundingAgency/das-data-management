@@ -22,8 +22,9 @@ EXEC dbo.ImportFAT2FrameworkToPL @RunId
 
 EXEC dbo.ImportFAT2SectorStandardToPL @RunId
 
-/* Import Public sector Data to Presentation Layer */
-EXEC dbo.ImportPublicSectorReportDataToPL @RunId
+/* Import Public sector Data to Presentation Layer 
+2023-01-30 PublicSectorReportDataToPL moved to a differnt pipeline
+EXEC dbo.ImportPublicSectorReportDataToPL @RunId */
 
 /* SubmittedApplicationAnswers */
 EXEC [dbo].[ImportSubmittedApplicationAnswersToPL] @RunId

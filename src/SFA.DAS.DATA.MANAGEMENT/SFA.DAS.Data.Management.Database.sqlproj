@@ -156,7 +156,6 @@
     <Build Include="Tables\AsDataPL_Va_Provider.sql" />
     <Build Include="Tables\AsDataPL_Va_Vacancy.sql" />
     <Build Include="Tables\AsDataPL_Va_LegalEntity.sql" />
-    <Build Include="StoredProcedure\BuildVacanciesPresentationLayer.sql" />
     <Build Include="StoredProcedure\ImportVacanciesEmployer.sql" />
     <Build Include="StoredProcedure\ImportVacanciesProvider.sql" />
     <Build Include="StoredProcedure\ImportVacanciesLegalEntity.sql" />
@@ -294,7 +293,6 @@
     <Build Include="Tables\AsDataPL_Va_SavedSearches.sql" />
     <Build Include="Tables\AsDataPL_Va_VacancyReviews.sql" />
     <Build Include="Tables\Mtd_NationalMinimumWageRates.sql" />
-    <Build Include="StoredProcedure\ImportVacanciesAdditionalInfoToPL.sql" />
     <Build Include="StoredProcedure\ImportVaAddInfoApprenticeshipsToPL.sql" />
     <Build Include="StoredProcedure\ImportVaAddInfoSavedSearchesToPL.sql" />
     <Build Include="StoredProcedure\ImportVaAddInfoContactMessagesToPL.sql" />

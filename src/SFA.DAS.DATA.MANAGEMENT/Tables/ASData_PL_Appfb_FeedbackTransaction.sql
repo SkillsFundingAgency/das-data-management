@@ -4,5 +4,5 @@
 	[TemplateId] [uniqueidentifier] NULL,
 	[CreatedOn] [datetime] NOT NULL,
 	[SendAfter] [datetime] NULL,
-	[SendDate] [datetime] NULL,
+	[SentDate] [datetime] NULL,
 	[AsDm_UpdatedDateTime] datetime2 default getdate())

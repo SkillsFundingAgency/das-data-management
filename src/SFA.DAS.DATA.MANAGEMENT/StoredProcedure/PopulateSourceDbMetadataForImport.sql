@@ -397,6 +397,7 @@ VALUES
 ,('Appfb','Attribute','dbo','[AttributeId],[AttributeName],[Category],[AttributeType],[Ordering]','','','Appfb_Attribute',0,1)
 ,('Appfb','ApprenticeExitSurvey','dbo','[Id],[ApprenticeFeedbackTargetId],[StandardUId],[DateTimeCompleted],[DidNotCompleteApprenticeship],[AllowContact],[PrimaryReason]','','','Appfb_ApprenticeExitSurvey',0,1)
 ,('Appfb','ExitSurveyAttribute','dbo','[ApprenticeExitSurveyId],[AttributeId],[AttributeValue]','','','Appfb_ExitSurveyAttribute',0,1)
+,('Appfb','FeedbackTransaction','dbo','[Id],[ApprenticeFeedbackTargetId],[TemplateId],[CreatedOn],[SendAfter],[SentDate]','[EmailAddress],[FirstName]','','Appfb_FeedbackTransaction',0,1)
 
 /* Rofjaa  Config */
 

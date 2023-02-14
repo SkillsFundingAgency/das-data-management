@@ -414,6 +414,7 @@
     <Build Include="Tables\ASData_PL_Appfb_Attribute.sql" />
     <Build Include="Tables\ASData_PL_Appfb_ProviderAttribute.sql" />
     <Build Include="Tables\ASData_PL_Appfb_ApprenticeExitSurvey.sql" />
+    <Build Include="Tables\ASData_PL_Appfb_FeedbackTransaction.sql" />
     <Build Include="Tables\ASData_PL_Appfb_ExitSurveyAttribute.sql" />
     <Build Include="StoredProcedure\UpdateRAAVacancyReviews.sql" />
     <Build Include="Tables\ASData_PL_Rofjaa_Agency.sql" />

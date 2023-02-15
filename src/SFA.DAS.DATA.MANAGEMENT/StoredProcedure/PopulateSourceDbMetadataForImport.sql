@@ -205,13 +205,13 @@ INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,Source
 VALUES
 ('Roatpv2','NationalAchievementRate','dbo','[Id],[ProviderId],[Age],[SectorSubjectArea],[ApprenticeshipLevel],[OverallCohort],[OverallAchievementRate]','','',1,0,'FAT_ROATPV2_NationalAchievementRate'),
 ('Roatpv2','NationalAchievementRateOverall','dbo','[Id],[Age],[SectorSubjectArea],[ApprenticeshipLevel],[OverallCohort],[OverallAchievementRate]','','',1,0,'FAT_ROATPV2_NationalAchievementRateOverall'),
-('Roatpv2','Provider','dbo',' [Id],,[TradingName],[EmployerSatisfaction],[LearnerSatisfaction],[IsImported]','[Phone],[Website],[MarketingInfo]','[Ukprn],[LegalName],[Email]',1,1,'FAT_ROATPV2_Provider'),
-('Roatpv2','ProviderCourse','dbo','[Id],[ProviderId],[LarsCode],[StandardInfoUrl],[ContactUsPageUrl],[ContactUsEmail],[ContactUsPhoneNumber],[IsApprovedByRegulator],[IsImported],[HasPortableFlexiJobOption]','','',1,0,'FAT_ROATPV2_ProviderCourse'),
+('Roatpv2','Provider','dbo',' [Id],[TradingName],[EmployerSatisfaction],[LearnerSatisfaction],[IsImported]','[Phone],[Website],[MarketingInfo]','[Ukprn],[LegalName],[Email]',1,1,'FAT_ROATPV2_Provider'),
+('Roatpv2','ProviderCourse','dbo','[Id],[ProviderId],[LarsCode],[StandardInfoUrl],[IsApprovedByRegulator],[IsImported],[HasPortableFlexiJobOption]','[ContactUsPhoneNumber],[ContactUsPageUrl]','[ContactUsEmail]',1,0,'FAT_ROATPV2_ProviderCourse'),
 ('Roatpv2','ProviderCourseLocation','dbo','[Id],[NavigationId],[ProviderCourseId],[ProviderLocationId],[HasDayReleaseDeliveryOption],[HasBlockReleaseDeliveryOption],[IsImported]','','',1,0,'FAT_ROATPV2_ProviderCourseLocation'),
 ('Roatpv2','ProviderLocation','dbo','[Id],[ImportedLocationId],[NavigationId],[ProviderId],[RegionId],[Postcode],[Latitude],[Longitude],[IsImported],[LocationType]','[Phone],[AddressLine1],[AddressLine2],[Town],[County]','[LocationName],[Email],[Website]',1,0,'FAT_ROATPV2_ProviderLocation'),
 ('Roatpv2','ProviderRegistrationDetail','dbo','[LegalName],[StatusId],[StatusDate],[OrganisationTypeId],[ProviderTypeId]','','[Ukprn]',1,0,'FAT_ROATPV2_ProviderRegistrationDetail'),
 ('Roatpv2','ProviderAddress','dbo','[Id],[ProviderId],[Postcode],[Latitude],[Longitude],[AddressUpdateDate],[CoordinatesUpdateDate]','[AddressLine1],[AddressLine2],[AddressLine3],[AddressLine4],[Town]','',1,0,'FAT_ROATPV2_ProviderAddress'),
-('Roatpv2','Standard','dbo','[StandardUId],[LarsCode],[IfateReferenceNumber],[Level],[Version],[SectorSubjectArea]','[ApprovalBody]','[Title]',1,0,'FAT_ROATPV2_Standard')
+('Roatpv2','Standard','dbo','[StandardUId],[LarsCode],[IfateReferenceNumber],[Level],[Version],[SectorSubjectArea]','[ApprovalBody]','[Title]',1,1,'FAT_ROATPV2_Standard')
 
 /* Roatp Import Configuration */
 

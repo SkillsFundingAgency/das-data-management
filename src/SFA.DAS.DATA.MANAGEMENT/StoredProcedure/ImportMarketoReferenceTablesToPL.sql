@@ -61,21 +61,45 @@ Update ASData_PL.MarketoPrograms
     ELSE ''
     END
  ELSE ''
- END as CampaignWeekName
-       ,CASE WHEN (Name Like 'MA%' OR updatedAt >= '2022-10-13') THEN case when P6.Pos6=0 and substring(Name, P5.Pos5 + 1, len(Name)) not like 'Week%' THEN substring(Name, P5.Pos5 + 1, len(Name))
+ END as Additional_Information
+ ,etype.et as EmailType
+ ,CASE WHEN (createdAt >= '2022-10-01') THEN case when etype.et ='MA' then 'Marketing'
+ when etype.et ='OP' then 'Operational'
+ when etype.et ='CO' then 'Compliance'
+ when etype.et ='WEB' then 'invites to webinars'
+ when etype.et ='TE' then 'test email'
+ else '' end
+ else '' end as EmailTypeDescription
+ ,case when (createdAt >= '2022-10-01') THEN case when P2.Pos2 =0 or P1.Pos1=0 then '' else SUBSTRING(Name,P1.pos1 +1,(P2.Pos2- P1.pos1-1)) end else '' end as AudienceType
+  ,case when (createdAt >= '2022-10-01') THEN case when P2.Pos2 =0 or P1.Pos1=0 then '' 
+  when SUBSTRING(Name,P1.pos1 +1,(P2.Pos2- P1.pos1-1)) ='EM' then 'Mixed employer'
+  when SUBSTRING(Name,P1.pos1 +1,(P2.Pos2- P1.pos1-1)) ='LE' then 'Levy Employer'
+  when SUBSTRING(Name,P1.pos1 +1,(P2.Pos2- P1.pos1-1)) ='NLE' then 'Non Levy employer'
+  when SUBSTRING(Name,P1.pos1 +1,(P2.Pos2- P1.pos1-1)) ='TP' then 'Training Provider'
+  when SUBSTRING(Name,P1.pos1 +1,(P2.Pos2- P1.pos1-1)) ='EP' then 'Employer provider'
+  when SUBSTRING(Name,P1.pos1 +1,(P2.Pos2- P1.pos1-1)) ='INT' then 'Intermediary'
+  when SUBSTRING(Name,P1.pos1 +1,(P2.Pos2- P1.pos1-1)) ='CSHG' then 'College Stakeholder group'
+  when SUBSTRING(Name,P1.pos1 +1,(P2.Pos2- P1.pos1-1)) ='EPAO' then 'End point assessment Organisation'
+  when SUBSTRING(Name,P1.pos1 +1,(P2.Pos2- P1.pos1-1)) ='APP' then 'Apprentice'
+  when SUBSTRING(Name,P1.pos1 +1,(P2.Pos2- P1.pos1-1)) ='AAN' then 'Apprenticeship Ambassador network'
+  when SUBSTRING(Name,P1.pos1 +1,(P2.Pos2- P1.pos1-1)) ='TEST' then 'internal test audience'
+  else '' end else '' end as AudienceTypeDescription
+       ,CASE WHEN (createdAt >= '2022-10-01') THEN case when P6.Pos6=0 and substring(Name, P5.Pos5 + 1, len(Name)) not like 'Week%' THEN substring(Name, P5.Pos5 + 1, len(Name))
                                         when P6.Pos6=0 and substring(Name, P5.Pos5 + 1, len(Name)) like 'Week%' THEN ''
-    when P6.Pos6<>0 THEN substring(Name, P6.Pos6 + 1, len(Name))
+    when P6.Pos6<>0 and substring(Name, P6.Pos6 + 1, len(Name)) ='G' THEN 'Growth'
+	when P6.Pos6<>0 and substring(Name, P6.Pos6 + 1, len(Name)) ='S' THEN 'Simplification'	
     ELSE ''
     end
  ELSE ''
-      END as TargetAudience
+      END as High_Level_Campaign
          FROM Stg.MarketoPrograms
   cross apply (select (charindex('_', Name))) as P1(Pos1)
   cross apply (select (charindex('_', Name, P1.Pos1+1))) as P2(Pos2)
   cross apply (select (charindex('_', Name, P2.Pos2+1))) as P3(Pos3)
   cross apply (select (charindex('_', Name, P3.Pos3+1))) as P4(Pos4)
   cross apply (select (charindex('_', Name, P4.Pos4+1))) as P5(Pos5)
-  cross apply (select (charindex('_', Name, P5.Pos5+1))) as P6(Pos6)) as Source
+  cross apply (select (charindex('_', Name, P5.Pos5+1))) as P6(Pos6)
+  cross apply (SELECT (Replace(Replace(SUBSTRING(name, 1, 3),'-',''),'_',''))) as etype(et)) as Source
     ON Target.ProgramId=TRY_CONVERT(BIGINT,CASE WHEN Source.Id='NULL' THEN NULL ELSE Source.Id END)
   WHEN MATCHED AND ( ISNULL(Target.ProgramName,'NA')<>ISNULL(CASE WHEN Source.name='null' THEN NULL ELSE Source.name END,'NA')
                   OR ISNULL(Target.ProgramDescription,'NA')<>ISNULL(CASE WHEN Source.Description='NULL' THEN NULL ELSE Source.Description END,'NA')
@@ -90,8 +114,12 @@ Update ASData_PL.MarketoPrograms
 				  OR ISNULL(Target.CampaignDate,'') <> ISNULL(Source.CampaignDate,'')
 				  OR ISNULL(Target.CampaignName,'') <> ISNULL(Source.CampaignName,'')
 				  OR ISNULL(Target.CampaignCategory,'')<>ISNULL(Source.CampaignCategory,'')
-				  OR ISNULL(Target.CampaignWeekName,'')<>ISNULL(Source.CampaignWeekName,'')
-				  OR ISNULL(Target.TargetAudience,'')<>ISNULL(Source.TargetAudience,'')
+				  OR ISNULL(Target.Additional_Information,'')<>ISNULL(Source.Additional_Information,'')
+				  OR ISNULL(Target.EmailType,'')<>ISNULL(Source.EmailType,'')
+				  OR ISNULL(Target.EmailTypeDescription,'')<>ISNULL(Source.EmailTypeDescription,'')
+				  OR ISNULL(Target.AudienceType,'')<>ISNULL(Source.AudienceType,'')
+				  OR ISNULL(Target.AudienceTypeDescription,'')<>ISNULL(Source.AudienceTypeDescription,'')
+				  OR ISNULL(Target.High_Level_Campaign,'')<>ISNULL(Source.High_Level_Campaign,'')
 				  )
   THEN UPDATE SET   Target.ProgramName=CASE WHEN Source.name='null' THEN NULL ELSE Source.name END
                   , Target.ProgramDescription=CASE WHEN Source.Description='NULL' THEN NULL ELSE Source.Description END
@@ -106,8 +134,12 @@ Update ASData_PL.MarketoPrograms
 				  , Target.CampaignDate=Source.CampaignDate
 				  , Target.CampaignName = Source.CampaignName
 				  , Target.CampaignCategory = Source.CampaignCategory
-				  , Target.CampaignWeekName = Source.CampaignWeekName
-				  , Target.TargetAudience = Source.TargetAudience
+				  , Target.Additional_Information = Source.Additional_Information
+				  , Target.EmailType = Source.EmailType
+				  , Target.EmailTypeDescription = Source.EmailTypeDescription
+				  ,	Target.AudienceType = Source.AudienceType
+				  , Target.AudienceTypeDescription = Source.AudienceTypeDescription
+				  , Target.High_Level_Campaign = Source.High_Level_Campaign
 				  , Target.AsDm_UpdatedDate=getdate()
   WHEN NOT MATCHED BY TARGET 
   THEN INSERT (ProgramId
@@ -119,9 +151,13 @@ Update ASData_PL.MarketoPrograms
 			  ,Channel
 			  ,CampaignName
 			  ,CampaignCategory
-			  ,CampaignWeekName
+			  ,Additional_Information
 			  ,CampaignDate
-			  ,TargetAudience
+			  ,EmailType
+			  ,EmailTypeDescription
+			  ,AudienceType
+			  ,AudienceTypeDescription
+			  ,High_Level_Campaign
 			  ,AsDm_CreatedDate
 			  ,AsDm_UpdatedDate
 			  ) 
@@ -133,9 +169,13 @@ Update ASData_PL.MarketoPrograms
 			  ,CASE WHEN Source.Type='null' THEN NULL ELSE Source.Type END,CASE WHEN Source.Channel='null' THEN NULL ELSE Source.Channel END
 			  ,CampaignName
 			  ,CampaignCategory
-			  ,CampaignWeekName
+			  ,Additional_Information
 			  ,CampaignDate
-			  ,TargetAudience
+			  ,EmailType
+			  ,EmailTypeDescription
+			  ,AudienceType
+			  ,AudienceTypeDescription
+			  ,High_Level_Campaign
 			  ,getdate()
 			  ,getdate()
 			  )

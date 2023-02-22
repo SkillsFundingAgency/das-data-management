@@ -62,7 +62,7 @@ Update ASData_PL.MarketoPrograms
     END
  ELSE ''
  END as Additional_Information
- ,etype.et as EmailType
+ ,CASE WHEN (createdAt >= '2022-10-01') THEN etype.et else '' end as EmailType
  ,CASE WHEN (createdAt >= '2022-10-01') THEN case when etype.et ='MA' then 'Marketing'
  when etype.et ='OP' then 'Operational'
  when etype.et ='CO' then 'Compliance'

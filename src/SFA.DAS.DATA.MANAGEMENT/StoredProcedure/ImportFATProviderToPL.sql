@@ -35,7 +35,7 @@ BEGIN TRY
 
 		BEGIN TRANSACTION
 
-				DELETE FROM [ASData_PL].[Provider]
+				DELETE FROM [ASData_PL].[FAT_ROATPV2_Provider]
 				
 				set @DynSQL = ' INSERT [ASData_PL].[FAT_ROATPV2_Provider]
 				(		[Id],																

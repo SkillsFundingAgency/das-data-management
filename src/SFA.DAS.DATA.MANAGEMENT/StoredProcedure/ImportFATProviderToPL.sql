@@ -5,8 +5,8 @@ CREATE PROCEDURE [dbo].[ImportFATProviderToPL]
 )
 AS
 -- ==========================================================================================================
--- Author:      Sarma Evani
--- Create Date: 17/Dec/2020
+-- Author:      Manju Nagarajan
+-- Create Date: 27/Feb/2023
 -- Description: Import, Transform and Load Provider Presentation Layer Table
 -- ==========================================================================================================
 BEGIN TRY
@@ -48,8 +48,8 @@ BEGIN TRY
 						[Created],
 						[Updated]												
 				)
-				select 	
-						FATProvider.Id
+			select 	
+						FATProvider.Id,
 						coalesce(ComtProvider.UkPrn,FATProvider.UkPrn),
 						coalesce(ComtProvider.Name,FATProvider.LegalName),
 						FATProvider.TradingName,
@@ -59,7 +59,7 @@ BEGIN TRY
 						ComtProvider.[Created],
 						ComtProvider.[Updated] 
 				From	[Stg].[FAT_ROATPV2_Provider] FATProvider FULL OUTER JOIN stg.Comt_Providers  ComtProvider
-				ON		FATProvider.UkPrn = ComtProvider.UKPRN  AND FAT2Provider.Name = ComtProvider.Name '
+				ON		FATProvider.UkPrn = ComtProvider.UKPRN  AND FATProvider.LegalName = ComtProvider.Name '
 				
 				exec SP_EXECUTESQL @DynSQL
 
@@ -67,7 +67,7 @@ BEGIN TRY
 				--DROP TABLE [Stg].[Comt_Providers]
 
 				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='FAT_ROATPV2_Provider' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
-				DROP TABLE [Stg].[FAT2_Provider]
+				DROP TABLE [Stg].[FAT_ROATPV2_Provider]
 				
 		COMMIT TRANSACTION
 

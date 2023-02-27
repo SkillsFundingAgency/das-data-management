@@ -50,8 +50,8 @@ BEGIN TRY
 				)
 			select 	
 						FATProvider.Id,
-						coalesce(ComtProvider.UkPrn,FATProvider.UkPrn),
-						coalesce(ComtProvider.Name,FATProvider.LegalName),
+						coalesce(ComtProvider.UkPrn,FATProvider.UkPrn) as UkPrn,
+						coalesce(ComtProvider.Name,FATProvider.LegalName) as Name,
 						FATProvider.TradingName,
 						FATProvider.EmployerSatisfaction,
 						FATProvider.LearnerSatisfaction,

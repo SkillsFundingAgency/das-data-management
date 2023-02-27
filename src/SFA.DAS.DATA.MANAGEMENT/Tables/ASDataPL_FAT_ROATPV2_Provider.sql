@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [ASData_PL].[FAT_ROATPV2_Provider]
 (
-	[Id]					bigint								NOT NULL,
+	[Id]					bigint								NULL,
 	[UkPrn]					[int]								NOT NULL,
 	[Name]				    [varchar](1000)						NULL,
 	[TradingName]			[varchar](1000)						NULL,

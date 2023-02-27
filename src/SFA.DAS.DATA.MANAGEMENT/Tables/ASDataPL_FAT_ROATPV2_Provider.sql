@@ -2,7 +2,7 @@
 (
 	[Id]					bigint								NOT NULL,
 	[UkPrn]					[int]								NOT NULL,
-	[Name]				    [varchar](1000)						NOT NULL,
+	[Name]				    [varchar](1000)						NULL,
 	[TradingName]			[varchar](1000)						NULL,
 	[EmployerSatisfaction]  [decimal](18,0)						NULL,
 	[LearnerSatisfaction]   [decimal](18,0)						NULL,

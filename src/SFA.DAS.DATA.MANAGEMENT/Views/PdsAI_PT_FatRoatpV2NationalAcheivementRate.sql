@@ -1,6 +1,6 @@
 ﻿CREATE VIEW [Pds_AI].[PT_FRoatpV2]
 	AS 
-SELECT FNAR.[Id]                                       AS F1
+SELECT distinct FNAR.[Id]                                       AS F1
       ,convert(NVarchar(500),HASHBYTES('SHA2_512',LTRIM(RTRIM(CONCAT(FP.UkPrn , skl.SaltKey)))),2) AS F2
       ,FNAR.[Age]                                      AS F3
 	  ,SSA2.SectorSubjectAreaTier2                AS F4

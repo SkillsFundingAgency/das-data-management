@@ -38,7 +38,7 @@ DECLARE @LogID int
 
 BEGIN TRANSACTION
 
-DELETE FROM ASData_PL.Va_FaaFeedback
+TRUNCATE TABLE ASData_PL.Va_FaaFeedback
 
 INSERT INTO ASData_PL.Va_FaaFeedback
 (      CreatedDateTime 

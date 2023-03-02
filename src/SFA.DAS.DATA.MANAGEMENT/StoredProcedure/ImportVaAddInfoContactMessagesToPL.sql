@@ -32,7 +32,7 @@ DEClARE @quote varchar(5) = ''''
 
 BEGIN TRANSACTION
 
-DELETE FROM ASData_PL.Va_ContactMessages
+TRUNCATE TABLE ASData_PL.Va_ContactMessages
 
 INSERT INTO ASData_PL.Va_ContactMessages
 (      CreatedDateTime 

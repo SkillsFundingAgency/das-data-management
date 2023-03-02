@@ -31,7 +31,7 @@ WHERE StoredProcedureName='PopulatePipelineController'
 	
 BEGIN TRANSACTION
 
-DELETE FROM [Mgmt].[Pipeline]
+TRUNCATE TABLE [Mgmt].[Pipeline]
 
 INSERT INTO [Mgmt].[Pipeline]
            ([PipelineId],[PipelineName])
@@ -63,7 +63,7 @@ INSERT INTO [Mgmt].[Pipeline]
 ,(104,'ImportFAACandidateToDataMart')
 ,(105,'ImportFAAToDataMart')
 
-DELETE FROM [Mgmt].[Config_PipelineController]
+TRUNCATE TABLE [Mgmt].[Config_PipelineController]
 
 INSERT INTO [Mgmt].[Config_PipelineController]
 ([MasterPipelineId],[ChildPipelineId],[IsEnabled],[ExecutionOrder])

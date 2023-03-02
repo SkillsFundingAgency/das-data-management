@@ -42,7 +42,7 @@ IF @@TRANCOUNT=0
 BEGIN
 	BEGIN TRANSACTION
 
-	DELETE FROM [lkp].[Pst_SIC]
+	TRUNCATE TABLE [lkp].[Pst_SIC]
 
 	/* Isert into [lkp].[Pst_SIC] */
 	INSERT INTO [lkp].[Pst_SIC](SICCodeSicText,SicCode,SICGroup,Count) values ('0111 - Grow cereals & other crops',1110,'A:Agriculture, Forestry and Fishing',10)

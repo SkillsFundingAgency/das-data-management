@@ -38,7 +38,7 @@ DECLARE @LogID int
 
 BEGIN TRANSACTION
 
-DELETE FROM Mtd.DataRetentionConfig
+TRUNCATE TABLE Mtd.DataRetentionConfig
 
 INSERT INTO Mtd.DataRetentionConfig
 ( SFCI_Id,DataSetName,DataSetTable,DataSetSchema,DataSetJOINColumn,RetentionPeriodInMonths,SensitiveColumns,RetentionColumn,RefColumn,RefDataSetTable,RefDataSetSchema,PreImportRetention,PostImportRetention,IsActive)

@@ -41,7 +41,7 @@ BEGIN TRY
 IF @@TRANCOUNT=0
 BEGIN
 BEGIN TRANSACTION
-DELETE FROM Stg.CandidateDisabilityConfig
+TRUNCATE TABLE Stg.CandidateDisabilityConfig
 
 
 /* RAAv2 */

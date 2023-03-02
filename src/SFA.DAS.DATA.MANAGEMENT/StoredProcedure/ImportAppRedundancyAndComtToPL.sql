@@ -37,7 +37,7 @@ DECLARE @LogID int
 
 BEGIN TRANSACTION
 
-DELETE FROM ASData_PL.AR_Apprentice  
+TRUNCATE TABLE ASData_PL.AR_Apprentice  
 
 DECLARE @VSQL1 NVARCHAR(MAX)
 
@@ -106,7 +106,7 @@ DROP TABLE [Stg].AR_Apprentice
 /* Import Apprenticeship Redundancy Employer Data */
 
 
-DELETE FROM ASData_PL.AR_Employer  
+TRUNCATE TABLE ASData_PL.AR_Employer  
 
 DECLARE @VSQL2 NVARCHAR(MAX)
 
@@ -147,7 +147,7 @@ DROP TABLE [Stg].AR_Employer
 
  /* Import Commitments Apprenticeship to PL */
 
- DELETE FROM [ASData_PL].[Comt_Apprenticeship]
+ TRUNCATE TABLE [ASData_PL].[Comt_Apprenticeship]
 
  DECLARE @VSQL3 NVARCHAR(MAX)
 

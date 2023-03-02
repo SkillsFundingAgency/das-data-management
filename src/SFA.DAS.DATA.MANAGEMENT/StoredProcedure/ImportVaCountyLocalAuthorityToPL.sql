@@ -39,7 +39,7 @@ BEGIN TRANSACTION
 
 /* Import LocalAuthority to PL */
 
-DELETE FROM [ASData_PL].[Va_LocalAuthority]
+TRUNCATE TABLE [ASData_PL].[Va_LocalAuthority]
  
 INSERT INTO [ASData_PL].[Va_LocalAuthority]
            ([LocalAuthorityId]
@@ -57,7 +57,7 @@ FROM Stg.Avms_LocalAuthority
 
 /* Import County to PL */
 
-DELETE FROM [ASData_PL].[Va_County]
+TRUNCATE TABLE [ASData_PL].[Va_County]
 
 INSERT INTO [ASData_PL].[Va_County]
            ([CountyId]

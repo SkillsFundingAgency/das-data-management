@@ -27,7 +27,7 @@ BEGIN TRY
 
     BEGIN TRANSACTION
 
-    DELETE FROM ASData_PL.Va_VacancyWages
+    TRUNCATE TABLE ASData_PL.Va_VacancyWages
 
     INSERT INTO ASData_PL.Va_VacancyWages
     (

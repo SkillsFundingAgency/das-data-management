@@ -35,7 +35,7 @@ BEGIN TRY
 
 			BEGIN TRANSACTION
 
-					DELETE FROM [ASData_PL].[FAT2_Framework]
+					TRUNCATE TABLE [ASData_PL].[FAT2_Framework]
 
 					set @DynSQL ='INSERT [ASData_PL].[FAT2_Framework]
 					(												

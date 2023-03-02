@@ -37,9 +37,9 @@ DEClARE @quote varchar(5) = ''''
 
 BEGIN TRANSACTION
 
-DELETE FROM ASData_PL.Va_ApprenticeshipFrameWorkAndOccupation
-DELETE FROM AsData_PL.Va_ApprenticeshipStandard
-DELETE FROM AsData_PL.Va_EducationLevel
+TRUNCATE TABLE ASData_PL.Va_ApprenticeshipFrameWorkAndOccupation
+TRUNCATE TABLE AsData_PL.Va_ApprenticeshipStandard
+TRUNCATE TABLE AsData_PL.Va_EducationLevel
 
 /* Load Framework into Presentation Layer */
 

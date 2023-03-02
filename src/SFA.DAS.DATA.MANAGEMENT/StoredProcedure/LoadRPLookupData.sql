@@ -42,7 +42,7 @@ IF @@TRANCOUNT=0
 BEGIN
 	BEGIN TRANSACTION
 
-	DELETE FROM [lkp].[RP_OversightReviewStatus]
+	TRUNCATE TABLE [lkp].[RP_OversightReviewStatus]
 
 	/* Isert into [lkp].[RP_OversightReviewStatus] */
 	INSERT INTO [lkp].[RP_OversightReviewStatus] 
@@ -59,7 +59,7 @@ BEGIN
 
 
 
-	DELETE FROM [lkp].[RP_PageTitles]
+	TRUNCATE TABLE [lkp].[RP_PageTitles]
 	/* insert into [lkp].[RP_PageTitles] */
 	INSERT INTO [lkp].[RP_PageTitles]
 	([SequenceNumber],[SectionNumber],[PageId],[Title])	
@@ -438,7 +438,7 @@ BEGIN
 			(9, 3, '9200', 'Do you understand that your organisation will not join the RoATP until it completes all post application tasks?'),
 			(9, 3, '10006', 'Before you submit your application');
 
-			DELETE FROM [lkp].[RP_QuestionTitles]
+			TRUNCATE TABLE [lkp].[RP_QuestionTitles]
 			/* Insert into [lkp].[RP_QuestionTitles] */
 			INSERT INTO [lkp].[RP_QuestionTitles]
 			([SequenceNumber],[SectionNumber],[PageId],[QuestionId],[Title])
@@ -1186,7 +1186,7 @@ BEGIN
 
 
 
-					DELETE FROM [lkp].[RP_SectionTitles] 
+					TRUNCATE TABLE [lkp].[RP_SectionTitles] 
 
 					/*  Insert into [lkp].[RP_SectionTitles] */
 					INSERT INTO [lkp].[RP_SectionTitles] 
@@ -1243,7 +1243,7 @@ BEGIN
 						(9, 4, 'Submit application');
 
 
-						DELETE FROM [lkp].[RP_SequenceTitles] 
+						TRUNCATE TABLE [lkp].[RP_SequenceTitles] 
 						/* Inserting into [lkp].[RP_SequenceTitles] */
 						INSERT INTO [lkp].[RP_SequenceTitles] 
 						([SequenceNumber],[Title]) 

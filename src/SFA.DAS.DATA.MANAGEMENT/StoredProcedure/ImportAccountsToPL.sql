@@ -39,7 +39,7 @@ BEGIN TRY
 
 		DECLARE @VSQL NVARCHAR(MAX)
 
-		DELETE FROM [ASData_PL].[Acc_Account]
+		TRUNCATE TABLE [ASData_PL].[Acc_Account]
 
         SET @VSQL='
 
@@ -74,7 +74,7 @@ BEGIN TRY
 
 			  SET @VSQL=''
 			  				
-				DELETE FROM [ASData_PL].[Acc_AccountLegalEntity]
+				TRUNCATE TABLE [ASData_PL].[Acc_AccountLegalEntity]
 
 			  SET @VSQL='
 				INSERT INTO [ASData_PL].[Acc_AccountLegalEntity]
@@ -141,7 +141,7 @@ BEGIN TRY
 
                /* Delete and Transform Paye Data */
 
-                DELETE FROM ASData_PL.Acc_Paye
+                TRUNCATE TABLE ASData_PL.Acc_Paye
 
 				SET @VSQL='
 				INSERT INTO ASData_PL.Acc_Paye
@@ -155,7 +155,7 @@ BEGIN TRY
 
 				/* Delete and Transform Account History Data */
 
-				DELETE FROM ASData_PL.Acc_AccountHistory
+				TRUNCATE TABLE ASData_PL.Acc_AccountHistory
 
 				INSERT INTO ASData_PL.Acc_AccountHistory
 				(      [Id] 

@@ -41,7 +41,7 @@ BEGIN TRY
 IF @@TRANCOUNT=0
 BEGIN
 BEGIN TRANSACTION
-DELETE FROM dbo.CandidateEthLookUp
+TRUNCATE TABLE dbo.CandidateEthLookUp
 
 
 /* RAAv2 */

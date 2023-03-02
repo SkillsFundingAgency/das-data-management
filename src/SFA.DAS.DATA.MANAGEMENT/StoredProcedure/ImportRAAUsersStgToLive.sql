@@ -43,7 +43,7 @@ BEGIN TRY
    
 BEGIN TRANSACTION
 
-DELETE FROM ASData_PL.RAA_Users
+TRUNCATE TABLE ASData_PL.RAA_Users
 
 INSERT INTO [ASData_PL].[RAA_Users]
            ([BinaryId]

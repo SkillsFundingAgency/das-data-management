@@ -46,7 +46,7 @@ BEGIN TRY
 		/* Make it dynamic sql to avoid compile errors while deploying */
 
 BEGIN TRANSACTION
-				Delete From ASData_PL.Payments_SS
+				TRUNCATE TABLE ASData_PL.Payments_SS
 
 				INSERT INTO ASData_PL.Payments_SS
 				  (

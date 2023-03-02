@@ -39,7 +39,7 @@ DECLARE @LogID int
 
 BEGIN TRANSACTION
 
-DELETE FROM Mtd.NationalMinimumWageRates
+TRUNCATE TABLE Mtd.NationalMinimumWageRates
 
 INSERT INTO Mtd.NationalMinimumWageRates
 (StartDate

@@ -38,7 +38,7 @@ DECLARE @LogID int
 
 BEGIN TRANSACTION
 
-TRUNCATE TABLE Mtd.SourceConfigForImport
+DELETE FROM Mtd.SourceConfigForImport
 
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,[ModelDataToPL])

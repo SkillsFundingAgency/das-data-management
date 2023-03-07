@@ -38,7 +38,7 @@ DECLARE @LogID int
 
 BEGIN TRANSACTION
 
-TRUNCATE TABLE Mtd.RolesAndPermissions
+DELETE FROM Mtd.RolesAndPermissions
 
 INSERT INTO Mtd.RolesAndPermissions
 (RoleName, SchemaName, ObjectName, ObjectType, PermissionType, IsSchemaLevelAccess, IsEnabled)

@@ -41,7 +41,7 @@ BEGIN TRY
 IF @@TRANCOUNT=0
 BEGIN
 BEGIN TRANSACTION
-TRUNCATE TABLE dbo.ReferenceData
+DELETE FROM dbo.ReferenceData
 
 INSERT INTO dbo.ReferenceData
 (Category,FieldName,FieldValue,FieldDesc)

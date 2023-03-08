@@ -72,7 +72,7 @@ BEGIN
 BEGIN TRANSACTION
 
 
-TRUNCATE TABLE ASData_PL.Va_CandidateDetails
+DELETE FROM ASData_PL.Va_CandidateDetails
 
 IF OBJECT_ID(N'tempdb..#tRAAv2Eth') IS NOT NULL
 BEGIN

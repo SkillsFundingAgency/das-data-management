@@ -57,7 +57,7 @@ FROM Stg.Avms_LocalAuthority
 
 /* Import County to PL */
 
-TRUNCATE TABLE [ASData_PL].[Va_County]
+DELETE FROM [ASData_PL].[Va_County]
 
 INSERT INTO [ASData_PL].[Va_County]
            ([CountyId]

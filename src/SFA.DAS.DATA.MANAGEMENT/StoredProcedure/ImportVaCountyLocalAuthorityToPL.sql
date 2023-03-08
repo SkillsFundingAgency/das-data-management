@@ -39,7 +39,7 @@ BEGIN TRANSACTION
 
 /* Import LocalAuthority to PL */
 
-TRUNCATE TABLE [ASData_PL].[Va_LocalAuthority]
+DELETE FROM [ASData_PL].[Va_LocalAuthority]
  
 INSERT INTO [ASData_PL].[Va_LocalAuthority]
            ([LocalAuthorityId]

@@ -44,7 +44,7 @@ TRUNCATE TABLE ASData_PL.Va_Apprenticeships -- Delete Apprenticeships First to b
 
 TRUNCATE TABLE ASData_PL.va_VacancyReviews -- Delete VacancyReviews First to be able to resolve Foreign key conflicts */
 
-TRUNCATE TABLE ASData_PL.Va_Vacancy
+DELETE FROM ASData_PL.Va_Vacancy
 
 /* Load RAAv1 */
 

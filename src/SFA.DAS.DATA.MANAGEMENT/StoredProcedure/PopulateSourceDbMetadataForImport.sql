@@ -211,7 +211,7 @@ VALUES
 ('Roatpv2','ProviderLocation','dbo','[Id],[ImportedLocationId],[NavigationId],[ProviderId],[RegionId],[Postcode],[Latitude],[Longitude],[IsImported],[LocationType]','[Phone],[AddressLine1],[AddressLine2],[Town],[County]','[LocationName],[Email],[Website]',1,0,'FAT_ROATPV2_ProviderLocation'),
 ('Roatpv2','ProviderRegistrationDetail','dbo','[LegalName],[StatusId],[StatusDate],[OrganisationTypeId],[ProviderTypeId]','','[Ukprn]',1,0,'FAT_ROATPV2_ProviderRegistrationDetail'),
 ('Roatpv2','ProviderAddress','dbo','[Id],[ProviderId],[Postcode],[Latitude],[Longitude],[AddressUpdateDate],[CoordinatesUpdateDate]','[AddressLine1],[AddressLine2],[AddressLine3],[AddressLine4],[Town]','',1,0,'FAT_ROATPV2_ProviderAddress'),
-('Roatpv2','Standard','dbo','[StandardUId],[LarsCode],[IfateReferenceNumber],[Level],[Version],[SectorSubjectArea]','[ApprovalBody]','[Title]',1,0,'FAT_ROATPV2_Standard')
+('Roatpv2','Standard','dbo','[StandardUId],[LarsCode],[IfateReferenceNumber],[Level],[Version],[ApprovalBody],[SectorSubjectArea]','','[Title]',1,0,'FAT_ROATPV2_Standard')
 
 /* Roatp Import Configuration */
 

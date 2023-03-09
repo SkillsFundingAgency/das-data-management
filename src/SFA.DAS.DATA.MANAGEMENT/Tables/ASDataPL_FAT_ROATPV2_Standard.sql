@@ -6,6 +6,7 @@
       [Level]                   int                 NULL,
       [Title]                   varchar(1000)       NULL,
       [Version]                 varchar(10)         NULL,
+      [ApprovalBody]            varchar(1000)       NULL,
       [SectorSubjectArea]       varchar(1000)       NULL,
       [AsDm_UpdatedDateTime] [datetime2](7)		DEFAULT (getdate())
 )

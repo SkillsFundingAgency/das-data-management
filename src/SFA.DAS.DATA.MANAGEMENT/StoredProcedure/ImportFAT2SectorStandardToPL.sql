@@ -36,7 +36,7 @@ BEGIN TRY
 
 			BEGIN TRANSACTION
 
-				DELETE FROM [ASData_PL].[FAT2_StandardSector]
+				TRUNCATE TABLE [ASData_PL].[FAT2_StandardSector]
 
 					set @DynSQL = 'INSERT INTO [ASData_PL].[FAT2_StandardSector]
 						   (

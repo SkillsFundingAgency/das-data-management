@@ -37,7 +37,7 @@ DEClARE @quote varchar(5) = ''''
 
 BEGIN TRANSACTION
 
-DELETE FROM ASData_PL.Va_LegalEntity
+TRUNCATE TABLE ASData_PL.Va_LegalEntity
 
 INSERT INTO [ASData_PL].[Va_LegalEntity]
            ([LegalEntityPublicHashedId]

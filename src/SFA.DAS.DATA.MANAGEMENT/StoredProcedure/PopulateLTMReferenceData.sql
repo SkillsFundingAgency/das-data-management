@@ -42,7 +42,7 @@ AS
 		BEGIN
 		BEGIN TRANSACTION
 
-			DELETE FROM [ASData_PL].[LTM_Pledge]
+			TRUNCATE TABLE [ASData_PL].[LTM_Pledge]
 			Set @DynSQL = 'Insert into [ASData_PL].[LTM_Pledge]
 				(
 					[Id],
@@ -73,7 +73,7 @@ AS
 				  DROP TABLE [stg].[LTM_Pledge]
 
 				/*Loading Pledge Sector data */				
-				DELETE FROM [ASData_PL].[LTM_PledgeSector]
+				TRUNCATE TABLE [ASData_PL].[LTM_PledgeSector]
 				INSERT INTO [ASData_PL].[LTM_PledgeSector]
 				(
 					PledgeID,
@@ -88,7 +88,7 @@ AS
 
 
 				/*Loading Pledge Level data */				
-				DELETE FROM [ASData_PL].[LTM_PledgeLevel]
+				TRUNCATE TABLE [ASData_PL].[LTM_PledgeLevel]
 				INSERT INTO [ASData_PL].[LTM_PledgeLevel]
 				(
 					PledgeID,
@@ -102,7 +102,7 @@ AS
 				order by 1,cast(l.FieldValue as int) asc
 
 				/*Loading Pledge JobRole data */
-				DELETE FROM [ASData_PL].[LTM_PledgeJobRole]
+				TRUNCATE TABLE [ASData_PL].[LTM_PledgeJobRole]
 				INSERT INTO [ASData_PL].[LTM_PledgeJobRole]
 				(
 					PledgeID,

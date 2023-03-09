@@ -34,7 +34,7 @@ BEGIN TRY
 
 			BEGIN TRANSACTION
 				
-				DELETE FROM [AsData_PL].[PubSector_Report];
+				TRUNCATE TABLE [AsData_PL].[PubSector_Report];
 
 				;with basedata As
 				(

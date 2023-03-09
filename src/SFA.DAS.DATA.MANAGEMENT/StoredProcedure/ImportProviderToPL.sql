@@ -35,7 +35,7 @@ BEGIN TRY
 
 		BEGIN TRANSACTION
 
-				DELETE FROM [ASData_PL].[Provider]
+				TRUNCATE TABLE [ASData_PL].[Provider]
 				
 				set @DynSQL = ' INSERT [ASData_PL].[Provider]
 				(																		

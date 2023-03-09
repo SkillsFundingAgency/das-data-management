@@ -38,7 +38,7 @@ DEClARE @quote varchar(5) = ''''
 
 BEGIN TRANSACTION
 
-DELETE FROM ASData_PL.Va_Application
+TRUNCATE TABLE ASData_PL.Va_Application
 
 INSERT INTO [ASData_PL].[Va_Application]
            ([CandidateId]

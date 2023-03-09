@@ -32,7 +32,7 @@ DEClARE @quote varchar(5) = ''''
 
 BEGIN TRANSACTION
 
-DELETE FROM ASData_PL.va_VacancyReviews
+TRUNCATE TABLE ASData_PL.va_VacancyReviews
 
 /* Insert all the unsuccessful outcomes first with a reason */
 

@@ -207,7 +207,7 @@ Declare @VSQL3 NVARCHAR(MAX)
 SET @VSQL3=
 
 '
-DELETE FROM '+@PLTableName+'
+TRUNCATE TABLE '+@PLTableName+'
 
 INSERT INTO '+@PLTableName+'
 ('+@InsertList+')

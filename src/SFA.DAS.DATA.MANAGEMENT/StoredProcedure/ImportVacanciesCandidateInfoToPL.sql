@@ -35,7 +35,7 @@ BEGIN TRY
 
     BEGIN TRANSACTION
 
-    DELETE FROM ASData_PL.Va_CandidateInfo
+    TRUNCATE TABLE ASData_PL.Va_CandidateInfo
 
     INSERT INTO [ASData_PL].[Va_CandidateInfo]
     (

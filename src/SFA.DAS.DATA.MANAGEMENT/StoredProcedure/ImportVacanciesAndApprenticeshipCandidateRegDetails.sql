@@ -39,7 +39,7 @@ BEGIN TRANSACTION
 
 /* Import Vacancies Candidate Reg Details */
 
-DELETE FROM ASData_PL.Va_CandidateRegDetails
+TRUNCATE TABLE ASData_PL.Va_CandidateRegDetails
 
 
 INSERT INTO [ASData_PL].[Va_CandidateRegDetails]
@@ -93,7 +93,7 @@ SELECT      VC.[CandidateId]
 
  /* Import Commitments Candidate Reg Details */
 
- DELETE FROM [ASData_PL].[Comt_ApprenticeshipCandidateRegDetails]
+ TRUNCATE TABLE [ASData_PL].[Comt_ApprenticeshipCandidateRegDetails]
 
  INSERT INTO [ASData_PL].[Comt_ApprenticeshipCandidateRegDetails]
            ([ApprenticeshipId]

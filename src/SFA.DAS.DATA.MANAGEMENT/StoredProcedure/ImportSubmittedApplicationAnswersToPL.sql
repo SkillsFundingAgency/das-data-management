@@ -34,7 +34,7 @@ BEGIN TRY
 
 		BEGIN TRANSACTION
 
-				DELETE FROM [ASData_PL].[RP_SubmittedApplicationAnswers]
+				TRUNCATE TABLE [ASData_PL].[RP_SubmittedApplicationAnswers]
 				
 				Set @DynSQL = 'INSERT [ASData_PL].[RP_SubmittedApplicationAnswers]
 				(																		

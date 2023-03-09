@@ -129,7 +129,7 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
      SELECT v.VacancyGuid                                     as VacancyGuid
            ,v.[VacancyReferenceNumber]                        as VacancyReferenceNumber
            ,vs.FullName                                       as VacancyStatus
-	       ,v.[Title]                                         as VacancyTitle
+	       ,REPLACE(REPLACE(v.[Title], CHAR(13), ''), CHAR(10), ' ')  as VacancyTitle
 		   ,v.PostCode                                        as VacancyPostCode
            ,v.AddressLine1                                    as VacancyAddressLine1
            ,v.AddressLine2                                    as VacancyAddressLine2
@@ -389,7 +389,7 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
    SELECT  cast(v.BinaryId as varchar(256))                        as VacancyGuid
 	      ,cast(VacancyReference as bigint)                           as VacancyReference
 		  ,cast(VacancyStatus as varchar(100))                     as VacancyStatus
-		  ,VacancyTitle                                            as VacancyTitle
+		  ,REPLACE(REPLACE(VacancyTitle, CHAR(13), ''), CHAR(10), ' ') as VacancyTitle
 		  ,CASE WHEN len(EmployerPostCode)>8 
 		        THEN CASE WHEN Mgmt.fn_ExtractPostCodeUKFromAddress(EmployerPostCode)='ZZ99 9ZZ'
 				          THEN CASE WHEN Mgmt.fn_ExtractPostCodeUKFromAddress(ISNULL(EmployerAddressLine1,'')+','+ISNULL(EmployerAddressLine2,'')+','+ISNULL(EmployerAddressLine3,'')+','+ISNULL(EmployerAddressLine4,'')) ='ZZ99 9ZZ'

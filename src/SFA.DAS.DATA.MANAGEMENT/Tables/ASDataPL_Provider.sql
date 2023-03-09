@@ -1,4 +1,4 @@
-﻿CREATE TABLE [ASData_PL].[FAT2_Provider]
+﻿CREATE TABLE [ASData_PL].[Provider]
 (	
 	[UkPrn]					[int]								NOT NULL,
 	[Name]					[varchar](1000)						NOT NULL,

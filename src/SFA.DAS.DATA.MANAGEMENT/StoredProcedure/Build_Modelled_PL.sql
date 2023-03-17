@@ -21,8 +21,6 @@ EXEC dbo.ImportFATProviderToPL @RunId
 
 /* Import CRS and CRS Delivery Data to Presentation Layer */
 
-EXEC dbo.ImportProviderToPL @RunId
-
 EXEC dbo.ImportFAT2FrameworkToPL @RunId
 
 EXEC dbo.ImportFAT2SectorStandardToPL @RunId

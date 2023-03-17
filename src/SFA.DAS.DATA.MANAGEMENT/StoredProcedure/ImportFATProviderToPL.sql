@@ -63,8 +63,8 @@ BEGIN TRY
 				
 				exec SP_EXECUTESQL @DynSQL
 
-				--IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Comt_Providers' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
-				--DROP TABLE [Stg].[Comt_Providers]
+				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Comt_Providers' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+				DROP TABLE [Stg].[Comt_Providers]
 
 				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='FAT_ROATPV2_Provider' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 				DROP TABLE [Stg].[FAT_ROATPV2_Provider]

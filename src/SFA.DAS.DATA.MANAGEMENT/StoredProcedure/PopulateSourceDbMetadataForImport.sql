@@ -173,22 +173,6 @@ VALUES
  ('AppRedundancy','apprentice','dbo','[Id],[UpdatesWanted],[ContactableForFeedback],[PreviousTraining],[Employer],[TrainingProvider],[LeftOnApprenticeshipMonths],[LeftOnApprenticeshipYears],[Sectors],[CreatedOn]','[PhoneNumber],[PostCode],[EmployerLocation]','[FirstName],[LastName],[DateOfBirth],[Email],[Ethnicity],[EthnicitySubgroup],[EthnicityText],[Gender],[GenderText]',0,1,'AR_Apprentice')
 ,('AppRedundancy','employer','dbo','[ID],[OrganisationName],[ContactableForFeedback],[Locations],[Sectors],[CreatedOn]','[PhoneNumber]','[Email],[ApprenticeshipMoreDetails],[ContactFirstName],[ContactLastName]',0,1,'AR_Employer')
 
-
-/* CRS Delivery Import Configurations */
-INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
-VALUES
-('CRSDelivery','NationalAchievementRate','dbo','[Id],[Age],[SectorSubjectArea],[ApprenticeshipLevel],[OverallCohort],[OverallAchievementRate]','','[UkPrn]',1,0,'FAT2_NationalAchievementRate'),
-('CRSDelivery','NationalAchievementRateOverall','dbo','[Id],[Age],[SectorSubjectArea],[ApprenticeshipLevel],[OverallCohort],[OverallAchievementRate]','','',1,0,'FAT2_NationalAchievementRateOverall'),
-('CRSDelivery','Provider','dbo','[TradingName],[EmployerSatisfaction],[LearnerSatisfaction]','[Phone],[Website],[MarketingInfo]','[UkPrn],[Name],[Email]',1,1,'FAT2_Provider'),
-('CRSDelivery','ProviderRegistration','dbo','[StatusDate],[StatusId],[ProviderTypeId],[OrganisationTypeId],[FeedbackTotal],[Postcode],[Lat],[Long]','[Address1],[Address2],[Address3],[Address4],[Town]','[UkPrn],[LegalName]',1,0,'FAT2_ProviderRegistration'),
-('CRSDelivery','ProviderRegistrationFeedbackAttribute','dbo','[AttributeName],[Weakness],[Strength]','','[UkPrn]',1,0,'FAT2_ProviderRegistrationFeedbackAttribute'),
-('CRSDelivery','ProviderRegistrationFeedbackRating','dbo','[FeedbackName],[FeedbackCount]','','[UkPrn]',1,0,'FAT2_ProviderRegistrationFeedbackRating'),
-('CRSDelivery','ProviderStandard','dbo','[StandardId],[StandardInfoUrl]','[Phone],[ContactUrl]','[UkPrn],[Email]',1,0,'FAT2_ProviderStandard'),
-('CRSDelivery','ProviderStandardLocation','dbo','[StandardId],[LocationId],[DeliveryModes],[Radius],[National]','','[UkPrn]',1,0,'FAT2_ProviderStandardLocation'),
-('CRSDelivery','StandardLocation','dbo','[LocationId],[Postcode],[Lat],[Long]','[Phone],[Address1],[Address2],[Town],[County]','[Name],[Email],[Website]',1,0,'FAT2_StandardLocation'),
-('CRSDelivery','ShortList','dbo','[Id],[ShortlistUserId],[StandardId],[CreatedDate],[Lat],[Long]','[LocationDescription]','[UkPrn],[CourseSector]',1,0,'FAT2_ShortList')
-
-
 /* CRS Import Configurations */
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
 VALUES

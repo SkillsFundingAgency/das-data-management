@@ -3,7 +3,6 @@
    @RunId int
 )
 AS
-
 BEGIN TRY
 
 Declare @EmptyTables VARCHAR(max);
@@ -24,10 +23,7 @@ having sum(part.rows) = 0
 )
 select @EmptyTables = STRING_AGG([table], ', ') from CTE;
 
-IF @EmptyTables IS NULL
-BEGIN
-	@Status = 1;
-END;
+SELECT @Status = CASE WHEN @EmptyTables IS NULL THEN 1 ELSE 0 END;
 
 EXEC [dbo].[LogDQCheckStatus] @RunId, 'CheckEmptyPLTables', @Status, CONCAT('Empty Tables:',@EmptyTables);
 

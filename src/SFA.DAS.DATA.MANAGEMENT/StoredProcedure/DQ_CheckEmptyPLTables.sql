@@ -7,6 +7,7 @@ AS
 BEGIN TRY
 
 Declare @EmptyTables VARCHAR(max);
+Declare @Status BIT = 0;
 
 WITH CTE as
 (
@@ -21,8 +22,14 @@ and sch.name = 'AsData_PL'
 group by sch.name + '.' + tab.name
 having sum(part.rows) = 0
 )
-select STRING_AGG([table], ', ') from CTE
+select @EmptyTables = STRING_AGG([table], ', ') from CTE;
 
+IF @EmptyTables IS NULL
+BEGIN
+	@Status = 1;
+END;
+
+EXEC [dbo].[LogDQCheckStatus] @RunId, 'CheckEmptyPLTables', @Status, CONCAT('Empty Tables:',@EmptyTables);
 
 END TRY
 BEGIN CATCH    

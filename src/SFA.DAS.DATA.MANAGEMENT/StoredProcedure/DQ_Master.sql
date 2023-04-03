@@ -8,7 +8,7 @@ BEGIN TRY
 EXEC dbo.DQ_CheckEmptyPLTables @RunId;
 EXEC dbo.DQ_CheckSaltKeyMatch @RunId;
 
-Select Count(*) FROm mgmt.DQ_Checks where RunId = @RunId and DQCheckStatus = 0;
+Select Count(*) as FailCount FROm mgmt.DQ_Checks where RunId = @RunId and DQCheckStatus = 0;
 
 END TRY
 BEGIN CATCH    

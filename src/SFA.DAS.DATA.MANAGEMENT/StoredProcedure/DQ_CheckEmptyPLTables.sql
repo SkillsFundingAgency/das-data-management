@@ -25,7 +25,7 @@ select @EmptyTables = STRING_AGG([table], ', ') from CTE;
 
 SELECT @Status = CASE WHEN @EmptyTables IS NULL THEN 1 ELSE 0 END;
 
-EXEC [dbo].[LogDQCheckStatus] @RunId, 'CheckEmptyPLTables', @Status, CONCAT('Empty Tables:',@EmptyTables);
+EXEC [dbo].[LogDQCheckStatus] @RunId, 'CheckEmptyPLTables', @Status, @EmptyTables;
 
 END TRY
 BEGIN CATCH    

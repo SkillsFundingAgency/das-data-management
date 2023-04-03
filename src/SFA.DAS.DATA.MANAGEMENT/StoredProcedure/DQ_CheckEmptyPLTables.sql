@@ -6,7 +6,7 @@ AS
 
 BEGIN TRY
 
-Declare @EmptyTables VARCHAR(max)
+Declare @EmptyTables VARCHAR(max);
 
 WITH CTE as
 (

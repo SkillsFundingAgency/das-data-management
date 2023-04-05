@@ -4,7 +4,7 @@
 )
 AS
 BEGIN TRY
-
+/*Check to makr sure there are no empty AsDataPL tables*/
 Declare @EmptyTables VARCHAR(max);
 Declare @Status BIT = 0;
 

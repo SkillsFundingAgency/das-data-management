@@ -4,7 +4,7 @@
 )
 AS
 BEGIN TRY
-
+/*This check is to make sure the hashed columns between TPR and Account tables are able to be joined together*/
 Declare @RecordCount INT;
 Declare @Status BIT = 0;
 

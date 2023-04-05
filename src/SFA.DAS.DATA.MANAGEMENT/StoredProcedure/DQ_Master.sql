@@ -4,7 +4,8 @@
 )
 AS
 BEGIN TRY
-
+/* Master DQ Proc used to orchestrate individual DQ Checks 
+Finally looks for the number of failed DQ Checks and returns the value*/
 EXEC dbo.DQ_CheckEmptyPLTables @RunId;
 EXEC dbo.DQ_CheckSaltKeyMatch @RunId;
 

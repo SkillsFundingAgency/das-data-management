@@ -337,8 +337,13 @@
     <Build Include="Tables\AsDataPL_PAS_User.sql" />
     <Build Include="Tables\AsDataPL_Assessor_Apply.sql" />
     <Build Include="Tables\Mtd_DataRetentionConfig.sql" />
+    <Build Include="Tables\Management_DQ_Checks.sql" />
     <Build Include="StoredProcedure\PopulateMetadataDataRetention.sql" />
     <Build Include="StoredProcedure\UpdateRetentionData.sql" />
+    <Build Include="StoredProcedure\DQ_CheckEmptyPLTables.sql" />
+    <Build Include="StoredProcedure\LogDQCheckStatus.sql" />
+    <Build Include="StoredProcedure\DQ_CheckSaltKeyMatch.sql" />
+    <Build Include="StoredProcedure\DQ_Master.sql" />
     <Build Include="Tables\AsDataPL_aComt_Apprentice.sql" />
     <Build Include="Tables\AsDataPL_aComt_Apprenticeship.sql" />
     <Build Include="Tables\AsDataPL_aComt_Revision.sql" />

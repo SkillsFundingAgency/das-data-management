@@ -123,6 +123,7 @@ BEGIN TRY
 						SubmittedEmail,
 						FlagLatest,
 						IsLocalAuthority,
+						EmployeesExcludingMainatainedSchools_AtStart,
 						EmployeesExcludingMainatainedSchools_AtEnd,
 						EmployeesExcludingMainatainedSchools_NewThisPeriod,
 						ApprenticesExcludingMainatainedSchools_AtStart,

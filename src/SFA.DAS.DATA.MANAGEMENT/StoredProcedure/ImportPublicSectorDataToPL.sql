@@ -42,6 +42,7 @@ BEGIN TRY
 					  ,[FullTimeEquivalent_atStart]
 					  ,[ID_FullTimeEquivalent]
 					  ,[OrganisationName]
+					  ,[IsLocalAuthority]
 					  ,[Questions_AnythingElse_Answer]
 					  ,[Questions_AnythingElse_Id]
 					  ,[Questions_Challenges_Answer]
@@ -62,7 +63,19 @@ BEGIN TRY
 					  ,[YourApprentices_NewThisPeriod]
 					  ,[YourEmployees_AtEnd]
 					  ,[YourEmployees_AtStart]
-					  ,[YourEmployees_NewThisPeriod]     	  
+					  ,[YourEmployees_NewThisPeriod]  
+					  ,YourEmployeesExcludingMainatainedSchools_AtStart
+	   				  ,YourEmployeesExcludingMainatainedSchools_AtEnd
+					  ,YourEmployeesExcludingMainatainedSchools_NewThisPeriod
+					  ,YourApprenticesExcludingMainatainedSchools_AtStart
+					  ,YourApprenticesExcludingMainatainedSchools_AtEnd
+					  ,YourApprenticesExcludingMainatainedSchools_NewThisPeriod
+					  ,YourEmployeesMaintainedSchoolsOnly_AtStart
+					  ,YourEmployeesMaintainedSchoolsOnly_AtEnd
+					  ,YourEmployeesMaintainedSchoolsOnly_NewThisPeriod
+					  ,YourApprenticesMaintainedSchoolsOnly_AtStart
+					  ,YourApprenticesMaintainedSchoolsOnly_AtEnd
+					  ,YourApprenticesMaintainedSchoolsOnly_NewThisPeriod   	  
 					  ,cast([YourApprentices_NewThisPeriod] as float)/ cast(case when [YourEmployees_NewThisPeriod] IS NULL or [YourEmployees_NewThisPeriod] = 0 then 1 Else [YourEmployees_NewThisPeriod] end as decimal(8,3)) As FigureE
 					  ,cast([YourApprentices_AtEnd] as float) / cast(case when [YourEmployees_AtEnd] IS NULL or [YourEmployees_AtEnd] = 0 then 1 Else [YourEmployees_AtEnd] end as decimal(8,3)) As FigureF
 					  ,cast([YourApprentices_AtStart] as float) / cast(case when [YourEmployees_AtStart] IS NULL or [YourEmployees_AtStart] = 0 then 1 Else [YourEmployees_AtStart] end as decimal(8,3)) As FigureI
@@ -108,7 +121,19 @@ BEGIN TRY
 						SubmittedAt,
 						SubmittedName,
 						SubmittedEmail,
-						FlagLatest
+						FlagLatest,
+						IsLocalAuthority,
+						EmployeesExcludingMainatainedSchools_AtEnd,
+						EmployeesExcludingMainatainedSchools_NewThisPeriod,
+						ApprenticesExcludingMainatainedSchools_AtStart,
+						ApprenticesExcludingMainatainedSchools_AtEnd,
+						ApprenticesExcludingMainatainedSchools_NewThisPeriod,
+						EmployeesMaintainedSchoolsOnly_AtStart,
+						EmployeesMaintainedSchoolsOnly_AtEnd,
+						EmployeesMaintainedSchoolsOnly_NewThisPeriod,
+						ApprenticesMaintainedSchoolsOnly_AtStart,
+						ApprenticesMaintainedSchoolsOnly_AtEnd,
+						ApprenticesMaintainedSchoolsOnly_NewThisPeriod
 				)
 				select 
 						basedata.DasAccountId					 
@@ -138,6 +163,19 @@ BEGIN TRY
 						,[SubmittedName]		
 						,[SubmittedEmail]
 						,[FlagLatest]
+						,cast([IsLocalAuthority] AS bit)
+						,YourEmployeesExcludingMainatainedSchools_AtStart
+						,YourEmployeesExcludingMainatainedSchools_AtEnd
+						,YourEmployeesExcludingMainatainedSchools_NewThisPeriod
+						,YourApprenticesExcludingMainatainedSchools_AtStart
+						,YourApprenticesExcludingMainatainedSchools_AtEnd
+						,YourApprenticesExcludingMainatainedSchools_NewThisPeriod
+						,YourEmployeesMaintainedSchoolsOnly_AtStart
+						,YourEmployeesMaintainedSchoolsOnly_AtEnd
+						,YourEmployeesMaintainedSchoolsOnly_NewThisPeriod
+						,YourApprenticesMaintainedSchoolsOnly_AtStart
+						,YourApprenticesMaintainedSchoolsOnly_AtEnd
+						,YourApprenticesMaintainedSchoolsOnly_NewThisPeriod   
 				from basedata
 				LEFT JOIN  OutlineActionsAnswers OAA on  basedata.DasAccountId =  OAA.DasAccountId
 				LEFT JOIN  TargetPlanAnswers TPA on  basedata.DasAccountId =  TPA.DasAccountId

@@ -600,3 +600,5 @@ DROP VIEW IF EXISTS [AsData_AI].[DAS_TPROrgDetails];
 
 /* Drop schema as it's renamed */
 DROP SCHEMA IF EXISTS [AsData_AI]
+
+DROP TABLE IF EXISTS stg.PublicSector_Report

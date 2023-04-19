@@ -274,7 +274,9 @@ BEGIN TRY
     UNION ALL
 
     -----------------------------National Minimum Wage,FixedWage,NationalMinimumWageForApprentices,NationalMinimumWage
-    select vacancyid,
+   
+        
+	select vacancyid,
            NumberOfPositions,
            Wagetype,
            [Annual Minimum wage] = case
@@ -295,9 +297,10 @@ BEGIN TRY
                                        else
                                            [Annual Maximum wage]
                                    end
-    from
-    (
-        select vacancyid,
+    from( 
+	 
+	 
+	 select  vacancyid,
                NumberOfPositions,
                Wagetype = 'National Minimum or Fixed Wage',
                case
@@ -315,14 +318,13 @@ BEGIN TRY
                        maximumwage * 12
                    else
                        maximumwage
-               end as [Annual Maximum wage]
-        from
-        (
-            SELECT VacancyID,
+               end as [Annual Maximum wage] from(
+
+SELECT VacancyID,
                    [NumberOfPositions],
-                   [WageUnitDesc],
+                   [WageUnitDesc],				  
                    CONVERT(
-                              DECIMAL(18, 5),
+                              DECIMAL(18, 5),ISNULL(NULLIF(
                               REPLACE(
                                          case
                                              when [WageType] = 'National Minimum Wage'
@@ -345,15 +347,26 @@ BEGIN TRY
                                                               charindex('-', ltrim(rtrim(replace([WageText], ' ', ''))))
                                                               - 2
                                                           )
+										    WHEN WageType = 'NationalMinimumWage'
+                                                  and DatePosted < '2022-04-01' THEN
+                                                 CAST(NMR.MinWage * 52 * HoursPerWeek as varchar)
+											when [WageType] = 'NationalMinimumWage'
+                                                  and WageText like '%-%'
+                                                  --and SourceDb = 'RAAv1'
+												  THEN
+                                                 substring(
+                                                              replace([WageText], ' ', ''),
+                                                              1,
+                                                              charindex('-', ltrim(rtrim(replace([WageText], ' ', ''))))
+                                                              - 2
+                                                          )
                                              when [WageType] = 'FixedWage'
                                                   and WageText like '% %' THEN
                                                  substring([WageText], 1, charindex(' ', WageText) - 1)
                                              WHEN WageType = 'NationalMinimumWageForApprentices'
                                                   and DatePosted < '2022-04-01' THEN
                                                  CAST(AMW.WageRateInPounds * 52 * HoursPerWeek as varchar)
-                                             WHEN WageType = 'NationalMinimumWage'
-                                                  and DatePosted < '2022-04-01' THEN
-                                                 CAST(NMR.MinWage * 52 * HoursPerWeek as varchar)
+                                            
                                              WHEN WageType = 'NationalMinimumWageForApprentices'
                                                   and DatePosted >= '2022-04-01'
                                                   and DatePosted <= '2023-03-31' THEN
@@ -363,14 +376,16 @@ BEGIN TRY
                                                   and DatePosted <= '2023-03-31' THEN
                                                  cast(4.81 * HoursPerWeek * 52 as varchar)
                                              ELSE
-                                                 replace(WageText, '£', '')
+                                                 --'0.000'
+												  replace(WageText, '£', '')
                                          END,
                                          ',',
                                          ''
                                      )
-                          ) AS MinimumWage,
+                          , ''), '0')) 
+						  AS MinimumWage,
                    CONVERT(
-                              DECIMAL(18, 5),
+                              DECIMAL(18, 5), ISNULL(NULLIF(
                               replace(
                                          case
                                              when [WageType] = 'National Minimum Wage'
@@ -402,6 +417,16 @@ BEGIN TRY
                                              WHEN WageType = 'NationalMinimumWage'
                                                   and DatePosted < '2022-04-01' THEN
                                                  CAST(NMR.MaxWage * 52 * HoursPerWeek as Varchar)
+											 when [WageType] = 'NationalMinimumWage'
+                                                  and WageText like '%-%'
+                                                  --and SourceDb = 'RAAv1'
+												  THEN
+                                                 substring(
+                                                              replace([WageText], ' ', ''),
+                                                              charindex('-', ltrim(rtrim(replace([WageText], ' ', ''))))
+                                                              + 1,
+                                                              len(replace([WageText], ' ', ''))
+                                                          )
                                              WHEN WageType = 'NationalMinimumWageForApprentices'
                                                   and DatePosted >= '2022-04-01'
                                                   and DatePosted <= '2023-03-31' THEN
@@ -411,13 +436,26 @@ BEGIN TRY
                                                   and DatePosted <= '2023-03-31' THEN
                                                  cast(9.50 * HoursPerWeek * 52 as varchar)
                                              ELSE
+											 --'0.000'
                                                  replace(WageText, '£', '')
                                          END,
                                          ',',
                                          ''
                                      )
-                          ) AS MaximumWage
-            FROM [ASData_PL].[Va_Vacancy]
+                          , ''), '0'))
+						  AS MaximumWage from(
+						   SELECT VacancyID,
+                   [NumberOfPositions],
+                   [WageUnitDesc],
+				   SUBSTRING(wagetext, 0, CHARINDEX(' ', wagetext))as wagetext,				  
+				   [WageType],
+				   DatePosted,
+				   HasHadLiveStatus,
+				   VacancyTypeDesc,
+				   HoursPerWeek,
+				   SourceDb,
+				   ASDm_updatedDatetime
+            FROM [ASData_PL].[Va_Vacancy]) Va
                 LEFT JOIN
                 (
                     SELECT StartDate,
@@ -426,8 +464,8 @@ BEGIN TRY
                     FROM Mtd.NationalMinimumWageRates
                     WHERE AgeGroup = 'Apprentice'
                 ) AMW -- ApprenticeMinimumWage
-                    ON convert(date, DatePosted) >= AMW.StartDate
-                       AND convert(Date, DatePosted) <= AMW.EndDate
+                    ON convert(date, Va.DatePosted) >= AMW.StartDate
+                       AND convert(Date, Va.DatePosted) <= AMW.EndDate
                 LEFT JOIN
                 (
                     SELECT StartDate,
@@ -441,15 +479,12 @@ BEGIN TRY
                 ) NMR
                     ON convert(date, DatePosted) >= NMR.StartDate
                        AND convert(date, DatePosted) <= NMR.EndDate
-            where HasHadLiveStatus = 1
-                  and dateposted >= '01-Aug-2018'
-                  and VacancyTypeDesc NOT LIKE 'Traineeship%'
-                  and wagetype in ( 'National Minimum Wage', 'FixedWage', 'NationalMinimumWageForApprentices',
-                                    'NationalMinimumWage'
-                                  )
-        ) k
-    ) z
-
+            where Va.HasHadLiveStatus = 1
+                  and Va.dateposted >= '01-Aug-2018'
+                  and Va.VacancyTypeDesc NOT LIKE 'Traineeship%'
+                  and Va.wagetype in ( 'National Minimum Wage', 'FixedWage', 'NationalMinimumWageForApprentices',
+                                    'NationalMinimumWage')
+								  )k)z
 
 
 

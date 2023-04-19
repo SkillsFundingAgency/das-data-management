@@ -477,8 +477,8 @@ SELECT VacancyID,
                     GROUP BY StartDate,
                              EndDate
                 ) NMR
-                    ON convert(date, DatePosted) >= NMR.StartDate
-                       AND convert(date, DatePosted) <= NMR.EndDate
+                    ON convert(date, Va.DatePosted) >= NMR.StartDate
+                       AND convert(date, Va.DatePosted) <= NMR.EndDate
             where Va.HasHadLiveStatus = 1
                   and Va.dateposted >= '01-Aug-2018'
                   and Va.VacancyTypeDesc NOT LIKE 'Traineeship%'

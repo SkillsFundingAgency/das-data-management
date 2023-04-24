@@ -35,6 +35,7 @@ EXEC [dbo].[CreateDataDictionaryView] @RunID
 
 EXEC [dbo].[LoadRPLookupData] @RunID
 
+
 EXEC [dbo].[LoadSICLookupData] @RunID
 
 /* Populate Metadata for Marketo Import */
@@ -52,6 +53,7 @@ EXEC [dbo].[PopulateMetadataRolesAndPermissions] @RunId
 
 EXEC [dbo].[PopulatePipelineController] @RunId
 
+EXEC [dbo].[PopulateDQ_TablesToExclude] @RunId
 /* Grant Permissions to Roles -- Should always be kept last */
 
 EXEC [dbo].[AssignPermissionsToRoles] @RunId

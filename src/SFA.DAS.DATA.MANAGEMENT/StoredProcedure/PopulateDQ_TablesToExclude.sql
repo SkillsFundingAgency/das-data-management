@@ -40,6 +40,7 @@ INSERT INTO [Mgmt].[DQ_TablesToExclude]
 ,('ASData_PL', 'Assessor_MergeOrganisationStandard')
 ,('ASData_PL', 'Assessor_MergeOrganisationStandardDeliveryArea')
 ,('ASData_PL', 'Assessor_MergeOrganisationStandardVersion')
+,('ASData_PL', 'Cmphs_CompaniesHouseDataFromBlob')
 
 
 COMMIT TRANSACTION

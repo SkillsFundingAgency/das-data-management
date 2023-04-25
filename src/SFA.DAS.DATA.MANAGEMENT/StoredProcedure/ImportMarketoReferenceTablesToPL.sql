@@ -43,8 +43,8 @@ BEGIN TRANSACTION
 
 /* Reset IsDeletedAtSource Field */
 
-Update ASData_PL.MarketoPrograms
-   set IsDeletedAtSource=0
+--Update ASData_PL.MarketoPrograms
+--   set IsDeletedAtSource=0
 
 /* Delta Code */
 

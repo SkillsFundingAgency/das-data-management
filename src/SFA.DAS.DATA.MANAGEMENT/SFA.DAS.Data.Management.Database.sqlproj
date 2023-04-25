@@ -341,6 +341,7 @@
     <Build Include="Tables\ASDataPL_Comt_ApprenticeshipConfirmationStatus.sql" />
     <Build Include="Tables\ASDataPL_LTM_Application.sql" />
     <Build Include="Tables\ASDataPL_LTM_Pledge.sql" />
+    <Build Include="Tables\Management_DQ_TablesToExclude.sql" />
     <Build Include="Tables\ASDataPL_LTM_PledgeLocation.sql" />
     <Build Include="Tables\ASDataPL_LTM_ApplicationEmailAddress.sql" />
     <Build Include="Tables\ASDataPL_LTM_ApplicationStatusHistory.sql" />
@@ -353,6 +354,7 @@
     <Build Include="Tables\ASDataPL_LTM_PledgeSector.sql" />
     <Build Include="Tables\ASDataPL_LTM_PledgeLevel.sql" />
     <Build Include="StoredProcedure\PopulateLTMReferenceData.sql" />
+    <Build Include="StoredProcedure\PopulateDQ_TablesToExclude.sql" />
     <Build Include="StoredProcedure\ImportSubmittedApplicationAnswersToPL.sql" />
     <Build Include="Tables\AsDataPL_Tpr_OrgDetails.sql" />
     <Build Include="Views\PdsAI_PT_DAS_TprOrgDetails.sql" />

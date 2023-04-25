@@ -18,6 +18,10 @@ select sch.name + '.' + tab.name as [table]
 			on sch.schema_id = tab.schema_id
 where part.index_id IN (1, 0) -- 0 - table without PK, 1 table with PK
 and sch.name = 'AsData_PL'
+and not exists 
+(
+select * from Mgmt.DQ_TablesToExclude Exclude where Exclude.SchemaName = Sch.name and Exclude.TableName = tab.name
+)
 group by sch.name + '.' + tab.name
 having sum(part.rows) = 0
 )

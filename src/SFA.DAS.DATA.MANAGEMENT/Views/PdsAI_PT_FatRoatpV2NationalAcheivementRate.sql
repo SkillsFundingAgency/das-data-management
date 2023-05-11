@@ -1,4 +1,4 @@
-﻿ALTER VIEW [Pds_AI].[PT_F]
+﻿CREATE VIEW [Pds_AI].[PT_F]
 	AS 
 SELECT distinct FNAR.[Id]                                       AS F1
       ,convert(NVarchar(500),HASHBYTES('SHA2_512',LTRIM(RTRIM(CONCAT(FP.UkPrn , skl.SaltKey)))),2) AS F2

@@ -601,3 +601,4 @@ DROP VIEW IF EXISTS [AsData_AI].[DAS_TPROrgDetails];
 /* Drop schema as it's renamed */
 DROP SCHEMA IF EXISTS [AsData_AI]
 
+DROP VIEW IF EXISTS [PDS_AI].[PT_F]

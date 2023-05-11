@@ -18,5 +18,4 @@ EXEC [dbo].[Build_AS_DataMart]
 --DROP TABLE IF EXISTS [ASData_PL].[FAT2_ProviderStandard]
 --DROP TABLE IF EXISTS [ASData_PL].[Provider]
 
-
 --DROP VIEW IF EXISTS [Pds_AI].[PT_E]

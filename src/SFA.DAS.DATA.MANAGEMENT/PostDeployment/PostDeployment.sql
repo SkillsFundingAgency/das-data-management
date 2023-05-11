@@ -2,6 +2,7 @@
 EXEC [dbo].[Build_AS_DataMart]
 
  DROP PROCEDURE  IF EXISTS [dbo].[ImportProviderToPL]
+ DROP VIEW IF EXISTS [Pds_AI].[PT_FRoatpV2]
 
  /* Ryan's Power BI dashboard still pointing towards to these outdated tables.
  The tables will be removed once Ryan repoint his dashboard */
@@ -17,5 +18,5 @@ EXEC [dbo].[Build_AS_DataMart]
 --DROP TABLE IF EXISTS [ASData_PL].[FAT2_ProviderStandard]
 --DROP TABLE IF EXISTS [ASData_PL].[Provider]
 
---DROP VIEW IF EXISTS [Pds_AI].[PT_F]
+
 --DROP VIEW IF EXISTS [Pds_AI].[PT_E]

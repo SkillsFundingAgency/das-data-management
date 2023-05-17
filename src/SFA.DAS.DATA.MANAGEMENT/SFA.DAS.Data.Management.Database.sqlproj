@@ -389,6 +389,7 @@
     <Build Include="Tables\Stg_CmphsDataFromBlob.sql" />
     <Build Include="Tables\Stg_CmphsSourceFileRejectedRecords.sql" />
     <Build Include="StoredProcedure\ImportCmphsFromStgBlobToPL.sql" />
+    <Build Include="StoredProcedure\Insert_LogMarketoDates.sql" />
     <Build Include="Views\PdsAI_PT_CompaniesHouseFromBlob.sql" />
     <Build Include="Tables\Stg_CmphsBlobRejectedRecords.sql" />
     <Build Include="Functions\Fn_RemoveHTMLTags.sql" />

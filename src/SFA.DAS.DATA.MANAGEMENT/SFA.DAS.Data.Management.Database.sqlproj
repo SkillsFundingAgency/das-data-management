@@ -89,6 +89,7 @@
     <Build Include="Schemas\Acct.sql" />
     <Build Include="Schemas\Data_Pub.sql" />
     <Build Include="Views\LoadStatus.sql" />
+    <Build Include="Views\MarketoLoadStatus.sql
     <Build Include="StoredProcedure\LoadReferenceData.sql" />
     <Build Include="StoredProcedure\UpdateCalendarMonth.sql" />
     <Build Include="Tables\ReferenceData.sql" />

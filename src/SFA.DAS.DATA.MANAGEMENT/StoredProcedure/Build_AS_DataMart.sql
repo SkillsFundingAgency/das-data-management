@@ -38,10 +38,6 @@ EXEC [dbo].[LoadRPLookupData] @RunID
 
 EXEC [dbo].[LoadSICLookupData] @RunID
 
-/* Populate Metadata for Marketo Import */
-
-EXEC [dbo].[PopulateMarketoFilterConfigForImport] @RunId
-
 EXEC [dbo].[PopulateMetadataForRefreshDataset] @RunId
 
 EXEC [dbo].[PopulateMetadataNationalMinimumWageRates] @RunId

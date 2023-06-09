@@ -8,6 +8,7 @@ BEGIN TRY
 Finally looks for the number of failed DQ Checks and returns the value*/
 EXEC dbo.DQ_CheckEmptyPLTables @RunId;
 EXEC dbo.DQ_CheckSaltKeyMatch @RunId;
+EXEC [dbo].[DQ_CheckDateBasedMarketoImportStatus] @RunId;
 
 Select Count(*) as FailCount FROm mgmt.DQ_Checks where RunId = @RunId and DQCheckStatus = 0;
 

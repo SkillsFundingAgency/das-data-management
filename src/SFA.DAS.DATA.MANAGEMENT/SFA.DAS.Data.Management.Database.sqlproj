@@ -335,6 +335,7 @@
     <Build Include="StoredProcedure\LogDQCheckStatus.sql" />
     <Build Include="StoredProcedure\DQ_CheckSaltKeyMatch.sql" />
     <Build Include="StoredProcedure\DQ_CheckDateBasedMarketoImportStatus.sql" />
+    <Build Include="StoredProcedure\DQ_CheckNonDateBasedMarketoImportStatus.sql" />
     <Build Include="StoredProcedure\DQ_Master.sql" />
     <Build Include="Tables\AsDataPL_aComt_Apprentice.sql" />
     <Build Include="Tables\AsDataPL_aComt_Apprenticeship.sql" />

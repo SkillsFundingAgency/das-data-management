@@ -178,10 +178,10 @@ BEGIN TRANSACTION
 			  ,High_Level_Campaign
 			  ,getdate()
 			  ,getdate()
-			  );
-   --WHEN NOT MATCHED BY SOURCE
-   --THEN UPDATE SET Target.IsDeletedAtSource=1
-   --;
+			  )
+   WHEN NOT MATCHED BY SOURCE
+   THEN UPDATE SET Target.IsDeletedAtSource=1
+   ;
 
 
 

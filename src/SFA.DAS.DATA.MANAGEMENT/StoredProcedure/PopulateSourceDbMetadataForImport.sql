@@ -297,6 +297,14 @@ VALUES
 ,('Assessor','MergeOrganisationStandardVersion','dbo','[Id],[StandardUId],[Version],[OrganisationStandardId],[EffectiveFrom],[EffectiveTo],[DateVersionApproved],[Comments],[Status],[MergeOrganisationId],[Replicates]','','',0,1,
     'SELECT [Id],[StandardUId],[Version],[OrganisationStandardId],[EffectiveFrom],[EffectiveTo],[DateVersionApproved],[Comments],[Status],[MergeOrganisationId],[Replicates] FROM [dbo].[MergeOrganisationStandardVersion]',
     'Assessor_MergeOrganisationStandardVersion')
+
+/* RoatpV2 Audit Config */
+
+INSERT INTO Mtd.SourceConfigForImport
+(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)
+VALUES
+   	('Roatpv2','Audit','dbo','[Id],[UserAction],[AuditDate],[InitialState],[UpdatedState]','[CorrelationId],[EntityType],[EntityId],[UserId],[UserDisplayName]','',0,1,'SELECT [Id],[UserAction],[AuditDate],[InitialState],[UpdatedState],JSON_VALUE([InitialState], ''''$.Ukprn'''') AS UKPRN,JSON_VALUE([InitialState], ''''$.LarsCode'''') AS LARSCode,JSON_VALUE([InitialState], ''''$.ProviderId'''') AS ProviderId ,case when JSON_VALUE([InitialState], ''''$.IsApprovedByRegulator'''') is null and UserAction=''''UpdateProviderCourseDetails'''' then JSON_VALUE([UpdatedState], ''''$.IsApprovedByRegulator'''') else	JSON_VALUE([InitialState], ''''$.IsApprovedByRegulator'''')  end AS IsApprovedByRegulator FROM [dbo].[Audit]','FAT_ROATPV2_Audit')
+
 /* Public Sector Config */
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)

@@ -38,14 +38,14 @@ BEGIN TRY
 				 TRUNCATE TABLE [ASData_PL].[FAT_ROATPV2_Audit]
 				
 				set @DynSQL = ' INSERT [ASData_PL].[FAT_ROATPV2_Audit]
-				(		[Id]	
-					[UserAction] 
-					[AuditDate] 
-					[InitialState]
-					[UpdatedState] 
-					[UKPRN]	
-					[LARSCode]
-					[ProviderId]
+				(		[Id],	
+					[UserAction], 
+					[AuditDate],
+					[InitialState],
+					[UpdatedState], 
+					[UKPRN],	
+					[LARSCode],
+					[ProviderId],
 					[IsApprovedByRegulator]					 												
 				)
 			select 	
@@ -57,7 +57,7 @@ BEGIN TRY
 						[UKPRN],
 						[LARSCode],
 						[ProviderId],
-						[IsApprovedByRegulator],
+						[IsApprovedByRegulator]
 				From	[Stg].[FAT_ROATPV2_Audit]'
 				
 				exec SP_EXECUTESQL @DynSQL				

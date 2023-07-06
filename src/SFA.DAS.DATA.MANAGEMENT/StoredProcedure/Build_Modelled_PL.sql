@@ -18,6 +18,8 @@ EXEC dbo.ImportFinanceToPL @RunId
 
 EXEC dbo.ImportFATProviderToPL @RunId
 
+EXEC dbo.ImportFATAuditToPL @RunId
+
 
 /* Import CRS and CRS Delivery Data to Presentation Layer */
 

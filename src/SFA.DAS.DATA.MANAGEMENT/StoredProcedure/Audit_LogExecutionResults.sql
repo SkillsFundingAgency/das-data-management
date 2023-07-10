@@ -24,8 +24,8 @@ INSERT INTO Mgmt.Log_Execution_Results
 	   ,@StepNo 
 	   ,@StoredProcedureName
 	   ,@ADFTaskType
-	   ,getdate()
-	   ,0
+	   ,@StartDateTime
+	   ,@Execution_Status
 
 SELECT @LogID=MAX(LogId) FROM [Mgmt].[Log_Execution_Results] 
 

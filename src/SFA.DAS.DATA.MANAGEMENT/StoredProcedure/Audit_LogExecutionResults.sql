@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [Mgmt].[Audit_LogExecutionResults]
+﻿CREATE PROCEDURE [dbo].[Audit_LogExecutionResults]
 @RunId BIGINT,
 @StepNo VARCHAR(100) = NULL,
 @StoredProcedureName VARCHAR(100),

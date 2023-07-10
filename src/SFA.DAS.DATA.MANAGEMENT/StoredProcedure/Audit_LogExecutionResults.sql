@@ -15,7 +15,7 @@ INSERT INTO Mgmt.Log_Execution_Results
 	   ,StepNo
 	   ,StoredProcedureName
 	   ,ADFTaskType
-	   ,getdate()
+	   ,StartDateTime
 	   ,Execution_Status
 	  )
   SELECT 
@@ -23,7 +23,7 @@ INSERT INTO Mgmt.Log_Execution_Results
 	   ,@StepNo 
 	   ,@StoredProcedureName
 	   ,@ADFTaskType
-	   ,@StartDateTime
+	   ,getdate()
 	   ,@Execution_Status
 
 SELECT @LogID=MAX(LogId) FROM [Mgmt].[Log_Execution_Results] 

@@ -82,7 +82,6 @@
     <Build Include="Tables\Management_Log_Record_Counts.sql" />
     <Build Include="StoredProcedure\GenerateRunId.sql" />
     <Build Include="StoredProcedure\Build_AS_DataMart.sql" />
-    <Build Include="Schemas\EAUser.sql" />
     <Build Include="Schemas\Data_Pub.sql" />
     <Build Include="Views\LoadStatus.sql" />
     <Build Include="Views\MarketoLoadStatus.sql" />
@@ -436,5 +435,6 @@
     <Build Include="Views\PdsAI_PT_FatRoatpV2NationalAcheivementRate.sql" />
     <Build Include="Tables\AsDataPL_FAT_ROATPV2_Audit.sql" />
     <Build Include="StoredProcedure\ImportFATAuditToPL.sql" />
+    <Build Include="Schemas\Comp.sql" />
   </ItemGroup>
 </Project>

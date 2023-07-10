@@ -436,5 +436,6 @@
     <Build Include="Tables\AsDataPL_FAT_ROATPV2_Audit.sql" />
     <Build Include="StoredProcedure\ImportFATAuditToPL.sql" />
     <Build Include="Schemas\Comp.sql" />
+    <Build Include="Schemas\Comt.sql" />
   </ItemGroup>
 </Project>

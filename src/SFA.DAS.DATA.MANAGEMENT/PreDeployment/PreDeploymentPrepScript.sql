@@ -692,7 +692,6 @@ DROP TABLE IF EXISTS [StgPmts].[Pst_LookupLocalAuthority]
 
 /* Drop schemas not in use */
 DROP SCHEMA IF EXISTS [Acct]
-DROP SCHEMA IF EXISTS [Comt]
 DROP SCHEMA IF EXISTS [EAUser]
 DROP SCHEMA IF EXISTS [Fin]
 DROP SCHEMA IF EXISTS [Pmts]

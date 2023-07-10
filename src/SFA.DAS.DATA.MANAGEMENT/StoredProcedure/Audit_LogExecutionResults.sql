@@ -1,9 +1,9 @@
 ﻿CREATE PROCEDURE [Mgmt].[Audit_LogExecutionResults]
 @RunId BIGINT,
-@StepNo VARCHAR (100) = NULL,
+@StepNo VARCHAR(100) = NULL,
 @StoredProcedureName VARCHAR (100),
 @ADFTaskType VARCHAR(256),
-@StartDateTime DATETIME2 (7) = getdate(),
+@StartDateTime DATETIME2(7) = getdate(),
 @Execution_Status BIT = 0
 AS
 BEGIN TRY

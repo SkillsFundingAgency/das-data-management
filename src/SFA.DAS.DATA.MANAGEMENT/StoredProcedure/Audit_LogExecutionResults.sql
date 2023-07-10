@@ -3,7 +3,7 @@
 @StepNo VARCHAR(100) = NULL,
 @StoredProcedureName VARCHAR(100),
 @ADFTaskType VARCHAR(256),
-@StartDateTime DATETIME2(7) = getdate(),
+@StartDateTime DATETIME2(7),
 @Execution_Status BIT = 0
 AS
 BEGIN TRY

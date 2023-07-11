@@ -7,7 +7,7 @@
 AS
 BEGIN TRY
 
-DECLARE @LogID int
+DECLARE @LogID BIGINT
 
 INSERT INTO Mgmt.Log_Execution_Results
 	  (
@@ -27,8 +27,6 @@ INSERT INTO Mgmt.Log_Execution_Results
 	   ,@Execution_Status
 
 SELECT @LogID=MAX(LogId) FROM [Mgmt].[Log_Execution_Results] 
-
-RETURN (@LogID)
 
 END TRY
 

@@ -5,7 +5,7 @@
 ,LastName nvarchar(255)
 ,EmailAddress nvarchar(255)
 ,Unsubscribed bit NULL
-,UnsubscribeFeedback nvarchar(8000) NULL
+,UnsubscribeFeedback nvarchar(4000) NULL
 ,LeadCreatedAt datetime2
 ,LeadUpdatedAt datetime2
 ,EmployerHashedId  varchar(8000)

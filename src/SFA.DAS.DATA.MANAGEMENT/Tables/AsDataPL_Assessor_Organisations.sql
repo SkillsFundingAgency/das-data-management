@@ -11,5 +11,6 @@
 	[OrganisationTypeId]				[int]						NULL,	
 	[ApiEnabled]						[bit]						NULL,
 	[ApiUser]							[nvarchar](100)				NULL,
+	[RecognitionNumber]					[nvarchar](100)				NULL,
 	[AsDm_UpdatedDateTime]				[Datetime2](7)				default getdate()
 )

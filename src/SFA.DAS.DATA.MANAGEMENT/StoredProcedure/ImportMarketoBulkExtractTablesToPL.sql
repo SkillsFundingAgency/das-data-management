@@ -48,14 +48,14 @@ SET
 	,Target.ProviderId=Source.ProviderId 
 FROM AsData_PL.MarketoLeads as Target  JOIN 
 (
-		Select MLData.LeadId,MLData.[FirstName],MLData.[LastName],MLData.[EmailAddress],MLData.[Unsubscribed],MLData.[UnsubscribeFeedback],MLData.[LeadCreatedAt],MLData.[LeadUpdatedAt],trim(STRING_AGG(EmpData.EmployerHashedId,',')) As EmployerHashedId,trim(STRING_AGG(Cast(ProviderData.Ukprn As NVarchar(20)),',')) As ProviderID
+		Select MLData.LeadId,MLData.[FirstName],MLData.[LastName],MLData.[EmailAddress],MLData.[LeadCreatedAt],MLData.[LeadUpdatedAt],trim(STRING_AGG(EmpData.EmployerHashedId,',')) As EmployerHashedId,trim(STRING_AGG(Cast(ProviderData.Ukprn As NVarchar(20)),',')) As ProviderID
 		from [ASData_PL].[MarketoLeads]  MLData   LEFT JOIN 
 		(			  select ml.LeadId,au.HashedId as EmployerHashedId  from [ASData_PL].[MarketoLeads] ml
 					  inner join (  select au.Email,au.id,aus.AccountId as EmployerAccountId,aa.HashedId from asdata_pl.acc_user au join ASData_PL.Acc_UserAccountSettings aus
 						on au.Id=aus.UserId join ASData_PL.Acc_Account aa on aa.Id=aus.AccountId ) au on ml.EmailAddress=au.Email 
 		) As EmpData ON MLData.LeadId = EmpData.LeadId
 		LEFT JOIN ( select ml.LeadId,PUser.Ukprn from [ASData_PL].[MarketoLeads]  ml JOIN ASData_PL.PAS_User PUser  ON ml.EmailAddress = PUser.Email ) As ProviderData ON MLData.LeadId= ProviderData.LeadId
-		Group by MLData.LeadId,MLData.[FirstName],MLData.[LastName],MLData.[EmailAddress],MLData.[Unsubscribed],MLData.[UnsubscribeFeedback],MLData.[LeadCreatedAt],MLData.[LeadUpdatedAt]
+		Group by MLData.LeadId,MLData.[FirstName],MLData.[LastName],MLData.[EmailAddress],MLData.[LeadCreatedAt],MLData.[LeadUpdatedAt]
 ) as source
 ON Target.LeadId=Source.LeadId
 where 	   
@@ -65,7 +65,7 @@ where
 /* Delta Update MarketoLeads */
 ;with baseMarketoLeadsData as
 (
-        Select MLData.LeadId,MLData.[FirstName],MLData.[LastName],MLData.[EmailAddress],MLData.[Unsubscribed],MLData.[UnsubscribeFeedback],MLData.[CreatedAt],MLData.[UpdatedAt],trim(STRING_AGG(EmpData.EmployerHashedId,',')) As EmployerHashedId,trim(STRING_AGG(Cast(ProviderData.Ukprn As NVarchar(20)),',')) As ProviderID
+        Select MLData.LeadId,MLData.[FirstName],MLData.[LastName],MLData.[EmailAddress],MLData.[CreatedAt],MLData.[UpdatedAt],trim(STRING_AGG(EmpData.EmployerHashedId,',')) As EmployerHashedId,trim(STRING_AGG(Cast(ProviderData.Ukprn As NVarchar(20)),',')) As ProviderID
 		from stg.MarketoLeads  MLData   LEFT JOIN 
 		(			  select ml.LeadId,au.HashedId as EmployerHashedId  from stg.MarketoLeads ml
 					  inner join (  select au.Email,au.id,aus.AccountId as EmployerAccountId,aa.HashedId from asdata_pl.acc_user au join ASData_PL.Acc_UserAccountSettings aus
@@ -74,7 +74,7 @@ where
 		) As EmpData ON MLData.LeadId = EmpData.LeadId
 		LEFT JOIN ( select ml.LeadId,PUser.Ukprn from stg.MarketoLeads  ml JOIN ASData_PL.PAS_User PUser  ON ml.EmailAddress = PUser.Email where ml.LeadId is not null ) As ProviderData ON MLData.LeadId= ProviderData.LeadId
 		where MLData.LeadId is not null
-		Group by MLData.LeadId,MLData.[FirstName],MLData.[LastName],MLData.[EmailAddress],MLData.[Unsubscribed],MLData.[UnsubscribeFeedback],MLData.[CreatedAt],MLData.[UpdatedAt]
+		Group by MLData.LeadId,MLData.[FirstName],MLData.[LastName],MLData.[EmailAddress],MLData.[CreatedAt],MLData.[UpdatedAt]
 )
 MERGE AsData_PL.MarketoLeads as Target
  USING baseMarketoLeadsData as Source
@@ -86,8 +86,6 @@ MERGE AsData_PL.MarketoLeads as Target
   THEN UPDATE SET Target.FirstName=CASE WHEN Source.FirstName='NULL' THEN NULL ELSE Source.FirstName END
                  ,Target.LastName=CASE WHEN Source.LastName='NULL' THEN NULL ELSE Source.LastName END
 				 ,Target.EmailAddress=CASE WHEN Source.EmailAddress='NULL' THEN NULL ELSE Source.EmailAddress END
-				 ,Target.Unsubscribed=CASE WHEN Source.Unsubscribed='NULL' THEN NULL ELSE Source.Unsubscribed END
-				 ,Target.UnsubscribeFeedback=CASE WHEN Source.UnsubscribeFeedback='NULL' THEN NULL ELSE Source.UnsubscribeFeedback END
 				 ,Target.LeadCreatedAt=TRY_CONVERT(datetime2,CASE WHEN Source.CreatedAt='null' then NULL WHEN Source.CreatedAt LIKE '%+%' THEN SUBSTRING(Source.CreatedAt,1,CHARINDEX('+',Source.CreatedAt)-1) ELSE Source.CreatedAt END,104)
 				 ,Target.LeadUpdatedAt=TRY_CONVERT(datetime2,CASE WHEN Source.UpdatedAt='null' then NULL WHEN Source.UpdatedAt LIKE '%+%' THEN SUBSTRING(Source.UpdatedAt,1,CHARINDEX('+',Source.UpdatedAt)-1) ELSE Source.UpdatedAt END,104)
 				 ,Target.AsDm_UpdatedDate=getdate()
@@ -98,8 +96,6 @@ MERGE AsData_PL.MarketoLeads as Target
               ,FirstName
 			  ,LastName
 			  ,EmailAddress
-			  ,Unsubscribed
-			  ,UnsubscribeFeedback
 			  ,LeadCreatedAt
 			  ,LeadUpdatedAt
 			  ,EmployerHashedID
@@ -109,9 +105,7 @@ MERGE AsData_PL.MarketoLeads as Target
        VALUES (TRY_CONVERT(bigint,LeadId)
 	          ,CASE WHEN Source.FirstName='NULL' THEN NULL ELSE Source.FirstName END
 			  ,CASE WHEN Source.LastName='NULL' THEN NULL ELSE Source.LastName END
-			  ,CASE WHEN Source.EmailAddress='NULL' THEN NULL ELSE Source.EmailAddress END	
-			  ,CASE WHEN Source.Unsubscribed='NULL' THEN NULL ELSE Source.Unsubscribed END
-			  ,CASE WHEN Source.UnsubscribeFeedback='NULL' THEN NULL ELSE Source.UnsubscribeFeedback END
+			  ,CASE WHEN Source.EmailAddress='NULL' THEN NULL ELSE Source.EmailAddress END			 
 			  ,TRY_CONVERT(datetime2,CASE WHEN Source.CreatedAt='null' then NULL WHEN Source.CreatedAt LIKE '%+%' THEN SUBSTRING(Source.CreatedAt,1,CHARINDEX('+',Source.CreatedAt)-1) ELSE Source.CreatedAt END,104)
 			  ,TRY_CONVERT(datetime2,CASE WHEN Source.UpdatedAt='null' then NULL WHEN Source.UpdatedAt LIKE '%+%' THEN SUBSTRING(Source.UpdatedAt,1,CHARINDEX('+',Source.UpdatedAt)-1) ELSE Source.UpdatedAt END,104)
 			  ,Source.EmployerHashedID

@@ -105,7 +105,7 @@ MERGE AsData_PL.MarketoLeads as Target
        VALUES (TRY_CONVERT(bigint,LeadId)
 	          ,CASE WHEN Source.FirstName='NULL' THEN NULL ELSE Source.FirstName END
 			  ,CASE WHEN Source.LastName='NULL' THEN NULL ELSE Source.LastName END
-			  ,CASE WHEN Source.EmailAddress='NULL' THEN NULL ELSE Source.EmailAddress END
+			  ,CASE WHEN Source.EmailAddress='NULL' THEN NULL ELSE Source.EmailAddress END			 
 			  ,TRY_CONVERT(datetime2,CASE WHEN Source.CreatedAt='null' then NULL WHEN Source.CreatedAt LIKE '%+%' THEN SUBSTRING(Source.CreatedAt,1,CHARINDEX('+',Source.CreatedAt)-1) ELSE Source.CreatedAt END,104)
 			  ,TRY_CONVERT(datetime2,CASE WHEN Source.UpdatedAt='null' then NULL WHEN Source.UpdatedAt LIKE '%+%' THEN SUBSTRING(Source.UpdatedAt,1,CHARINDEX('+',Source.UpdatedAt)-1) ELSE Source.UpdatedAt END,104)
 			  ,Source.EmployerHashedID

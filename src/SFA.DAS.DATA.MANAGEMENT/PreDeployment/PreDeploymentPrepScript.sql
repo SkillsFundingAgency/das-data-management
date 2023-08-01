@@ -689,6 +689,8 @@ DROP TABLE IF EXISTS [StgPmts].[Postcode_LookupGeographicalAttributes]
 DROP TABLE IF EXISTS [StgPmts].[Pst_LookupGOR]
 DROP TABLE IF EXISTS [StgPmts].[Pst_LookupLocalAuthority]
 
+DROP PROCEDURE IF EXISTS [dbo].[ImportMarketoDataToPL]
+
 
 /* Drop schemas not in use */
 DROP SCHEMA IF EXISTS [Acct]

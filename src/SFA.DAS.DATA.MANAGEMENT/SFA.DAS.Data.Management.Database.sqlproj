@@ -125,6 +125,7 @@
     <Build Include="Functions\Fn_ConvertTimeStampToDateTime.sql" />
     <Build Include="StoredProcedure\Insert_Log_Error_Details.sql" />
     <Build Include="StoredProcedure\ImportRAAUsersStgToLive.sql" />
+    <Build Include="StoredProcedure\Audit_LogExecutionSuccess.sql" />    
     <Build Include="Tables\AsDataPL_RAA_Users.sql" />
     <Build Include="Schemas\Stg.sql" />
     <Build Include="Tables\Stg_RAA_Vacancies.sql" />

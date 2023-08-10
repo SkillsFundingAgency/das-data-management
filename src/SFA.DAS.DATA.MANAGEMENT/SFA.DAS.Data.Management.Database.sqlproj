@@ -70,7 +70,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Database.publish.xml" />
-    <Build Include="Schemas\Comt.sql" />
     <PostDeploy Include="PostDeployment\PostDeployment.sql" />
     <Build Include="Schemas\Mgmt.sql" />
     <PreDeploy Include="PreDeployment\PreDeploymentPrepScript.sql" />
@@ -83,10 +82,6 @@
     <Build Include="Tables\Management_Log_Record_Counts.sql" />
     <Build Include="StoredProcedure\GenerateRunId.sql" />
     <Build Include="StoredProcedure\Build_AS_DataMart.sql" />
-    <Build Include="Schemas\Resv.sql" />
-    <Build Include="Schemas\Fin.sql" />
-    <Build Include="Schemas\EAUser.sql" />
-    <Build Include="Schemas\Acct.sql" />
     <Build Include="Schemas\Data_Pub.sql" />
     <Build Include="Views\LoadStatus.sql" />
     <Build Include="Views\MarketoLoadStatus.sql" />
@@ -97,9 +92,7 @@
     <Build Include="Views\DAS_CalendarMonth.sql" />
     <Build Include="Functions\Fn_ExtractPostCodeUKFromAddress.sql" />
     <Build Include="StoredProcedure\ImportPaymentsSnapshot.sql" />
-    <Build Include="Tables\Payments_SS.sql" />
     <Build Include="Schemas\ASData_PL.sql" />
-    <Build Include="Schemas\Pmts.sql" />
     <Build Include="Tables\StgPmts_Apprenticeship.sql" />
     <Build Include="Tables\StgPmts_ApprenticeshipPause.sql" />
     <Build Include="Tables\StgPmts_ApprenticeshipPriceEpisode.sql" />
@@ -134,7 +127,6 @@
     <Build Include="StoredProcedure\ImportRAAUsersStgToLive.sql" />
     <Build Include="Tables\AsDataPL_RAA_Users.sql" />
     <Build Include="Schemas\Stg.sql" />
-    <Build Include="Schemas\Swap.sql" />
     <Build Include="Tables\Stg_RAA_Vacancies.sql" />
     <Build Include="Tables\Stg_RAA_ApplicationReviews.sql" />
     <Build Include="Tables\Stg_RAA_ReferenceDataCandidateSkills.sql" />
@@ -241,7 +233,6 @@
     <Build Include="Views\ASDataPL_DAS_SpendControlNonLevy_V2.sql" />
     <Build Include="Views\ASDataPL_DAS_SpendControl_V2.sql" />
     <Build Include="Tables\AsDataPL_EI_CollectionCalendar.sql" />
-    <Build Include="Schemas\Comp.sql" />
     <Build Include="Views\Comp_DAS_Compliance_Report .sql" />
     <Build Include="Tables\ASDataPL_FAT2_ApprenticeshipFunding.sql" />
     <Build Include="Tables\ASDataPL_FAT2_FrameworkFundingPeriod.sql" />
@@ -445,5 +436,7 @@
     <Build Include="Views\PdsAI_PT_FatRoatpV2NationalAcheivementRate.sql" />
     <Build Include="Tables\AsDataPL_FAT_ROATPV2_Audit.sql" />
     <Build Include="StoredProcedure\ImportFATAuditToPL.sql" />
+    <Build Include="Schemas\Comp.sql" />
+    <Build Include="Schemas\Comt.sql" />
   </ItemGroup>
 </Project>

@@ -44,13 +44,13 @@ INSERT INTO Mtd.RolesAndPermissions
 (RoleName, SchemaName, ObjectName, ObjectType, PermissionType, IsSchemaLevelAccess, IsEnabled)
 VALUES
 /* Developer*/
-('Developer','Comt','','','SELECT',1,1),
-('Developer','Acct','','','SELECT',1,1),
-('Developer ','EAUser','','','SELECT',1,1),
-('Developer','Fin','','','SELECT',1,1),
+--('Developer','Comt','','','SELECT',1,1),
+--('Developer','Acct','','','SELECT',1,1),
+--('Developer ','EAUser','','','SELECT',1,1),
+--('Developer','Fin','','','SELECT',1,1),
 ('Developer','Mgmt','','','SELECT',1,1),
-('Developer','Resv','','','SELECT',1,1),
-('Developer','Pmts','','','SELECT',1,1),
+--('Developer','Resv','','','SELECT',1,1),
+--('Developer','Pmts','','','SELECT',1,1),
 ('Developer ','StgPmts','','','SELECT',1,1),
 ('Developer ','Stg','','','SELECT',1,1),
 ('Developer','AsData_PL','','','SELECT',1,1),

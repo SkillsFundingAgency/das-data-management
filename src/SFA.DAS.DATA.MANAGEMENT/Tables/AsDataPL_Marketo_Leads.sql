@@ -4,6 +4,9 @@
 ,FirstName nvarchar(255)
 ,LastName nvarchar(255)
 ,EmailAddress nvarchar(255)
+,Unsubscribed bit NULL
+,UnsubscribedFeedback nvarchar(4000) NULL
+,UnsubscribedFeedbackVerbatim nvarchar(4000) NULL
 ,LeadCreatedAt datetime2
 ,LeadUpdatedAt datetime2
 ,EmployerHashedId  varchar(8000)

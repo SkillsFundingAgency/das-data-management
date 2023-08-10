@@ -26,7 +26,7 @@ INSERT INTO Mgmt.Log_Execution_Results
 	   ,getdate()
 	   ,@Execution_Status
 
-SELECT MAX(LogId) FROM [Mgmt].[Log_Execution_Results] 
+SELECT MAX(LogId) as LogId FROM [Mgmt].[Log_Execution_Results] 
 
 
 END TRY

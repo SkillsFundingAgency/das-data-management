@@ -70,7 +70,7 @@ where
 		(			  select ml.LeadId,au.HashedId as EmployerHashedId  from stg.MarketoLeads ml
 					  inner join (  select au.Email,au.id,aus.AccountId as EmployerAccountId,aa.HashedId from asdata_pl.acc_user au join ASData_PL.Acc_UserAccountSettings aus
 						on au.Id=aus.UserId join ASData_PL.Acc_Account aa on aa.Id=aus.AccountId ) au on ml.EmailAddress=au.Email 
-			          where ml.LeadId is not null
+			          where ml.LeadId is not null 
 		) As EmpData ON MLData.LeadId = EmpData.LeadId
 		LEFT JOIN ( select ml.LeadId,PUser.Ukprn from stg.MarketoLeads  ml JOIN ASData_PL.PAS_User PUser  ON ml.EmailAddress = PUser.Email where ml.LeadId is not null ) As ProviderData ON MLData.LeadId= ProviderData.LeadId
 		where MLData.LeadId is not null
@@ -82,7 +82,7 @@ MERGE AsData_PL.MarketoLeads as Target
   WHEN MATCHED AND ( ISNULL(Target.FirstName,'NA')<>ISNULL(CASE WHEN Source.FirstName='NULL' THEN NULL ELSE Source.FirstName END,'NA')
                   OR ISNULL(Target.LastName,'NA')<>ISNULL(CASE WHEN Source.LastName='NULL' THEN NULL ELSE Source.LastName END,'NA')
 				  OR ISNULL(Target.EmailAddress,'NA')<>ISNULL(CASE WHEN Source.EmailAddress='NULL' THEN NULL ELSE Source.EmailAddress END,'NA')
-				  OR ISNULL(Target.Unsubscribed,'NA')<>ISNULL(CASE WHEN Source.Unsubscribed='NULL' THEN NULL ELSE Source.Unsubscribed END,'NA')
+				  OR ISNULL(Target.Unsubscribed,0)<>ISNULL(CASE WHEN Source.Unsubscribed='NULL' THEN NULL ELSE Source.Unsubscribed END,'NA')
 				  OR ISNULL(Target.UnsubscribedFeedback,'NA')<>ISNULL(CASE WHEN Source.UnsubscribedFeedback='NULL' THEN NULL ELSE Source.UnsubscribedFeedback END,'NA')
 				  OR ISNULL(Target.UnsubscribedFeedbackVerbatim,'NA')<>ISNULL(CASE WHEN Source.UnsubscribedFeedbackVerbatim='NULL' THEN NULL ELSE Source.UnsubscribedFeedbackVerbatim END,'NA')
 				  )

@@ -73,7 +73,7 @@ where
 			          where ml.LeadId is not null 
 		) As EmpData ON MLData.LeadId = EmpData.LeadId
 		LEFT JOIN ( select ml.LeadId,PUser.Ukprn from stg.MarketoLeads  ml JOIN ASData_PL.PAS_User PUser  ON ml.EmailAddress = PUser.Email where ml.LeadId is not null ) As ProviderData ON MLData.LeadId= ProviderData.LeadId
-		where MLData.LeadId is not null
+		where MLData.LeadId is not null and ISNUMERIC(MLData.LeadId ) = 1
 		Group by MLData.LeadId,MLData.[FirstName],MLData.[LastName],MLData.[EmailAddress],MLData.[Unsubscribed],MLData.[UnsubscribedFeedback],MLData.[UnsubscribedFeedbackVerbatim],MLData.[CreatedAt],MLData.[UpdatedAt]
 )
 MERGE AsData_PL.MarketoLeads as Target

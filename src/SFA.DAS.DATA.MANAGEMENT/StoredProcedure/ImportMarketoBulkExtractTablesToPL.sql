@@ -70,7 +70,7 @@ where
 		(			  select ml.LeadId,au.HashedId as EmployerHashedId  from stg.MarketoLeads ml
 					  inner join (  select au.Email,au.id,aus.AccountId as EmployerAccountId,aa.HashedId from asdata_pl.acc_user au join ASData_PL.Acc_UserAccountSettings aus
 						on au.Id=aus.UserId join ASData_PL.Acc_Account aa on aa.Id=aus.AccountId ) au on ml.EmailAddress=au.Email 
-			          where ml.LeadId is not null 
+			          where ml.LeadId is not null and ISNUMERIC(ml.LeadId ) = 1
 		) As EmpData ON MLData.LeadId = EmpData.LeadId
 		LEFT JOIN ( select ml.LeadId,PUser.Ukprn from stg.MarketoLeads  ml JOIN ASData_PL.PAS_User PUser  ON ml.EmailAddress = PUser.Email where ml.LeadId is not null ) As ProviderData ON MLData.LeadId= ProviderData.LeadId
 		where MLData.LeadId is not null and ISNUMERIC(MLData.LeadId ) = 1

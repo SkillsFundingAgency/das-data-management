@@ -187,6 +187,10 @@ INSERT INTO [ASData_PL].[Comt_Apprenticeship]
            ,[OriginalStartDate]
            ,[Age]
            ,[DeliveryModel]
+           ,[RecognisePriorLearning]
+           ,[IsOnFlexiPaymentPilot]
+           ,[TrainingTotalHours]
+           ,[CostBeforeRpl]
            )
  SELECT    [Id]
            ,[CommitmentId]
@@ -227,6 +231,10 @@ INSERT INTO [ASData_PL].[Comt_Apprenticeship]
 		        ELSE DATEDIFF(YEAR,[DateOfBirth], getdate()) 
             END                 as Age
            ,[DeliveryModel]
+           ,[RecognisePriorLearning]
+           ,[IsOnFlexiPaymentPilot]
+           ,[TrainingTotalHours]
+           ,[CostBeforeRpl]
     FROM Stg.Comt_Apprenticeship
 '
 

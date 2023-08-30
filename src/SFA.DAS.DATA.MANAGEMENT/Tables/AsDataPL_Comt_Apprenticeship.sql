@@ -36,6 +36,10 @@
 	[IsRetentionApplied] bit DEFAULT (0),
 	[RetentionAppliedDate]  DateTime2(7),
 	[DeliveryModel] tinyint,
+	[RecognisePriorLearning] [bit] NULL,
+	[IsOnFlexiPaymentPilot] [bit] NULL,
+	[TrainingTotalHours] [int] NULL,
+	[CostBeforeRpl] [int] NULL,
 	CONSTRAINT PK_Comt_Apprenticeship_Id PRIMARY KEY CLUSTERED (Id)
 ) ON [PRIMARY]
 GO

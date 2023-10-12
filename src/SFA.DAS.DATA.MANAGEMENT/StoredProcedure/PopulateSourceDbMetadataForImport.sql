@@ -383,7 +383,7 @@ VALUES
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
 VALUES
- ('Appfb','ApprenticeFeedbackTarget','dbo','[Id],[ApprenticeId],[ApprenticeshipId],[Status],[ProviderName],[LarsCode],[StandardName],[FeedbackEligibility],[EligibilityCalculationDate],[CreatedOn],[UpdatedOn]','[StartDate],[EndDate],[StandardUId]','[Ukprn]','Appfb_ApprenticeFeedbackTarget',0,1)
+ ('Appfb','ApprenticeFeedbackTarget','dbo','[Id],[ApprenticeId],[ApprenticeshipId],[Status],[ProviderName],[LarsCode],[StandardName],[FeedbackEligibility],[EligibilityCalculationDate],[CreatedOn],[UpdatedOn],[Withdrawn],[IsTransfer],[DateTransferIdentified]','[StartDate],[EndDate],[StandardUId]','[Ukprn]','Appfb_ApprenticeFeedbackTarget',0,1)
 ,('Appfb','ApprenticeFeedbackResult','dbo','[Id],[ApprenticeFeedbackTargetId],[StandardUId],[DateTimeCompleted],[ProviderRating],[AllowContact]','','','Appfb_ApprenticeFeedbackResult',0,1)
 ,('Appfb','ProviderAttribute','dbo','[ApprenticeFeedbackResultId],[AttributeId],[AttributeValue]','','','Appfb_ProviderAttribute',0,1)
 ,('Appfb','Attribute','dbo','[AttributeId],[AttributeName],[Category],[AttributeType],[Ordering]','','','Appfb_Attribute',0,1)

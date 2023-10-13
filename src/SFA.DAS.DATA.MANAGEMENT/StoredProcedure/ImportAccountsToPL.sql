@@ -64,10 +64,10 @@ BEGIN TRY
 					stgAcc.ApprenticeshipEmployerType,
 					stgAcc.PublicHashedId,										
 					stgcAcc.LevyStatus,
-					stgcAcc.NameConfirmed					
+					stgAcc.NameConfirmed					
 				FROM stg.Acc_Account stgAcc LEFT JOIN Stg.Comt_Accounts stgcAcc on stgAcc.id = stgcAcc.id 
 				group by stgAcc.Id,stgAcc.HashedId,stgAcc.Name,stgAcc.CreatedDate,stgAcc.ModifiedDate,stgAcc.ApprenticeshipEmployerType,
-						 stgAcc.PublicHashedId,stgcAcc.LevyStatus
+						 stgAcc.PublicHashedId,stgcAcc.LevyStatus, stgAcc.NameConfirmed	
               '
 
 			  EXEC SP_EXECUTESQL @VSQL

@@ -55,6 +55,7 @@ INSERT INTO ASData_PL.AR_Apprentice
       ,[LeftOnApprenticeshipMonths]
       ,[LeftOnApprenticeshipYears]
       ,[Sectors]
+      ,[Locations]
       ,[CreatedOn]
       ,[Age]
 	  ,[Ethnicity]
@@ -73,6 +74,7 @@ SELECT AR.[Id]
       ,AR.[LeftOnApprenticeshipMonths] 
       ,AR.[LeftOnApprenticeshipYears] 
       ,AR.[Sectors] 
+      ,AR.[Locations]
       ,AR.[CreatedOn]
 	  ,CASE WHEN [AR].[DateOfBirth] IS NULL	THEN - 1
 		    WHEN DATEPART([M], [AR].[DateOfBirth]) > DATEPART([M], getdate())

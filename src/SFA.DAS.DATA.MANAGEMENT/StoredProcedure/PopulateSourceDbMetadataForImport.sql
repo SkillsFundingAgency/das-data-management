@@ -170,7 +170,7 @@ INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
 /* Apprenticeship Redundancy */
 VALUES 
- ('AppRedundancy','apprentice','dbo','[Id],[UpdatesWanted],[ContactableForFeedback],[PreviousTraining],[Employer],[TrainingProvider],[LeftOnApprenticeshipMonths],[LeftOnApprenticeshipYears],[Sectors],[CreatedOn]','[PhoneNumber],[PostCode],[EmployerLocation]','[FirstName],[LastName],[DateOfBirth],[Email],[Ethnicity],[EthnicitySubgroup],[EthnicityText],[Gender],[GenderText]',0,1,'AR_Apprentice')
+ ('AppRedundancy','apprentice','dbo','[Id],[UpdatesWanted],[ContactableForFeedback],[PreviousTraining],[Employer],[TrainingProvider],[LeftOnApprenticeshipMonths],[LeftOnApprenticeshipYears],[Sectors],[Locations],[CreatedOn]','[PhoneNumber],[PostCode],[EmployerLocation]','[FirstName],[LastName],[DateOfBirth],[Email],[Ethnicity],[EthnicitySubgroup],[EthnicityText],[Gender],[GenderText]',0,1,'AR_Apprentice')
 ,('AppRedundancy','employer','dbo','[ID],[OrganisationName],[ContactableForFeedback],[Locations],[Sectors],[CreatedOn]','[PhoneNumber]','[Email],[ApprenticeshipMoreDetails],[ContactFirstName],[ContactLastName]',0,1,'AR_Employer')
 
 /* CRS Import Configurations */

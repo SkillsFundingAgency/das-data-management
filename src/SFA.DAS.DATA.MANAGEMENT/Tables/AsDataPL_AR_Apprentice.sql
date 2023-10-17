@@ -10,6 +10,7 @@
       ,[LeftOnApprenticeshipMonths] int 
       ,[LeftOnApprenticeshipYears] int
       ,[Sectors] int
+      ,[Locations] int
       ,[CreatedOn] datetime2(7) not null
 	  ,[Ethnicity] tinyint null
       ,[EthnicitySubgroup] tinyint null

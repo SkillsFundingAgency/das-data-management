@@ -119,14 +119,14 @@ INSERT INTO Mtd.SourceConfigForImport
 /* Accounts and Users */
 VALUES
  ('Users','User','dbo','[Id],[IsActive],[FailedLoginAttempts],[IsLocked],[IsSuspended]','[Salt],[PasswordProfileId]','[FirstName],[LastName],[Email]','EAU_User',0)
-,('Accounts','Account','Employer_Account','[Id],[HashedId],[CreatedDate],[ModifiedDate],[ApprenticeshipEmployerType]','','[Name],[PublicHashedId]','Acc_Account',1)
-,('Accounts','EmployerAgreement','Employer_Account','[Id],[TemplateId],[StatusId],[SignedDate],[AccountLegalEntityId],[ExpiredDate],[SignedById]','[SignedByName]','','Acc_EmployerAgreement',0)
+,('Accounts','Account','Employer_Account','[Id],[HashedId],[CreatedDate],[ModifiedDate],[ApprenticeshipEmployerType],[NameConfirmed]','','[Name],[PublicHashedId]','Acc_Account',1)
+,('Accounts','EmployerAgreement','Employer_Account','[Id],[TemplateId],[StatusId],[SignedDate],[AccountLegalEntityId],[ExpiredDate],[SignedById],[Acknowledged]','[SignedByName]','','Acc_EmployerAgreement',0)
 ,('Accounts','EmployerAgreementStatus','Employer_Account','[Id],[name]','','','Acc_EmployerAgreementStatus',0)
 ,('Accounts','AccountLegalEntity','Employer_Account','[Id],[AccountId],[LegalEntityId],[Created],[Modified],[SignedAgreementVersion],[SignedAgreementId],[PendingAgreementVersion],[PendingAgreementId],[Deleted]','[PublicHashedId]','[Name],[Address]','Acc_AccountLegalEntity',1)
 ,('Accounts','LegalEntity','Employer_Account','[Id],[Code],[DateOfIncorporation],[Status],[Source],[PublicSectorDataSource],[Sector]','','','Acc_LegalEntity',0)
 ,('Accounts','Membership','Employer_Account','[AccountId],[UserId],[Role],[CreatedDate],[ShowWizard]','','','Acc_AccountUserRole',0)
 ,('Accounts','UserAccountSettings','Employer_Account','[ID],[UserId],[AccountId],[ReceiveNotifications]','','','Acc_UserAccountSettings',0)
-,('Accounts','User','Employer_Account','[ID],[UserRef],[CorrelationId]','','[Email],[FirstName],[LastName]','Acc_User',0)
+,('Accounts','User','Employer_Account','[ID],[UserRef],[CorrelationId],[TermAndConditionsAcceptedOn]','','[Email],[FirstName],[LastName]','Acc_User',0)
 ,('Accounts','AccountHistory','Employer_Account','[Id],[AccountId],[AddedDate],[RemovedDate]','','[PayeRef]','Acc_AccountHistory',1)
 ,('Accounts','Paye','employer_account','[Name]','[AccessToken],[RefreshToken],[Aorn]','[Ref]','Acc_Paye',1)
 ,('Commitments','Accounts','dbo','[Id],[HashedId],[Created],[Updated],[LevyStatus]','[PublicHashedId],[Name]','','Comt_Accounts',1)

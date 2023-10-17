@@ -7,6 +7,7 @@
    ,[AccountLegalEntityId] BIGINT NOT NULL
    ,[ExpiredDate] DateTime NULL
    ,[SignedById] BIGINT NULL
+   ,[Acknowledged] BIT NULL
    ,[AsDm_UpdatedDateTime] DateTime2 Default(GetDate())
    ,CONSTRAINT PK_Acc_EmpAgreement_Id PRIMARY KEY CLUSTERED (Id)
 )

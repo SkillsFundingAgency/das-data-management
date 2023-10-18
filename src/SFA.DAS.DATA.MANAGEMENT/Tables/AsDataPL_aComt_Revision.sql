@@ -25,6 +25,10 @@
 	[CreatedOn] [datetime2](7) NULL,
 	[StoppedReceivedOn] [datetime2](7) NULL,
 	[DeliveryModel] [int] NULL,
+	[DurationReducedBy] SMALLINT NULL,
+	[DurationReducedByHours] SMALLINT NULL,
+	[EmploymentEndDate] DATETIME2(7) NULL,
+	[RecognisePriorLearning] BIT NULL,
 	[Asdm_UpdatedDateTime] datetime2 default getdate()
  CONSTRAINT PK_aComt_CS_Id PRIMARY KEY CLUSTERED (Id)
 )

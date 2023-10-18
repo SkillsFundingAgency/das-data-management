@@ -14,5 +14,8 @@
 	[EligibilityCalculationDate] [datetime2](7) NULL,
 	[CreatedOn] [datetime2](7) NULL DEFAULT (getdate()),
 	[UpdatedOn] [datetime2](7) NULL DEFAULT (getdate()),
+	[Withdrawn]  bit DEFAULT (0),
+    [IsTransfer] bit DEFAULT (0),
+    [DateTransferIdentified] [datetime2](7) NULL DEFAULT (getdate()),
 	[AsDm_UpdatedDateTime] datetime2 default getdate()
 )

@@ -78,4 +78,5 @@
 ,SourceDb varchar(100)
 ,[AsDm_UpdatedDateTime]  [datetime2](7)						DEFAULT (getdate())
 ,PersonalQualities nvarchar(max)
+,RAFDuplicateFlag bit
 )

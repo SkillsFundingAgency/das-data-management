@@ -125,8 +125,17 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
 		   ,[DatePosted]
 		   ,[HasHadLiveStatus]
            ,[SourceVacancyId]
-           ,[SourceDb])
-     SELECT v.VacancyGuid                                     as VacancyGuid
+           ,[SourceDb]
+           ,[RAFDuplicateFlag])
+Select vd.*,
+case when RowNumber > 1 and NumberOfPositions >= 20 then 1
+else 0 end as RAFDuplicateFlag from 
+(
+select  vv.*
+  ,ROW_NUMBER() OVER (PARTITION BY VacancyTitle, NumberofPositions,EmployerFullName,EducationLevel,datepart(year,DatePosted), datepart(month,DatePosted) ORDER BY VacancyReferenceNumber) as RowNumber
+from
+  
+  (SELECT v.VacancyGuid                                     as VacancyGuid
            ,v.[VacancyReferenceNumber]                        as VacancyReferenceNumber
            ,vs.FullName                                       as VacancyStatus
 	       ,REPLACE(REPLACE(v.[Title], CHAR(13), ''), CHAR(10), ' ')  as VacancyTitle
@@ -296,8 +305,7 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
 		join (select Value as PersonalQualities,VacancyId
                 from Stg.Avms_VacancyTextField
                where Field=4) PQ
-		  on PQ.VacancyId=V.VacancyId
-
+		  on PQ.VacancyId=V.VacancyId)vv)vd
 
 
 
@@ -385,8 +393,18 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
            ,[DeletedDateTime_v2]
            ,[SubmittedDateTime_v2]
            ,[SourceVacancyId]
-           ,[SourceDb])
-   SELECT  cast(v.BinaryId as varchar(256))                        as VacancyGuid
+           ,[SourceDb],
+           [RAFDuplicateFlag])
+  
+Select vd.*,
+case when RowNumber > 1 and NumberOfPositions >= 20 then 1
+else 0 end as RAFDuplicateFlag from 
+(
+select  vv.*
+  ,ROW_NUMBER() OVER (PARTITION BY VacancyTitle, NumberofPositions,EmployerFullName,EducationLevel,datepart(year,DatePosted), datepart(month,DatePosted) ORDER BY VacancyReference) as RowNumber from
+  
+  (
+SELECT  cast(v.BinaryId as varchar(256))                        as VacancyGuid
 	      ,cast(VacancyReference as bigint)                           as VacancyReference
 		  ,cast(VacancyStatus as varchar(100))                     as VacancyStatus
 		  ,REPLACE(REPLACE(VacancyTitle, CHAR(13), ''), CHAR(10), ' ') as VacancyTitle
@@ -527,8 +545,7 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
               FROM  Mtd.NationalMinimumWageRates
              WHERE AgeGroup<>'Apprentice'
           GROUP BY StartDate,EndDate) NMR
-		ON dbo.Fn_ConvertTimeStampToDateTime(v.LiveDateTimeStamp) >= NMR.StartDate AND dbo.Fn_ConvertTimeStampToDateTime(v.LiveDateTimeStamp) <= NMR.EndDate
-
+		ON dbo.Fn_ConvertTimeStampToDateTime(v.LiveDateTimeStamp) >= NMR.StartDate AND dbo.Fn_ConvertTimeStampToDateTime(v.LiveDateTimeStamp) <= NMR.EndDate) vv)vd
 
 
 

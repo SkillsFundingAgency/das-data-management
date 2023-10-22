@@ -126,6 +126,7 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
 		   ,[HasHadLiveStatus]
            ,[SourceVacancyId]
            ,[SourceDb]
+           ,[RowNumber]
            ,[RAFDuplicateFlag])
 Select vd.*,
 case when RowNumber > 1 and NumberOfPositions >= 20 then 1
@@ -393,8 +394,9 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
            ,[DeletedDateTime_v2]
            ,[SubmittedDateTime_v2]
            ,[SourceVacancyId]
-           ,[SourceDb],
-           [RAFDuplicateFlag])
+           ,[SourceDb]
+           ,[RowNumber]
+           ,[RAFDuplicateFlag])
   
 Select vd.*,
 case when RowNumber > 1 and NumberOfPositions >= 20 then 1

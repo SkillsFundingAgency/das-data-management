@@ -18,6 +18,13 @@
 	 ,[FirstViewedOn] datetime2
 	 ,[SignUpReminderSentOn] datetime2
 	 ,[DeliveryModel] [int] NULL
+	 ,[ApprenticeId] uniqueidentifier null
+	 ,[ApprenticeshipId] BIGINT NULL
+	 ,[DurationReducedBy] SMALLINT NULL
+	 ,[DurationReducedByHours] SMALLINT NULL
+	 ,[EmploymentEndDate] DATETIME2(7) NULL
+	 ,[RecognisePriorLearning] BIT NULL
+	 ,[StoppedReceivedOn] DATETIME2(7) NULL
 	 ,[Asdm_UpdatedDateTime] datetime2 default getdate()
  ,CONSTRAINT PK_aComt_Reg_Id PRIMARY KEY CLUSTERED (RegistrationId)
 )

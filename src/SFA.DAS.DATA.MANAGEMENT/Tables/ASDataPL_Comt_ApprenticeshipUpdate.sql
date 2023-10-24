@@ -16,6 +16,9 @@
 	[UpdateOrigin]						[tinyint]			NULL,
 	[EffectiveFromDate]					[datetime]			NULL,
 	[EffectiveToDate]					[datetime]			NULL,
+	[DeliveryModel] 					[tinyint] 			NULL,
+	[EmploymentPrice] 					[int] 				NULL,
+	[EmploymentEndDate] 				[datetime2](7) 		NULL,
 	[IsRetentionApplied]				[bit]				NULL,
 	[RetentionAppliedDate]				[datetime2](7)		NULL,
 	[AsDm_UpdatedDateTime] datetime2 default getdate()

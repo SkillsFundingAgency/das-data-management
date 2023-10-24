@@ -85,6 +85,9 @@ BEGIN TRY
 								,[VersionMajor]
 								,[VersionMinor]
 								,[IsLatestVersion]
+								,[VersionEarliestStartDate]
+								,[VersionLatestStartDate]
+								,[Route]
 						   )				
 					SELECT
 					  std.[StandardUId]
@@ -132,6 +135,9 @@ BEGIN TRY
 					  ,ComtStandard.VersionMajor
 					  ,ComtStandard.VersionMinor
 					  ,ComtStandard.IsLatestVersion
+					  ,ComtStandard.[VersionEarliestStartDate]
+					  ,ComtStandard.[VersionLatestStartDate]
+					  ,ComtStandard.[Route]
 					FROM [Stg].[FAT2_Standard] std JOIN [Stg].[FAT2_Route] tblRoute 
 					ON std.[RouteCode] =  tblRoute.[Id]	LEFT JOIN [ASData_PL].[Va_ApprenticeshipStandard] AppStandard ON std.LarsCode = AppStandard.LarsCode AND std.Title = AppStandard.StandardFullName
 					LEFT JOIN [stg].[Assessor_Standards] AssessorStandard ON std.LarsCode = AssessorStandard.LarsCode AND std.StandardUId = AssessorStandard.StandardUId

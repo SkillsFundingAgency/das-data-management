@@ -44,5 +44,8 @@
 	[VersionMajor]									[int]				NULL,
 	[VersionMinor]									[int]				NULL,
 	[IsLatestVersion]								[Bit]				NULL,
+	[VersionEarliestStartDate] 						[datetime] 			NULL,
+	[VersionLatestStartDate] 						[datetime] 			NULL,
+	[Route] 										[nvarchar](500) 	NULL,
 	[AsDm_UpdatedDateTime]							[datetime2](7)	DEFAULT (getdate())
 )

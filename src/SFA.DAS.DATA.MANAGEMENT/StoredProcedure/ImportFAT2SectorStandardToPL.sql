@@ -134,10 +134,7 @@ BEGIN TRY
 					  ,ComtStandard.EffectiveTo
 					  ,ComtStandard.VersionMajor
 					  ,ComtStandard.VersionMinor
-					  ,ComtStandard.IsLatestVersion
-					  ,ComtStandard.[VersionEarliestStartDate]
-					  ,ComtStandard.[VersionLatestStartDate]
-					  ,ComtStandard.[Route]
+					  ,ComtStandard.IsLatestVersion					 
 					FROM [Stg].[FAT2_Standard] std JOIN [Stg].[FAT2_Route] tblRoute 
 					ON std.[RouteCode] =  tblRoute.[Id]	LEFT JOIN [ASData_PL].[Va_ApprenticeshipStandard] AppStandard ON std.LarsCode = AppStandard.LarsCode AND std.Title = AppStandard.StandardFullName
 					LEFT JOIN [stg].[Assessor_Standards] AssessorStandard ON std.LarsCode = AssessorStandard.LarsCode AND std.StandardUId = AssessorStandard.StandardUId

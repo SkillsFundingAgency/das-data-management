@@ -83,6 +83,10 @@ INSERT INTO [ASData_PL].[Comt_Apprenticeship]
            ,[IsOnFlexiPaymentPilot]
            ,[TrainingTotalHours]
            ,[CostBeforeRpl]
+           ,[ActualStartDate] 
+           ,[EmailAddressConfirmed] 
+           ,[LastUpdated] 
+           ,[UpdatedOn] 
            )
  SELECT    [Id]
            ,[CommitmentId]
@@ -127,6 +131,10 @@ INSERT INTO [ASData_PL].[Comt_Apprenticeship]
            ,[IsOnFlexiPaymentPilot]
            ,[TrainingTotalHours]
            ,[CostBeforeRpl]
+           ,[ActualStartDate] 
+           ,[EmailAddressConfirmed] 
+           ,[LastUpdated] 
+           ,[UpdatedOn]
     FROM Stg.Comt_Apprenticeship
 '
 

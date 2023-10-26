@@ -43,6 +43,6 @@
 	[EffectiveTo]									[DateTime]			NULL, 
 	[VersionMajor]									[int]				NULL,
 	[VersionMinor]									[int]				NULL,
-	[IsLatestVersion]								[Bit]				NULL,
+	[IsLatestVersion]								[Bit]				NULL,	
 	[AsDm_UpdatedDateTime]							[datetime2](7)	DEFAULT (getdate())
 )

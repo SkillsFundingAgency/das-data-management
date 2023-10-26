@@ -547,14 +547,6 @@ IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
 	      )
 DROP TABLE [ASData_PL].[SaltKeyLog]
 
-/* Drop App Redundancy Stored Proc */
-
-
-IF EXISTS (select * from INFORMATION_SCHEMA.ROUTINES
-            where ROUTINE_NAME='ImportAppRedundancyToPL'
-              and ROUTINE_SCHEMA='dbo'
-		  )
-DROP PROCEDURE [dbo].[ImportAppRedundancyToPL]
 
 /* Drop Spend Control Temp Proc */
 

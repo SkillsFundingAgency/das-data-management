@@ -125,7 +125,7 @@
     <Build Include="Functions\Fn_ConvertTimeStampToDateTime.sql" />
     <Build Include="StoredProcedure\Insert_Log_Error_Details.sql" />
     <Build Include="StoredProcedure\ImportRAAUsersStgToLive.sql" />
-    <Build Include="StoredProcedure\Audit_LogExecutionSuccess.sql" />    
+    <Build Include="StoredProcedure\Audit_LogExecutionSuccess.sql" />
     <Build Include="Tables\AsDataPL_RAA_Users.sql" />
     <Build Include="Schemas\Stg.sql" />
     <Build Include="Tables\Stg_RAA_Vacancies.sql" />
@@ -204,8 +204,6 @@
     <Build Include="Views\AsDataPL_DAS_UserAccountLegalEntity.sql" />
     <Build Include="Views\AsDataPL_DAS_Users.sql" />
     <Build Include="Tables\Stg_SQLCodeForDynamicBuild.sql" />
-    <Build Include="StoredProcedure\ImportAppRedundancyAndComtToPL.sql" />
-    <Build Include="Tables\AsDataPL_AR_Apprentice.sql" />
     <Build Include="StoredProcedure\ImportMarketoBulkExtractTablesToPL.sql" />
     <Build Include="Tables\AsDataPL_Marketo_Activities.sql" />
     <Build Include="Tables\AsDataPL_Marketo_ActivityTypes.sql" />
@@ -215,7 +213,6 @@
     <Build Include="Tables\AsDataPL_Marketo_Campaigns.sql" />
     <Build Include="StoredProcedure\ImportMarketoReferenceTablesToPL.sql" />
     <Build Include="Tables\AsDataPL_Marketo_SmartCampaigns.sql" />
-    <Build Include="Tables\AsDataPL_AR_Employer.sql" />
     <Build Include="Tables\AsDataPL_EI_ApprenticeshipIncentive.sql" />
     <Build Include="Tables\AsDataPL_EI_PendingPayment.sql" />
     <Build Include="Views\AsDataPL_Appfb_ApprenticeFeedback.sql" />
@@ -382,7 +379,7 @@
     <Build Include="Tables\Stg_CmphsSourceFileRejectedRecords.sql" />
     <Build Include="StoredProcedure\ImportCmphsFromStgBlobToPL.sql" />
     <Build Include="StoredProcedure\Insert_LogMarketoDates.sql" />
-    <Build Include="StoredProcedure\Audit_LogExecutionResults.sql" />    
+    <Build Include="StoredProcedure\Audit_LogExecutionResults.sql" />
     <Build Include="Views\PdsAI_PT_CompaniesHouseFromBlob.sql" />
     <Build Include="Tables\Stg_CmphsBlobRejectedRecords.sql" />
     <Build Include="Functions\Fn_RemoveHTMLTags.sql" />

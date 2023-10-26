@@ -73,7 +73,8 @@ VALUES
 ,(1	,4	,1	,4)
 ,(1	,5	,1	,5)
 ,(1	,6	,1	,6)
-,(1	,7	,1	,7)
+--2023-10-26  ImportAppRedundancyToDM pipeline retired 
+--,(1	,7	,1	,7)
 --2023-01-17  ImportFAT2CRSDeliveryToDM pipeline retired 
 --,(1	,8	,1	,8)
 ,(1	,9	,1	,9)

@@ -7,8 +7,6 @@ AS
 -- Description: Master Stored Proc that builds Modelled Presentation Layer
 -- =========================================================================
 
-EXEC dbo.ImportAppRedundancyAndComtToPL @RunId
-
 EXEC dbo.ImportAccountsToPL @RunId
 
 EXEC dbo.ImportFinanceToPL @RunId

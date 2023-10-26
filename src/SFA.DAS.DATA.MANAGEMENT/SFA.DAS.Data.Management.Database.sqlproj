@@ -436,5 +436,6 @@
     <Build Include="StoredProcedure\ImportFATAuditToPL.sql" />
     <Build Include="Schemas\Comp.sql" />
     <Build Include="Schemas\Comt.sql" />
+    <Build Include="StoredProcedure\ImportComtToPL.sql" />
   </ItemGroup>
 </Project>

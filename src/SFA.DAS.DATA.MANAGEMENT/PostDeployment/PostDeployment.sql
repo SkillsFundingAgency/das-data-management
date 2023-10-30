@@ -2,8 +2,12 @@
 EXEC [dbo].[Build_AS_DataMart]
 
 DROP PROCEDURE  IF EXISTS [dbo].[PopulateMarketoFilterConfigForImport]
+DROP PROCEDURE  IF EXISTS [dbo].[ImportAppRedundancyAndComtToPL]
 DROP TABLE IF EXISTS [Mtd].[MarketoFilterConfigForPrograms]
 DROP TABLE IF EXISTS [Mtd].[MarketoFilterConfig]
+DROP TABLE IF EXISTS [ASData_PL].[AR_Employer]
+DROP TABLE IF EXISTS [ASData_PL].[AR_Apprentice]
+
  
 
  /* Ryan's Power BI dashboard still pointing towards to these outdated tables.

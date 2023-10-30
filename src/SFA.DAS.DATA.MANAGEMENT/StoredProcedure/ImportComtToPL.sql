@@ -1,11 +1,11 @@
-﻿CREATE PROCEDURE [dbo].[ImportAppRedundancyAndComtToPL]
+﻿CREATE PROCEDURE [dbo].[ImportComtToPL]
 (
    @RunId int
 )
 AS
 -- ==========================================================================================================
--- Author:      Himabindu Uddaraju
--- Create Date: 24/09/2020
+-- Author:      Manju Nagarajan
+-- Create Date: 26/10/2023
 -- Description: Import, Transform and Load Apprenticeship Redundancy and Commitments Presentation Layer Table
 -- ==========================================================================================================
 
@@ -27,123 +27,15 @@ DECLARE @LogID int
   SELECT 
         @RunId
 	   ,'Step-6'
-	   ,'ImportAppRedundancyAndComtToPL'
+	   ,'ImportComtToPL'
 	   ,getdate()
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
-   WHERE StoredProcedureName='ImportAppRedundancyAndComtToPL'
+   WHERE StoredProcedureName='ImportComtToPL'
      AND RunId=@RunID
 
 BEGIN TRANSACTION
-
-TRUNCATE TABLE ASData_PL.AR_Apprentice  
-
-DECLARE @VSQL1 NVARCHAR(MAX)
-
-SET @VSQL1='
-
-INSERT INTO ASData_PL.AR_Apprentice
-(
-       [ApprenticeId]
-      ,[ApprenticeshipId]
-      ,[UpdatesWanted]
-      ,[ContactableForFeedback]
-      ,[PreviousTraining]
-      ,[Employer]
-      ,[TrainingProvider]
-      ,[LeftOnApprenticeshipMonths]
-      ,[LeftOnApprenticeshipYears]
-      ,[Sectors]
-      ,[CreatedOn]
-      ,[Age]
-	  ,[Ethnicity]
-	  ,[EthnicitySubgroup]
-	  ,[EthnicityText]
-	  ,[Gender]
-	  ,[GenderText]
-	  )
-SELECT AR.[Id]  
-	  ,CA.[Id] 
-      ,AR.[UpdatesWanted] 
-      ,AR.[ContactableForFeedback] 
-      ,AR.[PreviousTraining] 
-      ,AR.[Employer] 
-      ,AR.[TrainingProvider] 
-      ,AR.[LeftOnApprenticeshipMonths] 
-      ,AR.[LeftOnApprenticeshipYears] 
-      ,AR.[Sectors] 
-      ,AR.[CreatedOn]
-	  ,CASE WHEN [AR].[DateOfBirth] IS NULL	THEN - 1
-		    WHEN DATEPART([M], [AR].[DateOfBirth]) > DATEPART([M], getdate())
-			  OR DATEPART([M], [AR].[DateOfBirth]) = DATEPART([M], getdate())
-			 AND DATEPART([DD],[AR].[DateOfBirth]) > DATEPART([DD], getdate())
-			THEN DATEDIFF(YEAR,[AR].[DateOfBirth], getdate()) - 1
-		    ELSE DATEDIFF(YEAR,[AR].[DateOfBirth], getdate())
-		END                                 as Age
-	  ,AR.[Ethnicity]
-	  ,AR.[EthnicitySubgroup]
-	  ,AR.[EthnicityText]
-	  ,AR.[Gender]
-	  ,AR.[GenderText]
-  FROM (SELECT *, row_number() over(partition by DateOfBirth,Email order by ID) RN
-          FROM Stg.AR_Apprentice) AR
-  LEFT
-  JOIN Stg.Comt_Apprenticeship CA
-    ON CA.FirstName=AR.FirstName
-   AND CA.LastName=AR.LastName
-   AND CONVERT(DATE,CA.DateOfBirth)=CONVERT(DATE,substring(AR.DateOfBirth,1,10))
- WHERE AR.RN=1
- '
-
- EXEC SP_EXECUTESQL @VSQL1
-
- /* Drop Staging Table as it's no longer required */
-
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = N'AR_Apprentice' AND TABLE_SCHEMA=N'Stg') 
-DROP TABLE [Stg].AR_Apprentice
-
-/* Import Apprenticeship Redundancy Employer Data */
-
-
-TRUNCATE TABLE ASData_PL.AR_Employer  
-
-DECLARE @VSQL2 NVARCHAR(MAX)
-
-SET @VSQL2='
-
-INSERT INTO ASData_PL.AR_Employer
-(
-      [RedundancyEmployerId]
-	  ,[OrganisationName] 
-      ,[Email] 
-	  ,[ContactableForFeedback] 
-	  ,[Locations] 
-	  ,[Sectors] 
-	  ,[ApprenticeshipMoreDetails] 
-      ,[CreatedOn] 
-	  ,[ContactFirstName] 
-      ,[ContactLastName] 
-	  )
-SELECT AE.[Id]
-	  ,AE.[OrganisationName] 
-      ,AE.[Email] 
-	  ,AE.[ContactableForFeedback] 
-	  ,AE.[Locations] 
-	  ,AE.[Sectors] 
-	  ,AE.[ApprenticeshipMoreDetails] 
-      ,AE.[CreatedOn] 
-	  ,AE.[ContactFirstName] 
-      ,AE.[ContactLastName] 
-  FROM Stg.AR_Employer AE
- '
-
- EXEC SP_EXECUTESQL @VSQL2
-
-  /* Drop Staging Table as it's no longer required */
-
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = N'AR_Employer' AND TABLE_SCHEMA=N'Stg') 
-DROP TABLE [Stg].AR_Employer
 
  /* Import Commitments Apprenticeship to PL */
 
@@ -191,6 +83,10 @@ INSERT INTO [ASData_PL].[Comt_Apprenticeship]
            ,[IsOnFlexiPaymentPilot]
            ,[TrainingTotalHours]
            ,[CostBeforeRpl]
+           ,[ActualStartDate] 
+           ,[EmailAddressConfirmed] 
+           ,[LastUpdated] 
+           ,[UpdatedOn] 
            )
  SELECT    [Id]
            ,[CommitmentId]
@@ -235,6 +131,10 @@ INSERT INTO [ASData_PL].[Comt_Apprenticeship]
            ,[IsOnFlexiPaymentPilot]
            ,[TrainingTotalHours]
            ,[CostBeforeRpl]
+           ,[ActualStartDate] 
+           ,[EmailAddressConfirmed] 
+           ,[LastUpdated] 
+           ,[UpdatedOn]
     FROM Stg.Comt_Apprenticeship
 '
 
@@ -264,14 +164,10 @@ BEGIN CATCH
 
 	/* Drop Staging Table even if it fails */
 
-    IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = N'Comt_Apprenticeship' AND TABLE_SCHEMA=N'Stg') 
-    DROP TABLE [Stg].Comt_Apprenticeship
+    IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = N'Comt_Apprenticeship' AND TABLE_SCHEMA=N'Stg')
+     DROP TABLE [Stg].Comt_Apprenticeship
 
 	
-     /* Drop Staging Table even if it fails */
-
-     IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = N'AR_Apprentice' AND TABLE_SCHEMA=N'Stg') 
-     DROP TABLE [Stg].AR_Apprentice
 
     DECLARE @ErrorId int
 
@@ -292,7 +188,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'ImportAppRedundancyAndComtToPL',
+	    'ImportComtToPL',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 
@@ -301,13 +197,12 @@ BEGIN CATCH
 
 /* Update Log Execution Results as Fail if there is an Error*/
 
-UPDATE Mgmt.Log_Execution_Results
+   UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=0
       ,EndDateTime=getdate()
 	  ,ErrorId=@ErrorId
  WHERE LogId=@LogID
    AND RunID=@RunId
 
-  END CATCH
+END CATCH
 
-GO

@@ -40,6 +40,10 @@
 	[IsOnFlexiPaymentPilot] [bit] NULL,
 	[TrainingTotalHours] [int] NULL,
 	[CostBeforeRpl] [int] NULL,
+	[ActualStartDate] [datetime] NULL,
+	[EmailAddressConfirmed] [bit] NULL,
+	[LastUpdated]  [datetime] NULL,
+	[UpdatedOn] [datetime] NULL,
 	CONSTRAINT PK_Comt_Apprenticeship_Id PRIMARY KEY CLUSTERED (Id)
 ) ON [PRIMARY]
 GO

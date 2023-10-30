@@ -118,7 +118,7 @@ INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL])
 /* Accounts and Users */
 VALUES
- ('Users','User','dbo','[Id],[IsActive],[FailedLoginAttempts],[IsLocked],[IsSuspended],[LastSuspendedDate],[GovUkIdentifier]','[Salt],[PasswordProfileId],[Password]','[FirstName],[LastName],[Email]','EAU_User',0)
+ ('Users','User','dbo','[Id],[IsActive],[FailedLoginAttempts],[IsLocked],[IsSuspended],[GovUkIdentifier],[LastSuspendedDate]','[Password],[Salt],[PasswordProfileId]','[FirstName],[LastName],[Email]','EAU_User',0)
 ,('Accounts','Account','Employer_Account','[Id],[HashedId],[CreatedDate],[ModifiedDate],[ApprenticeshipEmployerType],[NameConfirmed]','','[Name],[PublicHashedId]','Acc_Account',1)
 ,('Accounts','EmployerAgreement','Employer_Account','[Id],[TemplateId],[StatusId],[SignedDate],[AccountLegalEntityId],[ExpiredDate],[SignedById],[Acknowledged]','[SignedByName]','','Acc_EmployerAgreement',0)
 ,('Accounts','EmployerAgreementStatus','Employer_Account','[Id],[name]','','','Acc_EmployerAgreementStatus',0)

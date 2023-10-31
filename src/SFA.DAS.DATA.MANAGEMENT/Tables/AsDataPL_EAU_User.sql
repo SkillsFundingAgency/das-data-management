@@ -8,6 +8,8 @@
       ,LastName varchar(255) 
       ,FailedLoginAttempts int 
       ,IsSuspended bit not null
+      ,GovUkIdentifier varchar(150) null
+      ,LastSuspendedDate datetime null
       ,[IsRetentionApplied] bit DEFAULT (0)
       ,[RetentionAppliedDate]  DateTime2(7)
 	  ,[Asdm_UpdatedDateTime] datetime2 default getdate()

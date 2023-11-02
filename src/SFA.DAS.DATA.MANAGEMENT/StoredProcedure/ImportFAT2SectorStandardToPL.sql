@@ -84,10 +84,7 @@ BEGIN TRY
 								,[EffectiveTo]
 								,[VersionMajor]
 								,[VersionMinor]
-								,[IsLatestVersion]
-								,[VersionEarliestStartDate]
-								,[VersionLatestStartDate]
-								,[Route]
+								,[IsLatestVersion]								
 								,[Old_Options]
 								,[EPAChanged]
 								,[CoronationEmblem]
@@ -137,7 +134,7 @@ BEGIN TRY
 					  ,ComtStandard.EffectiveTo
 					  ,ComtStandard.VersionMajor
 					  ,ComtStandard.VersionMinor
-					  ,ComtStandard.IsLatestVersion	
+					  ,ComtStandard.IsLatestVersion
 					  ,std.[Old_Options]
 					  ,std.[EPAChanged]
 					  ,std.[CoronationEmblem]			 

@@ -67,7 +67,7 @@
  ,WeeklyHours VARCHAR(256)
  ,WageType VARCHAR(max)
  ,FixedWageYearlyAmount VARCHAR(256)
- ,WageAdditionalInformation VARCHAR(256)
+ ,WageAdditionalInformation VARCHAR(max)
  ,ClosureReason VARCHAR(256)
  ,DeletedDateTimeStamp VARCHAR(256)
  ,DeletedByUserId VARCHAR(256)

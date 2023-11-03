@@ -27,7 +27,7 @@
  ,IsDeleted  VARCHAR(256)
  ,ApplicationIstructions VARCHAR(max)
  ,ApplicationMethod VARCHAR(512)
- ,ApplicationUrl VARCHAR(256)
+ ,ApplicationUrl VARCHAR(max)
  ,ClosingDateTimeStamp VARCHAR(256)
  ,VacancyDescription VARCHAR(max)
  ,DisabilityConfident VARCHAR(256)

@@ -11,6 +11,7 @@
 	[CollectionPeriodYear]			[smallint]				NULL,
 	[SubNominalCode]				[int]					NULL,
 	[PaymentId]						[uniqueidentifier]		NULL,
+	[VrfVendorId]					[nvarchar](100)		NULL,
 	[AsDm_UpdatedDateTime]			[datetime2](7)			default (getdate())
 )
 GO

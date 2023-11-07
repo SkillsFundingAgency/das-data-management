@@ -7,5 +7,6 @@
 	[PeriodNumber]						[tinyint]			NULL,
 	[PaymentYear]						[smallint]			NULL,
 	[CreatedDateUTC]					[datetime2](7)		NULL,
+	[OverrideResult]					[bit]				NULL,
 	[AsDm_UpdatedDateTime]				[datetime2](7)		DEFAULT (getdate())
 ) 

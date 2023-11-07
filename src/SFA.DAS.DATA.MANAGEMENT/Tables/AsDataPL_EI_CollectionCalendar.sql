@@ -8,5 +8,7 @@
 	[CensusDate]				datetime NULL,
 	[AcademicYear]				varchar(10) NULL,
 	[Active]					bit NULL,
+	[PeriodEndInProgress]		bit NULL,
+	[MonthEndProcessingCompleteUTC] datetime2(7)  NULL,
     AsDm_UpdatedDateTime datetime2 default getdate()
 )

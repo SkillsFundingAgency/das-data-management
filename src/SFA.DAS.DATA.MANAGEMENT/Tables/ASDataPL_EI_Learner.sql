@@ -14,5 +14,7 @@
 	[LearningResumedDate]				[datetime2](7)		NULL,
 	[CreatedDate]						[datetime2](7)		NULL,
 	[UpdatedDate]						[datetime2](7)		NULL,
+	[RefreshDate]						[datetime2](7)		NULL,
+	[SuccessfulLearnerMatchExecution]	bit 				NULL,
 	[AsDm_UpdatedDateTime]				[datetime2](7)	DEFAULT (getdate())
 ) 

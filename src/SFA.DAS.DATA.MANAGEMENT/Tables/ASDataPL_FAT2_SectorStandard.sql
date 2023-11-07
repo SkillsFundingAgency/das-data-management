@@ -43,6 +43,9 @@
 	[EffectiveTo]									[DateTime]			NULL, 
 	[VersionMajor]									[int]				NULL,
 	[VersionMinor]									[int]				NULL,
+	[Old_Options] 									nvarchar(max)		NULL,
+	[EPAChanged]									[Bit]				NULL,	
+	[CoronationEmblem]								[Bit]				NULL,
 	[IsLatestVersion]								[Bit]				NULL,	
 	[AsDm_UpdatedDateTime]							[datetime2](7)	DEFAULT (getdate())
 )

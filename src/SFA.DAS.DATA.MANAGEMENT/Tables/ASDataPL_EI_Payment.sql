@@ -11,6 +11,7 @@
 	[PaymentPeriod]						[tinyint]					NULL,
 	[PaymentYear]						[smallint]					NULL,
 	[Amount]							[decimal](9, 2)				NULL,
+	[VrfVendorId]						nvarchar(100)				NULL,
 	[AsDm_UpdatedDateTime]				[datetime2](7)				DEFAULT (getdate()),
 	CONSTRAINT PK_EI_Payment_Id PRIMARY KEY CLUSTERED (Id)
 )

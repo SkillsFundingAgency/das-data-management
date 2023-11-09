@@ -9,8 +9,8 @@
 	[JobRoles] [int]				NOT NULL,
 	[Levels] [int]					NOT NULL,
 	[Sectors] [int]					NOT NULL,
-	[Status]  [int]					NOT NULL,
+	[Status]  [int]						NULL,
 	[ClosedOn] [datetime2]         NULL,
-	[AutomaticApprovalOption] [int]		NOT NULL,
+	[AutomaticApprovalOption] [int]		NULL,
 	[AsDm_UpdatedDateTime] datetime2 default getdate()
 ) ON [PRIMARY]

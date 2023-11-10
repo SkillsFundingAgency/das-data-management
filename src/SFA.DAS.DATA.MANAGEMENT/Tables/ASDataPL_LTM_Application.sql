@@ -10,6 +10,7 @@
 	[Amount] [int]										NULL,
 	[AutomaticApproval] [bit]							NULL,
 	[CostingModel] [int]								NULL,
+	[StandardTitle][varchar](500)					    NULL,
 	[StandardLevel][int]							    NULL,
 	[StandardDuration][int]							    NULL,
 	[StandardMaxFunding] [int]						    NULL,

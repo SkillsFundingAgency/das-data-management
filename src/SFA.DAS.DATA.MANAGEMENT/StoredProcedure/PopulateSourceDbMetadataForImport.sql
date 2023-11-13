@@ -175,6 +175,33 @@ VALUES
 ('CRS','SectorSubjectAreaTier2','dbo','[SectorSubjectAreaTier2],[SectorSubjectAreaTier2Desc],[EffectiveFrom],[EffectiveTo]','','[Name]',1,0,'FAT2_SectorSubjectAreaTier2'),
 ('CRS','Standard','dbo','[StandardUId],[IfateReferenceNumber],[LarsCode],[Status],[VersionEarliestStartDate],[VersionLatestStartDate],[VersionLatestEndDate],[Level],[ProposedTypicalDuration],[ProposedMaxFunding],[IntegratedDegree],[OverviewOfRole],[RouteCode],[AssessmentPlanUrl],[ApprovedForDelivery],[Keywords],[TypicalJobTitles],[StandardPageUrl],[Version],[RegulatedBody],[Skills],[Knowledge],[Behaviours],[Duties],[CoreAndOptions],[IntegratedApprenticeship],[Options],[CoreDuties],[Old_Options],[EPAChanged],[VersionMajor],[VersionMinor],[CoronationEmblem]','','[Title],[TrailBlazerContact],[EqaProviderName],[EqaProviderContactName],[EqaProviderContactEmail],[EqaProviderWebLink]',1,1,'FAT2_StandardSector')
 
+
+/* AAN Import Configurations */
+INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
+VALUES
+('AAN','AANApprenticeship','dbo','[Id],[Uln],[ApprenticeshipId],[StartDate],[EndDate],[TrainingProviderId],[TrainingProviderName],[TrainingCode],[TrainingCourseOption],[StandardUId],[CreatedOn]','[FirstName],[LastName],[Email],[DateOfBirth]','',1,0,'AAN_AANApprenticeship'),
+('AAN','Apprentice','dbo','[MemberId],[ApprenticeId]','','',1,0,'AAN_Apprentice'),
+('AAN','Attribute','dbo','[AttributeId],[AttributeName],[Category],[EventFormat],[Ordering]','','',1,0,'AAN_Attribute'),
+('AAN','Audit','dbo','[Id],[AuditTime],[ActionedBy],[Action],[Resource],[Before],[After]','','',1,0,'AAN_Audit'),
+('AAN','Calendar','dbo','[Id],[CalendarName],[EffectiveFromDate],[EffectiveToDate],[Ordering]','','',1,1,'AAN_Calendar'),
+('AAN','CalendarEvent','dbo','[Id],[CalendarId],[EventFormat],[StartDate],[EndDate],[Title],[Description],[Summary],[RegionId],[Latitude],[Longitude],[URN],[EventLink],[ContactName],[IsActive],[PlannedAttendees],[CreatedDate],[LastUpdatedDate]','[Location],[Postcode],[ContactEmail]','',1,0,'AAN_CalendarEvent'),
+('AAN','Document','dbo','[Id],[MemberId],[Title],[FileName],[Keywords],[Regions],[Url]','','',1,0,'AAN_Document'),
+('AAN','Employer','dbo','[MemberId],[AccountId],[UserRef]','','',1,0,'AAN_Employer'),
+('AAN','Document','dbo','[Id],[MemberId],[Title],[FileName],[Keywords],[Regions],[Url]','','',1,0,'AAN_Document'),
+('AAN','EventGuest','dbo','[Id],[CalendarEventId],[GuestName],[GuestJobTitle]','','',1,0,'AAN_EventGuest'),
+('AAN','LeavingReason','dbo','[Id],[Category],[Description],[Ordering]','','',1,0,'AAN_LeavingReason'),
+('AAN','Member','dbo','[Id],[UserType],[Status],[JoinedDate],[EndDate],[RegionId],[OrganisationName],[LastUpdatedDate],[IsRegionalChair]','[FirstName],[LastName],[Email],[FullName]','',1,0,'AAN_Member'),
+('AAN','MemberLeavingReason','dbo','[Id],[MemberId],[LeavingReasonId]','','',1,0,'AAN_MemberLeavingReason'),
+('AAN','MemberPreference','dbo','[Id],[MemberId],[PreferenceId],[AllowSharing]','','',1,0,'AAN_MemberPreference'),
+('AAN','MemberProfile','dbo','[Id],[MemberId],[ProfileId],[ProfileValue]','','',1,0,'AAN_MemberProfile'),
+('AAN','Notification','dbo','[Id],[MemberId],[TemplateName],[Tokens],[CreatedBy],[CreatedDate],[SendAfterTime],[SentTime],[IsSystem],[ReferenceId]','','',1,0,'AAN_Notification'),
+('AAN','NotificationTemplate','dbo','[Id],[Description],[TemplateName],[IsActive]','','',1,0,'AAN_NotificationTemplate'),
+('AAN','Preference','dbo','[Id],[Group]','','',1,0,'AAN_Preference'),
+('AAN','Profile','dbo','[Id],,[UserType],[Category],[Description],[Ordering],[PreferenceId]','','',1,0,'AAN_Profile'),
+('AAN','Region','dbo',' [Id],[Area],[Ordering]','','',1,0,'AAN_Region'),
+('AAN','StagedApprentice','dbo','[Id],[Uln],[ApprenticeshipId],[EmployerName],[StartDate],[EndDate],[TrainingProviderId],[TrainingProviderName],[TrainingCode],[TrainingCourseOption],[StandardUId],[CreatedOn]','[FirstName],[LastName],[Email],[DateOfBirth]','',1,0,'AAN_StagedApprentice')
+
+
 /* RoatpV2 Import Configurations */
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
 VALUES

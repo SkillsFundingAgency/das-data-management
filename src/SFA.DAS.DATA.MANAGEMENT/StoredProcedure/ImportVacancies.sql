@@ -129,7 +129,7 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
            ,[RowNumber]
            ,[RAFDuplicateFlag])
 Select vd.*,
-case when RowNumber > 1 and NumberOfPositions >= 20 then 1
+case when RowNumber > 1 and NumberOfPositions >= 20 and DatePosted >= '01-Mar-2023' and EmployerFullName in( 'RAF','Royal Air Force') then 1
 else 0 end as RAFDuplicateFlag from 
 (
 select  vv.*
@@ -399,7 +399,7 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
            ,[RAFDuplicateFlag])
   
 Select vd.*,
-case when RowNumber > 1 and NumberOfPositions >= 20 then 1
+case when RowNumber > 1 and NumberOfPositions >= 20 and DatePosted >= '01-Mar-2023' and EmployerFullName in( 'RAF','Royal Air Force') then 1
 else 0 end as RAFDuplicateFlag from 
 (
 select  vv.*

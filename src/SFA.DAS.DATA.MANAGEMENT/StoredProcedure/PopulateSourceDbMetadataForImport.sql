@@ -201,7 +201,6 @@ VALUES
 ('AAN','Region','dbo',' [Id],[Area],[Ordering]','','',1,0,'AAN_Region'),
 ('AAN','StagedApprentice','dbo','[Id],[Uln],[ApprenticeshipId],[EmployerName],[StartDate],[EndDate],[TrainingProviderId],[TrainingProviderName],[TrainingCode],[TrainingCourseOption],[StandardUId],[CreatedOn]','[FirstName],[LastName],[Email],[DateOfBirth]','',1,0,'AAN_StagedApprentice')
 
-
 /* RoatpV2 Import Configurations */
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
 VALUES

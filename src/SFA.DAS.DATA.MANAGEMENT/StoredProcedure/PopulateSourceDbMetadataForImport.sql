@@ -184,7 +184,7 @@ VALUES
 ('Roatpv2','ProviderCourse','dbo','[Id],[ProviderId],[LarsCode],[StandardInfoUrl],[IsApprovedByRegulator],[IsImported],[HasPortableFlexiJobOption]','[ContactUsPhoneNumber],[ContactUsPageUrl]','[ContactUsEmail]',1,0,'FAT_ROATPV2_ProviderCourse'),
 ('Roatpv2','ProviderCourseLocation','dbo','[Id],[NavigationId],[ProviderCourseId],[ProviderLocationId],[HasDayReleaseDeliveryOption],[HasBlockReleaseDeliveryOption],[IsImported]','','',1,0,'FAT_ROATPV2_ProviderCourseLocation'),
 ('Roatpv2','ProviderLocation','dbo','[Id],[ImportedLocationId],[NavigationId],[ProviderId],[RegionId],[Postcode],[Latitude],[Longitude],[IsImported],[LocationType]','[Phone],[AddressLine1],[AddressLine2],[Town],[County]','[LocationName],[Email],[Website]',1,0,'FAT_ROATPV2_ProviderLocation'),
-('Roatpv2','ProviderRegistrationDetail','dbo','[LegalName],[StatusId],[StatusDate],[OrganisationTypeId],[ProviderTypeId]','[AddressLine1],[AddressLine2],[AddressLine3],[AddressLine4],[Latitude],[Longitude],[Postcode]','[Ukprn]',1,0,'FAT_ROATPV2_ProviderRegistrationDetail'),
+('Roatpv2','ProviderRegistrationDetail','dbo','[LegalName],[StatusId],[StatusDate],[OrganisationTypeId],[ProviderTypeId],[Town]','[AddressLine1],[AddressLine2],[AddressLine3],[AddressLine4],[Latitude],[Longitude],[Postcode]','[Ukprn]',1,0,'FAT_ROATPV2_ProviderRegistrationDetail'),
 ('Roatpv2','ProviderAddress','dbo','[Id],[ProviderId],[Postcode],[Latitude],[Longitude],[AddressUpdateDate],[CoordinatesUpdateDate]','[AddressLine1],[AddressLine2],[AddressLine3],[AddressLine4],[Town]','',1,0,'FAT_ROATPV2_ProviderAddress'),
 ('Roatpv2','Standard','dbo','[StandardUId],[LarsCode],[IfateReferenceNumber],[Level],[Version],[ApprovalBody],[SectorSubjectArea]','','[Title]',1,0,'FAT_ROATPV2_Standard')
 

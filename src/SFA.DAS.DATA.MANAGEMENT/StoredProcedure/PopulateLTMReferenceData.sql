@@ -54,7 +54,9 @@ AS
 					[JobRoles],
 					[Levels],
 					[Sectors],
-					[ClosedOn]
+					[Status],
+					[ClosedOn],
+					[AutomaticApprovalOption]
 				) 
 				SELECT [Id]
 					  ,[EmployerAccountId]
@@ -65,7 +67,9 @@ AS
 					  ,[JobRoles]
 					  ,[Levels]
 					  ,[Sectors]
+					  ,[Status]
 					  ,[ClosedOn]
+					  ,[AutomaticApprovalOption]
 			    FROM [stg].[LTM_Pledge]'
 				exec SP_EXECUTESQL @DynSQL
 

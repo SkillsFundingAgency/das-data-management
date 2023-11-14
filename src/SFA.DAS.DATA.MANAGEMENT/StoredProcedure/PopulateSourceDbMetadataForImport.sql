@@ -181,6 +181,7 @@ INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,Source
 VALUES
 ('AAN','AANApprenticeship','dbo','[Id],[Uln],[ApprenticeshipId],[StartDate],[EndDate],[TrainingProviderId],[TrainingProviderName],[TrainingCode],[TrainingCourseOption],[StandardUId],[CreatedOn]','[FirstName],[LastName],[Email],[DateOfBirth]','',1,0,'AAN_AANApprenticeship'),
 ('AAN','Apprentice','dbo','[MemberId],[ApprenticeId]','','',1,0,'AAN_Apprentice'),
+('AAN','Attendance','dbo',' [Id],[CalendarEventId],[MemberId],[AddedDate],[IsAttending]','','',1,0,'AAN_Attendance'),
 ('AAN','Attribute','dbo','[AttributeId],[AttributeName],[Category],[EventFormat],[Ordering]','','',1,0,'AAN_Attribute'),
 ('AAN','Audit','dbo','[Id],[AuditTime],[ActionedBy],[Action],[Resource],[Before],[After]','','',1,0,'AAN_Audit'),
 ('AAN','Calendar','dbo','[Id],[CalendarName],[EffectiveFromDate],[EffectiveToDate],[Ordering]','','',1,1,'AAN_Calendar'),

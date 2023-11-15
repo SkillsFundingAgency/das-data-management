@@ -10,6 +10,7 @@
 	[AsDm_UpdatedDateTime] datetime2 default getdate(),	
 	[ComtLevyStatus] [tinyint]  NULL,
 	[NameConfirmed] BIT NULL,
+	[AddTrainingProviderAcknowledged] BIT NULL,
 	[IsRetentionApplied] bit DEFAULT (0),
     [RetentionAppliedDate]  DateTime2(7)
 	,CONSTRAINT PK_Acc_Account_Id PRIMARY KEY CLUSTERED (Id)

@@ -47,5 +47,6 @@
 	[EPAChanged]									[Bit]				NULL,	
 	[CoronationEmblem]								[Bit]				NULL,
 	[IsLatestVersion]								[Bit]				NULL,	
+	[EpaoMustBeApprovedByRegulatorBody]				[Bit]				NULL,
 	[AsDm_UpdatedDateTime]							[datetime2](7)	DEFAULT (getdate())
 )

@@ -177,30 +177,30 @@ VALUES
 
 
 /* AAN Import Configurations */
-INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
+INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)
 VALUES
-('AAN','AANApprenticeship','dbo','[Id],[Uln],[ApprenticeshipId],[StartDate],[EndDate],[TrainingProviderId],[TrainingProviderName],[TrainingCode],[TrainingCourseOption],[StandardUId],[CreatedOn]','[FirstName],[LastName],[Email],[DateOfBirth]','',1,0,'AAN_AANApprenticeship'),
-('AAN','Apprentice','dbo','[MemberId],[ApprenticeId]','','',1,0,'AAN_Apprentice'),
-('AAN','Attendance','dbo',' [Id],[CalendarEventId],[MemberId],[AddedDate],[IsAttending]','','',1,0,'AAN_Attendance'),
-('AAN','Attribute','dbo','[AttributeId],[AttributeName],[Category],[EventFormat],[Ordering]','','',1,0,'AAN_Attribute'),
-('AAN','Audit','dbo','[Id],[AuditTime],[ActionedBy],[Action],[Resource],[Before],[After]','','',1,0,'AAN_Audit'),
-('AAN','Calendar','dbo','[Id],[CalendarName],[EffectiveFromDate],[EffectiveToDate],[Ordering]','','',1,1,'AAN_Calendar'),
-('AAN','CalendarEvent','dbo','[Id],[CalendarId],[EventFormat],[StartDate],[EndDate],[Title],[Description],[Summary],[RegionId],[Latitude],[Longitude],[URN],[EventLink],[ContactName],[IsActive],[PlannedAttendees],[CreatedDate],[LastUpdatedDate]','[Location],[Postcode],[ContactEmail]','',1,0,'AAN_CalendarEvent'),
-('AAN','Document','dbo','[Id],[MemberId],[Title],[FileName],[Keywords],[Regions],[Url]','','',1,0,'AAN_Document'),
-('AAN','Employer','dbo','[MemberId],[AccountId],[UserRef]','','',1,0,'AAN_Employer'),
-('AAN','Document','dbo','[Id],[MemberId],[Title],[FileName],[Keywords],[Regions],[Url]','','',1,0,'AAN_Document'),
-('AAN','EventGuest','dbo','[Id],[CalendarEventId],[GuestName],[GuestJobTitle]','','',1,0,'AAN_EventGuest'),
-('AAN','LeavingReason','dbo','[Id],[Category],[Description],[Ordering]','','',1,0,'AAN_LeavingReason'),
-('AAN','Member','dbo','[Id],[UserType],[Status],[JoinedDate],[EndDate],[RegionId],[OrganisationName],[LastUpdatedDate],[IsRegionalChair]','[FirstName],[LastName],[Email],[FullName]','',1,0,'AAN_Member'),
-('AAN','MemberLeavingReason','dbo','[Id],[MemberId],[LeavingReasonId]','','',1,0,'AAN_MemberLeavingReason'),
-('AAN','MemberPreference','dbo','[Id],[MemberId],[PreferenceId],[AllowSharing]','','',1,0,'AAN_MemberPreference'),
-('AAN','MemberProfile','dbo','[Id],[MemberId],[ProfileId],[ProfileValue]','','',1,0,'AAN_MemberProfile'),
-('AAN','Notification','dbo','[Id],[MemberId],[TemplateName],[Tokens],[CreatedBy],[CreatedDate],[SendAfterTime],[SentTime],[IsSystem],[ReferenceId]','','',1,0,'AAN_Notification'),
-('AAN','NotificationTemplate','dbo','[Id],[Description],[TemplateName],[IsActive]','','',1,0,'AAN_NotificationTemplate'),
-('AAN','Preference','dbo','[Id],[Group]','','',1,0,'AAN_Preference'),
-('AAN','Profile','dbo','[Id],,[UserType],[Category],[Description],[Ordering],[PreferenceId]','','',1,0,'AAN_Profile'),
-('AAN','Region','dbo',' [Id],[Area],[Ordering]','','',1,0,'AAN_Region'),
-('AAN','StagedApprentice','dbo','[Id],[Uln],[ApprenticeshipId],[EmployerName],[StartDate],[EndDate],[TrainingProviderId],[TrainingProviderName],[TrainingCode],[TrainingCourseOption],[StandardUId],[CreatedOn]','[FirstName],[LastName],[Email],[DateOfBirth]','',1,0,'AAN_StagedApprentice')
+('AAN','AANApprenticeship','dbo','[Id],[Uln],[ApprenticeshipId],[StartDate],[EndDate],[TrainingProviderId],[TrainingProviderName],[TrainingCode],[TrainingCourseOption],[StandardUId],[CreatedOn]','[FirstName],[LastName],[Email],[DateOfBirth]','',0,1,'','AAN_AANApprenticeship'),
+('AAN','Apprentice','dbo','[MemberId],[ApprenticeId]','','',0,1,'','AAN_Apprentice'),
+('AAN','Attendance','dbo',' [Id],[CalendarEventId],[MemberId],[AddedDate],[IsAttending]','','',0,1,'','AAN_Attendance'),
+('AAN','Attribute','dbo','[AttributeId],[AttributeName],[Category],[EventFormat],[Ordering]','','',0,1,'','AAN_Attribute'),
+('AAN','Audit','dbo','[Id],[AuditTime],[ActionedBy],[Action],[Resource],[Before],[After]','','',0,1,'','AAN_Audit'),
+('AAN','Calendar','dbo','[Id],[CalendarName],[EffectiveFromDate],[EffectiveToDate],[Ordering]','','',0,1,'','AAN_Calendar'),
+('AAN','CalendarEvent','dbo','[Id],[CalendarId],[EventFormat],[StartDate],[EndDate],[Title],[Description],[Summary],[RegionId],[Latitude],[Longitude],[URN],[EventLink],[ContactName],[IsActive],[PlannedAttendees],[CreatedDate],[LastUpdatedDate]','[Location],[Postcode],[ContactEmail]','',0,1,'','AAN_CalendarEvent'),
+('AAN','Document','dbo','[Id],[MemberId],[Title],[FileName],[Keywords],[Regions],[Url]','','',0,1,'','AAN_Document'),
+('AAN','Employer','dbo','[MemberId],[AccountId],[UserRef]','','',0,1,'','AAN_Employer'),
+('AAN','Document','dbo','[Id],[MemberId],[Title],[FileName],[Keywords],[Regions],[Url]','','',0,1,'','AAN_Document'),
+('AAN','EventGuest','dbo','[Id],[CalendarEventId],[GuestName],[GuestJobTitle]','','',0,1,'','AAN_EventGuest'),
+('AAN','LeavingReason','dbo','[Id],[Category],[Description],[Ordering]','','',0,1,'','AAN_LeavingReason'),
+('AAN','Member','dbo','[Id],[UserType],[Status],[JoinedDate],[EndDate],[RegionId],[OrganisationName],[LastUpdatedDate],[IsRegionalChair]','[FirstName],[LastName],[Email],[FullName]','',0,1,'','AAN_Member'),
+('AAN','MemberLeavingReason','dbo','[Id],[MemberId],[LeavingReasonId]','','',0,1,'','AAN_MemberLeavingReason'),
+('AAN','MemberPreference','dbo','[Id],[MemberId],[PreferenceId],[AllowSharing]','','',0,1,'','AAN_MemberPreference'),
+('AAN','MemberProfile','dbo','[Id],[MemberId],[ProfileId],[ProfileValue]','','',0,1,'','AAN_MemberProfile'),
+('AAN','Notification','dbo','[Id],[MemberId],[TemplateName],[Tokens],[CreatedBy],[CreatedDate],[SendAfterTime],[SentTime],[IsSystem],[ReferenceId]','','',0,1,'','AAN_Notification'),
+('AAN','NotificationTemplate','dbo','[Id],[Description],[TemplateName],[IsActive]','','',0,1,'','AAN_NotificationTemplate'),
+('AAN','Preference','dbo','[Id],[Group]','','',0,1,'','AAN_Preference'),
+('AAN','Profile','dbo','[Id],,[UserType],[Category],[Description],[Ordering],[PreferenceId]','','',0,1,'','AAN_Profile'),
+('AAN','Region','dbo',' [Id],[Area],[Ordering]','','',0,1,'','AAN_Region'),
+('AAN','StagedApprentice','dbo','[Id],[Uln],[ApprenticeshipId],[EmployerName],[StartDate],[EndDate],[TrainingProviderId],[TrainingProviderName],[TrainingCode],[TrainingCourseOption],[StandardUId],[CreatedOn]','[FirstName],[LastName],[Email],[DateOfBirth]','',0,1,'','AAN_StagedApprentice')
 
 /* RoatpV2 Import Configurations */
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)

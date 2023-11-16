@@ -6,5 +6,6 @@
       [StatusDate]       [datetime2](7)      NULL,
       [OrganisationTypeId]int					NULL,
       [ProviderTypeId]    int					NULL,
+      [Town]              varchar(250)                NULL,
       [AsDm_UpdatedDateTime] [datetime2](7)		DEFAULT (getdate())
 )

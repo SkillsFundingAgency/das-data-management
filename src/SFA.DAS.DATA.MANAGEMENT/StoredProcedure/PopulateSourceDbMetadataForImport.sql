@@ -176,7 +176,11 @@ VALUES
 ('CRS','Standard','dbo','[StandardUId],[IfateReferenceNumber],[LarsCode],[Status],[VersionEarliestStartDate],[VersionLatestStartDate],[VersionLatestEndDate],[Level],[ProposedTypicalDuration],[ProposedMaxFunding],[IntegratedDegree],[OverviewOfRole],[RouteCode],[AssessmentPlanUrl],[ApprovedForDelivery],[Keywords],[TypicalJobTitles],[StandardPageUrl],[Version],[RegulatedBody],[Skills],[Knowledge],[Behaviours],[Duties],[CoreAndOptions],[IntegratedApprenticeship],[Options],[CoreDuties],[Old_Options],[EPAChanged],[VersionMajor],[VersionMinor],[CoronationEmblem]','','[Title],[TrailBlazerContact],[EqaProviderName],[EqaProviderContactName],[EqaProviderContactEmail],[EqaProviderWebLink]',1,1,'FAT2_StandardSector')
 
 
-/* AAN Import Configurations */
+INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
+VALUES
+('AAN','Preference','dbo','[Id],[Group]','','',1,0,'AAN_Preference')
+
+/* AAN QueryBased Import Configurations */
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)
 VALUES
 ('AAN','AANApprenticeship','dbo','[Id],[Uln],[ApprenticeshipId],[StartDate],[EndDate],[TrainingProviderId],[TrainingProviderName],[TrainingCode],[TrainingCourseOption],[StandardUId],[CreatedOn]','[FirstName],[LastName],[Email],[DateOfBirth]','',0,1,'SELECT [Id],[FirstName],[LastName],[Email],[DateOfBirth],[Uln],[ApprenticeshipId],[StartDate],[EndDate],[TrainingProviderId],[TrainingProviderName],[TrainingCode],[TrainingCourseOption],[StandardUId],[CreatedOn] FROM [dbo].[AANApprenticeship]','AAN_AANApprenticeship'),
@@ -196,7 +200,6 @@ VALUES
 ('AAN','MemberProfile','dbo','[Id],[MemberId],[ProfileId],[ProfileValue]','','',0,1,'SELECT [Id],[MemberId],[ProfileId],[ProfileValue] FROM [dbo].[MemberProfile]','AAN_MemberProfile'),
 ('AAN','Notification','dbo','[Id],[MemberId],[TemplateName],[Tokens],[CreatedBy],[CreatedDate],[SendAfterTime],[SentTime],[IsSystem],[ReferenceId]','','',0,1,'SELECT [Id],[MemberId],[TemplateName],[Tokens],[CreatedBy],[CreatedDate],[SendAfterTime],[SentTime],[IsSystem],[ReferenceId] FROM [dbo].[Notification]','AAN_Notification'),
 ('AAN','NotificationTemplate','dbo','[Id],[Description],[TemplateName],[IsActive]','','',0,1,'SELECT [Id],[Description],[TemplateName],[IsActive] FROM [dbo].[NotificationTemplate]','AAN_NotificationTemplate'),
-('AAN','Preference','dbo','[Id],[Group]','','',0,1,'SELECT [Id],[Group] FROM [dbo].[Preference]','AAN_Preference'),
 ('AAN','Profile','dbo','[Id],[UserType],[Category],[Description],[Ordering],[PreferenceId]','','',0,1,'SELECT [Id],[UserType],[Category],[Description],[Ordering],[PreferenceId] FROM [dbo].[Profile]','AAN_Profile'),
 ('AAN','Region','dbo','[Id],[Area],[Ordering]','','',0,1,'SELECT [Id],[Area],[Ordering] FROM [dbo].[Region]','AAN_Region'),
 ('AAN','StagedApprentice','dbo','[Id],[Uln],[ApprenticeshipId],[EmployerName],[StartDate],[EndDate],[TrainingProviderId],[TrainingProviderName],[TrainingCode],[TrainingCourseOption],[StandardUId],[CreatedOn]','[FirstName],[LastName],[Email],[DateOfBirth]','',0,1,'SELECT [Id],[FirstName],[LastName],[Email],[DateOfBirth],[Uln],[ApprenticeshipId],[EmployerName],[StartDate],[EndDate],[TrainingProviderId],[TrainingProviderName],[TrainingCode],[TrainingCourseOption],[StandardUId],[CreatedOn] FROM [dbo].[StagedApprentice]','AAN_StagedApprentice')

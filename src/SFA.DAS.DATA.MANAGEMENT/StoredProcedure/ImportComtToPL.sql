@@ -87,6 +87,9 @@ INSERT INTO [ASData_PL].[Comt_Apprenticeship]
            ,[EmailAddressConfirmed] 
            ,[LastUpdated] 
            ,[UpdatedOn] 
+           ,[TrainingPrice]
+           ,[EndPointAssessmentPrice]
+           ,[EmployerHasEditedCost]
            )
  SELECT    [Id]
            ,[CommitmentId]
@@ -135,6 +138,9 @@ INSERT INTO [ASData_PL].[Comt_Apprenticeship]
            ,[EmailAddressConfirmed] 
            ,[LastUpdated] 
            ,[UpdatedOn]
+           ,[TrainingPrice]
+           ,[EndPointAssessmentPrice]
+           ,[EmployerHasEditedCost]
     FROM Stg.Comt_Apprenticeship
 '
 

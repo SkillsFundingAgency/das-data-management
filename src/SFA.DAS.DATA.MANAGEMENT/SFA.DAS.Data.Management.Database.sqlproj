@@ -437,5 +437,7 @@
     <Build Include="Schemas\Comp.sql" />
     <Build Include="Schemas\Comt.sql" />
     <Build Include="StoredProcedure\ImportComtToPL.sql" />
+	<Build Include="Tables\AsDataPL_Assessor_Contacts.sql" />
+	<Build Include="Tables\AsDataPL_Assessor_OrganisationType.sql" />
   </ItemGroup>
 </Project>

@@ -5,6 +5,8 @@
 	[OrganisationId]				[uniqueidentifier] NOT NULL,
 	[ApplicationStatus]				[nvarchar](20) NULL,
 	[ReviewStatus]					[nvarchar](20) NULL,
+	[LatestStandardSubmissionDate]	[datetime2](7) NULL,
+	[StandardSubmissionClosedDate]	[datetime2](7) NULL,
 	[FinancialReviewStatus]			[nvarchar](20) NULL,	
 	[SelectedGrade]					[Varchar](100) NULL,
 	[GradedBy]						[Varchar](100) NULL,	

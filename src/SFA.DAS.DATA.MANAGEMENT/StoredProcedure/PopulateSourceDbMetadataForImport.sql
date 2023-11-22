@@ -175,6 +175,35 @@ VALUES
 ('CRS','SectorSubjectAreaTier2','dbo','[SectorSubjectAreaTier2],[SectorSubjectAreaTier2Desc],[EffectiveFrom],[EffectiveTo]','','[Name]',1,0,'FAT2_SectorSubjectAreaTier2'),
 ('CRS','Standard','dbo','[StandardUId],[IfateReferenceNumber],[LarsCode],[Status],[VersionEarliestStartDate],[VersionLatestStartDate],[VersionLatestEndDate],[Level],[ProposedTypicalDuration],[ProposedMaxFunding],[IntegratedDegree],[OverviewOfRole],[RouteCode],[AssessmentPlanUrl],[ApprovedForDelivery],[Keywords],[TypicalJobTitles],[StandardPageUrl],[Version],[RegulatedBody],[Skills],[Knowledge],[Behaviours],[Duties],[CoreAndOptions],[IntegratedApprenticeship],[Options],[CoreDuties],[Old_Options],[EPAChanged],[VersionMajor],[VersionMinor],[CoronationEmblem],[EpaoMustBeApprovedByRegulatorBody]','','[Title],[TrailBlazerContact],[EqaProviderName],[EqaProviderContactName],[EqaProviderContactEmail],[EqaProviderWebLink]',1,1,'FAT2_StandardSector')
 
+
+INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
+VALUES
+('AAN','Preference','dbo','[Id],[Group]','','',1,0,'AAN_Preference')
+
+/* AAN QueryBased Import Configurations */
+INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)
+VALUES
+--('AAN','AANApprenticeship','dbo','[Id],[Uln],[ApprenticeshipId],[StartDate],[EndDate],[TrainingProviderId],[TrainingProviderName],[TrainingCode],[TrainingCourseOption],[StandardUId],[CreatedOn]','[FirstName],[LastName],[Email],[DateOfBirth]','',0,1,'SELECT [Id],[FirstName],[LastName],[Email],[DateOfBirth],[Uln],[ApprenticeshipId],[StartDate],[EndDate],[TrainingProviderId],[TrainingProviderName],[TrainingCode],[TrainingCourseOption],[StandardUId],[CreatedOn] FROM [dbo].[AANApprenticeship]','AAN_AANApprenticeship'),
+('AAN','Apprentice','dbo','[MemberId],[ApprenticeId]','','',0,1,'SELECT [MemberId],[ApprenticeId] FROM [dbo].[Apprentice]','AAN_Apprentice'),
+('AAN','Attendance','dbo',' [Id],[CalendarEventId],[MemberId],[AddedDate],[IsAttending]','','',0,1,'SELECT [Id],[CalendarEventId],[MemberId],[AddedDate],[IsAttending] FROM [dbo].[Attendance]','AAN_Attendance'),
+--('AAN','Attribute','dbo','[AttributeId],[AttributeName],[Category],[EventFormat],[Ordering]','','',0,1,'SELECT [AttributeId],[AttributeName],[Category],[EventFormat],[Ordering] FROM [dbo].[Attribute]','AAN_Attribute'),
+('AAN','Audit','dbo','[Id],[AuditTime],[ActionedBy],[Action],[Resource],[Before],[After]','','',0,1,'SELECT [Id],[AuditTime],[ActionedBy],[Action],[Resource],[Before],[After] FROM [dbo].[Audit]','AAN_Audit'),
+('AAN','Calendar','dbo','[Id],[CalendarName],[EffectiveFromDate],[EffectiveToDate],[Ordering]','','',0,1,'SELECT [Id],[CalendarName],[EffectiveFromDate],[EffectiveToDate],[Ordering] FROM [dbo].[Calendar]','AAN_Calendar'),
+('AAN','CalendarEvent','dbo','[Id],[CalendarId],[EventFormat],[StartDate],[EndDate],[Title],[Description],[Summary],[RegionId],[Latitude],[Longitude],[URN],[EventLink],[IsActive],[PlannedAttendees],[CreatedDate],[LastUpdatedDate]','[Location],[Postcode],[ContactEmail],[ContactName]','',0,1,'SELECT [Id],[CalendarId],[EventFormat],[StartDate],[EndDate],[Title],[Description],[Summary],[RegionId],[Location],[Postcode],[Latitude],[Longitude],[URN],[EventLink],[ContactName],[ContactEmail],[IsActive],[PlannedAttendees],[CreatedDate],[LastUpdatedDate] FROM [dbo].[CalendarEvent]','AAN_CalendarEvent'),
+('AAN','Document','dbo','[Id],[MemberId],[Title],[FileName],[Keywords],[Regions],[Url]','','',0,1,'SELECT [Id],[MemberId],[Title],[FileName],[Keywords],[Regions],[Url] FROM [dbo].[Document]','AAN_Document'),
+('AAN','Employer','dbo','[MemberId],[AccountId],[UserRef]','','',0,1,'SELECT [MemberId],[AccountId],[UserRef] FROM [dbo].[Employer]','AAN_Employer'),
+('AAN','EventGuest','dbo','[Id],[CalendarEventId],[GuestName],[GuestJobTitle]','','',0,1,'SELECT [Id],[CalendarEventId],[GuestName],[GuestJobTitle] FROM [dbo].[EventGuest]','AAN_EventGuest'),
+('AAN','LeavingReason','dbo','[Id],[Category],[Description],[Ordering]','','',0,1,'SELECT [Id],[Category],[Description],[Ordering] FROM [dbo].[LeavingReason]','AAN_LeavingReason'),
+('AAN','Member','dbo','[Id],[UserType],[Status],[JoinedDate],[EndDate],[RegionId],[OrganisationName],[LastUpdatedDate],[IsRegionalChair]','[FirstName],[LastName],[Email],[FullName]','',0,1,'SELECT [Id],[UserType],[FirstName],[LastName],[Email],[Status],[JoinedDate],[EndDate],[RegionId],[OrganisationName],[LastUpdatedDate],[IsRegionalChair],[FullName] FROM [dbo].[Member]','AAN_Member'),
+('AAN','MemberLeavingReason','dbo','[Id],[MemberId],[LeavingReasonId]','','',0,1,'SELECT [Id],[MemberId],[LeavingReasonId] FROM [dbo].[MemberLeavingReason]','AAN_MemberLeavingReason'),
+('AAN','MemberPreference','dbo','[Id],[MemberId],[PreferenceId],[AllowSharing]','','',0,1,'SELECT [Id],[MemberId],[PreferenceId],[AllowSharing] FROM [dbo].[MemberPreference]','AAN_MemberPreference'),
+('AAN','MemberProfile','dbo','[Id],[MemberId],[ProfileId],[ProfileValue]','','',0,1,'SELECT [Id],[MemberId],[ProfileId],[ProfileValue] FROM [dbo].[MemberProfile]','AAN_MemberProfile'),
+('AAN','Notification','dbo','[Id],[MemberId],[TemplateName],[CreatedBy],[CreatedDate],[SendAfterTime],[SentTime],[IsSystem],[ReferenceId]','[Tokens]','',0,1,'SELECT [Id],[MemberId],[TemplateName],[Tokens],[CreatedBy],[CreatedDate],[SendAfterTime],[SentTime],[IsSystem],[ReferenceId] FROM [dbo].[Notification]','AAN_Notification'),
+('AAN','NotificationTemplate','dbo','[Id],[Description],[TemplateName],[IsActive]','','',0,1,'SELECT [Id],[Description],[TemplateName],[IsActive] FROM [dbo].[NotificationTemplate]','AAN_NotificationTemplate'),
+('AAN','Profile','dbo','[Id],[UserType],[Category],[Description],[Ordering],[PreferenceId]','','',0,1,'SELECT [Id],[UserType],[Category],[Description],[Ordering],[PreferenceId] FROM [dbo].[Profile]','AAN_Profile'),
+('AAN','Region','dbo','[Id],[Area],[Ordering]','','',0,1,'SELECT [Id],[Area],[Ordering] FROM [dbo].[Region]','AAN_Region'),
+('AAN','StagedApprentice','dbo','[Id],[ApprenticeshipId],[EmployerName],[StartDate],[EndDate],[TrainingProviderId],[TrainingProviderName],[TrainingCode],[TrainingCourseOption],[StandardUId],[CreatedOn]','[FirstName],[LastName],[Email],[DateOfBirth]','[Uln]',0,1,'SELECT [Id],[FirstName],[LastName],[Email],[DateOfBirth],[Uln],[ApprenticeshipId],[EmployerName],[StartDate],[EndDate],[TrainingProviderId],[TrainingProviderName],[TrainingCode],[TrainingCourseOption],[StandardUId],[CreatedOn] FROM [dbo].[StagedApprentice]','AAN_StagedApprentice')
+
 /* RoatpV2 Import Configurations */
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
 VALUES

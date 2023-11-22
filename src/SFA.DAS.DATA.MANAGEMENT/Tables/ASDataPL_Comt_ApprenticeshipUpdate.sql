@@ -19,6 +19,8 @@
 	[DeliveryModel] 					[tinyint] 			NULL,
 	[EmploymentPrice] 					[int] 				NULL,
 	[EmploymentEndDate] 				[datetime2](7) 		NULL,
+	[StandardUId]						[nvarchar](20)		NULL,
+	[TrainingCourseVersionConfirmed]	[bit]				NULL,
 	[IsRetentionApplied]				[bit]				NULL,
 	[RetentionAppliedDate]				[datetime2](7)		NULL,
 	[AsDm_UpdatedDateTime] datetime2 default getdate()

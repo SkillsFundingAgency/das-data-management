@@ -178,7 +178,7 @@ VALUES
 /* PREL Import Configurations */
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
 VALUES
-('PREL','AccountProviders','dbo','[Id],[AccountId],[ProviderUkprn],[Created]','','',1,0,'PREL_AccountProviders')
+('PREL','AccountProviders','dbo','[Id],[AccountId],[Created]','','[ProviderUkprn]',1,0,'PREL_AccountProviders')
 
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
 VALUES

@@ -5,4 +5,6 @@
 	[CreatedOn] [datetime] NOT NULL,
 	[SendAfter] [datetime] NULL,
 	[SentDate] [datetime] NULL,
+	[TemplateName] [varchar](100) NULL,
+	[IsSuppressed] BIT NULL,
 	[AsDm_UpdatedDateTime] datetime2 default getdate())

@@ -415,7 +415,10 @@ VALUES
 ,('Appfb','ApprenticeExitSurvey','dbo','[Id],[ApprenticeFeedbackTargetId],[StandardUId],[DateTimeCompleted],[DidNotCompleteApprenticeship],[AllowContact],[PrimaryReason]','','','Appfb_ApprenticeExitSurvey',0,1)
 ,('Appfb','ExitSurveyAttribute','dbo','[ApprenticeExitSurveyId],[AttributeId],[AttributeValue]','','','Appfb_ExitSurveyAttribute',0,1)
 ,('Appfb','FeedbackTransaction','dbo','[Id],[ApprenticeFeedbackTargetId],[TemplateId],[CreatedOn],[SendAfter],[SentDate],[TemplateName],[IsSuppressed]','[EmailAddress],[FirstName]','','Appfb_FeedbackTransaction',0,1)
-
+,('Appfb','FeedbackTransactionClick','dbo','[Id],[FeedbackTransactionId],[ApprenticeFeedbackTargetId],[LinkName],[LinkUrl],[ClickedOn],[CreatedOn],[UpdatedOn]','','','Appfb_FeedbackTransactionClick',0,1)
+,('Appfb','FeedbackTargetStatus','dbo','[Id],[Description]','','','Appfb_FeedbackTargetStatus',0,1)
+,('Appfb','FeedbackEligibilityStatus','dbo','[Id],[Description]','','','Appfb_FeedbackEligibilityStatus',0,1)
+,('Appfb','EngagementEmails','dbo','[Id],[ProgrammeType],[MonthsFromStart],[MonthsBeforeEnd],[TemplateName]','','','Appfb_EngagementEmails',0,1)
 /* Rofjaa  Config */
 
 INSERT INTO Mtd.SourceConfigForImport

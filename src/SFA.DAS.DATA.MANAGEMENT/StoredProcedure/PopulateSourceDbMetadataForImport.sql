@@ -162,7 +162,7 @@ VALUES
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
 VALUES
-('Commitments','ChangeOfPartyRequest','dbo','[Id],[ApprenticeshipId],[ChangeOfPartyType],[OriginatingParty],[AccountLegalEntityId],[ProviderId],[Price],[StartDate],[EndDate],[CreatedOn],[Status],[RowVersion],[LastUpdatedOn],[CohortId],[ActionedOn],[NewApprenticeshipId],[EmploymentPrice],[EmploymentEndDate],[DeliveryModel]','','','Comt_ChangeOfPartyRequest',0,1) 
+('Commitments','ChangeOfPartyRequest','dbo','[Id],[ApprenticeshipId],[ChangeOfPartyType],[OriginatingParty],[AccountLegalEntityId],[ProviderId],[Price],[StartDate],[EndDate],[CreatedOn],[Status],[LastUpdatedOn],[CohortId],[ActionedOn],[NewApprenticeshipId],[EmploymentPrice],[EmploymentEndDate],[DeliveryModel]','[RowVersion]','','Comt_ChangeOfPartyRequest',0,1) 
 
 /* CRS Import Configurations */
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)

@@ -11,7 +11,7 @@
 	[EndDate] [datetime] NULL,
 	[CreatedOn] [datetime] NULL,
 	[Status] [tinyint] NULL,
-	[RowVersion] [timestamp] NULL,
+	[RowVersion] timestamp NULL,
 	[LastUpdatedOn] [datetime2](7) NULL,
 	[CohortId] [bigint] NULL,
 	[ActionedOn] [datetime2](7) NULL,

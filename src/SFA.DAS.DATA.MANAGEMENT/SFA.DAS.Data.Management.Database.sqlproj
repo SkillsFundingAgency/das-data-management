@@ -439,6 +439,10 @@
     <Build Include="StoredProcedure\ImportComtToPL.sql" />
     <Build Include="Tables\AsDataPL_Assessor_Contacts.sql" />
     <Build Include="Tables\AsDataPL_Assessor_OrganisationType.sql" />
-    <Build Include="Tables\ASDataPL_PREL_AccountProviders.sql" />	
+    <Build Include="Tables\ASDataPL_PREL_AccountProviders.sql" />
+    <Build Include="Tables\ASData_PL_Appfb_EngagementEmails.sql" />
+    <Build Include="Tables\ASData_PL_Appfb_FeedbackEligibilityStatus.sql" />
+    <Build Include="Tables\ASData_PL_Appfb_FeedbackTargetStatus.sql" />
+    <Build Include="Tables\ASData_PL_Appfb_FeedbackTransactionClick.sql" />
   </ItemGroup>
 </Project>

@@ -76,6 +76,7 @@
  ,EmployerContactName VARCHAR(256)
  ,EmployerContactEmail VARCHAR(256)
  ,EmployerContactPhone VARCHAR(256)
+ ,ProviderContactName VARCHAR(256)
  ,ProviderContactEmail VARCHAR(256)
  ,ProviderContactPhone VARCHAR(256)
  ,RunId bigint  default(-1)

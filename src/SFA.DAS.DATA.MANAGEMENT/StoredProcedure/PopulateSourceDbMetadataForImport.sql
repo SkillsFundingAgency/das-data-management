@@ -419,6 +419,7 @@ VALUES
 ,('Appfb','FeedbackTargetStatus','dbo','[Id],[Description]','','','Appfb_FeedbackTargetStatus',0,1)
 ,('Appfb','FeedbackEligibilityStatus','dbo','[Id],[Description]','','','Appfb_FeedbackEligibilityStatus',0,1)
 ,('Appfb','EngagementEmails','dbo','[Id],[ProgrammeType],[MonthsFromStart],[MonthsBeforeEnd],[TemplateName]','','','Appfb_EngagementEmails',0,1)
+,('Appfb','Exclusion','dbo','[Ukprn],[CreatedOn]','','','Appfb_Exclusion',0,1)
 /* Rofjaa  Config */
 
 INSERT INTO Mtd.SourceConfigForImport

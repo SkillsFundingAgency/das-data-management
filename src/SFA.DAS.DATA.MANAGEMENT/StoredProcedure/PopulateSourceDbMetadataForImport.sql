@@ -382,7 +382,7 @@ VALUES
 ,('LevyTransfer','PledgeLocation','dbo','[Id],[PledgeId]','','[Name],[Latitude],[Longitude]','LTM_PledgeLocation',0)
 ,('LevyTransfer','ApplicationStatusHistory','dbo','[Id],[ApplicationId],[CreatedOn],[Status]','','','LTM_ApplicationStatusHistory',0)
 ,('LevyTransfer','ApplicationCostProjection','dbo','[Id],[ApplicationId],[FinancialYear],[Amount]','','','LTM_ApplicationCostProjection',0)
-,('LevyTransfer','Audit','dbo','[Id],[EntityType],[EntityId],[UserId],[UserAction],[AuditDate],[CorrelationId]','[UserDisplayName],[InitialState],[UpdatedState],[Diff]','','LTM_ApplicationCostProjection',0)
+,('LevyTransfer','Audit','dbo','[Id],[EntityType],[EntityId],[UserId],[UserAction],[AuditDate],[CorrelationId]','[UserDisplayName],[InitialState],[UpdatedState],[Diff]','','LTM_Audit',0)
 
 /* TPR SQL query based Import */
 INSERT INTO Mtd.SourceConfigForImport

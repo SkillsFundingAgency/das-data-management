@@ -329,6 +329,7 @@
     <Build Include="Tables\AsDataPL_aComt_Registration.sql" />
     <Build Include="Tables\ASDataPL_Comt_ApprenticeshipConfirmationStatus.sql" />
     <Build Include="Tables\ASDataPL_LTM_Application.sql" />
+    <Build Include="Tables\ASDataPL_LTM_Audit.sql" />
     <Build Include="Tables\ASDataPL_LTM_Pledge.sql" />
     <Build Include="Tables\Management_DQ_TablesToExclude.sql" />
     <Build Include="Tables\ASDataPL_LTM_PledgeLocation.sql" />

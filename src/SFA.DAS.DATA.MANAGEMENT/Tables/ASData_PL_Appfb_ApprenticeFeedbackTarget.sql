@@ -17,5 +17,6 @@
 	[Withdrawn]  bit DEFAULT (0),
     [IsTransfer] bit DEFAULT (0),
     [DateTransferIdentified] [datetime2](7) NULL DEFAULT (getdate()),
+	[ApprenticeshipStatus] [int] null,
 	[AsDm_UpdatedDateTime] datetime2 default getdate()
 )

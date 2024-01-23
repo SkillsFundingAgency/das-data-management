@@ -47,7 +47,7 @@ as (SELECT ar1.ApprenticeFeedbackTargetId,
         JOIN ASData_PL.Appfb_ApprenticeFeedbackTarget aft
             on ar1.ApprenticeFeedbackTargetId = aft.Id
     WHERE FeedbackEligibility != 0
-          AND DatetimeCompleted >= DATEADD(MONTH, -12, GETUTCDATE()) -- only includes feedback received in last 12 months
+          -- AND DatetimeCompleted >= DATEADD(MONTH, -12, GETUTCDATE()) -- only includes feedback received in last 12 months /*commented out for ASINTEL-3524*/
    ),
      FatPublishedCTE
 as (

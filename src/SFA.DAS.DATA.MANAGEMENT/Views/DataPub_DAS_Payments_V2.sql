@@ -63,6 +63,7 @@
 			  + '-01'															AS DeliveryDate
 			, P.IlrSubmissionDateTime											AS EvidenceSubmittedOn
 			, P.LearningAimFundingLineType                                      AS LearningAimFundingLineType
+			, P.TransferSenderAccountId											AS TransferSenderAccountId
 			, CAST( CASE WHEN P.CollectionPeriod <=12 THEN 
 				  Cast(CalCP.CalendarYear AS varchar)+ '-'
 				  + RIGHT('0' + RTRIM(cast(CalCP.CalendarMonthNumber AS varchar)), 2)
@@ -148,7 +149,8 @@
 		  , CAST ( P.CollectionPeriodMonth AS nvarchar(10) )					AS CollectionPeriodMonth
 		  , CAST ( P.CollectionPeriodYear AS nvarchar(10) )						AS CollectionPeriodYear
 		  , Convert(bit,Comt.ApprenticeshipEmployerTypeOnApproval)  as ApprenticeshipEmployerTypeOnApproval
-		  , P.LearningAimFundingLineType                            as LearningAimFundingLineType		  
+		  , P.LearningAimFundingLineType                            as LearningAimFundingLineType	
+		  , P.TransferSenderAccountId									       AS TransferSenderAccountId	  
 		FROM cte_Payment P 
 		LEFT JOIN [ASData_PL].[Acc_Account] Acct ON Acct.Id = P.AccountId
 		LEFT JOIN [ASData_PL].[Comt_Apprenticeship] C

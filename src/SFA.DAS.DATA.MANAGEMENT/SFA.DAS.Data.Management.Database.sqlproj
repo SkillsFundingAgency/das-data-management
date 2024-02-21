@@ -129,6 +129,8 @@
     <Build Include="Tables\AsDataPL_RAA_Users.sql" />
     <Build Include="Schemas\Stg.sql" />
     <Build Include="Tables\Stg_RAA_Vacancies.sql" />
+    <Build Include="Tables\Stg_RAA_VacancyReviews_AutoQAoutcome.sql" />
+    <Build Include="Tables\Stg_RAA_VacancyReviews_AutoQAoutcomeID.sql" />
     <Build Include="Tables\Stg_RAA_ApplicationReviews.sql" />
     <Build Include="Tables\Stg_RAA_ReferenceDataCandidateSkills.sql" />
     <Build Include="Tables\Stg_RAA_ReferenceDataQualificationTypes.sql" />

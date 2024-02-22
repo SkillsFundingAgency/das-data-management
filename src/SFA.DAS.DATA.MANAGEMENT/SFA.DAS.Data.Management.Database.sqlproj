@@ -130,6 +130,7 @@
     <Build Include="Schemas\Stg.sql" />
     <Build Include="Tables\Stg_RAA_Vacancies.sql" />
     <Build Include="Tables\Stg_RAA_VacancyReview_AutoQAoutcome.sql" />
+    <Build Include="Tables\Stg_RAA_VacancyReview_AutoQAoutcomedetails.sql" />
     <Build Include="Tables\Stg_RAA_VacancyReview_AutoQAoutcomeID.sql" />
     <Build Include="Tables\Stg_RAA_ApplicationReviews.sql" />
     <Build Include="Tables\Stg_RAA_ReferenceDataCandidateSkills.sql" />

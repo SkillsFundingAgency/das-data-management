@@ -1,11 +1,4 @@
-/****** Object:  StoredProcedure [dbo].[ImportVaAddInfoVacancyReviewsAutoQAoutcomeToPL]    Script Date: 22/02/2024 12:24:47 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE PROCEDURE [dbo].[ImportVaAddInfoVacancyReviewsAutoQAoutcomeIDToPL]
+CREATE PROCEDURE [dbo].[ImportVaAddInfoVacancyReviewsAutoQAoutcomeToPL]
 (
    @RunId int
 )
@@ -29,36 +22,87 @@ DEClARE @quote varchar(5) = ''''
   SELECT 
         @RunId
 	   ,'Step-6'
-	   ,'ImportVaAddInfoVacancyReviewsAutoQAoutcomeIDToPL'
+	   ,'ImportVaAddInfoVacancyReviewsAutoQAoutcomeToPL'
 	   ,getdate()
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
-   WHERE StoredProcedureName='ImportVaAddInfoVacancyReviewsAutoQAoutcomeIDToPL'
+   WHERE StoredProcedureName='ImportVaAddInfoVacancyReviewsAutoQAoutcomeToPL'
      AND RunId=@RunID
 
 BEGIN TRANSACTION
 
-TRUNCATE TABLE ASData_PL.va_VacancyReviewsAutoQAOutcomeID
+TRUNCATE TABLE ASData_PL.va_VacancyReviews_AutoQAoutcome
+
 /* Insert all the unsuccessful outcomes first with a reason */
 
-INSERT INTO ASData_PL.va_VacancyReviewsAutoQAOutcomeID
-(  EmployerAccountId 
+INSERT INTO ASData_PL.va_VacancyReviews_AutoQAoutcome
+(EmployerAccountId 
   ,CandidateId 
   ,VacancyReference 
-  ,VacancyId 
-  ,Ruleoutcome_BinaryID 
-  ,AutoQAfieldisReferred 
+  ,VacancyId
+  ,RuleoutcomeID 
+  ,Rule_RuleId 
+  ,Rule_Score 
+  ,Rule_Narrative 
+  ,Rule_Target 
+  ,Details_BinaryID 
+  ,Details_RuleID 
+  ,Details_score 
+  ,Details_narrative 
+  ,Details_data 
+  ,Details_target 
   ,SourceVacancyReviewId 
   ,SourceDb 
   )
 SELECT 
+	  RVRA.EmployerAccountId
+      ,vc.CandidateId
+	  ,RVRA.VacancyReference
+	  ,vv.VacancyId
+	  ,RVRA.RuleoutcomeID 
+      ,RVRA.Rule_RuleId 
+      ,RVRA.Rule_Score 
+      ,RVRA.Rule_Narrative 
+      ,RVRA.Rule_Target 
+      ,RVRAD.Details_BinaryID 
+      ,RVRAD.Details_RuleID 
+      ,RVRAD.Details_score 
+      ,RVRAD.Details_narrative 
+      ,RVRAD.Details_data 
+      ,RVRAD.Details_target 
+	  ,RVR.BinaryId
+	  ,'RAAv2'
+  FROM Stg.RAA_VacancyReviews_AutoQAoutcome RVRA
+  LEFT
+  JOIN Stg.RAA_VacancyReviews_AutoQAoutcomedetails RVRAD
+    on RVRA.VacancyReference = RVRAD.VacancyReference
+  LEFT 
+  JOIN ASData_PL.Va_Vacancy vv
+    on vv.VacancyReferenceNumber=RVRA.VacancyReference
+  LEFT
+  JOIN ASData_PL.Va_Candidate vc
+    on vc.CandidateGuid=RVRA.UserId
+
+  UNION all
+  SELECT 
+  DISTINCT
 	RVR.EmployerAccountId
       ,vc.CandidateId
+	  ,dbo.Fn_ConvertTimeStampToDateTime(rvr.CreatedTimeStamp)
+	  ,dbo.Fn_ConvertTimeStampToDateTime(rvr.SubmittedTimeStamp)
 	  ,rvr.VacancyReference
 	  ,vv.VacancyId
-	  ,Ruleoutcome_BinaryID
-      ,AutoQAfieldisReferred
+	  ,rvr.ManualOutcome
+	  ,NULL 
+	  ,NULL 
+	  ,NULL 	
+	  ,rvr.SubmissionCount
+    ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ReviewedDate)
+	  ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ClosedDate)	 
+	  ,rvr.ReviewedByUserEmail
+    ,dbo.Fn_ConvertTimeStampToDateTime(rvr.SlaDeadline)   
+    ,rvr.Status
 	  ,RVR.BinaryId
 	  ,'RAAv2'
   FROM Stg.RAA_VacancyReviews RVR
@@ -67,7 +111,8 @@ SELECT
     on vv.VacancyReferenceNumber=RVR.VacancyReference
   LEFT
   JOIN ASData_PL.Va_Candidate vc
-    on vc.CandidateGuid=RVR.UserId
+    on vc.CandidateGuid=RVR.UserId  
+Where not exists (select 1 from (select BinaryId from Stg.RAA_VacancyReviews where ManualQaFieldChangeRequested='true') vr where vr.BinaryId=rvr.BinaryId )
 
 COMMIT TRANSACTION
 
@@ -103,7 +148,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'ImportVaAddInfoVacancyReviewsAutoQAoutcomeIDToPL',
+	    'ImportVaAddInfoVacancyReviewsToPL',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 
@@ -120,6 +165,5 @@ UPDATE Mgmt.Log_Execution_Results
    AND RunID=@RunId
 
   END CATCH
+
 GO
-
-

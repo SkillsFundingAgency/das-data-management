@@ -15,4 +15,5 @@ CREATE TABLE Stg.RAA_VacancyReviews_AutoQAoutcome
  ,Details_score varchar(256)
  ,Details_narrative varchar(256)
  ,Details_data varchar(256)
+ ,Details_target varchar(256)
  )

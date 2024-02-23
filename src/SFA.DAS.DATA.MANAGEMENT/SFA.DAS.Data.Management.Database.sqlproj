@@ -132,6 +132,7 @@
     <Build Include="Tables\Stg_RAA_VacancyReview_AutoQAoutcome.sql" />
     <Build Include="Tables\Stg_RAA_VacancyReview_AutoQAoutcomedetails.sql" />
     <Build Include="Tables\Stg_RAA_VacancyReview_AutoQAoutcomeID.sql" />
+    <Build Include="StoredProcedure\FlattenvacancyReviewArrays.sql" />
     <Build Include="Tables\Stg_RAA_ApplicationReviews.sql" />
     <Build Include="Tables\Stg_RAA_ReferenceDataCandidateSkills.sql" />
     <Build Include="Tables\Stg_RAA_ReferenceDataQualificationTypes.sql" />
@@ -141,7 +142,6 @@
     <Build Include="Tables\Stg_RAA_ReferenceDataProfanities.sql" />
     <Build Include="Tables\SourceDbChanges.sql" />
     <Build Include="StoredProcedure\PopulateSourceDbMetadataForImport.sql" />
-    <Build Include="StoredProcedure\FlattenvacancyReviewArrays.sql" />
     <Build Include="Tables\Mtd_SourceConfigForImport.sql" />
     <Build Include="StoredProcedure\DetectAndLogSourceDbChanges.sql" />
     <Build Include="Tables\AsDataPL_Va_Application.sql" />

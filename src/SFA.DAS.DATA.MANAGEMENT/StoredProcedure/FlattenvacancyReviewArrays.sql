@@ -1,4 +1,4 @@
-CREATE PROCEDURE FlattenvacancyReviewArrays
+CREATE PROCEDURE [dbo].[FlattenvacancyReviewArrays]
 AS
 BEGIN
     -- Create a temporary table to store the parsed JSON values

@@ -8,7 +8,7 @@ BEGIN
     INSERT INTO #TempTable (vacref, detailsJSONValue)
     SELECT
         VacancyReference,
-        JSON_VALUE(value, '$') AS JSONValue
+        JSON_VALUE(Rule_Details, '$') AS JSONValue
     FROM
         stg.RAA_VacancyReviews_AutoQAoutcome
         CROSS APPLY OPENJSON(Rule_Details);

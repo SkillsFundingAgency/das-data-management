@@ -141,6 +141,7 @@
     <Build Include="Tables\Stg_RAA_ReferenceDataProfanities.sql" />
     <Build Include="Tables\SourceDbChanges.sql" />
     <Build Include="StoredProcedure\PopulateSourceDbMetadataForImport.sql" />
+    <Build Include="StoredProcedure\FlattenvacancyReviewArrays.sql" />
     <Build Include="Tables\Mtd_SourceConfigForImport.sql" />
     <Build Include="StoredProcedure\DetectAndLogSourceDbChanges.sql" />
     <Build Include="Tables\AsDataPL_Va_Application.sql" />

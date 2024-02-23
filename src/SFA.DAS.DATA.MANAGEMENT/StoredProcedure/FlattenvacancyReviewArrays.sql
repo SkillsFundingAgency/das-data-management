@@ -2,10 +2,10 @@ CREATE PROCEDURE [dbo].[FlattenvacancyReviewArrays]
 AS
 BEGIN
     -- Create a temporary table to store the parsed JSON values
-    CREATE TABLE #TempTable (vacref varchar(256), detailsJSONValue varchar(max)); -- Adjust the data type based on your JSON structure
+    CREATE TABLE #TempTable (VacancyReference varchar(256), JSONValue varchar(max)); -- Adjust the data type based on your JSON structure
 
     -- Insert parsed JSON values into the temporary table
-    INSERT INTO #TempTable (vacref, detailsJSONValue)
+    INSERT INTO #TempTable (VacancyReference, JSONValue)
     SELECT
         VacancyReference,
         JSON_VALUE(Rule_Details, '$') AS JSONValue

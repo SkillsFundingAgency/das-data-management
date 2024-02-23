@@ -1,4 +1,9 @@
-CREATE PROCEDURE [dbo].[FlattenvacancyReviewArrays]
+/****** Object:  StoredProcedure [dbo].[FlattenvacancyReviewArrays]    Script Date: 23/02/2024 16:08:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[FlattenvacancyReviewArrays]
 AS
 BEGIN
     -- Create a temporary table to store the parsed JSON values
@@ -25,7 +30,7 @@ BEGIN
        -- Details_BinaryIDDetails_BinaryID = ISNULL(t1.binary, Details_BinaryID), -- Replace Column1 with the actual column name
         Details_RuleID = ISNULL(t2.ruleId, Details_RuleID),
         Details_score = ISNULL(t3.score,Details_score),
-        Details_narrative = ISNULL(t4.narrative, Details_narrativee),
+        Details_narrative = ISNULL(t4.narrative, Details_narrative),
         Details_data = ISNULL(t5.data, Details_data),
         Details_target = ISNULL(t6.target, Details_target)
     FROM
@@ -41,3 +46,4 @@ BEGIN
     -- Drop the temporary table
     DROP TABLE #TempTable;
 END;
+

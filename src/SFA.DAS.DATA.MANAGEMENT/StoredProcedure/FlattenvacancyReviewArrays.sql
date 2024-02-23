@@ -1,9 +1,4 @@
-/****** Object:  StoredProcedure [dbo].[FlattenvacancyReviewArrays]    Script Date: 23/02/2024 16:08:01 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-ALTER PROCEDURE [dbo].[FlattenvacancyReviewArrays]
+Create PROCEDURE [dbo].[FlattenvacancyReviewArrays]
 AS
 BEGIN
     -- Create a temporary table to store the parsed JSON values

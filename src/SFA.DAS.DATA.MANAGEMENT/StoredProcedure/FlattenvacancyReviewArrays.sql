@@ -29,7 +29,7 @@ BEGIN
         Details_data = ISNULL(t5.data, Details_data),
         Details_target = ISNULL(t6.target, Details_target)
     FROM
-        stg.RAA_VacancyReviews_AutoQAoutcomedetails AD
+        stg.RAA_VacancyReviews_AutoQAoutcome AD
         --LEFT JOIN #TempTable t1 ON AD.VacancyReference = t1.VacancyReference AND t1.binary IS NOT NULL
         LEFT JOIN #TempTable t2 ON AD.VacancyReference = t2.VacancyReference AND t2.ruleId IS NOT NULL
         LEFT JOIN #TempTable t3 ON AD.VacancyReference = t3.VacancyReference AND t3.score IS NOT NULL

@@ -16,7 +16,7 @@ BEGIN
     -- Update the target table with flattened values
     UPDATE AD
     SET
-        Details_BinaryID = ISNULL(t1.JSONValue, $binary), -- Replace Column1 with the actual column name
+        Details_BinaryID = ISNULL(t1.JSONValue, binary), -- Replace Column1 with the actual column name
         Details_RuleID = ISNULL(t2.JSONValue, ruleId),
         Details_score = ISNULL(t3.JSONValue, score),
         Details_narrative = ISNULL(t4.JSONValue, narrative),

@@ -37,9 +37,9 @@ BEGIN
     
     INSERT into Stg.RAA_VacancyReviews_AutoQAoutcome
     (BinaryId
+    ,VacancyReference
     ,EmployerAccountId
     ,UserId
-    ,VacancyReference
     ,RuleoutcomeID
     ,Rule_RuleId
     ,Rule_Score

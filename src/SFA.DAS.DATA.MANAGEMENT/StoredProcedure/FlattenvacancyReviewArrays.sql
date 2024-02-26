@@ -68,7 +68,7 @@ BEGIN
            ,AD.Details_data 
            ,AD.Details_target
      FROM stg.RAA_VacancyReviews_AutoQAoutcomedetails AD
-   INNER JOIN stg.RAA_VacancyReviews_AutoQAoutcome A
+   INNER JOIN stg.RAA_VacancyReviews_AutoQARuleoutcome A
        on AD.binaryid=A.binaryid
        and AD.VacancyReference = A.VacancyReference 
 

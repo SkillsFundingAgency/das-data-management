@@ -33,7 +33,7 @@ BEGIN
         Details_data = ISNULL(t.data, Details_data),
         Details_target = ISNULL(t.target, Details_target)
     FROM
-        stg.RAA_VacancyReviews_AutoQAoutcome AD
+        stg.RAA_VacancyReviews_AutoQAoutcomedetails AD
         LEFT JOIN #TempTable t ON AD.VacancyReference = t.VacancyReference 
         --and AD.Rule_RuleId=t.ruleId
         

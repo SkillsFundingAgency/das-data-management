@@ -11,6 +11,7 @@ BEGIN
         ,[EmployerAccountId]
         ,[UserId]
         ,[VacancyReference]
+        ,[RuleoutcomeID] 
         ,[Details_BinaryID]
         ,[Details_RuleID]
         ,[Details_score]
@@ -18,7 +19,7 @@ BEGIN
         ,[Details_data]
         ,[Details_target])
 
-    Select ad.binaryid,ad.EmployerAccountId,ad.UserId,ad.vacancyreference,c.Detailsbinaryid,b.ruleId,b.score,b.narrative,b.data,b.target
+    Select ad.binaryid,ad.EmployerAccountId,ad.UserId,ad.vacancyreference,ad.ruleoutcomeID,c.Detailsbinaryid,b.ruleId,b.score,b.narrative,b.data,b.target
           From stg.RAA_VacancyReviews_AutoQARuleoutcome Ad
     Cross Apply OpenJSON(Ad.Rule_Details)
         WITH (
@@ -70,25 +71,10 @@ BEGIN
      FROM stg.RAA_VacancyReviews_AutoQAoutcomedetails AD
    INNER JOIN stg.RAA_VacancyReviews_AutoQARuleoutcome A
        on AD.binaryid=A.binaryid
+       and AD.ruleoutcomeId= A.ruleoutcomeID
        and AD.VacancyReference = A.VacancyReference 
 
     
-
-
-    -- Update the target table with flattened values
-   /* UPDATE AD
-    SET
-        Details_BinaryID = ISNULL(t.binaryid, Details_BinaryID), -- Replace Column1 with the actual column name
-        Details_RuleID = ISNULL(t.ruleId, Details_RuleID),
-        Details_score = ISNULL(t.score,Details_score),
-        Details_narrative = ISNULL(t.narrative, Details_narrative),
-        Details_data = ISNULL(t.data, Details_data),
-        Details_target = ISNULL(t.target, Details_target)
-    FROM
-        stg.RAA_VacancyReviews_AutoQAoutcomedetails AD
-        LEFT JOIN #TempTable t ON AD.VacancyReference = t.VacancyReference 
-        --and AD.Rule_RuleId=t.ruleId
-        */
 
 END;
 

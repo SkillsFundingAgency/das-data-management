@@ -5,6 +5,7 @@ CREATE TABLE Stg.RAA_VacancyReviews_AutoQAoutcomedetails
  ,EmployerAccountId varchar(256) 
  ,UserId varchar(256)
  ,VacancyReference VARCHAR(256)
+ ,RuleoutcomeID Varchar(256)
  ,Details_BinaryID varchar(256)
  ,Details_RuleID varchar(256)
  ,Details_score varchar(256)

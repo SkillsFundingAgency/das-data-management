@@ -18,7 +18,7 @@ BEGIN
         ,[Details_data]
         ,[Details_target])
 
-    Select ad.binaryid,ad.EmployerAccountId,ad.UserId,ad.vacancyreference,c.Deatilsbinaryid,b.ruleId,b.score,b.narrative,b.data,b.target
+    Select ad.binaryid,ad.EmployerAccountId,ad.UserId,ad.vacancyreference,c.Detailsbinaryid,b.ruleId,b.score,b.narrative,b.data,b.target
           From stg.RAA_VacancyReviews_AutoQAoutcome Ad
     Cross Apply OpenJSON(Ad.Rule_Details)
         WITH (

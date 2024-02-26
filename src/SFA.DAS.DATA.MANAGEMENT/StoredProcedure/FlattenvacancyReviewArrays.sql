@@ -2,12 +2,23 @@ Create PROCEDURE [dbo].[FlattenvacancyReviewArrays]
 AS
 BEGIN
     -- Create a temporary table to store the parsed JSON values
-    CREATE TABLE #TempTable (VacancyReference varchar(256),binaryid varchar(256)
-    ,ruleId varchar(256),score varchar(256),narrative varchar(256),data varchar(256),target varchar(256))
+    DELETE FROM Stg.RAA_VacancyReviews_AutoQAoutcomedetails
 
     -- Insert parsed JSON values into the temporary table
-    INSERT INTO #TempTable (VacancyReference,binaryid,ruleId ,score ,narrative,data ,target)
-        Select ad.vacancyreference,c.binaryid,b.ruleId,b.score,b.narrative,b.data,b.target
+
+    INSERT into Stg.RAA_VacancyReviews_AutoQAoutcomedetails
+        ([BinaryId]
+        ,[EmployerAccountId]
+        ,[UserId]
+        ,[VacancyReference]
+        ,[Details_BinaryID]
+        ,[Details_RuleID]
+        ,[Details_score]
+        ,[Details_narrative]
+        ,[Details_data]
+        ,[Details_target])
+
+    Select ad.binaryid,ad.EmployerAccountId,ad.UserId,ad.vacancyreference,c.Deatilsbinaryid,b.ruleId,b.score,b.narrative,b.data,b.target
           From stg.RAA_VacancyReviews_AutoQAoutcome Ad
     Cross Apply OpenJSON(Ad.Rule_Details)
         WITH (
@@ -20,11 +31,11 @@ BEGIN
             ) B
     cross apply  OpenJSON(b._id)
         WITH 
-            ( [Binaryid] varchar(100) '$."$binary"') c
+            ( [DetailsBinaryid] varchar(100) '$."$binary"') c
 
 
     -- Update the target table with flattened values
-    UPDATE AD
+   /* UPDATE AD
     SET
         Details_BinaryID = ISNULL(t.binaryid, Details_BinaryID), -- Replace Column1 with the actual column name
         Details_RuleID = ISNULL(t.ruleId, Details_RuleID),
@@ -36,10 +47,7 @@ BEGIN
         stg.RAA_VacancyReviews_AutoQAoutcomedetails AD
         LEFT JOIN #TempTable t ON AD.VacancyReference = t.VacancyReference 
         --and AD.Rule_RuleId=t.ruleId
-        
-      
+        */
 
-    -- Drop the temporary table
-    DROP TABLE #TempTable;
 END;
 

@@ -37,7 +37,7 @@ TRUNCATE TABLE ASData_PL.va_VacancyReviews_AutoQAoutcome
 /* Insert all the unsuccessful outcomes first with a reason */
 
 INSERT INTO ASData_PL.va_VacancyReviews_AutoQAoutcome
-(EmployerAccountId 
+(  EmployerAccountId 
   ,CandidateId 
   ,VacancyReference 
   ,VacancyId
@@ -56,11 +56,11 @@ INSERT INTO ASData_PL.va_VacancyReviews_AutoQAoutcome
   ,SourceDb 
   )
 SELECT 
-	  RVRA.EmployerAccountId
+	     RVRA.EmployerAccountId
       ,vc.CandidateId
-	  ,RVRA.VacancyReference
-	  ,vv.VacancyId
-	  ,RVRA.RuleoutcomeID 
+	    ,RVRA.VacancyReference
+	    ,vv.VacancyId
+	    ,RVRA.RuleoutcomeID 
       ,RVRA.Rule_RuleId 
       ,RVRA.Rule_Score 
       ,RVRA.Rule_Narrative 
@@ -71,48 +71,15 @@ SELECT
       ,RVRAD.Details_narrative 
       ,RVRAD.Details_data 
       ,RVRAD.Details_target 
-	  ,RVR.BinaryId
-	  ,'RAAv2'
+	    ,RVR.BinaryId
+	    ,'RAAv2'
   FROM Stg.RAA_VacancyReviews_AutoQAoutcome RVRA
-  LEFT
-  JOIN Stg.RAA_VacancyReviews_AutoQAoutcomedetails RVRAD
-    on RVRA.VacancyReference = RVRAD.VacancyReference
   LEFT 
   JOIN ASData_PL.Va_Vacancy vv
     on vv.VacancyReferenceNumber=RVRA.VacancyReference
   LEFT
   JOIN ASData_PL.Va_Candidate vc
     on vc.CandidateGuid=RVRA.UserId
-
-  UNION all
-  SELECT 
-  DISTINCT
-	RVR.EmployerAccountId
-      ,vc.CandidateId
-	  ,dbo.Fn_ConvertTimeStampToDateTime(rvr.CreatedTimeStamp)
-	  ,dbo.Fn_ConvertTimeStampToDateTime(rvr.SubmittedTimeStamp)
-	  ,rvr.VacancyReference
-	  ,vv.VacancyId
-	  ,rvr.ManualOutcome
-	  ,NULL 
-	  ,NULL 
-	  ,NULL 	
-	  ,rvr.SubmissionCount
-    ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ReviewedDate)
-	  ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ClosedDate)	 
-	  ,rvr.ReviewedByUserEmail
-    ,dbo.Fn_ConvertTimeStampToDateTime(rvr.SlaDeadline)   
-    ,rvr.Status
-	  ,RVR.BinaryId
-	  ,'RAAv2'
-  FROM Stg.RAA_VacancyReviews RVR
-  LEFT
-  JOIN ASData_PL.Va_Vacancy vv
-    on vv.VacancyReferenceNumber=RVR.VacancyReference
-  LEFT
-  JOIN ASData_PL.Va_Candidate vc
-    on vc.CandidateGuid=RVR.UserId  
-Where not exists (select 1 from (select BinaryId from Stg.RAA_VacancyReviews where ManualQaFieldChangeRequested='true') vr where vr.BinaryId=rvr.BinaryId )
 
 COMMIT TRANSACTION
 

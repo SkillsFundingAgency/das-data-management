@@ -53,15 +53,15 @@ INSERT INTO ASData_PL.va_VacancyReviewsAutoQAOutcomeID
   ,SourceDb 
   )
 SELECT 
-	RVR.EmployerAccountId
+	   RVR.EmployerAccountId
       ,vc.CandidateId
-	  ,rvr.VacancyReference
+	  ,RVR.VacancyReference
 	  ,vv.VacancyId
-	  ,Ruleoutcome_BinaryID
-      ,AutoQAfieldisReferred
+	  ,RVR.Ruleoutcome_BinaryID
+      ,RVR.AutoQAfieldisReferred
 	  ,RVR.BinaryId
 	  ,'RAAv2'
-  FROM Stg.RAA_VacancyReviews RVR
+  FROM Stg.RAA_VacancyReviews_AutoQAoutcomeID  RVR
   LEFT
   JOIN ASData_PL.Va_Vacancy vv
     on vv.VacancyReferenceNumber=RVR.VacancyReference

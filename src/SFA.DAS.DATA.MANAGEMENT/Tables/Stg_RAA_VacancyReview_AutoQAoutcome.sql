@@ -16,4 +16,6 @@ CREATE TABLE Stg.RAA_VacancyReviews_AutoQAoutcome
  ,Details_narrative varchar(max)
  ,Details_data varchar(max)
  ,Details_target varchar(256)
+ ,AsDm_CreatedDate datetime2 default(getdate()) 
+ ,AsDm_UpdatedDate datetime2 default(getdatE())
  )

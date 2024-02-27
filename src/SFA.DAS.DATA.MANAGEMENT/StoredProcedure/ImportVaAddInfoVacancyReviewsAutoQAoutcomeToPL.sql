@@ -65,12 +65,12 @@ SELECT
       ,RVRA.Rule_Score 
       ,RVRA.Rule_Narrative 
       ,RVRA.Rule_Target 
-      ,RVRAD.Details_BinaryID 
-      ,RVRAD.Details_RuleID 
-      ,RVRAD.Details_score 
-      ,RVRAD.Details_narrative 
-      ,RVRAD.Details_data 
-      ,RVRAD.Details_target 
+      ,RVRA.Details_BinaryID 
+      ,RVRA.Details_RuleID 
+      ,RVRA.Details_score 
+      ,RVRA.Details_narrative 
+      ,RVRA.Details_data 
+      ,RVRA.Details_target 
 	    ,RVR.BinaryId
 	    ,'RAAv2'
   FROM Stg.RAA_VacancyReviews_AutoQAoutcome RVRA

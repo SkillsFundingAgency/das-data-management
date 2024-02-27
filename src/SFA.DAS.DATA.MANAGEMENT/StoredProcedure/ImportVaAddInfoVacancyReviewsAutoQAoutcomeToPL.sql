@@ -71,7 +71,7 @@ SELECT
       ,RVRA.Details_narrative 
       ,RVRA.Details_data 
       ,RVRA.Details_target 
-	    ,RVR.BinaryId
+	    ,RVRA.BinaryId
 	    ,'RAAv2'
   FROM Stg.RAA_VacancyReviews_AutoQAoutcome RVRA
   LEFT 

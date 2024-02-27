@@ -1,10 +1,3 @@
-/****** Object:  StoredProcedure [dbo].[ImportVaAddInfoVacancyReviewsAutoQAoutcomeToPL]    Script Date: 22/02/2024 12:24:47 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
 CREATE PROCEDURE [dbo].[ImportVaAddInfoVacancyReviewsAutoQAoutcomeIDToPL]
 (
    @RunId int

@@ -1,4 +1,4 @@
-CREATE TABLE [AsData_PL].[va_VacancyReviewsAutoQAOutcomeID]
+CREATE TABLE [AsData_PL].[va_VacancyReviewsAutoQAOutcome]
 (
    VacancyReviewId BIGINT IDENTITY(1,1) NOT NULL PRIMARY KEY
   ,EmployerAccountId VARCHAR(256)
@@ -18,5 +18,5 @@ CREATE TABLE [AsData_PL].[va_VacancyReviewsAutoQAOutcomeID]
   ,Details_target Varchar(256)
   ,SourceVacancyReviewId varchar(256)
   ,SourceDb varchar(256)
-  ,[AsDm_UpdatedDateTime]  [datetime2](7)	DEFAULT (getdate())
+  ,AsDm_UpdatedDateTime  datetime2(7)	DEFAULT (getdate())
 )

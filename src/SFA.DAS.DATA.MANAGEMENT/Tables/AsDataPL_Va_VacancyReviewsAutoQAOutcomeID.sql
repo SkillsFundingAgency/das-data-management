@@ -9,5 +9,5 @@ CREATE TABLE [AsData_PL].[va_VacancyReviewsAutoQAOutcomeID]
   ,AutoQAfieldisReferred  Varchar(256)
   ,SourceVacancyReviewId varchar(256)
   ,SourceDb varchar(256)
-  ,[AsDm_UpdatedDateTime]  [datetime2](7)	DEFAULT (getdate())
+  ,AsDm_UpdatedDateTime  datetime2(7)	DEFAULT (getdate())
 )

@@ -32,11 +32,11 @@ DEClARE @quote varchar(5) = ''''
 
 BEGIN TRANSACTION
 
-TRUNCATE TABLE ASData_PL.va_VacancyReviews_AutoQAoutcome
+TRUNCATE TABLE ASData_PL.va_VacancyReviewsAutoQAOutcome
 
 /* Insert all the unsuccessful outcomes first with a reason */
 
-INSERT INTO ASData_PL.va_VacancyReviews_AutoQAoutcome
+INSERT INTO ASData_PL.va_VacancyReviewsAutoQAOutcome
 (  EmployerAccountId 
   ,CandidateId 
   ,VacancyReference 

@@ -1,4 +1,4 @@
-CREATE TABLE [ASData_PL].[va_VacancyReviewsAutoQAOutcomeID]
+CREATE TABLE [AsData_PL].[va_VacancyReviewsAutoQAOutcomeID]
 (
    VacancyReviewId BIGINT IDENTITY(1,1) NOT NULL PRIMARY KEY
   ,EmployerAccountId VARCHAR(256)

@@ -37,9 +37,7 @@ TRUNCATE TABLE ASData_PL.va_VacancyReviewsAutoQAOutcome
 /* Insert all the unsuccessful outcomes first with a reason */
 
 INSERT INTO ASData_PL.va_VacancyReviewsAutoQAOutcome
-(  EmployerAccountId 
-  ,CandidateId 
-  ,VacancyReference 
+( VacancyReference 
   ,VacancyId
   ,RuleoutcomeID 
   ,Rule_RuleId 
@@ -56,9 +54,7 @@ INSERT INTO ASData_PL.va_VacancyReviewsAutoQAOutcome
   ,SourceDb 
   )
 SELECT 
-	     RVRA.EmployerAccountId
-      ,vc.CandidateId
-	    ,RVRA.VacancyReference
+	     RVRA.VacancyReference
 	    ,vv.VacancyId
 	    ,RVRA.RuleoutcomeID 
       ,RVRA.Rule_RuleId 

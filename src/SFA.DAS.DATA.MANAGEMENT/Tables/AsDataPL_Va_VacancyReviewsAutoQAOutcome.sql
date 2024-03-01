@@ -1,8 +1,6 @@
 CREATE TABLE [AsData_PL].[va_VacancyReviewsAutoQAOutcome]
 (
    VacancyReviewId BIGINT IDENTITY(1,1) NOT NULL PRIMARY KEY
-  ,EmployerAccountId VARCHAR(256)
-  ,CandidateId BIGINT
   ,VacancyReference Varchar(256)
   ,VacancyId bigint
   ,RuleoutcomeID Varchar(256)

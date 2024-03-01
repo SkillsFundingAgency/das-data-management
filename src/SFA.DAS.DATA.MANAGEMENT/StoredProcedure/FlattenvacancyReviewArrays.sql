@@ -8,7 +8,6 @@ BEGIN
 
     INSERT into Stg.RAA_VacancyReviews_AutoQAoutcomedetails
         ([BinaryId]
-        ,[EmployerAccountId]
         ,[UserId]
         ,[VacancyReference]
         ,[RuleoutcomeID] 
@@ -19,7 +18,7 @@ BEGIN
         ,[Details_data]
         ,[Details_target])
 
-    Select ad.binaryid,ad.EmployerAccountId,ad.UserId,ad.vacancyreference,ad.ruleoutcomeID,c.Detailsbinaryid,b.ruleId,b.score,b.narrative,b.data,b.target
+    Select ad.binaryid,ad.UserId,ad.vacancyreference,ad.ruleoutcomeID,c.Detailsbinaryid,b.ruleId,b.score,b.narrative,b.data,b.target
           From stg.RAA_VacancyReviews_AutoQARuleoutcome Ad
     Cross Apply OpenJSON(Ad.Rule_Details)
         WITH (
@@ -39,7 +38,6 @@ BEGIN
     INSERT into Stg.RAA_VacancyReviews_AutoQAoutcome
     (BinaryId
     ,VacancyReference
-    ,EmployerAccountId
     ,UserId
     ,RuleoutcomeID
     ,Rule_RuleId
@@ -55,7 +53,6 @@ BEGIN
 
     SELECT  A.BinaryId
            ,A.VacancyReference
-           ,A.EmployerAccountId
            ,A.UserId 
            ,A.RuleOutcomeID
            ,A.Rule_Ruleid

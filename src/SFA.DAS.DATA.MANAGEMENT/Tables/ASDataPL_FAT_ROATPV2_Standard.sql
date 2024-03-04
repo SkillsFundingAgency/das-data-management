@@ -8,6 +8,6 @@
       [Version]                 varchar(10)         NULL,
       [ApprovalBody]            varchar(1000)       NULL,
       [SectorSubjectArea]       varchar(1000)       NULL,
-      [SectorSubjectAreaTier1]  int                 NOT NULL,
+      [SectorSubjectAreaTier1]  int                 NULL,
       [AsDm_UpdatedDateTime] [datetime2](7)		DEFAULT (getdate())
 )

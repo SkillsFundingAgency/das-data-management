@@ -60,7 +60,10 @@ SELECT
       ,RVRA.Rule_RuleId 
       ,RVRA.Rule_Score 
       ,RVRA.Rule_Narrative 
-      ,RVRA.Rule_Target 
+      ,CASE WHEN RVRA.Rule_Target = ''
+        THEN NULL
+       ELSE RVRA.Rule_Target
+       END AS Rule_Target
       ,RVRA.Details_BinaryID 
       ,RVRA.Details_RuleID 
       ,RVRA.Details_score 

@@ -7,6 +7,8 @@
 	[ApprenticeshipLevel]			smallint				NULL,
 	[OverallCohort]					int						NULL,
 	[OverallAchievementRate]		decimal(10,4)			NULL,
+	[SectorSubjectAreaTier1]        int 					NOT NULL,
+	[Ukprn] 						int 					NOT NULL,
 	[AsDm_UpdatedDateTime]			[datetime2](7)			DEFAULT (getdate())
 )
 

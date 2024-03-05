@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [ASData_PL].[FAT_ROATPV2_Standard]
 (
-	  [StandardUId]             varchar(20)         NOT NULL,
+      [StandardUId]             varchar(20)         NOT NULL,
       [LarsCode]                int                 NULL,
       [IfateReferenceNumber]    varchar(10)         NULL,
       [Level]                   int                 NULL,

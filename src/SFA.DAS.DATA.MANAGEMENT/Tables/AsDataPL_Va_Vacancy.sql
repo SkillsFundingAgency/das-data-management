@@ -76,6 +76,7 @@
 ,SubmittedDateTime_v2 DateTime
 ,SourceVacancyId INT
 ,SourceDb varchar(100)
+,ClosedDateTimeStamp datetime
 ,[AsDm_UpdatedDateTime]  [datetime2](7)						DEFAULT (getdate())
 ,PersonalQualities nvarchar(max)
 ,RowNumber INT

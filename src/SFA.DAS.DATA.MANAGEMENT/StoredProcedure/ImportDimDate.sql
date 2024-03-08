@@ -77,7 +77,7 @@ WITH DateSequence AS (
 				END AS Financial_Quarter_Num
 			FROM DateSequence
 		)
-    INSERT INTO DetailedDateInfo (
+    INSERT INTO ASData_PL.DimDate (
         Date_SK,
         Date_INT_Id,
         Date_DT_Id,
@@ -149,26 +149,26 @@ WITH DateSequence AS (
     LEFT(DATENAME(MONTH, DateValue), 3) AS Month_Name_Short,
     DATEPART(QUARTER, DateValue) AS Quarter_Id,
     DATEPART(YEAR, DateValue) AS Year_Id, 
-	 DATEPART(MONTH, DateValue) AS Month_Number_In_Year,
-        LEFT(DATENAME(MONTH, DateValue), 3) + '-' + RIGHT(YEAR(DateValue), 2) AS Month_Description,
-        YEAR(DateValue) * 10 + DATEPART(QUARTER, DateValue) AS Quarter_Id,
-        DATEPART(QUARTER, DateValue) AS Quarter_Number_In_Year,
-        'Q' + CAST(DATEPART(QUARTER, DateValue) AS VARCHAR) AS Quarter_Name_Short,
-        'Quarter ' + CAST(DATEPART(QUARTER, DateValue) AS VARCHAR) AS Quarter_Name_Long,
-        'Qtr ' + CAST(DATEPART(QUARTER, DateValue) AS VARCHAR) AS Quarter_Desc,
-        CASE 
-            WHEN DATEPART(MONTH, DateValue) <= 6 THEN 1
-            ELSE 2
-        END AS Half_Year_Number_In_Year,
-        CASE 
-            WHEN DATEPART(MONTH, DateValue) <= 6 THEN 'H1'
-            ELSE 'H2'
-        END AS Half_Year_Name_Short,
-        CASE 
-            WHEN DATEPART(MONTH, DateValue) <= 6 THEN 'First Half'
-            ELSE 'Second Half'
-        END AS Half_Year_Name_Long,
-        YEAR(DateValue) AS Year_Id,
+	DATEPART(MONTH, DateValue) AS Month_Number_In_Year,
+    LEFT(DATENAME(MONTH, DateValue), 3) + '-' + RIGHT(YEAR(DateValue), 2) AS Month_Description,
+    YEAR(DateValue) * 10 + DATEPART(QUARTER, DateValue) AS Quarter_Id,
+    DATEPART(QUARTER, DateValue) AS Quarter_Number_In_Year,
+    'Q' + CAST(DATEPART(QUARTER, DateValue) AS VARCHAR) AS Quarter_Name_Short,
+    'Quarter ' + CAST(DATEPART(QUARTER, DateValue) AS VARCHAR) AS Quarter_Name_Long,
+    'Qtr ' + CAST(DATEPART(QUARTER, DateValue) AS VARCHAR) AS Quarter_Desc,
+    CASE 
+        WHEN DATEPART(MONTH, DateValue) <= 6 THEN 1
+        ELSE 2
+    END AS Half_Year_Number_In_Year,
+    CASE 
+        WHEN DATEPART(MONTH, DateValue) <= 6 THEN 'H1'
+        ELSE 'H2'
+    END AS Half_Year_Name_Short,
+    CASE 
+        WHEN DATEPART(MONTH, DateValue) <= 6 THEN 'First Half'
+        ELSE 'Second Half'
+    END AS Half_Year_Name_Long,
+    YEAR(DateValue) AS Year_Id,
     CONCAT(RIGHT(YEAR(DateValue), 2), RIGHT(YEAR(DateValue) + 1, 2)) AS [Calendar_Year_Account],
     -- Financial Year Account Created
     CASE 
@@ -179,7 +179,7 @@ WITH DateSequence AS (
     CASE 
         WHEN MONTH(DateValue) >= 8 THEN CONCAT(RIGHT(YEAR(DateValue), 2), RIGHT(YEAR(DateValue) + 1, 2))
         ELSE CONCAT(RIGHT(YEAR(DateValue) - 1, 2), RIGHT(YEAR(DateValue), 2))
-    END AS [Academic_Year Account],
+    END AS [Academic_Year_Account],
     -- Academic Columns
     CONCAT(
         RIGHT(Academic_Year_Start, 2),

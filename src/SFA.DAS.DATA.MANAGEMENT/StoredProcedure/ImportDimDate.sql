@@ -32,7 +32,7 @@ DEClARE @quote varchar(5) = ''''
 
 BEGIN TRANSACTION
 
-TRUNCATE TABLE ASData_PL.DimDate
+TRUNCATE TABLE ASData_PL.DimDate;
 
 WITH DateSequence AS (
 		SELECT CAST('1990-01-01' AS DATE) AS DateValue

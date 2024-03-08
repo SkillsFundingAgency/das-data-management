@@ -151,7 +151,6 @@ WITH DateSequence AS (
     DATEPART(YEAR, DateValue) AS Year_Id, 
 	DATEPART(MONTH, DateValue) AS Month_Number_In_Year,
     LEFT(DATENAME(MONTH, DateValue), 3) + '-' + RIGHT(YEAR(DateValue), 2) AS Month_Description,
-    YEAR(DateValue) * 10 + DATEPART(QUARTER, DateValue) AS Quarter_Id,
     DATEPART(QUARTER, DateValue) AS Quarter_Number_In_Year,
     'Q' + CAST(DATEPART(QUARTER, DateValue) AS VARCHAR) AS Quarter_Name_Short,
     'Quarter ' + CAST(DATEPART(QUARTER, DateValue) AS VARCHAR) AS Quarter_Name_Long,
@@ -168,7 +167,6 @@ WITH DateSequence AS (
         WHEN DATEPART(MONTH, DateValue) <= 6 THEN 'First Half'
         ELSE 'Second Half'
     END AS Half_Year_Name_Long,
-    YEAR(DateValue) AS Year_Id,
     CONCAT(RIGHT(YEAR(DateValue), 2), RIGHT(YEAR(DateValue) + 1, 2)) AS [Calendar_Year_Account],
     -- Financial Year Account Created
     CASE 

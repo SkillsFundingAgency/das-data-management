@@ -431,8 +431,7 @@ SELECT  cast(v.BinaryId as varchar(256))                        as VacancyGuid
 		  ,E.EmployerId                                            as EmployerId
 		  ,V.EmployerName                                          as EmployerFullName
 		  ,LE.LegalEntityId                                        as LegalEntityId
-      ,V.LegalEntityName
-		  --,LE.LegalEntityName                                      as LegalEntityName
+		  ,LE.LegalEntityName                                      as LegalEntityName
 		  ,P.ProviderID                                            as ProviderId
 		  ,cast(v.TrainingProviderUkprn as int)                    as ProviderUkprn
 	      ,v.TrainingProviderName                                  as ProviderName

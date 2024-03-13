@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [ASData_PL].[FAT_ROATPV2_NationalAchievementRate]
 (
 	[Id]							bigint					NOT NULL,
-	[ProviderId]					int						NOT NULL,
+	[ProviderId]					int						NULL,
 	[Age]							smallint				NULL,
 	[SectorSubjectArea]				varchar(1000)			NULL,
 	[ApprenticeshipLevel]			smallint				NULL,

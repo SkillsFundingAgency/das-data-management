@@ -2,7 +2,7 @@
 (
 	[Id]							bigint			NOT NULL,
 	[Age]							smallint		NOT NULL,
-	[SectorSubjectArea]				varchar(1000)   NOT NULL,
+	[SectorSubjectArea]				varchar(1000)   NULL,
 	[ApprenticeshipLevel]			smallint		NOT NULL,
 	[OverallCohort]					int				NULL,
 	[OverallAchievementRate]		decimal(10,4)	NULL,

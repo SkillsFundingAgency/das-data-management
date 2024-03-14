@@ -211,8 +211,8 @@ VALUES
 /* RoatpV2 Import Configurations */
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
 VALUES
-('Roatpv2','NationalAchievementRate','dbo','[Id],[ProviderId],[Age],[SectorSubjectArea],[ApprenticeshipLevel],[OverallCohort],[OverallAchievementRate]','','',1,0,'FAT_ROATPV2_NationalAchievementRate'),
-('Roatpv2','NationalAchievementRateOverall','dbo','[Id],[Age],[SectorSubjectArea],[ApprenticeshipLevel],[OverallCohort],[OverallAchievementRate]','','',1,0,'FAT_ROATPV2_NationalAchievementRateOverall'),
+('Roatpv2','NationalAchievementRate','dbo','[Id],[Age],[ApprenticeshipLevel],[OverallCohort],[OverallAchievementRate]','[ProviderId],[SectorSubjectArea]','',1,0,'FAT_ROATPV2_NationalAchievementRate'),
+('Roatpv2','NationalAchievementRateOverall','dbo','[Id],[Age],[ApprenticeshipLevel],[OverallCohort],[OverallAchievementRate]','[SectorSubjectArea]','',1,0,'FAT_ROATPV2_NationalAchievementRateOverall'),
 ('Roatpv2','Provider','dbo','[Id],[TradingName],[EmployerSatisfaction],[LearnerSatisfaction]','[Phone],[Website],[MarketingInfo],[IsImported]','[Ukprn],[LegalName],[Email]',1,1,'FAT_ROATPV2_Provider'),
 ('Roatpv2','ProviderCourse','dbo','[Id],[ProviderId],[LarsCode],[StandardInfoUrl],[IsApprovedByRegulator],[IsImported],[HasPortableFlexiJobOption]','[ContactUsPhoneNumber],[ContactUsPageUrl]','[ContactUsEmail]',1,0,'FAT_ROATPV2_ProviderCourse'),
 ('Roatpv2','ProviderCourseLocation','dbo','[Id],[NavigationId],[ProviderCourseId],[ProviderLocationId],[HasDayReleaseDeliveryOption],[HasBlockReleaseDeliveryOption],[IsImported]','','',1,0,'FAT_ROATPV2_ProviderCourseLocation'),

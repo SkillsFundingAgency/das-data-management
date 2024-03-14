@@ -170,9 +170,10 @@ VALUES
 ('CRS','ApprenticeshipFunding','dbo','[Id],[StandardUId],[EffectiveFrom],[EffectiveTo],[MaxEmployerLevyCap],[Duration]','','',1,0,'FAT2_ApprenticeshipFunding'),
 ('CRS','Framework','dbo','[Id],[ProgType],[FrameworkCode],[PathwayCode],[Level],[TypicalLengthFrom],[TypicalLengthTo],[TypicalLengthUnit],[Duration],[CurrentFundingCap],[MaxFunding],[Ssa1],[Ssa2],[EffectiveFrom],[EffectiveTo],[IsActiveFramework],[ProgrammeType],[HasSubGroups],[ExtendedTitle]','','[Title],[FrameworkName],[PathwayName]',1,1,'FAT2_Framework'),
 ('CRS','FrameworkFundingPeriod','dbo','[Id],[FrameworkId],[EffectiveFrom],[EffectiveTo],[FundingCap]','','',1,0,'FAT2_FrameworkFundingPeriod'),
-('CRS','LarsStandard','dbo','[LarsCode],[Version],[EffectiveFrom],[EffectiveTo],[LastDateStarts],[SectorSubjectAreaTier2],[OtherBodyApprovalRequired],[SectorCode]','','',1,0,'FAT2_LarsStandard'),
+('CRS','LarsStandard','dbo','[LarsCode],[Version],[EffectiveFrom],[EffectiveTo],[LastDateStarts],[SectorSubjectAreaTier2],[OtherBodyApprovalRequired],[SectorCode],[SectorSubjectAreaTier1]','','',1,0,'FAT2_LarsStandard'),
 ('CRS','Route','dbo','[Id],[Name]','','',1,1,'FAT2_StandardSector'),
 ('CRS','SectorSubjectAreaTier2','dbo','[SectorSubjectAreaTier2],[SectorSubjectAreaTier2Desc],[EffectiveFrom],[EffectiveTo]','','[Name]',1,0,'FAT2_SectorSubjectAreaTier2'),
+('CRS','SectorSubjectAreaTier1','dbo','[SectorSubjectAreaTier1],[SectorSubjectAreaTier1Desc],[EffectiveFrom],[EffectiveTo]','','',1,0,'FAT2_SectorSubjectAreaTier1'),
 ('CRS','Standard','dbo','[StandardUId],[IfateReferenceNumber],[LarsCode],[Status],[VersionEarliestStartDate],[VersionLatestStartDate],[VersionLatestEndDate],[Level],[ProposedTypicalDuration],[ProposedMaxFunding],[IntegratedDegree],[OverviewOfRole],[RouteCode],[AssessmentPlanUrl],[ApprovedForDelivery],[Keywords],[TypicalJobTitles],[StandardPageUrl],[Version],[RegulatedBody],[Skills],[Knowledge],[Behaviours],[Duties],[CoreAndOptions],[IntegratedApprenticeship],[Options],[CoreDuties],[Old_Options],[EPAChanged],[VersionMajor],[VersionMinor],[CoronationEmblem],[EpaoMustBeApprovedByRegulatorBody]','','[Title],[TrailBlazerContact],[EqaProviderName],[EqaProviderContactName],[EqaProviderContactEmail],[EqaProviderWebLink]',1,1,'FAT2_StandardSector')
 
 /* PREL Import Configurations */
@@ -211,15 +212,15 @@ VALUES
 /* RoatpV2 Import Configurations */
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
 VALUES
-('Roatpv2','NationalAchievementRate','dbo','[Id],[ProviderId],[Age],[SectorSubjectArea],[ApprenticeshipLevel],[OverallCohort],[OverallAchievementRate],[SectorSubjectAreaTier1],[Ukprn]','','',1,0,'FAT_ROATPV2_NationalAchievementRate'),
-('Roatpv2','NationalAchievementRateOverall','dbo','[Id],[Age],[SectorSubjectArea],[ApprenticeshipLevel],[OverallCohort],[OverallAchievementRate],[SectorSubjectAreaTier1]','','',1,0,'FAT_ROATPV2_NationalAchievementRateOverall'),
+('Roatpv2','NationalAchievementRate','dbo','[Id],[Age],[ApprenticeshipLevel],[OverallCohort],[OverallAchievementRate]','[ProviderId],[SectorSubjectArea]','',1,0,'FAT_ROATPV2_NationalAchievementRate'),
+('Roatpv2','NationalAchievementRateOverall','dbo','[Id],[Age],[ApprenticeshipLevel],[OverallCohort],[OverallAchievementRate]','[SectorSubjectArea]','',1,0,'FAT_ROATPV2_NationalAchievementRateOverall'),
 ('Roatpv2','Provider','dbo','[Id],[TradingName],[EmployerSatisfaction],[LearnerSatisfaction]','[Phone],[Website],[MarketingInfo],[IsImported]','[Ukprn],[LegalName],[Email]',1,1,'FAT_ROATPV2_Provider'),
 ('Roatpv2','ProviderCourse','dbo','[Id],[ProviderId],[LarsCode],[StandardInfoUrl],[IsApprovedByRegulator],[IsImported],[HasPortableFlexiJobOption]','[ContactUsPhoneNumber],[ContactUsPageUrl]','[ContactUsEmail]',1,0,'FAT_ROATPV2_ProviderCourse'),
 ('Roatpv2','ProviderCourseLocation','dbo','[Id],[NavigationId],[ProviderCourseId],[ProviderLocationId],[HasDayReleaseDeliveryOption],[HasBlockReleaseDeliveryOption],[IsImported]','','',1,0,'FAT_ROATPV2_ProviderCourseLocation'),
 ('Roatpv2','ProviderLocation','dbo','[Id],[ImportedLocationId],[NavigationId],[ProviderId],[RegionId],[Postcode],[Latitude],[Longitude],[IsImported],[LocationType]','[Phone],[AddressLine1],[AddressLine2],[Town],[County]','[LocationName],[Email],[Website]',1,0,'FAT_ROATPV2_ProviderLocation'),
 ('Roatpv2','ProviderRegistrationDetail','dbo','[LegalName],[StatusId],[StatusDate],[OrganisationTypeId],[ProviderTypeId],[Town]','[AddressLine1],[AddressLine2],[AddressLine3],[AddressLine4],[Latitude],[Longitude],[Postcode]','[Ukprn]',1,0,'FAT_ROATPV2_ProviderRegistrationDetail'),
 ('Roatpv2','ProviderAddress','dbo','[Id],[ProviderId],[Postcode],[Latitude],[Longitude],[AddressUpdateDate],[CoordinatesUpdateDate]','[AddressLine1],[AddressLine2],[AddressLine3],[AddressLine4],[Town]','',1,0,'FAT_ROATPV2_ProviderAddress'),
-('Roatpv2','Standard','dbo','[StandardUId],[LarsCode],[IfateReferenceNumber],[Level],[Version],[ApprovalBody],[SectorSubjectArea],[SectorSubjectAreaTier1]','','[Title]',1,0,'FAT_ROATPV2_Standard')
+('Roatpv2','Standard','dbo','[StandardUId],[LarsCode],[IfateReferenceNumber],[Level],[Version],[ApprovalBody],[SectorSubjectArea]','','[Title]',1,0,'FAT_ROATPV2_Standard')
 
 /* Roatp Import Configuration */
 

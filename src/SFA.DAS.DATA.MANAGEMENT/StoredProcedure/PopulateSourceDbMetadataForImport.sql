@@ -173,6 +173,7 @@ VALUES
 ('CRS','LarsStandard','dbo','[LarsCode],[Version],[EffectiveFrom],[EffectiveTo],[LastDateStarts],[SectorSubjectAreaTier2],[OtherBodyApprovalRequired],[SectorCode],[SectorSubjectAreaTier1]','','',1,0,'FAT2_LarsStandard'),
 ('CRS','Route','dbo','[Id],[Name]','','',1,1,'FAT2_StandardSector'),
 ('CRS','SectorSubjectAreaTier2','dbo','[SectorSubjectAreaTier2],[SectorSubjectAreaTier2Desc],[EffectiveFrom],[EffectiveTo]','','[Name]',1,0,'FAT2_SectorSubjectAreaTier2'),
+('CRS','SectorSubjectAreaTier1','dbo','[SectorSubjectAreaTier1],[SectorSubjectAreaTier1Desc],[EffectiveFrom],[EffectiveTo]','','',1,0,'FAT2_SectorSubjectAreaTier1'),
 ('CRS','Standard','dbo','[StandardUId],[IfateReferenceNumber],[LarsCode],[Status],[VersionEarliestStartDate],[VersionLatestStartDate],[VersionLatestEndDate],[Level],[ProposedTypicalDuration],[ProposedMaxFunding],[IntegratedDegree],[OverviewOfRole],[RouteCode],[AssessmentPlanUrl],[ApprovedForDelivery],[Keywords],[TypicalJobTitles],[StandardPageUrl],[Version],[RegulatedBody],[Skills],[Knowledge],[Behaviours],[Duties],[CoreAndOptions],[IntegratedApprenticeship],[Options],[CoreDuties],[Old_Options],[EPAChanged],[VersionMajor],[VersionMinor],[CoronationEmblem],[EpaoMustBeApprovedByRegulatorBody]','','[Title],[TrailBlazerContact],[EqaProviderName],[EqaProviderContactName],[EqaProviderContactEmail],[EqaProviderWebLink]',1,1,'FAT2_StandardSector')
 
 /* PREL Import Configurations */
@@ -211,8 +212,8 @@ VALUES
 /* RoatpV2 Import Configurations */
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
 VALUES
-('Roatpv2','NationalAchievementRate','dbo','[Id],[ProviderId],[Age],[SectorSubjectArea],[ApprenticeshipLevel],[OverallCohort],[OverallAchievementRate]','','',1,0,'FAT_ROATPV2_NationalAchievementRate'),
-('Roatpv2','NationalAchievementRateOverall','dbo','[Id],[Age],[SectorSubjectArea],[ApprenticeshipLevel],[OverallCohort],[OverallAchievementRate]','','',1,0,'FAT_ROATPV2_NationalAchievementRateOverall'),
+('Roatpv2','NationalAchievementRate','dbo','[Id],[Age],[ApprenticeshipLevel],[OverallCohort],[OverallAchievementRate]','[ProviderId],[SectorSubjectArea]','',1,0,'FAT_ROATPV2_NationalAchievementRate'),
+('Roatpv2','NationalAchievementRateOverall','dbo','[Id],[Age],[ApprenticeshipLevel],[OverallCohort],[OverallAchievementRate]','[SectorSubjectArea]','',1,0,'FAT_ROATPV2_NationalAchievementRateOverall'),
 ('Roatpv2','Provider','dbo','[Id],[TradingName],[EmployerSatisfaction],[LearnerSatisfaction]','[Phone],[Website],[MarketingInfo],[IsImported]','[Ukprn],[LegalName],[Email]',1,1,'FAT_ROATPV2_Provider'),
 ('Roatpv2','ProviderCourse','dbo','[Id],[ProviderId],[LarsCode],[StandardInfoUrl],[IsApprovedByRegulator],[IsImported],[HasPortableFlexiJobOption]','[ContactUsPhoneNumber],[ContactUsPageUrl]','[ContactUsEmail]',1,0,'FAT_ROATPV2_ProviderCourse'),
 ('Roatpv2','ProviderCourseLocation','dbo','[Id],[NavigationId],[ProviderCourseId],[ProviderLocationId],[HasDayReleaseDeliveryOption],[HasBlockReleaseDeliveryOption],[IsImported]','','',1,0,'FAT_ROATPV2_ProviderCourseLocation'),

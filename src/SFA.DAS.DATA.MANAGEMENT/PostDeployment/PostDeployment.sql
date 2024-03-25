@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS [Mtd].[MarketoFilterConfig]
 DROP TABLE IF EXISTS [ASData_PL].[AR_Employer]
 DROP TABLE IF EXISTS [ASData_PL].[AR_Apprentice]
 
-EXEC [dbo].[ImportDimDate] 6
+--EXEC [dbo].[ImportDimDate] 6
 
  
 

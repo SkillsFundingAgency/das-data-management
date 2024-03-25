@@ -393,6 +393,7 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
            ,[IsDeleted_v2]
            ,[DeletedDateTime_v2]
            ,[SubmittedDateTime_v2]
+           ,[ClosedDateTimeStamp]
            ,[SourceVacancyId]
            ,[SourceDb]
            ,[RowNumber]
@@ -500,6 +501,7 @@ SELECT  cast(v.BinaryId as varchar(256))                        as VacancyGuid
 		  ,v.IsDeleted                                               as IsDeleted
 		  ,dbo.Fn_ConvertTimeStampToDateTime(v.DeletedDateTimeStamp) as DeletedDateTime
 		  ,dbo.Fn_ConvertTimeStampToDateTime(v.SubmittedDateTimeStamp) as SubmittedDateTime
+      ,dbo.Fn_ConvertTimeStampToDateTime(v.ClosedDateTimeStamp) as ClosedDateTimeStamp
 		  ,v.SourseSK                                                as SourceVacancyId
 		  ,'RAAv2'                                                   as SourceDb
 	  FROM Stg.RAA_Vacancies V

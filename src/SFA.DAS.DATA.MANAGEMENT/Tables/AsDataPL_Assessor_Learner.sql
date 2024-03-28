@@ -30,5 +30,8 @@
 	[ApprovalsPaymentStatus]		[smallint]			NULL,
 	[LatestIlrs]					[datetime]			NULL,
 	[LatestApprovals]				[datetime]			NULL,
+	[IsTransfer]                    [bit]				NOT NULL,
+	[DelLoc_Pst_Lower_Layer_SOA]    [nvarchar](9)		NULL,                  
+	[DelLoc_Pst_Lower_Layer_SOA2001][nvarchar](9)		NULL,    
 	[AsDm_UpdatedDateTime]			[Datetime2](7)		default getdate()
 )

@@ -2,10 +2,7 @@ CREATE PROCEDURE dbo.InsertLkpPostGeo
 AS 
 BEGIN 
 
-Declare @sqlquery1 AS NVarchar(4000)
-Declare @sqlquery2 AS NVarchar(4000) 
-
-set @sqlquery1="INSERT INTO [lkp].[Postcode_GeographicalAttributes]
+INSERT INTO [lkp].[Postcode_GeographicalAttributes]
            ([Pst_Postcode]
            ,[Pst_Country]
            ,[Pst_GOR]
@@ -83,9 +80,9 @@ set @sqlquery1="INSERT INTO [lkp].[Postcode_GeographicalAttributes]
 , NULL
 , '0'
 , 'Nov-23'																																			
-)"
+)
 
-set @sqlquery2= "INSERT INTO [lkp].[Postcode_GeographicalAttributes]
+INSERT INTO [lkp].[Postcode_GeographicalAttributes]
            ([Pst_Postcode]
            ,[Pst_Country]
            ,[Pst_GOR]
@@ -163,10 +160,7 @@ set @sqlquery2= "INSERT INTO [lkp].[Postcode_GeographicalAttributes]
 , NULL
 , 0
 , 'Nov-23'
-)"
-
-EXEC @sqlquery1
-EXEC @sqlquery2
+)
 
 
 END

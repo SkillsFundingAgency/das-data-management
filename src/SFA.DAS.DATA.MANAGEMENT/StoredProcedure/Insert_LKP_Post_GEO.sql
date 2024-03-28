@@ -5,7 +5,7 @@ BEGIN
 Declare @sqlquery1 AS NVarchar(4000)
 Declare @sqlquery2 AS NVarchar(4000) 
 
-set @sqlquery1='INSERT INTO [lkp].[Postcode_GeographicalAttributes]
+set @sqlquery1="INSERT INTO [lkp].[Postcode_GeographicalAttributes]
            ([Pst_Postcode]
            ,[Pst_Country]
            ,[Pst_GOR]
@@ -45,7 +45,7 @@ set @sqlquery1='INSERT INTO [lkp].[Postcode_GeographicalAttributes]
            ,[Pst_User_Type]
            ,[Pst_Version])
      VALUES
-           ('MK41 7PH'
+           ('MK417PH'
 , 'E92000001'
 , 'E12000006'
 , '822'
@@ -83,9 +83,9 @@ set @sqlquery1='INSERT INTO [lkp].[Postcode_GeographicalAttributes]
 , NULL
 , '0'
 , 'Nov-23'																																			
-)'
+)"
 
-set @sqlquery2= 'INSERT INTO [lkp].[Postcode_GeographicalAttributes]
+set @sqlquery2= "INSERT INTO [lkp].[Postcode_GeographicalAttributes]
            ([Pst_Postcode]
            ,[Pst_Country]
            ,[Pst_GOR]
@@ -163,7 +163,7 @@ set @sqlquery2= 'INSERT INTO [lkp].[Postcode_GeographicalAttributes]
 , NULL
 , 0
 , 'Nov-23'
-)'
+)"
 
 EXEC @sqlquery1
 EXEC @sqlquery2

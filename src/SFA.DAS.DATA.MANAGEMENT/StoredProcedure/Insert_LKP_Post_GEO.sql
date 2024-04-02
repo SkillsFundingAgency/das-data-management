@@ -162,5 +162,85 @@ INSERT INTO [lkp].[Postcode_GeographicalAttributes]
 , 'Nov-23'
 )
 
+INSERT INTO [lkp].[Postcode_GeographicalAttributes]
+           ([Pst_Postcode]
+           ,[Pst_Country]
+           ,[Pst_GOR]
+           ,[Pst_LEA]
+           ,[Pst_LEA_UK]
+           ,[Pst_County]
+           ,[Pst_Local_Authority]
+           ,[Pst_Local_Authority_Upper]
+           ,[Pst_Ward]
+           ,[Pst_Constituency]
+           ,[Pst_Output_Area]
+           ,[Pst_Lower_Layer_SOA]
+           ,[Pst_Lower_Layer_SOA2001]
+           ,[Pst_Middle_Layer_SOA]
+           ,[Pst_NHS_SHA]
+           ,[Pst_Stnd_Stat_Reg]
+           ,[Pst_Euro_Elec_Reg]
+           ,[Pst_TEC_LEC]
+           ,[Pst_Travel_Work_Area]
+           ,[Pst_Prim_Care_Area]
+           ,[Pst_ClinicalCommissGroup]
+           ,[Pst_Cen_Area_Stat]
+           ,[Pst_National_Park]
+           ,[Pst_RuralUrbanClass2011]
+           ,[Pst_BuiltUpArea]
+           ,[Pst_BuiltUpAreaSubDiv]
+           ,[Pst_WorkplaceZone2011]
+           ,[Pst_Scot_Intermediate]
+           ,[Pst_LEP_Primary]
+           ,[Pst_LEP_Secondary]
+           ,[Pst_Census_OA_Class]
+           ,[Pst_Easting]
+           ,[Pst_Northing]
+           ,[Pst_PQI_Grid_Ref]
+           ,[Pst_Intro_Date]
+           ,[Pst_Termin_Date]
+           ,[Pst_User_Type]
+           ,[Pst_Version])
+     VALUES
+(
+ 'PL1 1NS'
+,'E92000001'
+,'E12000009'
+,'879      '
+,'879      '
+,'E99999999'
+,'E06000026'
+,'NULL     '
+,'E05002094'
+,'E14000880'
+,'E00076575'
+,'E01015152'
+,'E01015152'
+,'E02003148'
+,'E18000010'
+,6
+,'E15000009'
+,'E24000032'
+,'E30000253'
+,'E16000024'
+,'E38000230'
+,'00HGNP   '
+,'E65000001'
+,'C1       '
+,'E34005012'
+,'E35001398'
+,'E33045811'
+,'E99999999'
+,'E37000016'
+,'NA'
+,'3C1'
+,247619
+,54677
+,1
+,'1980-01-01'
+,NULL
+,0
+,'Nov2023'
+)
 
 END

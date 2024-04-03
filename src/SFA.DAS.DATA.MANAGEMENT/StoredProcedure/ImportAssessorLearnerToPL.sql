@@ -112,8 +112,8 @@ SELECT         AL.[Id]
 			  ,lkpg.[Pst_Lower_Layer_SOA]
               ,lkpg.[Pst_Lower_Layer_SOA2001]
   FROM Stg.Assessor_Learner AL
-  JOIN LKP.[Postcode_GeographicalAttributes] lkpg
-    ON lkpg.Pst_Postcode = AL.dellocpostcode
+  LEFT OUTER JOIN LKP.[Postcode_GeographicalAttributes] lkpg
+  ON lkpg.Pst_Postcode = AL.dellocpostcode
 
 
 COMMIT TRANSACTION

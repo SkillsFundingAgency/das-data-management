@@ -3,11 +3,7 @@ CREATE PROCEDURE [dbo].[ImportAssessorLearnerToPL]
    @RunId int
 )
 AS
--- ======================================================================================================================
--- Author:      Himabindu Uddaraju
--- Create Date: 12/05/2022
--- Description: Import and Integrate Vacancies and Apprenticeship Candidate Reg Details from FAA Cosmos and AVMS Dbs
--- ======================================================================================================================
+
 
 BEGIN TRY
 

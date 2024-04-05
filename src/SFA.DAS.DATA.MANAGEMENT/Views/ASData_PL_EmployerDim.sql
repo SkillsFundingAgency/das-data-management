@@ -59,4 +59,4 @@ As
 			) as EcSecTE
 		WHERE SumEmployeeCountRowOrder = 1
      ) as SecTcEsc
-ORDER BY EmployerAccountId
+ORDER BY EmployerAccountId offset 0 rows

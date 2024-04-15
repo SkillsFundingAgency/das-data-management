@@ -1,6 +1,9 @@
-if exists(select * from sys.views where name='EmployerDim' and type='v')
-drop view EmployerDim;
-go
+
+IF Exists(select * from sys.views where name='EmployerDim' and type='v')
+BEGIN
+DROP view EmployerDim;
+END
+GO
 
 CREATE or ALTER VIEW [ASData_PL].[DimEmployer]
 As

@@ -1,4 +1,4 @@
-CREATE or ALTER VIEW [ASData_PL].[DimEmployer]
+CREATE VIEW [ASData_PL].[DimEmployer]
 As
  SELECT EmployerAccountId,EmployerAccountName,EmployerAccountHashedId,EmployerType,EmployerSector AS EmployerSectorEstimate
 		, CASE -- DFE fix

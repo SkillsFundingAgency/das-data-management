@@ -1,3 +1,7 @@
+if exists(select * from sys.views where name='EmployerDim' and type='v')
+drop view EmployerDim;
+go
+
 CREATE VIEW [ASData_PL].[DimEmployer]
 As
  SELECT EmployerAccountId,EmployerAccountName,EmployerAccountHashedId,EmployerType,EmployerSector AS EmployerSectorEstimate

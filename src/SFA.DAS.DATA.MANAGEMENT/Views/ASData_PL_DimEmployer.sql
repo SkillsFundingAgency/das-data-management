@@ -1,7 +1,3 @@
-
-DROP View [ASData_PL].[EmployerDim]
-GO;
-
 CREATE VIEW [ASData_PL].[DimEmployer]
 As
  SELECT EmployerAccountId,EmployerAccountName,EmployerAccountHashedId,EmployerType,EmployerSector AS EmployerSectorEstimate

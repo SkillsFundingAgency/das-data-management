@@ -7,10 +7,8 @@ BEGIN
         AND TABLE_NAME = 'EmployerDim'
     )
     BEGIN
-        DECLARE @sql NVARCHAR(MAX);
-        SET @sql = 'DROP VIEW [ASData_PL].[EmployerDim];';
-        EXEC sp_executesql @sql;
-        PRINT 'View [ASData_PL].[EmployerDim] dropped successfully.';
+        -- Drop the view if it exists
+        DROP VIEW [ASData_PL].[EmployerDim];
     END
 END
 Go

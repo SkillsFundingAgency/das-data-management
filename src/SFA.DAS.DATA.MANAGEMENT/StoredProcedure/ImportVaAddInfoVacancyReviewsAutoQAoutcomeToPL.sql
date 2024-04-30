@@ -80,6 +80,11 @@ SELECT
   JOIN ASData_PL.Va_Candidate vc
     on vc.CandidateGuid=RVRA.UserId
 
+
+TRUNCATE TABLE stg.RAA_VacancyReviews_AutoQARuleoutcome
+TRUNCATE TABLE stg.RAA_VacancyReviews_AutoQAoutcomedetails
+TRUNCATE TABLE stg.RAA_VacancyReviews_AutoQAoutcome
+
 COMMIT TRANSACTION
 
 UPDATE Mgmt.Log_Execution_Results
@@ -88,6 +93,8 @@ UPDATE Mgmt.Log_Execution_Results
 	  ,FullJobStatus='Pending'
  WHERE LogId=@LogID
    AND RunId=@RunId
+
+
 
  
 END TRY

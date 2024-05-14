@@ -76,9 +76,9 @@ BEGIN TRY
 					  ,YourApprenticesMaintainedSchoolsOnly_AtStart
 					  ,YourApprenticesMaintainedSchoolsOnly_AtEnd
 					  ,YourApprenticesMaintainedSchoolsOnly_NewThisPeriod   	  
-					  ,cast([YourApprentices_NewThisPeriod] as float)/ cast(case when [YourEmployees_NewThisPeriod] IS NULL or [YourEmployees_NewThisPeriod] = 0 then 1 Else [YourEmployees_NewThisPeriod] end as decimal(8,3)) As FigureE
-					  ,cast([YourApprentices_AtEnd] as float) / cast(case when [YourEmployees_AtEnd] IS NULL or [YourEmployees_AtEnd] = 0 then 1 Else [YourEmployees_AtEnd] end as decimal(8,3)) As FigureF
-					  ,cast([YourApprentices_AtStart] as float) / cast(case when [YourEmployees_AtStart] IS NULL or [YourEmployees_AtStart] = 0 then 1 Else [YourEmployees_AtStart] end as decimal(8,3)) As FigureI
+					  ,cast(coalesce([YourApprentices_NewThisPeriod],0) as float)/ cast(case when [YourEmployees_NewThisPeriod] IS NULL or [YourEmployees_NewThisPeriod] = 0 then 1 Else [YourEmployees_NewThisPeriod] end as int) As FigureE
+					  ,cast(coalesce([YourApprentices_AtEnd],0) as float) / cast(case when [YourEmployees_AtEnd] IS NULL or [YourEmployees_AtEnd] = 0 then 1 Else [YourEmployees_AtEnd] end as int) As FigureF
+					  ,cast(coalesce([YourApprentices_AtStart],0) as float) / cast(case when [YourEmployees_AtStart] IS NULL or [YourEmployees_AtStart] = 0 then 1 Else [YourEmployees_AtStart] end as int) As FigureI
 					  ,1 As FlagLatest
 				  FROM [Stg].[PublicSector_Report]  LEFT JOIN 
 				  (

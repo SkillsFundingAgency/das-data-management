@@ -378,6 +378,16 @@
     <Build Include="Tables\lkp_LARSStandard.sql" />
     <Build Include="Tables\lkp_LARSFramework.sql" />
     <Build Include="Tables\lkp_PostcodeGeographicalAttributes.sql" />
+    <Build Include="Tables\lkp_Pst_COMBINED_AUTHORITY.sql" />
+    <Build Include="Tables\lkp_Pst_CONSTITUENCY_20011_12_Format.sql"/>
+    <Build Include="Tables\lkp_Pst_CONSTITUENCY.sql"/>
+    <Build Include="Tables\lkp_Pst_COUNTRY_20011_12_Format.sql"/>
+    <Build Include="Tables\lkp_Pst_COUNTRY.sql" />
+    <Build Include="Tables\lkp_Pst_GOR_20011_12_Format.sql"/>
+    <Build Include="Tables\lkp_Pst_LEA.sql"/>
+    <Build Include="Tables\lkp_Pst_LEP_CODE.sql"/>
+    <Build Include="Tables\lkp_PST_Local_Authority_20011_12_Format.sql"/>
+    <Build Include="Tables\lkp_Pst_LOCAL_AUTHORITY_Pst_COMBINED_AUTHORITY.sql"/>
     <Build Include="Schemas\lkp.sql" />
     <Build Include="Tables\AsDataPL_Comt_TransferRequest.sql" />
     <Build Include="Tables\AsDataPL_Comt_OverlappingTrainingDateRequest.sql" />

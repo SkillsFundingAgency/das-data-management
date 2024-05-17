@@ -381,8 +381,8 @@
     <Build Include="Tables\lkp_Pst_COMBINED_AUTHORITY.sql" />
     <Build Include="Tables\lkp_Pst_CONSTITUENCY_20011_12_Format.sql"/>
     <Build Include="Tables\lkp_Pst_CONSTITUENCY.sql"/>
-    <Build Include="Tables\lkp_Pst_COUNTRY_20011_12_Format.sql"/>
-    <Build Include="Tables\lkp_Pst_COUNTRY.sql" />
+    <Build Include="Tables\lkp_Pst_COUNTY_20011_12_Format.sql"/>
+    <Build Include="Tables\lkp_Pst_COUNTY.sql" />
     <Build Include="Tables\lkp_Pst_GOR_20011_12_Format.sql"/>
     <Build Include="Tables\lkp_Pst_LEA.sql"/>
     <Build Include="Tables\lkp_Pst_LEP_CODE.sql"/>

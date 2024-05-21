@@ -2,6 +2,6 @@
 (
 	[Pst_LOCAL_AUTHORITY]			[varchar](9) NULL,
 	[Pst_LOCAL_AUTHO_Desc]			[varchar](50) NULL,
-	[Pst_LOCAL_AUTHO_Desc2]			[varchar](30) NULL,
+	[Pst_LOCAL_AUTHO_Desc2]			[varchar](40) NULL,
 ) ON [Primary]
 GO

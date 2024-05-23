@@ -390,6 +390,7 @@
     <Build Include="Tables\lkp_Pst_LOCAL_AUTHORITY_Pst_COMBINED_AUTHORITY.sql"/>
     <Build Include="Schemas\lkp.sql" />
     <Build Include="Tables\AsDataPL_Comt_TransferRequest.sql" />
+    <Build Include="Tables\AsData_PL_Comt_Standard.sql"/>
     <Build Include="Tables\AsDataPL_Comt_OverlappingTrainingDateRequest.sql" />
     <Build Include="Tables\AsDataPL_EI_EmploymentCheck.sql" />
     <Build Include="Tables\ASDataPL_Cmphs_CompaniesHouseData.sql" />

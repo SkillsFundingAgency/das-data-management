@@ -9,7 +9,7 @@ CREATE TABLE [AsData_PL].[Comt_Standard](
 	[MaxFunding] [int] NULL,
 	[Route] [nvarchar](500) NULL,
 	[StandardPageUrl] [nvarchar](500) NULL,
-	[StandardUId] [nvarchar](20) NULL,
+	[StandardUId] [nvarchar](20) NOT NULL,
 	[Status] [nvarchar](50) NULL,
 	[Title] [nvarchar](512) NULL,
 	[Version] [nvarchar](10) NULL,

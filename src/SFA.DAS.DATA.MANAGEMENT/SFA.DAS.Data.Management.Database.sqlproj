@@ -388,6 +388,7 @@
     <Build Include="Tables\lkp_Pst_LEP_CODE.sql"/>
     <Build Include="Tables\lkp_PST_Local_Authority_20011_12_Format.sql"/>
     <Build Include="Tables\lkp_Pst_LOCAL_AUTHORITY_Pst_COMBINED_AUTHORITY.sql"/>
+    <Build Include="Tables\stg_Pst_LatLong.sql"/>
     <Build Include="Schemas\lkp.sql" />
     <Build Include="Tables\AsDataPL_Comt_TransferRequest.sql" />
     <Build Include="Tables\AsData_PL_Comt_Standard.sql"/>

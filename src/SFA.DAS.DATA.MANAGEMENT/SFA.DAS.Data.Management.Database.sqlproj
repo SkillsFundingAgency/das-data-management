@@ -229,6 +229,7 @@
     <Build Include="Views\AsDataPL_Appfb_ApprenticeFeedback.sql" />
     <Build Include="Views\DataPub_DAS_Commitments_V2.sql" />
     <Build Include="Views\ASData_PL_DimEmployer.sql" />
+    <Build Include="Views\ASData_PL_DimGeography.sql" />
     <Build Include="Views\DataPub_DAS_Employer_Account_Transfers_V2.sql" />
     <Build Include="Views\DataPub_DAS_Employer_Accounts_V2.sql" />
     <Build Include="Views\DataPub_DAS_Employer_AccountTransactions_V2.sql" />

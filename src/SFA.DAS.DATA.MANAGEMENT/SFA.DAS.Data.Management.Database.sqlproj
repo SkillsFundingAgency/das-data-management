@@ -311,6 +311,7 @@
     <Build Include="Tables\AsDataPL_EI_ApprenticeshipBreakInLearning.sql" />
     <Build Include="Tables\AsDataPL_PubSector_Report.sql" />
     <Build Include="StoredProcedure\ImportPublicSectorDataToPL.sql" />
+    <Build Include="StoredProcedure\LoadNatAppSerLookupData.sql" />
     <Build Include="Tables\AsDataPL_Comt_DataLockStatus.sql" />
     <Build Include="Tables\AsDataPL_Comt_History.sql" />
     <Build Include="Tables\AsDataPL_Assessor_DeliveryArea.sql" />
@@ -325,6 +326,7 @@
     <Build Include="Tables\lkp_RP_QuestionTitles.sql" />
     <Build Include="Tables\lkp_RP_SectionTitles.sql" />
     <Build Include="Tables\lkp_RP_SequenceTitles.sql" />
+    <Build Include="Tables\lkp_NatAppSerLookupData.sql" />
     <Build Include="StoredProcedure\LoadRPLookupData.sql" />
     <Build Include="Tables\AsDataPL_PAS_User.sql" />
     <Build Include="Tables\AsDataPL_Assessor_Apply.sql" />

@@ -39,646 +39,309 @@ BEGIN
 	DELETE FROM [lkp].[NatAppSerLookupData]
 
 	/* Insert into [lkp].[NatAppSerLookupData] */
-	INSERT INTO [lkp].[NatAppSerLookupData] (Pst_LOCAL_AUTHO_Desc,National_Apprenticeship_Service_Area,National_Apprenticeship_Service_Division) 
-    (
-        Select  Pst_LOCAL_AUTHO_Desc,
-                CASE
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Allerdale' THEN 'Liverpool City Region  Cumbria and Lancashire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Amber Valley' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Arun' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Ashfield' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Ashford' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Babergh' THEN 'Central Eastern'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Barnet' THEN 'London'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Barnsley' THEN 'Yorkshire and the Humber'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Barrow in Furness' THEN 'Liverpool City Region  Cumbria and Lancashire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Basildon' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Basingstoke and Deane' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Bassetlaw' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Bath and North East Somerset' THEN 'South West'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Bedford' THEN 'Central Eastern'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Bexley' THEN 'London'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Birmingham' THEN 'West Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Blaby' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Blackburn with Darwen' THEN 'Liverpool City Region  Cumbria and Lancashire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Bolsover' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Bolton' THEN 'Greater Manchester  Cheshire/Warrington and Staffordshire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Boston' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Bournemouth  Christchurch and Poole' THEN 'South West'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Bracknell Forest' THEN 'Thames Valley'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Bradford' THEN 'Yorkshire and the Humber'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Braintree' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Breckland' THEN 'Central Eastern'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Brent' THEN 'London'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Brentwood' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Brighton and Hove' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Bristol  City of' THEN 'South West'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Bromley' THEN 'London'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Bromsgrove' THEN 'West Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Broxbourne' THEN 'Central Eastern'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Broxtowe' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Buckinghamshire' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Burnley' THEN 'Liverpool City Region  Cumbria and Lancashire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Bury' THEN 'Greater Manchester  Cheshire/Warrington and Staffordshire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Calderdale' THEN 'Yorkshire and the Humber'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Cambridge' THEN 'Central Eastern'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Camden' THEN 'London'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Canterbury' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Carlisle' THEN 'Liverpool City Region  Cumbria and Lancashire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Castle Point' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Central Bedfordshire' THEN 'Central Eastern'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Charnwood' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Chelmsford' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Cheltenham' THEN 'Thames Valley'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Cherwell' THEN 'Thames Valley'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Cheshire East' THEN 'Greater Manchester  Cheshire/Warrington and Staffordshire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Cheshire West and Chester' THEN 'Greater Manchester  Cheshire/Warrington and Staffordshire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Chesterfield' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Chichester' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Chorley' THEN 'Liverpool City Region  Cumbria and Lancashire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'City of London' THEN 'London'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Colchester' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Cornwall' THEN 'South West'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'County Durham' THEN 'North East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Coventry' THEN 'West Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Craven' THEN 'Yorkshire and the Humber'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Crawley' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Croydon' THEN 'London'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Cumberland' THEN 'Liverpool City Region  Cumbria and Lancashire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Dacorum' THEN 'Central Eastern'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Darlington' THEN 'North East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Dartford' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Derby' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Derbyshire Dales' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Doncaster' THEN 'Yorkshire and the Humber'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Dorset' THEN 'South West'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Dudley' THEN 'West Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Ealing' THEN 'London'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'East Cambridgeshire' THEN 'Central Eastern'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'East Hampshire' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'East Hertfordshire' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'East Lindsey' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'East Riding of Yorkshire' THEN 'Yorkshire and the Humber'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'East Staffordshire' THEN 'Greater Manchester  Cheshire/Warrington and Staffordshire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'East Suffolk' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Eastbourne' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Eastleigh' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Elmbridge' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Enfield' THEN 'London'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Epping Forest' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Epsom and Ewell' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Erewash' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Exeter' THEN 'South West'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Fareham' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Folkestone and Hythe' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Forest of Dean' THEN 'Thames Valley'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Gateshead' THEN 'North East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Gedling' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Gloucester' THEN 'Thames Valley'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Gosport' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Greenwich' THEN 'London'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Guildford' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Hackney' THEN 'London'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Halton' THEN 'Liverpool City Region  Cumbria and Lancashire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Hambleton' THEN 'Yorkshire and the Humber'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Hammersmith and Fulham' THEN 'London'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Harborough' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Haringey' THEN 'London'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Harlow' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Harrogate' THEN 'Yorkshire and the Humber'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Harrow' THEN 'London'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Hart' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Hartlepool' THEN 'North East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Hastings' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Havant' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Havering' THEN 'London'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Herefordshire  County of' THEN 'West Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Hertsmere' THEN 'Central Eastern'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Hillingdon' THEN 'London'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Horsham' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Hounslow' THEN 'London'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Huntingdonshire' THEN 'Central Eastern'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Hyndburn' THEN 'Liverpool City Region  Cumbria and Lancashire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Ipswich' THEN 'Central Eastern'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Isle of Wight' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Islington' THEN 'London'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Kensington and Chelsea' THEN 'London'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Kings Lynn and West Norfolk' THEN 'Central Eastern'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Kingston upon Hull  City of' THEN 'Yorkshire and the Humber'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Kingston upon Thames' THEN 'London'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Kirklees' THEN 'Yorkshire and the Humber'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Knowsley' THEN 'Liverpool City Region  Cumbria and Lancashire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Lambeth' THEN 'London'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Lancaster' THEN 'Liverpool City Region  Cumbria and Lancashire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Leeds' THEN 'Yorkshire and the Humber'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Leicester' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Lewes' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Lewisham' THEN 'London'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Lichfield' THEN 'Greater Manchester  Cheshire/Warrington and Staffordshire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Lincoln' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Liverpool' THEN 'Liverpool City Region  Cumbria and Lancashire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Luton' THEN 'Central Eastern'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Maidstone' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Maldon' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Manchester' THEN 'Greater Manchester  Cheshire/Warrington and Staffordshire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Medway' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Melton' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Mendip' THEN 'South West'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Merton' THEN 'London'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Mid Devon' THEN 'South West'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Mid Sussex' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Middlesbrough' THEN 'North East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Milton Keynes' THEN 'Central Eastern'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Mole Valley' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'New Forest' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Newark and Sherwood' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Newcastle under Lyme' THEN 'Greater Manchester  Cheshire/Warrington and Staffordshire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Newcastle upon Tyne' THEN 'North East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Newham' THEN 'London'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'North East Derbyshire' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'North East Lincolnshire' THEN 'Yorkshire and the Humber'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'North Hertfordshire' THEN 'Central Eastern'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'North Kesteven' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'North Lincolnshire' THEN 'Yorkshire and the Humber'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'North Northamptonshire' THEN 'Central Eastern'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'North Somerset' THEN 'South West'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'North Tyneside' THEN 'North East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'North Warwickshire' THEN 'West Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'North West Leicestershire' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'North Yorkshire' THEN 'Yorkshire and the Humber'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Northumberland' THEN 'North East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Norwich' THEN 'Central Eastern'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Nottingham' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Nuneaton and Bedworth' THEN 'West Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Oadby and Wigston' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Oldham' THEN 'Greater Manchester  Cheshire/Warrington and Staffordshire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Oxford' THEN 'Thames Valley'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Pendle' THEN 'Liverpool City Region  Cumbria and Lancashire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Peterborough' THEN 'Central Eastern'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Plymouth' THEN 'South West'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Portsmouth' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Preston' THEN 'Liverpool City Region  Cumbria and Lancashire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Reading' THEN 'Thames Valley'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Redbridge' THEN 'London'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Redcar and Cleveland' THEN 'North East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Redditch' THEN 'West Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Reigate and Banstead' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Richmond upon Thames' THEN 'London'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Richmondshire' THEN 'Yorkshire and the Humber'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Rochdale' THEN 'Greater Manchester  Cheshire/Warrington and Staffordshire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Rochford' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Rossendale' THEN 'Liverpool City Region  Cumbria and Lancashire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Rother' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Rotherham' THEN 'Yorkshire and the Humber'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Rugby' THEN 'West Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Runnymede' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Rushcliffe' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Rushmoor' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Rutland' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Salford' THEN 'Greater Manchester  Cheshire/Warrington and Staffordshire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Sandwell' THEN 'West Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Sedgemoor' THEN 'South West'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Sefton' THEN 'Liverpool City Region  Cumbria and Lancashire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Selby' THEN 'Yorkshire and the Humber'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Sevenoaks' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Sheffield' THEN 'Yorkshire and the Humber'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Shropshire' THEN 'West Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Slough' THEN 'Thames Valley'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Solihull' THEN 'West Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Somerset West and Taunton' THEN 'South West'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'South Cambridgeshire' THEN 'Central Eastern'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'South Derbyshire' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'South Gloucestershire' THEN 'South West'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'South Hams' THEN 'South West'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'South Holland' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'South Kesteven' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'South Lakeland' THEN 'Liverpool City Region  Cumbria and Lancashire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'South Norfolk' THEN 'Central Eastern'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'South Oxfordshire' THEN 'Thames Valley'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'South Ribble' THEN 'Liverpool City Region  Cumbria and Lancashire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'South Staffordshire' THEN 'Greater Manchester  Cheshire/Warrington and Staffordshire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'South Tyneside' THEN 'North East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Southampton' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Southend on Sea' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Southwark' THEN 'London'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Spelthorne' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'St. Albans District (B)' THEN 'Central Eastern'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'St. Helens' THEN 'Liverpool City Region  Cumbria and Lancashire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Stafford' THEN 'Greater Manchester  Cheshire/Warrington and Staffordshire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Staffordshire Moorlands' THEN 'Greater Manchester  Cheshire/Warrington and Staffordshire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Stevenage' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Stockport' THEN 'Greater Manchester  Cheshire/Warrington and Staffordshire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Stockton on Tees' THEN 'North East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Stoke on Trent' THEN 'Greater Manchester  Cheshire/Warrington and Staffordshire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Stratford on Avon' THEN 'West Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Stroud' THEN 'Thames Valley'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Sunderland' THEN 'North East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Surrey Heath' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Sutton' THEN 'London'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Swale' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Swindon' THEN 'Thames Valley'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Tameside' THEN 'Greater Manchester  Cheshire/Warrington and Staffordshire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Tandridge' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Teignbridge' THEN 'South West'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Telford and Wrekin' THEN 'West Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Tendring' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Test Valley' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Tewkesbury' THEN 'Thames Valley'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Thanet' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Three Rivers' THEN 'Central Eastern'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Thurrock' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Tonbridge and Malling' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Torbay' THEN 'South West'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Tower Hamlets' THEN 'London'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Trafford' THEN 'Greater Manchester  Cheshire/Warrington and Staffordshire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Tunbridge Wells' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Uttlesford' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Vale of White Horse' THEN 'Thames Valley'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Wakefield' THEN 'Yorkshire and the Humber'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Walsall' THEN 'West Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Waltham Forest' THEN 'London'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Wandsworth' THEN 'London'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Warrington' THEN 'Greater Manchester  Cheshire/Warrington and Staffordshire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Warwick' THEN 'West Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Watford' THEN 'Central Eastern'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Waverley' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Wealden' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Welwyn Hatfield District (B)' THEN 'Central Eastern'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'West Berkshire' THEN 'Thames Valley'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'West Devon' THEN 'South West'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'West Lancashire' THEN 'Liverpool City Region  Cumbria and Lancashire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Westmorland and Furness' THEN 'Liverpool City Region  Cumbria and Lancashire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'West Northamptonshire' THEN 'Central Eastern'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'West Suffolk' THEN 'Central Eastern'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Westminster' THEN 'London'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Wigan' THEN 'Greater Manchester  Cheshire/Warrington and Staffordshire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Wiltshire' THEN 'Thames Valley'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Winchester' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Windsor and Maidenhead' THEN 'Thames Valley'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Wirral' THEN 'Liverpool City Region  Cumbria and Lancashire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Woking' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Wokingham' THEN 'Thames Valley'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Wolverhampton' THEN 'West Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Worcester' THEN 'West Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Worthing' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Wychavon' THEN 'West Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Wyre' THEN 'Liverpool City Region  Cumbria and Lancashire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Wyre Forest' THEN 'West Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'York' THEN 'Yorkshire and the Humber'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Broadland' THEN 'Central Eastern'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Cannock Chase' THEN 'Greater Manchester  Cheshire/Warrington and Staffordshire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Dover' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Adur' THEN 'South Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Blackpool' THEN 'Liverpool City Region  Cumbria and Lancashire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Copeland' THEN 'Liverpool City Region  Cumbria and Lancashire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Cotswold' THEN 'Thames Valley'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'East Devon' THEN 'South West'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Eden' THEN 'Liverpool City Region  Cumbria and Lancashire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Fenland' THEN 'Central Eastern'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Fylde' THEN 'Liverpool City Region  Cumbria and Lancashire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Gravesham' THEN 'South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Great Yarmouth' THEN 'Central Eastern'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'High Peak' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Hinckley and Bosworth' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Malvern Hills' THEN 'West Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Mansfield' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Mid Suffolk' THEN 'Central Eastern'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Monmouthshire' THEN 'Not Applicable/ Not Known'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Newport' THEN 'Not Applicable/ Not Known'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'North Devon' THEN 'South West'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'North Norfolk' THEN 'Central Eastern'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Ribble Valley' THEN 'Liverpool City Region  Cumbria and Lancashire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Ryedale' THEN 'Yorkshire and the Humber'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Scarborough' THEN 'Yorkshire and the Humber'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'South Somerset' THEN 'South West'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Tamworth' THEN 'Greater Manchester  Cheshire/Warrington and Staffordshire'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Torridge' THEN 'South West'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'West Lindsey' THEN 'East Midlands'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'West Oxfordshire' THEN 'Thames Valley'
-                WHEN Pst_GOR_Gov_Off_Desc = 'London' THEN 'London'
-                WHEN Pst_GOR_Gov_Off_Desc = 'South West' THEN 'South West'
-                ELSE '?' END as National_Apprenticeship_Service_Area,
-                CASE
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Allerdale' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Amber Valley' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Arun' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Ashfield' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Ashford' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Babergh' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Barnet' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Barnsley' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Barrow in Furness' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Basildon' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Basingstoke and Deane' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Bassetlaw' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Bath and North East Somerset' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Bedford' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Bexley' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Birmingham' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Blaby' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Blackburn with Darwen' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Bolsover' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Bolton' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Boston' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Bournemouth  Christchurch and Poole' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Bracknell Forest' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Bradford' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Braintree' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Breckland' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Brent' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Brentwood' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Brighton and Hove' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Bristol  City of' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Bromley' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Bromsgrove' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Broxbourne' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Broxtowe' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Buckinghamshire' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Burnley' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Bury' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Calderdale' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Cambridge' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Camden' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Canterbury' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Carlisle' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Castle Point' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Central Bedfordshire' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Charnwood' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Chelmsford' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Cheltenham' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Cherwell' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Cheshire East' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Cheshire West and Chester' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Chesterfield' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Chichester' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Chorley' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'City of London' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Colchester' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Cornwall' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'County Durham' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Coventry' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Craven' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Crawley' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Croydon' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Cumberland' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Dacorum' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Darlington' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Dartford' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Derby' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Derbyshire Dales' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Doncaster' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Dorset' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Dudley' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Ealing' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'East Cambridgeshire' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'East Hampshire' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'East Hertfordshire' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'East Lindsey' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'East Riding of Yorkshire' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'East Staffordshire' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'East Suffolk' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Eastbourne' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Eastleigh' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Elmbridge' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Enfield' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Epping Forest' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Epsom and Ewell' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Erewash' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Exeter' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Fareham' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Folkestone and Hythe' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Forest of Dean' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Gateshead' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Gedling' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Gloucester' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Gosport' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Greenwich' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Guildford' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Hackney' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Halton' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Hambleton' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Hammersmith and Fulham' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Harborough' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Haringey' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Harlow' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Harrogate' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Harrow' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Hart' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Hartlepool' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Hastings' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Havant' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Havering' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Herefordshire  County of' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Hertsmere' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Hillingdon' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Horsham' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Hounslow' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Huntingdonshire' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Hyndburn' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Ipswich' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Isle of Wight' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Islington' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Kensington and Chelsea' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Kings Lynn and West Norfolk' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Kingston upon Hull  City of' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Kingston upon Thames' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Kirklees' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Knowsley' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Lambeth' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Lancaster' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Leeds' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Leicester' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Lewes' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Lewisham' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Lichfield' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Lincoln' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Liverpool' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Luton' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Maidstone' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Maldon' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Manchester' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Medway' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Melton' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Mendip' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Merton' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Mid Devon' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Mid Sussex' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Middlesbrough' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Milton Keynes' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Mole Valley' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'New Forest' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Newark and Sherwood' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Newcastle under Lyme' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Newcastle upon Tyne' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Newham' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'North East Derbyshire' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'North East Lincolnshire' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'North Hertfordshire' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'North Kesteven' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'North Lincolnshire' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'North Northamptonshire' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'North Somerset' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'North Tyneside' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'North Warwickshire' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'North West Leicestershire' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'North Yorkshire' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Northumberland' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Norwich' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Nottingham' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Nuneaton and Bedworth' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Oadby and Wigston' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Oldham' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Oxford' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Pendle' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Peterborough' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Plymouth' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Portsmouth' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Preston' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Reading' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Redbridge' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Redcar and Cleveland' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Redditch' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Reigate and Banstead' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Richmond upon Thames' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Richmondshire' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Rochdale' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Rochford' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Rossendale' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Rother' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Rotherham' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Rugby' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Runnymede' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Rushcliffe' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Rushmoor' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Rutland' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Salford' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Sandwell' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Sedgemoor' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Sefton' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Selby' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Sevenoaks' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Sheffield' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Shropshire' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Slough' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Solihull' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Somerset West and Taunton' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'South Cambridgeshire' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'South Derbyshire' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'South Gloucestershire' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'South Hams' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'South Holland' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'South Kesteven' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'South Lakeland' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'South Norfolk' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'South Oxfordshire' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'South Ribble' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'South Staffordshire' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'South Tyneside' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Southampton' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Southend on Sea' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Southwark' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Spelthorne' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'St. Albans District (B)' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'St. Helens' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Stafford' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Staffordshire Moorlands' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Stevenage' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Stockport' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Stockton on Tees' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Stoke on Trent' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Stratford on Avon' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Stroud' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Sunderland' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Surrey Heath' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Sutton' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Swale' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Swindon' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Tameside' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Tandridge' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Teignbridge' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Telford and Wrekin' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Tendring' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Test Valley' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Tewkesbury' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Thanet' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Three Rivers' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Thurrock' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Tonbridge and Malling' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Torbay' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Tower Hamlets' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Trafford' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Tunbridge Wells' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Uttlesford' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Vale of White Horse' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Wakefield' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Walsall' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Waltham Forest' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Wandsworth' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Warrington' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Warwick' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Watford' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Waverley' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Wealden' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Welwyn Hatfield District (B)' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'West Berkshire' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'West Devon' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'West Lancashire' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Westmorland and Furness' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'West Northamptonshire' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'West Suffolk' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Westminster' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Wigan' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Wiltshire' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Winchester' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Windsor and Maidenhead' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Wirral' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Woking' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Wokingham' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Wolverhampton' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Worcester' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Worthing' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Wychavon' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Wyre' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Wyre Forest' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'York' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Broadland' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Cannock Chase' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Dover' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Adur' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Blackpool' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Copeland' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Cotswold' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'East Devon' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Eden' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Fenland' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Fylde' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Gravesham' THEN 'London and the South East'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Great Yarmouth' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'High Peak' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Hinckley and Bosworth' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Malvern Hills' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Mansfield' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Mid Suffolk' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Monmouthshire' THEN 'Not App/ Not Known'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Newport' THEN 'Not App/ Not Known'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'North Devon' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'North Norfolk' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Ribble Valley' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Ryedale' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Scarborough' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'South Somerset' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Tamworth' THEN 'North'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'Torridge' THEN 'South'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'West Lindsey' THEN 'Central'
-                WHEN la.Pst_LOCAL_AUTHO_Desc = 'West Oxfordshire' THEN 'South'
-                WHEN Pst_GOR_Gov_Off_Desc = 'London' THEN 'London and the South East'
-                WHEN Pst_GOR_Gov_Off_Desc = 'South West' THEN 'South'
-                ELSE '?' END as National_Apprenticeship_Service_Division
-            From [lkp].[Pst_Local_Authority_20011_12_Format]  la 
-            LEFT JOIN [lkp].[Postcode_GeographicalAttributes] p
-            ON p.Pst_Local_Authority = la.Pst_LOCAL_AUTHORITY
-            LEFT JOIN [lkp].[Pst_GOR_20011_12_Format] gor
-             ON p.PST_GOR = gor.PST_GOR)
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Allerdale', 'Liverpool City Region  Cumbria and Lancashire','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Amber Valley', 'East Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Arun', 'South Central','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Ashfield', 'East Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Ashford', 'South East','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Babergh', 'Central Eastern','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Barnet', 'London','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Barnsley', 'Yorkshire and the Humber','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Barrow in Furness', 'Liverpool City Region  Cumbria and Lancashire','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Basildon', 'South East','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Basingstoke and Deane', 'South Central','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Bassetlaw', 'East Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Bath and North East Somerset', 'South West','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Bedford', 'Central Eastern','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Bexley', 'London','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Birmingham', 'West Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Blaby', 'East Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Blackburn with Darwen', 'Liverpool City Region  Cumbria and Lancashire','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Bolsover', 'East Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Bolton', 'Greater Manchester  Cheshire/Warrington and Staffordshire','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Boston', 'East Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Bournemouth  Christchurch and Poole', 'South West','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Bracknell Forest', 'Thames Valley','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Bradford', 'Yorkshire and the Humber','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Braintree', 'South East','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Breckland', 'Central Eastern','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Brent', 'London','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Brentwood', 'South East','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Brighton and Hove', 'South Central','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Bristol  City of', 'South West','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Bromley', 'London','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Bromsgrove', 'West Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Broxbourne', 'Central Eastern','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Broxtowe', 'East Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Buckinghamshire', 'South East','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Burnley', 'Liverpool City Region  Cumbria and Lancashire','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Bury', 'Greater Manchester  Cheshire/Warrington and Staffordshire','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Calderdale', 'Yorkshire and the Humber','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Cambridge', 'Central Eastern','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Camden', 'London','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Canterbury', 'South East','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Carlisle', 'Liverpool City Region  Cumbria and Lancashire','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Castle Point', 'South East','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Central Bedfordshire', 'Central Eastern','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Charnwood', 'East Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Chelmsford', 'South East','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Cheltenham', 'Thames Valley','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Cherwell', 'Thames Valley','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Cheshire East', 'Greater Manchester  Cheshire/Warrington and Staffordshire','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Cheshire West and Chester', 'Greater Manchester  Cheshire/Warrington and Staffordshire','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Chesterfield', 'East Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Chichester', 'South Central','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Chorley', 'Liverpool City Region  Cumbria and Lancashire','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('City of London', 'London','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Colchester', 'South East','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Cornwall', 'South West','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('County Durham', 'North East','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Coventry', 'West Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Craven', 'Yorkshire and the Humber','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Crawley', 'South Central','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Croydon', 'London','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Cumberland', 'Liverpool City Region  Cumbria and Lancashire','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Dacorum', 'Central Eastern','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Darlington', 'North East','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Dartford', 'South East','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Derby', 'East Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Derbyshire Dales', 'East Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Doncaster', 'Yorkshire and the Humber','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Dorset', 'South West','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Dudley', 'West Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Ealing', 'London','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('East Cambridgeshire', 'Central Eastern','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('East Hampshire', 'South Central','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('East Hertfordshire', 'South East','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('East Lindsey', 'East Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('East Riding of Yorkshire', 'Yorkshire and the Humber','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('East Staffordshire', 'Greater Manchester  Cheshire/Warrington and Staffordshire','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('East Suffolk', 'South East','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Eastbourne', 'South East','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Eastleigh', 'South Central','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Elmbridge', 'South Central','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Enfield', 'London','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Epping Forest', 'South East','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Epsom and Ewell', 'South Central','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Erewash', 'East Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Exeter', 'South West','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Fareham', 'South Central','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Folkestone and Hythe', 'South East','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Forest of Dean', 'Thames Valley','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Gateshead', 'North East','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Gedling', 'East Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Gloucester', 'Thames Valley','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Gosport', 'South Central','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Greenwich', 'London','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Guildford', 'South Central','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Hackney', 'London','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Halton', 'Liverpool City Region  Cumbria and Lancashire','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Hambleton', 'Yorkshire and the Humber','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Hammersmith and Fulham', 'London','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Harborough', 'East Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Haringey', 'London','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Harlow', 'South East','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Harrogate', 'Yorkshire and the Humber','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Harrow', 'London','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Hart', 'South Central','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Hartlepool', 'North East','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Hastings', 'South East','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Havant', 'South Central','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Havering', 'London','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Herefordshire  County of', 'West Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Hertsmere', 'Central Eastern','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Hillingdon', 'London','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Horsham', 'South Central','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Hounslow', 'London','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Huntingdonshire', 'Central Eastern','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Hyndburn', 'Liverpool City Region  Cumbria and Lancashire','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Ipswich', 'East of England','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Isle of Wight', 'South Central','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Islington', 'London','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Kensington and Chelsea', 'London','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Kettering', 'East Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('King''s Lynn and West Norfolk', 'Central Eastern','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Kingston upon Hull  City of', 'Yorkshire and the Humber','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Kingston upon Thames', 'London','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Kirklees', 'Yorkshire and the Humber','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Knowsley', 'Liverpool City Region  Cumbria and Lancashire','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Lambeth', 'London','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Lancaster', 'Liverpool City Region  Cumbria and Lancashire','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Leeds', 'Yorkshire and the Humber','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Leicester', 'East Midlands','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Lewes', 'South East','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Lewisham', 'London','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Lichfield', 'West Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Lincoln', 'East Midlands','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Liverpool', 'Liverpool City Region  Cumbria and Lancashire','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Luton', 'East of England','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Maidstone', 'South East','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Maldon', 'East of England','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Malvern Hills', 'West Midlands','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Manchester', 'Greater Manchester  Cheshire/Warrington and Staffordshire','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Mansfield', 'East Midlands','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Medway', 'South East','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Melton', 'East Midlands','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Mendip', 'South West','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Merton', 'London','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Mid Devon', 'South West','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Mid Suffolk', 'South East','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Mid Sussex', 'South Central','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Middlesbrough', 'North East','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Milton Keynes', 'Central Eastern','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Mole Valley', 'South Central','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('New Forest', 'South Central','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Newark and Sherwood', 'East Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Newcastle upon Tyne', 'North East','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Newcastle-under-Lyme', 'Greater Manchester  Cheshire/Warrington and Staffordshire','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Newham', 'London','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('North Devon', 'South West','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('North East Derbyshire', 'East Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('North East Lincolnshire', 'Yorkshire and the Humber','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('North Hertfordshire', 'Central Eastern','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('North Kesteven', 'East Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('North Lincolnshire', 'Yorkshire and the Humber','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('North Norfolk', 'East of England','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('North Somerset', 'South West','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('North Tyneside', 'North East','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('North Warwickshire', 'West Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('North West Leicestershire', 'East Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Northampton', 'East Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Northumberland', 'North East','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Norwich', 'East of England','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Nottingham', 'East Midlands','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Nuneaton and Bedworth', 'West Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Oadby and Wigston', 'East Midlands','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Oldham', 'Greater Manchester  Cheshire/Warrington and Staffordshire','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Oxford', 'Thames Valley','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Pendle', 'Liverpool City Region  Cumbria and Lancashire','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Peterborough', 'East of England','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Plymouth', 'South West','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Portsmouth', 'South Central','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Preston', 'Liverpool City Region  Cumbria and Lancashire','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Reading', 'Thames Valley','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Redbridge', 'London','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Redcar and Cleveland', 'North East','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Redditch', 'West Midlands','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Reigate and Banstead', 'South Central','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Ribble Valley', 'Liverpool City Region  Cumbria and Lancashire','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Richmond upon Thames', 'London','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Richmondshire', 'Yorkshire and the Humber','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Rochdale', 'Greater Manchester  Cheshire/Warrington and Staffordshire','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Rochford', 'East of England','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Rossendale', 'Liverpool City Region  Cumbria and Lancashire','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Rother', 'South East','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Rotherham', 'Yorkshire and the Humber','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Rugby', 'West Midlands','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Runnymede', 'South Central','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Rushcliffe', 'East Midlands','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Rushmoor', 'South Central','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Rutland', 'East Midlands','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Ryedale', 'Yorkshire and the Humber','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Salford', 'Greater Manchester  Cheshire/Warrington and Staffordshire','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Sandwell', 'West Midlands','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Scarborough', 'Yorkshire and the Humber','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Sedgemoor', 'South West','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Sefton', 'Liverpool City Region  Cumbria and Lancashire','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Selby', 'Yorkshire and the Humber','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Sevenoaks', 'South East','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Sheffield', 'Yorkshire and the Humber','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Shropshire', 'West Midlands','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Slough', 'Thames Valley','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Solihull', 'West Midlands','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Somerset West and Taunton', 'South West','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('South Cambridgeshire', 'Central Eastern','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('South Derbyshire', 'East Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('South Gloucestershire', 'South West','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('South Hams', 'South West','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('South Holland', 'East Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('South Kesteven', 'East Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('South Lakeland', 'Liverpool City Region  Cumbria and Lancashire','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('South Norfolk', 'East of England','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('South Northamptonshire', 'Central Eastern','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('South Oxfordshire', 'South Central','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('South Ribble', 'Liverpool City Region  Cumbria and Lancashire','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('South Somerset', 'South West','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('South Staffordshire', 'West Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('South Tyneside', 'North East','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Southampton', 'South Central','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Southend-on-Sea', 'East of England','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Southwark', 'London','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Spelthorne', 'South Central','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('St Albans', 'Central Eastern','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('St. Helens', 'Liverpool City Region  Cumbria and Lancashire','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Stafford', 'Greater Manchester  Cheshire/Warrington and Staffordshire','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Staffordshire Moorlands', 'Greater Manchester  Cheshire/Warrington and Staffordshire','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Stevenage', 'East of England','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Stockport', 'Greater Manchester  Cheshire/Warrington and Staffordshire','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Stockton-on-Tees', 'North East','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Stoke-on-Trent', 'Greater Manchester  Cheshire/Warrington and Staffordshire','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Stratford-on-Avon', 'West Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Stroud', 'South West','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Suffolk Coastal', 'East of England','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Sunderland', 'North East','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Surrey Heath', 'South Central','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Sutton', 'London','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Swale', 'South East','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Swindon', 'South West','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Tameside', 'Greater Manchester  Cheshire/Warrington and Staffordshire','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Tamworth', 'West Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Tandridge', 'South Central','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Teignbridge', 'South West','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Telford and Wrekin', 'West Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Tendring', 'East of England','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Test Valley', 'South Central','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Tewkesbury', 'Thames Valley','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Thanet', 'South East','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Three Rivers', 'Central Eastern','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Thurrock', 'East of England','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Tonbridge and Malling', 'South East','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Torbay', 'South West','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Torridge', 'South West','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Tower Hamlets', 'London','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Trafford', 'Greater Manchester  Cheshire/Warrington and Staffordshire','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Tunbridge Wells', 'South East','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Uttlesford', 'East of England','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Vale of White Horse', 'South Central','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Wakefield', 'Yorkshire and the Humber','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Walsall', 'West Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Waltham Forest', 'London','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Wandsworth', 'London','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Warrington', 'Greater Manchester  Cheshire/Warrington and Staffordshire','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Warwick', 'West Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Watford', 'East of England','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Waverley', 'South East','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Wealden', 'South East','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Wellingborough', 'East Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Welwyn Hatfield', 'East of England','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('West Berkshire', 'South Central','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('West Devon', 'South West','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('West Lancashire', 'Liverpool City Region  Cumbria and Lancashire','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('West Lindsey', 'East Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('West Oxfordshire', 'South Central','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('West Suffolk', 'East of England','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Westminster',Null ,'London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Weymouth and Portland',Null, 'South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Wigan', 'Greater Manchester  Cheshire/Warrington and Staffordshire','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Wiltshire', 'South West','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Winchester', 'South Central','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Windsor and Maidenhead', 'South Central','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Wirral', 'Liverpool City Region  Cumbria and Lancashire','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Woking', 'South East','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Wokingham', 'South Central','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Wolverhampton', 'West Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Worcester', 'West Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Worthing', 'South East','South')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Wrexham', Null,'North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Wychavon', 'West Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Wycombe', 'South Central','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Wyre', 'Liverpool City Region  Cumbria and Lancashire','North')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Wyre Forest', 'West Midlands','Central')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('York', 'Yorkshire and the Humber')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('London', 'London','London and the South East')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('South West', 'South West','South')
+
+
 
 COMMIT TRANSACTION
 END

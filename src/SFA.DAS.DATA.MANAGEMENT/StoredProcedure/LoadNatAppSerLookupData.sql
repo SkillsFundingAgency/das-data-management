@@ -337,7 +337,7 @@ INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_App
 INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Wycombe', 'South Central','London and the South East')
 INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Wyre', 'Liverpool City Region  Cumbria and Lancashire','North')
 INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('Wyre Forest', 'West Midlands','Central')
-INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('York', 'Yorkshire and the Humber')
+INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('York', 'Yorkshire and the Humber','North')
 INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('London', 'London','London and the South East')
 INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) Values('South West', 'South West','South')
 

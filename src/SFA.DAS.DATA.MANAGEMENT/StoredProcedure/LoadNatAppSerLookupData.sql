@@ -674,8 +674,11 @@ BEGIN
                 WHEN Pst_GOR_Gov_Off_Desc = 'London' THEN 'London and the South East'
                 WHEN Pst_GOR_Gov_Off_Desc = 'South West' THEN 'South'
                 ELSE '?' END as National_Apprenticeship_Service_Division
-            From 
-             [lkp].[Pst_Local_Authority_20011_12_Format] as la)
+            From [lkp].[Pst_Local_Authority_20011_12_Format]  la 
+            LEFT JOIN [lkp].[Postcode_GeographicalAttributes] p
+            ON p.Pst_Local_Authority = la.Pst_LOCAL_AUTHORITY
+            LEFT JOIN [lkp].[Pst_GOR_20011_12_Format] gor
+             ON p.PST_GOR = gor.PST_GOR)
 
 COMMIT TRANSACTION
 END

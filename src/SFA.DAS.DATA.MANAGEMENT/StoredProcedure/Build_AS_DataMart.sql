@@ -54,3 +54,4 @@ EXEC [dbo].[PopulateDQ_TablesToExclude] @RunId
 
 EXEC [dbo].[AssignPermissionsToRoles] @RunId
 
+EXEC [dbo].[LoadNatAppSerLookupData] @RunId

@@ -23,5 +23,6 @@
 	[TrainingCourseVersionConfirmed]	[bit]				NULL,
 	[IsRetentionApplied]				[bit]				NULL,
 	[RetentionAppliedDate]				[datetime2](7)		NULL,
+	[ActualStartDate]					[datetime2](7)		NULL,
 	[AsDm_UpdatedDateTime] datetime2 default getdate()
 )

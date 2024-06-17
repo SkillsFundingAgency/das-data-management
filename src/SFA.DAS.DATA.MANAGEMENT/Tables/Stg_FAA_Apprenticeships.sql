@@ -18,6 +18,7 @@
  ,UnsuccessfulTimeStamp varchar(256)
  ,WithdrawnOrDeclinedReason nvarchar(max)
  ,UnsuccessfulReason nvarchar(max)
+ ,[Status] int
  ,RunId bigint  default(-1)
  ,AsDm_CreatedDate datetime2 default(getdate()) 
  ,AsDm_UpdatedDate datetime2 default(getdatE())

@@ -16,6 +16,7 @@
       ,UnsuccessfulReason nvarchar(max)
       ,SourceApprenticeshipId varchar(256)
       ,SourceDb varchar(100)
+      ,[Status] varchar(100)
 	  ,[AsDm_UpdatedDateTime]  [datetime2](7)						DEFAULT (getdate())
       ,Foreign Key (CandidateId)  References [AsData_PL].[Va_Candidate](CandidateId)
       ,Foreign Key (VacancyId) References [AsData_PL].[Va_Vacancy](VacancyId) 

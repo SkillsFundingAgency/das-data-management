@@ -49,6 +49,7 @@ INSERT INTO [ASData_PL].[Va_Apprenticeships]
            ,WithDrawnOrDeclinedReason 
            ,UnsuccessfulReason 
            ,SourceApprenticeshipId
+           ,[Status]
            ,SourceDb 
 		   )
 SELECT vc.CandidateId                                                  as CandidateId
@@ -65,6 +66,19 @@ SELECT vc.CandidateId                                                  as Candid
 	  ,WithdrawnOrDeclinedReason                                       as WithdrawnOrDeclinedReason
 	  ,UnsuccessfulReason                                              as UnsuccessfulReason
 	  ,FA.BinaryId                                                     as SourceApprenticeshipId
+    ,CASE 
+        WHEN FA.Status = 0 THEN 'Unknown'
+        WHEN FA.Status = 5 THEN 'Saved'
+        WHEN FA.Status = 10 THEN 'Draft'
+        WHEN FA.Status = 15 THEN 'ExpiredOrWithdrawn'
+        WHEN FA.Status = 20 THEN 'Submitting'
+        WHEN FA.Status = 30 THEN 'Submitted'
+        WHEN FA.Status = 40 THEN 'InProgress'
+        WHEN FA.Status = 80 THEN 'Successful'
+        WHEN FA.Status = 90 THEN 'Unsuccessful'
+        WHEN FA.Status = 100 THEN 'CandidateWithdrew'
+        ELSE 'Invalid Status Code'
+    END AS [Status]
 	  ,'RAAv2'                                                         as SourceDb
   FROM Stg.FAA_Apprenticeships FA
   LEFT

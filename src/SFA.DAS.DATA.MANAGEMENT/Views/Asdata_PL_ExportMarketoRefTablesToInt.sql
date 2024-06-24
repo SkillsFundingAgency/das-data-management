@@ -64,7 +64,7 @@ CTE_PartialRegBugAccounts AS (
         a.ApprenticeshipEmployerType <> 2 AND x.id IS NOT NULL
 )
 SELECT 
-    a.id AS AccountID,
+    a.HashedId AS AccountHashedID,
     a.[Name] AS Employer,
     au.email AS Email,
     CASE WHEN au.Email IS NOT NULL THEN 'Y' ELSE 'N' END AS [Stage1a_UserAccount],
@@ -102,7 +102,7 @@ SELECT
                 ELSE 1 
             END
         ) * 100.0 / 6.0
-    ) AS [RegPercentComplete]
+    ) AS [Reg%Complete]
 FROM 
     [ASData_PL].[Acc_Account] AS a
 LEFT JOIN 

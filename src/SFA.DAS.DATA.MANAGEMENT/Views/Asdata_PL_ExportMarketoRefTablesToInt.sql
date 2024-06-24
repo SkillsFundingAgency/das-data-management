@@ -121,5 +121,4 @@ WHERE
     ur.Role IN (1, 2) 
     AND prb.id IS NULL 
     AND au.Email NOT LIKE '%education.gov.uk'
-ORDER BY 
-    AccountID;
+;

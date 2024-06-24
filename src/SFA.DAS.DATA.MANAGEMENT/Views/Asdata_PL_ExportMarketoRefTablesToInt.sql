@@ -64,7 +64,7 @@ CTE_PartialRegBugAccounts AS (
         a.ApprenticeshipEmployerType <> 2 AND x.id IS NOT NULL
 )
 SELECT 
-    a.HashedId AS AccountHashedID,
+    a.Id AS AccountID,
     a.[Name] AS Employer,
     au.email AS Email,
     CASE WHEN au.Email IS NOT NULL THEN 'Y' ELSE 'N' END AS [Stage1a_UserAccount],

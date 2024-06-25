@@ -67,21 +67,21 @@ SELECT
     a.Id AS AccountID,
     a.[Name] AS Employer,
     au.email AS Email,
-    CASE WHEN au.Email IS NOT NULL THEN 1 ELSE 0 END AS [Stage1a_UserAccount],
-    CASE WHEN ur.Role IS NOT NULL THEN 1 ELSE 0 END AS [Stage1b_UserAccountRole],
-    CASE WHEN paye.[PayeAdded] IS NOT NULL THEN 1 ELSE 0 END AS [Stage2_PayeAdded],
+    CASE WHEN au.Email IS NOT NULL THEN 'True' ELSE 'False' END AS [Stage1a_UserAccount],
+    CASE WHEN ur.Role IS NOT NULL THEN 'True' ELSE 'False' END AS [Stage1b_UserAccountRole],
+    CASE WHEN paye.[PayeAdded] IS NOT NULL THEN 'True' ELSE 'False' END AS [Stage2_PayeAdded],
     CASE 
-        WHEN a.[NameConfirmed] = 0 THEN 0
-        WHEN a.[NameConfirmed] = 1 AND a.ApprenticeshipEmployerType = 2 THEN 0
-        WHEN a.[NameConfirmed] = 1 AND a.Name = 'MY ACCOUNT' THEN 0
-        WHEN a.[NameConfirmed] = 1 THEN 1 
-        ELSE 0 
+        WHEN a.[NameConfirmed] = 0 THEN 'False'
+        WHEN a.[NameConfirmed] = 1 AND a.ApprenticeshipEmployerType = 2 THEN 'False'
+        WHEN a.[NameConfirmed] = 1 AND a.Name = 'MY ACCOUNT' THEN 'False'
+        WHEN a.[NameConfirmed] = 1 THEN 'True' 
+        ELSE 'False' 
     END AS [Stage3_AccountNameConfirmed],
-    CASE WHEN ea.id IS NULL THEN 0 ELSE 1 END AS [Stage4_EmployerAgreementSigned],
+    CASE WHEN ea.id IS NULL THEN 'False' ELSE 'True' END AS [Stage4_EmployerAgreementSigned],
     CASE
-        WHEN a.AddTrainingProviderAcknowledged = 1 THEN 1
-        WHEN prov.AccountId IS NULL THEN 0
-        ELSE 1
+        WHEN a.AddTrainingProviderAcknowledged = 1 THEN 'True'
+        WHEN prov.AccountId IS NULL THEN 'False'
+        ELSE 'True'
     END AS [Stage5_ProviderAdded],
     (
         (

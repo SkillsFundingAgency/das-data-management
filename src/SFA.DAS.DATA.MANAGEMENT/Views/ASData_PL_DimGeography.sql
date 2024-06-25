@@ -4,8 +4,9 @@ SELECT
     p.Pst_Postcode AS Postcode -- Spine table doesn't appear to have all the countys (eg buckinghamshire)
             , pg.Pst_GOR AS [Government Office Region code] 
             , pg.Pst_GOR_Gov_Off_Desc AS [Government Office Region] 
-            , co.Pst_COUNTY AS [County code]
-            , co.Pst_COUNTY_Coun_Desc AS [County] 
+            , co.Pst_COUNTY AS [County_Council_Code]
+            , co.Pst_COUNTY_Coun_Desc AS [County_Council] 
+            , cnty.County AS County
             , pla.Pst_LOC_AUTH_TYPE AS [Local authority type code]
             , pla.Pst_LOC_AUTH_TYPE_Desc AS [Local authority type]
             , pla.Pst_LOCAL_AUTHORITY AS [Local authority code]
@@ -47,4 +48,5 @@ FROM [lkp].[Postcode_GeographicalAttributes] p
     ON la.[Pst_LOCAL_AUTHO_Desc] = na.[Pst_LOCAL_AUTHO_Desc]
 	LEFT JOIN [Stg].[Pst_latlong] ll
 	ON p.pst_postcode=ll.postcode 
-
+    LEFT JOIN [Stg].[Pst_County] cnty
+    ON  p.pst_postcode=cnty.postcode

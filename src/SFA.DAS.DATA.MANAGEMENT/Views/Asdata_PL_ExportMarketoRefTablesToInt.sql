@@ -1,5 +1,6 @@
 CREATE VIEW [AsData_PL].[ExportMarketoRefTablesToInt]
 As
+
 WITH CTE_EmployerAgreement AS (
     SELECT DISTINCT 
         a.id, 
@@ -84,7 +85,8 @@ SELECT
         ELSE 'True'
     END AS [Stage5_ProviderAdded],
     (
-        (
+        CAST(
+            (
             CASE WHEN au.Email IS NOT NULL THEN 1 ELSE 0 END +
             CASE WHEN ur.Role IS NOT NULL THEN 1 ELSE 0 END +
             CASE WHEN paye.[PayeAdded] IS NOT NULL THEN 1 ELSE 0 END +
@@ -101,8 +103,8 @@ SELECT
                 WHEN prov.AccountId IS NULL THEN 0 
                 ELSE 1 
             END
-        ) * 100.0 / 6.0
-    ) AS [Reg%Complete]
+        ) * 100.0 / 6.0 As Float
+        )    ) AS [Reg%Complete]
 FROM 
     [ASData_PL].[Acc_Account] AS a
 LEFT JOIN 

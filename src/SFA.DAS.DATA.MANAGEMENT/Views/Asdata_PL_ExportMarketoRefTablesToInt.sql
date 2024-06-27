@@ -68,21 +68,21 @@ SELECT
     a.Id AS AccountID,
     a.[Name] AS Employer,
     au.email AS Email,
-    CASE WHEN au.Email IS NOT NULL THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)  END AS [Stage1a_UserAccount],
-    CASE WHEN ur.Role IS NOT NULL THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)  END AS [Stage1b_UserAccountRole],
-    CASE WHEN paye.[PayeAdded] IS NOT NULL THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)  END AS [Stage2_PayeAdded],
+    CASE WHEN au.Email IS NOT NULL THEN 'true' ELSE 'false' END AS [Stage1a_UserAccount],
+    CASE WHEN ur.Role IS NOT NULL THEN 'true' ELSE 'false' END AS [Stage1b_UserAccountRole],
+    CASE WHEN paye.[PayeAdded] IS NOT NULL THEN 'true' ELSE 'false' END AS [Stage2_PayeAdded],
     CASE 
-        WHEN a.[NameConfirmed] = 0 THEN CAST(0 AS BIT) 
-        WHEN a.[NameConfirmed] = 1 AND a.ApprenticeshipEmployerType = 2 THEN CAST(0 AS BIT) 
-        WHEN a.[NameConfirmed] = 1 AND a.Name = 'MY ACCOUNT' THEN CAST(0 AS BIT) 
-        WHEN a.[NameConfirmed] = 1 THEN CAST(1 AS BIT)
-        ELSE CAST(0 AS BIT) 
+        WHEN a.[NameConfirmed] = 0 THEN 'false'
+        WHEN a.[NameConfirmed] = 1 AND a.ApprenticeshipEmployerType = 2 THEN 'false'
+        WHEN a.[NameConfirmed] = 1 AND a.Name = 'MY ACCOUNT' THEN 'false'
+        WHEN a.[NameConfirmed] = 1 THEN 'true' 
+        ELSE 'false' 
     END AS [Stage3_AccountNameConfirmed],
-    CASE WHEN ea.id IS NULL THEN CAST(0 AS BIT)  ELSE CAST(1 AS BIT) END AS [Stage4_EmployerAgreementSigned],
+    CASE WHEN ea.id IS NULL THEN 'false' ELSE 'true' END AS [Stage4_EmployerAgreementSigned],
     CASE
-        WHEN a.AddTrainingProviderAcknowledged = 1 THEN CAST(1 AS BIT)
-        WHEN prov.AccountId IS NULL THEN CAST(0 AS BIT) 
-        ELSE CAST(1 AS BIT)
+        WHEN a.AddTrainingProviderAcknowledged = 1 THEN 'true'
+        WHEN prov.AccountId IS NULL THEN 'false' 
+        ELSE 'true' 
     END AS [Stage5_ProviderAdded],
     (
         CAST(

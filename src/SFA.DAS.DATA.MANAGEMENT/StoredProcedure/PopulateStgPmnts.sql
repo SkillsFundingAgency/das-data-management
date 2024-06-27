@@ -34,10 +34,10 @@ BEGIN TRANSACTION
 DELETE FROM [Mgmt].[Config_StgPmnts]
 
 INSERT INTO [Mgmt].[Config_StgPmnts]
-           (SourceDBName, SourceTable, DestTable, LoadType, WhereClause)
+           (SourceDBName, SourceTable, DestSchema, DestTable, LoadType, WhereClause)
      VALUES	
-('DASPayments','[Payments2].[Apprenticeship]','[StgPmts].[Apprenticeship]','Full','')
-,('DASPayments','[Payments2].[ApprenticeshipPause]','[StgPmts].[Apprenticeship]','Full','')
+('DASPayments','[Payments2].[Apprenticeship]','[StgPmts]','[Apprenticeship]','Full','')
+,('DASPayments','[Payments2].[ApprenticeshipPause]','[StgPmts]','[Apprenticeship]','Full','')
 /*,('DASPayments','[Payments2].[ApprenticeshipPriceEpisode]','[StgPmts].[Apprenticeship]','Full','')
 ,('DASPayments','[Payments2].[ApprenticeshipStatus]','[StgPmts].[Apprenticeship]','Full','')
 ,('DASPayments','[Payments2].[EmployerProviderPriority]','[StgPmts].[Apprenticeship]','Full','')

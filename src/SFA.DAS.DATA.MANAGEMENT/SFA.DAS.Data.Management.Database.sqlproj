@@ -343,6 +343,7 @@
     <Build Include="Tables\Management_DQ_Checks.sql" />
     <Build Include="Tables\Management_StgPmts.sql" />
     <Build Include="StoredProcedure\PopulateMetadataDataRetention.sql" />
+    <Build Include="StoredProcedure\PopulateStgPmnts.sql" />
     <Build Include="StoredProcedure\UpdateRetentionData.sql" />
     <Build Include="StoredProcedure\DQ_CheckEmptyPLTables.sql" />
     <Build Include="StoredProcedure\LogDQCheckStatus.sql" />

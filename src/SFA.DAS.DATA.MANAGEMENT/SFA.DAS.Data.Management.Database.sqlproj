@@ -119,6 +119,15 @@
     <Build Include="Tables\StgPmts_Payment.sql" />
     <Build Include="Tables\StgPmts_ProviderAdjustmentPayments.sql" />
     <Build Include="Tables\StgPmts_RequiredPaymentEvent.sql" />
+    <Build Include="Tables\StgPmts_stg_DataLockEvent.sql" />
+    <Build Include="Tables\StgPmts_stg_DataLockEventNonPayablePeriod.sql" />
+    <Build Include="Tables\StgPmts_stg_DataLockEventNonPayablePeriodFailures.sql" />
+    <Build Include="Tables\StgPmts_stg_EarningEvent.sql" />
+    <Build Include="Tables\StgPmts_stg_EarningEventPriceEpisode.sql" />
+    <Build Include="Tables\StgPmts_stg_Job.sql" />
+    <Build Include="Tables\StgPmts_stg_Payment.sql" />
+    <Build Include="Tables\StgPmts_stg_ProviderAdjustmentPayments.sql" />
+    <Build Include="Tables\StgPmts_stg_RequiredPaymentEvent.sql" />
     <Build Include="Tables\AsDataPL_DimDate.sql" />
     <Build Include="Tables\StgPmts_SubmittedLearnerAim.sql" />
     <Build Include="Schemas\StgPmts.sql" />

@@ -41,12 +41,12 @@ INSERT INTO [Mgmt].[Config_StgPmnts]
 ,('DASPayments','[Payments2].[ApprenticeshipPriceEpisode]','StgPmts','ApprenticeshipPriceEpisode','Full','')
 ,('DASPayments','[Payments2].[ApprenticeshipStatus]','StgPmts','ApprenticeshipStatus','Full','')
 ,('DASPayments','[Payments2].[EmployerProviderPriority]','StgPmts','EmployerProviderPriority','Full','')
-,('DASPayments','[Payments2].[Job]','StgPmts','Job','Incremental','where AcademicYear = ParamAcademicYear and collectionPeriod = ParamCollectionPeriod')
+,('DASPayments','[Payments2].[Job]','StgPmts','stg_Job','Incremental','where AcademicYear = ParamAcademicYear and collectionPeriod = ParamCollectionPeriod')
 ,('DASPayments','[Payments2].[JobStatus]','StgPmts','JobStatus','Full','')
 ,('DASPayments','[Payments2].[JobType]','StgPmts','JobType','Full','')
 ,('DASPayments','[Payments2].[LevyAccount]','StgPmts','LevyAccount','Full','')
-,('DASPayments','[Payments2].[Payment]','StgPmts','Payment','Incremental','where AcademicYear = ParamAcademicYear and collectionPeriod = ParamCollectionPeriod')
-,('DASPayments','[Payments2].[ProviderAdjustmentPayments]','StgPmts','ProviderAdjustmentPayments','Incremental','where AcademicYear = ParamAcademicYear and collectionPeriod = ParamCollectionPeriod')
+,('DASPayments','[Payments2].[Payment]','StgPmts','stg_Payment','Incremental','where AcademicYear = ParamAcademicYear and collectionPeriod = ParamCollectionPeriod')
+,('DASPayments','[Payments2].[ProviderAdjustmentPayments]','StgPmts','stg_ProviderAdjustmentPayments','Incremental','where AcademicYear = ParamAcademicYear and collectionPeriod = ParamCollectionPeriod')
 ,('DASPayments','[Payments2].[SubmittedLearnerAim]','StgPmts','SubmittedLearnerAim','Full','')
 
 

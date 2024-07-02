@@ -48,8 +48,14 @@ INSERT INTO [Mgmt].[Config_StgPmnts]
 ,('DASPayments','[Payments2].[Payment]','StgPmts','stg_Payment','Incremental','where AcademicYear = ParamAcademicYear and collectionPeriod = ParamCollectionPeriod','Id,EventId,EarningEventId,FundingSourceEventId,EventTime,JobId,DeliveryPeriod,CollectionPeriod,AcademicYear,Ukprn,LearnerReferenceNumber,LearningAimSequenceNumber,LearnerUln,PriceEpisodeIdentifier,Amount,LearningAimReference,LearningAimProgrammeType,LearningAimStandardCode,LearningAimFrameworkCode,LearningAimPathwayCode,LearningAimFundingLineType,ContractType,TransactionType,FundingSource,IlrSubmissionDateTime,SfaContributionPercentage,AgreementId,AccountId,TransferSenderAccountId,CreationDate,EarningsStartDate,EarningsPlannedEndDate,EarningsActualEndDate,EarningsCompletionStatus,EarningsCompletionAmount,EarningsInstalmentAmount,EarningsNumberOfInstalments,LearningStartDate,ApprenticeshipId,ApprenticeshipPriceEpisodeId,ApprenticeshipEmployerType,ReportingAimFundingLineType,NonPaymentReason,DuplicateNumber')
 ,('DASPayments','[Payments2].[ProviderAdjustmentPayments]','StgPmts','stg_ProviderAdjustmentPayments','Incremental','WHERE CollectionPeriodName= CONCAT(''2324'',''-R'',RIGHT(''00''+''11'',2))','Ukprn,SubmissionId,SubmissionCollectionPeriod,SubmissionAcademicYear,PaymentType,PaymentTypeName,Amount,CollectionPeriodName,CollectionPeriodMonth,CollectionPeriodYear')
 ,('DASPayments','[Payments2].[SubmittedLearnerAim]','StgPmts','SubmittedLearnerAim','Full','','Id,Ukprn,LearnerReferenceNumber,LearningAimFrameworkCode,LearningAimPathwayCode,LearningAimProgrammeType,LearningAimStandardCode,LearningAimReference,CollectionPeriod,AcademicYear,IlrSubmissionDateTime,CreationDate,LearnerUln,JobId,ContractType')
+,('DASPayments_Audit','[Payments2].[DataLockEvent]','StgPmts','stg_DataLockEvent','Incremental','where AcademicYear = ParamAcademicYear and collectionPeriod = ParamCollectionPeriod','')
+,('DASPayments_Audit','[Payments2].[DataLockEventNonPayablePeriod]','StgPmts','stg_DataLockEventNonPayablePeriod','Incremental','where AcademicYear = ParamAcademicYear and collectionPeriod = ParamCollectionPeriod','')
 
+,('DASPayments_Audit','[Payments2].[DataLockEventNonPayablePeriodFailures]','StgPmts','stg_DataLockEventNonPayablePeriodFailures','Incremental','where AcademicYear = ParamAcademicYear and collectionPeriod = ParamCollectionPeriod','')
+,('DASPayments_Audit','[Payments2].[DataLockEventPriceEpisode]','StgPmts','DataLockEventPriceEpisode','Full','','')
 
+,('DASPayments_Audit','[Payments2].[DataLockEvent]','StgPmts','stg_DataLockEvent','Incremental','where AcademicYear = ParamAcademicYear and collectionPeriod = ParamCollectionPeriod','')
+,('DASPayments_Audit','[Payments2].[DataLockEvent]','StgPmts','stg_DataLockEvent','Incremental','where AcademicYear = ParamAcademicYear and collectionPeriod = ParamCollectionPeriod','')
 
 
 COMMIT TRANSACTION

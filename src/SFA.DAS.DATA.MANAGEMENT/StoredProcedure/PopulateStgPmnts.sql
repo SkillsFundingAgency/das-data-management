@@ -40,7 +40,7 @@ INSERT INTO [Mgmt].[Config_StgPmnts]
 ,('DASPayments','[Payments2].[ApprenticeshipPause]','StgPmts','ApprenticeshipPause','Full','','Id,ApprenticeshipId,PauseDate,ResumeDate')
 ,('DASPayments','[Payments2].[ApprenticeshipPriceEpisode]','StgPmts','ApprenticeshipPriceEpisode','Full','','Id,ApprenticeshipId,StartDate,EndDate,Cost,Removed,CreationDate')
 ,('DASPayments','[Payments2].[ApprenticeshipStatus]','StgPmts','ApprenticeshipStatus','Full','','Id,Description')
-,('DASPayments','[Payments2].[EmployerProviderPriority]','StgPmts','EmployerProviderPriority','Full','','Id,EmployerAccountId,Ukprn,Order')
+,('DASPayments','[Payments2].[EmployerProviderPriority]','StgPmts','EmployerProviderPriority','Full','','Id,EmployerAccountId,Ukprn,[Order]')
 ,('DASPayments','[Payments2].[Job]','StgPmts','stg_Job','Incremental','where AcademicYear = ParamAcademicYear and collectionPeriod = ParamCollectionPeriod','JobId,JobType,StartTime,EndTime,Status,CreationDate,DCJobId,Ukprn,IlrSubmissionTime,LearnerCount,AcademicYear,CollectionPeriod,DataLocksCompletionTime,DCJobSucceeded,DCJobEndTime')
 ,('DASPayments','[Payments2].[JobStatus]','StgPmts','JobStatus','Full','','Id,Description')
 ,('DASPayments','[Payments2].[JobType]','StgPmts','JobType','Full','','Id,Description')

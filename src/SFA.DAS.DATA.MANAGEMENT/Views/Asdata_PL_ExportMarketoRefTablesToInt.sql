@@ -66,7 +66,6 @@ CTE_PartialRegBugAccounts AS (
 )
 SELECT 
     a.Id AS AccountID,
-    '' AS Name,
     a.[Name] AS Employer,
     au.email AS Email,
     CASE WHEN au.Email IS NOT NULL THEN 'true' ELSE 'false' END AS [Stage1a_UserAccount],

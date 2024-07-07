@@ -21,7 +21,7 @@ BEGIN
             StartDateTime,
             Execution_Status
         )
-        OUTPUT INSERTED.LogID INTO @LogID
+        
         SELECT 
             @RunId,
             'Step-3',

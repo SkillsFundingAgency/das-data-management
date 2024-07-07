@@ -20,14 +20,17 @@ BEGIN
             StoredProcedureName,
             StartDateTime,
             Execution_Status
-        )
-        OUTPUT INSERTED.LogID INTO @LogID
+        )        
         SELECT 
             @RunId,
             'Step-3',
-            'PopulateStgPmnts',
+            'StgPmtsImportJob',
             GETDATE(),
             0;
+
+        SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
+        WHERE StoredProcedureName='StgPmtsImportJob'
+        AND RunId=@RunId;
 
         -- Delete existing data
         DELETE FROM [StgPmts].[Job]
@@ -106,7 +109,7 @@ BEGIN
             ERROR_STATE(),
             ERROR_SEVERITY(),
             ERROR_LINE(),
-            'PopulateStgPmnts',
+            'StgPmtsImportJob',
             ERROR_MESSAGE(),
             GETDATE(),
             @RunId;

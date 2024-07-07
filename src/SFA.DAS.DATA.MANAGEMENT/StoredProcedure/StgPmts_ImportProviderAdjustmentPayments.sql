@@ -36,8 +36,7 @@ BEGIN
 
         -- Delete existing data
         DELETE FROM [StgPmts].[ProviderAdjustmentPayments]
-        WHERE [SubmissionAcademicYear] = @SubmissionAcademicYear
-          AND [SubmissionCollectionPeriod] = @SubmissionCollectionPeriod;
+        WHERE CollectionPeriodName= CONCAT(CONVERT(varchar(10), @AcademicYear),'-R',RIGHT('00'+CONVERT(varchar(10), @CollectionPeriod),2));
 
         -- Insert data from StgPmts.stg_ProviderAdjustmentPayments
         INSERT INTO [StgPmts].[ProviderAdjustmentPayments] (

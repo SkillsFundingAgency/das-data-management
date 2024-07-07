@@ -1,6 +1,5 @@
-﻿CREATE PROCEDURE [StgPmts].[ImportJob]
-    @AcademicYear SMALLINT,
-    @CollectionPeriod SMALLINT,
+﻿CREATE PROCEDURE [StgPmts].[ImportEarningEventPeriod]
+    @EarningEventId UNIQUEIDENTIFIER,
     @RunId INT
 AS
 BEGIN
@@ -20,60 +19,47 @@ BEGIN
             StoredProcedureName,
             StartDateTime,
             Execution_Status
-        )        
+        )
         SELECT 
             @RunId,
             'Step-3',
-            'StgPmtsImportJob',
+            'StgPmtsImportEarningEventPeriod',
             GETDATE(),
             0;
 
-        SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
-        WHERE StoredProcedureName='StgPmtsImportJob'
-        AND RunId=@RunId;
+        SELECT @LogID = MAX(LogId) 
+        FROM Mgmt.Log_Execution_Results
+        WHERE StoredProcedureName = 'StgPmtsImportEarningEventPeriod'
+        AND RunId = @RunId;
 
         -- Delete existing data
-        DELETE FROM [StgPmts].[Job]
-        WHERE [AcademicYear] = @AcademicYear
-          AND [CollectionPeriod] = @CollectionPeriod;
+        DELETE FROM [StgPmts].[EarningEventPeriod]
+        WHERE [EarningEventId] = @EarningEventId;
 
-        -- Insert data from StgPmts.stg_Job
-        INSERT INTO [StgPmts].[Job] (
-            [JobId],
-            [JobType],
-            [StartTime],
-            [EndTime],
-            [Status],
+        -- Insert data from StgPmts.stg_EarningEventPeriod
+        INSERT INTO [StgPmts].[EarningEventPeriod] (
+            [Id],
+            [EarningEventId],
+            [PriceEpisodeIdentifier],
+            [TransactionType],
+            [DeliveryPeriod],
+            [Amount],
+            [SfaContributionPercentage],
             [CreationDate],
-            [DCJobId],
-            [Ukprn],
-            [IlrSubmissionTime],
-            [LearnerCount],
-            [AcademicYear],
-            [CollectionPeriod],
-            [DataLocksCompletionTime],
-            [DCJobSucceeded],
-            [DCJobEndTime]
+            [CensusDate]
         )
         SELECT 
-            [JobId],
-            [JobType],
-            [StartTime],
-            [EndTime],
-            [Status],
+            [Id],
+            [EarningEventId],
+            [PriceEpisodeIdentifier],
+            [TransactionType],
+            [DeliveryPeriod],
+            [Amount],
+            [SfaContributionPercentage],
             [CreationDate],
-            [DCJobId],
-            [Ukprn],
-            [IlrSubmissionTime],
-            [LearnerCount],
-            [AcademicYear],
-            [CollectionPeriod],
-            [DataLocksCompletionTime],
-            [DCJobSucceeded],
-            [DCJobEndTime]
-        FROM [StgPmts].[stg_Job]
-        WHERE [AcademicYear] = @AcademicYear
-          AND [CollectionPeriod] = @CollectionPeriod;
+            [CensusDate]
+        FROM [StgPmts].[stg_EarningEventPeriod]
+        WHERE [EarningEventId] = @EarningEventId;
 
         COMMIT TRANSACTION;
 
@@ -109,7 +95,7 @@ BEGIN
             ERROR_STATE(),
             ERROR_SEVERITY(),
             ERROR_LINE(),
-            'StgPmtsImportJob',
+            'StgPmtsImportEarningEventPeriod',
             ERROR_MESSAGE(),
             GETDATE(),
             @RunId;

@@ -1,6 +1,6 @@
-﻿CREATE PROCEDURE [StgPmts].[ImportPayment]
+﻿CREATE PROCEDURE [StgPmts].[ImportRequiredPaymentEvent]
     @AcademicYear SMALLINT,
-    @CollectionPeriod SMALLINT,
+    @CollectionPeriod TINYINT,
     @RunId INT
 AS
 BEGIN
@@ -20,52 +20,51 @@ BEGIN
             StoredProcedureName,
             StartDateTime,
             Execution_Status
-        )        
+        )
         SELECT 
             @RunId,
             'Step-3',
-            'StgPmtsImportPayment',
+            'StgPmtsImportRequiredPaymentEvent',
             GETDATE(),
             0;
 
-        SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
-        WHERE StoredProcedureName='StgPmtsImportPayment'
-        AND RunId=@RunId;
+        SELECT @LogID = MAX(LogId) 
+        FROM Mgmt.Log_Execution_Results
+        WHERE StoredProcedureName = 'StgPmtsImportRequiredPaymentEvent'
+        AND RunId = @RunId;
 
         -- Delete existing data
-        DELETE FROM [StgPmts].[Payment]
+        DELETE FROM [StgPmts].[RequiredPaymentEvent]
         WHERE [AcademicYear] = @AcademicYear
           AND [CollectionPeriod] = @CollectionPeriod;
 
-        -- Insert data from StgPmts.stg_Payment
-        INSERT INTO [StgPmts].[Payment] (
+        -- Insert data from StgPmts.stg_RequiredPaymentEvent
+        INSERT INTO [StgPmts].[RequiredPaymentEvent] (
             [Id],
             [EventId],
             [EarningEventId],
-            [FundingSourceEventId],
-            [EventTime],
-            [JobId],
-            [DeliveryPeriod],
+            [ClawbackSourcePaymentEventId],
+            [PriceEpisodeIdentifier],
+            [Ukprn],
+            [ContractType],
+            [TransactionType],
+            [SfaContributionPercentage],
+            [Amount],
             [CollectionPeriod],
             [AcademicYear],
-            [Ukprn],
+            [DeliveryPeriod],
             [LearnerReferenceNumber],
-            [LearningAimSequenceNumber],
             [LearnerUln],
-            [PriceEpisodeIdentifier],
-            [Amount],
             [LearningAimReference],
             [LearningAimProgrammeType],
             [LearningAimStandardCode],
             [LearningAimFrameworkCode],
             [LearningAimPathwayCode],
             [LearningAimFundingLineType],
-            [ContractType],
-            [TransactionType],
-            [FundingSource],
-            [IlrSubmissionDateTime],
-            [SfaContributionPercentage],
             [AgreementId],
+            [IlrSubmissionDateTime],
+            [JobId],
+            [EventTime],
             [AccountId],
             [TransferSenderAccountId],
             [CreationDate],
@@ -80,38 +79,36 @@ BEGIN
             [ApprenticeshipId],
             [ApprenticeshipPriceEpisodeId],
             [ApprenticeshipEmployerType],
-            [ReportingAimFundingLineType],
             [NonPaymentReason],
+            [EventType],
             [DuplicateNumber]
         )
         SELECT 
             [Id],
             [EventId],
             [EarningEventId],
-            [FundingSourceEventId],
-            [EventTime],
-            [JobId],
-            [DeliveryPeriod],
+            [ClawbackSourcePaymentEventId],
+            [PriceEpisodeIdentifier],
+            [Ukprn],
+            [ContractType],
+            [TransactionType],
+            [SfaContributionPercentage],
+            [Amount],
             [CollectionPeriod],
             [AcademicYear],
-            [Ukprn],
+            [DeliveryPeriod],
             [LearnerReferenceNumber],
-            [LearningAimSequenceNumber],
             [LearnerUln],
-            [PriceEpisodeIdentifier],
-            [Amount],
             [LearningAimReference],
             [LearningAimProgrammeType],
             [LearningAimStandardCode],
             [LearningAimFrameworkCode],
             [LearningAimPathwayCode],
             [LearningAimFundingLineType],
-            [ContractType],
-            [TransactionType],
-            [FundingSource],
-            [IlrSubmissionDateTime],
-            [SfaContributionPercentage],
             [AgreementId],
+            [IlrSubmissionDateTime],
+            [JobId],
+            [EventTime],
             [AccountId],
             [TransferSenderAccountId],
             [CreationDate],
@@ -126,10 +123,10 @@ BEGIN
             [ApprenticeshipId],
             [ApprenticeshipPriceEpisodeId],
             [ApprenticeshipEmployerType],
-            [ReportingAimFundingLineType],
             [NonPaymentReason],
+            [EventType],
             [DuplicateNumber]
-        FROM [StgPmts].[stg_Payment]
+        FROM [StgPmts].[stg_RequiredPaymentEvent]
         WHERE [AcademicYear] = @AcademicYear
           AND [CollectionPeriod] = @CollectionPeriod;
 
@@ -167,7 +164,7 @@ BEGIN
             ERROR_STATE(),
             ERROR_SEVERITY(),
             ERROR_LINE(),
-            'StgPmtsImportPayment',
+            'StgPmtsImportRequiredPaymentEvent',
             ERROR_MESSAGE(),
             GETDATE(),
             @RunId;

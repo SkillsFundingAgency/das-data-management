@@ -1,6 +1,6 @@
-﻿CREATE PROCEDURE [StgPmts].[ImportPayment]
+﻿CREATE PROCEDURE [StgPmts].[ImportEarningEvent]
     @AcademicYear SMALLINT,
-    @CollectionPeriod SMALLINT,
+    @CollectionPeriod TINYINT,
     @RunId INT
 AS
 BEGIN
@@ -20,116 +20,77 @@ BEGIN
             StoredProcedureName,
             StartDateTime,
             Execution_Status
-        )        
+        )
         SELECT 
             @RunId,
             'Step-3',
-            'StgPmtsImportPayment',
+            'StgPmtsImportEarningEvent',
             GETDATE(),
             0;
 
-        SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
-        WHERE StoredProcedureName='StgPmtsImportPayment'
-        AND RunId=@RunId;
+        SELECT @LogID = MAX(LogId) 
+        FROM Mgmt.Log_Execution_Results
+        WHERE StoredProcedureName = 'StgPmtsImportEarningEvent'
+        AND RunId = @RunId;
 
         -- Delete existing data
-        DELETE FROM [StgPmts].[Payment]
+        DELETE FROM [StgPmts].[EarningEvent]
         WHERE [AcademicYear] = @AcademicYear
           AND [CollectionPeriod] = @CollectionPeriod;
 
-        -- Insert data from StgPmts.stg_Payment
-        INSERT INTO [StgPmts].[Payment] (
+        -- Insert data from StgPmts.stg_EarningEvent
+        INSERT INTO [StgPmts].[EarningEvent] (
             [Id],
             [EventId],
-            [EarningEventId],
-            [FundingSourceEventId],
-            [EventTime],
-            [JobId],
-            [DeliveryPeriod],
+            [Ukprn],
+            [ContractType],
             [CollectionPeriod],
             [AcademicYear],
-            [Ukprn],
             [LearnerReferenceNumber],
-            [LearningAimSequenceNumber],
             [LearnerUln],
-            [PriceEpisodeIdentifier],
-            [Amount],
             [LearningAimReference],
             [LearningAimProgrammeType],
             [LearningAimStandardCode],
             [LearningAimFrameworkCode],
             [LearningAimPathwayCode],
             [LearningAimFundingLineType],
-            [ContractType],
-            [TransactionType],
-            [FundingSource],
-            [IlrSubmissionDateTime],
-            [SfaContributionPercentage],
-            [AgreementId],
-            [AccountId],
-            [TransferSenderAccountId],
-            [CreationDate],
-            [EarningsStartDate],
-            [EarningsPlannedEndDate],
-            [EarningsActualEndDate],
-            [EarningsCompletionStatus],
-            [EarningsCompletionAmount],
-            [EarningsInstalmentAmount],
-            [EarningsNumberOfInstalments],
             [LearningStartDate],
-            [ApprenticeshipId],
-            [ApprenticeshipPriceEpisodeId],
-            [ApprenticeshipEmployerType],
-            [ReportingAimFundingLineType],
-            [NonPaymentReason],
-            [DuplicateNumber]
+            [AgreementId],
+            [IlrSubmissionDateTime],
+            [JobId],
+            [EventTime],
+            [CreationDate],
+            [LearningAimSequenceNumber],
+            [SfaContributionPercentage],
+            [IlrFileName],
+            [EventType]
         )
         SELECT 
             [Id],
             [EventId],
-            [EarningEventId],
-            [FundingSourceEventId],
-            [EventTime],
-            [JobId],
-            [DeliveryPeriod],
+            [Ukprn],
+            [ContractType],
             [CollectionPeriod],
             [AcademicYear],
-            [Ukprn],
             [LearnerReferenceNumber],
-            [LearningAimSequenceNumber],
             [LearnerUln],
-            [PriceEpisodeIdentifier],
-            [Amount],
             [LearningAimReference],
             [LearningAimProgrammeType],
             [LearningAimStandardCode],
             [LearningAimFrameworkCode],
             [LearningAimPathwayCode],
             [LearningAimFundingLineType],
-            [ContractType],
-            [TransactionType],
-            [FundingSource],
-            [IlrSubmissionDateTime],
-            [SfaContributionPercentage],
-            [AgreementId],
-            [AccountId],
-            [TransferSenderAccountId],
-            [CreationDate],
-            [EarningsStartDate],
-            [EarningsPlannedEndDate],
-            [EarningsActualEndDate],
-            [EarningsCompletionStatus],
-            [EarningsCompletionAmount],
-            [EarningsInstalmentAmount],
-            [EarningsNumberOfInstalments],
             [LearningStartDate],
-            [ApprenticeshipId],
-            [ApprenticeshipPriceEpisodeId],
-            [ApprenticeshipEmployerType],
-            [ReportingAimFundingLineType],
-            [NonPaymentReason],
-            [DuplicateNumber]
-        FROM [StgPmts].[stg_Payment]
+            [AgreementId],
+            [IlrSubmissionDateTime],
+            [JobId],
+            [EventTime],
+            [CreationDate],
+            [LearningAimSequenceNumber],
+            [SfaContributionPercentage],
+            [IlrFileName],
+            [EventType]
+        FROM [StgPmts].[stg_EarningEvent]
         WHERE [AcademicYear] = @AcademicYear
           AND [CollectionPeriod] = @CollectionPeriod;
 
@@ -167,7 +128,7 @@ BEGIN
             ERROR_STATE(),
             ERROR_SEVERITY(),
             ERROR_LINE(),
-            'StgPmtsImportPayment',
+            'StgPmtsImportEarningEvent',
             ERROR_MESSAGE(),
             GETDATE(),
             @RunId;

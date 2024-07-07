@@ -353,6 +353,13 @@
     <Build Include="StoredProcedure\DQ_Master.sql" />
     <Build Include="StoredProcedure\StgPmts_ImportJob.sql" />
     <Build Include="StoredProcedure\StgPmts_ImportPayment.sql" />
+    <Build Include="StoredProcedure\StgPmts_ImportDataLockEvent.sql" />
+    <Build Include="StoredProcedure\StgPmts_ImportDataLockEventNonPayablePeriod.sql" />
+    <Build Include="StoredProcedure\StgPmts_ImportDataLockEventNonPayablePeriodFailures.sql" />
+    <Build Include="StoredProcedure\StgPmts_ImportEarningEvent.sql" />
+    <Build Include="StoredProcedure\StgPmts_ImportEarningEventPeriod.sql" />
+    <Build Include="StoredProcedure\StgPmts_ImportProviderAdjustmentPayments.sql" />
+    <Build Include="StoredProcedure\StgPmts_ImportRequiredPaymentEvent.sql" />
     <Build Include="Tables\AsDataPL_aComt_Apprentice.sql" />
     <Build Include="Tables\AsDataPL_aComt_Apprenticeship.sql" />
     <Build Include="Tables\AsDataPL_aComt_Revision.sql" />

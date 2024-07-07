@@ -1,6 +1,6 @@
 ﻿CREATE PROCEDURE [StgPmts].[ImportDataLockEvent]
     @AcademicYear SMALLINT,
-    @CollectionPeriod TINYINT,
+    @CollectionPeriod SMALLINT,
     @RunId INT
 AS
 BEGIN

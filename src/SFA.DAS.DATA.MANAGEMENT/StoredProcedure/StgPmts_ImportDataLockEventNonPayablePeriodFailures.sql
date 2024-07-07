@@ -1,6 +1,6 @@
-﻿CREATE PROCEDURE [StgPmts].[ImportJob]
+﻿CREATE PROCEDURE [StgPmts].[ImportDataLockEventNonPayablePeriodFailures]
     @AcademicYear SMALLINT,
-    @CollectionPeriod SMALLINT,
+    @CollectionPeriod TINYINT,
     @RunId INT
 AS
 BEGIN
@@ -20,58 +20,43 @@ BEGIN
             StoredProcedureName,
             StartDateTime,
             Execution_Status
-        )        
+        )
+
         SELECT 
             @RunId,
             'Step-3',
-            'StgPmtsImportJob',
+            'StgPmtsImportDataLockEventNonPayablePeriodFailures',
             GETDATE(),
             0;
-
+        
         SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
-        WHERE StoredProcedureName='StgPmtsImportJob'
+        WHERE StoredProcedureName='StgPmtsImportDataLockEventNonPayablePeriodFailures'
         AND RunId=@RunId;
 
         -- Delete existing data
-        DELETE FROM [StgPmts].[Job]
+        DELETE FROM [StgPmts].[DataLockEventNonPayablePeriodFailures]
         WHERE [AcademicYear] = @AcademicYear
           AND [CollectionPeriod] = @CollectionPeriod;
 
-        -- Insert data from StgPmts.stg_Job
-        INSERT INTO [StgPmts].[Job] (
-            [JobId],
-            [JobType],
-            [StartTime],
-            [EndTime],
-            [Status],
+        -- Insert data from StgPmts.stg_DataLockEventNonPayablePeriodFailures
+        INSERT INTO [StgPmts].[DataLockEventNonPayablePeriodFailures] (
+            [Id],
+            [DataLockEventNonPayablePeriodId],
+            [DataLockFailureId],
             [CreationDate],
-            [DCJobId],
-            [Ukprn],
-            [IlrSubmissionTime],
-            [LearnerCount],
+            [ApprenticeshipId],
             [AcademicYear],
-            [CollectionPeriod],
-            [DataLocksCompletionTime],
-            [DCJobSucceeded],
-            [DCJobEndTime]
+            [CollectionPeriod]
         )
         SELECT 
-            [JobId],
-            [JobType],
-            [StartTime],
-            [EndTime],
-            [Status],
+            [Id],
+            [DataLockEventNonPayablePeriodId],
+            [DataLockFailureId],
             [CreationDate],
-            [DCJobId],
-            [Ukprn],
-            [IlrSubmissionTime],
-            [LearnerCount],
+            [ApprenticeshipId],
             [AcademicYear],
-            [CollectionPeriod],
-            [DataLocksCompletionTime],
-            [DCJobSucceeded],
-            [DCJobEndTime]
-        FROM [StgPmts].[stg_Job]
+            [CollectionPeriod]
+        FROM [StgPmts].[stg_DataLockEventNonPayablePeriodFailures]
         WHERE [AcademicYear] = @AcademicYear
           AND [CollectionPeriod] = @CollectionPeriod;
 
@@ -109,7 +94,7 @@ BEGIN
             ERROR_STATE(),
             ERROR_SEVERITY(),
             ERROR_LINE(),
-            'StgPmtsImportJob',
+            'StgPmtsImportDataLockEventNonPayablePeriodFailures',
             ERROR_MESSAGE(),
             GETDATE(),
             @RunId;

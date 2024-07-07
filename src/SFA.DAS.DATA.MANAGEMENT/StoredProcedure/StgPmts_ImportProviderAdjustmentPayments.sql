@@ -1,6 +1,6 @@
 ﻿CREATE PROCEDURE [StgPmts].[ImportProviderAdjustmentPayments]
-    @SubmissionAcademicYear INT,
-    @SubmissionCollectionPeriod INT,
+    @AcademicYear SMALLINT,
+    @CollectionPeriod SMALLINT,
     @RunId INT
 AS
 BEGIN
@@ -21,7 +21,7 @@ BEGIN
             StartDateTime,
             Execution_Status
         )
-        
+
         SELECT 
             @RunId,
             'Step-3',
@@ -64,8 +64,7 @@ BEGIN
             [CollectionPeriodMonth],
             [CollectionPeriodYear]
         FROM [StgPmts].[stg_ProviderAdjustmentPayments]
-        WHERE [SubmissionAcademicYear] = @SubmissionAcademicYear
-          AND [SubmissionCollectionPeriod] = @SubmissionCollectionPeriod;
+        WHERE CollectionPeriodName= CONCAT(CONVERT(varchar(10), @AcademicYear),'-R',RIGHT('00'+CONVERT(varchar(10), @CollectionPeriod),2))
 
         COMMIT TRANSACTION;
 

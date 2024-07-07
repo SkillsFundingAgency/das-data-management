@@ -5,5 +5,6 @@
 	DestTable NVARCHAR(200),
     LoadType NVARCHAR(20),  -- 'Full' or 'Incremental'
     WhereClause NVARCHAR(1000),
-	ColumnsToInclude VARCHAR(MAX)
+	ColumnsToInclude VARCHAR(MAX),
+	MergeStoredProcedure NVARCHAR(200)
 	)

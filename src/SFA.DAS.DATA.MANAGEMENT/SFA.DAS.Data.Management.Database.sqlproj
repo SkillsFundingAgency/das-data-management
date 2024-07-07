@@ -352,6 +352,7 @@
     <Build Include="StoredProcedure\DQ_CheckNonDateBasedMarketoImportStatus.sql" />
     <Build Include="StoredProcedure\DQ_Master.sql" />
     <Build Include="StoredProcedure\StgPmts_ImportJob.sql" />
+    <Build Include="StoredProcedure\StgPmts_ImportPayment.sql" />
     <Build Include="Tables\AsDataPL_aComt_Apprentice.sql" />
     <Build Include="Tables\AsDataPL_aComt_Apprenticeship.sql" />
     <Build Include="Tables\AsDataPL_aComt_Revision.sql" />

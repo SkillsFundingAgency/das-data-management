@@ -104,7 +104,7 @@ SELECT
                 ELSE 1 
             END
         ) * 100.0 / 6.0 As Float
-        )    ) AS [regPerComplete],
+        )    ) AS [Reg%Complete],
  GETUTCDATE() UpdatedOn
 FROM 
     [ASData_PL].[Acc_Account] AS a

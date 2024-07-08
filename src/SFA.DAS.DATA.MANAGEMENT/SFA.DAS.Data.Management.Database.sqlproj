@@ -360,6 +360,7 @@
     <Build Include="StoredProcedure\StgPmts_ImportEarningEventPeriod.sql" />
     <Build Include="StoredProcedure\StgPmts_ImportProviderAdjustmentPayments.sql" />
     <Build Include="StoredProcedure\StgPmts_ImportRequiredPaymentEvent.sql" />
+    <Build Include="StoredProcedure\StgPmts_ImportEarningEventPriceEpisode.sql" />
     <Build Include="Tables\AsDataPL_aComt_Apprentice.sql" />
     <Build Include="Tables\AsDataPL_aComt_Apprenticeship.sql" />
     <Build Include="Tables\AsDataPL_aComt_Revision.sql" />

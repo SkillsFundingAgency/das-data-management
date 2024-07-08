@@ -218,7 +218,6 @@
     <Build Include="Views\AsDataPL_DAS_Users.sql" />
     <Build Include="Tables\Stg_SQLCodeForDynamicBuild.sql" />
     <Build Include="StoredProcedure\ImportMarketoBulkExtractTablesToPL.sql" />
-    <Build Include="StoredProcedure\GetMarketoRefTabChunked.sql" />
     <Build Include="Tables\AsDataPL_Marketo_Activities.sql" />
     <Build Include="Tables\AsDataPL_Marketo_ActivityTypes.sql" />
     <Build Include="Tables\AsDataPL_Marketo_LeadPrograms.sql" />

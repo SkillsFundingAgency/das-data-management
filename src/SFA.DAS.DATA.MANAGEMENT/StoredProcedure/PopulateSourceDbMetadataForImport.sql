@@ -94,14 +94,20 @@ VALUES
 
 /*FAA v2 Metadata */
 
+INSERT INTO Mtd.SourceConfigForImport
+(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,[ModelDataToPL])
+VALUES
+ ('Candacc','AboutYou','dbo','[CandidateId],[Sex], [IsGenderIdentifySameSexAtBirth], [EthnicGroup], [EthnicSubGroup], [OtherEthnicSubGroupAnswer]','[Id]','',1)
+,('Candacc','CandidatePreferences','dbo','[CandidateId], [PreferenceId], [Status], [CreatedOn], [UpdatedOn], [ContactMethod]','[Id]','',1)
+,('Candacc','Application','dbo','[Id], [CandidateId], [DisabilityStatus], [VacancyReference], [Status], [CreatedDate], [UpdatedDate], [SubmittedDate],  [ResponseNotes],  [MigrationDate]','[WithdrawnDate], [ResponseDate],[QualificationsStatus], [TrainingCoursesStatus], [JobsStatus], [WorkExperienceStatus], [SkillsAndStrengthStatus], [InterestsStatus], [AdditionalQuestion1Status], [AdditionalQuestion2Status], [InterviewAdjustmentsStatus], [DisabilityConfidenceStatus], [WhatIsYourInterest], [ApplyUnderDisabilityConfidentScheme],[PreviousAnswersSourceId], [Strengths], [Support]','',1)
+
+
 
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)
 VALUES
  ('Candacc','Candidate','dbo','[CandidateId],[GovUkIdentifier],[FirstName],[MiddleName],[SurName],[DateOfBirth],[FullName],[Email],[CreatedOn], [UpdatedOn],[MigratedEmail], [MigratedCandidateId]','[PhoneNumber],[TermsOfUseAcceptedOn], [Status]','',1,1,'SELECT c.id, c.GovUkIdentifier, convert(NVarchar(500),HASHBYTES(''''SHA2_512'''',LTRIM(RTRIM(CONCAT(CONVERT(NVARCHAR(512),LTRIM(RTRIM(CONVERT(VARCHAR(255),c.firstname)))), @SaltKey)))),2) as FirstName,convert(NVarchar(500),HASHBYTES(''''SHA2_512'''',LTRIM(RTRIM(CONCAT(CONVERT(NVARCHAR(512),LTRIM(RTRIM(CONVERT(VARCHAR(255),c.middlenames)))), @SaltKey)))),2) as MiddleName,convert(NVarchar(500),HASHBYTES(''''SHA2_512'''',LTRIM(RTRIM(CONCAT(CONVERT(NVARCHAR(512),LTRIM(RTRIM(CONVERT(VARCHAR(255),c.LastName)))), @SaltKey)))),2) as LastName,convert(NVarchar(500),HASHBYTES(''''SHA2_512'''',LTRIM(RTRIM(CONCAT(CONVERT(NVARCHAR(512),LTRIM(RTRIM(CONVERT(VARCHAR(255),concat(isnull(ltrim(rtrim(c.firstname)),''''''''),isnull(ltrim(rtrim(c.middlenames)),''''''''),isnull(ltrim(rtrim(c.LastName)),'''''''')))))), @SaltKey)))),2) as FullName,convert(NVarchar(500),HASHBYTES(''''SHA2_512'''',LTRIM(RTRIM(CONCAT(CONVERT(NVARCHAR(512),LTRIM(RTRIM(CONVERT(DATE,c.dateofbirth)))), @SaltKey)))),2) as DateOfBirth,convert(NVarchar(500),HASHBYTES(''''SHA2_512'''',LTRIM(RTRIM(CONCAT(CONVERT(NVARCHAR(512),LTRIM(RTRIM(CONVERT(varchar(255),c.Email)))), @SaltKey)))),2) as EmailAddress,c.createdOn,c.UpdatedOn,c.MigratedEmail,c.MigratedCandidateId FROM dbo.candidate','FAAv2_Candidate')
-,('Candacc','AboutYou','dbo','[CandidateId],[Sex], [IsGenderIdentifySameSexAtBirth], [EthnicGroup], [EthnicSubGroup], [OtherEthnicSubGroupAnswer]','[Id]','',1,1,'select [CandidateId], [Sex], [IsGenderIdentifySameSexAtBirth], [EthnicGroup], [EthnicSubGroup], [OtherEthnicSubGroupAnswer] from dbo.Aboutyou','FAAv2_AboutYou')
-,('Candacc','CandidatePreferences','dbo','[CandidateId], [PreferenceId], [Status], [CreatedOn], [UpdatedOn], [ContactMethod]','[Id]','',1,1,'Select [CandidateId], [PreferenceId], [Status], [CreatedOn], [UpdatedOn], [ContactMethod] from [dbo].[CandidatePreferences]','FAAv2_CandidatePreferences')
-,('Candacc','Application','dbo','[Id], [CandidateId], [DisabilityStatus], [VacancyReference], [Status], [CreatedDate], [UpdatedDate], [SubmittedDate],  [ResponseNotes],  [MigrationDate]','[WithdrawnDate], [ResponseDate],[QualificationsStatus], [TrainingCoursesStatus], [JobsStatus], [WorkExperienceStatus], [SkillsAndStrengthStatus], [InterestsStatus], [AdditionalQuestion1Status], [AdditionalQuestion2Status], [InterviewAdjustmentsStatus], [DisabilityConfidenceStatus], [WhatIsYourInterest], [ApplyUnderDisabilityConfidentScheme],[PreviousAnswersSourceId], [Strengths], [Support]','',1,1,'Select [Id], [CandidateId], [DisabilityStatus], [VacancyReference], [Status], [CreatedDate], [UpdatedDate], [SubmittedDate],[ResponseNotes],  [MigrationDate] from dbo.Application','FAAv2_Application')
+
 
 /* Employer Incentives */
 

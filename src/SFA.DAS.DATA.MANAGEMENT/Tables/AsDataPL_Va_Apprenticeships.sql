@@ -12,6 +12,7 @@
       ,ApplyViaEmployerWebsite varchar(256)
       ,SuccessfulDateTime datetime2
       ,UnsuccessfulDateTime datetime2
+      ,WithdrawalDateTime datetime2
       ,WithDrawnOrDeclinedReason nvarchar(max)
       ,UnsuccessfulReason nvarchar(max)
       ,SourceApprenticeshipId varchar(256)

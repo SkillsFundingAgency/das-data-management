@@ -70,7 +70,7 @@ SELECT Cp.CreatedOn    as DateCreatedTimeStamp
 	  ,cp.ContactMethod										as ContactMethod
 	  ,cp.PreferenceID										as PreferenceID
 FROM Stg.FAAV2_CandidatePreferences cp
-INNER JOIN  stg.FAAV2_Candidate c ON C.Id= cp.Candidate_ID
+INNER JOIN  stg.FAAV2_Candidate c ON C.Id= cp.CandidateID
 
 
 COMMIT TRANSACTION

@@ -6,7 +6,7 @@
  ,UserId varchar(256) 
  ,Enquiry varchar(max)
  ,SourceContactMessagesId varchar(256)
- ,CandidateID BIGINT NULL
+ ,CandidateID UNIQUEIDENTIFIER NULL
  ,Status TINYINT
  ,ContactMethod varchar(50)
  ,PreferenceID BIGINT NULL

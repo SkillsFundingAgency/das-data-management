@@ -44,7 +44,7 @@ BEGIN TRANSACTION
 TRUNCATE TABLE Stg.CandidateGenderConfig
 
 
-/* RAAv2 */
+/* RAAv2 and FAAV2 */
 
 INSERT INTO Stg.CandidateGenderConfig
 (SourceDb,Category,ShortCode)

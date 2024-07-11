@@ -69,8 +69,8 @@ SELECT dbo.Fn_ConvertTimeStampToDateTime(CM.DateCreatedTimeStamp)      as DateCr
 	  ,Status													  as status
 	  ,ContactMethod											  as ContactMethod
 	  ,PreferenceID												  as PreferenceID
-FROM Stg.CandidatePreferences cp
-INNER JOIN  stg.FAAv2_Candidate c ON C.Id= cp.CandidateID
+FROM Stg.FAAV2_CandidatePreferences cp
+INNER JOIN  stg.FAAV2_Candidate c ON C.Id= cp.CandidateID
 
 
 COMMIT TRANSACTION

@@ -41,6 +41,7 @@ BEGIN TRY
     (
         [SourceCandidateId_v1],
 	    [SourceCandidateId_v2], 
+        [SourceCandidateId_v3],
         [Gender],
         [DisabilityStatus],
         [InstitutionName],
@@ -50,6 +51,7 @@ BEGIN TRY
     /* Insert Candidate school,gender and disability Details for RAAv1(AVMS) from FAA to Presentation Layer Table */
     SELECT C.CandidateId as SourceCandidateId_v1,
             '' as SourceCandidateId_v2,
+            '' as SourceCandidateId_v3,
            cgc.FullName as Gender,
            cd.Category as DisabilityStatus,
            s.OtherSchoolName as InstitutionName,
@@ -97,6 +99,7 @@ BEGIN TRY
     SELECT DISTINCT
          ''as SourceCandidateId_v1,
         FU.BinaryId as SourceCandidateId_v2,
+        ''as SourceCandidateId_v3,
         cgc.Category as Gender,
         cdc.Category as DisabilityStatus,
         ceh.Institution as InstitutionName,
@@ -122,7 +125,7 @@ BEGIN TRY
           a.DisabilityStatus as DisabilityStatus,
          'N/A' as InstitutionName,
           ay.IsGenderIdentifySameSexAtBirth ,
-         'FAA-Cosmos' as SourceDb
+         'FAAV2' as SourceDb
     FROM Stg.FAAV2_AboutYou Ay
     JOIN Stg.FAAV2_Candidate c on Ay.[CandidateId] = C.id
     LEFT JOIN Stg.CandidateGenderConfig CGC ON CGC.ShortCode = Ay.sex

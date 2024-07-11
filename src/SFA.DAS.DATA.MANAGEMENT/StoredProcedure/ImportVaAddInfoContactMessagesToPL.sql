@@ -41,7 +41,7 @@ INSERT INTO ASData_PL.Va_ContactMessages
       ,Enquiry 
 	  ,SourceContactMessagesId 
       ,SourceDb 
-	  ,CandidateID
+	  ,Candidate_ID
       ,Status
       ,ContactMethod
       ,PreferenceID
@@ -53,7 +53,7 @@ SELECT dbo.Fn_ConvertTimeStampToDateTime(CM.DateCreatedTimeStamp)      as DateCr
 	  ,CM.Enquiry                                                      as Enquiry
 	  ,CM.BinaryId                                                     as SourceContactMessageId
 	  ,'RAAv2'                                                         as SourceDb
-	  ,NULL                                                            as CandidateID
+	  ,NULL                                                            as Candidate_ID
 	  ,NULL                                                            as Status
 	  ,NULL                                                            as ContactMethod
 	  ,NULL                                                            as PreferenceID
@@ -65,12 +65,12 @@ SELECT Cp.CreatedOn    as DateCreatedTimeStamp
 	  ,'N/A'                                                as Enquiry
 	  ,'N/A'                                                as SourceContactMessageId
 	  ,'FAAV2'                                              as SourceDb
-	  ,cp.CandidateID                                       as Candidateid
+	  ,cp.CandidateID                                       as Candidate_id
 	  ,cp.Status											as status
 	  ,cp.ContactMethod										as ContactMethod
 	  ,cp.PreferenceID										as PreferenceID
 FROM Stg.FAAV2_CandidatePreferences cp
-INNER JOIN  stg.FAAV2_Candidate c ON C.Id= cp.CandidateID
+INNER JOIN  stg.FAAV2_Candidate c ON C.Id= cp.Candidate_ID
 
 
 COMMIT TRANSACTION

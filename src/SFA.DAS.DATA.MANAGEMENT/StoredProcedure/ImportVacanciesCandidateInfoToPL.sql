@@ -44,6 +44,7 @@ BEGIN TRY
         [Gender],
         [DisabilityStatus],
         [InstitutionName],
+        [IsGenderIdentifySameSexAtBirth],
         [SourceDb]
     )
     /* Insert Candidate school,gender and disability Details for RAAv1(AVMS) from FAA to Presentation Layer Table */
@@ -52,6 +53,7 @@ BEGIN TRY
            cgc.FullName as Gender,
            cd.Category as DisabilityStatus,
            s.OtherSchoolName as InstitutionName,
+           '' as IsGenderIdentifySameSexAtBirth,
            'FAA-Avms' as SourceDb
     FROM Stg.Avms_Candidate C
         left join Stg.Avms_CandidateGender CGC
@@ -98,6 +100,7 @@ BEGIN TRY
         cgc.Category as Gender,
         cdc.Category as DisabilityStatus,
         ceh.Institution as InstitutionName,
+        '' as IsGenderIdentifySameSexAtBirth,
         'FAA-Cosmos' as SourceDb
     FROM Stg.FAA_Users FU
         LEFT JOIN Stg.FAA_CandidateGenderDisabilityStatus CGDC
@@ -109,6 +112,24 @@ BEGIN TRY
         JOIN Stg.CandidateDisabilityConfig CDC
             ON CDC.ShortCode = cgdc.DisabilityStatus
 
+    UNION
+
+    SELECT DISTINCT
+         ''    as SourceCandidateId_v1,
+         ''    as SourceCandidateId_v2,
+         c.id  as SourceCandidateId_v3,
+        CGC.Category Gender,
+          a.DisabilityStatus as DisabilityStatus,
+         'N/A' as InstitutionName,
+          ay.IsGenderIdentifySameSexAtBirth ,
+         'FAA-Cosmos' as SourceDb
+    FROM Stg.FAAV2_AboutYou Ay
+    JOIN Stg.FAAV2_Candidate c on Ay.[CandidateId] = C.id
+    LEFT JOIN Stg.CandidateGenderConfig CGC ON CGC.ShortCode = Ay.sex
+    LEFT JOIN stg.FAAv2_Application a on a.candidateid=C.id
+    where sourcedb='FAAV2'
+
+       
 
     COMMIT TRANSACTION
 

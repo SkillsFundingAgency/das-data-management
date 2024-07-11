@@ -53,7 +53,10 @@ VALUES
 ('RAAv2','Male',1),
 ('RAAv2','Female',2),
 ('RAAv2','Other',3),
-('RAAv2','PreferNotToSay',4)
+('RAAv2','PreferNotToSay',4),
+('FAAV2','Male',1),
+('FAAv2','Female',2),
+('FAAv2','PreferNotToSay',3)
 
 COMMIT TRANSACTION
 END

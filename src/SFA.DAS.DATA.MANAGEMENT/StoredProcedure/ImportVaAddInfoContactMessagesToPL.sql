@@ -41,6 +41,11 @@ INSERT INTO ASData_PL.Va_ContactMessages
       ,Enquiry 
 	  ,SourceContactMessagesId 
       ,SourceDb 
+	  ,CandidateID
+      ,Status
+      ,ContactMethod
+      ,PreferenceID
+
 )
 SELECT dbo.Fn_ConvertTimeStampToDateTime(CM.DateCreatedTimeStamp)      as DateCreatedTimeStamp
 	  ,dbo.Fn_ConvertTimeStampToDateTime(CM.DateUpdatedTimeStamp)      as DateUpdatedTimeStamp
@@ -48,9 +53,25 @@ SELECT dbo.Fn_ConvertTimeStampToDateTime(CM.DateCreatedTimeStamp)      as DateCr
 	  ,CM.Enquiry                                                      as Enquiry
 	  ,CM.BinaryId                                                     as SourceContactMessageId
 	  ,'RAAv2'                                                         as SourceDb
-  FROM Stg.FAA_ContactMessages CM
+	  ,NULL
+	  ,NULL
+	  ,NULL
+	  ,NULL
+FROM Stg.FAA_ContactMessages CM
+UNION
+SELECT dbo.Fn_ConvertTimeStampToDateTime(CM.DateCreatedTimeStamp)      as DateCreatedTimeStamp
+	  ,dbo.Fn_ConvertTimeStampToDateTime(CM.DateUpdatedTimeStamp)      as DateUpdatedTimeStamp
+	  ,'N/A'                                                      as UserId
+	  ,'N/A'                                                      as Enquiry
+	  ,'N/A'                                                      as SourceContactMessageId
+	  ,'FAAV2'                                                    as SourceDb
+	  ,CandidateID                                                as Candidateid
+	  ,Status													  as status
+	  ,ContactMethod											  as ContactMethod
+	  ,PreferenceID												  as PreferenceID
+FROM Stg.CandidatePreferences cp
+INNER JOIN  stg.FAAv2_Candidate c ON C.Id= cp.CandidateID
 
-  
 
 COMMIT TRANSACTION
 

@@ -100,7 +100,7 @@ VALUES
  ('Candacc','AboutYou','dbo','[Id],[CandidateId],[Sex], [IsGenderIdentifySameSexAtBirth], [EthnicGroup], [EthnicSubGroup], [OtherEthnicSubGroupAnswer]','','',1)
 ,('Candacc','CandidatePreferences','dbo','[Id],[CandidateId], [PreferenceId], [Status], [CreatedOn], [UpdatedOn], [ContactMethod]','','',1)
 ,('Candacc','Application','dbo','[Id], [CandidateId], [DisabilityStatus], [VacancyReference], [Status], [CreatedDate], [UpdatedDate], [SubmittedDate],  [ResponseNotes],  [MigrationDate]','[WithdrawnDate], [ResponseDate],[QualificationsStatus], [TrainingCoursesStatus], [JobsStatus], [WorkExperienceStatus], [SkillsAndStrengthStatus], [InterestsStatus], [AdditionalQuestion1Status], [AdditionalQuestion2Status], [InterviewAdjustmentsStatus], [DisabilityConfidenceStatus], [WhatIsYourInterest], [ApplyUnderDisabilityConfidentScheme],[PreviousAnswersSourceId], [Strengths], [Support]','',1)
-
+,('Candacc','Address','dbo','[Id], [Uprn], [AddressLine1], [AddressLine2], [Town], [County], [Postcode], [Latitude], [Longitude], [CandidateId]','','',1)
 
 
 INSERT INTO Mtd.SourceConfigForImport

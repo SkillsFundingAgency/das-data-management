@@ -53,10 +53,10 @@ SELECT dbo.Fn_ConvertTimeStampToDateTime(CM.DateCreatedTimeStamp)      as DateCr
 	  ,CM.Enquiry                                                      as Enquiry
 	  ,CM.BinaryId                                                     as SourceContactMessageId
 	  ,'RAAv2'                                                         as SourceDb
-	  ,NULL
-	  ,NULL
-	  ,NULL
-	  ,NULL
+	  ,NULL                                                            as CandidateID
+	  ,NULL                                                            as Status
+	  ,NULL                                                            as ContactMethod
+	  ,NULL                                                            as PreferenceID
 FROM Stg.FAA_ContactMessages CM
 UNION
 SELECT Cp.CreatedOn    as DateCreatedTimeStamp
@@ -65,7 +65,7 @@ SELECT Cp.CreatedOn    as DateCreatedTimeStamp
 	  ,'N/A'                                                as Enquiry
 	  ,'N/A'                                                as SourceContactMessageId
 	  ,'FAAV2'                                              as SourceDb
-	  ,cp.CandidateID                                       as Candidateid
+	  ,CONVERT(BIGINT,cp.CandidateID)                       as Candidateid
 	  ,cp.Status											as status
 	  ,cp.ContactMethod										as ContactMethod
 	  ,cp.PreferenceID										as PreferenceID

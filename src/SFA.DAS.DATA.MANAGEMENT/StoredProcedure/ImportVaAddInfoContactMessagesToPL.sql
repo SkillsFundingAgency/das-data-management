@@ -59,16 +59,16 @@ SELECT dbo.Fn_ConvertTimeStampToDateTime(CM.DateCreatedTimeStamp)      as DateCr
 	  ,NULL
 FROM Stg.FAA_ContactMessages CM
 UNION
-SELECT dbo.Fn_ConvertTimeStampToDateTime(CM.DateCreatedTimeStamp)      as DateCreatedTimeStamp
-	  ,dbo.Fn_ConvertTimeStampToDateTime(CM.DateUpdatedTimeStamp)      as DateUpdatedTimeStamp
-	  ,'N/A'                                                      as UserId
-	  ,'N/A'                                                      as Enquiry
-	  ,'N/A'                                                      as SourceContactMessageId
-	  ,'FAAV2'                                                    as SourceDb
-	  ,CandidateID                                                as Candidateid
-	  ,Status													  as status
-	  ,ContactMethod											  as ContactMethod
-	  ,PreferenceID												  as PreferenceID
+SELECT Cp.CreatedOn    as DateCreatedTimeStamp
+	  ,Cp.UpdatedOn    as DateUpdatedTimeStamp
+	  ,'N/A'                                                as UserId
+	  ,'N/A'                                                as Enquiry
+	  ,'N/A'                                                as SourceContactMessageId
+	  ,'FAAV2'                                              as SourceDb
+	  ,cp.CandidateID                                       as Candidateid
+	  ,cp.Status											as status
+	  ,cp.ContactMethod										as ContactMethod
+	  ,cp.PreferenceID										as PreferenceID
 FROM Stg.FAAV2_CandidatePreferences cp
 INNER JOIN  stg.FAAV2_Candidate c ON C.Id= cp.CandidateID
 

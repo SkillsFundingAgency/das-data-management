@@ -65,7 +65,7 @@ SELECT Cp.CreatedOn    as DateCreatedTimeStamp
 	  ,'N/A'                                                as Enquiry
 	  ,'N/A'                                                as SourceContactMessageId
 	  ,'FAAV2'                                              as SourceDb
-	  ,ABS(CHECKSUM(cp.CandidateID))                      as Candidateid
+	  ,cp.CandidateID                                       as Candidateid
 	  ,cp.Status											as status
 	  ,cp.ContactMethod										as ContactMethod
 	  ,cp.PreferenceID										as PreferenceID

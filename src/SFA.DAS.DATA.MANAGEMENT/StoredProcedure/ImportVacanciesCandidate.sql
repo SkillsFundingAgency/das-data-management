@@ -62,7 +62,8 @@ INSERT INTO [ASData_PL].[Va_Candidate]
 		   ,[LastAccessedDate]
            ,[SourceDb]
            ,[SourceCandidateId_v1]
-		   ,[SourceCandidateId_v2])
+		   ,[SourceCandidateId_v2]
+		   ,SourceCandidateId_v3)
 /* Candidates that are In AVMS but not in FAA Cosmos Db */
 SELECT C.CandidateStatusTypeId                        as CandidateStatusTypeId
       ,CASE WHEN c.CandidateStatusTypeId=1 THEN 'Pre-Registered'

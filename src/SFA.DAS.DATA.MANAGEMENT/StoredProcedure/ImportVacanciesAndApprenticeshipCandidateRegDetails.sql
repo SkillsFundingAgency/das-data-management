@@ -116,7 +116,7 @@ SELECT      VC.[CandidateId]
 	       ,'FAAV2'
   FROM Stg.FAAV2_Candidate C
   JOIN ASData_PL.Va_Candidate VC
-    ON VC.SourceCandidateId_v3=C.CandidateId
+    ON VC.SourceCandidateId_v3=C.Id
  WHERE NOT EXISTS (SELECT 1 FROM Stg.FAAV2_Candidate where c.Id=vc.SourceCandidateId_v3)
 
  /* Import Commitments Candidate Reg Details */

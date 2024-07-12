@@ -65,7 +65,7 @@ SELECT Cp.CreatedOn    as DateCreatedTimeStamp
 	  ,'N/A'                                                as Enquiry
 	  ,'N/A'                                                as SourceContactMessageId
 	  ,'FAAV2'                                              as SourceDb
-	  ,CAST(cp.CandidateID AS UNIQUEIDENTIFIER)             as Candidate_id
+	  ,cp.CandidateID                                       as Candidate_id
 	  ,cp.Status											as status
 	  ,cp.ContactMethod										as ContactMethod
 	  ,cp.PreferenceID										as PreferenceID

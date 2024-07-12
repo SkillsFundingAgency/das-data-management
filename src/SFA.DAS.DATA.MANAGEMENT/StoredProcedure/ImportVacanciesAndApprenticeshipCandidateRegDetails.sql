@@ -106,7 +106,7 @@ SELECT      VC.[CandidateId]
 		   )
 SELECT      VC.[CandidateId] 
            ,C.[FirstName]
-		   ,C.[SurName]
+		   ,C.[LastName]
 		   ,C.[MiddleName]
 		   ,C.[FullName]
 		   ,C.[DateOfBirth]

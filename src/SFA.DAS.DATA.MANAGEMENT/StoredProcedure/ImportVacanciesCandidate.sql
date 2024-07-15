@@ -201,14 +201,14 @@ SELECT DISTINCT
 	  ,NULL                as BeingSupportedBy_v1
 	  ,NULL                as LockedForSupportUntil_v1
 	  ,NULL                as AllowMarketingMessages_v1
-	  ,c.GovUkIdentifier   as CandidateGuid
+	  ,c.GovUkIdentifier   as CandidateGuid 
 	  ,CASE WHEN [DateOfBirth] IS NULL	THEN - 1
-		      WHEN DATEPART([M],[DateOfBirth]) > DATEPART([M],CreatedON)
-			    OR DATEPART([M],[DateOfBirth]) = DATEPART([M],CreatedON)
-			   AND DATEPART([DD],[DateOfBirth]) > DATEPART([DD], CreatedON)
-			  THEN DATEDIFF(YEAR,[DateOfBirth],CreatedON) - 1
-		      ELSE DATEDIFF(YEAR,[DateOfBirth], CreatedON)            
-	   END                           as AgeAtRegistration
+		      WHEN DATEPART([M], dbo.Fn_ConvertTimeStampToDateTime([DateOfBirth])) > DATEPART([M], dbo.Fn_ConvertTimeStampToDateTime(CreatedON))
+			    OR DATEPART([M], dbo.Fn_ConvertTimeStampToDateTime([DateOfBirth])) = DATEPART([M], dbo.Fn_ConvertTimeStampToDateTime(CreatedON))
+			   AND DATEPART([DD],dbo.Fn_ConvertTimeStampToDateTime([DateOfBirth])) > DATEPART([DD], dbo.Fn_ConvertTimeStampToDateTime(CreatedON))
+			  THEN DATEDIFF(YEAR,dbo.Fn_ConvertTimeStampToDateTime([DateOfBirth]), dbo.Fn_ConvertTimeStampToDateTime(CreatedON)) - 1
+		      ELSE DATEDIFF(YEAR,dbo.Fn_ConvertTimeStampToDateTime([DateOfBirth]), dbo.Fn_ConvertTimeStampToDateTime(CreatedON))
+		END                           as AgeAtRegistration
 	  ,c.CreatedOn as RegistrationDate
 	  ,C.Updatedon as LastAccessedDate
 	  ,'FAAV2-SQLSever'                                             as SourceDb

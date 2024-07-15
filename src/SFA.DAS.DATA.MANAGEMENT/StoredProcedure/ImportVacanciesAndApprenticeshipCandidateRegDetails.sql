@@ -111,7 +111,7 @@ SELECT      VC.[CandidateId]
 		   ,C.[MiddleNames]
 		   ,C.[FullName]
 		   ,C.[DateOfBirth]
-		   ,C.[EmailAddress]
+		   ,C.[Email]
 		   ,C.[MigratedEmail]
 		   ,C.[MigratedCandidateId]
 	       ,'FAAV2'

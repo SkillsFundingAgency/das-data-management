@@ -66,7 +66,7 @@ SELECT vc.CandidateId                                                  as Candid
 	  ,ApplyViaEmployerWebsite                                         as ApplyViaEmployerWebsite
 	  ,dbo.Fn_ConvertTimeStampToDateTime(fa.SuccessfulTimeStamp)       as SuccessfulTimeStamp
 	  ,dbo.Fn_ConvertTimeStampToDateTime(fa.UnsuccessfulTimeStamp)     as UnsuccessfulTimeStamp
-    ,NULL
+    ,NULL                                                            as WithdrawalDateTime
 	  ,WithdrawnOrDeclinedReason                                       as WithdrawnOrDeclinedReason
 	  ,UnsuccessfulReason                                              as UnsuccessfulReason
 	  ,FA.BinaryId                                                     as SourceApprenticeshipId

@@ -92,6 +92,35 @@ SELECT      VC.[CandidateId]
  WHERE NOT EXISTS (SELECT 1 FROM stg.FAA_CandidateRegDetails where CandidateId=vc.SourceCandidateId_v2)
 
 
+ INSERT INTO [ASData_PL].[Va_CandidateRegDetails]
+           (
+		    [CandidateId] 
+           ,[CandidateFirstName]
+		   ,[CandidateLastName]
+		   ,[CandidateMiddleName]
+		   ,[CandidateFullName]
+		   ,[CandidateDateOfBirth]
+		   ,[CandidateEmail]
+		   ,[Migrated_EMailID]
+		   ,[Migrated_CandidateID]
+           ,[SourceDb] 
+		   )
+SELECT      VC.[CandidateId] 
+           ,C.[FirstName]
+		   ,C.[LastName]
+		   ,C.[MiddleNames]
+		   ,C.[FullName]
+		   ,C.[DateOfBirth]
+		   ,C.[EmailAddress]
+		   ,C.[MigratedEmail]
+		   ,C.[MigratedCandidateId]
+	       ,'FAAV2'
+  FROM Stg.FAAV2_Candidate C
+  JOIN ASData_PL.Va_Candidate VC
+    ON VC.SourceCandidateId_v3=C.Id
+ WHERE NOT EXISTS (SELECT 1 FROM Stg.FAAV2_Candidate where c.Id=vc.SourceCandidateId_v3)
+
+
 
  /* Import Commitments Candidate Reg Details */
 

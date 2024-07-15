@@ -46,6 +46,7 @@ INSERT INTO [ASData_PL].[Va_Apprenticeships]
            ,ApplyViaEmployerWebsite 
            ,SuccessfulDateTime 
            ,UnsuccessfulDateTime 
+           ,WithdrawalDateTime
            ,WithDrawnOrDeclinedReason 
            ,UnsuccessfulReason 
            ,SourceApprenticeshipId
@@ -63,6 +64,7 @@ SELECT vc.CandidateId                                                  as Candid
 	  ,ApplyViaEmployerWebsite                                         as ApplyViaEmployerWebsite
 	  ,dbo.Fn_ConvertTimeStampToDateTime(fa.SuccessfulTimeStamp)       as SuccessfulTimeStamp
 	  ,dbo.Fn_ConvertTimeStampToDateTime(fa.UnsuccessfulTimeStamp)     as UnsuccessfulTimeStamp
+    ,NULL
 	  ,WithdrawnOrDeclinedReason                                       as WithdrawnOrDeclinedReason
 	  ,UnsuccessfulReason                                              as UnsuccessfulReason
 	  ,FA.BinaryId                                                     as SourceApprenticeshipId
@@ -100,6 +102,41 @@ SELECT vc.CandidateId                                                  as Candid
   JOIN ASData_PL.Va_Application vav2
     on vav2.SourceApplicationId=rar.SourseSK
    and vav2.SourceDb='RAAv2'
+UNION
+SELECT A.CandidateId                                                   as CandidateId
+      ,vv.VacancyId                                                    as VacancyId
+	    ,A.ID                                                            as ApplicationID
+	    ,A.VacancyReference                                              as VacancyReferenceNumber
+	    ,A.CreatedDate                                                   as DateCreatedTimeStamp
+	    ,A.UpdatedDate                                                   as DateUpdatedTimeStamp
+	    ,A.SubmittedDate                                                 as DateAppliedTimeStamp
+	    ,'True'                                                          as IsRecruitVacancy
+	    ,'True'                                                          as ApplyViaEmployerWebsite
+	    ,CASE WHEN A.Status = 3 THEN A.UpdatedDate  
+            ELSE NULL 
+       END                                                             as SuccessfulTimeStamp
+	    ,CASE WHEN A.Status = 4 THEN A.UpdatedDate  
+            ELSE NULL 
+       END                                                             as UnsuccessfulTimeStamp
+      ,CASE WHEN A.Status = 2 THEN A.UpdatedDate  
+            ELSE NULL 
+       END                                                             as WithdrawalDateTime
+	    ,'N/A'                                                           as WithdrawnOrDeclinedReason
+	    ,A.ResponseNotes                                                 as UnsuccessfulReason
+	    ,'N/A'                                                           as SourceApprenticeshipId
+      ,CASE  
+        WHEN A.Status = 0 THEN 'Draft'
+        WHEN A.Status = 1 THEN 'Submitted'
+        WHEN A.Status = 2 THEN 'Withdrawn'
+        WHEN A.Status = 3 THEN 'Successful'
+        WHEN A.Status = 4 THEN 'Unsuccessful'
+        WHEN A.Status = 5 THEN 'Expired'
+      ELSE 'Invalid Status Code'
+      END AS [Status]
+	    ,'FAAV2'                                                         as SourceDb
+  FROM Stg.FAAV2_Application A
+  LEFT JOIN ASData_PL.Va_Vacancy vv
+    on vv.VacancyReferenceNumber= A.vacancyreference
    
 COMMIT TRANSACTION
 

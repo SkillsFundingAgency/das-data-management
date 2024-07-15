@@ -664,7 +664,7 @@ DROP TABLE IF EXISTS [Stg].[Ecrm_LookUp]
 DROP TABLE IF EXISTS [Stg].[EI_Course]
 DROP TABLE IF EXISTS [Stg].[EI_Reservation]
 DROP TABLE IF EXISTS [Stg].[FAA_Candidate]
-drop tabLE IF eXISTS [STG].[faav2_cANDIDATE]
+
 DROP TABLE IF EXISTS [Stg].[FATROATPV2_ProviderAddress]
 DROP TABLE IF EXISTS [Stg].[GA_SessionDataDetailTest]
 DROP TABLE IF EXISTS [Stg].[gasessiondata]

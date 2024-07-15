@@ -10,6 +10,6 @@
    ,[CandidateEmail] nvarchar(512)
    ,[SourceDb] Varchar(256)
    ,[Migrated_EMailID] Varchar(255)
-   ,[Migrated_CandidateID] BIGINT
+   ,[Migrated_CandidateID] UNIQUEIDENTIFIER
    ,[AsDm_UpdatedDateTime]  [datetime2](7)						DEFAULT (getdate())
 )

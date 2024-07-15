@@ -3,6 +3,7 @@
        Faa_ApprenticeshipID BIGINT IDENTITY(1,1) PRIMARY KEY NOT NULL
       ,CandidateId bigint
       ,ApplicationId bigint
+      ,ApplicationGUID UNIQUEIDENTIFIER
       ,VacancyId bigint
       ,VacancyReference varchar(256)
       ,CreatedDateTime datetime2

@@ -56,6 +56,7 @@ INSERT INTO [ASData_PL].[Va_Apprenticeships]
 SELECT vc.CandidateId                                                  as CandidateId
       ,vv.VacancyId                                                    as VacancyId
 	  ,coalesce(va.ApplicationId,vav2.ApplicationId,FA.LEGACYAPPLICATIONID) as ApplicationID
+    ,NULL                                                            as ApplicationGUID
 	  ,vv.VacancyReferenceNumber                                       as VacancyReferenceNumber
 	  ,dbo.Fn_ConvertTimeStampToDateTime(fa.DateCreatedTimeStamp)      as DateCreatedTimeStamp
 	  ,dbo.Fn_ConvertTimeStampToDateTime(fa.DateUpdatedTimeStamp)      as DateUpdatedTimeStamp
@@ -103,9 +104,10 @@ SELECT vc.CandidateId                                                  as Candid
     on vav2.SourceApplicationId=rar.SourseSK
    and vav2.SourceDb='RAAv2'
 UNION
-SELECT A.CandidateId                                                   as CandidateId
+SELECT vc.CandidateId                                                   as CandidateId
       ,vv.VacancyId                                                    as VacancyId
-	    ,A.ID                                                            as ApplicationID
+	    ,NULL                                                            as ApplicationID
+      ,A.ID                                                            as ApplicationGUID
 	    ,A.VacancyReference                                              as VacancyReferenceNumber
 	    ,A.CreatedDate                                                   as DateCreatedTimeStamp
 	    ,A.UpdatedDate                                                   as DateUpdatedTimeStamp
@@ -137,7 +139,10 @@ SELECT A.CandidateId                                                   as Candid
   FROM Stg.FAAV2_Application A
   LEFT JOIN ASData_PL.Va_Vacancy vv
     on vv.VacancyReferenceNumber= A.vacancyreference
-   
+  LEFT JOIN ASData_PL.Va_Candidate VC
+    ON A.CandidateId=vc.CandidateGuid 
+
+
 COMMIT TRANSACTION
 
 UPDATE Mgmt.Log_Execution_Results

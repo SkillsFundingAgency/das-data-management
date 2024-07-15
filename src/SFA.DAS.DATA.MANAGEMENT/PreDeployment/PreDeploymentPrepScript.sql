@@ -622,6 +622,7 @@ DROP TABLE IF EXISTS [ASData_PL].[Va_Employer2]
 DROP TABLE IF EXISTS [ASData_PL].[Va_Vacancy1]
 DROP TABLE IF EXISTS [ASData_PL].[Va_Vacancy2]
 DROP TABLE IF EXISTS [ASData_PL].[Va_VacancyReviews1]
+DROP TABLE IF EXISTS [ASData_PL].[Va_ContactMessages]
 
 
 DROP TABLE IF EXISTS [dbo].[Agency]

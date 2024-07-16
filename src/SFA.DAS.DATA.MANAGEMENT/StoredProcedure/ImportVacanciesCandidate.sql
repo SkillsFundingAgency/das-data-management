@@ -214,7 +214,7 @@ SELECT DISTINCT
 	  ,'FAAV2-SQLSever'                                             as SourceDb
 	  ,''                                               as SourceCandidateId_v1 
 	  ,''                                               as SourceCandidateId_v2
-	  ,c.id                                             as SourceCandidateId_v3
+	  ,CAST(c.id AS varchar(256))                       as SourceCandidateId_v3
    FROM Stg.FAAV2_Candidate c
    LEFT JOIN Stg.FAAV2_Address a on c.id=a.Candidateid
 

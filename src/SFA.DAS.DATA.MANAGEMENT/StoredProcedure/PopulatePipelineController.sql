@@ -64,6 +64,7 @@ INSERT INTO [Mgmt].[Pipeline]
 ,(103,'ImportAvmsCandidateToDataMart')
 ,(104,'ImportFAACandidateToDataMart')
 ,(105,'ImportFAAToDataMart')
+,(106,'ImportFAAV2ToDataMart')
 
 DELETE FROM [Mgmt].[Config_PipelineController]
 
@@ -99,6 +100,7 @@ VALUES
 ,(100,103,1	,5)
 ,(100,104,1	,4)
 ,(100,105,1	,1)
+,(100,106,1	,6)
 
 COMMIT TRANSACTION
 

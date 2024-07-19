@@ -118,9 +118,10 @@ SELECT      VC.[CandidateId]
 	       ,'FAAV2'
   FROM Stg.FAAV2_Candidate C
   JOIN ASData_PL.Va_Candidate VC
-    ON VC.SourceCandidateId_v3=C.Id
- WHERE NOT EXISTS (SELECT 1 FROM Stg.FAAV2_Candidate where c.Id=vc.SourceCandidateId_v3)
-
+    ON TRY_CAST(VC.SourceCandidateId_v3 AS UNIQUEIDENTIFIER)=C.Id
+ WHERE NOT EXISTS (SELECT 1 FROM [ASData_PL].[Va_CandidateRegDetails]  CR
+                     where CR.[CandidateId] = VC.[CandidateId] 
+					 and C.Id=TRY_CAST(VC.SourceCandidateId_v3 AS UNIQUEIDENTIFIER))
 
  /* Import Commitments Candidate Reg Details */
 

@@ -2,12 +2,12 @@
 (
        [CandidateId] BIGINT IDENTITY(1,1) PRIMARY KEY 
       ,[CandidateStatusTypeId] Int
-	  ,[CandidateStatusTypeDesc] Varchar(255)
+      ,[CandidateStatusTypeDesc] Varchar(255)
       ,[CountyId] Int
-	  ,[CountyName] Varchar(255)
+      ,[CountyName] Varchar(255)
       ,[PostCode] nvarchar(10)
       ,[LocalAuthorityId] int
-	  ,[LocalAuthorityName] Varchar(255)
+      ,[LocalAuthorityName] Varchar(255)
       ,[UniqueLearnerNumber] Bigint
       ,[Gender] Int
       ,[ApplicationLimitEnforced_v1] Bit
@@ -18,14 +18,14 @@
       ,[AllowMarketingMessages_v1] bit
       ,[CandidateGuid] varchar(256)
       ,[AgeAtRegistration] int	  
-	  ,[RegistrationDate] DateTime2
-	  ,[LastAccessedDate] DateTime2
-	  ,[SourceDb] varchar(100)
-	  ,[SourceCandidateId_v1] Varchar(256) 
-	  ,[SourceCandidateId_v2] Varchar(256) 
-         ,[SourceCandidateId_v3] Varchar(256)
-	  ,[AsDm_UpdatedDateTime]  [datetime2](7)						DEFAULT (getdate())
-	 , Foreign Key (CountyId) References [AsData_PL].[Va_County](CountyId)
-	 ,Foreign Key (LocalAuthorityId) References [AsData_PL].[Va_LocalAuthority](LocalAuthorityId)
+      ,[RegistrationDate] DateTime2
+      ,[LastAccessedDate] DateTime2
+      ,[SourceDb] varchar(100)
+      ,[SourceCandidateId_v1] Varchar(256) 
+      ,[SourceCandidateId_v2] Varchar(256) 
+      ,[SourceCandidateId_v3] Varchar(256)
+      ,[AsDm_UpdatedDateTime]  [datetime2](7)						DEFAULT (getdate())
+      ,Foreign Key (CountyId) References [AsData_PL].[Va_County](CountyId)
+      ,Foreign Key (LocalAuthorityId) References [AsData_PL].[Va_LocalAuthority](LocalAuthorityId)
 	  
 )

@@ -202,13 +202,7 @@ SELECT DISTINCT
 	  ,NULL                as LockedForSupportUntil_v1
 	  ,NULL                as AllowMarketingMessages_v1
 	  ,c.GovUkIdentifier   as CandidateGuid 
-	  ,CASE WHEN [DateOfBirth] IS NULL	THEN - 1
-		      WHEN DATEPART([M], [DOB]) > DATEPART([M],CreatedON)
-			    OR DATEPART([M], [DOB]) = DATEPART([M],CreatedON)
-			   AND DATEPART([DD],[DOB]) > DATEPART([DD], CreatedON)
-			  THEN DATEDIFF(YEAR,[DOB], CreatedON) - 1
-		      ELSE DATEDIFF(YEAR,[DOB], CreatedON)
-		END    as AgeAtRegistration
+	  ,''    as AgeAtRegistration
 	  ,c.CreatedOn as RegistrationDate
 	  ,C.Updatedon as LastAccessedDate
 	  ,'FAAV2'                                 as SourceDb

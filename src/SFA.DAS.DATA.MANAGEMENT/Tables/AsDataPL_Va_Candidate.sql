@@ -23,7 +23,7 @@
       ,[SourceDb] varchar(100)
       ,[SourceCandidateId_v1] Varchar(256) 
       ,[SourceCandidateId_v2] Varchar(256) 
-      ,[SourceCandidateId_v3] Varchar(256)
+      ,[SourceCandidateId_v3] varchar(256)
       ,[AsDm_UpdatedDateTime]  [datetime2](7)						DEFAULT (getdate())
       ,Foreign Key (CountyId) References [AsData_PL].[Va_County](CountyId)
       ,Foreign Key (LocalAuthorityId) References [AsData_PL].[Va_LocalAuthority](LocalAuthorityId)

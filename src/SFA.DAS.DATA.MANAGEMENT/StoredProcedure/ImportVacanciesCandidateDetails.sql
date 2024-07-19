@@ -214,11 +214,11 @@ SELECT VC.CandidateId
 	  ,'FAAv2'
   FROM Stg.FAAV2_AboutYou AY
   JOIN ASData_PL.Va_Candidate VC
-    ON VC.SourceCandidateId_v3=AY.CandidateId
+    ON TRY_CAST(VC.SourceCandidateId_v3 AS UNIQUEIDENTIFIER)=AY.CandidateId
   LEFT JOIN dbo.CandidateEthLookUp_faav2 ETH
      ON ETH.Ethniccode = AY.EthnicGroup
 	 And ETH.EthnicSubGroup = AY.EthnicSubGroup
- WHERE NOT EXISTS (SELECT 1 FROM stg.FAAV2_AboutYou where CandidateId=vc.SourceCandidateId_v3)
+ WHERE NOT EXISTS (SELECT 1 FROM stg.FAAV2_AboutYou where CandidateId=TRY_CAST(VC.SourceCandidateId_v3 AS UNIQUEIDENTIFIER))
 
 	
 COMMIT TRANSACTION

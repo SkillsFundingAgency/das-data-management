@@ -686,7 +686,7 @@ DROP TABLE IF EXISTS [StgPmts].[Pst_LookupLocalAuthority]
 DROP TABLE IF EXISTS [lkp].[Pst_COUNTRY]
 DROP TABLE IF EXISTS [lkp].[Pst_COUNTRY_20011_12_Format]
 DROP TABLE IF EXISTS [lkp].[Pst_COUNTY_ 20011_12_Format]
-DROP TABLE IF EXISTS [Stg].[FAAV2_Candidate]
+
 
 DROP PROCEDURE IF EXISTS [dbo].[ImportMarketoDataToPL]
 

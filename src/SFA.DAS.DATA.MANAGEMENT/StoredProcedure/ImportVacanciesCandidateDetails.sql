@@ -208,7 +208,7 @@ INSERT INTO [ASData_PL].[Va_CandidateDetails]
            ,[CandidateEthnicDesc] 
            ,[SourceDb] 
 		   )
-SELECT VC.CandidateId
+SELECT distinct VC.CandidateId
       ,ETH.EthnicCode
 	  ,ETH.EthnicDesc
 	  ,'FAAv2'
@@ -218,7 +218,8 @@ SELECT VC.CandidateId
   LEFT JOIN dbo.CandidateEthLookUp_faav2 ETH
      ON ETH.Ethniccode = AY.EthnicGroup
 	 And ETH.EthnicSubGroup = AY.EthnicSubGroup
- WHERE NOT EXISTS (SELECT 1 FROM stg.FAAV2_AboutYou where CandidateId=TRY_CAST(VC.SourceCandidateId_v3 AS UNIQUEIDENTIFIER))
+ WHERE NOT EXISTS (SELECT 1 FROM [ASData_PL].[Va_CandidateDetails] cd where cd.candidateId=VC.CandidateId
+                   and ay.CandidateId=TRY_CAST(VC.SourceCandidateId_v3 AS UNIQUEIDENTIFIER))
 
 	
 COMMIT TRANSACTION

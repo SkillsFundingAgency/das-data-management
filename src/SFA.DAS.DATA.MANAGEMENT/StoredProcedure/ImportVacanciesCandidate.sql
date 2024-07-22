@@ -211,7 +211,7 @@ SELECT DISTINCT
 		END   as AgeAtRegistration
 	  ,c.CreatedOn as RegistrationDate
 	  ,C.Updatedon as LastAccessedDate
-	  ,'FAAV2'                                 as SourceDb
+	  ,'FAAV2'                                       as SourceDb
 	  ,''                                               as SourceCandidateId_v1 
 	  ,''                                               as SourceCandidateId_v2
 	  ,CAST(c.id AS varchar(256))                       as SourceCandidateId_v3

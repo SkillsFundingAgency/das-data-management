@@ -141,7 +141,7 @@ SELECT vc.CandidateId                                                   as Candi
   LEFT JOIN ASData_PL.Va_Vacancy vv
     on vv.VacancyReferenceNumber= A.vacancyreference
   LEFT JOIN ASData_PL.Va_Candidate VC
-    ON A.CandidateId=vc.CandidateGuid 
+    ON A.CandidateId=TRY_CAST(vc.CandidateGuid AS UNIQUEIDENTIFIER)
 
 
 COMMIT TRANSACTION

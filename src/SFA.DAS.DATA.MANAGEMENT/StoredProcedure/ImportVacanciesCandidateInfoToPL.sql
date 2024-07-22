@@ -120,7 +120,7 @@ BEGIN TRY
     SELECT DISTINCT
          ''    as SourceCandidateId_v1,
          ''    as SourceCandidateId_v2,
-         c.id  as SourceCandidateId_v3,
+         CAST(c.id AS varchar(256))  as SourceCandidateId_v3,
         CGC.Category Gender,
           a.DisabilityStatus as DisabilityStatus,
          'N/A' as InstitutionName,

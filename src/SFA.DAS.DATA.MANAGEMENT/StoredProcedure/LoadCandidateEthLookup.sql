@@ -100,6 +100,33 @@ VALUES
 ,('Don''t know or don''t want to say','Not applicable','RAAv1')
 
 
+INSERT INTO dbo.CandidateEthLookUp_FAAv2
+(EthnicCode,EthnicGroup,EthnicSubGroup,EthnicDesc )
+VALUES
+ (1,'White',1,'EnglishOrWelshOrScottishOrNorthernIrishOrBritish')
+,(1,'White',2,'Irish')
+,(1,'White',3,'Gypsy or Irish Traveller')
+,(1,'White',4,'Any other White background')
+,(2,'MixedOrMultiple',6,'White and Black Caribbean')
+,(2,'MixedOrMultiple',7,'White and Black African')
+,(2,'MixedOrMultiple',8,'White and Asian')
+,(2,'MixedOrMultiple',9,' AnyOtherMixedBackground ')
+,(3,'AsianOrAsianBritish',11,'Indian')
+,(3,'AsianOrAsianBritish',12,'Pakistani')
+,(3,'AsianOrAsianBritish',13,'Bangladeshi')
+,(3,'AsianOrAsianBritish',14,'Chinese')
+,(3,'AsianOrAsianBritish',15,'Any other Asian background')
+,(4,'BlackOrAfricanOrCaribbeanOrBlackBritish',17,'African')
+,(4,'BlackOrAfricanOrCaribbeanOrBlackBritish',18,'Caribbean')
+,(4,'BlackOrAfricanOrCaribbeanOrBlackBritish',19,'AnyOtherBlackAfricanOrCaribbeanBackground ')
+,(5,'Other',21,'Arab')
+,(5,'Other',22,'AnyOtherEthnicGroup')
+,(6,'PreferNotToSay',5,'PreferNotToSayWhite')
+,(6,'PreferNotToSay',10,'PreferNotToSayMixed')
+,(6,'PreferNotToSay',16,'PreferNotToSayAsian')
+,(6,'PreferNotToSay',20,'PreferNotToSayBlack ')
+,(6,'PreferNotToSay',23,'PreferNotToSayArab')
+
 
 COMMIT TRANSACTION
 END

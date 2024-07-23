@@ -622,6 +622,7 @@ DROP TABLE IF EXISTS [ASData_PL].[Va_Employer2]
 DROP TABLE IF EXISTS [ASData_PL].[Va_Vacancy1]
 DROP TABLE IF EXISTS [ASData_PL].[Va_Vacancy2]
 DROP TABLE IF EXISTS [ASData_PL].[Va_VacancyReviews1]
+
 DROP TABLE IF EXISTS [dbo].[Agency]
 DROP TABLE IF EXISTS [dbo].[ASData_PL_Rofjaa_Agency]
 DROP TABLE IF EXISTS [dbo].[AsData_PL}.[Va_CandidateInfo]
@@ -679,12 +680,13 @@ DROP TABLE IF EXISTS [StgPmts].[LARS_LookupSectorSubjectAreaTier2]
 DROP TABLE IF EXISTS [StgPmts].[LARS_LookupStandard]
 DROP TABLE IF EXISTS [StgPmts].[Postcode_LookupGeographicalAttributes]
 DROP TABLE IF EXISTS [StgPmts].[Pst_LookupGOR]
-DROP TABLE IF EXISTS [StgPmts].[Pst_LookupLocalAuthority]
+DROP TABLE IF EXISTS [StgPmts].[Pst_LookupLocalAuthority] 
 --DROP TABLE IF EXISTS [lkp].[Pst_LocalAuthority]
 --DROP TABLE IF EXISTS [lkp].[Pst_GOR]
 DROP TABLE IF EXISTS [lkp].[Pst_COUNTRY]
 DROP TABLE IF EXISTS [lkp].[Pst_COUNTRY_20011_12_Format]
 DROP TABLE IF EXISTS [lkp].[Pst_COUNTY_ 20011_12_Format]
+
 
 DROP PROCEDURE IF EXISTS [dbo].[ImportMarketoDataToPL]
 

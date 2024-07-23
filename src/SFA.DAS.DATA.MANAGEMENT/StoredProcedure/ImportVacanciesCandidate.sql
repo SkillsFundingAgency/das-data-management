@@ -62,7 +62,8 @@ INSERT INTO [ASData_PL].[Va_Candidate]
 		   ,[LastAccessedDate]
            ,[SourceDb]
            ,[SourceCandidateId_v1]
-		   ,[SourceCandidateId_v2])
+		   ,[SourceCandidateId_v2]
+		   ,SourceCandidateId_v3)
 /* Candidates that are In AVMS but not in FAA Cosmos Db */
 SELECT C.CandidateStatusTypeId                        as CandidateStatusTypeId
       ,CASE WHEN c.CandidateStatusTypeId=1 THEN 'Pre-Registered'
@@ -87,6 +88,7 @@ SELECT C.CandidateStatusTypeId                        as CandidateStatusTypeId
 	   ,'FAA-Avms'                                     as SourceDb
 	   ,c.CandidateId                                  as SourceCandidateId_v1
 	   ,''                                             as SourceCandidateId_v2
+	   ,''                                             as SourceCandidateId_v3
   FROM Stg.Avms_Candidate C
   left
   join (SELECT candidateId,EVENTDATE as RegisteredDate from Stg.Avms_candidatehistory where Comment='NAS Exemplar registered Candidate.') ch
@@ -129,6 +131,7 @@ SELECT C.CandidateStatusTypeId                        as CandidateStatusTypeId
 	  ,'FAA-Cosmos'                                                  as SourceDb
 	  ,''                                                            as SourceCandidateId_v1
 	  ,FU.BinaryId                                                   as SourceCandidateId_v2
+	  ,''                                                            as SourceCandidateId_v3
    FROM Stg.FAA_Users FU
    LEFT
    JOIN Stg.FAA_CandidatePostcode PC
@@ -172,6 +175,7 @@ union
 	  ,'FAA-Avms&Cosmos'                                             as SourceDb
 	  ,ac.CandidateId                                                as SourceCandidateId_v1 
 	  ,FU.BinaryId                                                   as SourceCandidateId_v2
+	  ,''                                             as SourceCandidateId_v3
    FROM Stg.FAA_Users FU
   INNER
    JOIN Stg.Avms_Candidate AC
@@ -182,13 +186,39 @@ union
    LEFT
    JOIN Stg.FAA_CandidateDob Db
      ON Db.CandidateId=FU.BinaryId
+UNION
+
+/* Candidates that are in SQLserver- FAAv2 */
+SELECT DISTINCT 
+       NULL                                              as CandidateStatusTypeId
+      ,'N/A'                                            as CandidateStatusTypeDesc
+	  ,CASE WHEN CHARINDEX(' ',a.Postcode)<>0 THEN SUBSTRING(a.PostCode,1,CHARINDEX(' ',a.PostCode)) 
+	        ELSE SUBSTRING(a.Postcode,1,LEN(a.Postcode)-3) 
+	    END                                             as PostCode
+	  ,	NULL               as ApplicationLimitEnforced_v1
+	  ,c.UpdatedON           as LastAccessedDate_v1
+	  ,NULL                as LastAccessedManageApplications_v1
+	  ,NULL                as BeingSupportedBy_v1
+	  ,NULL                as LockedForSupportUntil_v1
+	  ,NULL                as AllowMarketingMessages_v1
+	  ,c.GovUkIdentifier   as CandidateGuid 
+	  ,CASE WHEN [DateOfBirth] IS NULL	THEN - 1
+		      WHEN DATEPART([M], [DOB]) > DATEPART([M],CreatedON)
+			    OR DATEPART([M], [DOB]) = DATEPART([M],CreatedON)
+			   AND DATEPART([DD],[DOB]) > DATEPART([DD], CreatedON)
+			  THEN DATEDIFF(YEAR,[DOB], CreatedON) - 1
+		      ELSE DATEDIFF(YEAR,[DOB], CreatedON)
+		END   as AgeAtRegistration
+	  ,c.CreatedOn as RegistrationDate
+	  ,C.Updatedon as LastAccessedDate
+	  ,'FAAV2'                                       as SourceDb
+	  ,''                                               as SourceCandidateId_v1 
+	  ,''                                               as SourceCandidateId_v2
+	  ,CAST(c.id AS varchar(256))                       as SourceCandidateId_v3
+   FROM Stg.FAAV2_Candidate c
+   LEFT JOIN Stg.FAAV2_Address a on c.id=a.Candidateid
 
 
-
-
-   
-
-     
 COMMIT TRANSACTION
 
 

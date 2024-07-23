@@ -197,9 +197,31 @@ SELECT VC.CandidateId
 --    ON FCD.EID=Eth.NID
 END
 ELSE RAISERROR( 'Ethnicity Lookup for RAAv1 is empty',1,1)
-   
 
-     
+   
+/* Insert Candidate Ethnicity Details for FAAV2 from SQLServer to Presentation Layer Table */
+
+INSERT INTO [ASData_PL].[Va_CandidateDetails]
+           (
+		    [CandidateId] 
+           ,[CandidateEthnicCode] 
+           ,[CandidateEthnicDesc] 
+           ,[SourceDb] 
+		   )
+SELECT distinct VC.CandidateId
+      ,ETH.EthnicCode
+	  ,ETH.EthnicDesc
+	  ,'FAAv2'
+  FROM Stg.FAAV2_AboutYou AY
+  JOIN ASData_PL.Va_Candidate VC
+    ON TRY_CAST(VC.SourceCandidateId_v3 AS UNIQUEIDENTIFIER)=AY.CandidateId
+  LEFT JOIN dbo.CandidateEthLookUp_faav2 ETH
+     ON ETH.Ethniccode = AY.EthnicGroup
+	 And ETH.EthnicSubGroup = AY.EthnicSubGroup
+ WHERE NOT EXISTS (SELECT 1 FROM [ASData_PL].[Va_CandidateDetails] cd where cd.candidateId=VC.CandidateId
+                   and ay.CandidateId=TRY_CAST(VC.SourceCandidateId_v3 AS UNIQUEIDENTIFIER))
+
+	
 COMMIT TRANSACTION
 
 UPDATE Mgmt.Log_Execution_Results

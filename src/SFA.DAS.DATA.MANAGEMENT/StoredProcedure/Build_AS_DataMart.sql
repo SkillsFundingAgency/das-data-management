@@ -50,6 +50,8 @@ EXEC [dbo].[PopulateMetadataRolesAndPermissions] @RunId
 EXEC [dbo].[PopulatePipelineController] @RunId
 
 EXEC [dbo].[PopulateDQ_TablesToExclude] @RunId
+
+EXEC [dbo].[PopulateStgPmnts] @RunId
 /* Grant Permissions to Roles -- Should always be kept last */
 
 EXEC [dbo].[AssignPermissionsToRoles] @RunId

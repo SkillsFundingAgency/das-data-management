@@ -91,6 +91,38 @@ SELECT      VC.[CandidateId]
     ON VC.SourceCandidateId_v1=ACD.CandidateId
  WHERE NOT EXISTS (SELECT 1 FROM stg.FAA_CandidateRegDetails where CandidateId=vc.SourceCandidateId_v2)
 
+
+
+INSERT INTO [ASData_PL].[Va_CandidateRegDetails]
+           (
+		    [CandidateId] 
+           ,[CandidateFirstName]
+		   ,[CandidateLastName]
+		   ,[CandidateMiddleName]
+		   ,[CandidateFullName]
+		   ,[CandidateDateOfBirth]
+		   ,[CandidateEmail]
+		   ,[Migrated_EMailID]
+		   ,[Migrated_CandidateID]
+           ,[SourceDb] 
+		   )
+SELECT      VC.[CandidateId] 
+           ,C.[FirstName]
+		   ,C.[LastName]
+		   ,C.[MiddleNames]
+		   ,C.[FullName]
+		   ,C.[DateOfBirth]
+		   ,C.[Email]
+		   ,C.[MigratedEmail]
+		   ,C.[MigratedCandidateId]
+	       ,'FAAV2'
+  FROM Stg.FAAV2_Candidate C
+  JOIN ASData_PL.Va_Candidate VC
+    ON TRY_CAST(VC.SourceCandidateId_v3 AS UNIQUEIDENTIFIER)=C.Id
+ WHERE NOT EXISTS (SELECT 1 FROM [ASData_PL].[Va_CandidateRegDetails]  CR
+                     where CR.[CandidateId] = VC.[CandidateId] 
+					 and C.Id=TRY_CAST(VC.SourceCandidateId_v3 AS UNIQUEIDENTIFIER))
+
  /* Import Commitments Candidate Reg Details */
 
  TRUNCATE TABLE [ASData_PL].[Comt_ApprenticeshipCandidateRegDetails]

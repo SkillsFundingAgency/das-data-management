@@ -9,5 +9,7 @@
    ,[CandidateDateOfBirth] nvarchar(512)
    ,[CandidateEmail] nvarchar(512)
    ,[SourceDb] Varchar(256)
+   ,[Migrated_EMailID] Varchar(255)
+   ,[Migrated_CandidateID] UNIQUEIDENTIFIER NULL
    ,[AsDm_UpdatedDateTime]  [datetime2](7)						DEFAULT (getdate())
 )

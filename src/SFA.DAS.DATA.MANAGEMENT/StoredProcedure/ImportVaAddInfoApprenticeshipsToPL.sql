@@ -37,7 +37,8 @@ TRUNCATE TABLE ASData_PL.Va_Apprenticeships
 INSERT INTO [ASData_PL].[Va_Apprenticeships]
            (CandidateId 
            ,VacancyId 
-		   ,ApplicationId
+		       ,ApplicationId  
+		       ,ApplicationGUID  
            ,VacancyReference 
            ,CreatedDateTime 
            ,UpdatedDateTime 
@@ -46,6 +47,7 @@ INSERT INTO [ASData_PL].[Va_Apprenticeships]
            ,ApplyViaEmployerWebsite 
            ,SuccessfulDateTime 
            ,UnsuccessfulDateTime 
+           ,WithdrawalDateTime
            ,WithDrawnOrDeclinedReason 
            ,UnsuccessfulReason 
            ,SourceApprenticeshipId
@@ -55,6 +57,7 @@ INSERT INTO [ASData_PL].[Va_Apprenticeships]
 SELECT vc.CandidateId                                                  as CandidateId
       ,vv.VacancyId                                                    as VacancyId
 	  ,coalesce(va.ApplicationId,vav2.ApplicationId,FA.LEGACYAPPLICATIONID) as ApplicationID
+    ,NULL                                                            as ApplicationGUID
 	  ,vv.VacancyReferenceNumber                                       as VacancyReferenceNumber
 	  ,dbo.Fn_ConvertTimeStampToDateTime(fa.DateCreatedTimeStamp)      as DateCreatedTimeStamp
 	  ,dbo.Fn_ConvertTimeStampToDateTime(fa.DateUpdatedTimeStamp)      as DateUpdatedTimeStamp
@@ -63,6 +66,7 @@ SELECT vc.CandidateId                                                  as Candid
 	  ,ApplyViaEmployerWebsite                                         as ApplyViaEmployerWebsite
 	  ,dbo.Fn_ConvertTimeStampToDateTime(fa.SuccessfulTimeStamp)       as SuccessfulTimeStamp
 	  ,dbo.Fn_ConvertTimeStampToDateTime(fa.UnsuccessfulTimeStamp)     as UnsuccessfulTimeStamp
+    ,NULL                                                            as WithdrawalDateTime
 	  ,WithdrawnOrDeclinedReason                                       as WithdrawnOrDeclinedReason
 	  ,UnsuccessfulReason                                              as UnsuccessfulReason
 	  ,FA.BinaryId                                                     as SourceApprenticeshipId
@@ -100,7 +104,46 @@ SELECT vc.CandidateId                                                  as Candid
   JOIN ASData_PL.Va_Application vav2
     on vav2.SourceApplicationId=rar.SourseSK
    and vav2.SourceDb='RAAv2'
-   
+UNION
+SELECT vc.CandidateId                                                   as CandidateId
+      ,vv.VacancyId                                                    as VacancyId
+	    ,NULL                                                            as ApplicationID
+      ,A.ID                                                            as ApplicationGUID
+	    ,A.VacancyReference                                              as VacancyReferenceNumber
+	    ,A.CreatedDate                                                   as DateCreatedTimeStamp
+	    ,A.UpdatedDate                                                   as DateUpdatedTimeStamp
+	    ,A.SubmittedDate                                                 as DateAppliedTimeStamp
+	    ,'True'                                                          as IsRecruitVacancy
+	    ,'True'                                                          as ApplyViaEmployerWebsite
+	    ,CASE WHEN A.Status = 3 THEN A.UpdatedDate  
+            ELSE NULL 
+       END                                                             as SuccessfulTimeStamp
+	    ,CASE WHEN A.Status = 4 THEN A.UpdatedDate  
+            ELSE NULL 
+       END                                                             as UnsuccessfulTimeStamp
+      ,CASE WHEN A.Status = 2 THEN A.UpdatedDate  
+            ELSE NULL 
+       END                                                             as WithdrawalDateTime
+	    ,'N/A'                                                           as WithdrawnOrDeclinedReason
+	    ,A.ResponseNotes                                                 as UnsuccessfulReason
+	    ,'N/A'                                                           as SourceApprenticeshipId
+      ,CASE  
+        WHEN A.Status = 0 THEN 'Draft'
+        WHEN A.Status = 1 THEN 'Submitted'
+        WHEN A.Status = 2 THEN 'Withdrawn'
+        WHEN A.Status = 3 THEN 'Successful'
+        WHEN A.Status = 4 THEN 'Unsuccessful'
+        WHEN A.Status = 5 THEN 'Expired'
+      ELSE 'Invalid Status Code'
+      END AS [Status]
+	    ,'FAAV2'                                                         as SourceDb
+  FROM Stg.FAAV2_Application A
+  LEFT JOIN ASData_PL.Va_Vacancy vv
+    on vv.VacancyReferenceNumber= A.vacancyreference
+  LEFT JOIN ASData_PL.Va_Candidate VC
+    ON A.CandidateId=TRY_CAST(vc.CandidateGuid AS UNIQUEIDENTIFIER)
+
+
 COMMIT TRANSACTION
 
 UPDATE Mgmt.Log_Execution_Results

@@ -140,7 +140,7 @@ BEGIN TRY
 						basedata.DasAccountId					 
 						,[OrganisationName]
 						,[OrganisationName]
-						,[ReportingPeriod]
+						,basedata.[ReportingPeriod]
 						,[ReportingPeriodLabel]
 						,[YourEmployees_NewThisPeriod]
 						,[YourApprentices_NewThisPeriod]

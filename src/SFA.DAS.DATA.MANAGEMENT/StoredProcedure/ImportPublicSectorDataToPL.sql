@@ -179,9 +179,9 @@ BEGIN TRY
 						,YourApprenticesMaintainedSchoolsOnly_NewThisPeriod   
 				from basedata
 				LEFT JOIN  OutlineActionsAnswers OAA on  basedata.DasAccountId =  OAA.DasAccountId and basedata.[ReportingPeriod] =  OAA.[ReportingPeriod]
-				LEFT JOIN  TargetPlanAnswers TPA on  basedata.DasAccountId =  TPA.DasAccountId and basedata.[ReportingPeriod] =  OAA.[ReportingPeriod]
-				LEFT JOIN  ChallengesAnswers CA on  basedata.DasAccountId =  CA.DasAccountId and basedata.[ReportingPeriod] =  OAA.[ReportingPeriod]
-				LEFT JOIN  AnythingElseAnswers AEA on  basedata.DasAccountId =  AEA.DasAccountId and basedata.[ReportingPeriod] =  OAA.[ReportingPeriod]
+				LEFT JOIN  TargetPlanAnswers TPA on  basedata.DasAccountId =  TPA.DasAccountId and basedata.[ReportingPeriod] =  TPA.[ReportingPeriod]
+				LEFT JOIN  ChallengesAnswers CA on  basedata.DasAccountId =  CA.DasAccountId and basedata.[ReportingPeriod] =  CA.[ReportingPeriod]
+				LEFT JOIN  AnythingElseAnswers AEA on  basedata.DasAccountId =  AEA.DasAccountId and basedata.[ReportingPeriod] =  AEA.[ReportingPeriod]
 
 				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='PublicSector_Report' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 				  DROP TABLE [Stg].[PublicSector_Report]

@@ -86,13 +86,13 @@ BEGIN TRY
 				  ) As CalendarData  on [Stg].[PublicSector_Report].[ReportingPeriod] = CalendarData.RptPeriod
 				)
 				, OutlineActionsAnswers  As 
-				(SELECT [DasAccountId],count(value) As OutlineActionsAnswers_Count FROM basedata CROSS APPLY STRING_SPLIT(trim([Questions_OutlineActions_Answer]),' ')  where [Questions_OutlineActions_Answer] != '' group by [DasAccountId])
+				(SELECT [DasAccountId],[ReportingPeriod],count(value) As OutlineActionsAnswers_Count FROM basedata CROSS APPLY STRING_SPLIT(trim([Questions_OutlineActions_Answer]),' ')  where [Questions_OutlineActions_Answer] != '' group by [DasAccountId],[ReportingPeriod])
 				, TargetPlanAnswers  As 
-				(SELECT [DasAccountId],count(value) As TargetPlanAnswers_Count FROM basedata CROSS APPLY STRING_SPLIT(trim([Questions_TargetPlans_Answer]),' ')  where [Questions_TargetPlans_Answer] != '' group by [DasAccountId])
+				(SELECT [DasAccountId],[ReportingPeriod],count(value) As TargetPlanAnswers_Count FROM basedata CROSS APPLY STRING_SPLIT(trim([Questions_TargetPlans_Answer]),' ')  where [Questions_TargetPlans_Answer] != '' group by [DasAccountId],[ReportingPeriod])
 				, ChallengesAnswers  As 
-				(SELECT [DasAccountId],count(value) As ChallengesAnswers_Count FROM basedata CROSS APPLY STRING_SPLIT(trim([Questions_Challenges_Answer]),' ')  where [Questions_Challenges_Answer] != '' group by [DasAccountId])
+				(SELECT [DasAccountId],[ReportingPeriod],count(value) As ChallengesAnswers_Count FROM basedata CROSS APPLY STRING_SPLIT(trim([Questions_Challenges_Answer]),' ')  where [Questions_Challenges_Answer] != '' group by [DasAccountId],[ReportingPeriod])
 				, AnythingElseAnswers  As 
-				(SELECT [DasAccountId],count(value) As AnythingElseAnswers_Count FROM basedata CROSS APPLY STRING_SPLIT(trim([Questions_AnythingElse_Answer]),' ')  where [Questions_AnythingElse_Answer] != '' group by [DasAccountId])
+				(SELECT [DasAccountId],[ReportingPeriod],count(value) As AnythingElseAnswers_Count FROM basedata CROSS APPLY STRING_SPLIT(trim([Questions_AnythingElse_Answer]),' ')  where [Questions_AnythingElse_Answer] != '' group by [DasAccountId],[ReportingPeriod])
 				INSERT INTO [AsData_PL].[PubSector_Report]
 				(
 						DasAccountId,
@@ -140,7 +140,7 @@ BEGIN TRY
 						basedata.DasAccountId					 
 						,[OrganisationName]
 						,[OrganisationName]
-						,[ReportingPeriod]
+						,basedata.[ReportingPeriod]
 						,[ReportingPeriodLabel]
 						,[YourEmployees_NewThisPeriod]
 						,[YourApprentices_NewThisPeriod]
@@ -178,10 +178,10 @@ BEGIN TRY
 						,YourApprenticesMaintainedSchoolsOnly_AtEnd
 						,YourApprenticesMaintainedSchoolsOnly_NewThisPeriod   
 				from basedata
-				LEFT JOIN  OutlineActionsAnswers OAA on  basedata.DasAccountId =  OAA.DasAccountId
-				LEFT JOIN  TargetPlanAnswers TPA on  basedata.DasAccountId =  TPA.DasAccountId
-				LEFT JOIN  ChallengesAnswers CA on  basedata.DasAccountId =  CA.DasAccountId
-				LEFT JOIN  AnythingElseAnswers AEA on  basedata.DasAccountId =  AEA.DasAccountId
+				LEFT JOIN  OutlineActionsAnswers OAA on  basedata.DasAccountId =  OAA.DasAccountId and basedata.[ReportingPeriod] =  OAA.[ReportingPeriod]
+				LEFT JOIN  TargetPlanAnswers TPA on  basedata.DasAccountId =  TPA.DasAccountId and basedata.[ReportingPeriod] =  TPA.[ReportingPeriod]
+				LEFT JOIN  ChallengesAnswers CA on  basedata.DasAccountId =  CA.DasAccountId and basedata.[ReportingPeriod] =  CA.[ReportingPeriod]
+				LEFT JOIN  AnythingElseAnswers AEA on  basedata.DasAccountId =  AEA.DasAccountId and basedata.[ReportingPeriod] =  AEA.[ReportingPeriod]
 
 				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='PublicSector_Report' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 				  DROP TABLE [Stg].[PublicSector_Report]

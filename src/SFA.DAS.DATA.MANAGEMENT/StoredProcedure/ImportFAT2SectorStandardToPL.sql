@@ -143,7 +143,7 @@ BEGIN TRY
 					FROM [Stg].[FAT2_Standard] std JOIN [Stg].[FAT2_Route] tblRoute 
 					ON std.[RouteCode] =  tblRoute.[Id]	LEFT JOIN [ASData_PL].[Va_ApprenticeshipStandard] AppStandard ON std.LarsCode = AppStandard.LarsCode AND std.Title = AppStandard.StandardFullName
 					LEFT JOIN [stg].[Assessor_Standards] AssessorStandard ON std.LarsCode = AssessorStandard.LarsCode AND std.StandardUId = AssessorStandard.StandardUId
-					LEFT JOIN [stg].[Comt_Standard] ComtStandard ON std.LarsCode = ComtStandard.LarsCode AND std.StandardUId = ComtStandard.StandardUId'
+					LEFT JOIN [AsData_PL].[Comt_Standard] ComtStandard ON std.LarsCode = ComtStandard.LarsCode AND std.StandardUId = ComtStandard.StandardUId'
 
 					 exec SP_EXECUTESQL @DynSQL
 

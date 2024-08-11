@@ -1,5 +1,5 @@
-﻿CREATE PROCEDURE GetOrderTotalsByDate
-    @OrderDate DATE
+﻿CREATE PROCEDURE dbo.GetMLOPsData
+    @Date DATE
 AS
 BEGIN
 
@@ -26,7 +26,7 @@ WITH CTE_BASE AS(
 	ON Commitment.Id=app.CommitmentId
 	LEFT JOIN ASData_PL.Assessor_Learner Learner	
 	ON Learner.ApprenticeshipId=app.Id	
-	WHERE TRY_CONVERT(DATE,app.CreatedOn)>=DATEADD(day,-7,@OrderDate)
+	WHERE TRY_CONVERT(DATE,app.CreatedOn)>=DATEADD(day,-7,@Date)
 ),
  COURSES AS
 (

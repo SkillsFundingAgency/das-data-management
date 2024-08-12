@@ -26,7 +26,7 @@ WITH CTE_BASE AS(
 	ON Commitment.Id=app.CommitmentId
 	LEFT JOIN ASData_PL.Assessor_Learner Learner	
 	ON Learner.ApprenticeshipId=app.Id	
-	WHERE TRY_CONVERT(DATE,app.CreatedOn)>=DATEADD(day,-7,@Date)
+	WHERE TRY_CONVERT(DATE,app.CreatedOn)>=@Date
 ),
  COURSES AS
 (

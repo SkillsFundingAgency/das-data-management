@@ -72,7 +72,7 @@ SELECT vc.CandidateId                                                  as Candid
 	  ,WithdrawnOrDeclinedReason                                       as WithdrawnOrDeclinedReason
 	  ,UnsuccessfulReason                                              as UnsuccessfulReason
 	  ,FA.BinaryId                                                     as SourceApprenticeshipId
-    ,RAR.datesharedwithemployer                                      as DateSharedwithEmployer
+    ,dbo.Fn_ConvertTimeStampToDateTime(RAR.DateSharedWithEmployer)   as dateSharedWithEmployer
     ,RAR.Applicationstatus                                           as ApplicationStatusRecruitmentView
     ,CASE 
         WHEN FA.Status = 0 THEN 'Unknown'

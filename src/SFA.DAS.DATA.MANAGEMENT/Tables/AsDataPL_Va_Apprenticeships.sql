@@ -16,6 +16,8 @@
       ,WithdrawalDateTime datetime2
       ,WithDrawnOrDeclinedReason nvarchar(max)
       ,UnsuccessfulReason nvarchar(max)
+      ,DateProviderSharedApplicationWithEmployer datetime2
+      ,ApplicationStatusRecruitmentView nvarchar(max)
       ,SourceApprenticeshipId varchar(256)
       ,SourceDb varchar(100)
       ,[Status] varchar(100)

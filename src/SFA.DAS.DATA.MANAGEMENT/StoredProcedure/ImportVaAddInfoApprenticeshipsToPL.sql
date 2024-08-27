@@ -51,6 +51,8 @@ INSERT INTO [ASData_PL].[Va_Apprenticeships]
            ,WithDrawnOrDeclinedReason 
            ,UnsuccessfulReason 
            ,SourceApprenticeshipId
+           ,DateProviderSharedApplicationWithEmployer 
+           ,ApplicationStatusRecruitmentView
            ,[Status]
            ,SourceDb 
 		   )
@@ -70,6 +72,8 @@ SELECT vc.CandidateId                                                  as Candid
 	  ,WithdrawnOrDeclinedReason                                       as WithdrawnOrDeclinedReason
 	  ,UnsuccessfulReason                                              as UnsuccessfulReason
 	  ,FA.BinaryId                                                     as SourceApprenticeshipId
+    ,RAR.datesharedwithemployer                                      as DateSharedwithEmployer
+    ,RAR.Applicationstatus                                           as ApplicationStatusRecruitmentView
     ,CASE 
         WHEN FA.Status = 0 THEN 'Unknown'
         WHEN FA.Status = 5 THEN 'Saved'
@@ -127,6 +131,8 @@ SELECT vc.CandidateId                                                   as Candi
 	    ,'N/A'                                                           as WithdrawnOrDeclinedReason
 	    ,A.ResponseNotes                                                 as UnsuccessfulReason
 	    ,'N/A'                                                           as SourceApprenticeshipId
+      ,NULL
+      ,NULL
       ,CASE  
         WHEN A.Status = 0 THEN 'Draft'
         WHEN A.Status = 1 THEN 'Submitted'

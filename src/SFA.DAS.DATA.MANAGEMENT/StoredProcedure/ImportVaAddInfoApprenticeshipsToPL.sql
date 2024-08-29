@@ -52,7 +52,8 @@ INSERT INTO [ASData_PL].[Va_Apprenticeships]
            ,UnsuccessfulReason 
            ,SourceApprenticeshipId
            ,[Status]
-           ,SourceDb 
+           ,SourceDb
+           ,MigrationDate
 		   )
 SELECT vc.CandidateId                                                  as CandidateId
       ,vv.VacancyId                                                    as VacancyId
@@ -84,6 +85,7 @@ SELECT vc.CandidateId                                                  as Candid
         ELSE 'Invalid Status Code'
     END AS [Status]
 	  ,'RAAv2'                                                         as SourceDb
+    ,NULL
   FROM Stg.FAA_Apprenticeships FA
   LEFT
   JOIN ASData_PL.Va_Candidate VC
@@ -137,6 +139,7 @@ SELECT vc.CandidateId                                                   as Candi
       ELSE 'Invalid Status Code'
       END AS [Status]
 	    ,'FAAV2'                                                         as SourceDb
+      ,MigrationDate                                                   as MigrationDate
   FROM Stg.FAAV2_Application A
   LEFT JOIN ASData_PL.Va_Vacancy vv
     on vv.VacancyReferenceNumber= A.vacancyreference

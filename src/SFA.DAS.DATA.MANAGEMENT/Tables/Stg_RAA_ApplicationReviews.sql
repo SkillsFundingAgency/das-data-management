@@ -7,6 +7,7 @@
 ,CandidateIdType VARCHAR(256)
 ,VacancyReference VARCHAR(256)
 ,ApplicationStatus VARCHAR(256)
+,DateSharedWithEmployer VARCHAR(256)
 ,CreatedDateTimeStamp VARCHAR(256)
 ,SubmittedDateTimeStamp VARCHAR(256)
 ,ApplicantId VARCHAR(256)

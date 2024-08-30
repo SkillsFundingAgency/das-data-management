@@ -51,6 +51,8 @@ INSERT INTO [ASData_PL].[Va_Apprenticeships]
            ,WithDrawnOrDeclinedReason 
            ,UnsuccessfulReason 
            ,SourceApprenticeshipId
+           ,DateProviderSharedApplicationWithEmployer 
+           ,ApplicationStatusRecruitmentView
            ,[Status]
            ,SourceDb 
 		   )
@@ -58,7 +60,7 @@ SELECT vc.CandidateId                                                  as Candid
       ,vv.VacancyId                                                    as VacancyId
 	  ,coalesce(va.ApplicationId,vav2.ApplicationId,FA.LEGACYAPPLICATIONID) as ApplicationID
     ,NULL                                                            as ApplicationGUID
-	  ,vv.VacancyReferenceNumber                                       as VacancyReferenceNumber
+	  ,cast(vv.VacancyReferenceNumber  as varchar)                   as VacancyReferenceNumber
 	  ,dbo.Fn_ConvertTimeStampToDateTime(fa.DateCreatedTimeStamp)      as DateCreatedTimeStamp
 	  ,dbo.Fn_ConvertTimeStampToDateTime(fa.DateUpdatedTimeStamp)      as DateUpdatedTimeStamp
 	  ,dbo.Fn_ConvertTimeStampToDateTime(fa.DateAppliedTimeStamp)      as DateAppliedTimeStamp
@@ -70,6 +72,8 @@ SELECT vc.CandidateId                                                  as Candid
 	  ,WithdrawnOrDeclinedReason                                       as WithdrawnOrDeclinedReason
 	  ,UnsuccessfulReason                                              as UnsuccessfulReason
 	  ,FA.BinaryId                                                     as SourceApprenticeshipId
+    ,dbo.Fn_ConvertTimeStampToDateTime(RAR.DateSharedWithEmployer)   as dateSharedWithEmployer
+    ,RAR.Applicationstatus                                           as ApplicationStatusRecruitmentView
     ,CASE 
         WHEN FA.Status = 0 THEN 'Unknown'
         WHEN FA.Status = 5 THEN 'Saved'
@@ -127,6 +131,8 @@ SELECT vc.CandidateId                                                   as Candi
 	    ,'N/A'                                                           as WithdrawnOrDeclinedReason
 	    ,A.ResponseNotes                                                 as UnsuccessfulReason
 	    ,'N/A'                                                           as SourceApprenticeshipId
+      ,NULL
+      ,NULL
       ,CASE  
         WHEN A.Status = 0 THEN 'Draft'
         WHEN A.Status = 1 THEN 'Submitted'
@@ -139,7 +145,7 @@ SELECT vc.CandidateId                                                   as Candi
 	    ,'FAAV2'                                                         as SourceDb
   FROM Stg.FAAV2_Application A
   LEFT JOIN ASData_PL.Va_Vacancy vv
-    on vv.VacancyReferenceNumber= A.vacancyreference
+    on TRY_CAST(vv.VacancyReferenceNumber as varchar)= A.vacancyreference
   LEFT JOIN ASData_PL.Va_Candidate VC
     ON A.CandidateId=TRY_CAST(vc.CandidateGuid AS UNIQUEIDENTIFIER)
 

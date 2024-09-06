@@ -36,7 +36,7 @@ IF @@TRANCOUNT=0
 BEGIN
 	BEGIN TRANSACTION
 
-	DELETE FROM [lkp].[NatAppSerLookupData]
+	TRUNCATE TABLE [lkp].[NatAppSerLookupData]
 
 	/* Insert into [lkp].[NatAppSerLookupData] */
 INSERT INTO [lkp].[NatAppSerLookupData] ([Pst_LOCAL_AUTHO_Desc] ,  [National_Apprenticeship_Service_Area] , [National_Apprenticeship_Service_Division]) VALUES ('Allerdale', 'Liverpool City Region  Cumbria and Lancashire', 'North');

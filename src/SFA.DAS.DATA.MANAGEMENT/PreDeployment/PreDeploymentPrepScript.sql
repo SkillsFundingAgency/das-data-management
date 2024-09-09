@@ -682,7 +682,6 @@ DROP TABLE IF EXISTS [StgPmts].[Postcode_LookupGeographicalAttributes]
 DROP TABLE IF EXISTS [StgPmts].[Pst_LookupGOR]
 DROP TABLE IF EXISTS [StgPmts].[Pst_LookupLocalAuthority] 
 
-Truncate table stg.pst_latlong
 
 --DROP TABLE IF EXISTS [lkp].[Pst_LocalAuthority]
 --DROP TABLE IF EXISTS [lkp].[Pst_GOR]

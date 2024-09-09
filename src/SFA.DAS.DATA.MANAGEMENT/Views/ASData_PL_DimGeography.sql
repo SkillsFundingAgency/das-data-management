@@ -21,8 +21,14 @@ SELECT
             , lep2.LEP_Code_Desc AS [Local Enterprise Partnership Secondary] 
             , ca.Pst_COMBINED_AUTHORITY AS [Combined authority code]
             , ca.Pst_COMBINED_AUTHORITY_Desc AS [Combined authority]
-            , na.National_Apprenticeship_Service_Area
-            , na.National_Apprenticeship_Service_Division
+            ,CASE WHEN Pst_GOR_Gov_Off_Desc = 'London' THEN 'London'
+                  WHEN Pst_GOR_Gov_Off_Desc = 'South West' THEN 'South West'
+             ELSE  COALESCE(na.National_Apprenticeship_Service_Area, '?')
+              END National_Apprenticeship_Service_Area,
+             CASE WHEN Pst_GOR_Gov_Off_Desc = 'London' THEN 'London and the South East'
+                  WHEN Pst_GOR_Gov_Off_Desc = 'South West' THEN 'South'
+	         ELSE  COALESCE(na.National_Apprenticeship_Service_Division, '?')
+              END National_Apprenticeship_Service_Division
 			,Latitude
 			,Longitude
 FROM [lkp].[Postcode_GeographicalAttributes] p

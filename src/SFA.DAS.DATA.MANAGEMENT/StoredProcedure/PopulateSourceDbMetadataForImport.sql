@@ -142,7 +142,7 @@ VALUES
 ,('Accounts','LegalEntity','Employer_Account','[Id],[Code],[DateOfIncorporation],[Status],[Source],[PublicSectorDataSource],[Sector]','','','Acc_LegalEntity',0)
 ,('Accounts','Membership','Employer_Account','[AccountId],[UserId],[Role],[CreatedDate],[ShowWizard]','','','Acc_AccountUserRole',0)
 ,('Accounts','UserAccountSettings','Employer_Account','[ID],[UserId],[AccountId],[ReceiveNotifications]','','','Acc_UserAccountSettings',0)
-,('Accounts','User','Employer_Account','[ID],[UserRef],[CorrelationId],[TermAndConditionsAcceptedOn]','','[Email],[FirstName],[LastName]','Acc_User',0)
+,('Accounts','User','Employer_Account','[ID],[UserRef],[CorrelationId],[TermAndConditionsAcceptedOn],[LastLogin]','','[Email],[FirstName],[LastName]','Acc_User',0)
 ,('Accounts','AccountHistory','Employer_Account','[Id],[AccountId],[AddedDate],[RemovedDate]','','[PayeRef]','Acc_AccountHistory',1)
 ,('Accounts','Paye','employer_account','[Name]','[AccessToken],[RefreshToken],[Aorn]','[Ref]','Acc_Paye',1)
 ,('Commitments','Accounts','dbo','[Id],[HashedId],[Created],[Updated],[LevyStatus]','[PublicHashedId],[Name]','','Comt_Accounts',1)

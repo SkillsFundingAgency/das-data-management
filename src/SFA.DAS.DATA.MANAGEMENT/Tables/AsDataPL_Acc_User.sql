@@ -7,6 +7,7 @@
       ,LastName       nvarchar(255) 
       ,CorrelationId  nvarchar(255) 
       ,[TermAndConditionsAcceptedOn] DateTime null
+      ,[LastLogin] DateTime2(7)
       ,[IsRetentionApplied] bit DEFAULT (0)
       ,[RetentionAppliedDate]  DateTime2(7)
 	  ,[Asdm_UpdatedDateTime] datetime2 default getdate()

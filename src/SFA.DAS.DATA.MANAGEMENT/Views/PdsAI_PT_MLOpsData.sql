@@ -577,7 +577,22 @@ dateposted >='01-Aug-2018'
 
 
 SELECT 
-*
+basequery.*,
+courses.StandardCode
+,courses.Level
+,courses.SectorSubjectAreaTier1
+,courses.SectorSubjectAreaTier2
+,courses.SectorSubjectAreaTier1_Desc
+,courses.SectorSubjectAreaTier2_Desc
+,opinionpoll.LARSCODE
+,opinionpoll.FLAG_AGGREGATED_LOWRATING
+,estim_salaries.weighted_average_annual_minwage
+,estim_salaries.weighted_average_annual_maxwage
+,estim_salaries.ProviderUkprn
+,employersector.EmployerAccountId
+,employersector.[Employer type]
+,employersector.[Employer sector estimate]
+,employersector.Employee_size_estimate
 ,CONVERT(DATE,CURRENT_TIMESTAMP)  AS CURR_STAMP
 ,DATEADD(day,-1,CONVERT(DATE,CURRENT_TIMESTAMP)) AS YESTERDAY
 ,DATEADD(day,-7,CONVERT(DATE,CURRENT_TIMESTAMP)) AS LASTWEEK

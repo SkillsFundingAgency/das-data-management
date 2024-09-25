@@ -595,7 +595,7 @@ ON (basequery.UKPRN=estim_salaries.ProviderUkprn
 LEFT JOIN EMPLOYER_SECTOR employersector
 ON employersector.ApprenticeshipId=basequery.ApprenticeshipId
 
-END
+
 GO
 
 

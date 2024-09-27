@@ -1,6 +1,6 @@
 ﻿CREATE PROCEDURE [dbo].[ImportVaAddInfoApprenticeshipsToPL]
 (
-   @RunId int
+   @RunId varchar(100)
 )
 AS
 

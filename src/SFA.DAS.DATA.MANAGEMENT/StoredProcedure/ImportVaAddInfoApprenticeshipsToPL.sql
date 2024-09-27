@@ -34,6 +34,17 @@ BEGIN TRANSACTION
 
 TRUNCATE TABLE ASData_PL.Va_Apprenticeships
 
+-- ####################################################################
+-- # Basic UPDATE statement
+-- # See https://www.ibm.com/docs/en/db2-for-zos/13?topic=statements-update for complete syntax.
+-- ####################################################################
+UPDATE stg.RAA_ApplicationReviews
+SET CandidateId_UI=CONVERT(UNIQUEIDENTIFIER, 
+            CONVERT(VARCHAR(36), 
+            CAST(CAST(N'' AS XML).value('xs:base64Binary(sql:column("CandidateId"))', 'VARBINARY(16)') as uniqueidentifier)
+        )
+    )
+
 INSERT INTO [ASData_PL].[Va_Apprenticeships]
            (CandidateId 
            ,VacancyId 
@@ -133,8 +144,8 @@ SELECT vc.CandidateId                                                   as Candi
 	    ,'N/A'                                                           as WithdrawnOrDeclinedReason
 	    ,A.ResponseNotes                                                 as UnsuccessfulReason
 	    ,'N/A'                                                           as SourceApprenticeshipId
-      ,NULL
-      ,NULL
+      ,dbo.Fn_ConvertTimeStampToDateTime(RAR.DateSharedWithEmployer)   as dateSharedWithEmployer
+      ,RAR.Applicationstatus                                           as ApplicationStatusRecruitmentView
       ,CASE  
         WHEN A.Status = 0 THEN 'Draft'
         WHEN A.Status = 1 THEN 'Submitted'
@@ -147,6 +158,8 @@ SELECT vc.CandidateId                                                   as Candi
 	    ,'FAAV2'                                                         as SourceDb
       ,MigrationDate                                                   as MigrationDate
   FROM Stg.FAAV2_Application A
+  LEFT JOIN Stg.RAA_ApplicationReviews RAR
+     on A.CandidateId=RAR.CandidateId_UI
   LEFT JOIN ASData_PL.Va_Vacancy vv
     on TRY_CAST(vv.VacancyReferenceNumber as varchar)= A.vacancyreference
   LEFT JOIN ASData_PL.Va_Candidate VC

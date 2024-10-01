@@ -4,6 +4,7 @@
 ,BinaryId VARCHAR(256)
 ,TypeCode VARCHAR(256)
 ,CandidateId VARCHAR(256)
+,CandidateId_UI UNIQUEIDENTIFIER 
 ,CandidateIdType VARCHAR(256)
 ,VacancyReference VARCHAR(256)
 ,ApplicationStatus VARCHAR(256)

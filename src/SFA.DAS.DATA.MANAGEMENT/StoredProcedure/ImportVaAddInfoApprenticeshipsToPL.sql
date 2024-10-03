@@ -160,7 +160,7 @@ SELECT vc.CandidateId                                                   as Candi
   FROM Stg.FAAV2_Application A
   LEFT JOIN Stg.RAA_ApplicationReviews RAR
      on A.CandidateId=RAR.CandidateId_UI
-     and A.VacancyReference=RAR.VacancyReference
+    and A.VacancyReference=RAR.VacancyReference
   LEFT JOIN ASData_PL.Va_Vacancy vv
     on TRY_CAST(vv.VacancyReferenceNumber as varchar)= A.vacancyreference
   LEFT JOIN ASData_PL.Va_Candidate VC

@@ -385,7 +385,8 @@
     <Build Include="StoredProcedure\PopulateLTMReferenceData.sql" />
     <Build Include="StoredProcedure\PopulateDQ_TablesToExclude.sql" />
     <Build Include="StoredProcedure\ImportSubmittedApplicationAnswersToPL.sql" />
-    <Build Include="Tables\AsDataPL_Tpr_OrgDetails.sql" />
+    <Build Include="Tables\AsDataPL_Tpr_OrgDetails.sql" />    
+    <Build Include="Views\PdsAI_PT_MLOpsData.sql" />
     <Build Include="Views\PdsAI_PT_DAS_TprOrgDetails.sql" />
     <Build Include="Views\PdsAI_PT_DAS_Reservations.sql" />
     <Build Include="Tables\Stg_Avms_ApprenticeshipOccupation.sql" />

@@ -164,7 +164,7 @@ SELECT vc.CandidateId                                                   as Candi
   LEFT JOIN ASData_PL.Va_Vacancy vv
     on TRY_CAST(vv.VacancyReferenceNumber as varchar)= A.vacancyreference
   LEFT JOIN ASData_PL.Va_Candidate VC
-    ON A.CandidateId=TRY_CAST(vc.CandidateGuid AS UNIQUEIDENTIFIER)
+    ON cast(A.CandidateId AS VARCHAR(36)) = VC.SourceCandidateId_v3
 
 
 COMMIT TRANSACTION

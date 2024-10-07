@@ -1,0 +1,25 @@
+CREATE TABLE [Asdata_pl].[RAT_EmployerRequest] (
+    Id UNIQUEIDENTIFIER PRIMARY KEY,        
+    OriginalLocation NVARCHAR(100) NULL,  
+    RequestTypeId INT NOT NULL,           
+    AccountId BIGINT NOT NULL,            
+    StandardReference VARCHAR(6) NOT NULL,
+    NumberOfApprentices INT NULL,         
+    SameLocation NVARCHAR(5) NULL,        
+    SingleLocation NVARCHAR(100) NULL,    
+    AtApprenticesWorkplace BIT NOT NULL,  
+    DayRelease BIT NOT NULL,              
+    BlockRelease BIT NOT NULL,            
+    RequestedAt DATETIME2(7) NOT NULL,    
+    RequestedBy UNIQUEIDENTIFIER NOT NULL,
+    RequestStatusId INT NOT NULL,         
+    ExpiredAt DATETIME2(7) NULL,          
+    CancelledAt DATETIME2(7) NULL,        
+    ModifiedBy UNIQUEIDENTIFIER NOT NULL, 
+    ValidFrom DATETIME2(0) ,
+    ValidTo DATETIME2(0) ,
+    AsDm_UpdatedDateTime				datetime2 default getdate()	NULL
+    CONSTRAINT FK_EmployerRequest_RequestType FOREIGN KEY (RequestTypeId) REFERENCES [AsData_pl].[RAT_RequestType](Id),
+    CONSTRAINT FK_StandardReference FOREIGN KEY (StandardReference) REFERENCES [AsData_pl].[RAT_Standard](StandardReference),
+    CONSTRAINT FK_RequestStatus FOREIGN KEY (RequestStatusId) REFERENCES [AsData_pl].[RAT_RequestStatus](Id)
+)

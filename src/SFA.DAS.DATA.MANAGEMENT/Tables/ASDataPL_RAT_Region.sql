@@ -1,4 +1,5 @@
-CREATE TABLE [Asdata_pl].[RAT_Region](
+CREATE TABLE [Asdata_pl].[RAT_Region]
+(
 	[Id] INT IDENTITY(1,1) PRIMARY KEY,
 	[SubregionName] [varchar](250) NULL,
 	[RegionName] [varchar](25) NULL,

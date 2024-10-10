@@ -7,9 +7,8 @@ CREATE TABLE [Asdata_pl].[RAT_ProviderResponseEmployerRequest](
 	[ValidFrom] [datetime2](0) ,
 	[ValidTo] [datetime2](0) ,
     AsDm_UpdatedDateTime datetime2 default getdate()	NULL
- PRIMARY KEY  (	[EmployerRequestId] ,[Ukprn]),
+ PRIMARY KEY  (	[EmployerRequestId] ,[Ukprn])
 
 
- CONSTRAINT FK_ProviderResponseEmployerRequest FOREIGN KEY (EmployerRequestId) REFERENCES [Asdata_pl].[RAT_EmployerRequest] (Id),
  
 )

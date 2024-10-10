@@ -19,7 +19,4 @@ CREATE TABLE [Asdata_pl].[RAT_EmployerRequest] (
     ValidFrom DATETIME2(0) ,
     ValidTo DATETIME2(0) ,
     AsDm_UpdatedDateTime				datetime2 default getdate()	NULL
-    CONSTRAINT FK_EmployerRequest_RequestType FOREIGN KEY (RequestTypeId) REFERENCES [AsData_pl].[RAT_RequestType](Id),
-    CONSTRAINT FK_StandardReference FOREIGN KEY (StandardReference) REFERENCES [AsData_pl].[RAT_Standard](StandardReference),
-    CONSTRAINT FK_RequestStatus FOREIGN KEY (RequestStatusId) REFERENCES [AsData_pl].[RAT_RequestStatus](Id)
 )

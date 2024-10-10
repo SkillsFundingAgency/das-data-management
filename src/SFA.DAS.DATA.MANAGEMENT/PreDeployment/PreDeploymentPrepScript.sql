@@ -683,7 +683,7 @@ DROP TABLE IF EXISTS [StgPmts].[Pst_LookupGOR]
 DROP TABLE IF EXISTS [StgPmts].[Pst_LookupLocalAuthority] 
 
 
-ALTER TABLE ProviderResponseEmployerRequest
+ALTER TABLE asdata_pl.ProviderResponseEmployerRequest
 DROP CONSTRAINT FK_ProviderResponseEmployerRequest;
 
 ALTER TABLE asdata_pl.RAT_employerrequest

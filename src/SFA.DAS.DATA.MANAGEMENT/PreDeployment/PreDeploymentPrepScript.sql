@@ -683,19 +683,6 @@ DROP TABLE IF EXISTS [StgPmts].[Pst_LookupGOR]
 DROP TABLE IF EXISTS [StgPmts].[Pst_LookupLocalAuthority] 
 
 
-ALTER TABLE asdata_pl.ProviderResponseEmployerRequest
-DROP CONSTRAINT FK_ProviderResponseEmployerRequest;
-
-ALTER TABLE asdata_pl.RAT_employerrequest
-DROP CONSTRAINT PK__RAT_Empl__3214EC0708FD7ACF
-
-
-Drop Table asdata_pl.ProviderResponseEmployerRequest
-
-DROP TABLE asdata_pl.RAT_EmployerRequest;
-
-
-
 --DROP TABLE IF EXISTS [lkp].[Pst_LocalAuthority]
 --DROP TABLE IF EXISTS [lkp].[Pst_GOR]
 --DROP TABLE IF EXISTS [lkp].[Pst_COUNTRY]

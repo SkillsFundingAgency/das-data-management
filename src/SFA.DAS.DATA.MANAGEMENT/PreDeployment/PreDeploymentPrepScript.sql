@@ -682,15 +682,11 @@ DROP TABLE IF EXISTS [StgPmts].[Postcode_LookupGeographicalAttributes]
 DROP TABLE IF EXISTS [StgPmts].[Pst_LookupGOR]
 DROP TABLE IF EXISTS [StgPmts].[Pst_LookupLocalAuthority] 
 
+
+ALTER TABLE asdata_pl.RAT_employerrequest
+DROP CONSTRAINT PK__RAT_Empl__3214EC0708FD7ACF
+
 DROP Table asdata_pl.RAT_employerrequest
-DROP Table asdata_pl.RAT_ProviderResponse
-DROP Table asdata_pl.RAT_ProviderResponseEmployerRequest
-DROP Table asdata_pl.RAT_EmployerRequestRegion
-DROP Table asdata_pl.RAT_Region
-DROP Table asdata_pl.RAT_RequestStatus
-DROP Table asdata_pl.RAT_RequestType
-DROP Table asdata_pl.RAT_Standard
-DROP Table asdata_pl.RAT_Status
 
 
 

@@ -1,4 +1,4 @@
-CREATE TABLE [Asdata_pl].[ProviderResponseEmployerRequest](
+CREATE TABLE [Asdata_pl].[RAT_ProviderResponseEmployerRequest](
 	[EmployerRequestId] [uniqueidentifier] NOT NULL,
 	[Ukprn] [bigint] NOT NULL,
 	[ProviderResponseId] [uniqueidentifier] NULL,

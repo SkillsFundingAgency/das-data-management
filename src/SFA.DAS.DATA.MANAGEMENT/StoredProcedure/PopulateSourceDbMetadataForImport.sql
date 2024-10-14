@@ -108,8 +108,8 @@ INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,Source
 VALUES
 ('RAT','EmployerRequest','dbo','[Id], [OriginalLocation], [RequestTypeId], [AccountId], [StandardReference], [NumberOfApprentices], [SameLocation], [SingleLocation], [AtApprenticesWorkplace], [DayRelease], [BlockRelease], [RequestedAt], [RequestedBy], [RequestStatusId], [ExpiredAt], [CancelledAt], [ModifiedBy], [ValidFrom], [ValidTo]','','',1,0,'RAT_EmployerRequest'),
 ('RAT','EmployerRequestRegion','dbo','[EmployerRequestId], [RegionId], [ModifiedBy], [ValidFrom], [ValidTo]','','',1,0,'RAT_EmployerRequestRegion'),
-('RAT','ProviderResponse','dbo','[Id], [RespondedAt], [RespondedBy], [ValidFrom], [ValidTo]','[PhoneNumber], [Website]','[ContactName]',1,0,'RAT_ProviderResponse'),
 ('RAT','ProviderResponseEmployerRequest','dbo','[EmployerRequestId],  [ProviderResponseId], [AcknowledgedAt], [AcknowledgedBy], [ValidFrom], [ValidTo]','','[Ukprn]',1,0,'RAT_ProviderResponseEmployerRequest'),
+('RAT','ProviderResponse','dbo','[Id], [RespondedAt], [RespondedBy], [ValidFrom], [ValidTo]','[PhoneNumber],[Website]','[ContactName],[Email]',1,1,'RAT_ProviderResponse'),
 ('RAT','Region','dbo','[Id], [SubregionName], [RegionName], [Latitude], [Longitude], [ValidFrom], [ValidTo]','','',1,0,'RAT_Region'),
 ('RAT','RequestStatus','dbo','[Id], [Description]','','',1,0,'RAT_RequestStatus'),
 ('RAT','RequestType','dbo','[Id], [Description]','','',1,0,'RAT_RequestType'),

@@ -120,7 +120,7 @@ VALUES
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)
 VALUES
- ('RAT','ProviderResponse','dbo','[Id], [RespondedAt], [RespondedBy], [ValidFrom], [ValidTo],[PhoneNumber], [ContactName],[Email]','[Website]','',1,1,'SELECT [Id], [RespondedAt], [RespondedBy], [ValidFrom], [ValidTo],convert(NVarchar(500),HASHBYTES(''''SHA2_512'''',LTRIM(RTRIM(CONCAT(CONVERT(NVARCHAR(512),LTRIM(RTRIM(CONVERT(VARCHAR(255),ContactName)))), @SaltKey)))),2) as ContactName,convert(NVarchar(500),HASHBYTES(''''SHA2_512'''',LTRIM(RTRIM(CONCAT(CONVERT(NVARCHAR(512),LTRIM(RTRIM(CONVERT(varchar(255),Email)))), @SaltKey)))),2) as Email FROM dbo.ProviderResponse','RAT_ProviderResponse')
+ ('RAT','ProviderResponse','dbo','[Id], [RespondedAt], [RespondedBy], [ValidFrom], [ValidTo]','[PhoneNumber],[Website]','[ContactName],[Email]',1,1,'SELECT [Id], [RespondedAt], [RespondedBy], [ValidFrom], [ValidTo] FROM dbo.ProviderResponse','RAT_ProviderResponse')
 
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)

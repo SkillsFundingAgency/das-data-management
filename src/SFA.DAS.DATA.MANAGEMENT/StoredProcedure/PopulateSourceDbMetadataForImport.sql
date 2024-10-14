@@ -118,9 +118,9 @@ VALUES
 
 
 INSERT INTO Mtd.SourceConfigForImport
-(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,PLTableName)
+(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,PLTableName,StagingTableName)
 VALUES
- ('RAT','ProviderResponse','dbo','[Id], [RespondedAt], [RespondedBy], [ValidFrom], [ValidTo]','[PhoneNumber],[Website]','[ContactName],[Email]',1,1,'SELECT [Id], [RespondedAt], [RespondedBy], [ValidFrom], [ValidTo],[ContactName],[Email] FROM dbo.ProviderResponse','RAT_ProviderResponse')
+ ('RAT','ProviderResponse','dbo','[Id], [RespondedAt], [RespondedBy], [ValidFrom], [ValidTo]','[PhoneNumber],[Website]','[ContactName],[Email]',1,1,'SELECT [Id], [RespondedAt], [RespondedBy], [ValidFrom], [ValidTo],[ContactName],[Email] FROM dbo.ProviderResponse','RAT_ProviderResponse','RAT_ProviderResponse')
 
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)

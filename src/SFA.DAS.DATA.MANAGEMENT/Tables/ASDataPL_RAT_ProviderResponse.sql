@@ -3,7 +3,7 @@ CREATE TABLE [Asdata_pl].[RAT_ProviderResponse](
 	[ContactName] [nvarchar](256) NOT NULL,
 	[Email] [varchar](256) NOT NULL,
 	[PhoneNumber] [varchar](25) NULL,
-	[Website] [varchar](256)  NULL,
+	[Website] [varchar](256) NULL,
 	[RespondedAt] [datetime2](7) NOT NULL,
 	[RespondedBy] [uniqueidentifier] NOT NULL,
 	[ValidFrom] [datetime2](0),

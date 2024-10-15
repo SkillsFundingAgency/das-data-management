@@ -108,10 +108,7 @@ VALUES
 
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
 VALUES
-('RAT','EmployerRequest','dbo','[Id], [OriginalLocation], [RequestTypeId], [AccountId], [StandardReference], [NumberOfApprentices], [SameLocation], [SingleLocation], [AtApprenticesWorkplace], [DayRelease], [BlockRelease], [RequestedAt], [RequestedBy], [RequestStatusId], [ExpiredAt], [CancelledAt], [ModifiedBy], [ValidFrom], [ValidTo]','','',1,0,'RAT_EmployerRequest'),
 ('RAT','EmployerRequestRegion','dbo','[EmployerRequestId], [RegionId], [ModifiedBy], [ValidFrom], [ValidTo]','','',1,0,'RAT_EmployerRequestRegion'),
-('RAT','ProviderResponseEmployerRequest','dbo','[EmployerRequestId],  [ProviderResponseId], [AcknowledgedAt], [AcknowledgedBy], [ValidFrom], [ValidTo]','','[Ukprn]',1,0,'RAT_ProviderResponseEmployerRequest'),
-('RAT','ProviderResponse','dbo','[Id], [RespondedAt], [RespondedBy], [ValidFrom], [ValidTo]','[PhoneNumber],[Website]','[ContactName],[Email]',1,0,'RAT_ProviderResponse'),
 ('RAT','Region','dbo','[Id], [SubregionName], [RegionName], [Latitude], [Longitude], [ValidFrom], [ValidTo]','','',1,0,'RAT_Region'),
 ('RAT','RequestStatus','dbo','[Id], [Description]','','',1,0,'RAT_RequestStatus'),
 ('RAT','RequestType','dbo','[Id], [Description]','','',1,0,'RAT_RequestType'),
@@ -119,12 +116,13 @@ VALUES
 ('RAT','Status','dbo','[Id], [Description]','','',1,0,'RAT_Status')
 
 
-/*
+
 INSERT INTO Mtd.SourceConfigForImport
-(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,PLTableName,StagingTableName)
+(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)
 VALUES
- ('RAT','ProviderResponse','dbo','[Id], [RespondedAt], [RespondedBy], [ValidFrom], [ValidTo]','[PhoneNumber],[Website]','[ContactName],[Email]',1,1,'SELECT [Id], [RespondedAt], [RespondedBy], [ValidFrom], [ValidTo],[ContactName],[Email] FROM dbo.ProviderResponse','RAT_ProviderResponse','RAT_ProviderResponse')
-*/
+('RAT','EmployerRequest','dbo','[Id], [RequestTypeId], [AccountId], [StandardReference], [NumberOfApprentices], [SameLocation],  [AtApprenticesWorkplace], [DayRelease], [BlockRelease], [RequestedAt], [RequestedBy], [RequestStatusId], [ExpiredAt], [CancelledAt], [ModifiedBy], [ValidFrom], [ValidTo]','','[OriginalLocation],[SingleLocation]',0,1,'select [Id], [RequestTypeId], [AccountId], [StandardReference], [NumberOfApprentices], [SameLocation],  [AtApprenticesWorkplace], [DayRelease], [BlockRelease], [RequestedAt], [RequestedBy], [RequestStatusId], [ExpiredAt], [CancelledAt], [ModifiedBy], [ValidFrom], [ValidTo],STUFF([OriginalLocation],2,len([OriginalLocation])-2,REPLICATE(''''*'''',len([OriginalLocation])-2)) As [OriginalLocation],STUFF([SingleLocation],2,len([SingleLocation])-2,REPLICATE(''''*'''',len([SingleLocation])-2)) As [SingleLocation] From [dbo].[EmployerRequest]','RAT_EmployerRequest'),
+('RAT','ProviderResponseEmployerRequest','dbo','[EmployerRequestId], [ProviderResponseId], [AcknowledgedAt], [AcknowledgedBy], [ValidFrom], [ValidTo]','','[Ukprn]',0,1,'select [EmployerRequestId], [ProviderResponseId], [AcknowledgedAt], [AcknowledgedBy], [ValidFrom], [ValidTo],STUFF([Ukprn],2,len([Ukprn])-2,REPLICATE(''''*'''',len([Ukprn])-2)) As [Ukprn] From [dbo].[ProviderResponseEmployerRequest]','RAT_ProviderResponseEmployerRequest'),
+('RAT','ProviderResponse','dbo','[Id], [RespondedAt], [RespondedBy], [ValidFrom], [ValidTo]','[PhoneNumber],[Website]','[ContactName],[Email]',0,1,'SELECT [Id], [RespondedAt], [RespondedBy], [ValidFrom], [ValidTo],STUFF([ContactName],2,len([ContactName])-2,REPLICATE(''''*'''',len([ContactName])-2)) As [ContactName],STUFF([Email],2,len([Email])-2,REPLICATE(''''*'''',len([Email])-2)) As [Email] FROM dbo.ProviderResponse','RAT_ProviderResponse')
 
 
 INSERT INTO Mtd.SourceConfigForImport

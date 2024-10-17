@@ -58,6 +58,7 @@ INSERT INTO [Mgmt].[Pipeline]
 ,(20,'ImportFATRoATPV2ToDM')
 ,(21,'ImportAANToDM')
 ,(22,'ImportPRELToDM')
+,(23,'ImportRATToDM')
 ,(100,'Master-ImportVacanciesToDataMart')
 ,(101,'ImportRAAToDataMart')
 ,(102,'ImportAvmsToDataMart')
@@ -95,12 +96,14 @@ VALUES
 ,(1 ,20 ,1  ,8)
 ,(1 ,21 ,1  ,6)
 ,(1 ,22 ,1  ,17)
+,(1 ,23 ,1  ,20)
 ,(100,101,1	,2)
 ,(100,102,1	,3)
 ,(100,103,1	,5)
 ,(100,104,1	,4)
 ,(100,105,1	,1)
 ,(100,106,1	,6)
+
 
 COMMIT TRANSACTION
 

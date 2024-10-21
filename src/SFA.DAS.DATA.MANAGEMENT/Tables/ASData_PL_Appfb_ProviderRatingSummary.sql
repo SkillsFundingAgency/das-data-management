@@ -1,4 +1,4 @@
-CREATE TABLE [Asdata_PL].[ProviderRatingSummary](
+CREATE TABLE [Asdata_PL].[Appfb_ProviderRatingSummary](
 	[Ukprn] [bigint] NOT NULL,
 	[Rating] [nvarchar](20) NOT NULL,
 	[RatingCount] [int] NOT NULL,

@@ -454,6 +454,9 @@ VALUES
 ,('Appfb','FeedbackEligibilityStatus','dbo','[Id],[Description]','','','Appfb_FeedbackEligibilityStatus',0,1)
 ,('Appfb','EngagementEmails','dbo','[Id],[ProgrammeType],[MonthsFromStart],[MonthsBeforeEnd],[TemplateName]','','','Appfb_EngagementEmails',0,1)
 ,('Appfb','Exclusion','dbo','[Ukprn],[CreatedOn]','','','Appfb_Exclusion',0,1)
+,('Appfb','ProviderAttributeSummary','dbo','[Ukprn], [AttributeId], [Agree], [Disagree], [UpdatedOn], [TimePeriod]','','','Appfb_ProviderAttributeSummary',0,1)
+,('Appfb','ProviderRatingSummary','dbo','[Ukprn], [Rating], [RatingCount], [UpdatedOn], [TimePeriod]','','','Appfb_ProviderRatingSummary',0,1)
+,('Appfb','ProviderStarsSummary','dbo','[Ukprn], [ReviewCount], [Stars], [TimePeriod]','','','Appfb_ProviderStarsSummary',0,1)
 /* Rofjaa  Config */
 
 INSERT INTO Mtd.SourceConfigForImport

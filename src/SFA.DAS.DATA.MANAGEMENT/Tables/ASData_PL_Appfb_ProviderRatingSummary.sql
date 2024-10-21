@@ -5,6 +5,4 @@ CREATE TABLE [Asdata_PL].[ProviderRatingSummary](
 	[UpdatedOn] [datetime2](7) NULL,
 	[TimePeriod] [nvarchar](50) NOT NULL,
 	[AsDm_UpdatedDateTime] datetime2 default getdate()	NULL
-PRIMARY KEY (
-	[Ukprn] ,[Rating] ,[TimePeriod] )
-)
+PRIMARY KEY ([Ukprn] ,[Rating] ,[TimePeriod] ))

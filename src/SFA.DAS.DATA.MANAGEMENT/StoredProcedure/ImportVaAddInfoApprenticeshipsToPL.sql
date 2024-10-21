@@ -158,9 +158,9 @@ SELECT vc.CandidateId                                                   as Candi
 	    ,'FAAV2'                                                         as SourceDb
       ,MigrationDate                                                   as MigrationDate
   FROM Stg.FAAV2_Application A
-  LEFT JOIN Stg.RAA_ApplicationReviews RAR
-     on A.CandidateId=RAR.CandidateId_UI
-    and A.VacancyReference=RAR.VacancyReference
+  LEFT JOIN ( SELECT *, ROW_NUMBER() OVER (PARTITION BY RAR.CandidateId_UI, RAR.VacancyReference ORDER BY CAST(RAR.CreatedDateTimeStamp AS BIGINT) DESC) AS rn
+        FROM Stg.RAA_ApplicationReviews RAR) RAR 
+	ON A.CandidateId = RAR.CandidateId_UI AND A.VacancyReference = RAR.VacancyReference AND RAR.rn = 1
   LEFT JOIN ASData_PL.Va_Vacancy vv
     on TRY_CAST(vv.VacancyReferenceNumber as varchar)= A.vacancyreference
   LEFT JOIN ASData_PL.Va_Candidate VC

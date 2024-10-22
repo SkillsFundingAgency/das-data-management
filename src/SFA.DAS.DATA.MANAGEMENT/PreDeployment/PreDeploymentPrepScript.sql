@@ -579,13 +579,6 @@ IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
 	      )
 DROP TABLE [ASData_PL].[aComt_CommitmentStatement]
 
-IF EXISTS (SELECT * FROM Mtd.SourceConfigForImport
-            WHERE SourceDatabaseName = 'RAT'
-              AND SourceTableName = 'Status'
-          )
-DELETE FROM Mtd.SourceConfigForImport
-WHERE SourceDatabaseName = 'RAT'
-AND SourceTableName = 'Status'
 
 
 /* Drop views as they are renamed */

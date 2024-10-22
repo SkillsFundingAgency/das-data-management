@@ -466,6 +466,9 @@
     <Build Include="Tables\ASData_PL_Appfb_FeedbackTransaction.sql" />
     <Build Include="Tables\ASData_PL_Appfb_ExitSurveyAttribute.sql" />
     <Build Include="Tables\ASData_PL_Appfb_Exclusion.sql" />
+    <Build Include="Tables\ASData_PL_Appfb_ProviderAttributeSummary.sql" />
+    <Build Include="Tables\ASData_PL_Appfb_ProviderRatingSummary.sql" />
+    <Build Include="Tables\ASData_PL_Appfb_ProviderStarsSummary.sql" />
     <Build Include="StoredProcedure\UpdateRAAVacancyReviews.sql" />
     <Build Include="Tables\ASData_PL_Rofjaa_Agency.sql" />
     <Build Include="Tables\AsDataPL_Comt_ChangeOfPartyRequest.sql" />

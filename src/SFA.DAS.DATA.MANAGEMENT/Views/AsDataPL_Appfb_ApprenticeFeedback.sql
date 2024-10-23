@@ -1,4 +1,23 @@
-CREATE VIEW [AsData_PL].[Appfb_ApprenticeFeedback]
+/*
+
+View SQL and logic updated by analyst Ryan SLender 17/10/2024
+
+Tested successfully : 17/10/2024 see Excel file:
+https://educationgovuk.sharepoint.com/:x:/r/sites/Apprenticeships-PerformanceAnalyticsDataTeam/Shared%20Documents/General/Quality%20Feedback%20-%20apprentice/New%20scoring%20approach%2008%20oct%202024/Amending%20DataMart%20view/ASINTEL%204318%20QA.xlsx?d=w02bace5a749347f78d5faf4aca6fe01b&csf=1&web=1&e=xwzz4s
+
+
+NOTE 
+2 new columns have been added:
+
+AcademicYear
+[By UKPRN AcademicYear ReviewCount]
+
+
+..the code for the view has been simplified.
+
+*/
+
+CREATE VIEW [ASData_PL].[Appfb_ApprenticeFeedback]
 As
 WITH LatestResultsCTE
 /* 
@@ -27,18 +46,21 @@ as (SELECT ar1.ApprenticeFeedbackTargetId,
            end as Disagree,
            pa1.AttributeValue,
            aft.Ukprn,
-           ProviderRating
+           ProviderRating,
+           Academic_Year_Id as AcademicYear
     FROM
     (
         -- get latest feedback for each feedback target
         SELECT *
         FROM
         (
-            SELECT ROW_NUMBER() OVER (PARTITION BY ApprenticeFeedbackTargetId
+            SELECT d.Academic_Year_id,ROW_NUMBER() OVER (PARTITION BY ApprenticeFeedbackTargetId,d.Academic_Year_id
                                       ORDER BY DateTimeCompleted DESC
                                      ) seq,
-                   *
-            FROM ASData_PL.Appfb_ApprenticeFeedbackResult
+                   afr.*
+            FROM ASData_PL.Appfb_ApprenticeFeedbackResult afr
+            LEFT JOIN [ASData_PL].[DimDate] d
+            ON CAST(afr.DateTimeCompleted AS DATE) = CAST(d.Date_DT_Id AS DATE)
         ) ab1
         WHERE seq = 1
     ) ar1
@@ -48,82 +70,6 @@ as (SELECT ar1.ApprenticeFeedbackTargetId,
             on ar1.ApprenticeFeedbackTargetId = aft.Id
     WHERE FeedbackEligibility != 0
           -- AND DatetimeCompleted >= DATEADD(MONTH, -12, GETUTCDATE()) -- only includes feedback received in last 12 months /*commented out for ASINTEL-3524*/
-   ),
-     FatPublishedCTE
-as (
--- Published in FAT following publication  rules
-SELECT 1 as [Published_FAT?],
-           Ukprn,
-           ab1.AttributeId,
-           Category,
-           AttributeName,
-           SUM(AttributeValue) Agree,
-           SUM(   CASE
-                      WHEN AttributeValue = 1 THEN
-                          0
-                      ELSE
-                          1
-                  END
-              ) Disagree,
-           SUM(AttributeValue) + SUM(   CASE
-                                            WHEN AttributeValue = 1 THEN
-                                                0
-                                            ELSE
-                                                1
-                                        END
-                                    ) Total,
-           GETUTCDATE() UpdatedOn
-    FROM
-    (
-        SELECT *,
-               COUNT(*) OVER (PARTITION BY Ukprn, AttributeId) ReviewCount
-        FROM LatestResultsCTE
-    ) ab1
-        LEFT JOIN [ASData_PL].[Appfb_Attribute] at
-            ON ab1.AttributeId = at.AttributeId
-    WHERE ReviewCount >= 10 
-    GROUP BY Ukprn,
-             ab1.AttributeId,
-             at.AttributeName,
-             at.Category
-    UNION ALL
-
-    -- Not Published in FAT
-
-    SELECT 2 as [Published_FAT?],
-           Ukprn,
-           ab1.AttributeId,
-           Category,
-           AttributeName,
-           SUM(AttributeValue) Agree,
-           SUM(   CASE
-                      WHEN AttributeValue = 1 THEN
-                          0
-                      ELSE
-                          1
-                  END
-              ) Disagree,
-           SUM(AttributeValue) + SUM(   CASE
-                                            WHEN AttributeValue = 1 THEN
-                                                0
-                                            ELSE
-                                                1
-                                        END
-                                    ) Total,
-           GETUTCDATE() UpdatedOn
-    FROM
-    (
-        SELECT *,
-               COUNT(*) OVER (PARTITION BY Ukprn, AttributeId) ReviewCount
-        FROM LatestResultsCTE
-    ) ab1
-        LEFT JOIN [ASData_PL].[Appfb_Attribute] at
-            ON ab1.AttributeId = at.AttributeId
-    WHERE ReviewCount < 10 -- Restrict the review count to only those who won't show in published version
-    GROUP BY Ukprn,
-             ab1.AttributeId,
-             at.AttributeName,
-             at.Category
    )
 
    /* 
@@ -141,16 +87,10 @@ Final output for DWH view
 Final output for DWH view
 */
 
-SELECT case
-           when fp.[Published_FAT?] = 1 then
-               'Yes'
-           when fp.[Published_FAT?] = 2 then
-               'No'
-           else
-               '?'
-       end as [Published_FAT?],
-       ApprenticeFeedbackTargetId,
-       ApprenticeFeedbackResultId,
+   SELECT 
+   'Yes' AS [Published_FAT?],
+      lr.ApprenticeFeedbackTargetId,
+       lr.ApprenticeFeedbackResultId,
        lr.DateTimeCompleted,
        at.ApprenticeshipId,
        lr.UKPRN,
@@ -159,8 +99,8 @@ SELECT case
        at.LarsCode,
        lr.StandardUId,
        lr.AttributeId,
-       fp.AttributeName,
-       fp.Category,
+       att.AttributeName,
+       att.Category,
        AttributeValue,
        lr.Agree,
        lr.Disagree,
@@ -188,13 +128,21 @@ SELECT case
        EligibilityCalculationDate,
        FeedbackEligibility,
        at.Status
+        
 FROM LatestResultsCTE lr
-    LEFT JOIN FatPublishedCTE fp
-        ON lr.UKPRN = fp.Ukprn
-           and lr.AttributeId = fp.AttributeId
+
     LEFT JOIN ASData_PL.Appfb_ApprenticeFeedbackTarget at
         ON lr.ApprenticeFeedbackTargetId = at.id
     LEFT JOIN [ASData_PL].[Comt_Apprenticeship] app
         ON at.ApprenticeshipId = app.Id
-WHERE [Published_FAT?] = 1 -- Only included FAT published in results for DWH
+    LEFT JOIN [ASData_PL].[Appfb_Attribute] att
+        ON lr.AttributeId = att.AttributeId
+    LEFT JOIN (
+        SELECT COUNT(DISTINCT ApprenticeFeedbackTargetId) as ReviewCount -- Review count by UKPRN and Academic Year
+        ,lr.UKPRN,lr.AcademicYear
+        FROM LatestResultsCTE lr
+        GROUP BY lr.UKPRN,lr.AcademicYear
+    ) rc ON lr.UKPRN = rc.UKPRN and lr.AcademicYear = rc.AcademicYear
 
+ WHERE 
+ rc.ReviewCount >= 10 -- If 10 or more reviews by academic year and ukprn then they will be published

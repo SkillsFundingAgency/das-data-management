@@ -314,9 +314,6 @@ ELSE REPLACE(REPLACE(REPLACE(REPLACE(CAST(v.WageText AS VARCHAR(250)),',','.'),C
 
   )
 Insert into Asdata_PL.FactVacancy
-(
-
-)  
 SELECT MV.*
 ,case -- Flagging duplicates to discount - replicating approach from Matt Rolfe in external stats - set NumberofPositions to zerp for duplicates
 when RowNumber > 1 and [Vacancy - Number of Positions] >= 20 and [Vacancy Date Posted] >= '01-Mar-2023' and [Vacancy - Employer] = 'Royal Air Force' then 0

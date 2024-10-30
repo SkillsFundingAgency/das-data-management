@@ -316,18 +316,18 @@ ELSE REPLACE(REPLACE(REPLACE(REPLACE(CAST(v.WageText AS VARCHAR(250)),',','.'),C
 Insert into Asdata_PL.FactVacancy
 SELECT MV.*
 ,case -- Flagging duplicates to discount - replicating approach from Matt Rolfe in external stats - set NumberofPositions to zerp for duplicates
-when RowNumber > 1 and [Vacancy - Number of Positions] >= 20 and [Vacancy Date Posted] >= '01-Mar-2023' and [Vacancy - Employer] = 'Royal Air Force' then 0
-when RowNumber > 1 and [Vacancy - Number of Positions] >= 20 and [Vacancy Date Posted] >= '01-Jan-2024' and [Vacancy - Employer] = 'KPMG LLP' then 0
-else [Vacancy - Number of Positions] end as [Vacancy_NumberOfPositions_NoDuplicates]
+when RowNumber > 1 and [Vacancy_NumberofPositions] >= 20 and [VacancyDatePosted] >= '01-Mar-2023' and [Vacancy_Employer] = 'Royal Air Force' then 0
+when RowNumber > 1 and [Vacancy_NumberofPositions] >= 20 and [VacancyDatePosted] >= '01-Jan-2024' and [Vacancy_Employer] = 'KPMG LLP' then 0
+else [Vacancy_NumberofPositions] end as [Vacancy_NumberOfPositions_NoDuplicates]
 
 ,case -- Flagging duplicates to discount - replicating approach from Matt Rolfe in external stats - Flag current duplicates
-when RowNumber > 1 and [Vacancy - Number of Positions] >= 20 and [Vacancy Date Posted] >= '01-Mar-2023' and [Vacancy - Employer] = 'Royal Air Force' then 1
-when RowNumber > 1 and [Vacancy - Number of Positions] >= 20 and [Vacancy Date Posted] >= '01-Jan-2024' and [Vacancy - Employer] = 'KPMG LLP' then 1
+when RowNumber > 1 and [Vacancy_NumberofPositions] >= 20 and [VacancyDatePosted] >= '01-Mar-2023' and [Vacancy_Employer] = 'Royal Air Force' then 1
+when RowNumber > 1 and [Vacancy_NumberofPositions] >= 20 and [VacancyDatePosted] >= '01-Jan-2024' and [Vacancy_Employer] = 'KPMG LLP' then 1
 else 0 end as  VacancyDuplicateFlag
 
 ,case -- Flagging duplicates to discount - replicating approach from Matt Rolfe in external stats - Identify current duplicates
-when RowNumber > 1 and [Vacancy - Number of Positions] >= 20 and [Vacancy Date Posted] >= '01-Mar-2023' and [Vacancy - Employer] = 'Royal Air Force' then 'Royal Air Force' 
-when RowNumber > 1 and [Vacancy - Number of Positions] >= 20 and [Vacancy Date Posted] >= '01-Jan-2024' and [Vacancy - Employer] = 'KPMG LLP' then 'KPMG LLP'
+when RowNumber > 1 and [Vacancy_NumberofPositions] >= 20 and [VacancyDatePosted] >= '01-Mar-2023' and [Vacancy_Employer] = 'Royal Air Force' then 'Royal Air Force' 
+when RowNumber > 1 and [Vacancy_NumberofPositions] >= 20 and [VacancyDatePosted] >= '01-Jan-2024' and [Vacancy_Employer] = 'KPMG LLP' then 'KPMG LLP'
 else NULL end as VacancyDuplicateFlagIdentity
 ,Getdate() as AsDm_UpdatedDateTime
 FROM MainVacancy as Mv

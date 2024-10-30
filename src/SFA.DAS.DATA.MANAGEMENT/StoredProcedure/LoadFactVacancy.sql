@@ -32,11 +32,10 @@ BEGIN TRY
      AND RunId=@RunID
 
 
-IF @@TRANCOUNT=0
-BEGIN
-	BEGIN TRANSACTION
 
-   Truncate table asdata_pl.LoadFactVacancyData
+BEGIN TRANSACTION
+
+Truncate table asdata_pl.LoadFactVacancyData
 
 
 DECLARE @NationalMinimumWageMIN AS FLOAT
@@ -333,7 +332,7 @@ else NULL end as VacancyDuplicateFlagIdentity
 FROM MainVacancy as Mv
 
 COMMIT TRANSACTION
-END
+
 
 /* Update Log Execution Results as Success if the query ran succesfully*/
 

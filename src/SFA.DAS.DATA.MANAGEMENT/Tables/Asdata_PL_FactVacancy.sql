@@ -20,10 +20,10 @@ CREATE TABLE Asdata_PL.FactVacancy (
     Vacancy_StandardIFATENumber NVARCHAR(50),
     Vacancy_Standard NVARCHAR(255),
     Vacancy_StandardLevel NVARCHAR(50),
-    Vacancy_StandardIntegratedDegree BIT,
+    Vacancy_StandardIntegratedDegree NVARCHAR(50),
     IFATE_OccupationalRoute NVARCHAR(100),
     IFATE_OccupationalRouteCode NVARCHAR(50),
-    Vacancy_StandardMaxFunding DECIMAL(18, 2),
+    Vacancy_StandardMaxFunding INT,
     Vacancy_StandardRegulatedBody NVARCHAR(100),
     Vacancy_StandardTrainingType NVARCHAR(100),
     VacancyTool_Programme NVARCHAR(100),
@@ -84,7 +84,7 @@ CREATE TABLE Asdata_PL.FactVacancy (
     VacancyTool_NumberOfVacanciesAvailable INT,
     RowNumber INT,
     Vacancy_NumberOfPositions_NoDuplicates INT,
-    VacancyDuplicateFlag BIT,
+    VacancyDuplicateFlag INT,
     VacancyDuplicateFlagIdentity INT,
     AsDm_UpdatedDateTime DATETIME
 );

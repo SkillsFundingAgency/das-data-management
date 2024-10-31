@@ -1,6 +1,7 @@
 CREATE PROCEDURE [dbo].[LoadFactVacancyData]
 (
    @RunId INT
+   
 )
 AS
 

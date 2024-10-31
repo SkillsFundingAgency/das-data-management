@@ -40,7 +40,7 @@ CREATE TABLE Asdata_PL.FactVacancy (
     VacancyTool_Wage NVARCHAR(MAX),
     WageUnitDesc NVARCHAR(50),
     HoursPerWeek DECIMAL(5, 2),
-    WorkingWeek NVARCHAR(100),
+    WorkingWeek NVARCHAR(MAX),
     SourceDb NVARCHAR(50),
     VacancyPostcode NVARCHAR(20),
     VacancyTown NVARCHAR(255),

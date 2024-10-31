@@ -32,7 +32,7 @@ CREATE TABLE Asdata_PL.FactVacancy (
     Vacancy_StandardEducationLevel NVARCHAR(100),
     Vacancy_StandardLevel_Detailed NVARCHAR(100),
     Vacancy_StandardLevel_Simple NVARCHAR(100),
-    Vacancy_StandardDegreeLevel BIT,
+    Vacancy_StandardDegreeLevel NVARCHAR(10),
     Vacancy_StandardFAASector NVARCHAR(100),
     VacancyTool_Sector NVARCHAR(100),
     WageType NVARCHAR(50),

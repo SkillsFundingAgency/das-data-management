@@ -37,7 +37,7 @@ CREATE TABLE Asdata_PL.FactVacancy (
     VacancyTool_Sector NVARCHAR(100),
     WageType NVARCHAR(50),
     WageText NVARCHAR(MAX),
-    VacancyTool_Wage DECIMAL(18, 2),
+    VacancyTool_Wage NVARCHAR(MAX),
     WageUnitDesc NVARCHAR(50),
     HoursPerWeek DECIMAL(5, 2),
     WorkingWeek NVARCHAR(100),

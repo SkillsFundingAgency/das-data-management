@@ -1,7 +1,7 @@
 CREATE PROCEDURE [dbo].[LoadFactVacancyData]
 (
    @RunId INT
-   
+
 )
 AS
 
@@ -36,7 +36,7 @@ BEGIN TRY
 
 BEGIN TRANSACTION
 
-Truncate table asdata_pl.LoadFactVacancyData
+Truncate table asdata_pl.FactVacancy
 
 
 DECLARE @NationalMinimumWageMIN AS FLOAT

@@ -8,6 +8,6 @@ CREATE TABLE [ASData_PL].[FAT_ROATP_Organisations]
 	[OrganisationTypeId] INT,
 	[UKPRN] BigINT,
 	[LegalName] NVARCHAR(200),
-	[TradingName] NARCHAR(200),
+	[TradingName] NVARCHAR(200),
 	[AsDm_UpdatedDateTime]  [datetime2](7)	DEFAULT (getdate())
 )

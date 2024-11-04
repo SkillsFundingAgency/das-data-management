@@ -1,6 +1,6 @@
 CREATE TABLE [ASData_PL].[FAT_ROATP_Organisations]
 (
-	[Id] UNIQUEIDENTIFIER Not Null, 
+	[Id] NVARCHAR(255), 
 	[CreatedAt] datetime2, 
 	[UpdatedAt] datetime2, 
 	[StatusId] INT, 

@@ -256,7 +256,7 @@ VALUES
 
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
 VALUES
-('Roatp','Organisations','dbo','[Id], [CreatedAt], [UpdatedAt], [StatusId], [ProviderTypeId], [OrganisationTypeId],[TradingName]', '[CreatedBy],[UpdatedBy],[StatusDate],[OrganisationData]','[UKPRN], [LegalName]',1,1,'FAT_ROATP_Oraganisations'),
+('Roatp','Organisations','dbo','[Id], [CreatedAt], [UpdatedAt], [StatusId], [ProviderTypeId],[OrganisationTypeId], [UKPRN],[LegalName],[TradingName]', '[CreatedBy],[UpdatedBy],[StatusDate],[OrganisationData]','',1,1,'FAT_ROATP_Oraganisations'),
 ('Roatp','OrganisationStatus','dbo','[Id], [Status], [CreatedAt], [UpdatedAt], [EventDescription]','[CreatedBy],[UpdatedBy]','',1,0,'FAT_ROATP_OrganisationStatus'),
 ('Roatp','ProviderTypes','dbo','[Id], [ProviderType], [Status]','[Description], [CreatedAt], [CreatedBy], [UpdatedAt], [UpdatedBy]','',1,0,'FAT_ROATP_ProviderTypes')
 

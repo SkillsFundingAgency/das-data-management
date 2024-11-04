@@ -102,6 +102,20 @@ VALUES
 ,('Candacc','Application','dbo','[Id], [CandidateId], [DisabilityStatus], [VacancyReference], [Status], [CreatedDate], [UpdatedDate], [SubmittedDate],  [ResponseNotes],  [MigrationDate]','[WithdrawnDate], [ResponseDate],[QualificationsStatus], [TrainingCoursesStatus], [JobsStatus], [WorkExperienceStatus], [SkillsAndStrengthStatus], [InterestsStatus], [AdditionalQuestion1Status], [AdditionalQuestion2Status], [InterviewAdjustmentsStatus], [DisabilityConfidenceStatus], [WhatIsYourInterest], [ApplyUnderDisabilityConfidentScheme],[PreviousAnswersSourceId], [Strengths], [Support]','',1)
 ,('Candacc','Address','dbo','[Id], [Uprn], [AddressLine1], [AddressLine2], [Town], [County], [Postcode], [Latitude], [Longitude], [CandidateId]','','',1)
 
+/*RAT Metadata*/
+
+
+
+INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
+VALUES
+('RAT','EmployerRequest','dbo','[Id], [OriginalLocation], [RequestTypeId], [AccountId], [StandardReference], [NumberOfApprentices], [SameLocation], [SingleLocation], [AtApprenticesWorkplace], [DayRelease], [BlockRelease], [RequestedAt], [RequestedBy], [RequestStatusId], [ExpiredAt], [CancelledAt], [ModifiedBy], [ValidFrom], [ValidTo]','','',1,0,'RAT_EmployerRequest'),
+('RAT','EmployerRequestRegion','dbo','[EmployerRequestId], [RegionId], [ModifiedBy], [ValidFrom], [ValidTo]','','',1,0,'RAT_EmployerRequestRegion'),
+('RAT','ProviderResponseEmployerRequest','dbo','[EmployerRequestId],[Ukprn], [ProviderResponseId], [AcknowledgedAt], [AcknowledgedBy],[ValidFrom],[ValidTo]','','',1,0,'RAT_ProviderResponseEmployerRequest'),
+('RAT','ProviderResponse','dbo','[Id], [RespondedAt], [RespondedBy], [ValidFrom], [ValidTo]','','',1,0,'RAT_ProviderResponse'),
+('RAT','Region','dbo','[Id], [SubregionName], [RegionName], [Latitude], [Longitude], [ValidFrom], [ValidTo]','','',1,0,'RAT_Region'),
+('RAT','RequestStatus','dbo','[Id], [Description]','','',1,0,'RAT_RequestStatus'),
+('RAT','RequestType','dbo','[Id], [Description]','','',1,0,'RAT_RequestType'),
+('RAT','Standard','dbo','[StandardReference], [StandardTitle], [StandardLevel], [StandardSector]','','',1,0,'RAT_Standard')
 
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)
@@ -438,6 +452,9 @@ VALUES
 ,('Appfb','FeedbackEligibilityStatus','dbo','[Id],[Description]','','','Appfb_FeedbackEligibilityStatus',0,1)
 ,('Appfb','EngagementEmails','dbo','[Id],[ProgrammeType],[MonthsFromStart],[MonthsBeforeEnd],[TemplateName]','','','Appfb_EngagementEmails',0,1)
 ,('Appfb','Exclusion','dbo','[Ukprn],[CreatedOn]','','','Appfb_Exclusion',0,1)
+,('Appfb','ProviderAttributeSummary','dbo','[Ukprn], [AttributeId], [Agree], [Disagree], [UpdatedOn], [TimePeriod]','','','Appfb_ProviderAttributeSummary',0,1)
+,('Appfb','ProviderRatingSummary','dbo','[Ukprn], [Rating], [RatingCount], [UpdatedOn], [TimePeriod]','','','Appfb_ProviderRatingSummary',0,1)
+,('Appfb','ProviderStarsSummary','dbo','[Ukprn], [ReviewCount], [Stars], [TimePeriod]','','','Appfb_ProviderStarsSummary',0,1)
 /* Rofjaa  Config */
 
 INSERT INTO Mtd.SourceConfigForImport

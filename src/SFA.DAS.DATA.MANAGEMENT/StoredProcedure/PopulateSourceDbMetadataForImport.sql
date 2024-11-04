@@ -427,7 +427,9 @@ INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,StagingTableName,PLTableName,[ModelDataToPL],[IsQueryBasedImport],SourceQuery)
 VALUES
 ('Pfbe','EmployerFeedback','dbo','[SrcEmployerFeedbackId],[EmployerFeedbackBinaryId],[DatetimeCompleted],[FeedbackName],[FeedbackValue],[ProviderRating],[FeedbackSource]','','[Ukprn],[AccountId]','Pfbe_EmployerFeedback','Pfbe_EmployerFeedback',0,1,'SELECT  efr.feedbackid as SrcEmployerFeedbackId,efr.id as EmployerFeedbackBinaryId, ef.ukprn as Ukprn, ef.accountid as AccountId, efr.datetimecompleted as DateTimeCompleted,a.attributename as FeedbackName,pa.attributevalue as FeedbackValue,efr.providerrating as ProviderRating,efr.feedbacksource as FeedbackSource FROM EmployerFeedback ef	JOIN EmployerFeedbackResult efr ON ef.FeedbackId = efr.FeedbackId LEFT JOIN ProviderAttributes pa ON efr.Id = pa.EmployerFeedbackResultId LEFT JOIN Attributes a on pa.AttributeId = a.AttributeId')
-
+,('Pfbe','ProviderAttributeSummary','dbo','[Ukprn], [AttributeId], [Agree], [Disagree], [UpdatedOn], [TimePeriod]','','','Appfb_ProviderAttributeSummary',0,1)
+,('Pfbe','ProviderRatingSummary','dbo','[Ukprn], [Rating], [RatingCount], [UpdatedOn], [TimePeriod]','','','Appfb_ProviderRatingSummary',0,1)
+,('Pfbe','ProviderStarsSummary','dbo','[Ukprn], [ReviewCount], [Stars], [TimePeriod]','','','Appfb_ProviderStarsSummary',0,1)
 
 /* E Commitments  Config */
 INSERT INTO Mtd.SourceConfigForImport

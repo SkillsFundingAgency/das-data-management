@@ -1,4 +1,4 @@
-CREATE TABLE [Asdata_PL].[PfbE_ProviderRatingSummary](
+CREATE TABLE [Asdata_PL].[PFBE_ProviderRatingSummary](
 	[Ukprn] [bigint] NOT NULL,
 	[Rating] [nvarchar](20) NOT NULL,
 	[RatingCount] [int] NOT NULL,

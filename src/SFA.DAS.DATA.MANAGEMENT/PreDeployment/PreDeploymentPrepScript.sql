@@ -682,7 +682,8 @@ DROP TABLE IF EXISTS [StgPmts].[Postcode_LookupGeographicalAttributes]
 DROP TABLE IF EXISTS [StgPmts].[Pst_LookupGOR]
 DROP TABLE IF EXISTS [StgPmts].[Pst_LookupLocalAuthority] 
 DROP TABLE IF EXISTS [ASDATA_PL].[RAT_Status]
-
+DROP TABLE IF EXISTS [ASDATA_PL].[PFBE_ProviderStarsSummary]
+DROP TABLE IF EXISTS [ASDATA_PL].[PFBE_ProviderRatingSummary]
 
 --DROP TABLE IF EXISTS [lkp].[Pst_LocalAuthority]
 --DROP TABLE IF EXISTS [lkp].[Pst_GOR]

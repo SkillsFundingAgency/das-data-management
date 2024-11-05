@@ -431,7 +431,6 @@ VALUES
 ('Pfbe','ProviderRatingSummary','dbo','[Ukprn], [Rating], [RatingCount], [TimePeriod], [UpdatedOn]','','[Ukprn]','Pfbe_ProviderRatingSummary','Pfbe_ProviderRatingSummary',0,1,'SELECT  [Ukprn], [Rating], [RatingCount], [TimePeriod], [UpdatedOn] from Pfbe_ProviderRatingSummary'),
 ('Pfbe','ProviderStarsSummary','dbo','[Ukprn], [ReviewCount], [Stars], [TimePeriod]','','[Ukprn]','Pfbe_ProviderStarsSummary','Pfbe_ProviderStarsSummary',0,1,'SELECT  [Ukprn], [ReviewCount], [Stars], [TimePeriod] from ProviderStarsSummary')
 
-
 /* E Commitments  Config */
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])

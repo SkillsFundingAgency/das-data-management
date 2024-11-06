@@ -437,6 +437,8 @@ VALUES
 ('Appacc','MyApprenticeship','dbo','[Id], [ApprenticeId], [Uln], [ApprenticeshipId], [EmployerName], [StartDate], [EndDate], [TrainingProviderId], [TrainingProviderName], [TrainingCode], [StandardUId], [CreatedOn]','','aComt_MyApprenticeship',0,1),
 ('Appacc','ApprenticeArticle','dbo','[Id], [EntryId], [IsSaved], [LikeStatus], [SaveTime], [LastSaveStatusTime]','','aComt_ApprenticeArticle',0,1)
 
+
+/* Apprentice progress  Config */
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
 VALUES

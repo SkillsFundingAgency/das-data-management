@@ -63,8 +63,7 @@ BEGIN
             [JobId],
             [EventTime],
             [CreationDate],
-            [DuplicateNumber],
-            [AgeAtStartOfLearning]
+            [DuplicateNumber]
         )
         SELECT 
             [Id],
@@ -90,8 +89,7 @@ BEGIN
             [JobId],
             [EventTime],
             [CreationDate],
-            [DuplicateNumber],
-            [AgeAtStartOfLearning]
+            [DuplicateNumber]
         FROM [StgPmts].[stg_DataLockEvent]
         WHERE [AcademicYear] = @AcademicYear
           AND [CollectionPeriod] = @CollectionPeriod;

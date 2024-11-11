@@ -82,8 +82,7 @@ BEGIN
             [ApprenticeshipEmployerType],
             [ReportingAimFundingLineType],
             [NonPaymentReason],
-            [DuplicateNumber],
-            [AgeAtStartOfLearning]
+            [DuplicateNumber]
         )
         SELECT 
             [Id],
@@ -129,8 +128,7 @@ BEGIN
             [ApprenticeshipEmployerType],
             [ReportingAimFundingLineType],
             [NonPaymentReason],
-            [DuplicateNumber],
-            [AgeAtStartOfLearning]
+            [DuplicateNumber]
         FROM [StgPmts].[stg_Payment]
         WHERE [AcademicYear] = @AcademicYear
           AND [CollectionPeriod] = @CollectionPeriod;

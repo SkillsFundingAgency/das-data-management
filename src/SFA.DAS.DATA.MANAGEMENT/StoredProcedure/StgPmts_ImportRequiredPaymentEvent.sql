@@ -81,8 +81,7 @@ BEGIN
             [ApprenticeshipEmployerType],
             [NonPaymentReason],
             [EventType],
-            [DuplicateNumber],
-            [AgeAtStartOfLearning]
+            [DuplicateNumber]
         )
         SELECT 
             [Id],
@@ -126,8 +125,7 @@ BEGIN
             [ApprenticeshipEmployerType],
             [NonPaymentReason],
             [EventType],
-            [DuplicateNumber],
-            [AgeAtStartOfLearning]
+            [DuplicateNumber]
         FROM [StgPmts].[stg_RequiredPaymentEvent]
         WHERE [AcademicYear] = @AcademicYear
           AND [CollectionPeriod] = @CollectionPeriod;

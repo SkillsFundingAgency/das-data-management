@@ -256,9 +256,9 @@ VALUES
 
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
 VALUES
-('Roatp','Organisations','dbo','[Id], [CreatedAt], [UpdatedAt], [StatusId], [ProviderTypeId],[OrganisationTypeId], [UKPRN],[LegalName],[TradingName]','[CreatedBy],[UpdatedBy],[StatusDate],[OrganisationData]','',1,0,'FAT_ROATP_Organisations'),
-('Roatp','OrganisationStatus','dbo','[Id], [Status], [CreatedAt], [UpdatedAt], [EventDescription]','[CreatedBy],[UpdatedBy]','',1,0,'FAT_ROATP_OrganisationStatus'),
-('Roatp','ProviderTypes','dbo','[Id], [ProviderType], [Status]','[Description], [CreatedAt], [CreatedBy], [UpdatedAt], [UpdatedBy]','',1,0,'FAT_ROATP_ProviderTypes')
+('Roatp','Organisations','dbo','[Id], [CreatedAt], [UpdatedAt], [StatusId], [ProviderTypeId],[OrganisationTypeId], [UKPRN],[LegalName],[TradingName]','[CreatedBy],[UpdatedBy],[StatusDate],[OrganisationData]','',1,0,'APAR_ROATP_Organisations'),
+('Roatp','OrganisationStatus','dbo','[Id], [Status], [CreatedAt], [UpdatedAt], [EventDescription]','[CreatedBy],[UpdatedBy]','',1,0,'APAR_ROATP_OrganisationStatus'),
+('Roatp','ProviderTypes','dbo','[Id], [ProviderType], [Status]','[Description], [CreatedAt], [CreatedBy], [UpdatedAt], [UpdatedBy]','',1,0,'APAR_ROATP_ProviderTypes')
 
 
 INSERT INTO Mtd.SourceConfigForImport

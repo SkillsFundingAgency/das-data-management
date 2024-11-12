@@ -1,4 +1,4 @@
-CREATE TABLE [ASData_PL].[FAT_ROATP_Organisations]
+CREATE TABLE [ASData_PL].[APAR_ROATP_Organisations]
 (
 	[Id] NVARCHAR(255), 
 	[CreatedAt] datetime2, 

@@ -1,4 +1,4 @@
-CREATE TABLE [ASData_PL].[FAT_ROATP_OrganisationStatus]
+CREATE TABLE [ASData_PL].[APAR_ROATP_OrganisationStatus]
 (
 	[Id] INT ,
 	[Status] NVARCHAR(50), 

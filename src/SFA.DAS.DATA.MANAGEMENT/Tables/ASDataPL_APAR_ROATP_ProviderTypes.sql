@@ -1,4 +1,4 @@
-CREATE TABLE [ASData_PL].[FAT_ROATP_ProviderTypes]
+CREATE TABLE [ASData_PL].[APAR_ROATP_ProviderTypes]
 (
 	[Id]					bigint								NULL,
 	[ProviderType]          NVARCHAR(100)                       NOT NULL,

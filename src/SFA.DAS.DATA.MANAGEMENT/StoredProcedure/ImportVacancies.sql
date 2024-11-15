@@ -553,7 +553,9 @@ SELECT  cast(v.BinaryId as varchar(256))                        as VacancyGuid
 		ON dbo.Fn_ConvertTimeStampToDateTime(v.LiveDateTimeStamp) >= NMR.StartDate AND dbo.Fn_ConvertTimeStampToDateTime(v.LiveDateTimeStamp) <= NMR.EndDate) vv)vd
 
 
-
+EXEC [dbo].[ImportVacanciesCandidateToPL];
+EXEC [dbo].[ImportVacanciesApplicationToPL];
+EXEC [dbo].[ImportVaAddInfoApprenticeshipsToPL];
 
 COMMIT TRANSACTION
 

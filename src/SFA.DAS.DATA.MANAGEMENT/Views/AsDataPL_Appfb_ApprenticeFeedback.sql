@@ -145,4 +145,4 @@ FROM LatestResultsCTE lr
     ) rc ON lr.UKPRN = rc.UKPRN and lr.AcademicYear = rc.AcademicYear
 
  WHERE 
- rc.ReviewCount >= 5 -- If 5 or more reviews by academic year and ukprn then they will be published
+ rc.ReviewCount >=5 -- If 5 or more reviews by academic year and ukprn then they will be published

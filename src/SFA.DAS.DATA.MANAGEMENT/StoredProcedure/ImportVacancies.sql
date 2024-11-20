@@ -554,8 +554,11 @@ SELECT  cast(v.BinaryId as varchar(256))                        as VacancyGuid
 
 
 EXEC [dbo].[ImportVacanciesCandidateToPL] @RunId;
+
 EXEC [dbo].[ImportVacanciesApplicationToPL] @RunId;
+
 EXEC [dbo].[ImportVaAddInfoApprenticeshipsToPL] @RunId;
+
 EXEC [dbo].[ImportVaAddInfoVacancyReviewsToPL] @RunId
 
 COMMIT TRANSACTION

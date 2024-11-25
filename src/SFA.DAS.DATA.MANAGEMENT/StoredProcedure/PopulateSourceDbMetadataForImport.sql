@@ -461,8 +461,9 @@ VALUES
 ,('Appfb','ProviderAttributeSummary','dbo','[Ukprn], [AttributeId], [Agree], [Disagree], [UpdatedOn], [TimePeriod]','','','Appfb_ProviderAttributeSummary',0,1)
 ,('Appfb','ProviderRatingSummary','dbo','[Ukprn], [Rating], [RatingCount], [UpdatedOn], [TimePeriod]','','','Appfb_ProviderRatingSummary',0,1)
 ,('Appfb','ProviderStarsSummary','dbo','[Ukprn], [ReviewCount], [Stars], [TimePeriod]','','','Appfb_ProviderStarsSummary',0,1)
-/* Rofjaa  Config */
 
+
+/* Rofjaa  Config */
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
 VALUES

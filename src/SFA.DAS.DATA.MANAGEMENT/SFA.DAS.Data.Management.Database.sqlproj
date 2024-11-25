@@ -296,6 +296,9 @@
     <Build Include="Tables\AsDataPL_RP_Organisations.sql" />
     <Build Include="Functions\Fn_ConvertGuidToBase64.sql" />
     <Build Include="Tables\ASDataPL_PFBE_EmployerFeedback.sql" />
+    <Build Include="Tables\ASDataPL_PFBE_ProviderAttributeSummary.sql" />
+    <Build Include="Tables\ASDataPL_PFBE_ProviderRatingSummary.sql" />
+    <Build Include="Tables\ASDataPL_PFBE_ProviderStarsSummary.sql" />
     <Build Include="Tables\ASDataPL_EI_ChangeOfCircumstance.sql" />
     <Build Include="Tables\AsDataPL_Va_Apprenticeships.sql" />
     <Build Include="Tables\AsDataPL_Va_ContactMessages.sql" />
@@ -509,6 +512,7 @@
     <Build Include="Tables\AsDataPL_Assessor_Contacts.sql" />
     <Build Include="Tables\AsDataPL_Assessor_OrganisationType.sql" />
     <Build Include="Tables\ASDataPL_PREL_AccountProviders.sql" />
+    <Build Include="Tables\ASDataPL_PREL_Requests.sql" />
     <Build Include="Tables\ASData_PL_Appfb_EngagementEmails.sql" />
     <Build Include="Tables\ASData_PL_Appfb_FeedbackEligibilityStatus.sql" />
     <Build Include="Tables\ASData_PL_Appfb_FeedbackTargetStatus.sql" />

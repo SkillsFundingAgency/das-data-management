@@ -10,6 +10,6 @@ CREATE TABLE [ASData_PL].[APAR_ROATP_Organisations]
 	[LegalName] NVARCHAR(200),
 	[TradingName] NVARCHAR(200),
 	[OrganisationData] NVARCHAR(Max) Null,
-	[StatusDate] datetime Not Null,
+	[StatusDate] datetime,
 	[AsDm_UpdatedDateTime]  [datetime2](7)	DEFAULT (getdate())
 )

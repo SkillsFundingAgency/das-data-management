@@ -309,6 +309,8 @@
     <Build Include="StoredProcedure\ImportVaAddInfoSavedSearchesToPL.sql" />
     <Build Include="StoredProcedure\ImportVaAddInfoContactMessagesToPL.sql" />
     <Build Include="StoredProcedure\ImportVaAddInfoVacancyReviewsToPL.sql" />
+    <Build Include="StoredProcedure\LoadFactVacancy.sql" />
+    <Build Include="Tables\ASData_PL_FactVacancy.sql" />
     <Build Include="StoredProcedure\PopulateMetadataNationalMinimumWageRates.sql" />
     <Build Include="Tables\ASDataPL_Assessor_Certificates.sql" />
     <Build Include="Tables\ASDataPL_Assessor_OrganisationStandard.sql" />

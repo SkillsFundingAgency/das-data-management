@@ -9,5 +9,7 @@ CREATE TABLE [ASData_PL].[APAR_ROATP_Organisations]
 	[UKPRN] BigINT,
 	[LegalName] NVARCHAR(200),
 	[TradingName] NVARCHAR(200),
+	[OrganisationData] NVARCHAR(Max) Null,
+	[StatusDate] datetime Not Null,
 	[AsDm_UpdatedDateTime]  [datetime2](7)	DEFAULT (getdate())
 )

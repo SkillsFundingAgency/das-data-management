@@ -505,6 +505,9 @@
     <Build Include="Tables\ASDataPL_FAT_ROATPV2_ProviderRegistrationDetail.sql" />
     <Build Include="Tables\ASDataPL_FAT_ROATPV2_ProviderAddress.sql" />
     <Build Include="Tables\ASDataPL_FAT_ROATPV2_Standard.sql" />
+    <Build Include="Tables\ASDataPL_APAR_ROATP_ProviderTypes.sql" />
+    <Build Include="Tables\ASDataPL_APAR_ROATP_Organisations.sql" />
+    <Build Include="Tables\ASDataPL_APAR_ROATP_OrganisationStatus.sql" />
     <Build Include="StoredProcedure\ImportFATProviderToPL.sql" />
     <Build Include="Views\PdsAI_PT_FatRoatpV2NationalAcheivementRate.sql" />
     <Build Include="Tables\AsDataPL_FAT_ROATPV2_Audit.sql" />

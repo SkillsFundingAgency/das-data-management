@@ -22,6 +22,8 @@
       ,SourceDb varchar(100)
       ,MigrationDate datetime2
       ,[Status] varchar(100)
+      ,CandidateId_UI UNIQUEIDENTIFIER
+      ,MigratedCandidateId_UI UNIQUEIDENTIFIER
 	 ,[AsDm_UpdatedDateTime]  [datetime2](7)						DEFAULT (getdate())
       ,Foreign Key (CandidateId)  References [AsData_PL].[Va_Candidate](CandidateId)
       ,Foreign Key (VacancyId) References [AsData_PL].[Va_Vacancy](VacancyId) 

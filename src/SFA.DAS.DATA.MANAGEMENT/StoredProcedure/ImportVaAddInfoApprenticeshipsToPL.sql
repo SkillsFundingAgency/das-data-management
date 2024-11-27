@@ -101,6 +101,8 @@ SELECT vc.CandidateId                                                  as Candid
     END AS [Status]
 	  ,'RAAv2'                                                         as SourceDb
     ,NULL
+    ,NULL
+    ,NULL
   FROM Stg.FAA_Apprenticeships FA
   LEFT
   JOIN ASData_PL.Va_Candidate VC
@@ -157,6 +159,8 @@ SELECT vc.CandidateId                                                   as Candi
       END AS [Status]
 	    ,'FAAV2'                                                         as SourceDb
       ,MigrationDate                                                   as MigrationDate
+      ,RAR.CandidateId_UI
+      ,C.MigratedCandidateId
   FROM Stg.FAAV2_Application A
   LEFT JOIN ( SELECT *, ROW_NUMBER() OVER (PARTITION BY RAR.CandidateId_UI, RAR.VacancyReference ORDER BY CAST(RAR.CreatedDateTimeStamp AS BIGINT) DESC) AS rn
         FROM Stg.RAA_ApplicationReviews RAR) RAR 
@@ -165,6 +169,8 @@ SELECT vc.CandidateId                                                   as Candi
     on TRY_CAST(vv.VacancyReferenceNumber as varchar)= A.vacancyreference
   LEFT JOIN ASData_PL.Va_Candidate VC
     ON cast(A.CandidateId AS VARCHAR(36)) = VC.SourceCandidateId_v3
+  LEFT JOIN Stg.FAAV2_Candidate FC
+    ON FC.Id = A.CandidateId
 
 
 COMMIT TRANSACTION

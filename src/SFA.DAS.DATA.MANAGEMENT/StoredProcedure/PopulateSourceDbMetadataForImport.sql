@@ -255,6 +255,13 @@ VALUES
 
 /* Roatp Import Configuration */
 
+INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
+VALUES
+('Roatp','Organisations','dbo','[Id], [CreatedAt], [UpdatedAt], [StatusId], [ProviderTypeId],[OrganisationTypeId], [UKPRN],[LegalName],[TradingName],[OrganisationData],[StatusDate]','[CreatedBy],[UpdatedBy]','',1,0,'APAR_ROATP_Organisations'),
+('Roatp','OrganisationStatus','dbo','[Id], [Status], [CreatedAt], [UpdatedAt], [EventDescription]','[CreatedBy],[UpdatedBy]','',1,0,'APAR_ROATP_OrganisationStatus'),
+('Roatp','ProviderTypes','dbo','[Id], [ProviderType], [Status]','[Description], [CreatedAt], [CreatedBy], [UpdatedAt], [UpdatedBy]','',1,0,'APAR_ROATP_ProviderTypes')
+
+
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)
 VALUES
@@ -431,7 +438,6 @@ VALUES
 ('Pfbe','ProviderAttributeSummary','dbo','[AttributeId], [Strength], [Weakness], [TimePeriod], [UpdatedOn]','','[Ukprn]','Pfbe_ProviderAttributeSummary','Pfbe_ProviderAttributeSummary',0,1,'SELECT   [Ukprn], [AttributeId], [Strength], [Weakness], [TimePeriod], [UpdatedOn] from ProviderAttributeSummary' ),
 ('Pfbe','ProviderRatingSummary','dbo','[Rating], [RatingCount], [TimePeriod], [UpdatedOn]','','[Ukprn]','Pfbe_ProviderRatingSummary','Pfbe_ProviderRatingSummary',0,1,'SELECT  [Ukprn], [Rating], [RatingCount], [TimePeriod], [UpdatedOn] from ProviderRatingSummary'),
 ('Pfbe','ProviderStarsSummary','dbo','[ReviewCount], [Stars], [TimePeriod]','','[Ukprn]','Pfbe_ProviderStarsSummary','Pfbe_ProviderStarsSummary',0,1,'SELECT  [Ukprn], [ReviewCount], [Stars], [TimePeriod] from ProviderStarsSummary')
-
 
 /* E Commitments  Config */
 INSERT INTO Mtd.SourceConfigForImport

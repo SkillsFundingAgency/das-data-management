@@ -110,4 +110,3 @@ CREATE TABLE Asdata_PL.FactVacancy (
 
 
 
-

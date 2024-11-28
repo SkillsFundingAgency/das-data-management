@@ -296,6 +296,9 @@
     <Build Include="Tables\AsDataPL_RP_Organisations.sql" />
     <Build Include="Functions\Fn_ConvertGuidToBase64.sql" />
     <Build Include="Tables\ASDataPL_PFBE_EmployerFeedback.sql" />
+    <Build Include="Tables\ASDataPL_PFBE_ProviderAttributeSummary.sql" />
+    <Build Include="Tables\ASDataPL_PFBE_ProviderRatingSummary.sql" />
+    <Build Include="Tables\ASDataPL_PFBE_ProviderStarsSummary.sql" />
     <Build Include="Tables\ASDataPL_EI_ChangeOfCircumstance.sql" />
     <Build Include="Tables\AsDataPL_Va_Apprenticeships.sql" />
     <Build Include="Tables\AsDataPL_Va_ContactMessages.sql" />
@@ -306,6 +309,8 @@
     <Build Include="StoredProcedure\ImportVaAddInfoSavedSearchesToPL.sql" />
     <Build Include="StoredProcedure\ImportVaAddInfoContactMessagesToPL.sql" />
     <Build Include="StoredProcedure\ImportVaAddInfoVacancyReviewsToPL.sql" />
+    <Build Include="StoredProcedure\LoadFactVacancy.sql" />
+    <Build Include="Tables\ASData_PL_FactVacancy.sql" />
     <Build Include="StoredProcedure\PopulateMetadataNationalMinimumWageRates.sql" />
     <Build Include="Tables\ASDataPL_Assessor_Certificates.sql" />
     <Build Include="Tables\ASDataPL_Assessor_OrganisationStandard.sql" />
@@ -500,6 +505,9 @@
     <Build Include="Tables\ASDataPL_FAT_ROATPV2_ProviderRegistrationDetail.sql" />
     <Build Include="Tables\ASDataPL_FAT_ROATPV2_ProviderAddress.sql" />
     <Build Include="Tables\ASDataPL_FAT_ROATPV2_Standard.sql" />
+    <Build Include="Tables\ASDataPL_APAR_ROATP_ProviderTypes.sql" />
+    <Build Include="Tables\ASDataPL_APAR_ROATP_Organisations.sql" />
+    <Build Include="Tables\ASDataPL_APAR_ROATP_OrganisationStatus.sql" />
     <Build Include="StoredProcedure\ImportFATProviderToPL.sql" />
     <Build Include="Views\PdsAI_PT_FatRoatpV2NationalAcheivementRate.sql" />
     <Build Include="Tables\AsDataPL_FAT_ROATPV2_Audit.sql" />
@@ -510,6 +518,7 @@
     <Build Include="Tables\AsDataPL_Assessor_Contacts.sql" />
     <Build Include="Tables\AsDataPL_Assessor_OrganisationType.sql" />
     <Build Include="Tables\ASDataPL_PREL_AccountProviders.sql" />
+    <Build Include="Tables\ASDataPL_PREL_Requests.sql" />
     <Build Include="Tables\ASData_PL_Appfb_EngagementEmails.sql" />
     <Build Include="Tables\ASData_PL_Appfb_FeedbackEligibilityStatus.sql" />
     <Build Include="Tables\ASData_PL_Appfb_FeedbackTargetStatus.sql" />

@@ -209,7 +209,8 @@ VALUES
 /* PREL Import Configurations */
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
 VALUES
-('PREL','AccountProviders','dbo','[Id],[AccountId],[Created]','','[ProviderUkprn]',1,0,'PREL_AccountProviders')
+('PREL','AccountProviders','dbo','[Id],[AccountId],[Created]','','[ProviderUkprn]',1,0,'PREL_AccountProviders'),
+('PREL','Requests','dbo','[Id], [RequestType],[RequestedBy], [RequestedDate], [AccountLegalEntityId], [EmployerOrganisationName],[EmployerPAYE], [EmployerAORN], [Status], [ActionedBy], [UpdatedDate]','[EmployerContactFirstName], [EmployerContactLastName], [EmployerContactEmail]','[Ukprn]',1,0,'PREL_Requests')
 
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
 VALUES
@@ -253,6 +254,13 @@ VALUES
 ('Roatpv2','Standard','dbo','[StandardUId],[LarsCode],[IfateReferenceNumber],[Level],[Version],[ApprovalBody],[SectorSubjectArea],[SectorSubjectAreaTier1]','','[Title]',1,0,'FAT_ROATPV2_Standard')
 
 /* Roatp Import Configuration */
+
+INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
+VALUES
+('Roatp','Organisations','dbo','[Id], [CreatedAt], [UpdatedAt], [StatusId], [ProviderTypeId],[OrganisationTypeId], [UKPRN],[LegalName],[TradingName],[OrganisationData],[StatusDate]','[CreatedBy],[UpdatedBy]','',1,0,'APAR_ROATP_Organisations'),
+('Roatp','OrganisationStatus','dbo','[Id], [Status], [CreatedAt], [UpdatedAt], [EventDescription]','[CreatedBy],[UpdatedBy]','',1,0,'APAR_ROATP_OrganisationStatus'),
+('Roatp','ProviderTypes','dbo','[Id], [ProviderType], [Status]','[Description], [CreatedAt], [CreatedBy], [UpdatedAt], [UpdatedBy]','',1,0,'APAR_ROATP_ProviderTypes')
+
 
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)
@@ -426,8 +434,10 @@ VALUES
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,StagingTableName,PLTableName,[ModelDataToPL],[IsQueryBasedImport],SourceQuery)
 VALUES
-('Pfbe','EmployerFeedback','dbo','[SrcEmployerFeedbackId],[EmployerFeedbackBinaryId],[DatetimeCompleted],[FeedbackName],[FeedbackValue],[ProviderRating],[FeedbackSource]','','[Ukprn],[AccountId]','Pfbe_EmployerFeedback','Pfbe_EmployerFeedback',0,1,'SELECT  efr.feedbackid as SrcEmployerFeedbackId,efr.id as EmployerFeedbackBinaryId, ef.ukprn as Ukprn, ef.accountid as AccountId, efr.datetimecompleted as DateTimeCompleted,a.attributename as FeedbackName,pa.attributevalue as FeedbackValue,efr.providerrating as ProviderRating,efr.feedbacksource as FeedbackSource FROM EmployerFeedback ef	JOIN EmployerFeedbackResult efr ON ef.FeedbackId = efr.FeedbackId LEFT JOIN ProviderAttributes pa ON efr.Id = pa.EmployerFeedbackResultId LEFT JOIN Attributes a on pa.AttributeId = a.AttributeId')
-
+('Pfbe','EmployerFeedback','dbo','[SrcEmployerFeedbackId],[EmployerFeedbackBinaryId],[DatetimeCompleted],[FeedbackName],[FeedbackValue],[ProviderRating],[FeedbackSource]','','[Ukprn],[AccountId]','Pfbe_EmployerFeedback','Pfbe_EmployerFeedback',0,1,'SELECT  efr.feedbackid as SrcEmployerFeedbackId,efr.id as EmployerFeedbackBinaryId, ef.ukprn as Ukprn, ef.accountid as AccountId, efr.datetimecompleted as DateTimeCompleted,a.attributename as FeedbackName,pa.attributevalue as FeedbackValue,efr.providerrating as ProviderRating,efr.feedbacksource as FeedbackSource FROM EmployerFeedback ef	JOIN EmployerFeedbackResult efr ON ef.FeedbackId = efr.FeedbackId LEFT JOIN ProviderAttributes pa ON efr.Id = pa.EmployerFeedbackResultId LEFT JOIN Attributes a on pa.AttributeId = a.AttributeId'),
+('Pfbe','ProviderAttributeSummary','dbo','[AttributeId], [Strength], [Weakness], [TimePeriod], [UpdatedOn]','','[Ukprn]','Pfbe_ProviderAttributeSummary','Pfbe_ProviderAttributeSummary',0,1,'SELECT   [Ukprn], [AttributeId], [Strength], [Weakness], [TimePeriod], [UpdatedOn] from ProviderAttributeSummary' ),
+('Pfbe','ProviderRatingSummary','dbo','[Rating], [RatingCount], [TimePeriod], [UpdatedOn]','','[Ukprn]','Pfbe_ProviderRatingSummary','Pfbe_ProviderRatingSummary',0,1,'SELECT  [Ukprn], [Rating], [RatingCount], [TimePeriod], [UpdatedOn] from ProviderRatingSummary'),
+('Pfbe','ProviderStarsSummary','dbo','[ReviewCount], [Stars], [TimePeriod]','','[Ukprn]','Pfbe_ProviderStarsSummary','Pfbe_ProviderStarsSummary',0,1,'SELECT  [Ukprn], [ReviewCount], [Stars], [TimePeriod] from ProviderStarsSummary')
 
 /* E Commitments  Config */
 INSERT INTO Mtd.SourceConfigForImport

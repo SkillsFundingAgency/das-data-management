@@ -63,7 +63,8 @@ BEGIN
             [LearningAimSequenceNumber],
             [SfaContributionPercentage],
             [IlrFileName],
-            [EventType]
+            [EventType],
+            [AgeAtStartOfLearning]
         )
         SELECT 
             [Id],
@@ -89,7 +90,8 @@ BEGIN
             [LearningAimSequenceNumber],
             [SfaContributionPercentage],
             [IlrFileName],
-            [EventType]
+            [EventType],
+            [AgeAtStartOfLearning]
         FROM [StgPmts].[stg_EarningEvent]
         WHERE [AcademicYear] = @AcademicYear
           AND [CollectionPeriod] = @CollectionPeriod;

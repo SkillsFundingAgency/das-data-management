@@ -69,6 +69,7 @@ INSERT INTO [Mgmt].[Pipeline]
 ,(105,'ImportFAAToDataMart')
 ,(106,'ImportFAAV2ToDataMart')
 
+
 DELETE FROM [Mgmt].[Config_PipelineController]
 
 INSERT INTO [Mgmt].[Config_PipelineController]

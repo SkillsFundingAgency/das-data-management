@@ -60,7 +60,7 @@ INSERT INTO [Mgmt].[Pipeline]
 ,(22,'ImportPRELToDM')
 ,(23,'ImportRATToDM')
 ,(24,'ImportAPARRoATPToDM')
-,(25,'ImportAProgToDM')
+,(25,'ImportAprogToDM')
 ,(100,'Master-ImportVacanciesToDataMart')
 ,(101,'ImportRAAToDataMart')
 ,(102,'ImportAvmsToDataMart')

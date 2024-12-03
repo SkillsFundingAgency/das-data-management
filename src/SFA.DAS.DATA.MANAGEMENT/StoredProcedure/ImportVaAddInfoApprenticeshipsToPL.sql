@@ -67,6 +67,9 @@ INSERT INTO [ASData_PL].[Va_Apprenticeships]
            ,[Status]
            ,SourceDb
            ,MigrationDate
+           ,CandidateId_UI
+           ,MigratedCandidateId_UI
+
 		   )
 SELECT vc.CandidateId                                                  as CandidateId
       ,vv.VacancyId                                                    as VacancyId

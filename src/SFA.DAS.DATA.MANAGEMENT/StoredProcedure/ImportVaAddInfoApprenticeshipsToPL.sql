@@ -160,7 +160,7 @@ SELECT vc.CandidateId                                                   as Candi
 	    ,'FAAV2'                                                         as SourceDb
       ,MigrationDate                                                   as MigrationDate
       ,RAR.CandidateId_UI
-      ,C.MigratedCandidateId
+      ,FC.MigratedCandidateId
   FROM Stg.FAAV2_Application A
   LEFT JOIN ( SELECT *, ROW_NUMBER() OVER (PARTITION BY RAR.CandidateId_UI, RAR.VacancyReference ORDER BY CAST(RAR.CreatedDateTimeStamp AS BIGINT) DESC) AS rn
         FROM Stg.RAA_ApplicationReviews RAR) RAR 

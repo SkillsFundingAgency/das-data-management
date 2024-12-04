@@ -509,6 +509,7 @@
     <Build Include="Tables\AsDataPL_EVS_CheckType.sql" />
     <Build Include="Tables\AsDataPL_EVS_CommitmentStatus.sql" />
     <Build Include="Tables\AsDataPL_EVS_PaymentStatus.sql" />
+    <Build Include="StoredProcedure\ImportEVSTablesToPL.sql" />
     <Build Include="StoredProcedure\ImportFATProviderToPL.sql" />
     <Build Include="Views\PdsAI_PT_FatRoatpV2NationalAcheivementRate.sql" />
     <Build Include="Tables\AsDataPL_FAT_ROATPV2_Audit.sql" />

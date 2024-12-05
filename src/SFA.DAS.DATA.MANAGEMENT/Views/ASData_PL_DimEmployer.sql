@@ -57,7 +57,11 @@ As
                    	 EmployerAccounts.id 
                    	,EmployerAccounts.name
                    	,EmployerAccounts.HashedId
-                   	,CASE WHEN EmployerAccounts.ApprenticeshipEmployerType=0 THEN 'Non levy' ELSE 'Levy' END
+                   	,CASE 
+                      WHEN EmployerAccounts.ApprenticeshipEmployerType=0 THEN 'Non levy' 
+                      WHEN EmployerAccounts.ApprenticeshipEmployerType=1 THEN 'Levy' 
+                      ELSE 'Not fully registered employer' 
+					  END
                     ,sic.SICGroup
                    	) as EcSc
 			) as EcSecTE

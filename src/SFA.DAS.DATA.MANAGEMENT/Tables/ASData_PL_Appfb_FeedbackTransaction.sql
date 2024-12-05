@@ -7,4 +7,5 @@
 	[SentDate] [datetime] NULL,
 	[TemplateName] [varchar](100) NULL,
 	[IsSuppressed] BIT NULL,
+	[Variant] VARCHAR(100) NULL , 
 	[AsDm_UpdatedDateTime] datetime2 default getdate())

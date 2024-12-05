@@ -309,6 +309,8 @@
     <Build Include="StoredProcedure\ImportVaAddInfoSavedSearchesToPL.sql" />
     <Build Include="StoredProcedure\ImportVaAddInfoContactMessagesToPL.sql" />
     <Build Include="StoredProcedure\ImportVaAddInfoVacancyReviewsToPL.sql" />
+    <Build Include="StoredProcedure\LoadFactVacancy.sql" />
+    <Build Include="Tables\ASData_PL_FactVacancy.sql" />
     <Build Include="StoredProcedure\PopulateMetadataNationalMinimumWageRates.sql" />
     <Build Include="Tables\ASDataPL_Assessor_Certificates.sql" />
     <Build Include="Tables\ASDataPL_Assessor_OrganisationStandard.sql" />
@@ -377,6 +379,10 @@
     <Build Include="Tables\AsDataPL_aComt_Apprenticeship.sql" />
     <Build Include="Tables\AsDataPL_aComt_Revision.sql" />
     <Build Include="Tables\AsDataPL_aComt_Registration.sql" />
+    <Build Include="Tables\AsDataPL_aComt_MyApprenticeship.sql" />
+    <Build Include="Tables\AsDataPL_aComt_ApprenticeArticle.sql" />
+    <Build Include="Tables\AsDataPL_aProg_KSBProgress.sql" />
+    <Build Include="Tables\AsDataPL_aProg_Task.sql" />  
     <Build Include="Tables\ASDataPL_Comt_ApprenticeshipConfirmationStatus.sql" />
     <Build Include="Tables\ASDataPL_LTM_Application.sql" />
     <Build Include="Tables\ASDataPL_LTM_Audit.sql" />
@@ -499,6 +505,9 @@
     <Build Include="Tables\ASDataPL_FAT_ROATPV2_ProviderRegistrationDetail.sql" />
     <Build Include="Tables\ASDataPL_FAT_ROATPV2_ProviderAddress.sql" />
     <Build Include="Tables\ASDataPL_FAT_ROATPV2_Standard.sql" />
+    <Build Include="Tables\ASDataPL_APAR_ROATP_ProviderTypes.sql" />
+    <Build Include="Tables\ASDataPL_APAR_ROATP_Organisations.sql" />
+    <Build Include="Tables\ASDataPL_APAR_ROATP_OrganisationStatus.sql" />
     <Build Include="StoredProcedure\ImportFATProviderToPL.sql" />
     <Build Include="Views\PdsAI_PT_FatRoatpV2NationalAcheivementRate.sql" />
     <Build Include="Tables\AsDataPL_FAT_ROATPV2_Audit.sql" />

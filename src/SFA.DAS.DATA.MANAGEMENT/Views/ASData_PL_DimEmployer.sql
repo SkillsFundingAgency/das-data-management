@@ -32,7 +32,11 @@ As
 				   (SELECT EmployerAccounts.id AS EmployerAccountId
                    	, EmployerAccounts.name AS EmployerAccountName
                    	, EmployerAccounts.HashedId AS EmployerAccountHashedId
-                   	, CASE WHEN EmployerAccounts.ApprenticeshipEmployerType=0 THEN 'Non levy' ELSE 'Levy' END AS EmployerType
+                   	, CASE 
+                      WHEN EmployerAccounts.ApprenticeshipEmployerType=0 THEN 'Non levy' 
+                      WHEN EmployerAccounts.ApprenticeshipEmployerType=1 THEN 'Levy' 
+                      ELSE 'Not fully registered employer' 
+					  END AS EmployerType
 					, SIC.SICGroup
                     ,CASE WHEN SICGroup = 'Z Unknown' THEN 'Z:Unknown'
 		                  WHEN SICGroup IS NULL THEN 'Z:Unknown'

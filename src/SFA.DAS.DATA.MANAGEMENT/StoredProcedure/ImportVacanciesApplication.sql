@@ -87,7 +87,8 @@ INSERT INTO [ASData_PL].[Va_Application]
   join Stg.Avms_AgeAtApplication SAA
     on SAA.ApplicationId=AA.ApplicationId
  UNION
- SELECT C.CandidateId                       as CandidateId
+ SELECT
+      CASE WHEN C.CandidateId IS NULL THEN C2.CandidateId ELSE c.CandidateId END AS CandidateId 
 	   ,v.VacancyId                         as VacancyId
 	   ,-1                                  as ApplicationStatusTypeId       
 	   ,AR.ApplicationStatus                as ApplicationStatusDesc
@@ -115,6 +116,9 @@ INSERT INTO [ASData_PL].[Va_Application]
  left
  join AsData_PL.Va_Candidate C
    on C.SourceCandidateId_v2=CAST(AR.CandidateId as Varchar(256))
+ left 
+ join AsData_PL.Va_Candidate C2
+   on C2.SourceCandidateId_v3=CAST(AR.CandidateId_UI as Varchar(256))
  left
  join Stg.FAA_CandidateDob FCD
    ON FCD.CandidateId=AR.CandidateId

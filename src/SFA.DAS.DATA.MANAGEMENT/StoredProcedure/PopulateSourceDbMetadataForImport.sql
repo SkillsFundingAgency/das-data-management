@@ -255,6 +255,13 @@ VALUES
 
 /* Roatp Import Configuration */
 
+INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
+VALUES
+('Roatp','Organisations','dbo','[Id], [CreatedAt], [UpdatedAt], [StatusId], [ProviderTypeId],[OrganisationTypeId], [UKPRN],[LegalName],[TradingName],[OrganisationData],[StatusDate]','[CreatedBy],[UpdatedBy]','',1,0,'APAR_ROATP_Organisations'),
+('Roatp','OrganisationStatus','dbo','[Id], [Status], [CreatedAt], [UpdatedAt], [EventDescription]','[CreatedBy],[UpdatedBy]','',1,0,'APAR_ROATP_OrganisationStatus'),
+('Roatp','ProviderTypes','dbo','[Id], [ProviderType], [Status]','[Description], [CreatedAt], [CreatedBy], [UpdatedAt], [UpdatedBy]','',1,0,'APAR_ROATP_ProviderTypes')
+
+
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)
 VALUES
@@ -432,12 +439,23 @@ VALUES
 ('Pfbe','ProviderRatingSummary','dbo','[Rating], [RatingCount], [TimePeriod], [UpdatedOn]','','[Ukprn]','Pfbe_ProviderRatingSummary','Pfbe_ProviderRatingSummary',0,1,'SELECT  [Ukprn], [Rating], [RatingCount], [TimePeriod], [UpdatedOn] from ProviderRatingSummary'),
 ('Pfbe','ProviderStarsSummary','dbo','[ReviewCount], [Stars], [TimePeriod]','','[Ukprn]','Pfbe_ProviderStarsSummary','Pfbe_ProviderStarsSummary',0,1,'SELECT  [Ukprn], [ReviewCount], [Stars], [TimePeriod] from ProviderStarsSummary')
 
-
 /* E Commitments  Config */
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
 VALUES
-('Appacc','Apprentice','dbo','[Id],[CreatedOn],[TermsOfUseAcceptedOn],[UpdatedOn]','[FirstName],[LastName],[Email],[DateOfBirth]','','aComt_Apprentice',0,1) 
+('Appacc','Apprentice','dbo','[Id],[CreatedOn],[TermsOfUseAcceptedOn],[UpdatedOn]','[FirstName],[LastName],[Email],[DateOfBirth]','','aComt_Apprentice',0,1),
+('Appacc','MyApprenticeship','dbo','[Id], [ApprenticeId], [Uln], [ApprenticeshipId], [EmployerName], [StartDate], [EndDate], [TrainingProviderId], [TrainingProviderName], [TrainingCode], [StandardUId], [CreatedOn]','','','aComt_MyApprenticeship',0,1),
+('Appacc','ApprenticeArticle','dbo','[Id], [EntryId], [IsSaved], [LikeStatus], [SaveTime], [LastSaveStatusTime]','','','aComt_ApprenticeArticle',0,1)
+
+
+/* Apprentice progress  Config */
+INSERT INTO Mtd.SourceConfigForImport
+(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
+VALUES
+('Aprog','KSBProgress','dbo','[KSBProgressId], [ApprenticeshipId], [KSBProgressType], [KSBId], [KSBKey], [CurrentStatus], [Note]','','','aProg_KSBProgress',0,1),
+('Aprog','Task','dbo','[TaskId], [ApprenticeshipId], [DueDate], [Title], [ApprenticeshipCategoryId], [Note], [CompletionDateTime], [CreatedDateTime], [Status]','','','aProg_Task',0,1)
+
+
 
 /* Apprentice Feedback Config */
 
@@ -450,17 +468,20 @@ VALUES
 ,('Appfb','Attribute','dbo','[AttributeId],[AttributeName],[Category],[AttributeType],[Ordering]','','','Appfb_Attribute',0,1)
 ,('Appfb','ApprenticeExitSurvey','dbo','[Id],[ApprenticeFeedbackTargetId],[StandardUId],[DateTimeCompleted],[DidNotCompleteApprenticeship],[AllowContact],[PrimaryReason]','','','Appfb_ApprenticeExitSurvey',0,1)
 ,('Appfb','ExitSurveyAttribute','dbo','[ApprenticeExitSurveyId],[AttributeId],[AttributeValue]','','','Appfb_ExitSurveyAttribute',0,1)
-,('Appfb','FeedbackTransaction','dbo','[Id],[ApprenticeFeedbackTargetId],[TemplateId],[CreatedOn],[SendAfter],[SentDate],[TemplateName],[IsSuppressed]','[EmailAddress],[FirstName]','','Appfb_FeedbackTransaction',0,1)
+,('Appfb','FeedbackTransaction','dbo','[Id],[ApprenticeFeedbackTargetId],[TemplateId],[CreatedOn],[SendAfter],[SentDate],[TemplateName],[IsSuppressed],[Variant]','[EmailAddress],[FirstName]','','Appfb_FeedbackTransaction',0,1)
 ,('Appfb','FeedbackTransactionClick','dbo','[Id],[FeedbackTransactionId],[ApprenticeFeedbackTargetId],[LinkName],[LinkUrl],[ClickedOn],[CreatedOn],[UpdatedOn]','','','Appfb_FeedbackTransactionClick',0,1)
 ,('Appfb','FeedbackTargetStatus','dbo','[Id],[Description]','','','Appfb_FeedbackTargetStatus',0,1)
+,('Appfb','FeedbackTargetVariant','dbo','[ApprenticeshipId], [Variant], [CreatedOn]','','','Appfb_FeedbackTargetVariant',0,1)
+,('Appfb','FeedbackTargetVariant_Staging','dbo','[ApprenticeshipId], [Variant]','','','Appfb_FeedbackTargetVariant_Staging',0,1)
 ,('Appfb','FeedbackEligibilityStatus','dbo','[Id],[Description]','','','Appfb_FeedbackEligibilityStatus',0,1)
 ,('Appfb','EngagementEmails','dbo','[Id],[ProgrammeType],[MonthsFromStart],[MonthsBeforeEnd],[TemplateName]','','','Appfb_EngagementEmails',0,1)
 ,('Appfb','Exclusion','dbo','[Ukprn],[CreatedOn]','','','Appfb_Exclusion',0,1)
 ,('Appfb','ProviderAttributeSummary','dbo','[Ukprn], [AttributeId], [Agree], [Disagree], [UpdatedOn], [TimePeriod]','','','Appfb_ProviderAttributeSummary',0,1)
 ,('Appfb','ProviderRatingSummary','dbo','[Ukprn], [Rating], [RatingCount], [UpdatedOn], [TimePeriod]','','','Appfb_ProviderRatingSummary',0,1)
 ,('Appfb','ProviderStarsSummary','dbo','[Ukprn], [ReviewCount], [Stars], [TimePeriod]','','','Appfb_ProviderStarsSummary',0,1)
-/* Rofjaa  Config */
 
+
+/* Rofjaa  Config */
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
 VALUES

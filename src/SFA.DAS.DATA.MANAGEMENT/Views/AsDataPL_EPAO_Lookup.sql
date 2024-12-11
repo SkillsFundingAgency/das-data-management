@@ -15,6 +15,8 @@ Matthew Heath
 David Nelson 
 Kate McDonagh (for FJA)
 */
+CREATE VIEW [AsData_PL].[EPAO_Lookup]
+AS
 WITH ActiveStandards AS (
     SELECT
         endpointassessororganisationid AS epao,

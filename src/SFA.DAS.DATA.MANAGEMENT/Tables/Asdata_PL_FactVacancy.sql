@@ -88,25 +88,3 @@ CREATE TABLE Asdata_PL.FactVacancy (
     VacancyDuplicateFlagIdentity INT,
     AsDm_UpdatedDateTime DATETIME
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

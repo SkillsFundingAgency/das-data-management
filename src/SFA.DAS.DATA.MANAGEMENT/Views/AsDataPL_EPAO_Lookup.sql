@@ -63,4 +63,4 @@ LEFT JOIN ActiveStandards ast
 WHERE
     o.EndPointAssessorOrganisationId <> 'EPA0000' -- remove test id
     AND ast.epao IS NOT NULL
-ORDER BY EndPointAssessorOrganisationId;
+    ;

@@ -509,6 +509,7 @@
     <Build Include="Tables\ASDataPL_APAR_ROATP_Organisations.sql" />
     <Build Include="Tables\ASDataPL_APAR_ROATP_OrganisationStatus.sql" />
     <Build Include="Views\AsDataPL_APAR_ROATP_Providers.sql"/>
+    <Build Include="Views\AsDataPL_EPAO_Lookup.sql"/>
     <Build Include="StoredProcedure\ImportFATProviderToPL.sql" />
     <Build Include="Views\PdsAI_PT_FatRoatpV2NationalAcheivementRate.sql" />
     <Build Include="Tables\AsDataPL_FAT_ROATPV2_Audit.sql" />

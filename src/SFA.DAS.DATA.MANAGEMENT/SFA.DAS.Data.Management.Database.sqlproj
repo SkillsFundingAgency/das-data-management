@@ -309,6 +309,8 @@
     <Build Include="StoredProcedure\ImportVaAddInfoSavedSearchesToPL.sql" />
     <Build Include="StoredProcedure\ImportVaAddInfoContactMessagesToPL.sql" />
     <Build Include="StoredProcedure\ImportVaAddInfoVacancyReviewsToPL.sql" />
+    <Build Include="StoredProcedure\LoadFactVacancy.sql" />
+    <Build Include="Tables\ASData_PL_FactVacancy.sql" />
     <Build Include="StoredProcedure\PopulateMetadataNationalMinimumWageRates.sql" />
     <Build Include="Tables\ASDataPL_Assessor_Certificates.sql" />
     <Build Include="Tables\ASDataPL_Assessor_OrganisationStandard.sql" />
@@ -377,6 +379,10 @@
     <Build Include="Tables\AsDataPL_aComt_Apprenticeship.sql" />
     <Build Include="Tables\AsDataPL_aComt_Revision.sql" />
     <Build Include="Tables\AsDataPL_aComt_Registration.sql" />
+    <Build Include="Tables\AsDataPL_aComt_MyApprenticeship.sql" />
+    <Build Include="Tables\AsDataPL_aComt_ApprenticeArticle.sql" />
+    <Build Include="Tables\AsDataPL_aProg_KSBProgress.sql" />
+    <Build Include="Tables\AsDataPL_aProg_Task.sql" />  
     <Build Include="Tables\ASDataPL_Comt_ApprenticeshipConfirmationStatus.sql" />
     <Build Include="Tables\ASDataPL_LTM_Application.sql" />
     <Build Include="Tables\ASDataPL_LTM_Audit.sql" />
@@ -502,6 +508,7 @@
     <Build Include="Tables\ASDataPL_APAR_ROATP_ProviderTypes.sql" />
     <Build Include="Tables\ASDataPL_APAR_ROATP_Organisations.sql" />
     <Build Include="Tables\ASDataPL_APAR_ROATP_OrganisationStatus.sql" />
+    <Build Include="Views\AsDataPL_APAR_ROATP_Providers.sql"/>
     <Build Include="Tables\ASDataPL_EVS_AdhocEmploymentVerification.sql" />
     <Build Include="Tables\ASDataPL_EVS_EmploymentVerification.sql" />
     <Build Include="Tables\AsDataPL_EVS_ScheduledEmploymentVerification.sql" />
@@ -525,5 +532,7 @@
     <Build Include="Tables\ASData_PL_Appfb_FeedbackEligibilityStatus.sql" />
     <Build Include="Tables\ASData_PL_Appfb_FeedbackTargetStatus.sql" />
     <Build Include="Tables\ASData_PL_Appfb_FeedbackTransactionClick.sql" />
+    <Build Include="Tables\ASData_PL_Appfb_FeedbackTargetVariant.sql" />
+    <Build Include="Tables\ASData_PL_Appfb_FeedbackTargetVariant_Staging.sql "/>
   </ItemGroup>
 </Project>

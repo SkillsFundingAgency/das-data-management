@@ -59,6 +59,8 @@ INSERT INTO [Mgmt].[Pipeline]
 ,(21,'ImportAANToDM')
 ,(22,'ImportPRELToDM')
 ,(23,'ImportRATToDM')
+,(24,'ImportAPARRoATPToDM')
+,(25,'ImportAprogToDM')
 ,(100,'Master-ImportVacanciesToDataMart')
 ,(101,'ImportRAAToDataMart')
 ,(102,'ImportAvmsToDataMart')
@@ -66,6 +68,7 @@ INSERT INTO [Mgmt].[Pipeline]
 ,(104,'ImportFAACandidateToDataMart')
 ,(105,'ImportFAAToDataMart')
 ,(106,'ImportFAAV2ToDataMart')
+
 
 DELETE FROM [Mgmt].[Config_PipelineController]
 
@@ -97,6 +100,8 @@ VALUES
 ,(1 ,21 ,1  ,6)
 ,(1 ,22 ,1  ,17)
 ,(1 ,23 ,1  ,20)
+,(1 ,24 ,1  ,21)
+,(1 ,25 ,1  ,22)
 ,(100,101,1	,2)
 ,(100,102,1	,3)
 ,(100,103,1	,5)

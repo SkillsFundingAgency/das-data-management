@@ -85,6 +85,6 @@ CREATE TABLE Asdata_PL.FactVacancy (
     RowNumber INT,
     Vacancy_NumberOfPositions_NoDuplicates INT,
     VacancyDuplicateFlag INT,
-    VacancyDuplicateFlagIdentity INT,
+    VacancyDuplicateFlagIdentity NVARCHAR(255),
     AsDm_UpdatedDateTime DATETIME
 );

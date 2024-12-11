@@ -508,6 +508,7 @@
     <Build Include="Tables\ASDataPL_APAR_ROATP_ProviderTypes.sql" />
     <Build Include="Tables\ASDataPL_APAR_ROATP_Organisations.sql" />
     <Build Include="Tables\ASDataPL_APAR_ROATP_OrganisationStatus.sql" />
+    <Build Include="Views\AsDataPL_APAR_ROATP_Providers.sql"/>
     <Build Include="StoredProcedure\ImportFATProviderToPL.sql" />
     <Build Include="Views\PdsAI_PT_FatRoatpV2NationalAcheivementRate.sql" />
     <Build Include="Tables\AsDataPL_FAT_ROATPV2_Audit.sql" />
@@ -523,5 +524,7 @@
     <Build Include="Tables\ASData_PL_Appfb_FeedbackEligibilityStatus.sql" />
     <Build Include="Tables\ASData_PL_Appfb_FeedbackTargetStatus.sql" />
     <Build Include="Tables\ASData_PL_Appfb_FeedbackTransactionClick.sql" />
+    <Build Include="Tables\ASData_PL_Appfb_FeedbackTargetVariant.sql" />
+    <Build Include="Tables\ASData_PL_Appfb_FeedbackTargetVariant_Staging.sql "/>
   </ItemGroup>
 </Project>

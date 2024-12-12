@@ -509,6 +509,14 @@
     <Build Include="Tables\ASDataPL_APAR_ROATP_Organisations.sql" />
     <Build Include="Tables\ASDataPL_APAR_ROATP_OrganisationStatus.sql" />
     <Build Include="Views\AsDataPL_APAR_ROATP_Providers.sql"/>
+    <Build Include="Tables\ASDataPL_EVS_AdhocEmploymentVerification.sql" />
+    <Build Include="Tables\ASDataPL_EVS_EmploymentVerification.sql" />
+    <Build Include="Tables\AsDataPL_EVS_ScheduledEmploymentVerification.sql" />
+    <Build Include="Tables\AsdataPL_EVS_ApprovalsStatus.sql" />
+    <Build Include="Tables\AsDataPL_EVS_CheckType.sql" />
+    <Build Include="Tables\AsDataPL_EVS_CommitmentStatus.sql" />
+    <Build Include="Tables\AsDataPL_EVS_PaymentStatus.sql" />
+    <Build Include="StoredProcedure\ImportEVSTablesToPL.sql" />
     <Build Include="Views\AsDataPL_EPAO_Lookup.sql"/>
     <Build Include="StoredProcedure\ImportFATProviderToPL.sql" />
     <Build Include="Views\PdsAI_PT_FatRoatpV2NationalAcheivementRate.sql" />

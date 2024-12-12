@@ -147,7 +147,7 @@ SELECT
 , p.FullName AS [Vacancy_Trainingprovider]
 , v.ProviderUkprn AS [Vacancy_TrainingProviderUKPRN] 
 -- Vacancy standards informatio 
-, ss.LarsCode AS [Vacancy- standard LARS code]
+, ss.LarsCode AS [Vacancy_standardLARScode]
 , ss.IfateReferenceNumber AS [Vacancy_standardIFATEnumber]
 , ss.Title AS [Vacancy_Standard]
 , ss.Level AS [Vacancy_StandardLevel]
@@ -156,13 +156,13 @@ SELECT
 , ss.RouteCode AS [IFATE_OccupationalRouteCode]
 , ss.MaxFunding AS [Vacancy_StandardMaxFunding]
 , ss.RegulatedBody AS [Vacancy_StandardRegulatedBody]
-, v.TrainingTypeFullName AS [ Vacancy_StandardTrainingType]
+, v.TrainingTypeFullName AS [Vacancy_StandardTrainingType]
 , CASE  WHEN v.TrainingTypeFullName = 'Unknown' THEN 'Traineeship' 
         ELSE REPLACE(REPLACE(REPLACE(REPLACE(v.TrainingTypeFullName,',',' '),CHAR(13),' '),CHAR(10),' '),CHAR(9),' ') 
         END AS [VacancyTool_Programme] --Logic from the Vacancy tool
 , CASE  WHEN TrainingTypeFullName = 'Unknown' THEN 'Traineeship' 
         ELSE v.ApprenticeshipType 
-        END AS [ VacancyTool_VacancyType] --Logic from the Vacancy tool
+        END AS [VacancyTool_VacancyType] --Logic from the Vacancy tool
 , v.[ApprenticeshipType] AS [Vacancy_StandardApprenticeshipType]
 , v.[EducationLevel] AS [Vacancy_StandardEducationLevel]
 , al.Vacancy_Standard_level_detailed AS [Vacancy_StandardLevel_Detailed] 
@@ -170,7 +170,7 @@ SELECT
 , CASE WHEN v.EducationLevel LIKE 'Degree Level%' THEN 'Yes' 
        WHEN v.ApprenticeshipType = 'Degree Level%' THEN 'Yes' 
        ELSE 'No'
-  END AS [ Vacancy_StandardDegreeLevel]
+  END AS [Vacancy_StandardDegreeLevel]
 , v.SectorName AS [Vacancy_StandardFAASector]
 , CASE  WHEN TrainingTypeFullName = 'Unknown' THEN 'Traineeship' 
         ELSE REPLACE(REPLACE(REPLACE(REPLACE(v.SectorName,',',' '),CHAR(13),' '),CHAR(10),' '),CHAR(9),' ') 
@@ -220,18 +220,18 @@ ELSE REPLACE(REPLACE(REPLACE(REPLACE(CAST(v.WageText AS VARCHAR(250)),',','.'),C
  END AS [DaysLeftToVacancyClosingDate] -- Set negative values to zero
 , d.Academic_Year_Id AS [DatePosted_AcademicYear]
 , d.Financial_Year_Id AS [DatePosted_FinancialYear]
-, d.Month_Id AS [ DatePosted_CalendarMonthNumber]
+, d.Month_Id AS [DatePosted_CalendarMonthNumber]
 , d.Academic_Month_Number_In_Year AS [DatePosted_AcademicMonthNumber]
 , d.Month_Name_Long AS [DatePosted_MonthLongName]
-, d.Month_Name_Short AS [ DatePosted_MonthShortName]
-, d.Financial_Month_Number_In_Year AS [  DatePosted_FinancialMonthNumber] 
+, d.Month_Name_Short AS [DatePosted_MonthShortName]
+, d.Financial_Month_Number_In_Year AS [DatePosted_FinancialMonthNumber] 
 -- Expected start dates
-, cast(v.ExpectedStartDate AS DATE) AS [ Vacancy_ExpectedStartDate]
+, cast(v.ExpectedStartDate AS DATE) AS [Vacancy_ExpectedStartDate]
 , v.ExpectedDuration AS [ExpectedDuration]
 , de.Academic_Year_Id AS [ExpectedStartDate_AcademicYear]
 , de.Financial_Year_Id AS [ExpectedStartDate_FinancialYear ]
 , de.Month_Id AS [ExpectedStartDate_CalendarMonthNumber]
-, de.Academic_Month_Number_In_Year AS [ ExpectedStartDate_AcademicMonthNumber]
+, de.Academic_Month_Number_In_Year AS [ExpectedStartDate_AcademicMonthNumber]
 , de.Month_Name_Long AS [ExpectedStartDate_MonthLongName]
 , de.Month_Name_Short AS [ExpectedStartDate_MonthShortName]
 , de.Financial_Month_Number_In_Year AS [ExpectedStartDate_FinancialMonthNumber]
@@ -241,7 +241,7 @@ ELSE REPLACE(REPLACE(REPLACE(REPLACE(CAST(v.WageText AS VARCHAR(250)),',','.'),C
     WHEN v.FrameworkOrStandardName IS NULL THEN ss.Title
     WHEN v.TrainingTypeFullName = 'Unknown' THEN 'Traineeship' 
     ELSE REPLACE(REPLACE(REPLACE(REPLACE(v.FrameworkOrStandardName,',',' '),CHAR(13),' '),CHAR(10),' '),CHAR(9),' ') 
-    END AS [ ApprenticeshipName]
+    END AS [ApprenticeshipName]
 
 -- Can applications be counted? If they are handled via employer website they can't and will always show as zero
 , [Vacancy_ApplicationsHandledOnEmployerWebsite] = CASE 
@@ -271,7 +271,7 @@ ELSE REPLACE(REPLACE(REPLACE(REPLACE(CAST(v.WageText AS VARCHAR(250)),',','.'),C
 , CASE 
     WHEN applications.VacancyId IS NOT NULL THEN GREATEST(v.NumberofPositions - applications.VacanciesFilled, 0)
     ELSE v.NumberofPositions 
-    END AS [ VacancyTool_NumberOfVacanciesAvailable] 
+    END AS [VacancyTool_NumberOfVacanciesAvailable] 
 -- , CASE WHEN v.RAFDuplicateFlag = 0 THEN v.NumberofPositions ELSE 0 END AS [NumberOfPositions No RAF Duplicates]
 
 -- Not for FACT common table - these are specific to bespoke analysis
@@ -310,9 +310,8 @@ ELSE REPLACE(REPLACE(REPLACE(REPLACE(CAST(v.WageText AS VARCHAR(250)),',','.'),C
     AND v.TrainingTypeFullName NOT LIKE '%Traineeship%'
     AND v.TrainingTypeFullName NOT LIKE '%Unknown%'
     AND v.DatePosted >= '2017-05-01' -- THIS RESTRICTION ADDED 09/10/2024 Ryan Slender. Date links to levy and start of funding reforms
-	
+	  )
 
-  )
 Insert into Asdata_PL.FactVacancy
 SELECT MV.*
 ,case -- Flagging duplicates to discount - replicating approach from Matt Rolfe in external stats - set NumberofPositions to zerp for duplicates
@@ -343,7 +342,6 @@ UPDATE Mgmt.Log_Execution_Results
 	  ,FullJobStatus='Pending'
  WHERE LogId=@LogID
    AND RunID=@RunId
-
  
 END TRY
 

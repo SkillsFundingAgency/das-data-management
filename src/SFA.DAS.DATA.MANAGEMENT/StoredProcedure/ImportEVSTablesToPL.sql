@@ -140,7 +140,6 @@ THEN
 		getdate()
     )
 
-
 /* Delta Insert/Update  */
 --CTE to get new/update records in the target table asdata_pl.EVS_ScheduledEmploymentVerification
 ;WITH NewSEV AS (

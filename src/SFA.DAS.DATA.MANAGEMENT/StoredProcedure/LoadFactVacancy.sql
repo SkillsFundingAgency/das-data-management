@@ -310,9 +310,8 @@ ELSE REPLACE(REPLACE(REPLACE(REPLACE(CAST(v.WageText AS VARCHAR(250)),',','.'),C
     AND v.TrainingTypeFullName NOT LIKE '%Traineeship%'
     AND v.TrainingTypeFullName NOT LIKE '%Unknown%'
     AND v.DatePosted >= '2017-05-01' -- THIS RESTRICTION ADDED 09/10/2024 Ryan Slender. Date links to levy and start of funding reforms
-	
+	  )
 
-  )
 Insert into Asdata_PL.FactVacancy
 SELECT MV.*
 ,case -- Flagging duplicates to discount - replicating approach from Matt Rolfe in external stats - set NumberofPositions to zerp for duplicates
@@ -343,7 +342,6 @@ UPDATE Mgmt.Log_Execution_Results
 	  ,FullJobStatus='Pending'
  WHERE LogId=@LogID
    AND RunID=@RunId
-
  
 END TRY
 

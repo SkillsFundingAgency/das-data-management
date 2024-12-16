@@ -487,6 +487,28 @@ INSERT INTO Mtd.SourceConfigForImport
 VALUES
 ('Rofjaa','Agency','dbo','[LegalEntityId],[IsGrantFunded],[EffectiveFrom],[EffectiveTo],[RemovalReason],[CreatedDate],[LastUpdatedDate]','','','Rofjaa_Agency',0,1) 
 
+INSERT INTO Mtd.SourceConfigForImport
+(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
+VALUES
+ ('evs','CheckType','dbo','[CheckTypeId],[CheckType]','','','EVS_CheckType',0,1)
+,('evs','ApprovalsStatus','dbo','[ApprovalsStatusId], [Status]','','','EVS_ApprovalsStatus',0,1)
+,('evs','CommitmentStatus','dbo','[CommitmentStatusId], [CommitmentStatus]','','','EVS_CommitmentStatus',0,1)
+,('evs','PaymentStatus','dbo','[PaymentStatusId], [PaymentStatus]','','','EVS_PaymentStatus',0,1)
+
+INSERT INTO Mtd.SourceConfigForImport
+(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)
+VALUES
+     ('evs','AdhocEmploymentVerification','dbo','[AdhocEmploymentVerificationId], [CorrelationId], [ApprenticeshipId], [ULN], [EmployerAccountId], [MinDate], [MaxDate], [CreatedOn]','','',0,1
+       ,'select [AdhocEmploymentVerificationId], [CorrelationId], [ApprenticeshipId], [ULN], [EmployerAccountId], [MinDate], [MaxDate], [CreatedOn] FROM [dbo].[AdhocEmploymentVerification]'
+       ,'EVS_AdhocEmploymentVerification')
+	,('evs','EmploymentVerification','dbo','[EmploymentVerificationId], [CorrelationId], [ApprenticeshipId], [Employed], [EmploymentCheckDate], [EmploymentCheckRequestDate], [RequestCompletionStatus], [ErrorType], [MessageSentDate], [MinDate], [MaxDate], [CheckTypeId], [CreatedOn], [LastUpdatedOn]','','',0,1
+	   ,'select [EmploymentVerificationId], [CorrelationId], [ApprenticeshipId], [Employed], [EmploymentCheckDate], [EmploymentCheckRequestDate], [RequestCompletionStatus], [ErrorType], [MessageSentDate], [MinDate], [MaxDate], [CheckTypeId], [CreatedOn], [LastUpdatedOn] FROM [dbo].[EmploymentVerification]'
+       ,'EVS_EmploymentVerification')
+	,('evs','ScheduledEmploymentVerification','dbo','[ScheduledEmploymentVerificationId], [CommitmentId], [ApprenticeshipId], [ULN], [UKPRN], [EmployerAccountId], [CommitmentStartDate], [CommitmentStatusId], [PaymentStatusId], [ApprovalsStatusId], [EmployerAndProviderApprovedOn], [TransferApprovalActionedOn], [EmploymentCheckCount], [CreatedOn], [LastUpdatedOn]','','',0,1
+	   ,'select [ScheduledEmploymentVerificationId], [CommitmentId], [ApprenticeshipId], [ULN], [UKPRN], [EmployerAccountId], [CommitmentStartDate], [CommitmentStatusId], [PaymentStatusId], [ApprovalsStatusId], [EmployerAndProviderApprovedOn], [TransferApprovalActionedOn], [EmploymentCheckCount], [CreatedOn], [LastUpdatedOn] FROM [dbo].[ScheduledEmploymentVerification]'
+	   ,'EVS_ScheduledEmploymentVerification')
+
+
 COMMIT TRANSACTION
 
 UPDATE Mgmt.Log_Execution_Results

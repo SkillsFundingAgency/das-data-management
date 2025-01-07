@@ -7,5 +7,6 @@
 	[ID]                                bigint              NULL,
 	[CompanyName]						[varchar](200)		NULL,
 	[RegAddressPostCode]				[varchar](50)		NULL,
-	[PreviousNameCompanyName]			[varchar](200)		NULL
+	[PreviousNameCompanyName]			[varchar](200)		NULL,
+	[ActualCompanyNumber]				[varchar](255)		NULL,
 ) ON [PRIMARY]

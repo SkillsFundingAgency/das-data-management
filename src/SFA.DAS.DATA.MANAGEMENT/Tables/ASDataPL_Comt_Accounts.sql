@@ -9,4 +9,3 @@ CREATE TABLE [AsData_PL].[Comt_Accounts]
 	[LevyStatus] [tinyint] NOT NULL,
 	[AsDm_UpdatedDateTime]	[datetime2]			default getdate()
 )
-GO

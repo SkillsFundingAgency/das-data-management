@@ -597,6 +597,7 @@ courses.StandardCode
 ,DATEADD(day,-1,CONVERT(DATE,CURRENT_TIMESTAMP)) AS YESTERDAY
 ,DATEADD(day,-7,CONVERT(DATE,CURRENT_TIMESTAMP)) AS LASTWEEK
 ,TRY_CONVERT(DATE,basequery.CreatedOn) AS CreatedRecordDate
+,estim_salaries.FrameworkOrStandardLarsCode
 FROM CTE_BASE basequery
 LEFT JOIN COURSES courses
 ON basequery.StandardUId=courses.StandardUId

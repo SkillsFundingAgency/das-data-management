@@ -15,6 +15,8 @@
 	[EndDate] [datetime] NULL,
 	[AgreementStatus] [smallint] NOT NULL,
 	[PaymentStatus] [smallint] NOT NULL,
+	[FirstName] [NVarchar](20)  NULL,
+	[LastName] [NVarchar](20)  NULL,
 	[DateOfBirth] [datetime] Null,
 	[CreatedOn] [datetime] NULL,
 	[AgreedOn] [datetime] NULL,

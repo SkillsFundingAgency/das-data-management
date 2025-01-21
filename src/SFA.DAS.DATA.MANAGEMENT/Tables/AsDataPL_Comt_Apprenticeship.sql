@@ -15,6 +15,7 @@
 	[EndDate] [datetime] NULL,
 	[AgreementStatus] [smallint] NOT NULL,
 	[PaymentStatus] [smallint] NOT NULL,
+	[DateOfBirth] [datetime] Null,
 	[CreatedOn] [datetime] NULL,
 	[AgreedOn] [datetime] NULL,
 	[PaymentOrder] [int] NULL,

@@ -264,7 +264,7 @@ INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)
 VALUES
 ('Roatp','Organisations','dbo','[Id], [CreatedAt], [UpdatedAt], [StatusId], [ProviderTypeId],[OrganisationTypeId], [UKPRN],[LegalName],[TradingName],[OrganisationData],[StatusDate],JSON_VALUE([OrganisationData], ''$.CompanyNumber'') AS CompanyNumber','[CreatedBy],[UpdatedBy]','','0',1
-	,'SELECT [Id], [CreatedAt], [UpdatedAt], [StatusId], [ProviderTypeId],[OrganisationTypeId], [UKPRN],[LegalName],[TradingName],[OrganisationData],[StatusDate], JSON_VALUE([OrganisationData], ''''$.CompanyNumber'''') AS CompanyNumber'
+	,'SELECT [Id], [CreatedAt], [UpdatedAt], [StatusId], [ProviderTypeId],[OrganisationTypeId], [UKPRN],[LegalName],[TradingName],[OrganisationData],[StatusDate], JSON_VALUE([OrganisationData], ''''$.CompanyNumber'''') AS CompanyNumber FROM dbo.Organisations'
 	,'APAR_ROATP_Organisations')
 
 INSERT INTO Mtd.SourceConfigForImport

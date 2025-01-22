@@ -535,5 +535,8 @@
     <Build Include="Tables\ASData_PL_Appfb_FeedbackTransactionClick.sql" />
     <Build Include="Tables\ASData_PL_Appfb_FeedbackTargetVariant.sql" />
     <Build Include="Tables\ASData_PL_Appfb_FeedbackTargetVariant_Staging.sql "/>
+    <Build Include="StoredProcedure\IncrementalLoadAudit.sql" />
+    <Build Include="StoredProcedure\ImportAssessorToPL.sql" />
+    <Build Include="Tables\Mtd_SourceToStageAudit.sql" />
   </ItemGroup>
 </Project>

@@ -5,7 +5,7 @@ CREATE TABLE [Mtd].[SourceToStageAudit]
     SourceTableName NVARCHAR(100) NOT NULL,
     SourceQuery NVarchar(max) ,
     WatermarkColumnName NVARCHAR(100) NOT NULL,
-    WatermarkValue NVARCHAR(100) NOT NULL,
+    WatermarkValue NVARCHAR(100) ,
     StagingTableName NVARCHAR(100),
-    LastUpdatedTimestamp DATETIME NOT NULL
+    LastUpdatedTimestamp DATETIME
 )

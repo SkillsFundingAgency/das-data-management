@@ -32,6 +32,7 @@ DECLARE @LogID int
 
 BEGIN TRANSACTION
 
+DELETE FROM Mtd.SourceToStageAudit
 
 INSERT INTO Mtd.SourceToStageAudit
 (SourceDatabaseName,SourceTableName,SourceSchemaName,SourceQuery,WatermarkColumnName,StagingTableName)

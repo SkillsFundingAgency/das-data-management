@@ -113,4 +113,3 @@ SELECT
 FROM EmployerDataWithEmployeeCountsSicCodesSICGroupAndEmployeeSize
 LEFT JOIN EmployerIDFilteredtoHighestTotalEmployeesPerSicCodeText_1
     ON EmployerDataWithEmployeeCountsSicCodesSICGroupAndEmployeeSize.EmployerAccountId = EmployerIDFilteredtoHighestTotalEmployeesPerSicCodeText_1.EmployerAccountId2
-ORDER BY EmployerAccountId;

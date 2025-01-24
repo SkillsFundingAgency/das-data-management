@@ -1,3 +1,5 @@
+CREATE VIEW [ASData_PL].[DimEmployer]
+As
 WITH EmployerDataWithEmployeeCountsAndSicGroup AS (
     SELECT 
         EmployerAccounts.id AS EmployerAccountId,

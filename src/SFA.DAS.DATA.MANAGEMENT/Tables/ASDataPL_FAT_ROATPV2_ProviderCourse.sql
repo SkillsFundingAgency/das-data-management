@@ -8,5 +8,6 @@
 	[IsApprovedByRegulator]	bit						NULL,
     [IsImported]			bit						NULL,
     [HasPortableFlexiJobOption]bit					NULL,
+	[CreatedDate] [datetime2](7),
 	[AsDm_UpdatedDateTime] [datetime2](7)		DEFAULT (getdate())	
 )

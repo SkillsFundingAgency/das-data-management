@@ -35,6 +35,9 @@ BEGIN TRANSACTION
 
 /* Import Assessor_Learner Details */
 
+IF EXISTS (SELECT * FROM sys.tables WHERE name = '[stg].[Assessor_Learner]')
+
+
 MERGE INTO [ASDATA_PL].[Assessor_Learner] AS Target
 USING (
     SELECT 
@@ -194,6 +197,9 @@ WHEN NOT MATCHED THEN
 
     /* Import Assessor_CertificateLogs Details */
 
+
+IF EXISTS (SELECT * FROM sys.tables WHERE name = '[stg].[Assessor_CertificateLogs]')
+
 MERGE INTO [ASData_PL].[Assessor_CertificateLogs] AS Target
 USING (
     SELECT 
@@ -289,6 +295,10 @@ WHEN NOT MATCHED THEN
         Source.[Department],
         Getdate()
     );
+
+
+IF EXISTS (SELECT * FROM sys.tables WHERE name = '[stg].[Assessor_Certificates]')
+
 
 MERGE INTO [ASData_PL].[Assessor_Certificates] AS Target
 USING (

@@ -539,5 +539,7 @@
     <Build Include="StoredProcedure\IncrementalLoadAudit.sql" />
     <Build Include="StoredProcedure\ImportAssessorToPL.sql"/>
     <Build Include="Tables\Mtd_SourceToStageAudit.sql" />
+    <Build Include="StoredProcedure\PresentationLayerINCload.sql" />
+    
   </ItemGroup>
 </Project>

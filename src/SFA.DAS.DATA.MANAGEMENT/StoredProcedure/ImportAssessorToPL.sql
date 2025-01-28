@@ -200,6 +200,7 @@ WHEN NOT MATCHED THEN
 
  IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Assessor_Certificatelogs' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 
+Set @DynSQL1 = '
 
 MERGE INTO [ASData_PL].[Assessor_CertificateLogs] AS Target
 USING (
@@ -216,7 +217,7 @@ USING (
         [StandardLevel],
         [StandardPublicationDate],
         [ContactOrganisation],
-        [Coedtpos] as [ContactPostcode] ,
+        [ContactPostcode] ,
         [Registration],
         [LearningStartDate],
         [AchievementDate],
@@ -295,28 +296,30 @@ WHEN NOT MATCHED THEN
         Source.[OverallGrade],
         Source.[Department],
         Getdate()
-    );
+    );'
+
+    exec SP_EXECUTESQL @DynSQL1	
 
 
 
  IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Assessor_Certificates' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 		       
-
-MERGE INTO [ASData_PL].[Assessor_Certificates] AS Target
-USING (
+ Set @DynSQL2 = '
+   MERGE INTO [ASData_PL].[Assessor_Certificates] AS Target
+   USING (
     SELECT 
            [Id],
            [AchievementDate],
            [BatchNumber],
-           CeecteRe as [CertificateReference],
-           CedIeRef as [CertificateReferenceId],
+           [CertificateReference],
+           [CertificateReferenceId],
            [ContactOrganisation],
-           CoedtPos as [ContactPostCode],
+           [ContactPostCode],
            [CourseOption],
            [EPADate],
            [CreatedAt],
-           CryBated as [CreatedBy],
-           CryaateD as [CreateDay],
+           [CreatedBy],
+           [CreateDay],
            [DeletedAt],
            [Department],
            [IsPrivatelyFunded],
@@ -324,9 +327,9 @@ USING (
            [OrganisationId],
            [OverallGrade],
            [PrivatelyFundedStatus],
-           PremderN as [ProviderName],
-           PrnrderU as [ProviderUkPrn],
-           Renotrat as [Registration],
+           [ProviderName],
+           [ProviderUkPrn],
+           [Registration],
            [StandardCode],
            [StandardLevel],
            [StandardName],
@@ -335,7 +338,7 @@ USING (
            [StandardUId],
            [Status],
            [ToBePrinted],
-           UlnlUl as [Uln],
+           [Uln],
            [UpdatedAt],
            [Version]
     FROM [stg].[Assessor_Certificates]
@@ -455,7 +458,9 @@ VALUES (
     Source.[UpdatedAt],
     Source.[Version],
     GETDATE()
-);
+);'
+
+exec SP_EXECUTESQL @DynSQL2		
 
 -- Optional: Add output to review actions performed
 -- OUTPUT $action, Inserted.*, Deleted.*;

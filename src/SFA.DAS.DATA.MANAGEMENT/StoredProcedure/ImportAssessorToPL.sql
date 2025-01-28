@@ -8,6 +8,8 @@ AS
 BEGIN TRY
 
 DECLARE @LogID int
+DECLARE @DynSQL1   NVarchar(max)
+DECLARE @DynSQL2   NVarchar(max)
 
 /* Start Logging Execution */
 

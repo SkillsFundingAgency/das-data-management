@@ -336,7 +336,7 @@ WHEN NOT MATCHED THEN
            [StandardLevel],
            [StandardName],
            [StandardPublicationDate],
-           StecdRef as [StandardReference],
+           [StandardReference],
            [StandardUId],
            [Status],
            [ToBePrinted],

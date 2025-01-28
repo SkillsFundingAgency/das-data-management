@@ -35,8 +35,8 @@ BEGIN TRANSACTION
 
 /* Import Assessor_Learner Details */
 
-IF EXISTS (SELECT * FROM sys.tables WHERE name = '[stg].[Assessor_Learner]')
 
+IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Assessor_Learner' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 
 MERGE INTO [ASDATA_PL].[Assessor_Learner] AS Target
 USING (
@@ -198,7 +198,8 @@ WHEN NOT MATCHED THEN
     /* Import Assessor_CertificateLogs Details */
 
 
-IF EXISTS (SELECT * FROM sys.tables WHERE name = '[stg].[Assessor_CertificateLogs]')
+ IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Assessor_Certificatelogs' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+
 
 MERGE INTO [ASData_PL].[Assessor_CertificateLogs] AS Target
 USING (
@@ -297,8 +298,9 @@ WHEN NOT MATCHED THEN
     );
 
 
-IF EXISTS (SELECT * FROM sys.tables WHERE name = '[stg].[Assessor_Certificates]')
 
+ IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Assessor_Certificates' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+		       
 
 MERGE INTO [ASData_PL].[Assessor_Certificates] AS Target
 USING (
@@ -474,7 +476,12 @@ UPDATE Mgmt.Log_Execution_Results
  IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Assessor_Learner' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 		       DROP TABLE [Stg].[Assessor_Learner]
 
- 
+ IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Assessor_Certificates' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+		       DROP TABLE [stg].[Assessor_Certificates]
+
+ IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Assessor_Certificatelogs' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+		       DROP TABLE [stg].[Assessor_Certificatelogs]
+
 END TRY
 BEGIN CATCH
     IF @@TRANCOUNT>0

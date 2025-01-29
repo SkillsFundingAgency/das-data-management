@@ -32,7 +32,6 @@ DECLARE @LogID int
 
 BEGIN TRANSACTION
 
-if Not exists (select * from Mtd.SourceToStageAudit where id !< (select id from Mtd.SourceToStageAudit) )
 
 INSERT INTO Mtd.SourceToStageAudit
 (SourceDatabaseName,SourceTableName,SourceSchemaName,SourceQuery,WatermarkColumnName,WaterMarkValue,StagingTableName,Lastupdatedtimestamp,SpName)

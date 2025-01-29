@@ -33,26 +33,6 @@ DECLARE @LogID int
 BEGIN TRANSACTION
 
 
-/*
-Create table #tempconf
-    (AuditID INT ,
-    SourceDatabaseName NVARCHAR(100) NOT NULL,
-    SourceSchemaName NVARCHAR(100) NOT NULL,
-    SourceTableName NVARCHAR(100) NOT NULL,
-    SourceQuery NVarchar(max) ,
-    WatermarkColumnName NVARCHAR(100) NOT NULL,
-    WatermarkValue DATE ,
-    StagingTableName NVARCHAR(100),
-    LastUpdatedTimestamp DATETIME,
-    SpName NVARCHAR(100)
-	)
-
-Insert into #tempconf
-select * from Mtd.SourceToStageAudit
-*/
-
-Truncate table Mtd.SourceToStageAudit
-
 INSERT INTO Mtd.SourceToStageAudit
 (SourceDatabaseName,SourceTableName,SourceSchemaName,SourceQuery,WatermarkColumnName,WaterMarkValue,StagingTableName,Lastupdatedtimestamp,SpName)
 VALUES

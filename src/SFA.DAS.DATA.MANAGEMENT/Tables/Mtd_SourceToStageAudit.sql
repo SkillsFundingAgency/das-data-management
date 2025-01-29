@@ -8,6 +8,6 @@ CREATE TABLE [Mtd].[SourceToStageAudit]
     WatermarkValue DATE ,
     StagingTableName NVARCHAR(100),
     LastUpdatedTimestamp DATETIME,
-    SpName NVARCHAR(100) NOT NULL,
+    SpName NVARCHAR(100),
     CONSTRAINT [PK_SourceToStage_AudiId] PRIMARY KEY CLUSTERED (SourceDatabaseName,SourceTableName ASC)
 )

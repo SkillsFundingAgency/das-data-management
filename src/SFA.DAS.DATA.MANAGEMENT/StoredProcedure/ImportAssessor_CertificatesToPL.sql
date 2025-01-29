@@ -211,11 +211,6 @@ UPDATE Mgmt.Log_Execution_Results
  WHERE LogId=@LogID
    AND RunId=@RunId
 
-/* Truncate staging tables after loading to PL */
-
-
- IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Assessor_Certificates' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
-		       DROP TABLE [stg].[Assessor_Certificates]
 
 
 END TRY
@@ -258,10 +253,7 @@ UPDATE Mgmt.Log_Execution_Results
  WHERE LogId=@LogID
    AND RunID=@RunId
 
-/* Truncate staging tables even if it fails */
 
- IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Assessor_certificates' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
-		       DROP TABLE [Stg].[Assessor_certificates]
   END CATCH
 
 GO

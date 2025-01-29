@@ -683,6 +683,7 @@ DROP TABLE IF EXISTS [StgPmts].[Pst_LookupGOR]
 DROP TABLE IF EXISTS [StgPmts].[Pst_LookupLocalAuthority] 
 DROP TABLE IF EXISTS [ASDATA_PL].[RAT_Status]
 
+	
 --DROP TABLE IF EXISTS [lkp].[Pst_LocalAuthority]
 --DROP TABLE IF EXISTS [lkp].[Pst_GOR]
 --DROP TABLE IF EXISTS [lkp].[Pst_COUNTRY]

@@ -537,5 +537,6 @@
     <Build Include="Tables\ASData_PL_Appfb_FeedbackTransactionClick.sql" />
     <Build Include="Tables\ASData_PL_Appfb_FeedbackTargetVariant.sql" />
     <Build Include="Tables\ASData_PL_Appfb_FeedbackTargetVariant_Staging.sql "/>
+    
   </ItemGroup>
 </Project>

@@ -210,7 +210,8 @@ VALUES
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
 VALUES
 ('PREL','AccountProviders','dbo','[Id],[AccountId],[Created]','','[ProviderUkprn]',1,0,'PREL_AccountProviders'),
-('PREL','Requests','dbo','[Id], [RequestType],[RequestedBy], [RequestedDate], [AccountLegalEntityId], [EmployerOrganisationName],[EmployerPAYE], [EmployerAORN], [Status], [ActionedBy], [UpdatedDate]','[EmployerContactFirstName], [EmployerContactLastName], [EmployerContactEmail]','[Ukprn]',1,0,'PREL_Requests')
+('PREL','Requests','dbo','[Id], [RequestType],[RequestedBy], [RequestedDate], [AccountLegalEntityId], [EmployerOrganisationName],[EmployerPAYE], [EmployerAORN], [Status], [ActionedBy], [UpdatedDate]','[EmployerContactFirstName], [EmployerContactLastName], [EmployerContactEmail]','[Ukprn]',1,0,'PREL_Requests'),
+('PREL','Notifications','dbo','[Id],[TemplateName],[NotificationType],[Ukprn],[RequestId],[AccountLegalEntityId],[PermitApprovals],[PermitRecruit],[CreatedBy],[CreatedDate],[SentTime]','[EmailAddress],[Contact]','',1,0,'PREL_Notifications')
 
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
 VALUES

@@ -32,6 +32,26 @@ DECLARE @LogID int
 
 BEGIN TRANSACTION
 
+CREATE TABLE #Temp_SourceToStageAudit
+    (
+        AuditID INT IDENTITY(1,1) NOT NULL,
+        SourceDatabaseName NVARCHAR(100) NOT NULL,
+        SourceSchemaName NVARCHAR(100) NOT NULL,
+        SourceTableName NVARCHAR(100) NOT NULL,
+        SourceQuery NVARCHAR(MAX) NULL,
+        WatermarkColumnName NVARCHAR(100) NOT NULL,
+        WatermarkValue DATETIME2(7) NULL,
+        StagingTableName NVARCHAR(100) NULL,
+        LastUpdatedTimestamp DATETIME NULL,
+        SpName NVARCHAR(100) NULL
+    );
+
+    -- Step 2: Insert existing records into the temp table
+    INSERT INTO #Temp_SourceToStageAudit
+    SELECT * FROM Mtd.SourceToStageAudit;
+
+    -- Step 3: Truncate the original table
+    TRUNCATE TABLE Mtd.SourceToStageAudit;
 
 INSERT INTO Mtd.SourceToStageAudit
 (SourceDatabaseName,SourceTableName,SourceSchemaName,SourceQuery,WatermarkColumnName,WaterMarkValue,StagingTableName,Lastupdatedtimestamp,SpName)
@@ -42,6 +62,17 @@ VALUES
 ,('Finance','Payment','employer_financial','SELECT [PaymentId],[Ukprn],[Uln],[AccountId],[ApprenticeshipId],[DeliveryPeriodMonth],[DeliveryPeriodYear],[CollectionPeriodId],[CollectionPeriodMonth],[CollectionPeriodYear],[EvidenceSubmittedOn],[EmployerAccountVersion],[ApprenticeshipVersion],[FundingSource],[TransactionType],[Amount],[PeriodEnd],[PaymentMetaDataId],[DateImported]  FROM [employer_financial].[Payment]','[DateImported]','1900-01-01','Fin_Payment',Getdate(),'ImportFin_PaymentToPL')
 ,('Finance','TransactionLine','employer_financial','SELECT [Id],[AccountId],[DateCreated],[SubmissionId],[TransactionDate],[TransactionType],[LevyDeclared],[Amount],[EmpRef],[PeriodEnd],[Ukprn],[SfaCoInvestmentAmount],[EmployerCoInvestmentAmount],[EnglishFraction],[TransferSenderAccountId],[TransferSenderAccountName],[TransferReceiverAccountId],[TransferReceiverAccountName]  FROM [employer_financial].[TransactionLine]','[DateCreated]','1900-01-01','Fin_TransactionLine',Getdate(),'ImportFin_TransactionLineToPL')
 
+
+UPDATE tgt
+    SET 
+        tgt.WatermarkValue = tmp.WatermarkValue,
+        tgt.LastUpdatedTimestamp = tmp.LastUpdatedTimestamp
+    FROM Mtd.SourceToStageAudit tgt
+    INNER JOIN #Temp_SourceToStageAudit tmp
+    ON tgt.SourceDatabaseName = tmp.SourceDatabaseName 
+    AND tgt.SourceTableName = tmp.SourceTableName;
+
+DROP TABLE #Temp_SourceToStageAudit
 
 COMMIT TRANSACTION
 

@@ -33,8 +33,7 @@ DECLARE @LogID int
 BEGIN TRANSACTION
 
 CREATE TABLE #Temp_SourceToStageAudit
-    (
-        AuditID INT IDENTITY(1,1) NOT NULL,
+    (   
         SourceDatabaseName NVARCHAR(100) NOT NULL,
         SourceSchemaName NVARCHAR(100) NOT NULL,
         SourceTableName NVARCHAR(100) NOT NULL,

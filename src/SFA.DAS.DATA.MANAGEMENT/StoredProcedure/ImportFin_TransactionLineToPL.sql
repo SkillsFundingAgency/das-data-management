@@ -8,6 +8,8 @@ AS
 BEGIN TRY
 
 DECLARE @LogID int
+DECLARE @VSQL NVARCHAR(MAX)
+
 
 /* Start Logging Execution */
 
@@ -35,9 +37,7 @@ BEGIN TRANSACTION
 
 /* Import Fin_Payment Details */
 
-
 IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Fin_TransactionLine' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
-DECLARE @VSQL NVARCHAR(MAX)
 
 SET @VSQL='
 

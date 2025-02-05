@@ -96,6 +96,8 @@ BEGIN TRY
 
 				/* Delete and Transform LevyDeclarationsAndTopUp Data */
 
+				DECLARE @VSQL NVARCHAR(MAX)
+				
 				DELETE FROM ASData_PL.Fin_GetLevyDeclarationAndTopUp
 
 				SET @VSQL=''

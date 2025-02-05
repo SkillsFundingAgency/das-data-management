@@ -47,8 +47,29 @@ CREATE TABLE #Temp_SourceToStageAudit
     );
 
     -- Step 2: Insert existing records into the temp table
-    INSERT INTO #Temp_SourceToStageAudit
-    SELECT * FROM Mtd.SourceToStageAudit;
+    INSERT INTO #Temp_SourceToStageAudit 
+	(
+    SourceDatabaseName,
+    SourceSchemaName,
+    SourceTableName,
+    SourceQuery,
+    WatermarkColumnName,
+    WatermarkValue,
+    StagingTableName,
+    LastUpdatedTimestamp,
+    SpName
+    )
+    SELECT 
+    SourceDatabaseName,
+    SourceSchemaName,
+    SourceTableName,
+    SourceQuery,
+    WatermarkColumnName,
+    WatermarkValue,
+    StagingTableName,
+    LastUpdatedTimestamp,
+    SpName
+    FROM Mtd.SourceToStageAudit;
 
     -- Step 3: Truncate the original table
     TRUNCATE TABLE Mtd.SourceToStageAudit;

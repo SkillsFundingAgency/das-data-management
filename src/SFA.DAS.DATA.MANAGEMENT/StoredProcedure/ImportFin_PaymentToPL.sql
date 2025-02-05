@@ -44,8 +44,6 @@ ON TARGET.[PaymentId] = SOURCE.[PaymentId]
 -- Update existing records if the source has a more recent DateImported
 WHEN MATCHED AND SOURCE.[DateImported] > TARGET.[DateImported] THEN 
 UPDATE SET
-    TARGET.[Ukprn] = SOURCE.[Ukprn],
-    TARGET.[Uln] = SOURCE.[Uln],
     TARGET.[AccountId] = SOURCE.[AccountId],
     TARGET.[ApprenticeshipId] = SOURCE.[ApprenticeshipId],
     TARGET.[DeliveryPeriodMonth] = SOURCE.[DeliveryPeriodMonth],
@@ -67,8 +65,6 @@ UPDATE SET
 -- Insert new records if PaymentId does not exist in the target table
 WHEN NOT MATCHED THEN 
 INSERT ([PaymentId]
-       ,[Ukprn]
-	   ,[Uln]
 	   ,[AccountId]
 	   ,[ApprenticeshipId]
 	   ,[DeliveryPeriodMonth]
@@ -87,8 +83,6 @@ INSERT ([PaymentId]
 	   ,[DateImported]
 	   ,[AsDm_UpdatedDateTime])
 VALUES (SOURCE.[PaymentId]
-       ,SOURCE.[Ukprn]
-       ,SOURCE.[Uln]
        ,SOURCE.[AccountId]
        ,SOURCE.[ApprenticeshipId]
        ,SOURCE.[DeliveryPeriodMonth]

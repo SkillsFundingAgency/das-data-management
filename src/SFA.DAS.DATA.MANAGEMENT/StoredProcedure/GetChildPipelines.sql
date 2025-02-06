@@ -14,7 +14,7 @@ BEGIN TRY
         INNER JOIN [Mgmt].[Pipeline] cp
             on pc.ChildPipelineId = cp.PipelineId
     where pc.IsEnabled = 1
-    and cp.PipelineName = @MasterPipelinName
+    and mp.PipelineName = @MasterPipelinName
     order by ExecutionOrder
 
 END TRY

@@ -37,71 +37,57 @@ BEGIN TRANSACTION
 
 IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Fin_Payment' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 
-MERGE INTO [AsData_PL].[Fin_Payment] AS TARGET
-USING (SELECT * FROM stg.[Fin_Payment]) AS SOURCE
-ON TARGET.[PaymentId] = SOURCE.[PaymentId] 
+INSERT INTO [AsData_PL].[Fin_Payment] 
+(
+    [PaymentId],
+    [AccountId],
+    [ApprenticeshipId],
+    [DeliveryPeriodMonth],
+    [DeliveryPeriodYear],
+    [CollectionPeriodId],
+    [CollectionPeriodMonth],
+    [CollectionPeriodYear],
+    [EvidenceSubmittedOn],
+    [EmployerAccountVersion],
+    [ApprenticeshipVersion],
+    [FundingSource], 
+    [TransactionType],
+    [Amount],
+    [PeriodEnd],
+    [PaymentMetaDataId],
+    [DateImported],
+    [AsDm_UpdatedDateTime]
+)
+SELECT 
+    SOURCE.[PaymentId],
+    SOURCE.[AccountId],
+    SOURCE.[ApprenticeshipId],
+    SOURCE.[DeliveryPeriodMonth],
+    SOURCE.[DeliveryPeriodYear],
+    SOURCE.[CollectionPeriodId],
+    SOURCE.[CollectionPeriodMonth],
+    SOURCE.[CollectionPeriodYear],
+    SOURCE.[EvidenceSubmittedOn],
+    SOURCE.[EmployerAccountVersion],
+    SOURCE.[ApprenticeshipVersion],
+    SOURCE.[FundingSource],
+    SOURCE.[TransactionType],
+    SOURCE.[Amount],
+    SOURCE.[PeriodEnd],
+    SOURCE.[PaymentMetaDataId],
+    SOURCE.[DateImported],
+    GETDATE() AS [AsDm_UpdatedDateTime]
+FROM stg.[Fin_Payment] SOURCE
+WHERE NOT EXISTS (
+    SELECT 1 
+    FROM [AsData_PL].[Fin_Payment] TARGET
+    WHERE TARGET.[PaymentId] = SOURCE.[PaymentId]
+)
+AND SOURCE.[DateImported] > (
+    SELECT ISNULL(MAX(DateImported), '1900-01-01') 
+    FROM [AsData_PL].[Fin_Payment]
+);
 
--- Update existing records if the source has a more recent DateImported
-WHEN MATCHED AND SOURCE.[DateImported] > TARGET.[DateImported] THEN 
-UPDATE SET
-    TARGET.[AccountId] = SOURCE.[AccountId],
-    TARGET.[ApprenticeshipId] = SOURCE.[ApprenticeshipId],
-    TARGET.[DeliveryPeriodMonth] = SOURCE.[DeliveryPeriodMonth],
-    TARGET.[DeliveryPeriodYear] = SOURCE.[DeliveryPeriodYear],
-    TARGET.[CollectionPeriodId] = SOURCE.[CollectionPeriodId],
-    TARGET.[CollectionPeriodMonth] = SOURCE.[CollectionPeriodMonth],
-    TARGET.[CollectionPeriodYear] = SOURCE.[CollectionPeriodYear],
-    TARGET.[EvidenceSubmittedOn] = SOURCE.[EvidenceSubmittedOn],
-    TARGET.[EmployerAccountVersion] = SOURCE.[EmployerAccountVersion],
-    TARGET.[ApprenticeshipVersion] = SOURCE.[ApprenticeshipVersion],
-    TARGET.[FundingSource] = SOURCE.[FundingSource],
-    TARGET.[TransactionType] = SOURCE.[TransactionType],
-    TARGET.[Amount] = SOURCE.[Amount],
-    TARGET.[PeriodEnd] = SOURCE.[PeriodEnd],
-    TARGET.[PaymentMetaDataId] = SOURCE.[PaymentMetaDataId],
-    TARGET.[DateImported] = SOURCE.[DateImported],
-	Target.[AsDm_UpdatedDateTime]   = Getdate()
-
--- Insert new records if PaymentId does not exist in the target table
-WHEN NOT MATCHED THEN 
-INSERT ([PaymentId]
-	   ,[AccountId]
-	   ,[ApprenticeshipId]
-	   ,[DeliveryPeriodMonth]
-	   ,[DeliveryPeriodYear]
-	   ,[CollectionPeriodId]
-	   ,[CollectionPeriodMonth]
-	   ,[CollectionPeriodYear]
-	   ,[EvidenceSubmittedOn]
-	   ,[EmployerAccountVersion]
-	   ,[ApprenticeshipVersion]
-	   ,[FundingSource] 
-       ,[TransactionType]
-	   ,[Amount]
-	   ,[PeriodEnd]
-	   ,[PaymentMetaDataId]
-	   ,[DateImported]
-	   ,[AsDm_UpdatedDateTime])
-VALUES (SOURCE.[PaymentId]
-       ,SOURCE.[AccountId]
-       ,SOURCE.[ApprenticeshipId]
-       ,SOURCE.[DeliveryPeriodMonth]
-       ,SOURCE.[DeliveryPeriodYear]
-       ,SOURCE.[CollectionPeriodId]
-       ,SOURCE.[CollectionPeriodMonth]
-       ,SOURCE.[CollectionPeriodYear]
-       ,SOURCE.[EvidenceSubmittedOn]
-       ,SOURCE.[EmployerAccountVersion]
-       ,SOURCE.[ApprenticeshipVersion]
-       ,SOURCE.[FundingSource]
-       ,SOURCE.[TransactionType]
-       ,SOURCE.[Amount]
-       ,SOURCE.[PeriodEnd]
-       ,SOURCE.[PaymentMetaDataId]
-       ,SOURCE.[DateImported]
-	   ,Getdate()
-       
-       );
 
 COMMIT TRANSACTION
 

@@ -41,92 +41,65 @@ IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Fin_Tran
 
 SET @VSQL='
 
-
-MERGE INTO [AsData_PL].[Fin_TransactionLine] AS Target
-USING (
-SELECT [Id]
-                      ,[AccountId]
-                      ,[DateCreated]
-                      ,[SubmissionId]
-                      ,[TransactionDate]
-                      ,[TransactionType]
-                      ,[LevyDeclared]
-                      ,[Amount]
-                      ,convert(NVarchar(500),HASHBYTES(''SHA2_512'',LTRIM(RTRIM(CONCAT(EmpRef, saltkeydata.SaltKey)))),2) [EmpRef]
-                      ,[PeriodEnd]
-                      ,[Ukprn]
-                      ,[SfaCoInvestmentAmount]
-                      ,[EmployerCoInvestmentAmount]
-                      ,[EnglishFraction]
-                      ,[TransferSenderAccountId]
-                      ,[TransferSenderAccountName]
-                      ,[TransferReceiverAccountId]
-                      ,[TransferReceiverAccountName]
-				 FROM Stg.Fin_TransactionLine FT
-				CROSS JOIN (Select TOP 1 SaltKeyID,SaltKey From Mgmt.SaltKeyLog Where SourceType =''EmployerReference''  Order by SaltKeyID DESC ) SaltKeyData) AS Source
-ON Target.Id = Source.Id  -- Primary Key match
-
-WHEN MATCHED THEN 
-    UPDATE SET 
-        Target.[AccountId] = Source.[AccountId],
-        Target.[DateCreated] = Source.[DateCreated],
-        Target.[SubmissionId] = Source.[SubmissionId],
-        Target.[TransactionDate] = Source.[TransactionDate],
-        Target.[TransactionType] = Source.[TransactionType],
-        Target.[LevyDeclared] = Source.[LevyDeclared],
-        Target.[Amount] = Source.[Amount],
-        Target.[EmpRef] = Source.[EmpRef],
-        Target.[PeriodEnd] = Source.[PeriodEnd],
-        Target.[Ukprn] = Source.[Ukprn],
-        Target.[SfaCoInvestmentAmount] = Source.[SfaCoInvestmentAmount],
-        Target.[EmployerCoInvestmentAmount] = Source.[EmployerCoInvestmentAmount],
-        Target.[EnglishFraction] = Source.[EnglishFraction],
-        Target.[TransferSenderAccountId] = Source.[TransferSenderAccountId],
-        Target.[TransferSenderAccountName] = Source.[TransferSenderAccountName],
-        Target.[TransferReceiverAccountId] = Source.[TransferReceiverAccountId],
-        Target.[TransferReceiverAccountName] = Source.[TransferReceiverAccountName],
-		Target.[AsDm_UpdatedDateTime]   = Getdate()
-
-WHEN NOT MATCHED THEN 
-    INSERT ([Id]
-	       ,[AccountId]
-		   ,[DateCreated]
-		   ,[SubmissionId]
-		   ,[TransactionDate]
-		   ,[TransactionType]
-		   ,[LevyDeclared]
-		   ,[Amount]
-		   ,[EmpRef]
-		   ,[PeriodEnd]
-		   ,[Ukprn]
-		   ,[SfaCoInvestmentAmount]
-		   ,[EmployerCoInvestmentAmount]
-		   ,[EnglishFraction]
-		   ,[TransferSenderAccountId]
-		   ,[TransferSenderAccountName]
-		   ,[TransferReceiverAccountId]
-		   ,[TransferReceiverAccountName]
-		   ,[AsDm_UpdatedDateTime] )
-    VALUES (Source.[Id]
-	       ,Source.[AccountId]
-		   ,Source.[DateCreated]
-           ,Source.[SubmissionId] 
-           ,Source.[TransactionDate]
-		   ,Source.[TransactionType]
-		   ,Source.[LevyDeclared]
-		   ,Source.[Amount]
-		   ,Source.[EmpRef]
-		   ,Source.[PeriodEnd]
-		   ,Source.[Ukprn]
-		   ,Source.[SfaCoInvestmentAmount]
-		   ,Source.[EmployerCoInvestmentAmount]
-		   ,Source.[EnglishFraction]
-		   ,Source.[TransferSenderAccountId]
-		   ,Source.[TransferSenderAccountName]
-		   ,Source.[TransferReceiverAccountId]
-		   ,Source.[TransferReceiverAccountName]
-		   ,Getdate()
-		   );'
+INSERT INTO [AsData_PL].[Fin_TransactionLine] 
+(
+    [Id],
+    [AccountId],
+    [DateCreated],
+    [SubmissionId],
+    [TransactionDate],
+    [TransactionType],
+    [LevyDeclared],
+    [Amount],
+    [EmpRef],
+    [PeriodEnd],
+    [Ukprn],
+    [SfaCoInvestmentAmount],
+    [EmployerCoInvestmentAmount],
+    [EnglishFraction],
+    [TransferSenderAccountId],
+    [TransferSenderAccountName],
+    [TransferReceiverAccountId],
+    [TransferReceiverAccountName],
+    [AsDm_UpdatedDateTime]
+)
+SELECT 
+    FT.[Id],
+    FT.[AccountId],
+    FT.[DateCreated],
+    FT.[SubmissionId],
+    FT.[TransactionDate],
+    FT.[TransactionType],
+    FT.[LevyDeclared],
+    FT.[Amount],
+    CONVERT(NVARCHAR(500), HASHBYTES(''SHA2_512'', LTRIM(RTRIM(CONCAT(FT.EmpRef, SaltKeyData.SaltKey)))), 2) AS [EmpRef],
+    FT.[PeriodEnd],
+    FT.[Ukprn],
+    FT.[SfaCoInvestmentAmount],
+    FT.[EmployerCoInvestmentAmount],
+    FT.[EnglishFraction],
+    FT.[TransferSenderAccountId],
+    FT.[TransferSenderAccountName],
+    FT.[TransferReceiverAccountId],
+    FT.[TransferReceiverAccountName],
+    GETDATE() AS [AsDm_UpdatedDateTime]
+FROM Stg.Fin_TransactionLine FT
+CROSS JOIN (
+    SELECT TOP 1 SaltKeyID, SaltKey 
+    FROM Mgmt.SaltKeyLog 
+    WHERE SourceType = ''EmployerReference''  
+    ORDER BY SaltKeyID DESC
+) SaltKeyData
+WHERE NOT EXISTS (
+    SELECT 1 
+    FROM [AsData_PL].[Fin_TransactionLine] Target
+    WHERE Target.[Id] = FT.[Id]
+)
+AND FT.[DateCreated] > (
+    SELECT ISNULL(MAX(DateCreated), ''1900-01-01'') 
+    FROM [AsData_PL].[Fin_TransactionLine]
+);
+'
 
 			EXEC SP_EXECUTESQL @VSQL
            

@@ -32,6 +32,46 @@ DECLARE @LogID int
 
 BEGIN TRANSACTION
 
+CREATE TABLE #Temp_SourceToStageAudit
+    (   
+        SourceDatabaseName NVARCHAR(100) NOT NULL,
+        SourceSchemaName NVARCHAR(100) NOT NULL,
+        SourceTableName NVARCHAR(100) NOT NULL,
+        SourceQuery NVARCHAR(MAX) NULL,
+        WatermarkColumnName NVARCHAR(100) NOT NULL,
+        WatermarkValue DATETIME2(7) NULL,
+        StagingTableName NVARCHAR(100) NULL,
+        LastUpdatedTimestamp DATETIME NULL,
+        SpName NVARCHAR(100) NULL
+    );
+
+    -- Step 2: Insert existing records into the temp table
+    INSERT INTO #Temp_SourceToStageAudit 
+	(
+    SourceDatabaseName,
+    SourceSchemaName,
+    SourceTableName,
+    SourceQuery,
+    WatermarkColumnName,
+    WatermarkValue,
+    StagingTableName,
+    LastUpdatedTimestamp,
+    SpName
+    )
+    SELECT 
+    SourceDatabaseName,
+    SourceSchemaName,
+    SourceTableName,
+    SourceQuery,
+    WatermarkColumnName,
+    WatermarkValue,
+    StagingTableName,
+    LastUpdatedTimestamp,
+    SpName
+    FROM Mtd.SourceToStageAudit;
+
+    -- Step 3: Truncate the original table
+    TRUNCATE TABLE Mtd.SourceToStageAudit;
 
 INSERT INTO Mtd.SourceToStageAudit
 (SourceDatabaseName,SourceTableName,SourceSchemaName,SourceQuery,WatermarkColumnName,WaterMarkValue,StagingTableName,Lastupdatedtimestamp,SpName)
@@ -41,6 +81,16 @@ VALUES
 ,('Assessor','Certificates','dbo','select [Id],[ToBePrinted],[CreatedAt],[CreatedBy],[DeletedAt],[DeletedBy],[CertificateReference],[OrganisationId],[BatchNumber],[Status],[UpdatedAt],[UpdatedBy],[StandardCode],[ProviderUkPrn],[CertificateReferenceId],[CreateDay],[IsPrivatelyFunded],[PrivatelyFundedStatus],[StandardUId],[uln],STUFF(LearnerGivenNames,2,len(LearnerGivenNames)-2,REPLICATE(''''X'''', len(LearnerGivenNames)-2)) As LearnerGivenNames,STUFF(LearnerFamilyName,2,len(LearnerFamilyName)-2,REPLICATE(''''X'''',len(LearnerFamilyName)-2)) As LearnerFamilyName,StandardName,StandardLevel,StandardPublicationDate,STUFF(ContactName,2,len(ContactName)-2,REPLICATE(''''X'''',len(ContactName)-2)) As ContactName,ContactOrganisation,left(ContactPostCode,len(ContactPostCode)-charindex('''' '''',ContactPostCode)+1) As ContactPostCode,STUFF(Registration,2,len(Registration)-2,REPLICATE(''''X'''',len(Registration)-2)) As Registration,LearningStartDate,AchievementDate,CourseOption,OverallGrade,Department,ProviderName,StandardReference,EPADate,Version FROM (select [Id],[ToBePrinted],[CreatedAt],[CreatedBy],[DeletedAt],[DeletedBy],[CertificateReference],[OrganisationId],[BatchNumber],[Status],[UpdatedAt],[UpdatedBy],[StandardCode],[ProviderUkPrn],[CertificateReferenceId],[CreateDay],[IsPrivatelyFunded],[PrivatelyFundedStatus],[StandardUId],[uln],JSON_VALUE(certificatedata,''''$.LearnerGivenNames'''') LearnerGivenNames,JSON_VALUE(certificatedata,''''$.LearnerFamilyName'''') LearnerFamilyName,JSON_VALUE(certificatedata,''''$.StandardName'''') StandardName,JSON_VALUE(certificatedata,''''$.StandardLevel'''') StandardLevel,JSON_VALUE(certificatedata,''''$.StandardPublicationDate'''') StandardPublicationDate,JSON_VALUE(certificatedata,''''$.ContactName'''') ContactName,JSON_VALUE(certificatedata,''''$.ContactOrganisation'''') ContactOrganisation,JSON_VALUE(certificatedata,''''$.ContactPostCode'''') ContactPostCode,JSON_VALUE(certificatedata,''''$.Registration'''') Registration,JSON_VALUE(certificatedata,''''$.LearningStartDate'''') LearningStartDate,JSON_VALUE(certificatedata,''''$.AchievementDate'''') AchievementDate,JSON_VALUE(certificatedata,''''$.CourseOption'''') CourseOption,JSON_VALUE(certificatedata,''''$.OverallGrade'''') OverallGrade,JSON_VALUE(certificatedata,''''$.Department'''') Department,JSON_VALUE(certificatedata,''''$.FullName'''') FullName,JSON_VALUE(certificatedata,''''$.ProviderName'''') ProviderName,JSON_VALUE(certificatedata,''''$.StandardReference'''') StandardReference,JSON_VALUE(certificatedata,''''$.EpaDetails.LatestEpaDate'''') EPADate,JSON_VALUE([CertificateData],''''$.Version'''') As Version from [dbo].[Certificates]) As Query ','UpdatedAt','1900-01-01','Assessor_Certificates',getdate(),'ImportAssessor_CertificatesToPL')
 
 
+UPDATE tgt
+    SET 
+        tgt.WatermarkValue = tmp.WatermarkValue,
+        tgt.LastUpdatedTimestamp = tmp.LastUpdatedTimestamp
+    FROM Mtd.SourceToStageAudit tgt
+    INNER JOIN #Temp_SourceToStageAudit tmp
+    ON tgt.SourceDatabaseName = tmp.SourceDatabaseName 
+    AND tgt.SourceTableName = tmp.SourceTableName;
+
+DROP TABLE #Temp_SourceToStageAudit
 
 COMMIT TRANSACTION
 

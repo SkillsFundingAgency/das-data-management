@@ -211,7 +211,8 @@ VALUES
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
 VALUES
 ('PREL','AccountProviders','dbo','[Id],[AccountId],[Created]','','[ProviderUkprn]',1,0,'PREL_AccountProviders'),
-('PREL','Requests','dbo','[Id], [RequestType],[RequestedBy], [RequestedDate], [AccountLegalEntityId], [EmployerOrganisationName],[EmployerPAYE], [EmployerAORN], [Status], [ActionedBy], [UpdatedDate]','[EmployerContactFirstName], [EmployerContactLastName], [EmployerContactEmail]','[Ukprn]',1,0,'PREL_Requests')
+('PREL','Requests','dbo','[Id], [RequestType],[RequestedBy], [RequestedDate], [AccountLegalEntityId], [EmployerOrganisationName],[EmployerPAYE], [EmployerAORN], [Status], [ActionedBy], [UpdatedDate]','[EmployerContactFirstName], [EmployerContactLastName], [EmployerContactEmail]','[Ukprn]',1,0,'PREL_Requests'),
+('PREL','Notifications','dbo','[Id],[TemplateName],[NotificationType],[Ukprn],[RequestId],[AccountLegalEntityId],[PermitApprovals],[PermitRecruit],[CreatedBy],[CreatedDate],[SentTime]','[EmailAddress],[Contact]','',1,0,'PREL_Notifications')
 
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
 VALUES
@@ -258,10 +259,15 @@ VALUES
 
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
 VALUES
-('Roatp','Organisations','dbo','[Id], [CreatedAt], [UpdatedAt], [StatusId], [ProviderTypeId],[OrganisationTypeId], [UKPRN],[LegalName],[TradingName],[OrganisationData],[StatusDate]','[CreatedBy],[UpdatedBy]','',1,0,'APAR_ROATP_Organisations'),
+--('Roatp','Organisations','dbo','[Id], [CreatedAt], [UpdatedAt], [StatusId], [ProviderTypeId],[OrganisationTypeId], [UKPRN],[LegalName],[TradingName],[OrganisationData],[StatusDate],JSON_VALUE([OrganisationData], ''''$.CompanyNumber'''') AS CompanyNumber','[CreatedBy],[UpdatedBy]','',1,0,'APAR_ROATP_Organisations'),
 ('Roatp','OrganisationStatus','dbo','[Id], [Status], [CreatedAt], [UpdatedAt], [EventDescription]','[CreatedBy],[UpdatedBy]','',1,0,'APAR_ROATP_OrganisationStatus'),
 ('Roatp','ProviderTypes','dbo','[Id], [ProviderType], [Status]','[Description], [CreatedAt], [CreatedBy], [UpdatedAt], [UpdatedBy]','',1,0,'APAR_ROATP_ProviderTypes')
-
+INSERT INTO Mtd.SourceConfigForImport
+(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)
+VALUES
+('Roatp','Organisations','dbo','[Id], [CreatedAt], [UpdatedAt], [StatusId], [ProviderTypeId],[OrganisationTypeId], [UKPRN],[LegalName],[TradingName],[OrganisationData],[StatusDate], CompanyNumber','[CreatedBy],[UpdatedBy]','','0',1
+	,'SELECT [Id], [CreatedAt], [UpdatedAt], [StatusId], [ProviderTypeId],[OrganisationTypeId], [UKPRN],[LegalName],[TradingName],[OrganisationData],[StatusDate], JSON_VALUE([OrganisationData], ''''$.CompanyNumber'''') AS CompanyNumber FROM dbo.Organisations'
+	,'APAR_ROATP_Organisations')
 
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)

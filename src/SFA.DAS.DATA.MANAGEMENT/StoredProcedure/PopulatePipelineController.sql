@@ -61,7 +61,7 @@ INSERT INTO [Mgmt].[Pipeline]
 ,(23,'ImportRATToDM')
 ,(24,'ImportAPARRoATPToDM')
 ,(25,'ImportAprogToDM')
-,(26,'ImportAssessorToDM_INC')
+,(26,'ImportAssessorToDMINC')
 ,(100,'Master-ImportVacanciesToDataMart')
 ,(101,'ImportRAAToDataMart')
 ,(102,'ImportAvmsToDataMart')

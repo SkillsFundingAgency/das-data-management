@@ -154,7 +154,8 @@ UPDATE Mgmt.Log_Execution_Results
  WHERE LogId=@LogID
    AND RunId=@RunId
 
-
+ IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Assessor_CertificateLogs' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+		       DROP TABLE [Stg].[Assessor_CertificateLogs]
 
 END TRY
 BEGIN CATCH

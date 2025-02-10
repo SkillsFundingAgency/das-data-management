@@ -194,9 +194,6 @@ WHEN NOT MATCHED THEN
     );
 
 
-
-
-
 COMMIT TRANSACTION
 
 UPDATE Mgmt.Log_Execution_Results
@@ -205,6 +202,10 @@ UPDATE Mgmt.Log_Execution_Results
 	  ,FullJobStatus='Pending'
  WHERE LogId=@LogID
    AND RunId=@RunId
+
+ IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Assessor_Learner' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+		       DROP TABLE [Stg].[Assessor_Learner]
+			   
 
 END TRY
 BEGIN CATCH

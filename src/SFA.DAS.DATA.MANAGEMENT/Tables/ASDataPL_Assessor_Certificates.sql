@@ -36,6 +36,8 @@
 [AsDm_UpdatedDateTime]							[Datetime2](7)			default getdate()
 )
 
+GO
+
 CREATE NONCLUSTERED INDEX IDX_Certificates_Active 
 ON [ASData_PL].[Assessor_Certificates] ([Id], [Status]) 
 WHERE DeletedAt IS NULL;

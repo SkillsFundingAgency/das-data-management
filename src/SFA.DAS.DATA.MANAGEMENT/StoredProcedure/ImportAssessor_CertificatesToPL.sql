@@ -193,7 +193,15 @@ VALUES (
     Source.[UpdatedAt],
     Source.[Version],
     GETDATE()
-);'
+)
+
+---- Soft delete records that exist in the target but are missing in the source
+WHEN NOT MATCHED BY SOURCE
+THEN 
+UPDATE 
+SET Target.DeletedAt = GETDATE(),  -- Mark as soft deleted
+    Target.AsDm_UpdatedDateTime = GETDATE();'
+
 
 exec SP_EXECUTESQL @DynSQL1
 

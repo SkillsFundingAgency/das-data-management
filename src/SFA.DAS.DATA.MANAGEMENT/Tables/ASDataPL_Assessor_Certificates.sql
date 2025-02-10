@@ -37,3 +37,7 @@
 )
 
 GO
+
+
+CREATE NONCLUSTERED INDEX IDX_Certificates_WatermarkColumn
+ON [ASData_PL].[Assessor_Certificates] (UpdatedAt);

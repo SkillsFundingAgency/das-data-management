@@ -4,6 +4,7 @@
  ,[CreatedOn] datetime2 not null
  ,[TermsOfUseAcceptedOn]datetime2  null
  ,[UpdatedOn] datetime2  null
+ ,[AppLastLoggedIn] datetime2  null
  ,[Asdm_UpdatedDateTime] datetime2 default getdate()
  ,CONSTRAINT PK_aComt_Apprentice_Id PRIMARY KEY CLUSTERED (Id)
 )

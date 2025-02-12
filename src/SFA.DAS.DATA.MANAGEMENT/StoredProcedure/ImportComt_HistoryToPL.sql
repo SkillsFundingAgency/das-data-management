@@ -32,117 +32,60 @@ DECLARE @LogID int
 
 BEGIN TRANSACTION
 
- /* Import Commitments Apprenticeship to PL */
+ /* Import Commitments History to PL */
 
- TRUNCATE TABLE [ASData_PL].[Comt_Apprenticeship]
+DECLARE @VSQL1 NVARCHAR(MAX)
 
- DECLARE @VSQL3 NVARCHAR(MAX)
-
-SET @VSQL3='
+SET @VSQL1='
  
-INSERT INTO [ASData_PL].[Comt_Apprenticeship]
-           ([Id]
+INSERT INTO [ASData_PL].[Comt_History] 
+           ([ID]
+           ,[EntityType]
+           ,[EntityId]
            ,[CommitmentId]
-           ,[ULN]
-           ,[TrainingType]
-           ,[TrainingCode]
-           ,[TrainingName]
-           ,[TrainingCourseVersion]
-           ,[TrainingCourseVersionConfirmed]
-           ,[TrainingCourseOption]
-           ,[StandardUId]
-           ,[Cost]
-           ,[StartDate]
-           ,[EndDate]
-           ,[AgreementStatus]
-           ,[PaymentStatus]
-           ,[DateOfBirth]
+           ,[ApprenticeshipId]
+           ,[UpdatedByRole]
+           ,[ChangeType]
            ,[CreatedOn]
-           ,[AgreedOn]
-           ,[PaymentOrder]
-           ,[StopDate]
-           ,[PauseDate]
-           ,[HasHadDataLockSuccess]
-           ,[PendingUpdateOriginator]
-           ,[EPAOrgId]
-           ,[CloneOf]
-           ,[ReservationId]
-           ,[IsApproved]
-           ,[CompletionDate]
-           ,[ContinuationOfId]
-           ,[MadeRedundant]
-           ,[OriginalStartDate]
-           ,[Age]
-           ,[DeliveryModel]
-           ,[RecognisePriorLearning]
-           ,[IsOnFlexiPaymentPilot]
-           ,[TrainingTotalHours]
-           ,[ActualStartDate] 
-           ,[EmailAddressConfirmed] 
-           ,[LastUpdated] 
-           ,[UpdatedOn] 
-           ,[TrainingPrice]
-           ,[EndPointAssessmentPrice]
-           ,[EmployerHasEditedCost]
-           )
- SELECT    [Id]
-           ,[CommitmentId]
-           ,[ULN]
-           ,[TrainingType]
-           ,[TrainingCode]
-           ,[TrainingName]
-           ,[TrainingCourseVersion]
-           ,[TrainingCourseVersionConfirmed]
-           ,[TrainingCourseOption]
-           ,[StandardUId]
-           ,[Cost]
-           ,[StartDate]
-           ,[EndDate]
-           ,[AgreementStatus]
-           ,[PaymentStatus]
-           ,[DateOfBirth]
-           ,[CreatedOn]
-           ,[AgreedOn]
-           ,[PaymentOrder]
-           ,[StopDate]
-           ,[PauseDate]
-           ,[HasHadDataLockSuccess]
-           ,[PendingUpdateOriginator]
-           ,[EPAOrgId]
-           ,[CloneOf]
-           ,[ReservationId]
-           ,[IsApproved]
-           ,[CompletionDate]
-           ,[ContinuationOfId]
-           ,[MadeRedundant]
-           ,[OriginalStartDate]
-           ,CASE WHEN [DateOfBirth] IS NULL	THEN - 1 
-		        WHEN DATEPART([M], [DateOfBirth]) > DATEPART([M], getdate()) 
-		          OR DATEPART([M], [DateOfBirth]) = DATEPART([M], getdate()) 
-		         AND DATEPART([DD],[DateOfBirth]) > DATEPART([DD], getdate()) 
-		        THEN DATEDIFF(YEAR,[DateOfBirth], getdate()) - 1 
-		        ELSE DATEDIFF(YEAR,[DateOfBirth], getdate()) 
-            END                 as Age
-           ,[DeliveryModel]
-           ,[RecognisePriorLearning]
-           ,[IsOnFlexiPaymentPilot]
-           ,[TrainingTotalHours]
-           ,[ActualStartDate] 
-           ,[EmailAddressConfirmed] 
-           ,[LastUpdated] 
-           ,[UpdatedOn]
-           ,[TrainingPrice]
-           ,[EndPointAssessmentPrice]
-           ,[EmployerHasEditedCost]
-    FROM Stg.Comt_Apprenticeship
+           ,[ProviderId]
+           ,[EmployerAccountId]
+           ,[OriginalState_PaymentStatus]
+           ,[UpdatedState_PaymentStatus]
+           ,[CorrelationId]
+           ,[AsDm_UpdatedDateTime]
+           ,[IsRetentionApplied]
+           ,[RetentionAppliedDate])
+SELECT s.[ID]
+      ,s.[EntityType]
+      ,s.[EntityId]
+      ,s.[CommitmentId]
+      ,s.[ApprenticeshipId]
+      ,s.[UpdatedByRole]
+      ,s.[ChangeType]
+      ,s.[CreatedOn]
+      ,s.[ProviderId]
+      ,s.[EmployerAccountId]
+      ,s.[OriginalState_PaymentStatus]
+      ,s.[UpdatedState_PaymentStatus]
+      ,s.[CorrelationId]
+      ,s.[AsDm_UpdatedDateTime]
+      ,s.[IsRetentionApplied]
+      ,s.[RetentionAppliedDate]
+FROM [Stg].[Comt_History] s
+WHERE NOT EXISTS (
+    SELECT 1 
+    FROM [ASData_PL].[Comt_History] t
+    WHERE s.ID = t.ID
+);
+
 '
 
-EXEC SP_EXECUTESQL @VSQL3
+EXEC SP_EXECUTESQL @VSQL1
 
   /* Drop Staging Table as it's no longer required */
 
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = N'Comt_Apprenticeship' AND TABLE_SCHEMA=N'Stg') 
-DROP TABLE [Stg].Comt_Apprenticeship
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = N'Comt_History' AND TABLE_SCHEMA=N'Stg') 
+DROP TABLE [Stg].Comt_History
 
 
 COMMIT TRANSACTION
@@ -163,8 +106,8 @@ BEGIN CATCH
 
 	/* Drop Staging Table even if it fails */
 
-    IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = N'Comt_Apprenticeship' AND TABLE_SCHEMA=N'Stg')
-     DROP TABLE [Stg].Comt_Apprenticeship
+    IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = N'Comt_history' AND TABLE_SCHEMA=N'Stg')
+     DROP TABLE [Stg].Comt_History
 
 	
 
@@ -187,7 +130,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'ImportComtToPL',
+	    'ImportComt_HistoryToPL',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 

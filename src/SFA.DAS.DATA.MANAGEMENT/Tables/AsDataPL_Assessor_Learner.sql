@@ -35,3 +35,8 @@
 	[DelLoc_Pst_Lower_Layer_SOA2001][nvarchar](9)		NULL,    
 	[AsDm_UpdatedDateTime]			[Datetime2](7)		default getdate()
 )
+
+
+GO
+CREATE NONCLUSTERED INDEX IDX_Learner_WatermarkColumn
+ON [ASData_PL].[Assessor_Learner] (LastUpdated);

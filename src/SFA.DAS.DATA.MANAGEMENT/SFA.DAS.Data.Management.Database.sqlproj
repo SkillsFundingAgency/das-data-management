@@ -543,6 +543,9 @@
     <Build Include="StoredProcedure\ImportAssessor_CertificatesToPL.sql"/>
     <Build Include="Tables\Mtd_SourceToStageAudit.sql" />
     <Build Include="StoredProcedure\PresentationLayerINCload.sql" />
+    <Build Include="StoredProcedure\ImportComt_ApprenticeCandRegDetailsToPL.sql"/> 
+    <Build Include="StoredProcedure\ImportComt_HistoryToPL.sql"/>
+    <Build Include="StoredProcedure\ImportComt_ApprenticeshipToPL.sql"/> 
 
     
   </ItemGroup>

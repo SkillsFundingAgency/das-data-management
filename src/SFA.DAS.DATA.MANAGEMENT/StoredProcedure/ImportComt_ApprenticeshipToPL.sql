@@ -37,8 +37,8 @@ BEGIN TRANSACTION
 
  DECLARE @VSQL1 NVARCHAR(MAX)
 
----SET @VSQL1=
- MERGE [ASData_PL].[Comt_ApprenticeshipCandidateRegDetails] AS Target
+SET @VSQL1=
+'MERGE [ASData_PL].[Comt_Apprenticeship] AS Target
 USING (
     SELECT  [Id]
            ,[CommitmentId]
@@ -89,7 +89,7 @@ USING (
            ,[TrainingPrice]
            ,[EndPointAssessmentPrice]
            ,[EmployerHasEditedCost]
-    FROM Stg.Comt_Apprenticeship Ap
+    FROM Stg.Comt_Apprenticeship 
 ) AS Source
 ON Target.[Id] = Source.[Id]
 
@@ -233,10 +233,10 @@ WHEN NOT MATCHED THEN
         Source.[EndPointAssessmentPrice],
         Source.[EmployerHasEditedCost],
         GetDate()
-    );
+    );'
 
 
-EXEC SP_EXECUTESQL @VSQL3
+EXEC SP_EXECUTESQL @VSQL1
 
   /* Drop Staging Table as it's no longer required */
 

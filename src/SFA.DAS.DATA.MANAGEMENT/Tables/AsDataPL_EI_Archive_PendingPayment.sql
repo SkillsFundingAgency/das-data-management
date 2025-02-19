@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [AsData_PL].[EI_Archive_PendingPayment]
 (
-  ID UniqueIdentifier Primary Key Not Null
+  PendingPaymentId UniqueIdentifier Primary Key Not Null
  ,AccountId bigint not null
  ,ApprenticeshipIncentiveId uniqueidentifier not null
  ,DueDate datetime2(7) not null
@@ -11,6 +11,7 @@
  ,PaymentYear smallint null
  ,AccountLegalEntityId bigint null
  ,EarningType varchar(20) null
- ,ClawedBack BIT NOT NULL DEFAULT 0
+ ,ClawedBack BIT NULL
+ ,ArchiveDateUTC datetime2 NULL
  ,AsDm_UpdatedDateTime datetime2 default getdate()
 )

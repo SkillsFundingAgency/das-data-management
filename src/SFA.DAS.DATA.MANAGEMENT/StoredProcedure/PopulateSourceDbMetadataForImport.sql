@@ -145,6 +145,10 @@ VALUES
 ,('EmpInc','EmploymentCheck','incentives','[Id],[ApprenticeshipIncentiveId],[CheckType],[MinimumDate],[MaximumDate],[CorrelationId],[Result],[CreatedDateTime],[UpdatedDateTime],[ResultDateTime],[ErrorType]','','',0)
 
 INSERT INTO Mtd.SourceConfigForImport
+(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,[ModelDataToPL],[StagingTableName],[PLTableName])
+,('EmpInc','PendingPayment','archive','[Id],[AccountId],[ApprenticeshipIncentiveId],[DueDate],[Amount],[CalculatedDate],[PaymentMadeDate],[PeriodNumber],[PaymentYear],[AccountLegalEntityId],[EarningType],[ClawedBack]','','',0,'EI_Archive_PendingPayment','EI_Archive_PendingPayment')
+
+INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL])
 /* Accounts and Users */
 VALUES

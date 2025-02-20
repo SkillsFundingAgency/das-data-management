@@ -61,6 +61,7 @@ INSERT INTO [Mgmt].[Pipeline]
 ,(23,'ImportRATToDM')
 ,(24,'ImportAPARRoATPToDM')
 ,(25,'ImportAprogToDM')
+,(26,'ImportAssessorToDMINC')
 ,(100,'Master-ImportVacanciesToDataMart')
 ,(101,'ImportRAAToDataMart')
 ,(102,'ImportAvmsToDataMart')
@@ -86,7 +87,7 @@ VALUES
 --,(1	,8	,1	,8)
 ,(1	,9	,1	,10)
 ,(1	,10	,1	,4)
-,(1	,11	,1	,1)
+--,(1 ,11 ,1 ,1) ImportAssessorToDM pipeline full load
 --2023-01-30 ImportPublicSectorToDM seperated to be an individual pipeline
 --,(1	,12	,1	,12)
 ,(1	,13	,1	,14)
@@ -102,6 +103,7 @@ VALUES
 ,(1 ,23 ,1  ,20)
 ,(1 ,24 ,1  ,21)
 ,(1 ,25 ,1  ,22)
+,(1 ,26 ,1  ,23)
 ,(100,101,1	,2)
 ,(100,102,1	,3)
 ,(100,103,1	,5)

@@ -19,6 +19,8 @@ EXEC LoadReferenceData @RunId
 
 EXEC PopulateSourceDbMetadataForImport @RunId
 
+EXEC IncrementalLoadAudit @RunId
+
 EXEC LoadCandidateEthLookUp @RunId
 
 EXEC LoadCandidateConfig @RunId

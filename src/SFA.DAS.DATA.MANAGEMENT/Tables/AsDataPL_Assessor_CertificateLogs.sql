@@ -21,3 +21,9 @@
 	[Department]				[NVarchar](300)		NULL,
 	[AsDm_UpdatedDateTime]		[Datetime2](7)		default getdate()
 )
+
+GO
+
+
+CREATE NONCLUSTERED INDEX IDX_CertificateLogs_WatermarkColumn
+ON [ASData_PL].[Assessor_CertificateLogs] (EventTime);

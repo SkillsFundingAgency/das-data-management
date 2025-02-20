@@ -17,3 +17,6 @@
   ,[IsRetentionApplied] bit DEFAULT (0)
   ,[RetentionAppliedDate]  DateTime2(7)
 )
+
+CREATE NONCLUSTERED INDEX IDX_ComtHist_WatermarkColumn
+ON [AsData_PL].[Comt_History] (Createdon);

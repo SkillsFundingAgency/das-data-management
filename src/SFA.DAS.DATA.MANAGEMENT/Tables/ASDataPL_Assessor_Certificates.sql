@@ -35,3 +35,9 @@
 [Version]										[Varchar](10)			NULL,
 [AsDm_UpdatedDateTime]							[Datetime2](7)			default getdate()
 )
+
+GO
+
+
+CREATE NONCLUSTERED INDEX IDX_Certificates_WatermarkColumn
+ON [ASData_PL].[Assessor_Certificates] (UpdatedAt);

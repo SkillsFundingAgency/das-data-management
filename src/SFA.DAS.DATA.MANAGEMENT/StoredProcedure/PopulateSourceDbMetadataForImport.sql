@@ -218,7 +218,8 @@ VALUES
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
 VALUES
 ('PREL','AccountProviders','dbo','[Id],[AccountId],[Created]','','[ProviderUkprn]',1,0,'PREL_AccountProviders'),
-('PREL','Requests','dbo','[Id], [RequestType],[RequestedBy], [RequestedDate], [AccountLegalEntityId], [EmployerOrganisationName],[EmployerPAYE], [EmployerAORN], [Status], [ActionedBy], [UpdatedDate]','[EmployerContactFirstName], [EmployerContactLastName], [EmployerContactEmail]','[Ukprn]',1,0,'PREL_Requests')
+('PREL','Requests','dbo','[Id], [RequestType],[RequestedBy], [RequestedDate], [AccountLegalEntityId], [EmployerOrganisationName],[EmployerPAYE], [EmployerAORN], [Status], [ActionedBy], [UpdatedDate]','[EmployerContactFirstName], [EmployerContactLastName], [EmployerContactEmail]','[Ukprn]',1,0,'PREL_Requests'),
+('PREL','Notifications','dbo','[Id],[TemplateName],[NotificationType],[Ukprn],[RequestId],[AccountLegalEntityId],[PermitApprovals],[PermitRecruit],[CreatedBy],[CreatedDate],[SentTime]','[EmailAddress],[Contact]','',1,0,'PREL_Notifications')
 
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
 VALUES
@@ -456,7 +457,7 @@ VALUES
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
 VALUES
-('Appacc','Apprentice','dbo','[Id],[CreatedOn],[TermsOfUseAcceptedOn],[UpdatedOn]','[FirstName],[LastName],[Email],[DateOfBirth]','','aComt_Apprentice',0,1),
+('Appacc','Apprentice','dbo','[Id],[CreatedOn],[TermsOfUseAcceptedOn],[UpdatedOn],[AppLastLoggedIn]','[FirstName],[LastName],[Email],[DateOfBirth]','','aComt_Apprentice',0,1),
 ('Appacc','MyApprenticeship','dbo','[Id], [ApprenticeId], [Uln], [ApprenticeshipId], [EmployerName], [StartDate], [EndDate], [TrainingProviderId], [TrainingProviderName], [TrainingCode], [StandardUId], [CreatedOn]','','','aComt_MyApprenticeship',0,1),
 ('Appacc','ApprenticeArticle','dbo','[Id], [EntryId], [IsSaved], [LikeStatus], [SaveTime], [LastSaveStatusTime]','','','aComt_ApprenticeArticle',0,1)
 

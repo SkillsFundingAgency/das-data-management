@@ -195,6 +195,7 @@ VALUES (
     GETDATE()
 );'
 
+
 exec SP_EXECUTESQL @DynSQL1
 
 -- Optional: Add output to review actions performed
@@ -211,6 +212,7 @@ UPDATE Mgmt.Log_Execution_Results
  WHERE LogId=@LogID
    AND RunId=@RunId
 
+			   
  IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Assessor_Certificates' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 		       DROP TABLE [Stg].[Assessor_Certificates]
 

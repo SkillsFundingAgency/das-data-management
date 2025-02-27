@@ -82,7 +82,6 @@ VALUES
 ,('Finance','Payment','employer_financial','SELECT [PaymentId],[Ukprn],[Uln],[AccountId],[ApprenticeshipId],[DeliveryPeriodMonth],[DeliveryPeriodYear],[CollectionPeriodId],[CollectionPeriodMonth],[CollectionPeriodYear],[EvidenceSubmittedOn],[EmployerAccountVersion],[ApprenticeshipVersion],[FundingSource],[TransactionType],[Amount],[PeriodEnd],[PaymentMetaDataId],[DateImported]  FROM [employer_financial].[Payment]','DateImported','1900-01-01','Fin_Payment',Getdate(),'ImportFin_PaymentToPL')
 ,('Finance','TransactionLine','employer_financial','SELECT [Id],[AccountId],[DateCreated],[SubmissionId],[TransactionDate],[TransactionType],[LevyDeclared],[Amount],[EmpRef],[PeriodEnd],[Ukprn],[SfaCoInvestmentAmount],[EmployerCoInvestmentAmount],[EnglishFraction],[TransferSenderAccountId],[TransferSenderAccountName],[TransferReceiverAccountId],[TransferReceiverAccountName]  FROM [employer_financial].[TransactionLine]','DateCreated','1900-01-01','Fin_TransactionLine',Getdate(),'ImportFin_TransactionLineToPL')
 
-
 UPDATE tgt
     SET 
         tgt.WatermarkValue = tmp.WatermarkValue,

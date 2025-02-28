@@ -14,5 +14,6 @@ CREATE TABLE [AsData_PL].[EVS_EmploymentVerification](
 	[CreatedOn] [datetime2](7) NULL,
 	[LastUpdatedOn] [datetime2](7) NULL,
 	[IsDeleted] BIT NOT NULL,
-	[AsDm_UpdatedDateTime]	DateTime2 default(getdate())
+	[AsDm_UpdatedDateTime]	DateTime2 default(getdate()),
+	CONSTRAINT EV_IsDeleted DEFAULT 0 FOR [IsDeleted]
 )

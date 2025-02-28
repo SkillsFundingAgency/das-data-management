@@ -25,9 +25,11 @@ BEGIN TRY
         GETDATE(),
         0;
 
-    -- Capture Log ID for later updates
-    SET @LogID = SCOPE_IDENTITY(); 
 
+   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
+   WHERE StoredProcedureName='UpdateEVSTables'
+     AND RunId=@RunID
+    
     -- Check and process each table
     BEGIN
         SET @DynSQL1 = '

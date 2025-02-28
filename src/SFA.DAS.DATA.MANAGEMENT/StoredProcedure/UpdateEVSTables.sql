@@ -31,7 +31,7 @@ BEGIN TRY
      AND RunId=@RunID
     
     -- Check and process each table
-    BEGIN
+BEGIN TRANSACTION
         SET @DynSQL1 = '
         WITH EVS_UP AS (
             SELECT 
@@ -114,7 +114,8 @@ BEGIN TRY
         INNER JOIN SEV_UP ON SEV.[ScheduledEmploymentVerificationId] = SEV_UP.[ScheduledEmploymentVerificationId];';
         
         EXEC SP_EXECUTESQL @DynSQL1;
-    END;
+
+ COMMIT TRANSACTION;
 
     -- Successful Execution Log Update
     UPDATE Mgmt.Log_Execution_Results

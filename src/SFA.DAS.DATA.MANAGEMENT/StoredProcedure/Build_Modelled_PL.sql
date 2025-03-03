@@ -7,6 +7,8 @@ AS
 -- Description: Master Stored Proc that builds Modelled Presentation Layer
 -- =========================================================================
 
+EXEC [dbo].[UpdateEVSTables] @RunId
+
 EXEC dbo.ImportComtToPL @RunId
 
 EXEC dbo.ImportAccountsToPL @RunId

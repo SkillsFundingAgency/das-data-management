@@ -543,6 +543,7 @@
     <Build Include="StoredProcedure\ImportAssessor_CertificatesToPL.sql"/>
     <Build Include="Tables\Mtd_SourceToStageAudit.sql" />
     <Build Include="StoredProcedure\PresentationLayerINCload.sql" />
+    <Build Include="StoredProcedure\UpdateEVSTables.sql" />
 
     
   </ItemGroup>

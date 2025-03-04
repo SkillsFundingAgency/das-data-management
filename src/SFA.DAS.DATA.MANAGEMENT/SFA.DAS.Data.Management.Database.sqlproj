@@ -545,6 +545,7 @@
     <Build Include="StoredProcedure\PresentationLayerINCload.sql" />
     <Build Include="StoredProcedure\ImportFin_TransactionLineToPL.sql"/>
     <Build Include="StoredProcedure\ImportFin_PaymentToPL.sql"/>
+    <Build Include="StoredProcedure\UpdateEVSTables.sql" />
 
     
   </ItemGroup>

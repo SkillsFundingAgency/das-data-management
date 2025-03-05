@@ -84,7 +84,7 @@ WHERE NOT EXISTS (
     WHERE TARGET.[PaymentId] = SOURCE.[PaymentId]
 )
 AND SOURCE.[DateImported] > (
-    SELECT ISNULL(MAX(DateImported), '1900-01-01') 
+    SELECT MAX(DateImported)
     FROM [AsData_PL].[Fin_Payment]
 );
 

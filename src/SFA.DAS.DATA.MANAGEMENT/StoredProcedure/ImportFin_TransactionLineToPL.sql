@@ -96,7 +96,7 @@ WHERE NOT EXISTS (
     WHERE Target.[Id] = FT.[Id]
 )
 AND FT.[DateCreated] > (
-    SELECT ISNULL(MAX(DateCreated), ''1900-01-01'') 
+    SELECT max(DateCreated)
     FROM [AsData_PL].[Fin_TransactionLine]
 );
 '

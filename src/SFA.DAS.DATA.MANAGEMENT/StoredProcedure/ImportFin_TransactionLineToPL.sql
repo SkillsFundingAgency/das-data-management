@@ -7,9 +7,7 @@ AS
 
 BEGIN TRY
 
-DECLARE @LogID int
-DECLARE @VSQL NVARCHAR(MAX)
-
+DECLARE @LogID int;
 
 /* Start Logging Execution */
 
@@ -37,9 +35,9 @@ BEGIN TRANSACTION
 
 /* Import Fin_Payment Details */
 
-IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Fin_TransactionLine' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+IF OBJECT_ID('Stg.Fin_TransactionLine', 'U') IS NOT NULL
 
-SET @VSQL='
+BEGIN
 
 INSERT INTO [AsData_PL].[Fin_TransactionLine] 
 (
@@ -72,7 +70,7 @@ SELECT
     FT.[TransactionType],
     FT.[LevyDeclared],
     FT.[Amount],
-    CONVERT(NVARCHAR(500), HASHBYTES(''SHA2_512'', LTRIM(RTRIM(CONCAT(FT.EmpRef, SaltKeyData.SaltKey)))), 2) AS [EmpRef],
+    CONVERT(NVARCHAR(500), HASHBYTES('SHA2_512', LTRIM(RTRIM(CONCAT(FT.EmpRef, SaltKeyData.SaltKey)))), 2) AS [EmpRef],
     FT.[PeriodEnd],
     FT.[Ukprn],
     FT.[SfaCoInvestmentAmount],
@@ -87,23 +85,19 @@ FROM Stg.Fin_TransactionLine FT
 CROSS JOIN (
     SELECT TOP 1 SaltKeyID, SaltKey 
     FROM Mgmt.SaltKeyLog 
-    WHERE SourceType = ''EmployerReference''  
+    WHERE SourceType = 'EmployerReference'
     ORDER BY SaltKeyID DESC
 ) SaltKeyData
 WHERE NOT EXISTS (
     SELECT 1
     FROM [AsData_PL].[Fin_TransactionLine] Target
     WHERE Target.[Id] = FT.[Id]
-)
-AND FT.[DateCreated] > (
-    SELECT max(DateCreated)
-    FROM [AsData_PL].[Fin_TransactionLine]
-);
-'
 
-			EXEC SP_EXECUTESQL @VSQL
-           
-COMMIT TRANSACTION
+);
+END
+
+ IF @@TRANCOUNT > 0  
+    COMMIT TRANSACTION
 
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1
@@ -114,11 +108,12 @@ UPDATE Mgmt.Log_Execution_Results
 
  /*IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Fin_TransactionLine' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 		       DROP TABLE [Stg].[Fin_TransactionLine] */
-           
+
 END TRY
 BEGIN CATCH
+
     IF @@TRANCOUNT>0
-	ROLLBACK TRANSACTION;
+	     ROLLBACK TRANSACTION;
 
     DECLARE @ErrorId int
 

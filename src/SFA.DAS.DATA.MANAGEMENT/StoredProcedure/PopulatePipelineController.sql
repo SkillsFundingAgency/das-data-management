@@ -80,8 +80,8 @@ INSERT INTO [Mgmt].[Config_PipelineController]
 VALUES
 (1	,2	,1	,9)
 ,(1	,3	,1	,5)
---,(1	,4	,1	,3)
---,(1	,5	,1	,2)
+--,(1	,4	,1	,3) ImportCommitmentToDM pipeline full load
+--,(1	,5	,1	,2) ImportFinanceToDM pipeline full load
 ,(1	,6	,1	,13)
 --2023-10-26  ImportAppRedundancyToDM pipeline retired 
 --,(1	,7	,1	,7)

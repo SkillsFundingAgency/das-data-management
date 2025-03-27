@@ -1,10 +1,3 @@
-/****** Object:  View [funded].[v_MS_KPI_NQR_TU_003]    Script Date: 27/03/2025 11:42:27 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
 CREATE VIEW [ASData_PL].[v_MS_KPI_NQR_TU_003]
 AS
 /*##################################################################################################

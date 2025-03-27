@@ -1,12 +1,3 @@
-/****** Object:  View [funded].[v_MS_KPI_NQR_TU_002]    Script Date: 27/03/2025 10:58:31 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE VIEW [ASData_PL].[v_MS_KPI_NQR_TU_002]
-AS
 /*##################################################################################################
 	-Name:				NQR TU 002
 	-Description:		Average time between “shared with Ofqual|IfATE” to outcome decision 
@@ -17,54 +8,47 @@ AS
 						Target - < 1 week
 ####################################################################################################
 	Version No.			Updated By		Updated Date		Description of Change
-####################################################################################################
-	1					Adam Leaver		18/03/2025			Original
-##################################################################################################*/
+####################################################################################################*/
 
-Select  A.QualificationNumber
-	   ,AO.RecognitionNumber
-	   ,AO.Id as AwardingOrganisationId
-	   ,AO.NameLegal As AwardingOrganisationName
-	   ,SW.SharedWithDate
-	   ,De.AOInformedOfDecisionDate
-	   ,DateDiff(Hour, SW.SharedWithDate, De.AOInformedOfDecisionDate) As Duration
-
-From [ASData_PL].[AODP_Applications] A 
-Left Outer Join [ASData_PL].[AODP_AwardingOrganisation] AO ON A.OrganisationId = AO.Id
-
-Left Outer Join (
-
-select M.ApplicationId
-	   ,M.SentAt as SharedWithDate
-	   ,M.Type
-	   ,Case M.Type
-			When 'ApplicationSharedWithOfqual' Then 'Ofqual'
-			When 'ApplicationSharedWithSkillsEngland' Then 'SkillsEngland / IfATE'
-			Else ''
-		End As SharedWith
-	    ,Rank() Over (Partition By M.ApplicationId order by M.SentAt Asc) as R_K
-		
-From [ASData_PL].[AODP_Messages] M
-
-Where M.Type in ('ApplicationSharedWithOfqual', 'ApplicationSharedWithSkillsEngland')) SW On SW.ApplicationId = A.Id
-
-Left Outer Join (
-select M.ApplicationId
-	   ,M.SentAt as AOInformedOfDecisionDate
-	   ,M.Type
-	   ,Case M.Type
-			When 'ApplicationSharedWithOfqual' Then 'Ofqual'
-			When 'ApplicationSharedWithSkillsEngland' Then 'SkillsEngland / IfATE'
-			Else ''
-		End As SharedWith
-	    ,Rank() Over (Partition By M.ApplicationId order by M.SentAt Asc) as R_K
-		
-From [ASData_PL].[AODP_Messages] M
-
-Where M.Type = 'AoInformedOfDecision' ) as De ON De.ApplicationId = A.Id
-
-
-Where SW.R_K = 1 and De.R_K = 1
-GO
-
-
+CREATE VIEW [ASData_PL].[v_MS_KPI_NQR_TU_002] AS
+WITH SharedWithCTE AS (
+    SELECT 
+        M.ApplicationId,
+        M.SentAt AS SharedWithDate,
+        M.Type,
+        CASE M.Type
+            WHEN 'ApplicationSharedWithOfqual' THEN 'Ofqual'
+            WHEN 'ApplicationSharedWithSkillsEngland' THEN 'SkillsEngland / IfATE'
+            ELSE ''
+        END AS SharedWith,
+        RANK() OVER (PARTITION BY M.ApplicationId ORDER BY M.SentAt ASC) AS R_K
+    FROM [ASData_PL].[AODP_Messages] M
+    WHERE M.Type IN ('ApplicationSharedWithOfqual', 'ApplicationSharedWithSkillsEngland')
+),
+AOInformedCTE AS (
+    SELECT 
+        M.ApplicationId,
+        M.SentAt AS AOInformedOfDecisionDate,
+        M.Type,
+        CASE M.Type
+            WHEN 'ApplicationSharedWithOfqual' THEN 'Ofqual'
+            WHEN 'ApplicationSharedWithSkillsEngland' THEN 'SkillsEngland / IfATE'
+            ELSE ''
+        END AS SharedWith,
+        RANK() OVER (PARTITION BY M.ApplicationId ORDER BY M.SentAt ASC) AS R_K
+    FROM [ASData_PL].[AODP_Messages] M
+    WHERE M.Type = 'AoInformedOfDecision'
+)
+SELECT 
+    A.QualificationNumber,
+    AO.RecognitionNumber,
+    AO.Id AS AwardingOrganisationId,
+    AO.NameLegal AS AwardingOrganisationName,
+    SW.SharedWithDate,
+    De.AOInformedOfDecisionDate,
+    DATEDIFF(HOUR, SW.SharedWithDate, De.AOInformedOfDecisionDate) AS Duration
+FROM [ASData_PL].[AODP_Applications] A 
+LEFT JOIN [ASData_PL].[AODP_AwardingOrganisation]  AO ON A.OrganisationId = AO.Id
+LEFT JOIN SharedWithCTE SW ON SW.ApplicationId = A.Id
+LEFT JOIN AOInformedCTE De ON De.ApplicationId = A.Id 
+Where SW.R_K = 1 and De.R_K = 1;

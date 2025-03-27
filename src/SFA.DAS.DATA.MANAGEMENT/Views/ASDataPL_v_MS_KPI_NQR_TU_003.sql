@@ -23,28 +23,23 @@ AS
 	1					Adam Leaver		18/03/2025			Original
 ##################################################################################################*/
 
-select  MM_MSG.ApplicationId
-	   ,A.QualificationNumber
-	   ,AO.RecognitionNumber
-	   ,AO.Id as AwardingOrganisationId
-	   ,AO.NameLegal As AwardingOrganisationName
-	   ,MM_MSG.Type
-	   ,MM_MSG.SentAt
-
-
-from 
-
-(Select M.ApplicationId
-	   ,M.Type
-	   ,Min(M.SentAt) as SentAt
-   
-From [ASData_PL].[AODP_Messages] M 
-
-Where M.Type in ('ApplicationSubmitted', 'Draft')
-Group By M.ApplicationId, M.Type ) As MM_MSG
-
-Left Outer Join [ASData_PL].[AODP_Applications] A ON A.Id = MM_MSG.ApplicationId
-Left Outer Join [ASData_PL].[AODP_AwardingOrganisation] AO ON A.OrganisationId = AO.Id
-GO
-
-
+WITH MessageMinSent AS (
+    SELECT 
+        M.ApplicationId,
+        M.Type,
+        MIN(M.SentAt) AS SentAt
+    FROM [ASData_PL].[AODP_Messages] M 
+    WHERE M.Type IN ('ApplicationSubmitted', 'Draft')
+    GROUP BY M.ApplicationId, M.Type
+)
+SELECT  
+    MM_MSG.ApplicationId,
+    A.QualificationNumber,
+    AO.RecognitionNumber,
+    AO.Id AS AwardingOrganisationId,
+    AO.NameLegal AS AwardingOrganisationName,
+    MM_MSG.Type,
+    MM_MSG.SentAt
+FROM MessageMinSent MM_MSG
+LEFT JOIN [ASData_PL].[AODP_Applications] A ON A.Id = MM_MSG.ApplicationId
+LEFT JOIN [ASData_PL].[AODP_AwardingOrganisation] AO ON A.OrganisationId = AO.Id;

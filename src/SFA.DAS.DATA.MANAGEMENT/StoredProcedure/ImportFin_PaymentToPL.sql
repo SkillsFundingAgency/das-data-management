@@ -35,7 +35,7 @@ BEGIN TRANSACTION
 
 /* Import Fin_Payment Details */
 
-IF OBJECT_ID('Stg.Fin_TransactionLine', 'U') IS NOT NULL
+IF OBJECT_ID('Stg.Fin_Payment', 'U') IS NOT NULL
 
 BEGIN
 

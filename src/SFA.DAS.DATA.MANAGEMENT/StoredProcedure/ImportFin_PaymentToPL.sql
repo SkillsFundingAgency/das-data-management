@@ -35,12 +35,14 @@ BEGIN TRANSACTION
 
 /* Import Fin_Payment Details */
 
-IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Fin_Payment' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+IF OBJECT_ID('Stg.Fin_TransactionLine', 'U') IS NOT NULL
+
+BEGIN
 
 INSERT INTO [AsData_PL].[Fin_Payment] 
 (
     [PaymentId],
-    [AccountId],
+    [AccountId] ,
     [ApprenticeshipId],
     [DeliveryPeriodMonth],
     [DeliveryPeriodYear],
@@ -83,13 +85,10 @@ WHERE NOT EXISTS (
     FROM [AsData_PL].[Fin_Payment] TARGET
     WHERE TARGET.[PaymentId] = SOURCE.[PaymentId]
 )
-AND SOURCE.[DateImported] > (
-    SELECT MAX(DateImported)
-    FROM [AsData_PL].[Fin_Payment]
-);
+END
 
-
-COMMIT TRANSACTION
+ IF @@TRANCOUNT > 0  
+    COMMIT TRANSACTION
 
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1
@@ -103,8 +102,9 @@ UPDATE Mgmt.Log_Execution_Results
 
 END TRY
 BEGIN CATCH
-    IF @@TRANCOUNT>0
-	ROLLBACK TRANSACTION;
+
+  IF @@TRANCOUNT>0
+	     ROLLBACK TRANSACTION;
 
     DECLARE @ErrorId int
 

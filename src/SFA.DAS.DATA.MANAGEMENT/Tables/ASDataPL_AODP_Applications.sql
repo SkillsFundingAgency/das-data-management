@@ -8,7 +8,7 @@ CREATE TABLE [ASData_PL].[AODP_Applications](
 	[SubmittedAt] [date] NULL,
 	[CreatedAt] [datetime] NULL,
 	[QualificationNumber] [nvarchar](100) NULL,
-	[ReferenceId] [int] IDENTITY(1,1) NOT NULL,
+	[ReferenceId] [int] NOT NULL,
 	[UpdatedAt] [datetime] NOT NULL,
 	[Status] [nvarchar](100) NULL,
 	[AwardingOrganisationName] [nvarchar](400) NULL,

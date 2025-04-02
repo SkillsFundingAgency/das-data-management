@@ -97,7 +97,7 @@ UPDATE Mgmt.Log_Execution_Results
  WHERE LogId=@LogID
    AND RunId=@RunId
 
- IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Fin_Payment' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+ IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Finance_Payment' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 		       DROP TABLE [Stg].[Finance_Payment] 
 
 END TRY

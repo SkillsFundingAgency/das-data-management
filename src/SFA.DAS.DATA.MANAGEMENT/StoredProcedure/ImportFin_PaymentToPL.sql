@@ -35,7 +35,9 @@ BEGIN TRANSACTION
 
 /* Import Fin_Payment Details */
 
-IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Fin_Payment' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+IF OBJECT_ID('Stg.Finance_Payment', 'U') IS NOT NULL
+
+BEGIN
 
 INSERT INTO [AsData_PL].[Fin_Payment] 
 (
@@ -77,19 +79,16 @@ SELECT
     SOURCE.[PaymentMetaDataId],
     SOURCE.[DateImported],
     GETDATE() AS [AsDm_UpdatedDateTime]
-FROM stg.[Fin_Payment] SOURCE
+FROM stg.[Finance_Payment] SOURCE
 WHERE NOT EXISTS (
     SELECT 1 
     FROM [AsData_PL].[Fin_Payment] TARGET
     WHERE TARGET.[PaymentId] = SOURCE.[PaymentId]
 )
-AND SOURCE.[DateImported] > (
-    SELECT MAX(DateImported)
-    FROM [AsData_PL].[Fin_Payment]
-);
+END
 
-
-COMMIT TRANSACTION
+ IF @@TRANCOUNT > 0  
+    COMMIT TRANSACTION
 
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1
@@ -98,13 +97,14 @@ UPDATE Mgmt.Log_Execution_Results
  WHERE LogId=@LogID
    AND RunId=@RunId
 
- IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Fin_Payment' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
-		       DROP TABLE [Stg].[Fin_Payment] 
+ IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Finance_Payment' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+		       DROP TABLE [Stg].[Finance_Payment] 
 
 END TRY
 BEGIN CATCH
-    IF @@TRANCOUNT>0
-	ROLLBACK TRANSACTION;
+
+  IF @@TRANCOUNT>0
+	     ROLLBACK TRANSACTION;
 
     DECLARE @ErrorId int
 

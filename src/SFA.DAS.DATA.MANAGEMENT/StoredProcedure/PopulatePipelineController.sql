@@ -36,7 +36,7 @@ DELETE FROM [Mgmt].[Pipeline]
 INSERT INTO [Mgmt].[Pipeline]
            ([PipelineId],[PipelineName])
      VALUES	
-(1	,'Master-ImportAccUsersComtFinResvToDataMart')
+ (1	,'Master-ImportAccUsersComtFinResvToDataMart')
 ,(2	,'ImportUsersToDM')
 ,(3	,'ImportAccountsToDM')
 ,(4	,'ImportCommitmentToDM')
@@ -105,7 +105,7 @@ VALUES
 ,(1 ,24 ,1  ,21)
 ,(1 ,25 ,1  ,22)
 ,(1 ,26 ,1  ,23)
----,(1 ,27 ,1  ,24)
+----,(1 ,27 ,1  ,24)
 ,(100,101,1	,2)
 ,(100,102,1	,3)
 ,(100,103,1	,5)

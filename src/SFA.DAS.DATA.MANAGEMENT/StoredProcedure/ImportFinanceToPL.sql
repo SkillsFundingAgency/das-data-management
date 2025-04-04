@@ -42,8 +42,7 @@ BEGIN TRY
 
                 TRUNCATE TABLE ASData_PL.Fin_TransactionLine
 
-				
-                DECLARE @VSQL NVARCHAR(MAX)
+				DECLARE @VSQL NVARCHAR(MAX)
 
                 SET @VSQL='
 

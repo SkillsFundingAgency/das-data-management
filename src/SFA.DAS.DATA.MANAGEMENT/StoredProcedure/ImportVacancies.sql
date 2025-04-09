@@ -411,7 +411,7 @@ SELECT  cast(v.BinaryId as varchar(256))                        as VacancyGuid
 	      ,cast(VacancyReference as bigint)                           as VacancyReference
 		  ,cast(VacancyStatus as varchar(100))                     as VacancyStatus
 		  ,REPLACE(REPLACE(VacancyTitle, CHAR(13), ''), CHAR(10), ' ') as VacancyTitle
-		  ,CASE WHEN len(EmployerPostCode)>8 
+		  ,CASE WHEN len(EmployerPostCode)>9
 		        THEN CASE WHEN Mgmt.fn_ExtractPostCodeUKFromAddress(EmployerPostCode)='ZZ99 9ZZ'
 				          THEN CASE WHEN Mgmt.fn_ExtractPostCodeUKFromAddress(ISNULL(EmployerAddressLine1,'')+','+ISNULL(EmployerAddressLine2,'')+','+ISNULL(EmployerAddressLine3,'')+','+ISNULL(EmployerAddressLine4,'')) ='ZZ99 9ZZ'
 						            THEN EmployerPostCode

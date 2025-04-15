@@ -32,5 +32,5 @@ SELECT
     CASE WHEN A.Status IN ('Approved', 'NotApproved', 'Withdrawn') THEN 'Outcome' ELSE 'Not Outcome' END AS StatusType,
     DATEDIFF(HOUR, A.UpdatedAt, M.FirstSentAt) AS Duration
 FROM [ASData_PL].[AODP_Applications] A 
-LEFT JOIN FirstSubmission M ON M.ApplicationId = A.Id
+INNER JOIN FirstSubmission M ON M.ApplicationId = A.Id
 LEFT JOIN [ASData_PL].[AODP_AwardingOrganisation] AO ON A.OrganisationId = AO.Id;

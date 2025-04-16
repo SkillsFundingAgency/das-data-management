@@ -523,6 +523,17 @@ VALUES
 	   ,'EVS_ScheduledEmploymentVerification')
 
 
+/* AODP  Config */
+
+INSERT INTO Mtd.SourceConfigForImport
+(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
+VALUES
+ ('Aodp','MS_KPI_RQR_CR_CT_001','regulated','[Qan], [QualificationName], [VersionNumber_StartReviewCycle], [VersionNumber_EndReviewCycle], [Status], [IsOutcomeDecision], [Duration_Hours], [InsertedTimestamp]','','','AODP_MS_KPI_RQR_CR_CT_001',0,1)
+,('Aodp','Applications','dbo','[Id], [FormVersionId], [OrganisationId], [Owner], [Submitted], [SubmittedAt], [CreatedAt], [QualificationNumber], [ReferenceId], [UpdatedAt], [Status], [AwardingOrganisationName], [NewMessage]','','[Name],[AwardingOrganisationUkprn]','AODP_Applications',0,1)
+,('Aodp','AwardingOrganisation','dbo','[Id], [RecognitionNumber], [NameLegal], [NameOfqual], [NameGovUk], [Name_Dsi], [Acronym]','','[Ukprn]','AODP_AwardingOrganisation',0,1)
+,('Aodp','Messages','dbo','[Id], [ApplicationId], [Text], [Status], [Type], [MessageHeader], [SharedWithDfe], [SharedWithOfqual], [SharedWithSkillsEngland], [SharedWithAwardingOrganisation], [SentAt], [SentByName], [SentByEmail]','','','AODP_Messages',0,1)
+
+
 COMMIT TRANSACTION
 
 UPDATE Mgmt.Log_Execution_Results

@@ -532,7 +532,7 @@ VALUES
 ,('Aodp','Applications','dbo','[Id], [FormVersionId], [OrganisationId], [Owner], [Submitted], [SubmittedAt], [CreatedAt], [QualificationNumber], [ReferenceId], [UpdatedAt], [Status], [AwardingOrganisationName], [NewMessage]','','[Name],[AwardingOrganisationUkprn]','AODP_Applications',0,1)
 ,('Aodp','AwardingOrganisation','dbo','[Id], [RecognitionNumber], [NameLegal], [NameOfqual], [NameGovUk], [Name_Dsi], [Acronym]','','[Ukprn]','AODP_AwardingOrganisation',0,1)
 ,('Aodp','Messages','dbo','[Id], [ApplicationId], [Text], [Status], [Type], [MessageHeader], [SharedWithDfe], [SharedWithOfqual], [SharedWithSkillsEngland], [SharedWithAwardingOrganisation], [SentAt], [SentByName], [SentByEmail]','','','AODP_Messages',0,1)
-
+,('Aodp','Surveys','dbo','[Id], [Page], [SatisfactionScore], [Comments], [Timestamp]','','','AODP_Surveys',0,1)
 
 COMMIT TRANSACTION
 

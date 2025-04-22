@@ -38,12 +38,11 @@ BEGIN TRY
 		BEGIN TRANSACTION
 
 								
-               /* Delete and Transform Paye Data ---
+               /* Delete and Transform Paye Data ---*/
 
                 TRUNCATE TABLE ASData_PL.Fin_TransactionLine
 
-				
-                DECLARE @VSQL NVARCHAR(MAX)
+				DECLARE @VSQL NVARCHAR(MAX)
 
                 SET @VSQL='
 
@@ -92,11 +91,11 @@ BEGIN TRY
 
 				EXEC SP_EXECUTESQL @VSQL
 
-				 */
+				 
 
 				/* Delete and Transform LevyDeclarationsAndTopUp Data */
 
-				DECLARE @VSQL NVARCHAR(MAX)
+				
 				
 				DELETE FROM ASData_PL.Fin_GetLevyDeclarationAndTopUp
 

@@ -7,7 +7,6 @@ BEGIN TRY
     SET NOCOUNT ON;
 
     DECLARE @LogID INT;
-    DECLARE @DynSQL1 NVARCHAR(MAX);
 
     -- Start Logging Execution
     INSERT INTO Mgmt.Log_Execution_Results
@@ -32,88 +31,15 @@ BEGIN TRY
     
     -- Check and process each table
 BEGIN TRANSACTION
-        SET @DynSQL1 = '
-        WITH EVS_UP AS (
-            SELECT 
-                [EmploymentVerificationId], 
-                [CorrelationId], 
-                [ApprenticeshipId], 
-                [Employed], 
-                [EmploymentCheckDate], 
-                [EmploymentCheckRequestDate], 
-                [RequestCompletionStatus], 
-                [ErrorType], 
-                [MessageSentDate], 
-                [MinDate], 
-                [MaxDate], 
-                [CheckTypeId], 
-                [CreatedOn], 
-                [LastUpdatedOn]
-            FROM [ASData_PL].[EVS_EmploymentVerification]
-            EXCEPT
-            SELECT 
-                [EmploymentVerificationId], 
-                [CorrelationId], 
-                [ApprenticeshipId], 
-                [Employed], 
-                [EmploymentCheckDate], 
-                [EmploymentCheckRequestDate], 
-                [RequestCompletionStatus], 
-                [ErrorType], 
-                [MessageSentDate], 
-                [MinDate], 
-                [MaxDate], 
-                [CheckTypeId], 
-                [CreatedOn], 
-                [LastUpdatedOn]
-            FROM [Stg].[EVS_EmploymentVerification]
-        )
-        UPDATE EVS
-        SET ISDeleted = 1
-        FROM [ASData_PL].[EVS_EmploymentVerification] EVS
-        INNER JOIN EVS_UP ON EVS.EmploymentVerificationId = EVS_UP.EmploymentVerificationId;
 
-        WITH SEV_UP AS (
-            SELECT 
-                [ScheduledEmploymentVerificationId],
-                [CommitmentId], 
-                [ApprenticeshipId], 
-                [ULN], 
-                [UKPRN], 
-                [EmployerAccountId], 
-                [CommitmentStartDate], 
-                [CommitmentStatusId], 
-                [PaymentStatusId], 
-                [ApprovalsStatusId], 
-                [EmployerAndProviderApprovedOn], 
-                [TransferApprovalActionedOn], 
-                [EmploymentCheckCount], 
-                [LastUpdatedOn]
-            FROM [ASData_PL].[EVS_ScheduledEmploymentVerification]
-            EXCEPT
-            SELECT 
-                [ScheduledEmploymentVerificationId],
-                [CommitmentId], 
-                [ApprenticeshipId], 
-                [ULN], 
-                [UKPRN], 
-                [EmployerAccountId], 
-                [CommitmentStartDate], 
-                [CommitmentStatusId], 
-                [PaymentStatusId], 
-                [ApprovalsStatusId], 
-                [EmployerAndProviderApprovedOn], 
-                [TransferApprovalActionedOn], 
-                [EmploymentCheckCount], 
-                [LastUpdatedOn]
-            FROM [Stg].[EVS_ScheduledEmploymentVerification]
-        ) 
-        UPDATE SEV
-        SET ISDeleted = 1
-        FROM [ASData_PL].[EVS_ScheduledEmploymentVerification] SEV
-        INNER JOIN SEV_UP ON SEV.[ScheduledEmploymentVerificationId] = SEV_UP.[ScheduledEmploymentVerificationId];';
+        UPDATE EVS
+        SET ISDeleted = 0
+        FROM [ASData_PL].[EVS_EmploymentVerification] EVS
         
-        EXEC SP_EXECUTESQL @DynSQL1;
+    
+        UPDATE SEV
+        SET ISDeleted = 0
+        FROM [ASData_PL].[EVS_ScheduledEmploymentVerification] SEV
 
  COMMIT TRANSACTION;
 

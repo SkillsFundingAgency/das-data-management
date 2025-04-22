@@ -64,6 +64,7 @@ INSERT INTO [Mgmt].[Pipeline]
 ,(26,'ImportAssessorToDMINC')
 ,(27,'ImportFinanceToDMINC')
 ,(28,'ImportCommitmentToDMINC')
+,(29,'ImportAODPToDM')
 ,(100,'Master-ImportVacanciesToDataMart')
 ,(101,'ImportRAAToDataMart')
 ,(102,'ImportAvmsToDataMart')
@@ -81,7 +82,7 @@ VALUES
 (1	,2	,1	,9)
 ,(1	,3	,1	,5)
 --,(1	,4	,1	,3) ImportCommitmentToDM pipeline full load
---,(1	,5	,1	,2) ImportFinanceToDM pipeline full load
+,(1	,5	,1	,2)
 ,(1	,6	,1	,13)
 --2023-10-26  ImportAppRedundancyToDM pipeline retired 
 --,(1	,7	,1	,7)
@@ -106,8 +107,9 @@ VALUES
 ,(1 ,24 ,1  ,21)
 ,(1 ,25 ,1  ,22)
 ,(1 ,26 ,1  ,23)
-,(1 ,27 ,1  ,24)
+--,(1 ,27 ,1  ,24)
 ,(1 ,28 ,1  ,25)
+--,(1 ,29 ,1  ,26) 
 ,(100,101,1	,2)
 ,(100,102,1	,3)
 ,(100,103,1	,5)

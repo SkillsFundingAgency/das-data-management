@@ -192,7 +192,8 @@ UNION
 SELECT DISTINCT 
        NULL                                              as CandidateStatusTypeId
       ,'N/A'                                            as CandidateStatusTypeDesc
-	  ,CASE WHEN CHARINDEX(' ',a.Postcode)<>0 THEN SUBSTRING(a.PostCode,1,CHARINDEX(' ',a.PostCode)) 
+	  ,CASE WHEN LEN(a.Postcode) > 8 then a.Postcode
+	        WHEN CHARINDEX(' ',a.Postcode)<>0 THEN SUBSTRING(a.PostCode,1,CHARINDEX(' ',a.PostCode)) 
 	        WHEN (CHARINDEX(' ',a.Postcode)=0 and len(a.postcode)>3) THEN SUBSTRING(a.Postcode,1,LEN(a.Postcode)-3) 
 	   ELSE a.postcode
 	   END  as PostCode

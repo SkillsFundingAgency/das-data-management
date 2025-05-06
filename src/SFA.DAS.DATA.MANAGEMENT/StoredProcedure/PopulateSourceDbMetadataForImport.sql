@@ -100,7 +100,7 @@ INSERT INTO Mtd.SourceConfigForImport
 VALUES
  ('Candacc','AboutYou','dbo','[Id],[CandidateId],[Sex], [IsGenderIdentifySameSexAtBirth], [EthnicGroup], [EthnicSubGroup], [OtherEthnicSubGroupAnswer]','','',1)
 ,('Candacc','CandidatePreferences','dbo','[Id],[CandidateId], [PreferenceId], [Status], [CreatedOn], [UpdatedOn], [ContactMethod]','','',1)
-,('Candacc','Application','dbo','[Id], [CandidateId], [DisabilityStatus], [VacancyReference], [Status], [CreatedDate], [UpdatedDate], [SubmittedDate],  [ResponseNotes],  [MigrationDate]','[WithdrawnDate], [ResponseDate],[QualificationsStatus], [TrainingCoursesStatus], [JobsStatus], [WorkExperienceStatus], [SkillsAndStrengthStatus], [InterestsStatus], [AdditionalQuestion1Status], [AdditionalQuestion2Status], [InterviewAdjustmentsStatus], [DisabilityConfidenceStatus], [WhatIsYourInterest], [ApplyUnderDisabilityConfidentScheme],[PreviousAnswersSourceId], [Strengths], [Support]','',1)
+,('Candacc','Application','dbo','[Id], [CandidateId], [DisabilityStatus], [VacancyReference], [Status], [CreatedDate], [UpdatedDate], [SubmittedDate], [ResponseDate], [WithdrawnDate], [ResponseNotes], [QualificationsStatus], [TrainingCoursesStatus], [JobsStatus], [WorkExperienceStatus], [SkillsAndStrengthStatus], [InterestsStatus], [AdditionalQuestion1Status], [AdditionalQuestion2Status], [InterviewAdjustmentsStatus], [DisabilityConfidenceStatus], [WhatIsYourInterest], [ApplyUnderDisabilityConfidentScheme], [PreviousAnswersSourceId], [Strengths], [Support], [MigrationDate]','','',1)
 ,('Candacc','Address','dbo','[Id], [Uprn], [AddressLine1], [AddressLine2], [Town], [County], [Postcode], [Latitude], [Longitude], [CandidateId]','','',1)
 
 /*RAT Metadata*/
@@ -185,7 +185,7 @@ INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,StagingTableName,[ModelDataToPL])
 /* Accounts and Users */
 VALUES
- ('Finance','Payment','employer_financial','[PaymentId],[AccountId],[ApprenticeshipId],[DeliveryPeriodMonth],[DeliveryPeriodYear],[CollectionPeriodId],[CollectionPeriodMonth],[CollectionPeriodYear],[EvidenceSubmittedOn],[EmployerAccountVersion],[ApprenticeshipVersion],[FundingSource],[TransactionType],[Amount],[PeriodEnd],[PaymentMetaDataId],[DateImported]','[Ukprn],[Uln]','','fin_Payment','fin_Payment',1)
+('Finance','Payment','employer_financial','[PaymentId],[AccountId],[ApprenticeshipId],[DeliveryPeriodMonth],[DeliveryPeriodYear],[CollectionPeriodId],[CollectionPeriodMonth],[CollectionPeriodYear],[EvidenceSubmittedOn],[EmployerAccountVersion],[ApprenticeshipVersion],[FundingSource],[TransactionType],[Amount],[PeriodEnd],[PaymentMetaDataId],[DateImported]','[Ukprn],[Uln]','','fin_Payment','finance_Payment',0)
 ,('Finance','TransactionLine','employer_financial','[Id],[AccountId],[DateCreated],[SubmissionId],[TransactionDate],[TransactionType],[LevyDeclared],[Amount],[PeriodEnd],[SfaCoInvestmentAmount],[EmployerCoInvestmentAmount],[EnglishFraction],[TransferSenderAccountId],[TransferReceiverAccountId],[TransferSenderAccountName],[TransferReceiverAccountName]','','[EmpRef],[Ukprn]','fin_TransactionLine','fin_TransactionLine',1)
 
 
@@ -521,6 +521,17 @@ VALUES
 	,('evs','ScheduledEmploymentVerification','dbo','[ScheduledEmploymentVerificationId], [CommitmentId], [ApprenticeshipId], [ULN], [UKPRN], [EmployerAccountId], [CommitmentStartDate], [CommitmentStatusId], [PaymentStatusId], [ApprovalsStatusId], [EmployerAndProviderApprovedOn], [TransferApprovalActionedOn], [EmploymentCheckCount], [CreatedOn], [LastUpdatedOn]','','',0,1
 	   ,'select [ScheduledEmploymentVerificationId], [CommitmentId], [ApprenticeshipId], [ULN], [UKPRN], [EmployerAccountId], [CommitmentStartDate], [CommitmentStatusId], [PaymentStatusId], [ApprovalsStatusId], [EmployerAndProviderApprovedOn], [TransferApprovalActionedOn], [EmploymentCheckCount], [CreatedOn], [LastUpdatedOn] FROM [dbo].[ScheduledEmploymentVerification]'
 	   ,'EVS_ScheduledEmploymentVerification')
+
+
+/* AODP  Config */
+
+INSERT INTO Mtd.SourceConfigForImport
+(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
+VALUES
+ ('Aodp','MS_KPI_RQR_CR_CT_001','regulated','[Qan], [QualificationName], [VersionNumber_StartReviewCycle], [VersionNumber_EndReviewCycle], [Status], [IsOutcomeDecision], [Duration_Hours], [InsertedTimestamp]','','','AODP_MS_KPI_RQR_CR_CT_001',0,1)
+,('Aodp','Applications','dbo','[Id], [FormVersionId], [OrganisationId], [Owner], [Submitted], [SubmittedAt], [CreatedAt], [QualificationNumber], [ReferenceId], [UpdatedAt], [Status], [AwardingOrganisationName], [NewMessage]','','[Name],[AwardingOrganisationUkprn]','AODP_Applications',0,1)
+,('Aodp','AwardingOrganisation','dbo','[Id], [RecognitionNumber], [NameLegal], [NameOfqual], [NameGovUk], [Name_Dsi], [Acronym]','','[Ukprn]','AODP_AwardingOrganisation',0,1)
+,('Aodp','Messages','dbo','[Id], [ApplicationId], [Text], [Status], [Type], [MessageHeader], [SharedWithDfe], [SharedWithOfqual], [SharedWithSkillsEngland], [SharedWithAwardingOrganisation], [SentAt], [SentByName], [SentByEmail]','','','AODP_Messages',0,1)
 
 
 COMMIT TRANSACTION

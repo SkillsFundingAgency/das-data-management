@@ -116,7 +116,8 @@ VALUES
 ('RAT','Region','dbo','[Id], [SubregionName], [RegionName], [Latitude], [Longitude], [ValidFrom], [ValidTo]','','',1,0,'RAT_Region'),
 ('RAT','RequestStatus','dbo','[Id], [Description]','','',1,0,'RAT_RequestStatus'),
 ('RAT','RequestType','dbo','[Id], [Description]','','',1,0,'RAT_RequestType'),
-('RAT','Standard','dbo','[StandardReference], [StandardTitle], [StandardLevel], [StandardSector]','','',1,0,'RAT_Standard')
+('RAT','Standard','dbo','[StandardReference], [StandardTitle], [StandardLevel], [StandardSector]','','',1,0,'RAT_Standard'),
+('RAT','ProviderResponseEmployerRequestHistory','dbo','[EmployerRequestId],[Ukprn], [ProviderResponseId], [AcknowledgedAt], [AcknowledgedBy],[ValidFrom],[ValidTo]','','',1,0,'RAT_ProviderResponseEmployerRequestHistory')
 
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)

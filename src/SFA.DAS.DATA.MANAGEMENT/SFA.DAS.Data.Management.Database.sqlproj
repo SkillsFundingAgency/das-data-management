@@ -269,6 +269,7 @@
     <Build Include="Tables\ASDataPL_RAT_EmployerRequestRegion.sql" />
     <Build Include="Tables\ASDataPL_RAT_ProviderResponse.sql" />
     <Build Include="Tables\ASDataPL_RAT_ProviderResponseEmployerRequest.sql" />
+    <Build Include="Tables\RAT_ProviderResponseEmployerRequestHistory.sql" />    
     <Build Include="Tables\ASDataPL_RAT_Region.sql" />
     <Build Include="Tables\ASDataPL_RAT_RequestStatus.sql" />
     <Build Include="Tables\ASDataPL_RAT_RequestType.sql" />

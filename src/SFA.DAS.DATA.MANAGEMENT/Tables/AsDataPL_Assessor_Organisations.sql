@@ -12,7 +12,5 @@
 	[ApiEnabled]						[bit]						NULL,
 	[ApiUser]							[nvarchar](100)				NULL,
 	[RecognitionNumber]					[nvarchar](100)				NULL,
-	[EndPointAssessorName] 				[nvarchar](100)				NULL,
-	[EndPointAssessorUkprn]				[int]						NULL,	
 	[AsDm_UpdatedDateTime]				[Datetime2](7)				default getdate()
 )

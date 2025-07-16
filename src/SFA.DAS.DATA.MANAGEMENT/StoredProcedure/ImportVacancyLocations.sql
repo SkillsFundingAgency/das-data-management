@@ -99,6 +99,26 @@ SELECT
 	  LEFT JOIN [ASData_PL].[Va_Vacancy] V ON EL.BinaryId=V.VacancyGuid
 	  and V.SourceDb='RAAv2'
 	 
+
+Union
+
+
+select 
+
+VacancyPostCode
+,VacancyAddressLine1
+,VacancyAddressLine2
+,VacancyAddressLine3
+,VacancyAddressLine4
+,VacancyTown
+,EmployerId
+,VacancyId
+,SourceVacancyId as SourceVacancyLocationsId
+,'RAAv2'                                                    as SourceDb
+
+from ASData_PL.Va_Vacancy where SourceDb='RAAv2'
+  
+
 )a
 
 COMMIT TRANSACTION

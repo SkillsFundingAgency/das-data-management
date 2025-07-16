@@ -4,7 +4,6 @@ CREATE TABLE Stg.RAA_EmployerLocations
  ,BinaryId VARCHAR(256) 
  ,VacancyReference VARCHAR(256)
  ,EmployerAccountId VARCHAR(256)
- ,EmployerDescription VARCHAR(max)
  ,EmployerAddressLine1 VARCHAR(256)
  ,EmployerAddressLine2 VARCHAR(256)
  ,EmployerAddressLine3 VARCHAR(256)

@@ -117,7 +117,12 @@ VacancyPostCode
 ,'RAAv2'                                                    as SourceDb
 
 from ASData_PL.Va_Vacancy where SourceDb='RAAv2'
-  
+ AND COALESCE( VacancyPostCode
+,VacancyAddressLine1
+,VacancyAddressLine2
+,VacancyAddressLine3
+,VacancyAddressLine4
+,VacancyTown,'NA')<>'NA'
 
 )a
 

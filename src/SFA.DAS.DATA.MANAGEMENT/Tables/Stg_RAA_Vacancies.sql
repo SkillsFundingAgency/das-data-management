@@ -39,6 +39,7 @@
  ,EmployerPostCode VARCHAR(256)
  ,EmployerLatitude VARCHAR(256)
  ,EmployerLongitude VARCHAR(256)
+ ,EmployerLocationOption VARCHAR(256)
  ,EmployerName VARCHAR(256)
  ,EmployerNameOption VARCHAR(256)
  ,LegalEntityName VARCHAR(256)

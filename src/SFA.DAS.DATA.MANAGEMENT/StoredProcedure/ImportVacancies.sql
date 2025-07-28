@@ -331,6 +331,7 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
            ,VacancyAddressLine3
            ,VacancyAddressLine4
            ,VacancyTown
+           ,EmployerLocationOption
            ,SkillsRequired
            ,QualificationsRequired
            ,PersonalQualities
@@ -426,6 +427,7 @@ SELECT  cast(v.BinaryId as varchar(256))                        as VacancyGuid
           ,EmployerAddressLine3                                    as VacancyAddressLine3
           ,EmployerAddressLine4                                    as VacancyAddressLine4
           ,COALESCE(EmployerAddressLine4,EmployerAddressLine3,EmployerAddressLine2) as VacancyTown
+          ,EmployerLocationOption                                  as EmployerLocationOption 
           ,dbo.Fn_CleanseJSONText([Skills])  as SkillsRequired
           ,dbo.Fn_CleanseJSONText([Qualifications]) as QualificationsRequired
           ,dbo.Fn_CleanseJSONText([Skills]) as PersonalQualities

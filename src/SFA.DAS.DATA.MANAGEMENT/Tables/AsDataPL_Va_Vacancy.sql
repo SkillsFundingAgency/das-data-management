@@ -82,4 +82,9 @@
 ,PersonalQualities nvarchar(max)
 ,RowNumber INT
 ,RAFDuplicateFlag bit
+,ThingsToConsider VARCHAR(max)
+,TrainingDescription VARCHAR(max)
+,EmployerDescription VARCHAR(max)
+,OutcomeDescription VARCHAR(max)
+,ApplicationInstructions VARCHAR(max)
 )

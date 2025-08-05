@@ -397,13 +397,13 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
            ,[SubmittedDateTime_v2]
            ,[ClosedDateTimeStamp]
            ,[SourceVacancyId]
-           ,[SourceDb]
-           ,[RowNumber]
+           ,[SourceDb]           
            ,ThingsToConsider 
-            ,TrainingDescription 
-            ,EmployerDescription 
-            ,OutcomeDescription 
+           ,TrainingDescription 
+           ,EmployerDescription 
+           ,OutcomeDescription 
             ,ApplicationInstructions
+            ,[RowNumber]
            ,[RAFDuplicateFlag]
            )
   

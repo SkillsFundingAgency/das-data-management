@@ -80,6 +80,7 @@
  ,ProviderContactName VARCHAR(256)
  ,ProviderContactEmail VARCHAR(256)
  ,ProviderContactPhone VARCHAR(256)
+ ,ApplicationInstructions VARCHAR(max)
  ,RunId bigint  default(-1)
  ,AsDm_CreatedDate datetime2 default(getdate()) 
  ,AsDm_UpdatedDate datetime2 default(getdatE())

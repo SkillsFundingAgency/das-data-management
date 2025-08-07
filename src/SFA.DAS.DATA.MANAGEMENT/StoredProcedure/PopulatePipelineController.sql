@@ -68,7 +68,7 @@ INSERT INTO [Mgmt].[Pipeline]
 ,(101,'ImportRAAToDataMart')
 ,(102,'ImportAvmsToDataMart')
 ,(103,'ImportAvmsCandidateToDataMart')
-,(104,'ImportFAACandidateToDataMart')
+-- ,(104,'ImportFAACandidateToDataMart')
 --,(105,'ImportFAAToDataMart')
 ,(106,'ImportFAAV2ToDataMart')
 
@@ -111,7 +111,7 @@ VALUES
 ,(100,101,1	,2)
 ,(100,102,1	,3)
 ,(100,103,1	,5)
-,(100,104,1	,4)
+-- ,(100,104,1	,4)
 --,(100,105,1	,1)
 ,(100,106,1	,6)
 

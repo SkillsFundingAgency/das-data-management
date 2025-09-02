@@ -66,10 +66,10 @@ INSERT INTO [Mgmt].[Pipeline]
 ,(28,'ImportAODPToDM')
 ,(100,'Master-ImportVacanciesToDataMart')
 ,(101,'ImportRAAToDataMart')
-,(102,'ImportAvmsToDataMart')
-,(103,'ImportAvmsCandidateToDataMart')
-,(104,'ImportFAACandidateToDataMart')
-,(105,'ImportFAAToDataMart')
+--,(102,'ImportAvmsToDataMart')
+--,(103,'ImportAvmsCandidateToDataMart')
+-- ,(104,'ImportFAACandidateToDataMart')
+--,(105,'ImportFAAToDataMart')
 ,(106,'ImportFAAV2ToDataMart')
 
 
@@ -81,7 +81,8 @@ VALUES
 (1	,2	,1	,9)
 ,(1	,3	,1	,5)
 ,(1	,4	,1	,3)
-,(1	,5	,1	,2)
+--,(1	,5	,1	,2)
+,(1	,27	,1	,2)
 ,(1	,6	,1	,13)
 --2023-10-26  ImportAppRedundancyToDM pipeline retired 
 --,(1	,7	,1	,7)
@@ -106,13 +107,13 @@ VALUES
 ,(1 ,24 ,1  ,21)
 ,(1 ,25 ,1  ,22)
 ,(1 ,26 ,1  ,23)
---,(1 ,27 ,1  ,24)
+--,(1 ,27 ,1  ,2)
 ,(1 ,28 ,1  ,25)
 ,(100,101,1	,2)
-,(100,102,1	,3)
-,(100,103,1	,5)
-,(100,104,1	,4)
-,(100,105,1	,1)
+--,(100,102,1	,3)
+--,(100,103,1	,5)
+-- ,(100,104,1	,4)
+--,(100,105,1	,1)
 ,(100,106,1	,6)
 
 

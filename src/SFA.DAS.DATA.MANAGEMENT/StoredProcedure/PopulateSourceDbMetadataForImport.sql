@@ -116,7 +116,8 @@ VALUES
 ('RAT','Region','dbo','[Id], [SubregionName], [RegionName], [Latitude], [Longitude], [ValidFrom], [ValidTo]','','',1,0,'RAT_Region'),
 ('RAT','RequestStatus','dbo','[Id], [Description]','','',1,0,'RAT_RequestStatus'),
 ('RAT','RequestType','dbo','[Id], [Description]','','',1,0,'RAT_RequestType'),
-('RAT','Standard','dbo','[StandardReference], [StandardTitle], [StandardLevel], [StandardSector]','','',1,0,'RAT_Standard')
+('RAT','Standard','dbo','[StandardReference], [StandardTitle], [StandardLevel], [StandardSector]','','',1,0,'RAT_Standard'),
+('RAT','ProviderResponseEmployerRequestHistory','dbo','[EmployerRequestId],[Ukprn], [ProviderResponseId], [AcknowledgedAt], [AcknowledgedBy],[ValidFrom],[ValidTo]','','',1,0,'RAT_ProviderResponseEmployerRequestHistory')
 
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)
@@ -185,7 +186,7 @@ INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,StagingTableName,[ModelDataToPL])
 /* Accounts and Users */
 VALUES
-('Finance','Payment','employer_financial','[PaymentId],[AccountId],[ApprenticeshipId],[DeliveryPeriodMonth],[DeliveryPeriodYear],[CollectionPeriodId],[CollectionPeriodMonth],[CollectionPeriodYear],[EvidenceSubmittedOn],[EmployerAccountVersion],[ApprenticeshipVersion],[FundingSource],[TransactionType],[Amount],[PeriodEnd],[PaymentMetaDataId],[DateImported]','[Ukprn],[Uln]','','fin_Payment','finance_Payment',0)
+('Finance','Payment','employer_financial','[PaymentId],[AccountId],[ApprenticeshipId],[DeliveryPeriodMonth],[DeliveryPeriodYear],[CollectionPeriodId],[CollectionPeriodMonth],[CollectionPeriodYear],[EvidenceSubmittedOn],[EmployerAccountVersion],[ApprenticeshipVersion],[FundingSource],[TransactionType],[Amount],[PeriodEnd],[PaymentMetaDataId],[DateImported]','[Ukprn],[Uln]','','fin_Payment','fin_Payment',0)
 ,('Finance','TransactionLine','employer_financial','[Id],[AccountId],[DateCreated],[SubmissionId],[TransactionDate],[TransactionType],[LevyDeclared],[Amount],[PeriodEnd],[SfaCoInvestmentAmount],[EmployerCoInvestmentAmount],[EnglishFraction],[TransferSenderAccountId],[TransferReceiverAccountId],[TransferSenderAccountName],[TransferReceiverAccountName]','','[EmpRef],[Ukprn]','fin_TransactionLine','fin_TransactionLine',1)
 
 
@@ -212,7 +213,7 @@ VALUES
 ('CRS','Route','dbo','[Id],[Name]','','',1,1,'FAT2_StandardSector'),
 ('CRS','SectorSubjectAreaTier2','dbo','[SectorSubjectAreaTier2],[SectorSubjectAreaTier2Desc],[EffectiveFrom],[EffectiveTo]','','[Name]',1,0,'FAT2_SectorSubjectAreaTier2'),
 ('CRS','SectorSubjectAreaTier1','dbo','[SectorSubjectAreaTier1],[SectorSubjectAreaTier1Desc],[EffectiveFrom],[EffectiveTo]','','',1,0,'FAT2_SectorSubjectAreaTier1'),
-('CRS','Standard','dbo','[StandardUId],[IfateReferenceNumber],[LarsCode],[Status],[VersionEarliestStartDate],[VersionLatestStartDate],[VersionLatestEndDate],[Level],[ProposedTypicalDuration],[ProposedMaxFunding],[IntegratedDegree],[OverviewOfRole],[RouteCode],[AssessmentPlanUrl],[ApprovedForDelivery],[Keywords],[TypicalJobTitles],[StandardPageUrl],[Version],[RegulatedBody],[Skills],[Knowledge],[Behaviours],[Duties],[CoreAndOptions],[IntegratedApprenticeship],[Options],[CoreDuties],[Old_Options],[EPAChanged],[VersionMajor],[VersionMinor],[CoronationEmblem],[EpaoMustBeApprovedByRegulatorBody]','','[Title],[TrailBlazerContact],[EqaProviderName],[EqaProviderContactName],[EqaProviderContactEmail],[EqaProviderWebLink]',1,1,'FAT2_StandardSector')
+('CRS','Standard','dbo','[StandardUId],[IfateReferenceNumber],[LarsCode],[Status],[VersionEarliestStartDate],[VersionLatestStartDate],[VersionLatestEndDate],[Level],[ProposedTypicalDuration],[ProposedMaxFunding],[IntegratedDegree],[OverviewOfRole],[RouteCode],[AssessmentPlanUrl],[ApprovedForDelivery],[Keywords],[TypicalJobTitles],[StandardPageUrl],[Version],[RegulatedBody],[Skills],[Knowledge],[Behaviours],[Duties],[CoreAndOptions],[IntegratedApprenticeship],[Options],[CoreDuties],[EPAChanged],[VersionMajor],[VersionMinor],[CoronationEmblem],[EpaoMustBeApprovedByRegulatorBody]','','[Title],[TrailBlazerContact],[EqaProviderName],[EqaProviderContactName],[EqaProviderContactEmail],[EqaProviderWebLink]',1,1,'FAT2_StandardSector')
 
 /* PREL Import Configurations */
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
@@ -343,7 +344,7 @@ VALUES
  ,('Assessor','CertificateLogs','dbo','[Id],[Action],[CertificateId],[EventTime],[Status],[BatchNumber],[ReasonForChange],[LatestEpaOutcome],[StandardName],[StandardLevel],[StandardPublicationDate],[ContactOrganisation],[Registration],[LearningStartDate],[AchievementDate],[CourseOption],[OverallGrade],[Department]','','[ContactPostCode]',1,1,
 	'select [Id],[Action],[CertificateId],[EventTime],[Status],[BatchNumber],[ReasonForChange],[LatestEpaOutcome],[StandardName],[StandardLevel],[StandardPublicationDate],[ContactOrganisation],left(ContactPostCode,len(ContactPostCode)-charindex('''' '''',ContactPostCode)+1) [ContactPostCode],[Registration],[LearningStartDate],[AchievementDate],[CourseOption],[OverallGrade],[Department] FROM ( select [Id],[Action],[CertificateId],[EventTime],[Status],[BatchNumber],[ReasonForChange],[LatestEpaOutcome],JSON_VALUE(CertificateData,''''$.StandardName'''') [StandardName],JSON_VALUE(CertificateData,''''$.StandardLevel'''') [StandardLevel],JSON_VALUE(CertificateData,''''$.StandardPublicationDate'''') [StandardPublicationDate],JSON_VALUE(CertificateData,''''$.ContactOrganisation'''') [ContactOrganisation],JSON_VALUE(CertificateData,''''$.ContactPostCode'''') [ContactPostCode],JSON_VALUE(CertificateData,''''$.Registration'''') [Registration],JSON_VALUE(CertificateData,''''$.LearningStartDate'''') [LearningStartDate],JSON_VALUE(CertificateData,''''$.AchievementDate'''') [AchievementDate],JSON_VALUE(CertificateData,''''$.CourseOption'''') [CourseOption],JSON_VALUE(CertificateData,''''$.OverallGrade'''') [OverallGrade],JSON_VALUE(CertificateData,''''$.Department'''') [Department] from [dbo].[CertificateLogs] ) As Query',
     'Assessor_CertificateLogs')
- ,('Assessor','Organisations','dbo','[Id],[CreatedAt],[DeletedAt],[EndPointAssessorOrganisationId],[Status],[UpdatedAt],[OrganisationTypeId],[ApiEnabled],[ApiUser],[RecognitionNumber]','','[EndPointAssessorName],[EndPointAssessorUkprn]',0,1,
+ ,('Assessor','Organisations','dbo','[Id],[CreatedAt],[DeletedAt],[EndPointAssessorOrganisationId],[Status],[UpdatedAt],[OrganisationTypeId],[ApiEnabled],[ApiUser],[RecognitionNumber],[EndPointAssessorName],[EndPointAssessorUkprn]','','',0,1,
     'select [Id],[CreatedAt],[DeletedAt],[EndPointAssessorName],[EndPointAssessorOrganisationId],[EndPointAssessorUkprn],[Status],[UpdatedAt],[OrganisationTypeId],[ApiEnabled],[ApiUser],[RecognitionNumber] From [dbo].[Organisations]',
     'Assessor_Organisations')
  ,('Assessor','OrganisationStandardDeliveryArea','dbo','[Id],[OrganisationStandardId],[DeliveryAreaId],[Comments],[Status]','','',0,1,

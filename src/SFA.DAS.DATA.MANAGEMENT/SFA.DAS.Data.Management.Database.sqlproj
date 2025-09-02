@@ -140,6 +140,7 @@
     <Build Include="Tables\AsDataPL_RAA_Users.sql" />
     <Build Include="Schemas\Stg.sql" />
     <Build Include="Tables\Stg_RAA_Vacancies.sql" />
+    <Build Include="Tables\Stg_RAA_EmployerLocations.sql" />
     <Build Include="Tables\Stg_RAA_VacancyReview_AutoQAoutcome.sql" />
     <Build Include="Tables\Stg_RAA_VacancyReview_AutoQARuleoutcome.sql" />
     <Build Include="Tables\Stg_RAA_VacancyReview_AutoQAoutcomedetails.sql" />
@@ -169,11 +170,13 @@
     <Build Include="Tables\AsDataPL_Va_LocalAuthority.sql" />
     <Build Include="Tables\AsDataPL_Va_Provider.sql" />
     <Build Include="Tables\AsDataPL_Va_Vacancy.sql" />
+    <Build Include="Tables\AsDataPL_Va_VacancyLocations.sql" />
     <Build Include="Tables\AsDataPL_Va_LegalEntity.sql" />
     <Build Include="StoredProcedure\ImportVacanciesEmployer.sql" />
     <Build Include="StoredProcedure\ImportVacanciesProvider.sql" />
     <Build Include="StoredProcedure\ImportVacanciesLegalEntity.sql" />
     <Build Include="StoredProcedure\ImportVacancies.sql" />
+    <Build Include="StoredProcedure\ImportVacancyLocations.sql" />
     <Build Include="StoredProcedure\ImportVacanciesCandidate.sql" />
     <Build Include="StoredProcedure\ImportVacanciesApplication.sql" />
     <Build Include="Tables\AsDataPL_Va_EducationLevel.sql" />
@@ -269,6 +272,7 @@
     <Build Include="Tables\ASDataPL_RAT_EmployerRequestRegion.sql" />
     <Build Include="Tables\ASDataPL_RAT_ProviderResponse.sql" />
     <Build Include="Tables\ASDataPL_RAT_ProviderResponseEmployerRequest.sql" />
+    <Build Include="Tables\ASDataPL_RAT_ProviderResponseEmployerRequestHistory.sql" />    
     <Build Include="Tables\ASDataPL_RAT_Region.sql" />
     <Build Include="Tables\ASDataPL_RAT_RequestStatus.sql" />
     <Build Include="Tables\ASDataPL_RAT_RequestType.sql" />

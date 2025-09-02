@@ -85,7 +85,7 @@ BEGIN TRY
 								,[VersionMajor]
 								,[VersionMinor]
 								,[IsLatestVersion]								
-								,[Old_Options]
+							
 								,[EPAChanged]
 								,[CoronationEmblem]
 								,[EpaoMustBeApprovedByRegulatorBody]
@@ -136,7 +136,7 @@ BEGIN TRY
 					  ,ComtStandard.VersionMajor
 					  ,ComtStandard.VersionMinor
 					  ,ComtStandard.IsLatestVersion
-					  ,std.[Old_Options]
+				
 					  ,std.[EPAChanged]
 					  ,std.[CoronationEmblem]	
 					  ,std.[EpaoMustBeApprovedByRegulatorBody]		 

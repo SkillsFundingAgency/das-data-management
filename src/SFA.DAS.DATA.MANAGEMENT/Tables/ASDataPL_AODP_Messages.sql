@@ -3,7 +3,6 @@ CREATE TABLE [ASData_PL].[AODP_Messages]
 	[Id] [uniqueidentifier] PRIMARY KEY NOT NULL,
 	[ApplicationId] [uniqueidentifier] NOT NULL,
 	[Text] [nvarchar](max) NOT NULL,
-	[Status] [nvarchar](4000) NULL,
 	[Type] [nvarchar](4000) NOT NULL,
 	[MessageHeader] [nvarchar](4000) NOT NULL,
 	[SharedWithDfe] [bit] NOT NULL,

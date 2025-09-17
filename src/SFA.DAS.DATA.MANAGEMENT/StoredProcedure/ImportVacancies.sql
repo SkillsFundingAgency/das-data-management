@@ -122,12 +122,13 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
            ,[VacancySource]
            ,[OfflineVacancyTypeId_v1]
            ,[CreatedDate]
-		   ,[DatePosted]
-		   ,[HasHadLiveStatus]
+          ,[DatePosted]
+          ,[HasHadLiveStatus]
            ,[SourceVacancyId]
            ,[SourceDb]
            ,[RowNumber]
-           ,[RAFDuplicateFlag])
+           ,[RAFDuplicateFlag]
+             )
 Select vd.*,
 case when RowNumber > 1 and NumberOfPositions >= 20 and DatePosted >= '01-Mar-2023' and DatePosted < '01-Nov-2023' and EmployerFullName in( 'RAF','Royal Air Force') then 1
 else 0 end as RAFDuplicateFlag from 
@@ -331,6 +332,7 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
            ,VacancyAddressLine3
            ,VacancyAddressLine4
            ,VacancyTown
+           ,EmployerLocationOption
            ,SkillsRequired
            ,QualificationsRequired
            ,PersonalQualities
@@ -395,13 +397,22 @@ INSERT INTO [ASData_PL].[Va_Vacancy]
            ,[SubmittedDateTime_v2]
            ,[ClosedDateTimeStamp]
            ,[SourceVacancyId]
-           ,[SourceDb]
-           ,[RowNumber]
-           ,[RAFDuplicateFlag])
+           ,[SourceDb]           
+           ,ThingsToConsider 
+           ,TrainingDescription 
+           ,EmployerDescription 
+           ,OutcomeDescription 
+            ,ApplicationInstructions
+            ,[RowNumber]
+           ,[RAFDuplicateFlag]
+           )
   
 Select vd.*,
 case when RowNumber > 1 and NumberOfPositions >= 20 and DatePosted >= '01-Mar-2023' and DatePosted < '01-Nov-2023' and EmployerFullName in( 'RAF','Royal Air Force') then 1
-else 0 end as RAFDuplicateFlag from 
+else 0 end as RAFDuplicateFlag 
+
+
+from 
 (
 select  vv.*
   ,ROW_NUMBER() OVER (PARTITION BY VacancyTitle, NumberofPositions,EmployerFullName,EducationLevel,datepart(year,DatePosted), datepart(month,DatePosted) ORDER BY VacancyReference) as RowNumber from
@@ -426,6 +437,7 @@ SELECT  cast(v.BinaryId as varchar(256))                        as VacancyGuid
           ,EmployerAddressLine3                                    as VacancyAddressLine3
           ,EmployerAddressLine4                                    as VacancyAddressLine4
           ,COALESCE(EmployerAddressLine4,EmployerAddressLine3,EmployerAddressLine2) as VacancyTown
+          ,EmployerLocationOption                                  as EmployerLocationOption 
           ,dbo.Fn_CleanseJSONText([Skills])  as SkillsRequired
           ,dbo.Fn_CleanseJSONText([Qualifications]) as QualificationsRequired
           ,dbo.Fn_CleanseJSONText([Skills]) as PersonalQualities
@@ -504,6 +516,11 @@ SELECT  cast(v.BinaryId as varchar(256))                        as VacancyGuid
       ,dbo.Fn_ConvertTimeStampToDateTime(v.ClosedDateTimeStamp) as ClosedDateTimeStamp
 		  ,v.SourseSK                                                as SourceVacancyId
 		  ,'RAAv2'                                                   as SourceDb
+      ,ThingsToConsider 
+      ,TrainingDescription 
+      ,EmployerDescription 
+      ,OutcomeDescription 
+      ,ApplicationInstructions
 	  FROM Stg.RAA_Vacancies V
 	  LEFT
 	  JOIN ASData_PL.Va_Employer E

@@ -110,7 +110,7 @@ BEGIN TRY
 					  ,tblRoute.[Name]
 					  ,[AssessmentPlanUrl]
 					  ,[ApprovedForDelivery]
-					  ,std.[apprenticeshiptype]
+					  ,std.[ApprenticeshipType]
 					  ,[TrailBlazerContact]
 					  ,[EqaProviderName]
 					  ,[EqaProviderContactName]

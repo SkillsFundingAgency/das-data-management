@@ -39,7 +39,7 @@ BEGIN TRY
 
 								
                /* Delete and Transform Paye Data ---*/
-
+				DECLARE @VSQL NVARCHAR(MAX);
            /*
 		        TRUNCATE TABLE ASData_PL.Fin_TransactionLine
 

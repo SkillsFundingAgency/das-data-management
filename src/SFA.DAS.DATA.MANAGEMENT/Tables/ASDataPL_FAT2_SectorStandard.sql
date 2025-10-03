@@ -17,6 +17,7 @@
 	[Route]											[varchar](500)		NOT NULL,
 	[AssessmentPlanUrl]								[varchar](500)		NULL,
 	[ApprovedForDelivery]							[datetime]			NULL,
+	[ApprenticeshipType]							[varchar](50)		NULL,
 	[TrailBlazerContact]							[varchar](200)		NULL,
 	[EqaProviderName]								[varchar](200)		NULL,
 	[EqaProviderContactName]						[varchar](200)		NULL,

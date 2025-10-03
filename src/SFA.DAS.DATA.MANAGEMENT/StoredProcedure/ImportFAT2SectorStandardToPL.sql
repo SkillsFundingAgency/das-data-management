@@ -58,6 +58,7 @@ BEGIN TRY
 								,[Route]
 								,[AssessmentPlanUrl]
 								,[ApprovedForDelivery]
+								,[ApprenticeshipType]
 								,[TrailBlazerContact]
 								,[EqaProviderName]
 								,[EqaProviderContactName]
@@ -85,7 +86,7 @@ BEGIN TRY
 								,[VersionMajor]
 								,[VersionMinor]
 								,[IsLatestVersion]								
-								,[Old_Options]
+							
 								,[EPAChanged]
 								,[CoronationEmblem]
 								,[EpaoMustBeApprovedByRegulatorBody]
@@ -109,6 +110,7 @@ BEGIN TRY
 					  ,tblRoute.[Name]
 					  ,[AssessmentPlanUrl]
 					  ,[ApprovedForDelivery]
+					  ,std.[ApprenticeshipType]
 					  ,[TrailBlazerContact]
 					  ,[EqaProviderName]
 					  ,[EqaProviderContactName]
@@ -136,7 +138,7 @@ BEGIN TRY
 					  ,ComtStandard.VersionMajor
 					  ,ComtStandard.VersionMinor
 					  ,ComtStandard.IsLatestVersion
-					  ,std.[Old_Options]
+				
 					  ,std.[EPAChanged]
 					  ,std.[CoronationEmblem]	
 					  ,std.[EpaoMustBeApprovedByRegulatorBody]		 

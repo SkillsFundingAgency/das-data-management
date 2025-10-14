@@ -38,7 +38,7 @@ DEClARE @quote varchar(5) = ''''
 
 BEGIN TRANSACTION
 
-TRUNCATE TABLE ASData_PL.Va_Provider
+DELETE FROM ASData_PL.Va_Provider where sourcedb = 'RAAv2'
 
 INSERT INTO [ASData_PL].[Va_Provider]
            ([UPIN_v1]
@@ -54,24 +54,24 @@ INSERT INTO [ASData_PL].[Va_Provider]
            ,[IsNASProvider_v1]
            ,[ProviderToUseFAA_v1]
            ,[SourceDb])
- SELECT -1                              as Upin
-       ,ProviderID                      as SourceProviderId
-	   ,UKPRN                           as Ukprn  
-	   ,P.FullName                      as FullName
-	   ,TradingName                     as TradingName
-	   ,IsContracted                    as IsContracted
-	   ,ISNULL(ContractedFrom,'1900-01-01 00:00:00.000') as ContractedFrom
-	   ,ISNULL(ContractedTo,'1900-01-01 00:00:00.000')   as ContractedTo
-	   ,ProviderStatusTypeID            as ProviderStatusTypeID
-	   ,ETPS.FullName                   as ProviderStatusDesc
-	   ,IsNASProvider                   as IsNASProvider 
-	   ,ProviderToUseFAA                as ProviderToUseFAA
-	   ,'RAAv1'                         as SourceDb
-   FROM Stg.Avms_Provider P
-   LEFT
-   JOIN Stg.Avms_EmployerTrainingProviderStatus ETPS
-     ON P.ProviderStatusTypeID=ETPS.EmployerTrainingProviderStatusId
-  UNION
+--  SELECT -1                              as Upin
+--        ,ProviderID                      as SourceProviderId
+-- 	   ,UKPRN                           as Ukprn  
+-- 	   ,P.FullName                      as FullName
+-- 	   ,TradingName                     as TradingName
+-- 	   ,IsContracted                    as IsContracted
+-- 	   ,ISNULL(ContractedFrom,'1900-01-01 00:00:00.000') as ContractedFrom
+-- 	   ,ISNULL(ContractedTo,'1900-01-01 00:00:00.000')   as ContractedTo
+-- 	   ,ProviderStatusTypeID            as ProviderStatusTypeID
+-- 	   ,ETPS.FullName                   as ProviderStatusDesc
+-- 	   ,IsNASProvider                   as IsNASProvider 
+-- 	   ,ProviderToUseFAA                as ProviderToUseFAA
+-- 	   ,'RAAv1'                         as SourceDb
+--    FROM Stg.Avms_Provider P
+--    LEFT
+--    JOIN Stg.Avms_EmployerTrainingProviderStatus ETPS
+--      ON P.ProviderStatusTypeID=ETPS.EmployerTrainingProviderStatusId
+--   UNION
  SELECT DISTINCT
         -1                              as UPIN
        ,-1                              as SourceProviderId

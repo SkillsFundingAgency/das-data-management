@@ -32,34 +32,34 @@ DEClARE @quote varchar(5) = ''''
 
 BEGIN TRANSACTION
 
-TRUNCATE TABLE ASData_PL.Va_SavedSearches
+-- TRUNCATE TABLE ASData_PL.Va_SavedSearches
 
-INSERT INTO ASData_PL.Va_SavedSearches
-(      CandidateId 
-      ,CreatedDateTime 
-      ,UpdatedDateTime 
-	  ,SearchLocation 
-	  ,KeyWords 
-	  ,WithInDistance 
-	  ,ApprenticeshipLevel 
-      ,SourceSavedSearchesId 
-	  ,SourceDb
-)
+-- INSERT INTO ASData_PL.Va_SavedSearches
+-- (      CandidateId 
+--       ,CreatedDateTime 
+--       ,UpdatedDateTime 
+-- 	  ,SearchLocation 
+-- 	  ,KeyWords 
+-- 	  ,WithInDistance 
+-- 	  ,ApprenticeshipLevel 
+--       ,SourceSavedSearchesId 
+-- 	  ,SourceDb
+-- )
 
 
-SELECT vc.CandidateId                                                  as CandidateId
-	  ,dbo.Fn_ConvertTimeStampToDateTime(fSS.DateCreatedTimeStamp)      as DateCreatedTimeStamp
-	  ,dbo.Fn_ConvertTimeStampToDateTime(fss.DateUpdatedTimeStamp)      as DateUpdatedTimeStamp
-	  ,fss.[Location]
-	  ,LEFT(fss.Keywords,256) as Keywords
-	  ,fss.WithInDistance
-	  ,fss.ApprenticeshipLevel
-	  ,Fss.BinaryId                                                     as SourceApprenticeshipId
-	  ,'RAAv2'                                                         as SourceDb
-  FROM Stg.FAA_SavedSearches FSS
-  LEFT
-  JOIN ASData_PL.Va_Candidate VC
-    ON FSS.CandidateId=vc.CandidateGuid
+-- SELECT vc.CandidateId                                                  as CandidateId
+-- 	  ,dbo.Fn_ConvertTimeStampToDateTime(fSS.DateCreatedTimeStamp)      as DateCreatedTimeStamp
+-- 	  ,dbo.Fn_ConvertTimeStampToDateTime(fss.DateUpdatedTimeStamp)      as DateUpdatedTimeStamp
+-- 	  ,fss.[Location]
+-- 	  ,LEFT(fss.Keywords,256) as Keywords
+-- 	  ,fss.WithInDistance
+-- 	  ,fss.ApprenticeshipLevel
+-- 	  ,Fss.BinaryId                                                     as SourceApprenticeshipId
+-- 	  ,'RAAv2'                                                         as SourceDb
+--   FROM Stg.FAA_SavedSearches FSS
+--   LEFT
+--   JOIN ASData_PL.Va_Candidate VC
+--     ON FSS.CandidateId=vc.CandidateGuid
     
 COMMIT TRANSACTION
 

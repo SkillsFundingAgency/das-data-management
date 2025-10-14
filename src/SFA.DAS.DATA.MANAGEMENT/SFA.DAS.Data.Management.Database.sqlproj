@@ -69,7 +69,6 @@
     <Folder Include="TablePartitions" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="StoredProcedure\ImportEmpInc_PendingPaymentValidationResultToPL.sql" />
     <None Include="Database.publish.xml" />
     <PostDeploy Include="PostDeployment\PostDeployment.sql" />
     <Build Include="Schemas\Mgmt.sql" />

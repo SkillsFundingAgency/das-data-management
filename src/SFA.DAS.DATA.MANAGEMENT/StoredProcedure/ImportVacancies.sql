@@ -48,6 +48,10 @@ TRUNCATE TABLE ASData_PL.va_VacancyReviews -- Delete VacancyReviews First to be 
 DELETE FROM ASData_PL.Va_Vacancy
 where SourceDb='RAAv2'
 
+
+DECLARE @MaxId INT;
+SELECT @MaxId = ISNULL(MAX(Id), 0) FROM ASData_PL.Va_Vacancy;
+DBCC CHECKIDENT ('ASData_PL.Va_Vacancy', RESEED, @MaxId);
 -- /* Load RAAv1 */
 
 -- INSERT INTO [ASData_PL].[Va_Vacancy]

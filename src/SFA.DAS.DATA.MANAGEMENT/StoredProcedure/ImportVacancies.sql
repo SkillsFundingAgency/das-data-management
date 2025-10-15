@@ -50,7 +50,7 @@ where SourceDb='RAAv2'
 
 
 DECLARE @MaxId INT;
-SELECT @MaxId = ISNULL(MAX(Id), 0) FROM ASData_PL.Va_Vacancy;
+SELECT @MaxId = ISNULL(MAX(VacancyId), 0) FROM ASData_PL.Va_Vacancy;
 DBCC CHECKIDENT ('ASData_PL.Va_Vacancy', RESEED, @MaxId);
 -- /* Load RAAv1 */
 

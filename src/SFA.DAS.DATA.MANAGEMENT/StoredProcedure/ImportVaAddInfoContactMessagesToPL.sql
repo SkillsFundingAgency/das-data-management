@@ -32,7 +32,7 @@ DEClARE @quote varchar(5) = ''''
 
 BEGIN TRANSACTION
 
-TRUNCATE TABLE ASData_PL.Va_ContactMessages
+DELETE FROM ASData_PL.Va_ContactMessages where SourceDb = 'FAAV2'
 
 INSERT INTO ASData_PL.Va_ContactMessages
 (      CreatedDateTime 
@@ -47,18 +47,18 @@ INSERT INTO ASData_PL.Va_ContactMessages
       ,PreferenceID
 
 )
-SELECT dbo.Fn_ConvertTimeStampToDateTime(CM.DateCreatedTimeStamp)      as DateCreatedTimeStamp
-	  ,dbo.Fn_ConvertTimeStampToDateTime(CM.DateUpdatedTimeStamp)      as DateUpdatedTimeStamp
-	  ,CM.UserId                                                       as UserId
-	  ,CM.Enquiry                                                      as Enquiry
-	  ,CM.BinaryId                                                     as SourceContactMessageId
-	  ,'RAAv2'                                                         as SourceDb
-	  ,NULL                                                            as Candidate_ID
-	  ,NULL                                                            as Status
-	  ,NULL                                                            as ContactMethod
-	  ,NULL                                                            as PreferenceID
-FROM Stg.FAA_ContactMessages CM
-UNION
+-- SELECT dbo.Fn_ConvertTimeStampToDateTime(CM.DateCreatedTimeStamp)      as DateCreatedTimeStamp
+-- 	  ,dbo.Fn_ConvertTimeStampToDateTime(CM.DateUpdatedTimeStamp)      as DateUpdatedTimeStamp
+-- 	  ,CM.UserId                                                       as UserId
+-- 	  ,CM.Enquiry                                                      as Enquiry
+-- 	  ,CM.BinaryId                                                     as SourceContactMessageId
+-- 	  ,'RAAv2'                                                         as SourceDb
+-- 	  ,NULL                                                            as Candidate_ID
+-- 	  ,NULL                                                            as Status
+-- 	  ,NULL                                                            as ContactMethod
+-- 	  ,NULL                                                            as PreferenceID
+-- FROM Stg.FAA_ContactMessages CM
+-- UNION
 SELECT Cp.CreatedOn    as DateCreatedTimeStamp
 	  ,Cp.UpdatedOn    as DateUpdatedTimeStamp
 	  ,'N/A'                                                as UserId

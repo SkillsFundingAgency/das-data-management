@@ -39,8 +39,9 @@ BEGIN TRY
 
 								
                /* Delete and Transform Paye Data ---*/
-
-                TRUNCATE TABLE ASData_PL.Fin_TransactionLine
+				DECLARE @VSQL NVARCHAR(MAX);
+           /*
+		        TRUNCATE TABLE ASData_PL.Fin_TransactionLine
 
 				DECLARE @VSQL NVARCHAR(MAX)
 
@@ -91,7 +92,7 @@ BEGIN TRY
 
 				EXEC SP_EXECUTESQL @VSQL
 
-				 
+				*/ 
 
 				/* Delete and Transform LevyDeclarationsAndTopUp Data */
 
@@ -159,8 +160,8 @@ BEGIN TRY
 				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Fin_GetLevyDeclarationAndTopUp' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 				DROP TABLE [Stg].[Fin_GetLevyDeclarationAndTopUp]
 
-				IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Fin_TransactionLine' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
-				DROP TABLE [Stg].[Fin_TransactionLine] 
+				/*IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Fin_TransactionLine' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+				DROP TABLE [Stg].[Fin_TransactionLine] */
 
 		COMMIT TRANSACTION
 
@@ -182,9 +183,9 @@ BEGIN CATCH
 		  	IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Fin_GetLevyDeclarationAndTopUp' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 			DROP TABLE [Stg].[Fin_GetLevyDeclarationAndTopUp]
 
-			IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Fin_TransactionLine' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+		/*	IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Fin_TransactionLine' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
 			DROP TABLE [Stg].[Fin_TransactionLine]
-
+			*/
 		  INSERT INTO Mgmt.Log_Error_Details
 			  (UserName
 			  ,ErrorNumber

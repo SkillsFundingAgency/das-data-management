@@ -38,25 +38,25 @@ DECLARE @LogID int
 
 BEGIN TRANSACTION
 
-TRUNCATE TABLE ASData_PL.Va_FaaFeedback
+-- TRUNCATE TABLE ASData_PL.Va_FaaFeedback
 
-INSERT INTO ASData_PL.Va_FaaFeedback
-(      CreatedDateTime 
-      ,UserId  
-	  ,TypeCode
-      ,Enquiry 
-	  ,Feedback
-	  ,SourceFeedbackId 
-      ,SourceDb 
-)
-SELECT dbo.Fn_ConvertTimeStampToDateTime(DateCreatedTimeStamp)      as DateCreatedTimeStamp
-	  ,UserId                                                       as UserId
-	  ,TypeCode                                                     as TypeCode
-	  ,Enquiry                                                      as Enquiry
-	  ,Details                                                      as Feedback
-	  ,BinaryId                                                     as SourceFeedbackId
-	  ,'FAA'                                                           as SourceDb
-  FROM Stg.FAA_Feedback 
+-- INSERT INTO ASData_PL.Va_FaaFeedback
+-- (      CreatedDateTime 
+--       ,UserId  
+-- 	  ,TypeCode
+--       ,Enquiry 
+-- 	  ,Feedback
+-- 	  ,SourceFeedbackId 
+--       ,SourceDb 
+-- )
+-- SELECT dbo.Fn_ConvertTimeStampToDateTime(DateCreatedTimeStamp)      as DateCreatedTimeStamp
+-- 	  ,UserId                                                       as UserId
+-- 	  ,TypeCode                                                     as TypeCode
+-- 	  ,Enquiry                                                      as Enquiry
+-- 	  ,Details                                                      as Feedback
+-- 	  ,BinaryId                                                     as SourceFeedbackId
+-- 	  ,'FAA'                                                           as SourceDb
+--   FROM Stg.FAA_Feedback 
 
   
 

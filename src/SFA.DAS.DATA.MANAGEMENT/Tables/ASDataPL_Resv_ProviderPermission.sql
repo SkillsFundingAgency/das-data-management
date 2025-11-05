@@ -4,7 +4,6 @@ CREATE TABLE [AsData_PL].[Resv_ProviderPermission]
   [AccountId] [bigint] NOT NULL,
   [AccountLegalEntityId] [bigint] NOT NULL ,
   [UKPRN] BIGINT NOT NULL ,
-  [ProviderId] [int] NULL,
   [CanCreateCohort] bit NOT NULL,
   [AsDm_UpdatedDateTime] [datetime2](7) DEFAULT (getdate())
 )

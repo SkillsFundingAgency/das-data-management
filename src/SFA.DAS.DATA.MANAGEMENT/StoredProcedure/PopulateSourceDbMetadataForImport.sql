@@ -411,7 +411,7 @@ INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
 VALUES
 ('ProviderApprenticeshipService','User','dbo','[Id],[IsDeleted],[UserType],[LastLogin]','','[UserRef],[DisplayName],[Ukprn],[Email]','PAS_User',0,1) 
-,('ProviderApprenticeshipService','UserSettings','dbo','[Id],[UserId],[UserRef],[ReceiveNotifications]','','[UserRef]','PAS_UserSettings',0,1)  
+,('ProviderApprenticeshipService','UserSettings','dbo','[Id],[UserId],[ReceiveNotifications]','','[UserRef]','PAS_UserSettings',0,1)  
 /* E Commitments  Config */
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])

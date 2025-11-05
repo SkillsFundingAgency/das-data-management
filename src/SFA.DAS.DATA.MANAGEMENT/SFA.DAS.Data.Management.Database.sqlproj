@@ -561,5 +561,7 @@
     <Build Include="Views\ASDataPL_v_MS_KPI_NQR_TU_002.sql" />
     <Build Include="Views\ASDataPL_v_MS_KPI_NQR_TU_003.sql" />
     <Build Include="Views\ASDataPL_v_MS_KPI_NQS_NQR_US_001.sql" />
+    <Build Include="Tables\ASDataPL_Resv_ProviderPermission.sql" />
+    <Build Include="Tables\ASDataPL_PAS_UserSettings.sql" />
   </ItemGroup>
 </Project>

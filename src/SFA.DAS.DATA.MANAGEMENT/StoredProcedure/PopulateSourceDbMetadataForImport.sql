@@ -162,7 +162,7 @@ VALUES
 ,('Accounts','AccountHistory','Employer_Account','[Id],[AccountId],[AddedDate],[RemovedDate]','','[PayeRef]','Acc_AccountHistory',1)
 ,('Accounts','Paye','employer_account','[Name]','[AccessToken],[RefreshToken],[Aorn]','[Ref]','Acc_Paye',1)
 ,('Commitments','Accounts','dbo','[Id],[HashedId],[Created],[Updated],[LevyStatus]','[PublicHashedId]','[Name]','Comt_Accounts',1)
-,('Commitments','Commitment','dbo','[Id],[Reference],[EmployerAccountId],[ProviderId],[CommitmentStatus],[EditStatus],[CreatedOn],[LastAction],[TransferSenderId],[TransferApprovalStatus],[TransferApprovalActionedOn],[Originator],[ApprenticeshipEmployerTypeOnApproval],[IsFullApprovalProcessed],[IsDeleted],[AccountLegalEntityId],[IsDraft],[WithParty],[LastUpdatedOn],[Approvals],[EmployerAndProviderApprovedOn],[ChangeOfPartyRequestId],[PledgeApplicationId]','[LastUpdatedByEmployerName],[LastUpdatedByEmployerEmail],[LastUpdatedByProviderName],[LastUpdatedByProviderEmail],[TransferApprovalActionedByEmployerName],[TransferApprovalActionedByEmployerEmail],[RowVersion]','','comt_commitment',0)
+,('Commitments','Commitment','dbo','[Id],[Reference],[EmployerAccountId],[ProviderId],[CommitmentStatus],[EditStatus],[CreatedOn],[LastAction],[TransferSenderId],[TransferApprovalStatus],[TransferApprovalActionedOn],[Originator],[ApprenticeshipEmployerTypeOnApproval],[IsFullApprovalProcessed],[IsDeleted],[AccountLegalEntityId],[IsDraft],[WithParty],[LastUpdatedOn],[Approvals],[EmployerAndProviderApprovedOn],[ChangeOfPartyRequestId],[PledgeApplicationId],[]','[LastUpdatedByEmployerName],[LastUpdatedByEmployerEmail],[LastUpdatedByProviderName],[LastUpdatedByProviderEmail],[TransferApprovalActionedByEmployerName],[TransferApprovalActionedByEmployerEmail],[RowVersion]','','comt_commitment',0)
 ,('Commitments','Apprenticeship','dbo','[Id],[CommitmentId],[TrainingType],[TrainingCode],[TrainingName],[Cost],[StartDate],[EndDate],[AgreementStatus],[PaymentStatus],[CreatedOn],[AgreedOn],[PaymentOrder],[StopDate],[PauseDate],[HasHadDataLockSuccess],[PendingUpdateOriginator],[EPAOrgId],[CloneOf],[ReservationId],[IsApproved],[CompletionDate],[ContinuationOfId],[MadeRedundant],[OriginalStartDate],[TrainingCourseVersion],[TrainingCourseVersionConfirmed],[TrainingCourseOption],[DeliveryModel],[RecognisePriorLearning],[TrainingTotalHours],[ActualStartDate],[EmailAddressConfirmed],[LastUpdated],[UpdatedOn],[EmployerHasEditedCost],[EndPointAssessmentPrice],[TrainingPrice]','[NINumber],[EmployerRef],[ProviderRef],[Email],[FirstName],[LastName]','[ULN],[StandardUId],[DateOfBirth]','comt_Apprenticeship',1)
 ,('Commitments','ApprenticeshipFlexibleEmployment','dbo','[ApprenticeshipId],[EmploymentPrice],[EmploymentEndDate]','','','Comt_ApprenticeshipFlexibleEmployment',0)
 ,('Commitments','ApprenticeshipUpdate','dbo','[Id],[ApprenticeshipId],[Originator],[Status],[TrainingType],[TrainingCode],[TrainingName],[TrainingCourseVersion],[TrainingCourseOption],[Cost],[StartDate],[EndDate],[CreatedOn],[UpdateOrigin],[EffectiveFromDate],[EffectiveToDate],[DeliveryModel],[EmploymentPrice],[EmploymentEndDate],[StandardUId],[TrainingCourseVersionConfirmed],[ActualStartDate]','[FirstName],[LastName],[DateOfBirth],[Email]','','comt_ApprenticeshipUpdate',0)
@@ -180,7 +180,7 @@ VALUES
 ,('Finance','TransferConnectionInvitationChange','employer_financial','[Id],[TransferConnectionInvitationId],[SenderAccountId],[ReceiverAccountId],[Status],[DeletedBySender],[DeletedByReceiver],[UserId],[CreatedDate]','','','fin_TransferConnectionInvitationChange',0)
 ,('Reservation','Reservation','dbo','[Id],[AccountId],[IsLevyAccount],[CreatedDate],[StartDate],[ExpiryDate],[Status],[CourseId],[AccountLegalEntityId],[ProviderId],[TransferSenderAccountId],[UserId],[ClonedReservationId],[ConfirmedDate],[CohortId],[DraftApprenticeshipId]','[AccountLegalEntityName]','','resv_Reservation',0)
 ,('Reservation','Course','dbo','[CourseId],[Title],[Level],[EffectiveTo]','','','resv_Course',0)
-
+,('Reservation','ProviderPermission','dbo','[AccountId],[AccountLegalEntityId],[Ukprn],[CanCreateCohort]','','','Resv_ProviderPermission',0)
 
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,StagingTableName,[ModelDataToPL])
@@ -411,7 +411,7 @@ INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
 VALUES
 ('ProviderApprenticeshipService','User','dbo','[Id],[IsDeleted],[UserType],[LastLogin]','','[UserRef],[DisplayName],[Ukprn],[Email]','PAS_User',0,1) 
-  
+,('ProviderApprenticeshipService','UserSettings','dbo','[Id],[UserId],[UserRef],[ReceiveNotifications]','','[UserRef]','PAS_UserSettings',0,1)  
 /* E Commitments  Config */
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])

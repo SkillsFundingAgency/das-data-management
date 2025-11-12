@@ -38,8 +38,8 @@ DEClARE @quote varchar(5) = ''''
 BEGIN TRANSACTION
 
 TRUNCATE TABLE ASData_PL.Va_ApprenticeshipFrameWorkAndOccupation
--- TRUNCATE TABLE AsData_PL.Va_ApprenticeshipStandard
--- TRUNCATE TABLE AsData_PL.Va_EducationLevel
+TRUNCATE TABLE AsData_PL.Va_ApprenticeshipStandard
+TRUNCATE TABLE AsData_PL.Va_EducationLevel
 
 /* Load Framework into Presentation Layer */
 
@@ -121,64 +121,64 @@ SELECT ap.SourseSK                                 as ApprenticeshipFrameworkId
 
 /* Load Standard Into Presentation Layer */
 
--- INSERT INTO [ASData_PL].[Va_ApprenticeshipStandard]
---            ([StandardId]
---            ,[LarsCode]
---            ,[StandardFullName]
---            ,[StandardSectorId]
---            ,[StandardSectorName]
---            ,[LarsStandardSectorCode]
---            ,[ApprenticeshipOccupationId]
---            ,[EducationLevelId]
---            ,[ApprenticeshipFrameworkStatusType])
--- SELECT  ST.StandardId               as StandardId
---        ,ST.LarsCode                 as LarsCode
---        ,ST.FullName                 as StandardFullName 
--- 	   ,ST.StandardSectorId         as StandardSectorId
--- 	   ,SS.FullName                 as StandardFullName
--- 	   ,SS.[LarsStandardSectorCode] as LarsStandardSectorCode
--- 	   ,SS.ApprenticeshipOccupationId as ApprenticeshipOccupationId
--- 	   ,ST.EducationLevelId         as EducationLevelId
--- 	   ,AFST.FullName               as ApprenticeshipFrameworkStatusType
---   FROM Stg.Avms_Standard ST 
---   JOIN Stg.Avms_StandardSector SS 
---     ON ST.StandardSectorId=SS.StandardSectorId
---   LEFT
---   JOIN Stg.Avms_ApprenticeshipFrameworkStatusType AFST
---     ON AFST.ApprenticeshipFrameworkStatusTypeId=ST.ApprenticeshipFrameworkStatusTypeId
+INSERT INTO [ASData_PL].[Va_ApprenticeshipStandard]
+           ([StandardId]
+           ,[LarsCode]
+           ,[StandardFullName]
+           ,[StandardSectorId]
+           ,[StandardSectorName]
+           ,[LarsStandardSectorCode]
+           ,[ApprenticeshipOccupationId]
+           ,[EducationLevelId]
+           ,[ApprenticeshipFrameworkStatusType])
+SELECT  ST.StandardId               as StandardId
+       ,ST.LarsCode                 as LarsCode
+       ,ST.FullName                 as StandardFullName 
+	   ,ST.StandardSectorId         as StandardSectorId
+	   ,SS.FullName                 as StandardFullName
+	   ,SS.[LarsStandardSectorCode] as LarsStandardSectorCode
+	   ,SS.ApprenticeshipOccupationId as ApprenticeshipOccupationId
+	   ,ST.EducationLevelId         as EducationLevelId
+	   ,AFST.FullName               as ApprenticeshipFrameworkStatusType
+  FROM Stg.Avms_Standard ST 
+  JOIN Stg.Avms_StandardSector SS 
+    ON ST.StandardSectorId=SS.StandardSectorId
+  LEFT
+  JOIN Stg.Avms_ApprenticeshipFrameworkStatusType AFST
+    ON AFST.ApprenticeshipFrameworkStatusTypeId=ST.ApprenticeshipFrameworkStatusTypeId
 
 /* Load Education Level Into Presentation Layer */
 
--- INSERT INTO [ASData_PL].[Va_EducationLevel]
---            ([EducationLevelId]
---            ,[EducationLevelCodeName]
---            ,[EducationLevelShortName]
---            ,[EducationLevelFullName]
--- 		   ,[EducationLevelNamev2])
--- SELECT EducationLevelId
---       ,EducationLevelCodeName
--- 	  ,EducationLevelShortName
--- 	  ,EducationLevelFullName
--- 	  ,CASE WHEN EducationLevelCodeName=2 THEN 'Level 2 (GCSE)'
---             WHEN EducationLevelCodeName=3 THEN 'Level 3 (A level)'
---         	WHEN EducationLevelCodeName=4 THEN 'Level 4 (Higher national certificate)'
--- 			WHEN EducationLevelCodeName=5 THEN 'Level 5 (Higher national diploma)'
--- 	        WHEN EducationLevelCodeName=6 THEN 'Level 6 (Degree with honours)'
--- 		    WHEN EducationLevelCodeName=7 THEN 'Level 7 (Master''s degree)'
--- 	     	ELSE ''
--- 		END as EducationLevelNamev2
--- FROM
--- (SELECT EducationLevelId,CodeName as EducationLevelCodeName,ShortName as EducationLevelShortName,FullName as EducationLevelFullName
---    FROM Stg.Avms_EducationLevel
---   UNION
---  SELECT 998,5,5,'Higher'
---   WHERE NOT EXISTS (SELECT 1 FROM ASData_PL.Va_EducationLevel vel5
---                      WHERE vel5.EducationLevelCodeName=5)  -- Level5
---   UNION 
---  SELECT 999,7,7,'Degree'
---   WHERE NOT EXISTS (SELECT 1 FROM ASData_PL.Va_EducationLevel vel7
---                      WHERE vel7.EducationLevelCodeName=7)   -- Level7
---  ) EL
+INSERT INTO [ASData_PL].[Va_EducationLevel]
+           ([EducationLevelId]
+           ,[EducationLevelCodeName]
+           ,[EducationLevelShortName]
+           ,[EducationLevelFullName]
+		   ,[EducationLevelNamev2])
+SELECT EducationLevelId
+      ,EducationLevelCodeName
+	  ,EducationLevelShortName
+	  ,EducationLevelFullName
+	  ,CASE WHEN EducationLevelCodeName=2 THEN 'Level 2 (GCSE)'
+            WHEN EducationLevelCodeName=3 THEN 'Level 3 (A level)'
+        	WHEN EducationLevelCodeName=4 THEN 'Level 4 (Higher national certificate)'
+			WHEN EducationLevelCodeName=5 THEN 'Level 5 (Higher national diploma)'
+	        WHEN EducationLevelCodeName=6 THEN 'Level 6 (Degree with honours)'
+		    WHEN EducationLevelCodeName=7 THEN 'Level 7 (Master''s degree)'
+	     	ELSE ''
+		END as EducationLevelNamev2
+FROM
+(SELECT EducationLevelId,CodeName as EducationLevelCodeName,ShortName as EducationLevelShortName,FullName as EducationLevelFullName
+   FROM Stg.Avms_EducationLevel
+  UNION
+ SELECT 998,5,5,'Higher'
+  WHERE NOT EXISTS (SELECT 1 FROM ASData_PL.Va_EducationLevel vel5
+                     WHERE vel5.EducationLevelCodeName=5)  -- Level5
+  UNION 
+ SELECT 999,7,7,'Degree'
+  WHERE NOT EXISTS (SELECT 1 FROM ASData_PL.Va_EducationLevel vel7
+                     WHERE vel7.EducationLevelCodeName=7)   -- Level7
+ ) EL
 
 
 

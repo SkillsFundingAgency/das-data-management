@@ -32,7 +32,7 @@ DEClARE @quote varchar(5) = ''''
 
 BEGIN TRANSACTION
 
-DELETE FROM ASData_PL.Va_Apprenticeships where SourceDb = 'FAAV2'
+TRUNCATE TABLE ASData_PL.Va_Apprenticeships
 
 -- ####################################################################
 -- # Basic UPDATE statement
@@ -71,62 +71,62 @@ INSERT INTO [ASData_PL].[Va_Apprenticeships]
            ,MigratedCandidateId_UI
 
 		   )
--- SELECT vc.CandidateId                                                  as CandidateId
---       ,vv.VacancyId                                                    as VacancyId
--- 	  ,coalesce(va.ApplicationId,vav2.ApplicationId,FA.LEGACYAPPLICATIONID) as ApplicationID
---     ,NULL                                                            as ApplicationGUID
--- 	  ,cast(vv.VacancyReferenceNumber  as varchar)                   as VacancyReferenceNumber
--- 	  ,dbo.Fn_ConvertTimeStampToDateTime(fa.DateCreatedTimeStamp)      as DateCreatedTimeStamp
--- 	  ,dbo.Fn_ConvertTimeStampToDateTime(fa.DateUpdatedTimeStamp)      as DateUpdatedTimeStamp
--- 	  ,dbo.Fn_ConvertTimeStampToDateTime(fa.DateAppliedTimeStamp)      as DateAppliedTimeStamp
--- 	  ,IsRecruitVacancy                                                as IsRecruitVacancy
--- 	  ,ApplyViaEmployerWebsite                                         as ApplyViaEmployerWebsite
--- 	  ,dbo.Fn_ConvertTimeStampToDateTime(fa.SuccessfulTimeStamp)       as SuccessfulTimeStamp
--- 	  ,dbo.Fn_ConvertTimeStampToDateTime(fa.UnsuccessfulTimeStamp)     as UnsuccessfulTimeStamp
---     ,NULL                                                            as WithdrawalDateTime
--- 	  ,WithdrawnOrDeclinedReason                                       as WithdrawnOrDeclinedReason
--- 	  ,UnsuccessfulReason                                              as UnsuccessfulReason
--- 	  ,FA.BinaryId                                                     as SourceApprenticeshipId
---     ,dbo.Fn_ConvertTimeStampToDateTime(RAR.DateSharedWithEmployer)   as dateSharedWithEmployer
---     ,RAR.Applicationstatus                                           as ApplicationStatusRecruitmentView
---     ,CASE 
---         WHEN FA.Status = 0 THEN 'Unknown'
---         WHEN FA.Status = 5 THEN 'Saved'
---         WHEN FA.Status = 10 THEN 'Draft'
---         WHEN FA.Status = 15 THEN 'ExpiredOrWithdrawn'
---         WHEN FA.Status = 20 THEN 'Submitting'
---         WHEN FA.Status = 30 THEN 'Submitted'
---         WHEN FA.Status = 40 THEN 'InProgress'
---         WHEN FA.Status = 80 THEN 'Successful'
---         WHEN FA.Status = 90 THEN 'Unsuccessful'
---         WHEN FA.Status = 100 THEN 'CandidateWithdrew'
---         ELSE 'Invalid Status Code'
---     END AS [Status]
--- 	  ,'RAAv2'                                                         as SourceDb
---     ,NULL
---     ,NULL
---     ,NULL
---   FROM Stg.FAA_Apprenticeships FA
---   LEFT
---   JOIN ASData_PL.Va_Candidate VC
---     ON FA.CandidateId=vc.CandidateGuid 
---   left
---   join ASData_PL.Va_Application VA
---     ON VA.SourceApplicationId=FA.LegacyApplicationId
---    AND VA.SourceDb='RAAv1'
---    AND FA.LegacyApplicationId<>0
---   left
---   Join ASData_PL.Va_Vacancy vv
---     on vv.VacancyReferenceNumber= cast(replace(fa.vacancyreference,'vac','') AS INT)
---   left
---   join STG.RAA_ApplicationReviews RAR
---     ON RAR.CandidateId=FA.CandidateId
---    AND RAR.VacancyReference=cast(replace(fa.vacancyreference,'vac','') AS INT)
---   LEFT
---   JOIN ASData_PL.Va_Application vav2
---     on vav2.SourceApplicationId=rar.SourseSK
---    and vav2.SourceDb='RAAv2'
---UNION
+SELECT vc.CandidateId                                                  as CandidateId
+      ,vv.VacancyId                                                    as VacancyId
+	  ,coalesce(va.ApplicationId,vav2.ApplicationId,FA.LEGACYAPPLICATIONID) as ApplicationID
+    ,NULL                                                            as ApplicationGUID
+	  ,cast(vv.VacancyReferenceNumber  as varchar)                   as VacancyReferenceNumber
+	  ,dbo.Fn_ConvertTimeStampToDateTime(fa.DateCreatedTimeStamp)      as DateCreatedTimeStamp
+	  ,dbo.Fn_ConvertTimeStampToDateTime(fa.DateUpdatedTimeStamp)      as DateUpdatedTimeStamp
+	  ,dbo.Fn_ConvertTimeStampToDateTime(fa.DateAppliedTimeStamp)      as DateAppliedTimeStamp
+	  ,IsRecruitVacancy                                                as IsRecruitVacancy
+	  ,ApplyViaEmployerWebsite                                         as ApplyViaEmployerWebsite
+	  ,dbo.Fn_ConvertTimeStampToDateTime(fa.SuccessfulTimeStamp)       as SuccessfulTimeStamp
+	  ,dbo.Fn_ConvertTimeStampToDateTime(fa.UnsuccessfulTimeStamp)     as UnsuccessfulTimeStamp
+    ,NULL                                                            as WithdrawalDateTime
+	  ,WithdrawnOrDeclinedReason                                       as WithdrawnOrDeclinedReason
+	  ,UnsuccessfulReason                                              as UnsuccessfulReason
+	  ,FA.BinaryId                                                     as SourceApprenticeshipId
+    ,dbo.Fn_ConvertTimeStampToDateTime(RAR.DateSharedWithEmployer)   as dateSharedWithEmployer
+    ,RAR.Applicationstatus                                           as ApplicationStatusRecruitmentView
+    ,CASE 
+        WHEN FA.Status = 0 THEN 'Unknown'
+        WHEN FA.Status = 5 THEN 'Saved'
+        WHEN FA.Status = 10 THEN 'Draft'
+        WHEN FA.Status = 15 THEN 'ExpiredOrWithdrawn'
+        WHEN FA.Status = 20 THEN 'Submitting'
+        WHEN FA.Status = 30 THEN 'Submitted'
+        WHEN FA.Status = 40 THEN 'InProgress'
+        WHEN FA.Status = 80 THEN 'Successful'
+        WHEN FA.Status = 90 THEN 'Unsuccessful'
+        WHEN FA.Status = 100 THEN 'CandidateWithdrew'
+        ELSE 'Invalid Status Code'
+    END AS [Status]
+	  ,'RAAv2'                                                         as SourceDb
+    ,NULL
+    ,NULL
+    ,NULL
+  FROM Stg.FAA_Apprenticeships FA
+  LEFT
+  JOIN ASData_PL.Va_Candidate VC
+    ON FA.CandidateId=vc.CandidateGuid 
+  left
+  join ASData_PL.Va_Application VA
+    ON VA.SourceApplicationId=FA.LegacyApplicationId
+   AND VA.SourceDb='RAAv1'
+   AND FA.LegacyApplicationId<>0
+  left
+  Join ASData_PL.Va_Vacancy vv
+    on vv.VacancyReferenceNumber= cast(replace(fa.vacancyreference,'vac','') AS INT)
+  left
+  join STG.RAA_ApplicationReviews RAR
+    ON RAR.CandidateId=FA.CandidateId
+   AND RAR.VacancyReference=cast(replace(fa.vacancyreference,'vac','') AS INT)
+  LEFT
+  JOIN ASData_PL.Va_Application vav2
+    on vav2.SourceApplicationId=rar.SourseSK
+   and vav2.SourceDb='RAAv2'
+UNION
 SELECT vc.CandidateId                                                   as CandidateId
       ,vv.VacancyId                                                    as VacancyId
 	    ,NULL                                                            as ApplicationID

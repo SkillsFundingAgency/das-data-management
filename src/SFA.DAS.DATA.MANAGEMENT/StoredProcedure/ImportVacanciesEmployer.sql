@@ -38,7 +38,7 @@ DEClARE @quote varchar(5) = ''''
 
 BEGIN TRANSACTION
 
-DELETE FROM ASData_PL.Va_Employer where SourceDb = 'RAAv1'
+TRUNCATE TABLE ASData_PL.Va_Employer
 
 INSERT INTO [ASData_PL].[Va_Employer]
            ([FullName]
@@ -51,21 +51,21 @@ INSERT INTO [ASData_PL].[Va_Employer]
            ,[EmployerStatusTypeId_v1]
            ,[EmployerStatusTypeDesc_v1]
            ,[SourceDb])
---  SELECT     E.FullName               as EmployerFullName
---            ,E.TradingName            as TradingName
---            ,EmployerId               as SourceEmployerId_v1
--- 	       ,'N/A'                    as DasAccountId_v2
--- 		   ,-1                       as LocalAuthorityId
--- 		   ,OwnerOrgnistaion         as OwnerOrganisation
--- 		   ,-1                       as EdsUrn_v1
--- 		   ,EmployerStatusTypeId     as EmployerStatusTypeId_v1
--- 		   ,ETPS.FullName            as EmployerStatusTypeDesc_v1
--- 		   ,'RAAv1'                  as SourceDb
--- 	   FROM Stg.Avms_Employer E
--- 	   LEFT
--- 	   JOIN Stg.Avms_EmployerTrainingProviderStatus ETPS
--- 	     ON E.EmployerStatusTypeId=ETPS.EmployerTrainingProviderStatusId
--- 	  UNION
+ SELECT     E.FullName               as EmployerFullName
+           ,E.TradingName            as TradingName
+           ,EmployerId               as SourceEmployerId_v1
+	       ,'N/A'                    as DasAccountId_v2
+		   ,-1                       as LocalAuthorityId
+		   ,OwnerOrgnistaion         as OwnerOrganisation
+		   ,-1                       as EdsUrn_v1
+		   ,EmployerStatusTypeId     as EmployerStatusTypeId_v1
+		   ,ETPS.FullName            as EmployerStatusTypeDesc_v1
+		   ,'RAAv1'                  as SourceDb
+	   FROM Stg.Avms_Employer E
+	   LEFT
+	   JOIN Stg.Avms_EmployerTrainingProviderStatus ETPS
+	     ON E.EmployerStatusTypeId=ETPS.EmployerTrainingProviderStatusId
+	  UNION
 	 SELECT DISTINCT
 	        EmployerName             as EmployerFullName
 	       ,EmployerName             as TradingName

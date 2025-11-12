@@ -39,57 +39,57 @@ BEGIN TRANSACTION
 
 /* Import Vacancies Candidate Reg Details */
 
-DELETE FROM ASData_PL.Va_CandidateRegDetails where SourceDb = 'FAAV2'
+TRUNCATE TABLE ASData_PL.Va_CandidateRegDetails
 
 
--- INSERT INTO [ASData_PL].[Va_CandidateRegDetails]
---            (
--- 		    [CandidateId] 
---            ,[CandidateFirstName]
--- 		   ,[CandidateLastName]
--- 		   ,[CandidateMiddleName]
--- 		   ,[CandidateFullName]
--- 		   ,[CandidateDateOfBirth]
--- 		   ,[CandidateEmail]
---            ,[SourceDb] 
--- 		   )
--- SELECT      VC.[CandidateId] 
---            ,FCD.[FirstName]
--- 		   ,FCD.[LastName]
--- 		   ,FCD.[MiddleName]
--- 		   ,FCD.[FullName]
--- 		   ,FCD.[DateOfBirth]
--- 		   ,FCD.[EmailAddress]
---      	   ,'FAA-Cosmos'
---   FROM Stg.FAA_CandidateRegDetails FCD
---   JOIN ASData_PL.Va_Candidate VC
---     ON VC.SourceCandidateId_v2=FCD.CandidateId
+INSERT INTO [ASData_PL].[Va_CandidateRegDetails]
+           (
+		    [CandidateId] 
+           ,[CandidateFirstName]
+		   ,[CandidateLastName]
+		   ,[CandidateMiddleName]
+		   ,[CandidateFullName]
+		   ,[CandidateDateOfBirth]
+		   ,[CandidateEmail]
+           ,[SourceDb] 
+		   )
+SELECT      VC.[CandidateId] 
+           ,FCD.[FirstName]
+		   ,FCD.[LastName]
+		   ,FCD.[MiddleName]
+		   ,FCD.[FullName]
+		   ,FCD.[DateOfBirth]
+		   ,FCD.[EmailAddress]
+     	   ,'FAA-Cosmos'
+  FROM Stg.FAA_CandidateRegDetails FCD
+  JOIN ASData_PL.Va_Candidate VC
+    ON VC.SourceCandidateId_v2=FCD.CandidateId
 
 
 
--- INSERT INTO [ASData_PL].[Va_CandidateRegDetails]
---            (
--- 		    [CandidateId] 
---            ,[CandidateFirstName]
--- 		   ,[CandidateLastName]
--- 		   ,[CandidateMiddleName]
--- 		   ,[CandidateFullName]
--- 		   ,[CandidateDateOfBirth]
--- 		   ,[CandidateEmail]
---            ,[SourceDb] 
--- 		   )
--- SELECT      VC.[CandidateId] 
---            ,ACD.[FirstName]
--- 		   ,ACD.[SurName]
--- 		   ,ACD.[MiddleName]
--- 		   ,ACD.[FullName]
--- 		   ,ACD.[DateOfBirth]
--- 		   ,ACD.[EmailAddress]
--- 	       ,'FAA-Avms'
---   FROM Stg.Avms_CandidateRegDetails ACD
---   JOIN ASData_PL.Va_Candidate VC
---     ON VC.SourceCandidateId_v1=ACD.CandidateId
---  WHERE NOT EXISTS (SELECT 1 FROM stg.FAA_CandidateRegDetails where CandidateId=vc.SourceCandidateId_v2)
+INSERT INTO [ASData_PL].[Va_CandidateRegDetails]
+           (
+		    [CandidateId] 
+           ,[CandidateFirstName]
+		   ,[CandidateLastName]
+		   ,[CandidateMiddleName]
+		   ,[CandidateFullName]
+		   ,[CandidateDateOfBirth]
+		   ,[CandidateEmail]
+           ,[SourceDb] 
+		   )
+SELECT      VC.[CandidateId] 
+           ,ACD.[FirstName]
+		   ,ACD.[SurName]
+		   ,ACD.[MiddleName]
+		   ,ACD.[FullName]
+		   ,ACD.[DateOfBirth]
+		   ,ACD.[EmailAddress]
+	       ,'FAA-Avms'
+  FROM Stg.Avms_CandidateRegDetails ACD
+  JOIN ASData_PL.Va_Candidate VC
+    ON VC.SourceCandidateId_v1=ACD.CandidateId
+ WHERE NOT EXISTS (SELECT 1 FROM stg.FAA_CandidateRegDetails where CandidateId=vc.SourceCandidateId_v2)
 
 
 

@@ -35,7 +35,7 @@ BEGIN TRY
 
     BEGIN TRANSACTION
 
-    DELETE FROM ASData_PL.Va_CandidateInfo where SourceDb= 'FAAV2'
+    TRUNCATE TABLE ASData_PL.Va_CandidateInfo
 
     INSERT INTO [ASData_PL].[Va_CandidateInfo]
     (
@@ -49,73 +49,73 @@ BEGIN TRY
         [SourceDb]
     )
     /* Insert Candidate school,gender and disability Details for RAAv1(AVMS) from FAA to Presentation Layer Table */
-    -- SELECT C.CandidateId as SourceCandidateId_v1,
-    --         '' as SourceCandidateId_v2,
-    --         '' as SourceCandidateId_v3,
-    --        cgc.FullName as Gender,
-    --        cd.Category as DisabilityStatus,
-    --        s.OtherSchoolName as InstitutionName,
-    --        '' as IsGenderIdentifySameSexAtBirth,
-    --        'FAA-Avms' as SourceDb
-    -- FROM Stg.Avms_Candidate C
-    --     left join Stg.Avms_CandidateGender CGC
-    --         ON CGC.CandidateGenderId = C.Gender
-    --     left join
-    --     (
-    --         Select CandidateDisabilityId,
-    --                case
-    --                    when candidatedisabilityId = 0
-    --                         or candidatedisabilityId = 12 then
-    --                        'Unknown'
-    --                    when candidatedisabilityId > 0
-    --                         and candidatedisabilityId < 12
-    --                         or candidatedisabilityId = 13 then
-    --                        'Yes'
-    --                    when candidatedisabilityId = 14 then
-    --                        'PreferNotToSay'
-    --                    else
-    --                        'No'
-    --                end as Category
-    --         from [Stg].[Avms_CandidateDisability]
-    --     ) CD
-    --         ON CD.CandidateDisabilityId = C.Disability
-    --     left join
-    --     (
-    --         Select CandidateId,
-    --                otherschoolname
-    --         from
-    --         (
-    --             Select CandidateId,
-    --                    otherschoolname,
-    --                    ROW_NUMBER() OVER (PARTITION BY CandidateId ORDER BY ENDDATE DESC, STARTDATE DESC) as Rnk
-    --             from Stg.Avms_SchoolAttended
-    --             where applicationId is not null
-    --         ) sa
-    --         where sa.Rnk = 1
-    --     ) s
-    --         ON s.CandidateId = C.CandidateId
-    -- union
-    -- /* Insert Candidate school,gender and disability Details for RAAv2(Cosmos) from FAA to Presentation Layer Table*/
-    -- SELECT DISTINCT
-    --      ''as SourceCandidateId_v1,
-    --     FU.BinaryId as SourceCandidateId_v2,
-    --     ''as SourceCandidateId_v3,
-    --     cgc.Category as Gender,
-    --     cdc.Category as DisabilityStatus,
-    --     ceh.Institution as InstitutionName,
-    --     '' as IsGenderIdentifySameSexAtBirth,
-    --     'FAA-Cosmos' as SourceDb
-    -- FROM Stg.FAA_Users FU
-    --     LEFT JOIN Stg.FAA_CandidateGenderDisabilityStatus CGDC
-    --         ON CGDC.CandidateId = FU.BinaryId
-    --     LEFT JOIN Stg.FAA_CandidateEducationHistory CEH
-    --         ON CEH.CandidateId = FU.BinaryId
-    --     JOIN Stg.CandidateGenderConfig CGC
-    --         ON CGC.ShortCode = cgdc.Gender
-    --     JOIN Stg.CandidateDisabilityConfig CDC
-    --         ON CDC.ShortCode = cgdc.DisabilityStatus
+    SELECT C.CandidateId as SourceCandidateId_v1,
+            '' as SourceCandidateId_v2,
+            '' as SourceCandidateId_v3,
+           cgc.FullName as Gender,
+           cd.Category as DisabilityStatus,
+           s.OtherSchoolName as InstitutionName,
+           '' as IsGenderIdentifySameSexAtBirth,
+           'FAA-Avms' as SourceDb
+    FROM Stg.Avms_Candidate C
+        left join Stg.Avms_CandidateGender CGC
+            ON CGC.CandidateGenderId = C.Gender
+        left join
+        (
+            Select CandidateDisabilityId,
+                   case
+                       when candidatedisabilityId = 0
+                            or candidatedisabilityId = 12 then
+                           'Unknown'
+                       when candidatedisabilityId > 0
+                            and candidatedisabilityId < 12
+                            or candidatedisabilityId = 13 then
+                           'Yes'
+                       when candidatedisabilityId = 14 then
+                           'PreferNotToSay'
+                       else
+                           'No'
+                   end as Category
+            from [Stg].[Avms_CandidateDisability]
+        ) CD
+            ON CD.CandidateDisabilityId = C.Disability
+        left join
+        (
+            Select CandidateId,
+                   otherschoolname
+            from
+            (
+                Select CandidateId,
+                       otherschoolname,
+                       ROW_NUMBER() OVER (PARTITION BY CandidateId ORDER BY ENDDATE DESC, STARTDATE DESC) as Rnk
+                from Stg.Avms_SchoolAttended
+                where applicationId is not null
+            ) sa
+            where sa.Rnk = 1
+        ) s
+            ON s.CandidateId = C.CandidateId
+    union
+    /* Insert Candidate school,gender and disability Details for RAAv2(Cosmos) from FAA to Presentation Layer Table*/
+    SELECT DISTINCT
+         ''as SourceCandidateId_v1,
+        FU.BinaryId as SourceCandidateId_v2,
+        ''as SourceCandidateId_v3,
+        cgc.Category as Gender,
+        cdc.Category as DisabilityStatus,
+        ceh.Institution as InstitutionName,
+        '' as IsGenderIdentifySameSexAtBirth,
+        'FAA-Cosmos' as SourceDb
+    FROM Stg.FAA_Users FU
+        LEFT JOIN Stg.FAA_CandidateGenderDisabilityStatus CGDC
+            ON CGDC.CandidateId = FU.BinaryId
+        LEFT JOIN Stg.FAA_CandidateEducationHistory CEH
+            ON CEH.CandidateId = FU.BinaryId
+        JOIN Stg.CandidateGenderConfig CGC
+            ON CGC.ShortCode = cgdc.Gender
+        JOIN Stg.CandidateDisabilityConfig CDC
+            ON CDC.ShortCode = cgdc.DisabilityStatus
 
-    --UNION
+    UNION
 
     SELECT DISTINCT
          ''    as SourceCandidateId_v1,

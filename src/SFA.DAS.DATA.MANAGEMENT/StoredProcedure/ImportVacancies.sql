@@ -38,282 +38,276 @@ DEClARE @quote varchar(5) = ''''
 
 BEGIN TRANSACTION
 
-DELETE FROM ASData_PL.Va_Application
-where SourceDb='RAAv2'  -- Delete Application First to be able to resolve Foreign key conflicts */
+TRUNCATE TABLE ASData_PL.Va_Application  -- Delete Application First to be able to resolve Foreign key conflicts */
 
-DELETE FROM ASData_PL.Va_Apprenticeships where SourceDb = 'FAAV2' -- Delete Apprenticeships First to be able to resolve Foreign key conflicts */
+TRUNCATE TABLE ASData_PL.Va_Apprenticeships -- Delete Apprenticeships First to be able to resolve Foreign key conflicts */
 
 TRUNCATE TABLE ASData_PL.va_VacancyReviews -- Delete VacancyReviews First to be able to resolve Foreign key conflicts */
 
 DELETE FROM ASData_PL.Va_Vacancy
-where SourceDb='RAAv2'
 
+/* Load RAAv1 */
 
--- DECLARE @MaxId INT;
--- SELECT @MaxId = ISNULL(MAX(VacancyId), 0) FROM ASData_PL.Va_Vacancy;
--- DBCC CHECKIDENT ('ASData_PL.Va_Vacancy', RESEED, @MaxId);
--- /* Load RAAv1 */
-
--- INSERT INTO [ASData_PL].[Va_Vacancy]
---            ([VacancyGuid]
---            ,[VacancyReferenceNumber]
---            ,[VacancyStatus]
---            ,[VacancyTitle]
---            --,[VacancyLocalAuthorityId]
---            --,[VacancyLocalAuthorityName]
---            --,[VacancyPostcode]
---            --,[VacancyCountyId]
---            --,[VacancyCounty]
--- 		   ,VacancyPostcode
---            ,VacancyAddressLine1
---            ,VacancyAddressLine2
---            ,VacancyAddressLine3
---            ,VacancyAddressLine4
--- 		   ,VacancyAddressLine5
---            ,VacancyTown
---            ,SkillsRequired
---            ,QualificationsRequired
---            ,PersonalQualities
---            ,[EmployerId]
---            ,[EmployerFullName]
---            --,[LegalEntitiyId]
---            --,[LegalEntityName]
---            ,[ProviderId]
---            ,[ProviderUkprn]
---            ,[ProviderFullName]
---            ,[ProviderTradingName]
---          --  ,[VacancyOwner_v2]
---            ,[ApprenticeshipType]
---            ,[VacancyShortDescription]
---            ,[VacancyDescription]
---            --,[VacancyLocationTypeId_v1]
---            --,[VacancyLocationType_v1]
---            ,[NumberOfPositions]
---            ,[SectorName]
---            ,[FrameworkOrStandardID]
---            ,[FrameworkOrStandardLarsCode]
---            ,[FrameworkOrStandardName]
---            ,[EducationLevel]
---            ,[WeeklyWage_v1]
---            ,[WageLowerBound_v1]
---            ,[WageUpperBound_v1]
---            ,[WageType]
---            ,[WageText]
---            ,[WageUnitId_v1]
---            ,[WageUnitDesc]
---            ,[WorkingWeek]
---            ,[HoursPerWeek]
---            ,[DurationTypeId]
---            ,[DurationTypeDesc]
---            ,[ApplicationClosingDate]
---            ,[InterviewsFromDate_v1]
---            ,[ExpectedStartDate]
---            ,[ExpectedDuration]
---            ,[NumberOfViews_v1]
---            ,[MaxNumberOfApplications_v1]
---            ,[ApplyOutsideNAVMS_v1]
---            ,[NoOfOfflineApplicants_v1]
---            ,[MasterVacancyId_v1]
---            ,[NoOfOfflineSystemApplicants_v1]
---            ,[SmallEmployerWageIncentive_v1]
---            ,[SubmissionCount_v1]
---            ,[StartedToQADateTime_v1]
---            ,[TrainingTypeId]
---            ,[TrainingTypeFullName]
---            ,[VacancyTypeId]
---            ,[VacancyTypeDesc]
---            ,[UpdatedDateTime]
---            ,[EditedInRaa_v1]
---            ,[VacancySourceId_v1]
---            ,[VacancySource]
---            ,[OfflineVacancyTypeId_v1]
---            ,[CreatedDate]
---           ,[DatePosted]
---           ,[HasHadLiveStatus]
---            ,[SourceVacancyId]
---            ,[SourceDb]
---            ,[RowNumber]
---            ,[RAFDuplicateFlag]
---              )
--- Select vd.*,
--- case when RowNumber > 1 and NumberOfPositions >= 20 and DatePosted >= '01-Mar-2023' and DatePosted < '01-Nov-2023' and EmployerFullName in( 'RAF','Royal Air Force') then 1
--- else 0 end as RAFDuplicateFlag from 
--- (
--- select  vv.*
---   ,ROW_NUMBER() OVER (PARTITION BY VacancyTitle, NumberofPositions,EmployerFullName,EducationLevel,datepart(year,DatePosted), datepart(month,DatePosted) ORDER BY VacancyReferenceNumber) as RowNumber
--- from
+INSERT INTO [ASData_PL].[Va_Vacancy]
+           ([VacancyGuid]
+           ,[VacancyReferenceNumber]
+           ,[VacancyStatus]
+           ,[VacancyTitle]
+           --,[VacancyLocalAuthorityId]
+           --,[VacancyLocalAuthorityName]
+           --,[VacancyPostcode]
+           --,[VacancyCountyId]
+           --,[VacancyCounty]
+		   ,VacancyPostcode
+           ,VacancyAddressLine1
+           ,VacancyAddressLine2
+           ,VacancyAddressLine3
+           ,VacancyAddressLine4
+		   ,VacancyAddressLine5
+           ,VacancyTown
+           ,SkillsRequired
+           ,QualificationsRequired
+           ,PersonalQualities
+           ,[EmployerId]
+           ,[EmployerFullName]
+           --,[LegalEntitiyId]
+           --,[LegalEntityName]
+           ,[ProviderId]
+           ,[ProviderUkprn]
+           ,[ProviderFullName]
+           ,[ProviderTradingName]
+         --  ,[VacancyOwner_v2]
+           ,[ApprenticeshipType]
+           ,[VacancyShortDescription]
+           ,[VacancyDescription]
+           --,[VacancyLocationTypeId_v1]
+           --,[VacancyLocationType_v1]
+           ,[NumberOfPositions]
+           ,[SectorName]
+           ,[FrameworkOrStandardID]
+           ,[FrameworkOrStandardLarsCode]
+           ,[FrameworkOrStandardName]
+           ,[EducationLevel]
+           ,[WeeklyWage_v1]
+           ,[WageLowerBound_v1]
+           ,[WageUpperBound_v1]
+           ,[WageType]
+           ,[WageText]
+           ,[WageUnitId_v1]
+           ,[WageUnitDesc]
+           ,[WorkingWeek]
+           ,[HoursPerWeek]
+           ,[DurationTypeId]
+           ,[DurationTypeDesc]
+           ,[ApplicationClosingDate]
+           ,[InterviewsFromDate_v1]
+           ,[ExpectedStartDate]
+           ,[ExpectedDuration]
+           ,[NumberOfViews_v1]
+           ,[MaxNumberOfApplications_v1]
+           ,[ApplyOutsideNAVMS_v1]
+           ,[NoOfOfflineApplicants_v1]
+           ,[MasterVacancyId_v1]
+           ,[NoOfOfflineSystemApplicants_v1]
+           ,[SmallEmployerWageIncentive_v1]
+           ,[SubmissionCount_v1]
+           ,[StartedToQADateTime_v1]
+           ,[TrainingTypeId]
+           ,[TrainingTypeFullName]
+           ,[VacancyTypeId]
+           ,[VacancyTypeDesc]
+           ,[UpdatedDateTime]
+           ,[EditedInRaa_v1]
+           ,[VacancySourceId_v1]
+           ,[VacancySource]
+           ,[OfflineVacancyTypeId_v1]
+           ,[CreatedDate]
+          ,[DatePosted]
+          ,[HasHadLiveStatus]
+           ,[SourceVacancyId]
+           ,[SourceDb]
+           ,[RowNumber]
+           ,[RAFDuplicateFlag]
+             )
+Select vd.*,
+case when RowNumber > 1 and NumberOfPositions >= 20 and DatePosted >= '01-Mar-2023' and DatePosted < '01-Nov-2023' and EmployerFullName in( 'RAF','Royal Air Force') then 1
+else 0 end as RAFDuplicateFlag from 
+(
+select  vv.*
+  ,ROW_NUMBER() OVER (PARTITION BY VacancyTitle, NumberofPositions,EmployerFullName,EducationLevel,datepart(year,DatePosted), datepart(month,DatePosted) ORDER BY VacancyReferenceNumber) as RowNumber
+from
   
---   (SELECT v.VacancyGuid                                     as VacancyGuid
---            ,v.[VacancyReferenceNumber]                        as VacancyReferenceNumber
---            ,vs.FullName                                       as VacancyStatus
--- 	       ,REPLACE(REPLACE(v.[Title], CHAR(13), ''), CHAR(10), ' ')  as VacancyTitle
--- 		   ,v.PostCode                                        as VacancyPostCode
---            ,v.AddressLine1                                    as VacancyAddressLine1
---            ,v.AddressLine2                                    as VacancyAddressLine2
---            ,v.AddressLine3                                    as VacancyAddressLine3
---            ,v.AddressLine4                                    as VacancyAddressLine4
---            ,v.AddressLine5                                    as VacancyAddressLine5
---            ,v.Town                                            as VacancyTown
---            ,dbo.Fn_CleanseHTMLText(sr.skillsrequired)          as SkillsRequired
--- 		   ,dbo.Fn_CleanseHTMLText(QR.QualificationsRequired)  as QualificationsRequired
---            ,dbo.Fn_CleanseHTMLText(PQ.PersonalQualities)       as PersonalQualities
--- 	       ,E.EmployerId                                      as EmployerId
---            ,E.FullName                                        as EmployerFullNAME
---            ,P.ProviderID                                      as ProviderId
---            ,p.UKPRN                                           as ProviderUKPrn
---            ,P.FullName                                        as ProviderFullName
---            ,P.TradingName                                     as ProviderTradingName
--- 	 --  , psrt.ProviderSiteRelationshipTypeName as ProviderSiteRelationshipType
--- 	       ,AT.FullName                                       as ApprenticeshipType
---            ,v.[ShortDescription]                              as VacancyShortDescription
---            ,dbo.Fn_CleanseHTMLText(v.[Description])            as VacancyDescription
---            ,v.[NumberofPositions]                             as NumberOfPositions
--- 	       ,CASE WHEN V.ApprenticeshipFrameworkId is not null 
---                  then AF.ApprenticehipOccupationFullName
---                  WHEN V.StandardId is not null then Std.StandardSectorName 
---                  ELSE 'Unknown' 
---              END                                              as [Framework/Standard Sector] 
---            ,CASE WHEN V.ApprenticeshipFrameworkId is not null 
---                  then AF.ApprenticeshipFrameworkId
---                  WHEN V.StandardId is not null then Std.StandardId 
---                  ELSE -1 
---              END                                              as [Framework/StandardId] 
---            ,CASE WHEN AF.FrameworkCodeName IS NOT NULL THEN AF.FrameworkCodeName
---                  WHEN Std.LarsCode IS NOT NULL THEN CAST(Std.LarsCode AS Varchar)
--- 		         ELSE ''
--- 		     END                                              as LarsCode
---             ,CASE WHEN V.ApprenticeshipFrameworkId is not null 
---                   then Af.FrameWorkFullName 
---                   WHEN V.StandardId is not null then Std.StandardFullName 
---                   ELSE '' 
---               END                                             as [Framework/Standard Name] 
---             ,Std.EducationLevelFullName +' '+Std.EducationLevelNamev2
--- 			                                                  as EducationLevel
---             ,v.[WeeklyWage]                                   as WeeklyWage
---             ,v.[WageLowerBound]                               as WageLowerBound
---             ,v.[WageUpperBound]                               as WageUpperBound
---             ,WT.FullName                                      AS WageType 
--- 	        ,v.WageText                                       as WageText
--- 	        ,v.WageUnitId                                     as WageUnitId
--- 	        ,WU.FullName                                      as WageUnit
--- 	        ,v.[WorkingWeek]                                  as WorkingWeek
--- 	        ,v.[HoursPerWeek]                                 as HoursPerWeek
--- 	        ,v.DurationTypeId                                 as DurationTypeId
--- 	        ,v.DurationValue                                  as DurationValue
---             ,v.[ApplicationClosingDate]                       as ApplicationClosingDate
---             ,v.[InterviewsFromDate]                           as InterviewFromDate
---             ,v.[ExpectedStartDate]                            as ExpectedStartDate
---             ,v.[ExpectedDuration]                             as ExpectedDuration
---             ,v.[NumberOfViews]                                as NumberOfViews
--- 	        ,v.MaxNumberofApplications                        as MaxNumberOfApplications
--- 	        ,v.ApplyOutsideNAVMS                              as ApplyOutsideNAVMS
--- 	        ,v.[NoOfOfflineApplicants]                        AS NoOfOfflineApplicants
--- 	        ,v.MasterVacancyId                                as MasterVacancyId
--- 	        ,v.NoOfOfflineSystemApplicants                    as NoOfOfflineSystemApplicants
--- 	        ,v.SmallEmployerWageIncentive                     as SmallEmployerWageIncentive
--- 	        ,v.SubmissionCount                                as SubmissionCount
--- 	        ,v.StartedToQADateTime                            as StartedToQADateTime
--- 	        ,CASE WHEN V.ApprenticeshipFrameworkId is not null 
---                   then 1 
---                   WHEN V.StandardId is not null then 2 
---                   ELSE 0
---               END                                             as TrainingTypeId
--- 	        ,CASE WHEN V.ApprenticeshipFrameworkId is not null 
---                   then 'Framework' 
---                   WHEN V.StandardId is not null then 'Standard'
---                   ELSE 'Unknown' 
---               END                                             as TrainingTypeDesc
--- 	        ,v.VacancyTypeId
---             ,CASE WHEN v.[VacancyTypeId]=1 THEN 'Apprenticeship'
--- 	              WHEN V.VacancyTypeId=2 THEN 'Traineeship'
--- 			      ELSE 'Unknown'
--- 			  end                                             as VacancyType
--- 	        ,v.UpdatedDateTime                                as UpdatedDateTime
--- 	        ,v.EditedInRaa                                    as EditedInRAA
--- 	        ,v.VacancySourceId                                as VacancySourceId
--- 	        ,vas.FullName                                     as VacancySource
---             ,v.OfflineVacancyTypeId                           as OfflineVacancyTypeId   
--- 	        ,ISNULL(VH.CreatedDate,V.UpdatedDateTime)         as CreatedDate
--- 			,VL.DatePosted                                    as DatePosted
--- 			,CASE WHEN VL.DatePosted IS NULL THEN 0
--- 			      ELSE 1
--- 				  END                                         as HasHadLiveStatus
--- 			,v.VacancyId                                      as SourceVacancyId
--- 			,'RAAv1'                                          as SourceDb
---        FROM Stg.[Avms_Vacancy] V
--- 	   left
---        join Stg.Avms_VacancyStatusType vs 
--- 	     on V.VacancyStatusId = vs.VacancyStatusTypeId
--- 	   left
---        join Stg.Avms_VacancyOwnerRelationship vor 
--- 	     on V.VacancyOwnerRelationshipId = vor.VacancyOwnerRelationshipId
--- 	   left
---        join ASData_PL.Va_Employer E 
--- 	     on vor.EmployerId = e.SourceEmployerId_v1
--- 		and E.SourceDb='RAAv1'
--- 	   left
---        join (SELECT ps.providersiteid,psr.ProviderID
---                from stg.Avms_ProviderSite ps 
---                join (SELECT ProviderID,ProviderSiteID
---                        FROM
---                     (select *, Row_number() over (partition by providersiteid order by providersiterelationshiptypeid) rn 
---                        from stg.Avms_ProviderSiteRelationship) PSR
---                       WHERE rn=1) PSR
---                  ON PSR.ProviderSiteID=PS.ProviderSiteID) Ps
---           on vor.ProviderSiteID=ps.ProviderSiteID
--- 		left
---         join ASData_PL.Va_Provider p 
--- 		  on ps.ProviderID = p.SourceProviderID_v1
--- 		 and p.SourceDb='RAAv1'
---         LEFT 
--- 		JOIN (SELECT AST.*,EL.EducationLevelFullName,EL.EducationLevelNamev2
---         	    FROM ASData_PL.Va_ApprenticeshipStandard AST
--- 			    LEFT 
--- 			    JOIN AsData_PL.Va_EducationLevel EL
--- 			      ON EL.EducationLevelId=AST.EducationLevelId) Std 
---           ON Std.StandardId=V.StandardId 
---         LEFT
--- 		JOIN ASData_PL.Va_ApprenticeshipFrameWorkAndOccupation AF 
---           ON AF.SourceApprenticeshipFrameworkId=V.ApprenticeshipFrameworkId
--- 	     AND AF.SourceDb='RAAv1'
---         left
---         join (select vacancyid,min(HistoryDate) DatePosted
---                 from Stg.Avms_VacancyHistory vh
--- 			   WHERE [VacancyHistoryEventSubTypeId] = 2 --Live
--- 		       group by vacancyid) VL
---           ON VL.VacancyId=V.VacancyId
--- 		left
---         join (select vacancyid,min(HistoryDate) CreatedDate
---                 from Stg.Avms_VacancyHistory vh
--- 			   group by vacancyid) VH
---           ON VH.VacancyId=V.VacancyId
---         left
---         join Stg.Avms_ApprenticeshipType AT
---           ON AT.ApprenticeshipTypeId=v.ApprenticeshipType
---         left 
---         join Stg.Avms_WageType WT
---           ON WT.WageTypeId=V.WageType
---         left
---         join Stg.Avms_VacancySource VaS
---           on VaS.VacancySourceId=V.VacancySourceId
---         left
---         join stg.Avms_WageUnit wu
---           on v.WageUnitId=wu.WageUnitId
--- 		left
--- 		join (select Value as QualificationsRequired,VacancyId
---                 from Stg.Avms_VacancyTextField
---                where Field=2) QR
--- 		  on QR.VacancyId=V.VacancyId
--- 		left
--- 		join (select Value as SkillsRequired,VacancyId
---                 from Stg.Avms_VacancyTextField
---                where Field=3) SR
--- 		  on SR.VacancyId=V.VacancyId
---         left
--- 		join (select Value as PersonalQualities,VacancyId
---                 from Stg.Avms_VacancyTextField
---                where Field=4) PQ
--- 		  on PQ.VacancyId=V.VacancyId)vv)vd
+  (SELECT v.VacancyGuid                                     as VacancyGuid
+           ,v.[VacancyReferenceNumber]                        as VacancyReferenceNumber
+           ,vs.FullName                                       as VacancyStatus
+	       ,REPLACE(REPLACE(v.[Title], CHAR(13), ''), CHAR(10), ' ')  as VacancyTitle
+		   ,v.PostCode                                        as VacancyPostCode
+           ,v.AddressLine1                                    as VacancyAddressLine1
+           ,v.AddressLine2                                    as VacancyAddressLine2
+           ,v.AddressLine3                                    as VacancyAddressLine3
+           ,v.AddressLine4                                    as VacancyAddressLine4
+           ,v.AddressLine5                                    as VacancyAddressLine5
+           ,v.Town                                            as VacancyTown
+           ,dbo.Fn_CleanseHTMLText(sr.skillsrequired)          as SkillsRequired
+		   ,dbo.Fn_CleanseHTMLText(QR.QualificationsRequired)  as QualificationsRequired
+           ,dbo.Fn_CleanseHTMLText(PQ.PersonalQualities)       as PersonalQualities
+	       ,E.EmployerId                                      as EmployerId
+           ,E.FullName                                        as EmployerFullNAME
+           ,P.ProviderID                                      as ProviderId
+           ,p.UKPRN                                           as ProviderUKPrn
+           ,P.FullName                                        as ProviderFullName
+           ,P.TradingName                                     as ProviderTradingName
+	 --  , psrt.ProviderSiteRelationshipTypeName as ProviderSiteRelationshipType
+	       ,AT.FullName                                       as ApprenticeshipType
+           ,v.[ShortDescription]                              as VacancyShortDescription
+           ,dbo.Fn_CleanseHTMLText(v.[Description])            as VacancyDescription
+           ,v.[NumberofPositions]                             as NumberOfPositions
+	       ,CASE WHEN V.ApprenticeshipFrameworkId is not null 
+                 then AF.ApprenticehipOccupationFullName
+                 WHEN V.StandardId is not null then Std.StandardSectorName 
+                 ELSE 'Unknown' 
+             END                                              as [Framework/Standard Sector] 
+           ,CASE WHEN V.ApprenticeshipFrameworkId is not null 
+                 then AF.ApprenticeshipFrameworkId
+                 WHEN V.StandardId is not null then Std.StandardId 
+                 ELSE -1 
+             END                                              as [Framework/StandardId] 
+           ,CASE WHEN AF.FrameworkCodeName IS NOT NULL THEN AF.FrameworkCodeName
+                 WHEN Std.LarsCode IS NOT NULL THEN CAST(Std.LarsCode AS Varchar)
+		         ELSE ''
+		     END                                              as LarsCode
+            ,CASE WHEN V.ApprenticeshipFrameworkId is not null 
+                  then Af.FrameWorkFullName 
+                  WHEN V.StandardId is not null then Std.StandardFullName 
+                  ELSE '' 
+              END                                             as [Framework/Standard Name] 
+            ,Std.EducationLevelFullName +' '+Std.EducationLevelNamev2
+			                                                  as EducationLevel
+            ,v.[WeeklyWage]                                   as WeeklyWage
+            ,v.[WageLowerBound]                               as WageLowerBound
+            ,v.[WageUpperBound]                               as WageUpperBound
+            ,WT.FullName                                      AS WageType 
+	        ,v.WageText                                       as WageText
+	        ,v.WageUnitId                                     as WageUnitId
+	        ,WU.FullName                                      as WageUnit
+	        ,v.[WorkingWeek]                                  as WorkingWeek
+	        ,v.[HoursPerWeek]                                 as HoursPerWeek
+	        ,v.DurationTypeId                                 as DurationTypeId
+	        ,v.DurationValue                                  as DurationValue
+            ,v.[ApplicationClosingDate]                       as ApplicationClosingDate
+            ,v.[InterviewsFromDate]                           as InterviewFromDate
+            ,v.[ExpectedStartDate]                            as ExpectedStartDate
+            ,v.[ExpectedDuration]                             as ExpectedDuration
+            ,v.[NumberOfViews]                                as NumberOfViews
+	        ,v.MaxNumberofApplications                        as MaxNumberOfApplications
+	        ,v.ApplyOutsideNAVMS                              as ApplyOutsideNAVMS
+	        ,v.[NoOfOfflineApplicants]                        AS NoOfOfflineApplicants
+	        ,v.MasterVacancyId                                as MasterVacancyId
+	        ,v.NoOfOfflineSystemApplicants                    as NoOfOfflineSystemApplicants
+	        ,v.SmallEmployerWageIncentive                     as SmallEmployerWageIncentive
+	        ,v.SubmissionCount                                as SubmissionCount
+	        ,v.StartedToQADateTime                            as StartedToQADateTime
+	        ,CASE WHEN V.ApprenticeshipFrameworkId is not null 
+                  then 1 
+                  WHEN V.StandardId is not null then 2 
+                  ELSE 0
+              END                                             as TrainingTypeId
+	        ,CASE WHEN V.ApprenticeshipFrameworkId is not null 
+                  then 'Framework' 
+                  WHEN V.StandardId is not null then 'Standard'
+                  ELSE 'Unknown' 
+              END                                             as TrainingTypeDesc
+	        ,v.VacancyTypeId
+            ,CASE WHEN v.[VacancyTypeId]=1 THEN 'Apprenticeship'
+	              WHEN V.VacancyTypeId=2 THEN 'Traineeship'
+			      ELSE 'Unknown'
+			  end                                             as VacancyType
+	        ,v.UpdatedDateTime                                as UpdatedDateTime
+	        ,v.EditedInRaa                                    as EditedInRAA
+	        ,v.VacancySourceId                                as VacancySourceId
+	        ,vas.FullName                                     as VacancySource
+            ,v.OfflineVacancyTypeId                           as OfflineVacancyTypeId   
+	        ,ISNULL(VH.CreatedDate,V.UpdatedDateTime)         as CreatedDate
+			,VL.DatePosted                                    as DatePosted
+			,CASE WHEN VL.DatePosted IS NULL THEN 0
+			      ELSE 1
+				  END                                         as HasHadLiveStatus
+			,v.VacancyId                                      as SourceVacancyId
+			,'RAAv1'                                          as SourceDb
+       FROM Stg.[Avms_Vacancy] V
+	   left
+       join Stg.Avms_VacancyStatusType vs 
+	     on V.VacancyStatusId = vs.VacancyStatusTypeId
+	   left
+       join Stg.Avms_VacancyOwnerRelationship vor 
+	     on V.VacancyOwnerRelationshipId = vor.VacancyOwnerRelationshipId
+	   left
+       join ASData_PL.Va_Employer E 
+	     on vor.EmployerId = e.SourceEmployerId_v1
+		and E.SourceDb='RAAv1'
+	   left
+       join (SELECT ps.providersiteid,psr.ProviderID
+               from stg.Avms_ProviderSite ps 
+               join (SELECT ProviderID,ProviderSiteID
+                       FROM
+                    (select *, Row_number() over (partition by providersiteid order by providersiterelationshiptypeid) rn 
+                       from stg.Avms_ProviderSiteRelationship) PSR
+                      WHERE rn=1) PSR
+                 ON PSR.ProviderSiteID=PS.ProviderSiteID) Ps
+          on vor.ProviderSiteID=ps.ProviderSiteID
+		left
+        join ASData_PL.Va_Provider p 
+		  on ps.ProviderID = p.SourceProviderID_v1
+		 and p.SourceDb='RAAv1'
+        LEFT 
+		JOIN (SELECT AST.*,EL.EducationLevelFullName,EL.EducationLevelNamev2
+        	    FROM ASData_PL.Va_ApprenticeshipStandard AST
+			    LEFT 
+			    JOIN AsData_PL.Va_EducationLevel EL
+			      ON EL.EducationLevelId=AST.EducationLevelId) Std 
+          ON Std.StandardId=V.StandardId 
+        LEFT
+		JOIN ASData_PL.Va_ApprenticeshipFrameWorkAndOccupation AF 
+          ON AF.SourceApprenticeshipFrameworkId=V.ApprenticeshipFrameworkId
+	     AND AF.SourceDb='RAAv1'
+        left
+        join (select vacancyid,min(HistoryDate) DatePosted
+                from Stg.Avms_VacancyHistory vh
+			   WHERE [VacancyHistoryEventSubTypeId] = 2 --Live
+		       group by vacancyid) VL
+          ON VL.VacancyId=V.VacancyId
+		left
+        join (select vacancyid,min(HistoryDate) CreatedDate
+                from Stg.Avms_VacancyHistory vh
+			   group by vacancyid) VH
+          ON VH.VacancyId=V.VacancyId
+        left
+        join Stg.Avms_ApprenticeshipType AT
+          ON AT.ApprenticeshipTypeId=v.ApprenticeshipType
+        left 
+        join Stg.Avms_WageType WT
+          ON WT.WageTypeId=V.WageType
+        left
+        join Stg.Avms_VacancySource VaS
+          on VaS.VacancySourceId=V.VacancySourceId
+        left
+        join stg.Avms_WageUnit wu
+          on v.WageUnitId=wu.WageUnitId
+		left
+		join (select Value as QualificationsRequired,VacancyId
+                from Stg.Avms_VacancyTextField
+               where Field=2) QR
+		  on QR.VacancyId=V.VacancyId
+		left
+		join (select Value as SkillsRequired,VacancyId
+                from Stg.Avms_VacancyTextField
+               where Field=3) SR
+		  on SR.VacancyId=V.VacancyId
+        left
+		join (select Value as PersonalQualities,VacancyId
+                from Stg.Avms_VacancyTextField
+               where Field=4) PQ
+		  on PQ.VacancyId=V.VacancyId)vv)vd
 
 
 

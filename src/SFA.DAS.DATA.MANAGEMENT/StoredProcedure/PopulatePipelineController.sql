@@ -71,7 +71,7 @@ INSERT INTO [Mgmt].[Pipeline]
 -- ,(104,'ImportFAACandidateToDataMart')
 --,(105,'ImportFAAToDataMart')
 ,(106,'ImportFAAV2ToDataMart')
-
+,(107,'ImportRCRTToDM')
 
 DELETE FROM [Mgmt].[Config_PipelineController]
 
@@ -104,6 +104,7 @@ VALUES
 ,(1 ,21 ,1  ,6)
 ,(1 ,22 ,1  ,17)
 ,(1 ,23 ,1  ,20)
+,(1 ,107 ,1  ,20)
 ,(1 ,24 ,1  ,21)
 ,(1 ,25 ,1  ,22)
 ,(1 ,26 ,1  ,23)

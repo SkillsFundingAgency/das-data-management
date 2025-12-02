@@ -535,6 +535,14 @@ VALUES
 ,('Aodp','Messages','dbo','[Id], [ApplicationId], [Text], [Type], [MessageHeader], [SharedWithDfe], [SharedWithOfqual], [SharedWithSkillsEngland], [SharedWithAwardingOrganisation], [SentAt], [SentByName], [SentByEmail]','','','AODP_Messages',0,1)
 ,('Aodp','Surveys','dbo','[Id], [Page], [SatisfactionScore], [Comments], [Timestamp]','','','AODP_Surveys',0,1)
 
+/* rcrtalt  Config */
+
+INSERT INTO Mtd.SourceConfigForImport
+(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
+VALUES
+ ('rcrt','ApplicationReview','dbo','[Id],[Ukprn],[AccountId],[AccountLegalEntityId],[CandidateFeedback],[EmployerFeedback],[CandidateId],[CreatedDate],[DateSharedWithEmployer],[HasEverBeenEmployerInterviewing],[WithdrawnDate],[ReviewedDate],[SubmittedDate],[Status],[TemporaryReviewStatus],[StatusUpdatedDate],[VacancyReference],[LegacyApplicationId],[ApplicationId],[AdditionalQuestion1],[AdditionalQuestion2],[VacancyTitle]','','','',0,1)
+
+
 COMMIT TRANSACTION
 
 UPDATE Mgmt.Log_Execution_Results

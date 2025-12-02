@@ -541,7 +541,8 @@ INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
 VALUES
  ('rcrt','ApplicationReview','dbo','[Id],[Ukprn],[AccountId],[AccountLegalEntityId],[CandidateFeedback],[EmployerFeedback],[CandidateId],[CreatedDate],[DateSharedWithEmployer],[HasEverBeenEmployerInterviewing],[WithdrawnDate],[ReviewedDate],[SubmittedDate],[Status],[TemporaryReviewStatus],[StatusUpdatedDate],[VacancyReference],[LegacyApplicationId],[ApplicationId],[AdditionalQuestion1],[AdditionalQuestion2],[VacancyTitle]','','','',0,1)
-
+,('rcrt','EmployerProfile','dbo','[AccountLegalEntityId],[AccountId],[AboutOrganisation],[TradingName]','','','',0,1)
+,('rcrt','EmployerProfileAddress','dbo','[Id],[AccountLegalEntityId],[AddressLine1],[AddressLine2],[AddressLine3],[AddressLine4],[Postcode],[Latitude],[Longitude]','','','',0,1)
 
 COMMIT TRANSACTION
 

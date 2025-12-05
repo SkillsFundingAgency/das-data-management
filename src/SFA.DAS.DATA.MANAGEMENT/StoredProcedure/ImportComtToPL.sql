@@ -130,7 +130,7 @@ INSERT INTO [ASData_PL].[Comt_Apprenticeship]
             END                 as Age
            ,[DeliveryModel]
            ,[RecognisePriorLearning]
-           ,[IsOnFlexiPaymentPilot]
+           ,0 AS [IsOnFlexiPaymentPilot]
            ,[TrainingTotalHours]
            ,[ActualStartDate] 
            ,[EmailAddressConfirmed] 

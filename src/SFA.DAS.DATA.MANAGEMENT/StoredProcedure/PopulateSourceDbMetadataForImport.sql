@@ -468,8 +468,9 @@ INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
 VALUES
 ('Aprog','KSBProgress','dbo','[KSBProgressId], [ApprenticeshipId], [KSBProgressType], [KSBId], [KSBKey], [CurrentStatus], [Note]','','','aProg_KSBProgress',0,1),
-('Aprog','Task','dbo','[TaskId], [ApprenticeshipId], [DueDate], [Title], [ApprenticeshipCategoryId], [Note], [CompletionDateTime], [CreatedDateTime], [Status]','','','aProg_Task',0,1)
-
+('Aprog','Task','dbo','[TaskId], [ApprenticeshipId], [DueDate], [Title], [ApprenticeshipCategoryId], [Note], [CompletionDateTime], [CreatedDateTime], [Status]','','','aProg_Task',0,1),
+('Aprog','TaskKSBs','dbo','[TaskId], [KSBProgressId]','','','aProg_TaskKSBs',0,1),
+('Aprog','KSBProgressStatusHistory','dbo','[KSBProgressId], [Status], [StatusTime]','','','aProg_KSBProgressStatusHistory',0,1)
 
 
 /* Apprentice Feedback Config */

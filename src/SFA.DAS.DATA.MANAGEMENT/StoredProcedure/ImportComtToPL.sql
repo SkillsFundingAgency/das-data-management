@@ -89,6 +89,7 @@ INSERT INTO [ASData_PL].[Comt_Apprenticeship]
            ,[TrainingPrice]
            ,[EndPointAssessmentPrice]
            ,[EmployerHasEditedCost]
+           ,[LearnerDataId]
            )
  SELECT    [Id]
            ,[CommitmentId]
@@ -139,6 +140,7 @@ INSERT INTO [ASData_PL].[Comt_Apprenticeship]
            ,[TrainingPrice]
            ,[EndPointAssessmentPrice]
            ,[EmployerHasEditedCost]
+           ,[LearnerDataId]
     FROM Stg.Comt_Apprenticeship
 '
 

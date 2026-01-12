@@ -388,6 +388,8 @@
     <Build Include="Tables\AsDataPL_aComt_ApprenticeArticle.sql" />
     <Build Include="Tables\AsDataPL_aProg_KSBProgress.sql" />
     <Build Include="Tables\AsDataPL_aProg_Task.sql" />
+    <Build Include="Tables\AsDataPL_aProg_KSBProgressStatusHistory.sql" />
+    <Build Include="Tables\AsDataPL_aProg_TaskKSBs.sql" />
     <Build Include="Tables\ASDataPL_Comt_ApprenticeshipConfirmationStatus.sql" />
     <Build Include="Tables\ASDataPL_LTM_Application.sql" />
     <Build Include="Tables\ASDataPL_LTM_Audit.sql" />

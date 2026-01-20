@@ -563,5 +563,7 @@
     <Build Include="Views\ASDataPL_v_MS_KPI_NQS_NQR_US_001.sql" />
     <Build Include="Tables\ASDataPL_Resv_ProviderPermission.sql" />
     <Build Include="Tables\ASDataPL_PAS_UserSettings.sql" />
+    <Build Include="StoredProcedure\ImportVaAddInfoApprenticeshipsToPL_Rcrt.sql" />
+    <Build Include="Tables\AsDataPL_Va_Apprenticeships_Rcrt.sql" />
   </ItemGroup>
 </Project>

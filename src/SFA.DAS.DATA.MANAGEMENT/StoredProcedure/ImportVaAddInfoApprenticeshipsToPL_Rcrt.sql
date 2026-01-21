@@ -39,7 +39,7 @@ TRUNCATE TABLE ASData_PL.Va_Apprenticeships_Rcrt
 -- # See https://www.ibm.com/docs/en/db2-for-zos/13?topic=statements-update for complete syntax.
 -- ####################################################################
 
-INSERT INTO [ASData_PL].[Va_Apprenticeships]
+INSERT INTO [ASData_PL].[Va_Apprenticeships_Rcrt]
            (CandidateId 
            ,VacancyId 
 		       ,ApplicationId  

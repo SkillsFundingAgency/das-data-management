@@ -82,7 +82,7 @@ INSERT INTO [ASData_PL].[Va_Employer]
 	  where rn=1
 
 
-
+EXEC ImportVacanciesEmployer_Rcrt @RunId
 
 
 

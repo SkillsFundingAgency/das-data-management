@@ -62,8 +62,7 @@ INSERT INTO [ASData_PL].[Va_Employer]
 		   ,ETPS.FullName            as EmployerStatusTypeDesc_v1
 		   ,'RAAv1'                  as SourceDb
 	   FROM Stg.Avms_Employer E
-	   LEFT
-	   JOIN Stg.Avms_EmployerTrainingProviderStatus ETPS
+	   LEFT JOIN Stg.Avms_EmployerTrainingProviderStatus ETPS
 	     ON E.EmployerStatusTypeId=ETPS.EmployerTrainingProviderStatusId
 	  UNION
 	 SELECT DISTINCT

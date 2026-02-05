@@ -77,11 +77,7 @@ INSERT INTO [ASData_PL].[Va_Employer]
 		   ,'N/A'                    as EmployerStatusTypeDesc_v1
 		   ,'RAAv2'                  as SourceDb
 	   FROM Stg.RCRT_EmployerProfile v
-	  where rn=1
-
-
-
-
+	  
 
 
 COMMIT TRANSACTION

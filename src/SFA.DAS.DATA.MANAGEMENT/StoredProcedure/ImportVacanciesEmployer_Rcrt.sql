@@ -75,7 +75,7 @@ INSERT INTO [ASData_PL].[Va_Employer_Rcrt]
 		   ,-1                       as EdsUrn_v1
 		   ,-1                       as EmployerStatusTypeId_v1
 		   ,'N/A'                    as EmployerStatusTypeDesc_v1
-		   ,'RAAv2'                  as SourceDb
+		   ,'RCRT'                  as SourceDb
 	   FROM Stg.RCRT_EmployerProfile v
 	  
 

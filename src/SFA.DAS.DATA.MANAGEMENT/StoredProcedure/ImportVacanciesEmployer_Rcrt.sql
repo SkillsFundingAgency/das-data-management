@@ -69,7 +69,7 @@ INSERT INTO [ASData_PL].[Va_Employer_Rcrt]
 	        TradingName              as EmployerFullName
 	       ,TradingName              as TradingName
 		   ,-1                       as SourceEmployerId_v1
-		   ,AccountId        		 as DasAccountId_v2
+		   ,CAST(AccountId as varchar(8))        		 as DasAccountId_v2
 		   ,-1                       as LocalAuthorityId
 		   ,'N/A'                    as OwnerOrganisation
 		   ,-1                       as EdsUrn_v1

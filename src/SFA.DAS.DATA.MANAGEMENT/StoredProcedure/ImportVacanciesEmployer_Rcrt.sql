@@ -28,19 +28,19 @@ DEClARE @quote varchar(5) = ''''
   SELECT 
         @RunId
 	   ,'Step-6'
-	   ,'ImportVacanciesEmployerToPL'
+	   ,'ImportVacanciesEmployer_Rcrt'
 	   ,getdate()
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
-   WHERE StoredProcedureName='ImportVacanciesEmployerToPL'
+   WHERE StoredProcedureName='ImportVacanciesEmployer_Rcrt'
      AND RunId=@RunID
 
 BEGIN TRANSACTION
 
-TRUNCATE TABLE ASData_PL.Va_Employer
+TRUNCATE TABLE ASData_PL.Va_Employer_Rcrt
 
-INSERT INTO [ASData_PL].[Va_Employer]
+INSERT INTO [ASData_PL].[Va_Employer_Rcrt]
            ([FullName]
            ,[TradingName]
            ,[SourceEmployerId_v1]
@@ -64,7 +64,7 @@ INSERT INTO [ASData_PL].[Va_Employer]
 	   FROM Stg.Avms_Employer E
 	   LEFT JOIN Stg.Avms_EmployerTrainingProviderStatus ETPS
 	     ON E.EmployerStatusTypeId=ETPS.EmployerTrainingProviderStatusId
-	  UNION
+	  UNION ALL
 	 SELECT DISTINCT
 	        TradingName              as EmployerFullName
 	       ,TradingName              as TradingName
@@ -116,7 +116,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'ImportVacanciesEmployerToPL',
+	    'ImportVacanciesEmployer_Rcrt',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 

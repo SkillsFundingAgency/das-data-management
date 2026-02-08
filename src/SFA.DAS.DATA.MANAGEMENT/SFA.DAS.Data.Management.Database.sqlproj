@@ -565,5 +565,7 @@
     <Build Include="Tables\ASDataPL_PAS_UserSettings.sql" />
     <Build Include="StoredProcedure\ImportVaAddInfoApprenticeshipsToPL_Rcrt.sql" />
     <Build Include="Tables\AsDataPL_Va_Apprenticeships_Rcrt.sql" />
+    <Build Include="StoredProcedure\ImportVacanciesApplication_Migration_MissingData.sql" />
+    <Build Include="Tables\AsDataPL_Va_Application_Migration_MissingData.sql" />
   </ItemGroup>
 </Project>

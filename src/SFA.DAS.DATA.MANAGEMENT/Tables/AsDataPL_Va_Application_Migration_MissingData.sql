@@ -1,8 +1,7 @@
-﻿CREATE TABLE [AsData_PL].[Va_Application_Rcrt]
+﻿CREATE TABLE [AsData_PL].[Va_Application_Migration_MissingData]
 (     
-       [ApplicationId] BigInt IDENTITY(1,1) PRIMARY KEY
-      ,[CandidateId] Bigint 
-      ,[VacancyId] Bigint 
+	   [VacancyReference] Bigint
+      ,[SourceCandidateId]  Varchar(256) 
 	  ,[ApplicationStatusTypeId] Int
 	  ,[ApplicationStatusDesc] Varchar(255)
 	  ,[CandidateAgeAtApplication] int
@@ -14,7 +13,6 @@
 	  ,[SourceDb] Varchar(100)
 	  ,[SourceApplicationId] INT
 	  ,[AsDm_UpdatedDateTime]  [datetime2](7)						DEFAULT (getdate())
-	  ,Foreign Key (CandidateId)  References [AsData_PL].[Va_Candidate](CandidateId)
-	  ,Foreign Key (VacancyId) References [AsData_PL].[Va_Vacancy](VacancyId)
+	
  
  )

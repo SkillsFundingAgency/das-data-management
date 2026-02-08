@@ -468,8 +468,9 @@ INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
 VALUES
 ('Aprog','KSBProgress','dbo','[KSBProgressId], [ApprenticeshipId], [KSBProgressType], [KSBId], [KSBKey], [CurrentStatus], [Note]','','','aProg_KSBProgress',0,1),
-('Aprog','Task','dbo','[TaskId], [ApprenticeshipId], [DueDate], [Title], [ApprenticeshipCategoryId], [Note], [CompletionDateTime], [CreatedDateTime], [Status]','','','aProg_Task',0,1)
-
+('Aprog','Task','dbo','[TaskId], [ApprenticeshipId], [DueDate], [Title], [ApprenticeshipCategoryId], [Note], [CompletionDateTime], [CreatedDateTime], [Status]','','','aProg_Task',0,1),
+('Aprog','TaskKSBs','dbo','[TaskId], [KSBProgressId]','','','aProg_TaskKSBs',0,1),
+('Aprog','KSBProgressStatusHistory','dbo','[KSBProgressId], [Status], [StatusTime]','','','aProg_KSBProgressStatusHistory',0,1)
 
 
 /* Apprentice Feedback Config */
@@ -541,7 +542,10 @@ INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
 VALUES
  ('rcrt','ApplicationReview','dbo','[Id],[Ukprn],[AccountId],[AccountLegalEntityId],[CandidateFeedback],[EmployerFeedback],[CandidateId],[CreatedDate],[DateSharedWithEmployer],[HasEverBeenEmployerInterviewing],[WithdrawnDate],[ReviewedDate],[SubmittedDate],[Status],[TemporaryReviewStatus],[StatusUpdatedDate],[VacancyReference],[LegacyApplicationId],[ApplicationId],[AdditionalQuestion1],[AdditionalQuestion2],[VacancyTitle]','','','',0,1)
-
+,('rcrt','EmployerProfile','dbo','[AccountLegalEntityId],[AccountId],[AboutOrganisation],[TradingName]','','','',0,1)
+,('rcrt','EmployerProfileAddress','dbo','[Id],[AccountLegalEntityId],[AddressLine1],[AddressLine2],[AddressLine3],[AddressLine4],[Postcode],[Latitude],[Longitude]','','','',0,1)
+,('rcrt','Vacancy','dbo','[Id], [VacancyReference], [AccountId], [Status], [ApprenticeshipType], [Title], [OwnerType], [SourceOrigin], [SourceType], [SourceVacancyReference], [ApprovedDate], [CreatedDate], [LastUpdatedDate], [SubmittedDate], [ReviewRequestedDate], [ClosedDate], [DeletedDate], [LiveDate], [StartDate], [ClosingDate], [SubmittedByUserId], [ReviewRequestedByUserId], [ReviewCount], [ApplicationUrl], [ApplicationMethod], [ApplicationInstructions], [ShortDescription], [Description], [AnonymousReason], [DisabilityConfident], [ContactName], [ContactEmail], [ContactPhone], [EmployerDescription], [EmployerLocations], [EmployerLocationOption], [EmployerLocationInformation], [EmployerName], [EmployerNameOption], [EmployerRejectedReason], [LegalEntityName], [EmployerWebsiteUrl], [GeoCodeMethod], [AccountLegalEntityId], [NumberOfPositions], [OutcomeDescription], [ProgrammeId], [Skills], [Qualifications], [ThingsToConsider], [TrainingDescription], [AdditionalTrainingDescription], [Ukprn], [TrainingProvider_Name], [TrainingProvider_Address], [Wage_Duration], [Wage_DurationUnit], [Wage_WorkingWeekDescription], [Wage_WeeklyHours], [Wage_WageType], [Wage_FixedWageYearlyAmount], [Wage_WageAdditionalInformation], [Wage_CompanyBenefitsInformation], [ClosureReason], [TransferInfo], [AdditionalQuestion1], [AdditionalQuestion2], [HasSubmittedAdditionalQuestions], [HasChosenProviderContactDetails], [HasOptedToAddQualifications], [EmployerReviewFieldIndicators], [ProviderReviewFieldIndicators]','','','',0,1)
+,('rcrt','VacancyReview','dbo','[Id], [VacancyReference], [VacancyTitle], [CreatedDate], [SlaDeadLine], [ReviewedDate], [Status], [SubmissionCount], [ReviewedByUserEmail], [SubmittedByUserEmail], [ClosedDate], [ManualOutcome], [ManualQaComment], [ManualQaFieldIndicators], [AutomatedQaOutcome], [AutomatedQaOutcomeIndicators], [DismissedAutomatedQAOutcomeIndicators], [UpdatedFieldIdentifiers], [VacancySnapshot], [AccountId], [AccountLegalEntityId], [Ukprn], [OwnerType]','','','',0,1)
 
 COMMIT TRANSACTION
 

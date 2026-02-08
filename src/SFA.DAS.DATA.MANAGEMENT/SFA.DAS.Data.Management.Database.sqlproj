@@ -167,12 +167,14 @@
     <Build Include="Tables\AsDataPL_Va_Candidate.sql" />
     <Build Include="Tables\AsDataPL_Va_County.sql" />
     <Build Include="Tables\AsDataPL_Va_Employer.sql" />
+    <Build Include="Tables\AsDataPL_Va_Employer_Rcrt.sql" />
     <Build Include="Tables\AsDataPL_Va_LocalAuthority.sql" />
     <Build Include="Tables\AsDataPL_Va_Provider.sql" />
     <Build Include="Tables\AsDataPL_Va_Vacancy.sql" />
     <Build Include="Tables\AsDataPL_Va_VacancyLocations.sql" />
     <Build Include="Tables\AsDataPL_Va_LegalEntity.sql" />
     <Build Include="StoredProcedure\ImportVacanciesEmployer.sql" />
+    <Build Include="StoredProcedure\ImportVacanciesEmployer_Rcrt.sql" />
     <Build Include="StoredProcedure\ImportVacanciesProvider.sql" />
     <Build Include="StoredProcedure\ImportVacanciesLegalEntity.sql" />
     <Build Include="StoredProcedure\ImportVacancies.sql" />
@@ -388,6 +390,8 @@
     <Build Include="Tables\AsDataPL_aComt_ApprenticeArticle.sql" />
     <Build Include="Tables\AsDataPL_aProg_KSBProgress.sql" />
     <Build Include="Tables\AsDataPL_aProg_Task.sql" />
+    <Build Include="Tables\AsDataPL_aProg_KSBProgressStatusHistory.sql" />
+    <Build Include="Tables\AsDataPL_aProg_TaskKSBs.sql" />
     <Build Include="Tables\ASDataPL_Comt_ApprenticeshipConfirmationStatus.sql" />
     <Build Include="Tables\ASDataPL_LTM_Application.sql" />
     <Build Include="Tables\ASDataPL_LTM_Audit.sql" />

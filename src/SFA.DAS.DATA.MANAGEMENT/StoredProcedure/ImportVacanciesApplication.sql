@@ -73,7 +73,7 @@ INSERT INTO [ASData_PL].[Va_Application]
 	   ,[dbo].[Fn_ConvertGuidToBase64](AR.Id)   as ApplicationGuid
 	   ,ar.CreatedDate as CreatedDateTime
 	   ,'RAAv2'                             as SourceDb
-	   ,AR.ApplicationId                         as SourceApplicationId
+	   ,-1                       as SourceApplicationId
  from Stg.RCRT_ApplicationReview AR
  left
  join ASData_PL.Va_Vacancy V   
@@ -102,7 +102,7 @@ INSERT INTO [ASData_PL].[Va_Application]
       ,AR.[ApplicationGuid]
       ,AR.[CreatedDateTime]
       ,AR.[SourceDb]
-      ,AR.[SourceApplicationId]
+      ,-1
  from [AsData_PL].[Va_Application_Migration_MissingData] AR
  left
  join ASData_PL.Va_Vacancy V   

@@ -11,7 +11,7 @@
       ,[ApplicationGuid] Varchar(256)
 	  ,[CreatedDateTime] DateTime
 	  ,[SourceDb] Varchar(100)
-	  ,[SourceApplicationId] INT
+	  ,[SourceApplicationId] Varchar(256) 
 	  ,[AsDm_UpdatedDateTime]  [datetime2](7)						DEFAULT (getdate())
 	
  

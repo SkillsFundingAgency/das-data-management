@@ -70,7 +70,7 @@ INSERT INTO [AsData_PL].[Va_Application_Migration_MissingData]
  join ASData_PL.Va_Vacancy V   
    ON V.VacancyId=a.VacancyId
   and v.SourceDb='RAAv2'
-  join AsData_PL.Va_Candidate c on a.Candidateid=c.CandidateId
+  LEFT join AsData_PL.Va_Candidate c on a.Candidateid=c.CandidateId
   WHERE  V.VacancyReferenceNumber IN (
 select a.VacancyReference from stg.RAA_ApplicationReviews a 
 where not exists( select 1 from Stg.RCRT_ApplicationReview b where a.VacancyReference=b.VacancyReference))

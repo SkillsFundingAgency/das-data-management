@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[ImportVacanciesEmployerToPL]
+﻿CREATE PROCEDURE [dbo].[ImportVacanciesEmployer_Rcrt]
 (
    @RunId int
 )
@@ -28,19 +28,19 @@ DEClARE @quote varchar(5) = ''''
   SELECT 
         @RunId
 	   ,'Step-6'
-	   ,'ImportVacanciesEmployerToPL'
+	   ,'ImportVacanciesEmployer_Rcrt'
 	   ,getdate()
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
-   WHERE StoredProcedureName='ImportVacanciesEmployerToPL'
+   WHERE StoredProcedureName='ImportVacanciesEmployer_Rcrt'
      AND RunId=@RunID
 
 BEGIN TRANSACTION
 
-TRUNCATE TABLE ASData_PL.Va_Employer
+TRUNCATE TABLE ASData_PL.Va_Employer_Rcrt
 
-INSERT INTO [ASData_PL].[Va_Employer]
+INSERT INTO [ASData_PL].[Va_Employer_Rcrt]
            ([FullName]
            ,[TradingName]
            ,[SourceEmployerId_v1]
@@ -54,7 +54,7 @@ INSERT INTO [ASData_PL].[Va_Employer]
  SELECT     E.FullName               as EmployerFullName
            ,E.TradingName            as TradingName
            ,EmployerId               as SourceEmployerId_v1
-	       ,'N/A'                    as DasAccountId_v2
+	       , -1                   as DasAccountId_v2
 		   ,-1                       as LocalAuthorityId
 		   ,OwnerOrgnistaion         as OwnerOrganisation
 		   ,-1                       as EdsUrn_v1
@@ -62,28 +62,22 @@ INSERT INTO [ASData_PL].[Va_Employer]
 		   ,ETPS.FullName            as EmployerStatusTypeDesc_v1
 		   ,'RAAv1'                  as SourceDb
 	   FROM Stg.Avms_Employer E
-	   LEFT
-	   JOIN Stg.Avms_EmployerTrainingProviderStatus ETPS
+	   LEFT JOIN Stg.Avms_EmployerTrainingProviderStatus ETPS
 	     ON E.EmployerStatusTypeId=ETPS.EmployerTrainingProviderStatusId
-	  UNION
+	  UNION ALL
 	 SELECT DISTINCT
-	        EmployerName             as EmployerFullName
-	       ,EmployerName             as TradingName
+	        TradingName              as EmployerFullName
+	       ,TradingName              as TradingName
 		   ,-1                       as SourceEmployerId_v1
-		   ,EmployerAccountId        as DasAccountId_v2
+		   ,AccountId       		 as DasAccountId_v2
 		   ,-1                       as LocalAuthorityId
 		   ,'N/A'                    as OwnerOrganisation
 		   ,-1                       as EdsUrn_v1
 		   ,-1                       as EmployerStatusTypeId_v1
 		   ,'N/A'                    as EmployerStatusTypeDesc_v1
-		   ,'RAAv2'                  as SourceDb
-	   FROM (SELECT DISTINCT EmployerAccountId,EmployerName,row_number() over (Partition by EmployerAccountId order by EmployerName Desc) rn
-	           from Stg.RAA_Vacancies) v
-	  where rn=1
-
-
-EXEC ImportVacanciesEmployer_Rcrt @RunId
-
+		   ,'RCRT'                  as SourceDb
+	   FROM Stg.RCRT_EmployerProfile v
+	  
 
 
 COMMIT TRANSACTION
@@ -122,7 +116,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'ImportVacanciesEmployerToPL',
+	    'ImportVacanciesEmployer_Rcrt',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 

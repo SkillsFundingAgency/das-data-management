@@ -110,7 +110,7 @@ INSERT INTO [ASData_PL].[Va_Application]
   and v.SourceDb='RAAv2'
  left
  join AsData_PL.Va_Candidate C
-   on C.SourceCandidateId_v2=AR.[SourceCandidateId] 
+   on (C.SourceCandidateId_v2=AR.[SourceCandidateId])  or (C.SourceCandidateId_v3=AR.[SourceCandidateId])
 
 
 

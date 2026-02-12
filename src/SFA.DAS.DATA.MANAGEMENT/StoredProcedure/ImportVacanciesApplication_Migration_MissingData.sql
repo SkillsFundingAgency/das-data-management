@@ -55,7 +55,7 @@ INSERT INTO [AsData_PL].[Va_Application_Migration_MissingData]
                   ,[SourceApplicationId])
     select 
         V.VacancyReferenceNumber,
-        Coalesce(c.SourceCandidateId_v2,c.SourceCandidateId_v3) AS SourceCandidateId
+         Coalesce(NULLIF(c.SourceCandidateId_v2, ''),NULLIF(c.SourceCandidateId_v3, '')) AS SourceCandidateId
       ,a.[ApplicationStatusTypeId]
       ,a.[ApplicationStatusDesc]
       ,a.[CandidateAgeAtApplication]

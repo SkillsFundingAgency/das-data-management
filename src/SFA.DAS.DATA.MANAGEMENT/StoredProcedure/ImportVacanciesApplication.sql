@@ -84,7 +84,7 @@ INSERT INTO [ASData_PL].[Va_Application]
    on C.SourceCandidateId_v2=[dbo].[Fn_ConvertGuidToBase64](AR.CandidateId)  
  left 
  join AsData_PL.Va_Candidate C2
-   on C2.SourceCandidateId_v3=[dbo].[Fn_ConvertGuidToBase64](AR.CandidateId)  
+   on C2.SourceCandidateId_v3=CAST(AR.CandidateId AS varchar(256))  
  left
  join Stg.FAA_CandidateDob FCD
    ON FCD.CandidateId=[dbo].[Fn_ConvertGuidToBase64](AR.CandidateId)  

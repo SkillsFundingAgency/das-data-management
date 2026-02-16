@@ -569,7 +569,21 @@
     <Build Include="Tables\ASDataPL_PAS_UserSettings.sql" />
     <Build Include="StoredProcedure\ImportVaAddInfoApprenticeshipsToPL_Rcrt.sql" />
     <Build Include="Tables\AsDataPL_Va_Apprenticeships_Rcrt.sql" />
-    <Build Include="StoredProcedure\BackupRAATables.sql" />
     <Build Include="Schemas\StgRAA.sql" />
+    <Build Include="Tables\StgRAA_RAA_Users.sql" />
+    <Build Include="Tables\StgRAA_RAA_Vacancies.sql" />
+    <Build Include="Tables\StgRAA_RAA_EmployerLocations.sql" />
+    <Build Include="Tables\StgRAA_RAA_VacancyReview_AutoQAoutcome.sql" />
+    <Build Include="Tables\StgRAA_RAA_VacancyReview_AutoQARuleoutcome.sql" />
+    <Build Include="Tables\StgRAA_RAA_VacancyReview_AutoQAoutcomedetails.sql" />
+    <Build Include="Tables\StgRAA_RAA_VacancyReview_AutoQAoutcomeID.sql" />
+    <Build Include="Tables\StgRAA_RAA_ApplicationReviews.sql" />
+    <Build Include="Tables\StgRAA_RAA_ReferenceDataCandidateSkills.sql" />
+    <Build Include="Tables\StgRAA_RAA_ReferenceDataQualificationTypes.sql" />
+    <Build Include="Tables\StgRAA_RAA_ReferenceDataBankHolidays.sql" />
+    <Build Include="Tables\StgRAA_RAA_ReferenceDataApprenticeshipProgrammes.sql" />
+    <Build Include="Tables\StgRAA_RAA_ReferenceDataBannedPhrases.sql" />
+    <Build Include="Tables\StgRAA_RAA_ReferenceDataProfanities.sql" />
+    <Build Include="Tables\StgRAA_RAA_VacancyReviews.sql" />
   </ItemGroup>
 </Project>

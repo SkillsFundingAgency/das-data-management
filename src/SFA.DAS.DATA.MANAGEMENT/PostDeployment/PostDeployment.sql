@@ -27,3 +27,5 @@ DROP TABLE IF EXISTS [ASData_PL].[AR_Apprentice]
 --DROP TABLE IF EXISTS [ASData_PL].[Provider]
 
 --DROP VIEW IF EXISTS [Pds_AI].[PT_E]
+
+EXEC stg.BackupRAATables

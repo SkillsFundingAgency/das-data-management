@@ -40,6 +40,9 @@ BEGIN TRANSACTION
 
 TRUNCATE TABLE ASData_PL.Va_Application
 
+
+
+
 INSERT INTO [ASData_PL].[Va_Application]
            ([CandidateId]
            ,[VacancyId]
@@ -53,6 +56,45 @@ INSERT INTO [ASData_PL].[Va_Application]
            ,[CreatedDateTime]
            ,[SourceDb]
            ,[SourceApplicationId])
+
+
+
+   SELECT  c.CandidateId                  as CandidateId
+           ,v.[VacancyId]                  as VacancyId
+           ,AA.[ApplicationStatusTypeId]   as ApplicationStatusTypeId
+	       ,AST.FullName                   as ApplicationStatusDesc
+		   ,SAA.AgeAtApplication           as CandidateAgeAtApplication
+           ,[BeingSupportedBy]             as BeingSupportedBy        
+           ,[LockedForSupportUntil]        as LockedForSupportUntil
+          ,Case when AA.ApplicationStatusTypeId in (4,8) THEN 1
+	            ELSE 0
+	        END                            as IsWithdrawn
+          ,cast([ApplicationGuid] as varchar(256)) as ApplicationGuid
+		  ,AH.HistoryDate                  as CreatedDateTime
+		  ,'RAAv1'                         as SourceDb
+		  ,AA.ApplicationId                as SourceApplicationId
+  FROM [Stg].[Avms_Application] AA
+  LEFT
+  JOIN ASData_PL.Va_Vacancy v
+    ON v.SourceVacancyId=AA.VacancyId
+   AND v.SourceDb='RAAv1'
+  LEFT
+  JOIN Stg.Avms_ApplicationStatusType AST
+    ON AA.ApplicationStatusTypeId=AST.ApplicationStatusTypeId
+  left
+  join (select ApplicationId,min(ApplicationHistoryEventDate) HistoryDate
+          from Stg.Avms_ApplicationHistory Ah
+		 group by ApplicationId) AH
+          ON AH.ApplicationId=AA.ApplicationId
+  left
+  join ASData_PL.Va_Candidate C
+    on c.SourceCandidateId_v1=AA.CandidateId
+  left
+  join Stg.Avms_AgeAtApplication SAA
+    on SAA.ApplicationId=AA.ApplicationId
+    
+ UNION 
+
    SELECT
       CASE WHEN C.CandidateId IS NULL THEN C2.CandidateId ELSE c.CandidateId END AS CandidateId 
 	   ,v.VacancyId                         as VacancyId

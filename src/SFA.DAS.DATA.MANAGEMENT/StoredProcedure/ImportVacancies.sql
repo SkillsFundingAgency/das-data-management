@@ -38,6 +38,8 @@ DEClARE @quote varchar(5) = ''''
 
 BEGIN TRANSACTION
 
+EXEC [dbo].[ImportVacanciesApplicationToPL_Migration_MissingData] @RunId;
+
 TRUNCATE TABLE ASData_PL.Va_Application  -- Delete Application First to be able to resolve Foreign key conflicts */
 
 TRUNCATE TABLE ASData_PL.Va_Apprenticeships -- Delete Apprenticeships First to be able to resolve Foreign key conflicts */
@@ -574,7 +576,7 @@ SELECT  cast(v.BinaryId as varchar(256))                        as VacancyGuid
 
 EXEC [dbo].[ImportVacanciesCandidateToPL] @RunId;
 
-EXEC [dbo].[ImportVacanciesApplicationToPL_Migration_MissingData] @RunId;
+
 
 EXEC [dbo].[ImportVacanciesApplicationToPL] @RunId;
 

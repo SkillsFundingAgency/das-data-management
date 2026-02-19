@@ -446,6 +446,7 @@
     <Build Include="Tables\AsDataPL_Comt_TransferRequest.sql" />
     <Build Include="Tables\AsData_PL_Comt_Standard.sql" />
     <Build Include="Tables\AsDataPL_Comt_OverlappingTrainingDateRequest.sql" />
+     <Build Include="Tables\AsDataPL_Comt_FileUploadCohortLog.sql" />
     <Build Include="Tables\AsDataPL_EI_EmploymentCheck.sql" />
     <Build Include="Tables\ASDataPL_Cmphs_CompaniesHouseData.sql" />
     <Build Include="Views\PdsAI_PT_CompaniesHouse.sql" />

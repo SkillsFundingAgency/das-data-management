@@ -38,9 +38,9 @@ DEClARE @quote varchar(5) = ''''
 
 BEGIN TRANSACTION
 
-TRUNCATE TABLE ASData_PL.Va_Provider
+TRUNCATE TABLE ASData_PL.Va_Provider_Rcrt
 
-INSERT INTO [ASData_PL].[Va_Provider]
+INSERT INTO [ASData_PL].[Va_Provider_Rcrt]
            ([UPIN_v1]
            ,[SourceProviderID_v1]
            ,[UKPRN]

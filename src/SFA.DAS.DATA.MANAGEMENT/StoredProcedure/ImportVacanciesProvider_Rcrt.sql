@@ -93,7 +93,7 @@ INSERT INTO [ASData_PL].[Va_Provider_Rcrt]
 		    FROM [Stg].[RCRT_Vacancy]) sv
   WHERE rn=1
     AND NOT EXISTS (SELECT 1 FROM Stg.Avms_Provider P
-	                 WHERE P.Ukprn=SV.TrainingProviderUkprn)
+	                 WHERE P.Ukprn=SV.Ukprn)
 
 
 

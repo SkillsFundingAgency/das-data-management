@@ -100,7 +100,7 @@ INSERT INTO Mtd.SourceConfigForImport
 VALUES
  ('Candacc','AboutYou','dbo','[Id],[CandidateId],[Sex], [IsGenderIdentifySameSexAtBirth], [EthnicGroup], [EthnicSubGroup], [OtherEthnicSubGroupAnswer]','','',1)
 ,('Candacc','CandidatePreferences','dbo','[Id],[CandidateId], [PreferenceId], [Status], [CreatedOn], [UpdatedOn], [ContactMethod]','','',1)
-,('Candacc','Application','dbo','[Id], [CandidateId], [DisabilityStatus], [VacancyReference], [Status], [CreatedDate], [UpdatedDate], [SubmittedDate],  [ResponseNotes],  [MigrationDate]','[WithdrawnDate], [ResponseDate],[QualificationsStatus], [TrainingCoursesStatus], [JobsStatus], [WorkExperienceStatus], [SkillsAndStrengthStatus], [InterestsStatus], [AdditionalQuestion1Status], [AdditionalQuestion2Status], [InterviewAdjustmentsStatus], [DisabilityConfidenceStatus], [WhatIsYourInterest], [ApplyUnderDisabilityConfidentScheme],[PreviousAnswersSourceId], [Strengths], [Support]','',1)
+,('Candacc','Application','dbo','[Id], [CandidateId], [DisabilityStatus], [VacancyReference], [Status], [CreatedDate], [UpdatedDate], [SubmittedDate], [ResponseDate], [WithdrawnDate], [ResponseNotes], [QualificationsStatus], [TrainingCoursesStatus], [JobsStatus], [WorkExperienceStatus], [SkillsAndStrengthStatus], [InterestsStatus], [AdditionalQuestion1Status], [AdditionalQuestion2Status], [InterviewAdjustmentsStatus], [DisabilityConfidenceStatus], [WhatIsYourInterest], [ApplyUnderDisabilityConfidentScheme], [PreviousAnswersSourceId], [Strengths], [Support], [MigrationDate]','','',1)
 ,('Candacc','Address','dbo','[Id], [Uprn], [AddressLine1], [AddressLine2], [Town], [County], [Postcode], [Latitude], [Longitude], [CandidateId]','','',1)
 
 /*RAT Metadata*/
@@ -116,7 +116,8 @@ VALUES
 ('RAT','Region','dbo','[Id], [SubregionName], [RegionName], [Latitude], [Longitude], [ValidFrom], [ValidTo]','','',1,0,'RAT_Region'),
 ('RAT','RequestStatus','dbo','[Id], [Description]','','',1,0,'RAT_RequestStatus'),
 ('RAT','RequestType','dbo','[Id], [Description]','','',1,0,'RAT_RequestType'),
-('RAT','Standard','dbo','[StandardReference], [StandardTitle], [StandardLevel], [StandardSector]','','',1,0,'RAT_Standard')
+('RAT','Standard','dbo','[StandardReference], [StandardTitle], [StandardLevel], [StandardSector]','','',1,0,'RAT_Standard'),
+('RAT','ProviderResponseEmployerRequestHistory','dbo','[EmployerRequestId],[Ukprn], [ProviderResponseId], [AcknowledgedAt], [AcknowledgedBy],[ValidFrom],[ValidTo]','','',1,0,'RAT_ProviderResponseEmployerRequestHistory')
 
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)
@@ -162,7 +163,7 @@ VALUES
 ,('Accounts','Paye','employer_account','[Name]','[AccessToken],[RefreshToken],[Aorn]','[Ref]','Acc_Paye',1)
 ,('Commitments','Accounts','dbo','[Id],[HashedId],[Created],[Updated],[LevyStatus]','[PublicHashedId]','[Name]','Comt_Accounts',1)
 ,('Commitments','Commitment','dbo','[Id],[Reference],[EmployerAccountId],[ProviderId],[CommitmentStatus],[EditStatus],[CreatedOn],[LastAction],[TransferSenderId],[TransferApprovalStatus],[TransferApprovalActionedOn],[Originator],[ApprenticeshipEmployerTypeOnApproval],[IsFullApprovalProcessed],[IsDeleted],[AccountLegalEntityId],[IsDraft],[WithParty],[LastUpdatedOn],[Approvals],[EmployerAndProviderApprovedOn],[ChangeOfPartyRequestId],[PledgeApplicationId]','[LastUpdatedByEmployerName],[LastUpdatedByEmployerEmail],[LastUpdatedByProviderName],[LastUpdatedByProviderEmail],[TransferApprovalActionedByEmployerName],[TransferApprovalActionedByEmployerEmail],[RowVersion]','','comt_commitment',0)
-,('Commitments','Apprenticeship','dbo','[Id],[CommitmentId],[TrainingType],[TrainingCode],[TrainingName],[Cost],[StartDate],[EndDate],[AgreementStatus],[PaymentStatus],[CreatedOn],[AgreedOn],[PaymentOrder],[StopDate],[PauseDate],[HasHadDataLockSuccess],[PendingUpdateOriginator],[EPAOrgId],[CloneOf],[ReservationId],[IsApproved],[CompletionDate],[ContinuationOfId],[MadeRedundant],[OriginalStartDate],[TrainingCourseVersion],[TrainingCourseVersionConfirmed],[TrainingCourseOption],[DeliveryModel],[RecognisePriorLearning],[IsOnFlexiPaymentPilot],[TrainingTotalHours],[ActualStartDate],[EmailAddressConfirmed],[LastUpdated],[UpdatedOn],[EmployerHasEditedCost],[EndPointAssessmentPrice],[TrainingPrice]','[NINumber],[EmployerRef],[ProviderRef],[Email],[FirstName],[LastName]','[ULN],[StandardUId],[DateOfBirth]','comt_Apprenticeship',1)
+,('Commitments','Apprenticeship','dbo','[Id],[CommitmentId],[TrainingType],[TrainingCode],[TrainingName],[Cost],[StartDate],[EndDate],[AgreementStatus],[PaymentStatus],[CreatedOn],[AgreedOn],[PaymentOrder],[StopDate],[PauseDate],[HasHadDataLockSuccess],[PendingUpdateOriginator],[EPAOrgId],[CloneOf],[ReservationId],[IsApproved],[CompletionDate],[ContinuationOfId],[MadeRedundant],[OriginalStartDate],[TrainingCourseVersion],[TrainingCourseVersionConfirmed],[TrainingCourseOption],[DeliveryModel],[RecognisePriorLearning],[TrainingTotalHours],[ActualStartDate],[EmailAddressConfirmed],[LastUpdated],[UpdatedOn],[EmployerHasEditedCost],[EndPointAssessmentPrice],[TrainingPrice],[LearnerDataId]','[NINumber],[EmployerRef],[ProviderRef],[Email],[FirstName],[LastName]','[ULN],[StandardUId],[DateOfBirth]','comt_Apprenticeship',1)
 ,('Commitments','ApprenticeshipFlexibleEmployment','dbo','[ApprenticeshipId],[EmploymentPrice],[EmploymentEndDate]','','','Comt_ApprenticeshipFlexibleEmployment',0)
 ,('Commitments','ApprenticeshipUpdate','dbo','[Id],[ApprenticeshipId],[Originator],[Status],[TrainingType],[TrainingCode],[TrainingName],[TrainingCourseVersion],[TrainingCourseOption],[Cost],[StartDate],[EndDate],[CreatedOn],[UpdateOrigin],[EffectiveFromDate],[EffectiveToDate],[DeliveryModel],[EmploymentPrice],[EmploymentEndDate],[StandardUId],[TrainingCourseVersionConfirmed],[ActualStartDate]','[FirstName],[LastName],[DateOfBirth],[Email]','','comt_ApprenticeshipUpdate',0)
 ,('Commitments','Providers','dbo','[Created],[Updated]','','[Ukprn],[Name]','Comt_Providers',1)
@@ -173,19 +174,20 @@ VALUES
 ,('Commitments','ApprenticeshipPriorLearning','dbo','[ApprenticeshipId],[DurationReducedBy],[PriceReducedBy],[IsAccelerated],[DurationReducedByHours],[IsDurationReducedByRpl]','','','Comt_ApprenticeshipPriorLearning',0)
 ,('Commitments','TransferRequest','dbo','[Id],[CommitmentId],[TrainingCourses],[Cost],[Status],[TransferApprovalActionedOn],[CreatedOn],[FundingCap],[AutoApproval]','[TransferApprovalActionedByEmployerName],[TransferApprovalActionedByEmployerEmail]','','Comt_TransferRequest',0)
 ,('Commitments','OverlappingTrainingDateRequest','dbo','[Id],[DraftApprenticeshipId],[PreviousApprenticeshipId],[ResolutionType],[Status],[CreatedOn],[ActionedOn],[NotifiedServiceDeskOn],[NotifiedEmployerOn]','[RequestCreatedByProviderEmail],[RowVersion]','','Comt_OverlappingTrainingDateRequest',0)
+,('Commitments','FileUploadCohortLog','dbo','[Id], [FileUploadLogId],[CommitmentId],[RowCount]','','','Comt_FileUploadCohortLog',0)
 ,('Finance','AccountTransfers','employer_financial','[Id],[SenderAccountId],[ReceiverAccountId],[ApprenticeshipId],[CourseName],[CourseLevel],[PeriodEnd],[Amount],[Type],[CreatedDate],[RequiredPaymentId]','[SenderAccountName],[ReceiverAccountName]','','fin_AccountTransfers',0)
 ,('Finance','GetLevyDeclarationAndTopUp','employer_financial','[Id],[AccountId],[SubmissionDate],[SubmissionId],[LevyDueYTD],[EnglishFraction],[TopUpPercentage],[PayrollYear],[PayrollMonth],[LastSubmission],[CreatedDate],[EndOfYearAdjustment],[EndOfYearAdjustmentAmount],[LevyAllowanceForYear],[DateCeased],[InactiveFrom],[InactiveTo],[HmrcSubmissionId],[NoPaymentForPeriod],[LevyDeclaredInMonth],[TopUp],[TotalAmount]','','[EmpRef]','fin_GetLevyDeclarationAndTopUp',1)
 ,('Finance','TransferConnectionInvitation','employer_financial','[Id],[SenderAccountId],[ReceiverAccountId],[Status],[DeletedBySender],[DeletedByReceiver],[CreatedDate]','','','fin_TransferConnectionInvitation',0)
 ,('Finance','TransferConnectionInvitationChange','employer_financial','[Id],[TransferConnectionInvitationId],[SenderAccountId],[ReceiverAccountId],[Status],[DeletedBySender],[DeletedByReceiver],[UserId],[CreatedDate]','','','fin_TransferConnectionInvitationChange',0)
 ,('Reservation','Reservation','dbo','[Id],[AccountId],[IsLevyAccount],[CreatedDate],[StartDate],[ExpiryDate],[Status],[CourseId],[AccountLegalEntityId],[ProviderId],[TransferSenderAccountId],[UserId],[ClonedReservationId],[ConfirmedDate],[CohortId],[DraftApprenticeshipId]','[AccountLegalEntityName]','','resv_Reservation',0)
 ,('Reservation','Course','dbo','[CourseId],[Title],[Level],[EffectiveTo]','','','resv_Course',0)
-
+,('Reservation','ProviderPermission','dbo','[AccountId],[AccountLegalEntityId],[Ukprn],[CanCreateCohort]','','','Resv_ProviderPermission',0)
 
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,StagingTableName,[ModelDataToPL])
 /* Accounts and Users */
 VALUES
- ('Finance','Payment','employer_financial','[PaymentId],[AccountId],[ApprenticeshipId],[DeliveryPeriodMonth],[DeliveryPeriodYear],[CollectionPeriodId],[CollectionPeriodMonth],[CollectionPeriodYear],[EvidenceSubmittedOn],[EmployerAccountVersion],[ApprenticeshipVersion],[FundingSource],[TransactionType],[Amount],[PeriodEnd],[PaymentMetaDataId],[DateImported]','[Ukprn],[Uln]','','fin_Payment','finance_Payment',1)
+('Finance','Payment','employer_financial','[PaymentId],[AccountId],[ApprenticeshipId],[DeliveryPeriodMonth],[DeliveryPeriodYear],[CollectionPeriodId],[CollectionPeriodMonth],[CollectionPeriodYear],[EvidenceSubmittedOn],[EmployerAccountVersion],[ApprenticeshipVersion],[FundingSource],[TransactionType],[Amount],[PeriodEnd],[PaymentMetaDataId],[DateImported]','[Ukprn],[Uln]','','fin_Payment','fin_Payment',0)
 ,('Finance','TransactionLine','employer_financial','[Id],[AccountId],[DateCreated],[SubmissionId],[TransactionDate],[TransactionType],[LevyDeclared],[Amount],[PeriodEnd],[SfaCoInvestmentAmount],[EmployerCoInvestmentAmount],[EnglishFraction],[TransferSenderAccountId],[TransferReceiverAccountId],[TransferSenderAccountName],[TransferReceiverAccountName]','','[EmpRef],[Ukprn]','fin_TransactionLine','fin_TransactionLine',1)
 
 
@@ -208,11 +210,11 @@ VALUES
 ('CRS','ApprenticeshipFunding','dbo','[Id],[StandardUId],[EffectiveFrom],[EffectiveTo],[MaxEmployerLevyCap],[Duration]','','',1,0,'FAT2_ApprenticeshipFunding'),
 ('CRS','Framework','dbo','[Id],[ProgType],[FrameworkCode],[PathwayCode],[Level],[TypicalLengthFrom],[TypicalLengthTo],[TypicalLengthUnit],[Duration],[CurrentFundingCap],[MaxFunding],[Ssa1],[Ssa2],[EffectiveFrom],[EffectiveTo],[IsActiveFramework],[ProgrammeType],[HasSubGroups],[ExtendedTitle]','','[Title],[FrameworkName],[PathwayName]',1,1,'FAT2_Framework'),
 ('CRS','FrameworkFundingPeriod','dbo','[Id],[FrameworkId],[EffectiveFrom],[EffectiveTo],[FundingCap]','','',1,0,'FAT2_FrameworkFundingPeriod'),
-('CRS','LarsStandard','dbo','[LarsCode],[Version],[EffectiveFrom],[EffectiveTo],[LastDateStarts],[SectorSubjectAreaTier2],[OtherBodyApprovalRequired],[SectorCode],[SectorSubjectAreaTier1]','','',1,0,'FAT2_LarsStandard'),
+('CRS','LarsStandard','dbo','[LarsCode],[Version],[EffectiveFrom],[EffectiveTo],[LastDateStarts],[SectorSubjectAreaTier2],[OtherBodyApprovalRequired],[SectorCode],[SectorSubjectAreaTier1],[ApprenticeshipStandardTypeCode]','','',1,0,'FAT2_LarsStandard'),
 ('CRS','Route','dbo','[Id],[Name]','','',1,1,'FAT2_StandardSector'),
 ('CRS','SectorSubjectAreaTier2','dbo','[SectorSubjectAreaTier2],[SectorSubjectAreaTier2Desc],[EffectiveFrom],[EffectiveTo]','','[Name]',1,0,'FAT2_SectorSubjectAreaTier2'),
 ('CRS','SectorSubjectAreaTier1','dbo','[SectorSubjectAreaTier1],[SectorSubjectAreaTier1Desc],[EffectiveFrom],[EffectiveTo]','','',1,0,'FAT2_SectorSubjectAreaTier1'),
-('CRS','Standard','dbo','[StandardUId],[IfateReferenceNumber],[LarsCode],[Status],[VersionEarliestStartDate],[VersionLatestStartDate],[VersionLatestEndDate],[Level],[ProposedTypicalDuration],[ProposedMaxFunding],[IntegratedDegree],[OverviewOfRole],[RouteCode],[AssessmentPlanUrl],[ApprovedForDelivery],[Keywords],[TypicalJobTitles],[StandardPageUrl],[Version],[RegulatedBody],[Skills],[Knowledge],[Behaviours],[Duties],[CoreAndOptions],[IntegratedApprenticeship],[Options],[CoreDuties],[Old_Options],[EPAChanged],[VersionMajor],[VersionMinor],[CoronationEmblem],[EpaoMustBeApprovedByRegulatorBody]','','[Title],[TrailBlazerContact],[EqaProviderName],[EqaProviderContactName],[EqaProviderContactEmail],[EqaProviderWebLink]',1,1,'FAT2_StandardSector')
+('CRS','Standard','dbo','[StandardUId],[IfateReferenceNumber],[LarsCode],[Status],[VersionEarliestStartDate],[VersionLatestStartDate],[VersionLatestEndDate],[Level],[ProposedTypicalDuration],[ProposedMaxFunding],[IntegratedDegree],[OverviewOfRole],[RouteCode],[AssessmentPlanUrl],[ApprovedForDelivery],[Keywords],[TypicalJobTitles],[StandardPageUrl],[Version],[RegulatedBody],[Skills],[Knowledge],[Behaviours],[Duties],[CoreAndOptions],[IntegratedApprenticeship],[Options],[CoreDuties],[EPAChanged],[VersionMajor],[VersionMinor],[CoronationEmblem],[EpaoMustBeApprovedByRegulatorBody],[ApprenticeshipType]','','[Title],[TrailBlazerContact],[EqaProviderName],[EqaProviderContactName],[EqaProviderContactEmail],[EqaProviderWebLink]',1,1,'FAT2_StandardSector')
 
 /* PREL Import Configurations */
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
@@ -257,7 +259,7 @@ VALUES
 ('Roatpv2','Provider','dbo','[Id],[TradingName],[EmployerSatisfaction],[LearnerSatisfaction]','[Phone],[Website],[MarketingInfo],[IsImported]','[Ukprn],[LegalName],[Email]',1,1,'FAT_ROATPV2_Provider'),
 ('Roatpv2','ProviderCourse','dbo','[Id],[ProviderId],[LarsCode],[StandardInfoUrl],[IsApprovedByRegulator],[IsImported],[HasPortableFlexiJobOption],[CreatedDate]','[ContactUsPhoneNumber],[ContactUsPageUrl]','[ContactUsEmail]',1,0,'FAT_ROATPV2_ProviderCourse'),
 ('Roatpv2','ProviderCourseLocation','dbo','[Id],[NavigationId],[ProviderCourseId],[ProviderLocationId],[HasDayReleaseDeliveryOption],[HasBlockReleaseDeliveryOption],[IsImported]','','',1,0,'FAT_ROATPV2_ProviderCourseLocation'),
-('Roatpv2','ProviderLocation','dbo','[Id],[ImportedLocationId],[NavigationId],[ProviderId],[RegionId],[Postcode],[Latitude],[Longitude],[IsImported],[LocationType]','[Phone],[AddressLine1],[AddressLine2],[Town],[County]','[LocationName],[Email],[Website]',1,0,'FAT_ROATPV2_ProviderLocation'),
+('Roatpv2','ProviderLocation','dbo','[Id],[ImportedLocationId],[NavigationId],[ProviderId],[RegionId],[Postcode],[Latitude],[Longitude],[IsImported],[LocationType]','[AddressLine1],[AddressLine2],[Town],[County]','[LocationName]',1,0,'FAT_ROATPV2_ProviderLocation'),
 ('Roatpv2','ProviderRegistrationDetail','dbo','[LegalName],[StatusId],[StatusDate],[OrganisationTypeId],[ProviderTypeId],[Town]','[AddressLine1],[AddressLine2],[AddressLine3],[AddressLine4],[Latitude],[Longitude],[Postcode]','[Ukprn]',1,0,'FAT_ROATPV2_ProviderRegistrationDetail'),
 ('Roatpv2','ProviderAddress','dbo','[Id],[ProviderId],[Postcode],[Latitude],[Longitude],[AddressUpdateDate],[CoordinatesUpdateDate]','[AddressLine1],[AddressLine2],[AddressLine3],[AddressLine4],[Town]','',1,0,'FAT_ROATPV2_ProviderAddress'),
 ('Roatpv2','Standard','dbo','[StandardUId],[LarsCode],[IfateReferenceNumber],[Level],[Version],[ApprovalBody],[SectorSubjectArea],[SectorSubjectAreaTier1]','','[Title]',1,0,'FAT_ROATPV2_Standard')
@@ -343,7 +345,7 @@ VALUES
  ,('Assessor','CertificateLogs','dbo','[Id],[Action],[CertificateId],[EventTime],[Status],[BatchNumber],[ReasonForChange],[LatestEpaOutcome],[StandardName],[StandardLevel],[StandardPublicationDate],[ContactOrganisation],[Registration],[LearningStartDate],[AchievementDate],[CourseOption],[OverallGrade],[Department]','','[ContactPostCode]',1,1,
 	'select [Id],[Action],[CertificateId],[EventTime],[Status],[BatchNumber],[ReasonForChange],[LatestEpaOutcome],[StandardName],[StandardLevel],[StandardPublicationDate],[ContactOrganisation],left(ContactPostCode,len(ContactPostCode)-charindex('''' '''',ContactPostCode)+1) [ContactPostCode],[Registration],[LearningStartDate],[AchievementDate],[CourseOption],[OverallGrade],[Department] FROM ( select [Id],[Action],[CertificateId],[EventTime],[Status],[BatchNumber],[ReasonForChange],[LatestEpaOutcome],JSON_VALUE(CertificateData,''''$.StandardName'''') [StandardName],JSON_VALUE(CertificateData,''''$.StandardLevel'''') [StandardLevel],JSON_VALUE(CertificateData,''''$.StandardPublicationDate'''') [StandardPublicationDate],JSON_VALUE(CertificateData,''''$.ContactOrganisation'''') [ContactOrganisation],JSON_VALUE(CertificateData,''''$.ContactPostCode'''') [ContactPostCode],JSON_VALUE(CertificateData,''''$.Registration'''') [Registration],JSON_VALUE(CertificateData,''''$.LearningStartDate'''') [LearningStartDate],JSON_VALUE(CertificateData,''''$.AchievementDate'''') [AchievementDate],JSON_VALUE(CertificateData,''''$.CourseOption'''') [CourseOption],JSON_VALUE(CertificateData,''''$.OverallGrade'''') [OverallGrade],JSON_VALUE(CertificateData,''''$.Department'''') [Department] from [dbo].[CertificateLogs] ) As Query',
     'Assessor_CertificateLogs')
- ,('Assessor','Organisations','dbo','[Id],[CreatedAt],[DeletedAt],[EndPointAssessorOrganisationId],[Status],[UpdatedAt],[OrganisationTypeId],[ApiEnabled],[ApiUser],[RecognitionNumber]','','[EndPointAssessorName],[EndPointAssessorUkprn]',0,1,
+ ,('Assessor','Organisations','dbo','[Id],[CreatedAt],[DeletedAt],[EndPointAssessorOrganisationId],[Status],[UpdatedAt],[OrganisationTypeId],[ApiEnabled],[ApiUser],[RecognitionNumber],[EndPointAssessorName],[EndPointAssessorUkprn]','','',0,1,
     'select [Id],[CreatedAt],[DeletedAt],[EndPointAssessorName],[EndPointAssessorOrganisationId],[EndPointAssessorUkprn],[Status],[UpdatedAt],[OrganisationTypeId],[ApiEnabled],[ApiUser],[RecognitionNumber] From [dbo].[Organisations]',
     'Assessor_Organisations')
  ,('Assessor','OrganisationStandardDeliveryArea','dbo','[Id],[OrganisationStandardId],[DeliveryAreaId],[Comments],[Status]','','',0,1,
@@ -410,7 +412,7 @@ INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
 VALUES
 ('ProviderApprenticeshipService','User','dbo','[Id],[IsDeleted],[UserType],[LastLogin]','','[UserRef],[DisplayName],[Ukprn],[Email]','PAS_User',0,1) 
-  
+,('ProviderApprenticeshipService','UserSettings','dbo','[Id],[UserId],[ReceiveNotifications]','','[UserRef]','PAS_UserSettings',0,1)  
 /* E Commitments  Config */
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
@@ -467,8 +469,9 @@ INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
 VALUES
 ('Aprog','KSBProgress','dbo','[KSBProgressId], [ApprenticeshipId], [KSBProgressType], [KSBId], [KSBKey], [CurrentStatus], [Note]','','','aProg_KSBProgress',0,1),
-('Aprog','Task','dbo','[TaskId], [ApprenticeshipId], [DueDate], [Title], [ApprenticeshipCategoryId], [Note], [CompletionDateTime], [CreatedDateTime], [Status]','','','aProg_Task',0,1)
-
+('Aprog','Task','dbo','[TaskId], [ApprenticeshipId], [DueDate], [Title], [ApprenticeshipCategoryId], [Note], [CompletionDateTime], [CreatedDateTime], [Status]','','','aProg_Task',0,1),
+('Aprog','TaskKSBs','dbo','[TaskId], [KSBProgressId]','','','aProg_TaskKSBs',0,1),
+('Aprog','KSBProgressStatusHistory','dbo','[KSBProgressId], [Status], [StatusTime]','','','aProg_KSBProgressStatusHistory',0,1)
 
 
 /* Apprentice Feedback Config */
@@ -522,6 +525,28 @@ VALUES
 	   ,'select [ScheduledEmploymentVerificationId], [CommitmentId], [ApprenticeshipId], [ULN], [UKPRN], [EmployerAccountId], [CommitmentStartDate], [CommitmentStatusId], [PaymentStatusId], [ApprovalsStatusId], [EmployerAndProviderApprovedOn], [TransferApprovalActionedOn], [EmploymentCheckCount], [CreatedOn], [LastUpdatedOn] FROM [dbo].[ScheduledEmploymentVerification]'
 	   ,'EVS_ScheduledEmploymentVerification')
 
+
+/* AODP  Config */
+
+INSERT INTO Mtd.SourceConfigForImport
+(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
+VALUES
+ ('Aodp','MS_KPI_RQR_CR_CT_001','regulated','[Qan], [QualificationName], [VersionNumber_StartReviewCycle], [VersionNumber_EndReviewCycle], [Status], [IsOutcomeDecision], [Duration_Hours], [InsertedTimestamp]','','','AODP_MS_KPI_RQR_CR_CT_001',0,1)
+,('Aodp','Applications','dbo','[Id], [FormVersionId], [OrganisationId], [Owner], [Submitted], [SubmittedAt], [CreatedAt], [QualificationNumber], [ReferenceId], [UpdatedAt], [Status], [AwardingOrganisationName], [NewMessage]','','[Name],[AwardingOrganisationUkprn]','AODP_Applications',0,1)
+,('Aodp','AwardingOrganisation','dbo','[Id], [RecognitionNumber], [NameLegal], [NameOfqual], [NameGovUk], [Name_Dsi], [Acronym]','','[Ukprn]','AODP_AwardingOrganisation',0,1)
+,('Aodp','Messages','dbo','[Id], [ApplicationId], [Text], [Type], [MessageHeader], [SharedWithDfe], [SharedWithOfqual], [SharedWithSkillsEngland], [SharedWithAwardingOrganisation], [SentAt], [SentByName], [SentByEmail]','','','AODP_Messages',0,1)
+,('Aodp','Surveys','dbo','[Id], [Page], [SatisfactionScore], [Comments], [Timestamp]','','','AODP_Surveys',0,1)
+
+/* rcrtalt  Config */
+
+INSERT INTO Mtd.SourceConfigForImport
+(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,PLTableName,[ModelDataToPL],[FullCopyToPL])
+VALUES
+ ('rcrt','ApplicationReview','dbo','[Id],[Ukprn],[AccountId],[AccountLegalEntityId],[CandidateFeedback],[EmployerFeedback],[CandidateId],[CreatedDate],[DateSharedWithEmployer],[HasEverBeenEmployerInterviewing],[WithdrawnDate],[ReviewedDate],[SubmittedDate],[Status],[TemporaryReviewStatus],[StatusUpdatedDate],[VacancyReference],[LegacyApplicationId],[ApplicationId],[AdditionalQuestion1],[AdditionalQuestion2],[VacancyTitle]','','','',0,1)
+,('rcrt','EmployerProfile','dbo','[AccountLegalEntityId],[AccountId],[AboutOrganisation],[TradingName]','','','',0,1)
+,('rcrt','EmployerProfileAddress','dbo','[Id],[AccountLegalEntityId],[AddressLine1],[AddressLine2],[AddressLine3],[AddressLine4],[Postcode],[Latitude],[Longitude]','','','',0,1)
+,('rcrt','Vacancy','dbo','[Id], [VacancyReference], [AccountId], [Status], [ApprenticeshipType], [Title], [OwnerType], [SourceOrigin], [SourceType], [SourceVacancyReference], [ApprovedDate], [CreatedDate], [LastUpdatedDate], [SubmittedDate], [ReviewRequestedDate], [ClosedDate], [DeletedDate], [LiveDate], [StartDate], [ClosingDate], [SubmittedByUserId], [ReviewRequestedByUserId], [ReviewCount], [ApplicationUrl], [ApplicationMethod], [ApplicationInstructions], [ShortDescription], [Description], [AnonymousReason], [DisabilityConfident], [ContactName], [ContactEmail], [ContactPhone], [EmployerDescription], [EmployerLocations], [EmployerLocationOption], [EmployerLocationInformation], [EmployerName], [EmployerNameOption], [EmployerRejectedReason], [LegalEntityName], [EmployerWebsiteUrl], [GeoCodeMethod], [AccountLegalEntityId], [NumberOfPositions], [OutcomeDescription], [ProgrammeId], [Skills], [Qualifications], [ThingsToConsider], [TrainingDescription], [AdditionalTrainingDescription], [Ukprn], [TrainingProvider_Name], [TrainingProvider_Address], [Wage_Duration], [Wage_DurationUnit], [Wage_WorkingWeekDescription], [Wage_WeeklyHours], [Wage_WageType], [Wage_FixedWageYearlyAmount], [Wage_WageAdditionalInformation], [Wage_CompanyBenefitsInformation], [ClosureReason], [TransferInfo], [AdditionalQuestion1], [AdditionalQuestion2], [HasSubmittedAdditionalQuestions], [HasChosenProviderContactDetails], [HasOptedToAddQualifications], [EmployerReviewFieldIndicators], [ProviderReviewFieldIndicators]','','','',0,1)
+,('rcrt','VacancyReview','dbo','[Id], [VacancyReference], [VacancyTitle], [CreatedDate], [SlaDeadLine], [ReviewedDate], [Status], [SubmissionCount], [ReviewedByUserEmail], [SubmittedByUserEmail], [ClosedDate], [ManualOutcome], [ManualQaComment], [ManualQaFieldIndicators], [AutomatedQaOutcome], [AutomatedQaOutcomeIndicators], [DismissedAutomatedQAOutcomeIndicators], [UpdatedFieldIdentifiers], [VacancySnapshot], [AccountId], [AccountLegalEntityId], [Ukprn], [OwnerType]','','','',0,1)
 
 COMMIT TRANSACTION
 

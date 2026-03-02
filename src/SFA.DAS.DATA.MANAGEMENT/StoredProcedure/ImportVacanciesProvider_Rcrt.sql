@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[ImportVacanciesProviderToPL]
+﻿CREATE PROCEDURE [dbo].[ImportVacanciesProviderToPL_Rcrt]
 (
    @RunId int
 )
@@ -38,9 +38,9 @@ DEClARE @quote varchar(5) = ''''
 
 BEGIN TRANSACTION
 
-TRUNCATE TABLE ASData_PL.Va_Provider
+TRUNCATE TABLE ASData_PL.Va_Provider_Rcrt
 
-INSERT INTO [ASData_PL].[Va_Provider]
+INSERT INTO [ASData_PL].[Va_Provider_Rcrt]
            ([UPIN_v1]
            ,[SourceProviderID_v1]
            ,[UKPRN]
@@ -72,12 +72,12 @@ INSERT INTO [ASData_PL].[Va_Provider]
    JOIN Stg.Avms_EmployerTrainingProviderStatus ETPS
      ON P.ProviderStatusTypeID=ETPS.EmployerTrainingProviderStatusId
   UNION
- SELECT DISTINCT
+  SELECT DISTINCT
         -1                              as UPIN
        ,-1                              as SourceProviderId
-	   ,TrainingProviderUkprn           as Ukprn
-	   ,TrainingProviderName            as FullName
-	   ,TrainingProviderName            as TradingName
+	   ,[Ukprn]           as Ukprn
+	   ,[TrainingProvider_Name]            as FullName
+	   ,[TrainingProvider_Name]            as TradingName
 	   ,NULL                            as IsContracted
 	   ,''                              as ContractedFrom
 	   ,''                              as ContractedTo
@@ -86,18 +86,18 @@ INSERT INTO [ASData_PL].[Va_Provider]
 	   ,NULL                            as IsNASProvider
 	   ,-1                              as ProviderToUseFAA
 	   ,'RAAv2'                         as SourceDb
-   FROM  (SELECT DISTINCT TrainingProviderUkprn
-                         ,TrainingProviderName
-						 ,Row_Number() Over (Partition by TrainingProviderUkprn 
-						                         order by TrainingProviderName Desc) rn
-		    FROM Stg.RAA_Vacancies) sv
+   FROM  (SELECT DISTINCT [Ukprn]
+                         ,[TrainingProvider_Name]
+						 ,Row_Number() Over (Partition by [Ukprn] 
+						                         order by [TrainingProvider_Name] Desc) rn
+		    FROM [Stg].[RCRT_Vacancy]) sv
   WHERE rn=1
     AND NOT EXISTS (SELECT 1 FROM Stg.Avms_Provider P
-	                 WHERE P.Ukprn=SV.TrainingProviderUkprn)
+	                 WHERE P.Ukprn=SV.Ukprn)
 
 
 
-Exec [dbo].[ImportVacanciesProviderToPL_Rcrt] @RunId
+
 
 
 COMMIT TRANSACTION

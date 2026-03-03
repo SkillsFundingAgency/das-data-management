@@ -47,6 +47,7 @@
 	[TrainingPrice] [int] NULL,
 	[EndPointAssessmentPrice] [int] NULL,
 	[EmployerHasEditedCost] [bit] NULL,
+	[LearnerDataId] [bigint] NULL
 	CONSTRAINT PK_Comt_Apprenticeship_Id PRIMARY KEY CLUSTERED (Id)
 ) ON [PRIMARY]
 GO

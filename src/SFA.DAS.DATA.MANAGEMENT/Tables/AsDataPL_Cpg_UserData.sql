@@ -11,5 +11,5 @@ CREATE TABLE [AsData_PL].[CPG_UserData]
 	[PersonOrigin] [varchar](50) NULL,
 	[IncludeInUR] [bit] NULL,
 	[Asdm_UpdatedDateTime] datetime2 default getdate(),
-    CONSTRAINT PK_aProg_TaskId PRIMARY KEY CLUSTERED ([Id])
+    CONSTRAINT PK_CPG_UserData PRIMARY KEY CLUSTERED ([Id])
 )

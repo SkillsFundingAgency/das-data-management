@@ -572,9 +572,9 @@
     <Build Include="Tables\AsDataPL_Va_Apprenticeships_Rcrt.sql" />
     <Build Include="StoredProcedure\ImportVacanciesApplication_Migration_MissingData.sql" />
     <Build Include="Tables\AsDataPL_Va_Application_Migration_MissingData.sql" />
-    <Build Include="StoredProcedure\ImportVacanciesProviderToPL_Rcrt.sql" />
+    <Build Include="StoredProcedure\ImportVacanciesProvider_Rcrt.sql" />
     <Build Include="Tables\AsDataPL_Va_Provider_Rcrt.sql" />
-    <Build Include="StoredProcedure\ImportVacanciesToPL_Rcrt.sql" />
+    <Build Include="StoredProcedure\ImportVacancies_Rcrt.sql" />
     <Build Include="Tables\AsDataPL_Va_Vacancy_Rcrt.sql" />
   </ItemGroup>
 </Project>

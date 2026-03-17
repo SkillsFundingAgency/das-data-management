@@ -97,7 +97,7 @@ INSERT INTO [ASData_PL].[Va_Provider]
 
 
 
-
+Exec [dbo].[ImportVacanciesProviderToPL_Rcrt] @RunId
 
 
 COMMIT TRANSACTION

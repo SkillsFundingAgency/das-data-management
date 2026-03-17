@@ -590,5 +590,6 @@
     <Build Include="Tables\StgRAA_RAA_VacancyReviews.sql" />
     <Build Include="StoredProcedure\ImportVacanciesApplication_Migration_MissingData.sql" />
     <Build Include="Tables\AsDataPL_Va_Application_Migration_MissingData.sql" />
+    <Build Include="Tables\AsDataPL_Cpg_UserData.sql" />  
   </ItemGroup>
 </Project>

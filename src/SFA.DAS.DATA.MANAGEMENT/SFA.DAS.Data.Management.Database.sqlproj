@@ -576,5 +576,7 @@
     <Build Include="Tables\AsDataPL_Va_Provider_Rcrt.sql" />
     <Build Include="StoredProcedure\ImportVacancies_Rcrt.sql" />
     <Build Include="Tables\AsDataPL_Va_Vacancy_Rcrt.sql" />
+    <Build Include="StoredProcedure\ImportVaAddInfoVacancyReviewsAutoQAoutcomeIDToPL _rcrt.sql" />
+    <Build Include="Tables\AsDataPL_Va_VacancyReviewsAutoQAOutcomeID _rcrt.sql" />
   </ItemGroup>
 </Project>

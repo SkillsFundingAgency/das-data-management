@@ -52,7 +52,7 @@ DELETE FROM ASData_PL.Va_Vacancy
 
 /* Load RAAv1 */
 
-INSERT INTO [ASData_PL].[Va_Vacancy]
+INSERT INTO [ASData_PL].[Va_Vacancy_Rcrt]
            ([VacancyGuid]
            ,[VacancyReferenceNumber]
            ,[VacancyStatus]
@@ -320,7 +320,7 @@ from
 
 /* Load RCRT */
 
-INSERT INTO [ASData_PL].[Va_Vacancy]
+INSERT INTO [ASData_PL].[Va_Vacancy_Rcrt]
            ([VacancyGuid]
            ,[VacancyReferenceNumber]
            ,[VacancyStatus]
@@ -642,7 +642,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'ImportVacanciesToPL',
+	    'ImportVacanciesToPL_Rcrt',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 

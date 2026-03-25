@@ -49,7 +49,7 @@ SELECT
          E. VacancyReference
 		,vv.VacancyId
         ,dbo.Fn_ConvertGuidToBase64(b.id_1)  AS Ruleoutcome_BinaryID
-        ,AutomatedQaOutcomeIndicators as AutoQAfieldisReferred
+        ,COALESCE(AutomatedQaOutcomeIndicators,'False') as AutoQAfieldisReferred
         ,dbo.Fn_ConvertGuidToBase64(E.Id)  as BinaryID
         ,'RAAv2'
 

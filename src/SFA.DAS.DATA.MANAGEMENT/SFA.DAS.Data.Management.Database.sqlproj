@@ -174,11 +174,13 @@
     <Build Include="Tables\AsDataPL_Va_Vacancy.sql" />
     <Build Include="Tables\AsDataPL_Va_VacancyLocations.sql" />
     <Build Include="Tables\AsDataPL_Va_LegalEntity.sql" />
+    <Build Include="Tables\AsDataPL_Va_LegalEntity_Rcrt.sql" />
     <Build Include="StoredProcedure\ImportVacanciesEmployer.sql" />
     <Build Include="StoredProcedure\ImportVacanciesEmployer_Rcrt.sql" />
     <Build Include="StoredProcedure\ImportVacanciesProvider.sql" />
     <Build Include="StoredProcedure\ImportVacanciesProvider_Rcrt.sql" />
     <Build Include="StoredProcedure\ImportVacanciesLegalEntity.sql" />
+    <Build Include="StoredProcedure\ImportVacanciesLegalEntity_Rcrt.sql" />
     <Build Include="StoredProcedure\ImportVacancies.sql" />
     <Build Include="StoredProcedure\ImportVacancyLocations.sql" />
     <Build Include="StoredProcedure\ImportVacanciesCandidate.sql" />

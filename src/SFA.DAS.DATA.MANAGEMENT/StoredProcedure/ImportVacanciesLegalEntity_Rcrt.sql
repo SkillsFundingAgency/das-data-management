@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[ImportVacanciesLegalEntityToPL]
+CREATE PROCEDURE [dbo].[ImportVacanciesLegalEntityToPL_Rcrt]
 (
    @RunId int
 )
@@ -6,7 +6,7 @@ AS
 -- ===============================================================================
 -- Author:      Himabindu Uddaraju
 -- Create Date: 02/07/2020
--- Description: Import Vacancies Legal Entity Data from v1 and v2
+-- Description: Import Vacancies Legal Entity Data from RCRT
 -- ===============================================================================
 
 BEGIN TRY
@@ -27,54 +27,48 @@ DEClARE @quote varchar(5) = ''''
   SELECT 
         @RunId
 	   ,'Step-6'
-	   ,'ImportVacanciesLegalEntityToPL'
+	   ,'ImportVacanciesLegalEntityToPL_Rcrt'
 	   ,getdate()
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
-   WHERE StoredProcedureName='ImportVacanciesLegalEntityToPL'
+   WHERE StoredProcedureName='ImportVacanciesLegalEntityToPL_Rcrt'
      AND RunId=@RunID
 
 BEGIN TRANSACTION
 
-TRUNCATE TABLE ASData_PL.Va_LegalEntity
+TRUNCATE TABLE ASData_PL.Va_LegalEntity_Rcrt
 
-INSERT INTO [ASData_PL].[Va_LegalEntity]
+INSERT INTO [ASData_PL].[Va_LegalEntity_Rcrt]
            ([LegalEntityPublicHashedId]
            ,[EmployerId]
            ,[EmployerAccountId]
            ,[LegalEntityName]
            ,[SourceLegalEntityId]
            ,[SourceDb])
-     SELECT AccountLegalEntityPublicHashedId as LegalEntityPublicHashedId
-		   ,E.EmployerId                     as EmployerId
-		   ,EmployerAccountId                as EmployerAccountId
-		   ,LegalEntityName                  as LegalEntityName
-		   ,LegalEntityId                    as SourceLegalEntityId
-		   ,'RAAv2'                          as SourceDb
-	   FROM (SELECT DISTINCT LegalEntityId
-	                        ,AccountLegalEntityPublicHashedId
-							,EmployerAccountId
+     SELECT ALE.HashedLegalEntityId              as LegalEntityPublicHashedId
+		   ,E.EmployerId                         as EmployerId
+		   ,V.AccountId                          as EmployerAccountId
+		   ,V.LegalEntityName                    as LegalEntityName
+		   ,V.AccountLegalEntityId               as SourceLegalEntityId
+		   ,'RCRT'                               as SourceDb
+	   FROM (SELECT DISTINCT AccountId
+	                        ,AccountLegalEntityId
 							,LegalEntityName
-			                ,ROW_NUMBER() OVER (PARTITION BY EmployerAccountId,LegalEntityId
+			                ,ROW_NUMBER() OVER (PARTITION BY AccountId,AccountLegalEntityId
 							                        ORDER BY LegalEntityName Desc) rn
-			   FROM Stg.RAA_Vacancies) v
+			   FROM Stg.RCRT_Vacancy) V
 	   LEFT
-	   JOIN ASData_PL.Va_Employer E
-	     ON E.DasAccountId_v2=V.EmployerAccountId
-		AND E.SourceDb='RAAv2'
+	   JOIN ASData_PL.Va_Employer_Rcrt E
+	     ON E.DasAccountId_v2=V.AccountId
+		AND E.SourceDb='RCRT'
+	   LEFT
+	   JOIN ASData_PL.Acc_AccountLegalEntity ALE
+	     ON ALE.Id=V.AccountLegalEntityId
+		AND ALE.AccountId=V.AccountId
 	  WHERE V.rn=1
 
-
-
-Exec [dbo].[ImportVacanciesLegalEntityToPL_Rcrt] @RunId
-
-
-
-
 COMMIT TRANSACTION
-
-
 
 UPDATE Mgmt.Log_Execution_Results
    SET Execution_Status=1
@@ -108,7 +102,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'ImportVacanciesLegalEntityToPL',
+	    'ImportVacanciesLegalEntityToPL_Rcrt',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 

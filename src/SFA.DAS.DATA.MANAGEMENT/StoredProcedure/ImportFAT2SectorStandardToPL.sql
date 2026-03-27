@@ -110,7 +110,7 @@ BEGIN TRY
 					  ,tblRoute.[Name]
 					  ,[AssessmentPlanUrl]
 					  ,[ApprovedForDelivery]
-					  ,CASE WHEN LarsCode in (819,820,821,288) THEN ''ShorterByDesign'' else std.[ApprenticeshipType] END as ApprenticeshipType 					  
+					  ,CASE WHEN std.LarsCode in (819,820,821,288) THEN ''ShorterByDesign'' else std.[ApprenticeshipType] END as ApprenticeshipType 					  
 					  ,[TrailBlazerContact]
 					  ,[EqaProviderName]
 					  ,[EqaProviderContactName]

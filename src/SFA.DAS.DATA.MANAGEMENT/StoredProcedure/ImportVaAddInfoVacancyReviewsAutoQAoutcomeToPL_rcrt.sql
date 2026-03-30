@@ -98,7 +98,7 @@ OUTER APPLY OPENJSON(r.details)
   ) d
   left join ASData_PL.Va_Vacancy_Rcrt v on v.VacancyReferenceNumber=e.VacancyReference
 
-
+ where  ISJSON(e.AutomatedQaOutcome) = 1
 
 
 COMMIT TRANSACTION

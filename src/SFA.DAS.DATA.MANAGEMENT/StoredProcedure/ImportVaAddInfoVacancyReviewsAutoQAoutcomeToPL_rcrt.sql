@@ -64,15 +64,42 @@ WHERE ISJSON(e.AutomatedQaOutcome) = 1;
 CREATE CLUSTERED INDEX IX_RuleOutcomes_Id ON #RuleOutcomes(VacancyReviewId);
 CREATE NONCLUSTERED INDEX IX_RuleOutcomes_RuleId ON #RuleOutcomes(ruleId);
 
+INSERT INTO ASData_PL.va_VacancyReviewsAutoQAOutcome_rcrt
+(
+    VacancyReference,
+    VacancyId,
+    RuleoutcomeID,
+    Rule_RuleId,
+    Rule_Score,
+    Rule_Narrative,
+    Rule_Target,
+    Details_BinaryID,
+    Details_RuleID,
+    Details_score,
+    Details_narrative,
+    Details_data,
+    Details_target,
+    SourceVacancyReviewId,
+    SourceDb
+)
 SELECT
-      r.*,
-      d.details_id,
+      r.VacancyReference,
+      r.VacancyId,
+      dbo.Fn_ConvertGuidToBase64(r.id_1),
+      r.ruleId,
+      r.score,
+      r.narrative,
+      r.target,
+
+      dbo.Fn_ConvertGuidToBase64(d.details_id),
       d.details_ruleId,
       d.details_score,
       d.details_narrative,
+      d.details_data,
       d.details_target,
-      d.details_data
-INTO #RuleDetails
+
+      dbo.Fn_ConvertGuidToBase64(r.VacancyReviewId),
+      'RAAv2'
 FROM #RuleOutcomes r
 OUTER APPLY OPENJSON(r.details)
 WITH (
@@ -83,48 +110,6 @@ WITH (
         details_target     NVARCHAR(256)   '$.target',
         details_data       NVARCHAR(MAX)   '$.data'
      ) d;
-CREATE CLUSTERED INDEX IX_RuleDetails_Id ON #RuleDetails(VacancyReviewId);
-
-
-/* Insert all the unsuccessful outcomes first with a reason */
-
-INSERT INTO ASData_PL.va_VacancyReviewsAutoQAOutcome_rcrt
-( VacancyReference 
-  ,VacancyId
-  ,RuleoutcomeID 
-  ,Rule_RuleId 
-  ,Rule_Score 
-  ,Rule_Narrative 
-  ,Rule_Target 
-  ,Details_BinaryID 
-  ,Details_RuleID 
-  ,Details_score 
-  ,Details_narrative 
-  ,Details_data 
-  ,Details_target 
-  ,SourceVacancyReviewId 
-  ,SourceDb 
-  )
-SELECT
-      rd.VacancyReference,
-      rd.VacancyId,
-
-      dbo.Fn_ConvertGuidToBase64(rd.id_1)        AS RuleOutcomeId,
-      rd.ruleId                                   AS Rule_RuleId,
-      rd.score                                    AS Rule_Score,
-      rd.narrative                                AS Rule_Narrative,
-      rd.target                                   AS Rule_Target,
-
-      dbo.Fn_ConvertGuidToBase64(rd.details_id)  AS Details_BinaryID,
-      rd.details_ruleId,
-      rd.details_score,
-      rd.details_narrative,
-      rd.details_data,
-      rd.details_target,
-
-      dbo.Fn_ConvertGuidToBase64(rd.VacancyReviewId) AS BinaryID,
-      'RAAv2' AS VersionTag
-FROM #RuleDetails rd
 
 
 

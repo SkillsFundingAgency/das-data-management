@@ -33,6 +33,52 @@ DEClARE @quote varchar(5) = ''''
 BEGIN TRANSACTION
 
 TRUNCATE TABLE ASData_PL.va_VacancyReviewsAutoQAOutcome_rcrt
+SELECT
+      e.Id AS VacancyReviewId,
+      e.VacancyReference,
+      r.id_1,
+      r.ruleId,
+      r.score,
+      r.narrative,
+      NULLIF(r.target, '') AS target,
+      r.details
+INTO #RuleOutcomes
+FROM stg.RCRT_VacancyReview e
+CROSS APPLY OPENJSON(e.AutomatedQaOutcome, '$.ruleOutcomes')
+WITH (
+        id_1         UNIQUEIDENTIFIER '$.id',
+        ruleId       INT             '$.ruleId',
+        score        INT             '$.score',
+        narrative    NVARCHAR(MAX)   '$.narrative',
+        target       NVARCHAR(256)   '$.target',
+        details      NVARCHAR(MAX)   '$.details' AS JSON
+     ) r
+WHERE ISJSON(e.AutomatedQaOutcome) = 1;
+
+CREATE CLUSTERED INDEX IX_RuleOutcomes_Id ON #RuleOutcomes(VacancyReviewId);
+CREATE NONCLUSTERED INDEX IX_RuleOutcomes_RuleId ON #RuleOutcomes(ruleId);
+
+SELECT
+      r.*,
+      d.details_id,
+      d.details_ruleId,
+      d.details_score,
+      d.details_narrative,
+      d.details_target,
+      d.details_data
+INTO #RuleDetails
+FROM #RuleOutcomes r
+OUTER APPLY OPENJSON(r.details)
+WITH (
+        details_id         UNIQUEIDENTIFIER '$.id',
+        details_ruleId     INT             '$.ruleId',
+        details_score      INT             '$.score',
+        details_narrative  NVARCHAR(MAX)   '$.narrative',
+        details_target     NVARCHAR(256)   '$.target',
+        details_data       NVARCHAR(MAX)   '$.data'
+     ) d;
+CREATE CLUSTERED INDEX IX_RuleDetails_Id ON #RuleDetails(VacancyReviewId);
+
 
 /* Insert all the unsuccessful outcomes first with a reason */
 
@@ -54,51 +100,27 @@ INSERT INTO ASData_PL.va_VacancyReviewsAutoQAOutcome_rcrt
   ,SourceDb 
   )
 SELECT
-      E.VacancyReference,
+      rd.VacancyReference,
       v.VacancyId,
-      
-      dbo.Fn_ConvertGuidToBase64(r.id_1 ) AS RuleOutcomeId,
-      r.ruleId    as Rule_RuleId ,
-      r.score     as Rule_Score ,
-      r.narrative as Rule_Narrative,
-      CASE WHEN r.target = ''
-        THEN NULL
-       ELSE r.target
-       END AS Rule_Target ,
-      dbo.Fn_ConvertGuidToBase64(d.details_id)  AS Details_BinaryID,  
 
-      d.details_ruleId,
-      d.details_score,
-      d.details_narrative,
-    
-      d.details_data,
-      d.details_target,
-      dbo.Fn_ConvertGuidToBase64(E.Id)  as BinaryID,
-      'RAAv2'
-FROM stg.RCRT_VacancyReview e
+      dbo.Fn_ConvertGuidToBase64(rd.id_1)        AS RuleOutcomeId,
+      rd.ruleId                                   AS Rule_RuleId,
+      rd.score                                    AS Rule_Score,
+      rd.narrative                                AS Rule_Narrative,
+      rd.target                                   AS Rule_Target,
 
-CROSS APPLY OPENJSON(e.AutomatedQaOutcome, '$.ruleOutcomes')
-  WITH (
-        id_1        UNIQUEIDENTIFIER '$.id',
-        ruleId      INT             '$.ruleId',
-        score       INT             '$.score',
-        narrative   NVARCHAR(MAX)   '$.narrative',
-        target      NVARCHAR(256)   '$.target',
-        details     NVARCHAR(MAX)   '$.details' AS JSON   -- MUST HAVE THIS
-  ) r
+      dbo.Fn_ConvertGuidToBase64(rd.details_id)  AS Details_BinaryID,
+      rd.details_ruleId,
+      rd.details_score,
+      rd.details_narrative,
+      rd.details_data,
+      rd.details_target,
 
-OUTER APPLY OPENJSON(r.details)
-  WITH (
-        details_id         UNIQUEIDENTIFIER '$.id',
-        details_ruleId     INT             '$.ruleId',
-        details_score      INT             '$.score',
-        details_narrative  NVARCHAR(MAX)   '$.narrative',
-        details_target     NVARCHAR(256)   '$.target',
-        details_data       NVARCHAR(MAX)   '$.data'
-  ) d
-  left join ASData_PL.Va_Vacancy_Rcrt v on v.VacancyReferenceNumber=e.VacancyReference
-
- where  ISJSON(e.AutomatedQaOutcome) = 1
+      dbo.Fn_ConvertGuidToBase64(rd.VacancyReviewId) AS BinaryID,
+      'RAAv2' AS VersionTag
+FROM #RuleDetails rd
+LEFT JOIN ASData_PL.Va_Vacancy_Rcrt v
+       ON v.VacancyReferenceNumber = rd.VacancyReference;
 
 
 COMMIT TRANSACTION

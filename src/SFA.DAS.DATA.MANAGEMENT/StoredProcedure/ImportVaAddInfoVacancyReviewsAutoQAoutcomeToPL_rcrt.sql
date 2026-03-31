@@ -32,10 +32,14 @@ DEClARE @quote varchar(5) = ''''
 
 BEGIN TRANSACTION
 
+DROP TABLE #RuleOutcomes
+DROP TABLE #RuleDetails
+
 TRUNCATE TABLE ASData_PL.va_VacancyReviewsAutoQAOutcome_rcrt
 SELECT
       e.Id AS VacancyReviewId,
       e.VacancyReference,
+      v.VacancyId,
       r.id_1,
       r.ruleId,
       r.score,
@@ -44,6 +48,8 @@ SELECT
       r.details
 INTO #RuleOutcomes
 FROM stg.RCRT_VacancyReview e
+LEFT JOIN ASData_PL.Va_Vacancy_Rcrt v
+       ON v.VacancyReferenceNumber = e.VacancyReference
 CROSS APPLY OPENJSON(e.AutomatedQaOutcome, '$.ruleOutcomes')
 WITH (
         id_1         UNIQUEIDENTIFIER '$.id',
@@ -101,7 +107,7 @@ INSERT INTO ASData_PL.va_VacancyReviewsAutoQAOutcome_rcrt
   )
 SELECT
       rd.VacancyReference,
-      v.VacancyId,
+      rd.VacancyId,
 
       dbo.Fn_ConvertGuidToBase64(rd.id_1)        AS RuleOutcomeId,
       rd.ruleId                                   AS Rule_RuleId,
@@ -119,8 +125,7 @@ SELECT
       dbo.Fn_ConvertGuidToBase64(rd.VacancyReviewId) AS BinaryID,
       'RAAv2' AS VersionTag
 FROM #RuleDetails rd
-LEFT JOIN ASData_PL.Va_Vacancy_Rcrt v
-       ON v.VacancyReferenceNumber = rd.VacancyReference;
+
 
 
 COMMIT TRANSACTION

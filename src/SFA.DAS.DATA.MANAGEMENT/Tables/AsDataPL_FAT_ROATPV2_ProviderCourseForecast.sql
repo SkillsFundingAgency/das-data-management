@@ -6,7 +6,7 @@
     [TimePeriod] [varchar](1000) NULL,
     [Quarter] [Int] NULL,
     [EstimatedLearners] [INT] NULL,
-    [Created] [datetime2](7) NULL,
-    [Updated] [datetime2](7) NULL,
+    [CreatedDate] [datetime2](7) NULL,
+    [UpdatedDate] [datetime2](7) NULL,
     [AsDm_UpdatedDateTime] [datetime2](7) DEFAULT (getdate())
 )

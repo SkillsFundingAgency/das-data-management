@@ -68,4 +68,4 @@ As
 	  SUM(CASE WHEN ce.[CertificateReferenceId] >= 10000 AND ce.[DeletedAt] IS NOT NULL THEN 1 ELSE 0 END) AS 'Deleted'
   FROM [ASData_PL].[Assessor_Certificates] ce where ce.[Type]='Standard'
 
-  ORDER BY 5 DESC, 4 DESC, 2 DESC, 1
+--   ORDER BY 5 DESC, 4 DESC, 2 DESC, 1

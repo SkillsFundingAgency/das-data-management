@@ -61,5 +61,5 @@ As
 	FROM
 		cte_WeeklySummary
 
-	ORDER BY 
-		'To Date' 
+	-- ORDER BY 
+	-- 	'To Date' 

@@ -56,8 +56,8 @@ FROM (
   WHERE StandardReference is  NOT NULL AND ce.[Type]='Standard'
 ) st
 
-ORDER BY SUM([EPA Service]) OVER (PARTITION BY [Standard Reference]) /* [EPA Service]*/ DESC,
-         MIN([Standard Name]) OVER (PARTITION BY [Standard Reference]) /*[Standard Name] */, 
-		 [orderVersion], 
-		 SUM([EPA Service Total]) OVER (PARTITION BY [Standard Reference]) /* [EPA Service Total] */ DESC,
-		 SUM([Total]) OVER (PARTITION BY [Standard Reference]) /* [Total] */ DESC
+-- ORDER BY SUM([EPA Service]) OVER (PARTITION BY [Standard Reference]) /* [EPA Service]*/ DESC,
+--          MIN([Standard Name]) OVER (PARTITION BY [Standard Reference]) /*[Standard Name] */, 
+-- 		 [orderVersion], 
+-- 		 SUM([EPA Service Total]) OVER (PARTITION BY [Standard Reference]) /* [EPA Service Total] */ DESC,
+-- 		 SUM([Total]) OVER (PARTITION BY [Standard Reference]) /* [Total] */ DESC

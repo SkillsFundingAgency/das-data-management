@@ -63,5 +63,5 @@ As
 	FROM
 		cte_MonthlySummary
 
-	ORDER BY 
-		'To Date'
+	-- ORDER BY 
+	-- 	'To Date'

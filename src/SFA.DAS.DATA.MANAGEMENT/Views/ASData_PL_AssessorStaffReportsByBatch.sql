@@ -17,4 +17,4 @@ As
 	FROM [ASData_PL].[Assessor_Certificates] ce
     where ce.[Type]='Standard'
 	GROUP BY ce.[BatchNumber], CONVERT(CHAR(16), ce.[ToBePrinted])
-	ORDER BY 3 DESC, 2
+	--ORDER BY 3 DESC, 2

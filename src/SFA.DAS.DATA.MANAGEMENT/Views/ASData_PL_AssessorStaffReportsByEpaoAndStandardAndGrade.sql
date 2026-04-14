@@ -83,4 +83,4 @@ FROM (
   WHERE org.EndPointAssessorOrganisationId != 'EPA0000'AND  ce.[Type]='Standard'
 ) st
 
-  ORDER BY [EPAO ID], [sequenceForOrderBy], [Grade], [orderVersion]
+--   ORDER BY [EPAO ID], [sequenceForOrderBy], [Grade], [orderVersion]

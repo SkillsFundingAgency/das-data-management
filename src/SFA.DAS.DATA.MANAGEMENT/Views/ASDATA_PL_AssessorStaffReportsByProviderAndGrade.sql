@@ -71,4 +71,4 @@ As
 	  SUM(CASE WHEN ce.[CertificateReferenceId] >= 10000 AND ce.[DeletedAt] IS NULL AND ce.[Status] = 'Printed' THEN 1 ELSE 0 END) AS 'EPA Printed',
 	  SUM(CASE WHEN ce.[CertificateReferenceId] >= 10000 AND ce.[DeletedAt] IS NOT NULL THEN 1 ELSE 0 END) AS 'Deleted'
   FROM [ASData_PL].[Assessor_Certificates] ce where ce.[Type]='Standard' 
-  ORDER BY 1, 3 DESC, 2
+--   ORDER BY 1, 3 DESC, 2

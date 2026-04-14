@@ -593,6 +593,16 @@
     <Build Include="StoredProcedure\ImportVacanciesApplication_Migration_MissingData.sql" />
     <Build Include="Tables\AsDataPL_Va_Application_Migration_MissingData.sql" />
     <Build Include="Tables\AsDataPL_Cpg_UserData.sql" />  
-    <Build Include="Tables\AsDataPL_FAT_ROATPV2_ProviderCourseForecast.sql" />     
+    <Build Include="Tables\AsDataPL_FAT_ROATPV2_ProviderCourseForecast.sql" />
+    <Build Include="Views\ASData_PL_AssessorStaffReportsCertificateCount.sql" />
+    <Build Include="Views\ASData_PL_AssessorStaffReportsMonthlySummary.sql" />
+    <Build Include="Views\ASData_PL_AssessorStaffReportsWeeklySummary.sql" />
+    <Build Include="Views\ASData_PL_AssessorStaffReportsByBatch.sql" />
+    <Build Include="Views\ASData_PL_AssessorStaffReportsByEpao.sql" />  
+    <Build Include="Views\ASData_PL_AssessorStaffReportsByEpaoAndStandardAndGrade.sql" />  
+    <Build Include="Views\ASData_PL_AssessorStaffReportsByProvider.sql" />
+    <Build Include="Views\ASDATA_PL_AssessorStaffReportsByProviderAndGrade.sql" />
+    <Build Include="Views\AASData_PL_AssessorStaffReportsByByStandard.sql" />   
+                
   </ItemGroup>
 </Project>

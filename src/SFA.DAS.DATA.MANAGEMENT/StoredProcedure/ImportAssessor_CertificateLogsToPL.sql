@@ -64,7 +64,8 @@ USING (
         [AchievementDate],
         [CourseOption],
         [OverallGrade],
-        [Department]
+        [Department],
+        [Username]
     FROM [Stg].[Assessor_CertificateLogs]
 ) AS Source
 ON Target.[Id] = Source.[Id]
@@ -91,6 +92,7 @@ THEN
         [CourseOption] = Source.[CourseOption],
         [OverallGrade] = Source.[OverallGrade],
         [Department] = Source.[Department],
+        [Username]   = Source.[Username],
         [AsDm_UpdatedDateTime] = Getdate()
 
 WHEN NOT MATCHED THEN
@@ -114,6 +116,7 @@ WHEN NOT MATCHED THEN
         [CourseOption],
         [OverallGrade],
         [Department],
+        [Username],
         [AsDm_UpdatedDateTime]
     )
     VALUES (
@@ -136,6 +139,7 @@ WHEN NOT MATCHED THEN
         Source.[CourseOption],
         Source.[OverallGrade],
         Source.[Department],
+        Source.[Username]
         Getdate()
     );'
 

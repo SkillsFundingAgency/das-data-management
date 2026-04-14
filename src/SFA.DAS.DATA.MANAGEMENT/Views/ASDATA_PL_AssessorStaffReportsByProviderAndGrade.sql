@@ -1,0 +1,74 @@
+CREATE VIEW [ASData_PL].[AssessorStaffReportsByProviderAndGrade]
+As
+		
+	SELECT 
+	  CASE ce.[ProviderUkPrn] 
+			WHEN 10004344 THEN 'MIDDLESBROUGH COLLEGE'
+			WHEN 10005991 THEN 'CENTRAL COLLEGE NOTTINGHAM'
+			WHEN 10007315 THEN 'WALSALL COLLEGE'
+			WHEN 10007949 THEN 'HUNTINGDONSHIRE REGIONAL COLLEGE'
+			WHEN 10021221 THEN 'MERSEY CARE NHS FOUNDATION TRUST'
+			WHEN 10001548 THEN 'COLLEGE OF HARINGEY, ENFIELD AND NORTH-EAST LONDON, THE'
+			WHEN 10007144 THEN 'UNIVERSITY OF EAST LONDON'
+			WHEN 10005404 THEN 'REASEHEATH COLLEGE'
+			WHEN 10005077 THEN 'PETERBOROUGH REGIONAL COLLEGE'
+			WHEN 10007431 THEN 'WEST SUFFOLK COLLEGE'
+			WHEN 10007697 THEN 'YH TRAINING SERVICES LIMITED'
+			WHEN 10022210 THEN 'ANNE CLARKE ASSOCIATES LIMITED'
+			WHEN 10053962 THEN 'NEWCASTLE COLLEGE'
+			ELSE
+			(CASE WHEN ce.[ProviderOrganisationName] IS NULL OR ce.[ProviderOrganisationName] = 'UNKNOWN' THEN 'UKPRN '+ CONVERT(VARCHAR, ce.[ProviderUkPrn]) ELSE ce.[ProviderOrganisationName] END)
+		END AS 'Provider Name',
+       
+	  (CASE WHEN ce.[OverallGrade]  IS NULL THEN '' ELSE  UPPER(ce.[OverallGrade]) END) AS 'Grade',
+	  COUNT(*) AS 'Total',
+	  SUM(CASE WHEN ce.[CertificateReferenceId] < 10000 THEN 1 ELSE 0 END) AS 'Manual Total',
+	  SUM(CASE WHEN ce.[CertificateReferenceId] >= 10000 THEN 1 ELSE 0 END) AS 'EPA Service Total',
+	  SUM(CASE WHEN ce.[CertificateReferenceId] >= 10000 And ce.[CreatedBy] <> 'manual' THEN 1 ELSE 0 END) AS 'EPA Service',
+	  SUM(CASE WHEN ce.[CertificateReferenceId] >= 10000 And ce.[CreatedBy] = 'manual' THEN 1 ELSE 0 END ) AS 'EPA Service (Manual)',
+	  SUM(CASE WHEN ce.[CertificateReferenceId] >= 10000 AND ce.[DeletedAt] IS NULL AND ce.[Status] = 'Draft' THEN 1 ELSE 0 END) AS 'EPA Draft',
+	  SUM(CASE WHEN ce.[CertificateReferenceId] >= 10000 AND ce.[DeletedAt] IS NULL AND ce.[Status] = 'Submitted' THEN 1 ELSE 0 END) AS 'EPA Submitted',
+	  SUM(CASE WHEN ce.[CertificateReferenceId] >= 10000 AND ce.[DeletedAt] IS NULL AND ce.[Status] = 'Printed' THEN 1 ELSE 0 END) AS 'EPA Printed',
+	  SUM(CASE WHEN ce.[CertificateReferenceId] >= 10000 AND ce.[DeletedAt] IS NOT NULL THEN 1 ELSE 0 END) AS 'Deleted'
+  FROM 
+	(
+		SELECT a1.*,
+		(SELECT MAX(UPPER(c.ProviderName)) FROM [ASData_PL].[Assessor_Certificates] c WHERE c.[ProviderUkPrn] = a1.[ProviderUkPrn] and c.[Type]='Standard' ) [ProviderOrganisationName] 
+		FROM  [ASData_PL].[Assessor_Certificates] a1 where a1.[Type]='Standard'
+	) ce
+  GROUP BY 
+	CASE ce.[ProviderUkPrn] 
+		WHEN 10004344 THEN 'MIDDLESBROUGH COLLEGE'
+		WHEN 10005991 THEN 'CENTRAL COLLEGE NOTTINGHAM'
+		WHEN 10007315 THEN 'WALSALL COLLEGE'
+		WHEN 10007949 THEN 'HUNTINGDONSHIRE REGIONAL COLLEGE'
+		WHEN 10021221 THEN 'MERSEY CARE NHS FOUNDATION TRUST'
+		WHEN 10001548 THEN 'COLLEGE OF HARINGEY, ENFIELD AND NORTH-EAST LONDON, THE'
+		WHEN 10007144 THEN 'UNIVERSITY OF EAST LONDON'
+		WHEN 10005404 THEN 'REASEHEATH COLLEGE'
+		WHEN 10005077 THEN 'PETERBOROUGH REGIONAL COLLEGE'
+		WHEN 10007431 THEN 'WEST SUFFOLK COLLEGE'
+		WHEN 10007697 THEN 'YH TRAINING SERVICES LIMITED'
+		WHEN 10022210 THEN 'ANNE CLARKE ASSOCIATES LIMITED'
+		WHEN 10053962 THEN 'NEWCASTLE COLLEGE'
+		ELSE
+		(CASE WHEN ce.[ProviderOrganisationName] IS NULL OR ce.[ProviderOrganisationName] = 'UNKNOWN' THEN 'UKPRN '+ CONVERT(VARCHAR, ce.[ProviderUkPrn]) ELSE ce.[ProviderOrganisationName] END)
+	END,
+	(CASE WHEN ce.[OverallGrade]  IS NULL THEN '' ELSE  UPPER(ce.[OverallGrade]) END)
+  UNION ALL
+
+
+  SELECT
+	  ' Summary' AS 'Provider Name',
+	  '' AS 'Grade',
+	  COUNT(*) AS 'Total',
+	  SUM(CASE WHEN ce.[CertificateReferenceId] < 10000 THEN 1 ELSE 0 END) AS 'Manual Total',
+	  SUM(CASE WHEN ce.[CertificateReferenceId] >= 10000 THEN 1 ELSE 0 END) AS 'EPA Service Total',
+	  SUM(CASE WHEN ce.[CertificateReferenceId] >= 10000 And ce.[CreatedBy] <> 'manual' THEN 1 ELSE 0 END) AS 'EPA Service',
+	  SUM(CASE WHEN ce.[CertificateReferenceId] >= 10000 And ce.[CreatedBy] = 'manual' THEN 1 ELSE 0 END ) AS 'EPA Service (Manual)',
+	  SUM(CASE WHEN ce.[CertificateReferenceId] >= 10000 AND ce.[DeletedAt] IS NULL AND ce.[Status] = 'Draft' THEN 1 ELSE 0 END) AS 'EPA Draft',
+	  SUM(CASE WHEN ce.[CertificateReferenceId] >= 10000 AND ce.[DeletedAt] IS NULL AND ce.[Status] = 'Submitted' THEN 1 ELSE 0 END) AS 'EPA Submitted',
+	  SUM(CASE WHEN ce.[CertificateReferenceId] >= 10000 AND ce.[DeletedAt] IS NULL AND ce.[Status] = 'Printed' THEN 1 ELSE 0 END) AS 'EPA Printed',
+	  SUM(CASE WHEN ce.[CertificateReferenceId] >= 10000 AND ce.[DeletedAt] IS NOT NULL THEN 1 ELSE 0 END) AS 'Deleted'
+  FROM [ASData_PL].[Assessor_Certificates] ce where ce.[Type]='Standard' 
+  ORDER BY 1, 3 DESC, 2

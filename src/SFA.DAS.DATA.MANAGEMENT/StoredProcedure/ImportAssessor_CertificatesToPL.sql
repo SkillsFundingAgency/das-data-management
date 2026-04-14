@@ -75,7 +75,10 @@ BEGIN TRANSACTION
            [ToBePrinted],
            [Uln],
            [UpdatedAt],
-           [Version]
+           [Version],
+           [Type],
+           [LatestEpaOutcome],
+           [FullName]
     FROM [stg].[Assessor_Certificates]
 ) AS Source
 ON Target.[Id] = Source.[Id]
@@ -117,6 +120,9 @@ SET
     [Uln] = Source.[Uln],
     [UpdatedAt] = Source.[UpdatedAt],
     [Version] = Source.[Version],
+    [Type]  = Source.[Type],
+    [LatestEpaOutcome]=Source.[LatestEpaOutcome],
+    [FullName]=Source.[FullName]
     [AsDm_UpdatedDateTime] = GETDATE()
 
 -- Perform an INSERT if the record does not exist in the target table
@@ -156,7 +162,10 @@ INSERT (
     [Uln],
     [UpdatedAt],
     [Version],
-    [AsDm_UpdatedDateTime]
+    [Type],
+    [AsDm_UpdatedDateTime],
+    [LatestEpaOutcome],
+    [FullName]
 )
 VALUES (
     Source.[Id],
@@ -192,6 +201,9 @@ VALUES (
     Source.[Uln],
     Source.[UpdatedAt],
     Source.[Version],
+    Source.[Type],
+    Source.[LatestEpaOutcome],
+    Source.[FullName]
     GETDATE()
 );'
 

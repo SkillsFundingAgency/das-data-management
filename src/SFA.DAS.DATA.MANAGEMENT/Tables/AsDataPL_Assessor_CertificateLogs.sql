@@ -19,6 +19,7 @@
 	[CourseOption]				[NVarchar](300)		NULL,
 	[OverallGrade]				[NVarchar](300)		NULL,
 	[Department]				[NVarchar](300)		NULL,
+	[Username]					[NVarchar](300)		NULL,
 	[AsDm_UpdatedDateTime]		[Datetime2](7)		default getdate()
 )
 

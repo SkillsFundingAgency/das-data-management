@@ -166,7 +166,7 @@ INSERT (
   
     [LatestEpaOutcome],
     [FullName],
-    [AsDm_UpdatedDateTime],
+    [AsDm_UpdatedDateTime]
 )
 VALUES (
     Source.[Id],

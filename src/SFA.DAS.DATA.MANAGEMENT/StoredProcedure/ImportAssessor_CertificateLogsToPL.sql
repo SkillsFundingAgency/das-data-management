@@ -139,7 +139,7 @@ WHEN NOT MATCHED THEN
         Source.[CourseOption],
         Source.[OverallGrade],
         Source.[Department],
-        Source.[Username]
+        Source.[Username],
         Getdate()
     );'
 

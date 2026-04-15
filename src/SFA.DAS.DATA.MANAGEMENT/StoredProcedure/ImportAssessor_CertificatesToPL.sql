@@ -203,7 +203,7 @@ VALUES (
     Source.[Version],
     Source.[Type],
     Source.[LatestEpaOutcome],
-    Source.[FullName]
+    Source.[FullName],
     GETDATE()
 );'
 

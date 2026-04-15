@@ -163,9 +163,10 @@ INSERT (
     [UpdatedAt],
     [Version],
     [Type],
-    [AsDm_UpdatedDateTime],
+  
     [LatestEpaOutcome],
-    [FullName]
+    [FullName],
+    [AsDm_UpdatedDateTime],
 )
 VALUES (
     Source.[Id],

@@ -122,7 +122,7 @@ SET
     [Version] = Source.[Version],
     [Type]  = Source.[Type],
     [LatestEpaOutcome]=Source.[LatestEpaOutcome],
-    [FullName]=Source.[FullName]
+    [FullName]=Source.[FullName],
     [AsDm_UpdatedDateTime] = GETDATE()
 
 -- Perform an INSERT if the record does not exist in the target table

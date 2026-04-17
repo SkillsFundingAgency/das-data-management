@@ -79,7 +79,7 @@ SELECT
     ON E.DasAccountId_v2=V.AccountId
    AND E.SourceDb='RCRT'
   LEFT
-  JOIN ASData_PL.Va_Vacancy VV
+  JOIN ASData_PL.Va_Vacancy_Rcrt VV
     ON VV.VacancyReferenceNumber=TRY_CAST(V.VacancyReference as bigint)
  WHERE COALESCE(EPA.Postcode
                ,EPA.AddressLine1

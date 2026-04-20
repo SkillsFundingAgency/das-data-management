@@ -595,5 +595,6 @@
     <Build Include="Tables\AsDataPL_Cpg_UserData.sql" />  
     <Build Include="Tables\AsDataPL_Va_VacancyReviews_Rcrt.sql" />  
     <Build Include="StoredProcedure/ImportVaAddInfoVacancyReviewsToPL_Rcrt.sql" />
+    <Build Include="Tables\AsDataPL_FAT_ROATPV2_ProviderCourseForecast.sql" />     
   </ItemGroup>
 </Project>

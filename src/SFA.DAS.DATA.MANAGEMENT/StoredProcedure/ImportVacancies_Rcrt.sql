@@ -432,9 +432,15 @@ select  vv.*
 		  ,CASE WHEN len(case when EmployerLocations='' THEN NULL ELSE 
 JSON_VALUE(EmployerLocations, '$[0].postcode') END )>8 
 		        THEN CASE WHEN Mgmt.fn_ExtractPostCodeUKFromAddress(JSON_VALUE(EmployerLocations, '$[0].postcode'))='ZZ99 9ZZ'
+<<<<<<< ASINTEL--5273
 				          THEN CASE WHEN Mgmt.fn_ExtractPostCodeUKFromAddress(ISNULL(JSON_VALUE(EmployerLocations, '$[0].EmployerAddressLine1'),'')+','+ISNULL(JSON_VALUE(EmployerLocations, '$[0].EmployerAddressLine2'),'')+','+ISNULL(JSON_VALUE(EmployerLocations, '$[0].EmployerAddressLine3'),'')+','+ISNULL(JSON_VALUE(EmployerLocations, '$[0].EmployerAddressLine4'),'')) ='ZZ99 9ZZ'
 						            THEN JSON_VALUE(EmployerLocations, '$[0].postcode')
 									ELSE Mgmt.fn_ExtractPostCodeUKFromAddress(ISNULL(JSON_VALUE(EmployerLocations, '$[0].EmployerAddressLine1'),'')+','+ISNULL(JSON_VALUE(EmployerLocations, '$[0].EmployerAddressLine2'),'')+','+ISNULL(JSON_VALUE(EmployerLocations, '$[0].EmployerAddressLine3'),'')+','+ISNULL(JSON_VALUE(EmployerLocations, '$[0].EmployerAddressLine4'),''))
+=======
+				          THEN CASE WHEN Mgmt.fn_ExtractPostCodeUKFromAddress(ISNULL(JSON_VALUE(EmployerLocations, '$[0].addressLine1'),'')+','+ISNULL(JSON_VALUE(EmployerLocations, '$[0].addressLine2'),'')+','+ISNULL(JSON_VALUE(EmployerLocations, '$[0].addressLine3'),'')+','+ISNULL(JSON_VALUE(EmployerLocations, '$[0].addressLine4'),'')) ='ZZ99 9ZZ'
+						            THEN JSON_VALUE(EmployerLocations, '$[0].postcode')
+									ELSE Mgmt.fn_ExtractPostCodeUKFromAddress(ISNULL(JSON_VALUE(EmployerLocations, '$[0].addressLine1'),'')+','+ISNULL(JSON_VALUE(EmployerLocations, '$[0].addressLine2'),'')+','+ISNULL(JSON_VALUE(EmployerLocations, '$[0].addressLine3'),'')+','+ISNULL(JSON_VALUE(EmployerLocations, '$[0].addressLine4'),''))
+>>>>>>> master
 							   END
 						  ELSE Mgmt.fn_ExtractPostCodeUKFromAddress(case when EmployerLocations='' THEN NULL ELSE 
 JSON_VALUE(EmployerLocations, '$[0].postcode') END)
@@ -444,6 +450,7 @@ JSON_VALUE(EmployerLocations, '$[0].postcode') END
 			END                                                    as VacancyPostCode 
            
               ,case when EmployerLocations='' THEN NULL ELSE 
+<<<<<<< ASINTEL--5273
 JSON_VALUE(EmployerLocations, '$[0].EmployerAddressLine1')  end                                  as VacancyAddressLine1
           ,case when EmployerLocations='' THEN NULL ELSE 
 JSON_VALUE(EmployerLocations, '$[0].EmployerAddressLine2')  end                                     as VacancyAddressLine2
@@ -451,11 +458,24 @@ JSON_VALUE(EmployerLocations, '$[0].EmployerAddressLine2')  end                 
 JSON_VALUE(EmployerLocations, '$[0].EmployerAddressLine3')  end                                     as VacancyAddressLine3
           ,case when EmployerLocations='' THEN NULL ELSE 
 JSON_VALUE(EmployerLocations, '$[0].EmployerAddressLine4')  end                                     as VacancyAddressLine4
+=======
+JSON_VALUE(EmployerLocations, '$[0].addressLine1')  end                                  as VacancyAddressLine1
+          ,case when EmployerLocations='' THEN NULL ELSE 
+JSON_VALUE(EmployerLocations, '$[0].addressLine2')  end                                     as VacancyAddressLine2
+          ,case when EmployerLocations='' THEN NULL ELSE 
+JSON_VALUE(EmployerLocations, '$[0].addressLine3')  end                                     as VacancyAddressLine3
+          ,case when EmployerLocations='' THEN NULL ELSE 
+JSON_VALUE(EmployerLocations, '$[0].addressLine4')  end                                     as VacancyAddressLine4
+>>>>>>> master
           ,
 		  case when EmployerLocations='' THEN NULL ELSE 
 
 		  
+<<<<<<< ASINTEL--5273
 		  COALESCE(JSON_VALUE(EmployerLocations, '$[0].EmployerAddressLine4'),JSON_VALUE(EmployerLocations, '$[0].EmployerAddressLine3'),JSON_VALUE(EmployerLocations, '$[0].EmployerAddressLine2')) end  as VacancyTown
+=======
+		  COALESCE(JSON_VALUE(EmployerLocations, '$[0].addressLine4'),JSON_VALUE(EmployerLocations, '$[0].addressLine3'),JSON_VALUE(EmployerLocations, '$[0].addressLine2')) end  as VacancyTown
+>>>>>>> master
           ,EmployerLocationOption                                  as EmployerLocationOption 
           ,dbo.Fn_CleanseJSONText([Skills])  as SkillsRequired
           ,dbo.Fn_CleanseJSONText([Qualifications]) as QualificationsRequired

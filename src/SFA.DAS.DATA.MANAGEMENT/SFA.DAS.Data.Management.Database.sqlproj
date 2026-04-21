@@ -595,6 +595,7 @@
     <Build Include="StoredProcedure\ImportVacanciesApplication_Migration_MissingData.sql" />
     <Build Include="Tables\AsDataPL_Va_Application_Migration_MissingData.sql" />
     <Build Include="Tables\AsDataPL_Cpg_UserData.sql" />  
+<<<<<<< ASINTEL--5273
     <Build Include="StoredProcedure\ImportVacanciesProvider_Rcrt.sql" />
     <Build Include="Tables\AsDataPL_Va_Provider_Rcrt.sql" />
     <Build Include="StoredProcedure\ImportVacancies_Rcrt.sql" />
@@ -604,5 +605,10 @@
     <Build Include="StoredProcedure\ImportVaAddInfoVacancyReviewsAutoQAoutcomeToPL_rcrt.sql" />
     <Build Include="Tables\AsDataPL_Va_VacancyReviewsAutoQAOutcome_rcrt.sql" />
     <Build Include="Tables\AsDataPL_FAT_ROATPV2_ProviderCourseForecast.sql" />     
+=======
+    <Build Include="Tables\AsDataPL_FAT_ROATPV2_ProviderCourseForecast.sql" /> 
+    <Build Include="StoredProcedure\ImportVacancies_Rcrt.sql" />
+    <Build Include="Tables\AsDataPL_Va_Vacancy_Rcrt.sql" />    
+>>>>>>> master
   </ItemGroup>
 </Project>

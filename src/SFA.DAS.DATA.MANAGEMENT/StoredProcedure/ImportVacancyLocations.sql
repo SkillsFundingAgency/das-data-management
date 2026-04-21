@@ -126,7 +126,11 @@ from ASData_PL.Va_Vacancy where SourceDb='RAAv2'
 
 )a
 
+<<<<<<< ASINTEL--5273
 EXEC [dbo].[ImportVacancyLocationsToPL_Rcrt] @RunId
+=======
+EXEC [dbo].[ImportVacancyLocationsToPL_Rcrt] @RunId;
+>>>>>>> master
 
 COMMIT TRANSACTION
 

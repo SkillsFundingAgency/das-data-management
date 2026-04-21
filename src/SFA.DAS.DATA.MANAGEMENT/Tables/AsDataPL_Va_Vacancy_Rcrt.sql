@@ -1,8 +1,4 @@
-<<<<<<< ASINTEL--5273
-﻿CREATE TABLE AsData_Pl.Va_Vacancy_Rcrt
-=======
 CREATE TABLE AsData_Pl.Va_Vacancy_Rcrt
->>>>>>> master
 (
  VacancyId BIGINT IDENTITY(1,1) PRIMARY KEY
 ,VacancyGuid varchar(256)

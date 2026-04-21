@@ -1,8 +1,4 @@
-<<<<<<< ASINTEL--5273
 CREATE PROCEDURE [dbo].[ImportVacancyLocationsToPL_Rcrt]
-=======
-﻿CREATE PROCEDURE [dbo].[ImportVacancyLocationsToPL_Rcrt]
->>>>>>> master
 (
    @RunId int
 )
@@ -83,11 +79,7 @@ SELECT
     ON E.DasAccountId_v2=V.AccountId
    AND E.SourceDb='RCRT'
   LEFT
-<<<<<<< ASINTEL--5273
-  JOIN ASData_PL.Va_Vacancy VV
-=======
   JOIN ASData_PL.Va_Vacancy_Rcrt VV
->>>>>>> master
     ON VV.VacancyReferenceNumber=TRY_CAST(V.VacancyReference as bigint)
  WHERE COALESCE(EPA.Postcode
                ,EPA.AddressLine1
@@ -148,8 +140,4 @@ UPDATE Mgmt.Log_Execution_Results
 
   END CATCH
 
-<<<<<<< ASINTEL--5273
 GO
-=======
-GO
->>>>>>> master

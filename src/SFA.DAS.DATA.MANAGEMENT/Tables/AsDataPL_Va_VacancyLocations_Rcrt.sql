@@ -1,8 +1,4 @@
-<<<<<<< ASINTEL--5273
 CREATE TABLE AsData_Pl.Va_VacancyLocations_Rcrt
-=======
-﻿CREATE TABLE AsData_Pl.Va_VacancyLocations_Rcrt
->>>>>>> master
 (
  VacancyLocationsId BIGINT IDENTITY(1,1) PRIMARY KEY
 ,VacancyId bigint
@@ -17,8 +13,4 @@ CREATE TABLE AsData_Pl.Va_VacancyLocations_Rcrt
 ,SourceDb varchar(100)
 ,[AsDm_UpdatedDateTime]  [datetime2](7) DEFAULT (getdate())
 
-<<<<<<< ASINTEL--5273
 )
-=======
-)
->>>>>>> master

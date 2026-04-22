@@ -32,9 +32,7 @@ DEClARE @quote varchar(5) = ''''
 
 BEGIN TRANSACTION
 
-DROP TABLE #RuleOutcomes
-DROP TABLE #RuleDetails
-
+DROP TABLE IF EXISTS #RuleOutcomes;
 TRUNCATE TABLE ASData_PL.va_VacancyReviewsAutoQAOutcome_rcrt
 SELECT
       e.Id AS VacancyReviewId,

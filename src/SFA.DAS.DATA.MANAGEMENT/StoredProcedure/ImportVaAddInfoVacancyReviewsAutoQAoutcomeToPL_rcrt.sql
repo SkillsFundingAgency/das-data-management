@@ -59,8 +59,7 @@ WITH (
      ) r
 WHERE ISJSON(e.AutomatedQaOutcome) = 1;
 
-CREATE CLUSTERED INDEX IX_RuleOutcomes_Id ON #RuleOutcomes(VacancyReviewId);
-CREATE NONCLUSTERED INDEX IX_RuleOutcomes_RuleId ON #RuleOutcomes(ruleId);
+
 
 INSERT INTO ASData_PL.va_VacancyReviewsAutoQAOutcome_rcrt
 (

@@ -84,7 +84,7 @@ BEGIN TRANSACTION
 ON Target.[Id] = Source.[Id]
 
 -- Perform an UPDATE if the record already exists and the source has newer data
-WHEN MATCHED AND Source.[UpdatedAt] > Target.[UpdatedAt]
+WHEN MATCHED AND Source.[UpdatedAt] >= Target.[UpdatedAt]
 THEN
 UPDATE
 SET 

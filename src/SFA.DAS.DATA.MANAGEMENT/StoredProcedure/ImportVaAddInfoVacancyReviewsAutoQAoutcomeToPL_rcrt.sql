@@ -32,7 +32,7 @@ DEClARE @quote varchar(5) = ''''
 
 BEGIN TRANSACTION
 
-WITH CTE_RuleOutcomes AS (
+;WITH CTE_RuleOutcomes AS (
 
 SELECT
       e.Id AS VacancyReviewId,

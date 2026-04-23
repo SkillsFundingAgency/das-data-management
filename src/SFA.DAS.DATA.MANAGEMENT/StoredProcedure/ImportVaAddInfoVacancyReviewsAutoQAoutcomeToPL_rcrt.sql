@@ -32,8 +32,8 @@ DEClARE @quote varchar(5) = ''''
 
 BEGIN TRANSACTION
 
-DROP TABLE IF EXISTS #RuleOutcomes;
-TRUNCATE TABLE ASData_PL.va_VacancyReviewsAutoQAOutcome_rcrt
+WITH CTE_RuleOutcomes AS (
+
 SELECT
       e.Id AS VacancyReviewId,
       e.VacancyReference,
@@ -44,7 +44,7 @@ SELECT
       r.narrative,
       NULLIF(r.target, '') AS target,
       r.details
-INTO #RuleOutcomes
+
 FROM stg.RCRT_VacancyReview e
 LEFT JOIN ASData_PL.Va_Vacancy_Rcrt v
        ON v.VacancyReferenceNumber = e.VacancyReference
@@ -57,9 +57,7 @@ WITH (
         target       NVARCHAR(256)   '$.target',
         details      NVARCHAR(MAX)   '$.details' AS JSON
      ) r
-WHERE ISJSON(e.AutomatedQaOutcome) = 1;
-
-
+WHERE e.AutomatedQaOutcome like '{%')
 
 INSERT INTO ASData_PL.va_VacancyReviewsAutoQAOutcome_rcrt
 (
@@ -97,7 +95,7 @@ SELECT
 
       dbo.Fn_ConvertGuidToBase64(r.VacancyReviewId),
       'RAAv2'
-FROM #RuleOutcomes r
+FROM CTE_RuleOutcomes r
 OUTER APPLY OPENJSON(r.details)
 WITH (
         details_id         UNIQUEIDENTIFIER '$.id',

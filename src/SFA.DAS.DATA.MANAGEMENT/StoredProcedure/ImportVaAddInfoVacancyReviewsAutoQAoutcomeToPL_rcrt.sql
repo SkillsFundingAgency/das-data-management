@@ -31,7 +31,7 @@ DEClARE @quote varchar(5) = ''''
      AND RunId=@RunID
 
 BEGIN TRANSACTION
-
+;TRUNCATE TABLE ASData_PL.va_VacancyReviewsAutoQAOutcome_rcrt
 ;WITH CTE_RuleOutcomes AS (
 
 SELECT

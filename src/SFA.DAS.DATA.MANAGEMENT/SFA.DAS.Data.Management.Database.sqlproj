@@ -603,8 +603,14 @@
     <Build Include="Tables\AsDataPL_Cpg_UnsubscribedContacts.sql" />
     <Build Include="Tables\AsDataPL_FAT_ROATPV2_ProviderCourseForecast.sql" />     
     <Build Include="Tables\AsDataPL_Cpg_UserData.sql" />  
-    <Build Include="Tables\AsDataPL_FAT_ROATPV2_ProviderCourseForecast.sql" /> 
+    <Build Include="StoredProcedure\ImportVacanciesProvider_Rcrt.sql" />
+    <Build Include="Tables\AsDataPL_Va_Provider_Rcrt.sql" />
     <Build Include="StoredProcedure\ImportVacancies_Rcrt.sql" />
-    <Build Include="Tables\AsDataPL_Va_Vacancy_Rcrt.sql" />    
+    <Build Include="Tables\AsDataPL_Va_Vacancy_Rcrt.sql" />
+    <Build Include="StoredProcedure\ImportVaAddInfoVacancyReviewsAutoQAoutcomeIDToPL _rcrt.sql" />
+    <Build Include="Tables\AsDataPL_Va_VacancyReviewsAutoQAOutcomeID _rcrt.sql" />
+    <Build Include="StoredProcedure\ImportVaAddInfoVacancyReviewsAutoQAoutcomeToPL_rcrt.sql" />
+    <Build Include="Tables\AsDataPL_Va_VacancyReviewsAutoQAOutcome_rcrt.sql" />
+    <Build Include="Tables\AsDataPL_FAT_ROATPV2_ProviderCourseForecast.sql" />     
   </ItemGroup>
 </Project>

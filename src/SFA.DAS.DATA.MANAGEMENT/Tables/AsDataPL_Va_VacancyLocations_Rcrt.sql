@@ -1,4 +1,4 @@
-﻿CREATE TABLE AsData_Pl.Va_VacancyLocations_Rcrt
+CREATE TABLE AsData_Pl.Va_VacancyLocations_Rcrt
 (
  VacancyLocationsId BIGINT IDENTITY(1,1) PRIMARY KEY
 ,VacancyId bigint

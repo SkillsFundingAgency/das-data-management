@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[ImportVacancyLocationsToPL_Rcrt]
+CREATE PROCEDURE [dbo].[ImportVacancyLocationsToPL_Rcrt]
 (
    @RunId int
 )

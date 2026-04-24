@@ -110,7 +110,7 @@ BEGIN TRY
 					  ,tblRoute.[Name]
 					  ,[AssessmentPlanUrl]
 					  ,[ApprovedForDelivery]
-					  ,CASE WHEN std.LarsCode in (819,820,821,288) THEN ''ShorterByDesign'' else std.[ApprenticeshipType] END as ApprenticeshipType 					  
+					  ,CASE WHEN std.LarsCode in (819,820,821,822) THEN ''ShorterByDesign'' else std.[ApprenticeshipType] END as ApprenticeshipType 					  
 					  ,[TrailBlazerContact]
 					  ,[EqaProviderName]
 					  ,[EqaProviderContactName]
@@ -121,9 +121,9 @@ BEGIN TRY
 					  ,std.[StandardPageUrl]
 					  ,std.[Version]
 					  ,[RegulatedBody]
-					  ,[Skills]
-					  ,[Knowledge]
-					  ,[Behaviours]
+					  ,NULL AS [Skills]
+					  ,NULL AS [Knowledge]
+					  ,NULL AS [Behaviours]
 					  ,[Duties]
 					  ,[CoreAndOptions]
 					  ,[IntegratedApprenticeship]

@@ -703,3 +703,4 @@ DROP SCHEMA IF EXISTS [Resv]
 DROP SCHEMA IF EXISTS [Swap]
 
 
+:r .\LarsCodeTypeMigration.sql

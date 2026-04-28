@@ -553,12 +553,6 @@ VALUES
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
 VALUES
 ('Cpg','UserData','dbo','[Id],[FirstName],[LastName],[Email],[UkEmployerSize],[PrimaryIndustry],[PrimaryLocation],[AppsgovSignUpDate],[PersonOrigin],[IncludeInUR]','','',1,0,'CPG_UserData')
-,('Cpg','Campaigns','dbo','[Id],[ExternalId],[Name],[Type],[CreatedBy],[CreatedOn],[ModifiedBy],[ModifiedOn],[FirstSendDate],[LastSendDate],[FromEmailAddress],[FromName],[ReplyEmailAddress],[Subject],[SubStatus],[ContactCount],[Account]','','',1,0,'CPG_Campaigns')
-,('Cpg','CampaignImportMetadata','dbo','[Id],[CampaignId],[IsImportComplete],[ImportStartDate],[ImportEndDate]','','',1,0,'CPG_CampaignImportMetadata')
-,('Cpg','BouncedEmails','dbo','[Id],[ExternalId],[CampaignId],[ContactEmail],[BounceDate],[BounceReason],[BounceType],[ResponseText]','','',1,0,'CPG_BouncedEmails')
-,('Cpg','ClickedLinks','dbo','[Id],[ExternalId],[CampaignId],[ContactEmail],[ClickedDate],[FriendlyUrlName],[LinkId],[Url],[IsMonitored],[EmailFormat],[IsSuspectedBot],[Device],[ClientName],[Os],[OsFamily],[IpAddress],[ClientType],[ClientFamily]','','',1,0,'CPG_ClickedLinks')
-,('Cpg','DisplayedEmails','dbo','[Id],[ExternalId],[CampaignId],[ContactEmail],[DisplayedDate],[Format],[TimeDisplayed],[IsSuspectedBot],[Device],[ClientName],[Os],[OsFamily],[IpAddress],[ClientType],[ClientFamily]','','',1,0,'CPG_DisplayedEmails')
-,('Cpg','UnsubscribedContacts','dbo','[Id],[ExternalId],[CampaignId],[ContactEmail],[UnsubscribedDate],[IsGlobalUnscribe],[IsComplaint]','','',1,0,'CPG_UnsubscribedContacts')
 COMMIT TRANSACTION
 
 UPDATE Mgmt.Log_Execution_Results

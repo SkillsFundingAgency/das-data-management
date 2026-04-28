@@ -214,7 +214,7 @@ VALUES
 ('CRS','Route','dbo','[Id],[Name]','','',1,1,'FAT2_StandardSector'),
 ('CRS','SectorSubjectAreaTier2','dbo','[SectorSubjectAreaTier2],[SectorSubjectAreaTier2Desc],[EffectiveFrom],[EffectiveTo]','','[Name]',1,0,'FAT2_SectorSubjectAreaTier2'),
 ('CRS','SectorSubjectAreaTier1','dbo','[SectorSubjectAreaTier1],[SectorSubjectAreaTier1Desc],[EffectiveFrom],[EffectiveTo]','','',1,0,'FAT2_SectorSubjectAreaTier1'),
-('CRS','Standard','dbo','[StandardUId],[IfateReferenceNumber],[LarsCode],[Status],[VersionEarliestStartDate],[VersionLatestStartDate],[VersionLatestEndDate],[Level],[ProposedTypicalDuration],[ProposedMaxFunding],[IntegratedDegree],[OverviewOfRole],[RouteCode],[AssessmentPlanUrl],[ApprovedForDelivery],[Keywords],[TypicalJobTitles],[StandardPageUrl],[Version],[RegulatedBody],[Skills],[Knowledge],[Behaviours],[Duties],[CoreAndOptions],[IntegratedApprenticeship],[Options],[CoreDuties],[EPAChanged],[VersionMajor],[VersionMinor],[CoronationEmblem],[EpaoMustBeApprovedByRegulatorBody],[ApprenticeshipType]','','[Title],[TrailBlazerContact],[EqaProviderName],[EqaProviderContactName],[EqaProviderContactEmail],[EqaProviderWebLink]',1,1,'FAT2_StandardSector')
+('CRS','Standard','dbo','[StandardUId],[IfateReferenceNumber],[LarsCode],[Status],[VersionEarliestStartDate],[VersionLatestStartDate],[VersionLatestEndDate],[Level],[ProposedTypicalDuration],[ProposedMaxFunding],[IntegratedDegree],[OverviewOfRole],[RouteCode],[AssessmentPlanUrl],[ApprovedForDelivery],[Keywords],[TypicalJobTitles],[StandardPageUrl],[Version],[RegulatedBody],[Duties],[CoreAndOptions],[IntegratedApprenticeship],[Options],[CoreDuties],[EPAChanged],[VersionMajor],[VersionMinor],[CoronationEmblem],[EpaoMustBeApprovedByRegulatorBody],[ApprenticeshipType]','[CreatedDate],[IsRegulatedForProvider],[IsRegulatedForEPAO],[PublishDate],[RelatedOccupations],[CourseType],[DurationUnits],[LastUpdated],[IsLatestVersion]','[Title],[TrailBlazerContact],[EqaProviderName],[EqaProviderContactName],[EqaProviderContactEmail],[EqaProviderWebLink]',1,1,'FAT2_StandardSector')
 
 /* PREL Import Configurations */
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
@@ -553,6 +553,12 @@ VALUES
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
 VALUES
 ('Cpg','UserData','dbo','[Id],[FirstName],[LastName],[Email],[UkEmployerSize],[PrimaryIndustry],[PrimaryLocation],[AppsgovSignUpDate],[PersonOrigin],[IncludeInUR]','','',1,0,'CPG_UserData')
+,('Cpg','Campaigns','dbo','[Id],[ExternalId],[Name],[Type],[CreatedBy],[CreatedOn],[ModifiedBy],[ModifiedOn],[FirstSendDate],[LastSendDate],[FromEmailAddress],[FromName],[ReplyEmailAddress],[Subject],[SubStatus],[ContactCount],[Account]','','',1,0,'CPG_Campaigns')
+,('Cpg','CampaignImportMetadata','dbo','[Id],[CampaignId],[IsImportComplete],[ImportStartDate],[ImportEndDate]','','',1,0,'CPG_CampaignImportMetadata')
+,('Cpg','BouncedEmails','dbo','[Id],[ExternalId],[CampaignId],[ContactEmail],[BounceDate],[BounceReason],[BounceType],[ResponseText]','','',1,0,'CPG_BouncedEmails')
+,('Cpg','ClickedLinks','dbo','[Id],[ExternalId],[CampaignId],[ContactEmail],[ClickedDate],[FriendlyUrlName],[LinkId],[Url],[IsMonitored],[EmailFormat],[IsSuspectedBot],[Device],[ClientName],[Os],[OsFamily],[IpAddress],[ClientType],[ClientFamily]','','',1,0,'CPG_ClickedLinks')
+,('Cpg','DisplayedEmails','dbo','[Id],[ExternalId],[CampaignId],[ContactEmail],[DisplayedDate],[Format],[TimeDisplayed],[IsSuspectedBot],[Device],[ClientName],[Os],[OsFamily],[IpAddress],[ClientType],[ClientFamily]','','',1,0,'CPG_DisplayedEmails')
+,('Cpg','UnsubscribedContacts','dbo','[Id],[ExternalId],[CampaignId],[ContactEmail],[UnsubscribedDate],[IsGlobalUnscribe],[IsComplaint]','','',1,0,'CPG_UnsubscribedContacts')
 COMMIT TRANSACTION
 
 UPDATE Mgmt.Log_Execution_Results

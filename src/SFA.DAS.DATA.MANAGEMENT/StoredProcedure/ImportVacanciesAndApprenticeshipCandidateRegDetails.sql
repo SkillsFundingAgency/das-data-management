@@ -161,10 +161,10 @@ UPDATE Mgmt.Log_Execution_Results
 -- 		       DROP TABLE [Stg].[Avms_CandidateRegDetails]
 
 
- IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Comt_ApprenticeshipCandidateRegDetails' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
-		       DROP TABLE [Stg].[Comt_ApprenticeshipCandidateRegDetails]
+--  IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Comt_ApprenticeshipCandidateRegDetails' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+-- 		       DROP TABLE [Stg].[Comt_ApprenticeshipCandidateRegDetails]
 
-
+TRUNCATE TABLE [Stg].[Comt_ApprenticeshipCandidateRegDetails]
 TRUNCATE TABLE [Stg].[Faa_CandidateRegDetails]
 
 
@@ -215,9 +215,10 @@ UPDATE Mgmt.Log_Execution_Results
 -- 		       DROP TABLE [Stg].[Avms_CandidateRegDetails]
 
 
- IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Comt_ApprenticeshipCandidateRegDetails' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
-		       DROP TABLE [Stg].[Comt_ApprenticeshipCandidateRegDetails]
+--  IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Comt_ApprenticeshipCandidateRegDetails' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+-- 		       DROP TABLE [Stg].[Comt_ApprenticeshipCandidateRegDetails]
 
+TRUNCATE TABLE [Stg].[Comt_ApprenticeshipCandidateRegDetails]
 
 TRUNCATE TABLE [Stg].[Faa_CandidateRegDetails]
 

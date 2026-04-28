@@ -126,6 +126,8 @@ from ASData_PL.Va_Vacancy where SourceDb='RAAv2'
 
 )a
 
+EXEC [dbo].[ImportVacancyLocationsToPL_Rcrt] @RunId;
+
 COMMIT TRANSACTION
 
 

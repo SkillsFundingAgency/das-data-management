@@ -173,6 +173,7 @@
     <Build Include="Tables\AsDataPL_Va_Provider_Rcrt.sql" />
     <Build Include="Tables\AsDataPL_Va_Vacancy.sql" />
     <Build Include="Tables\AsDataPL_Va_VacancyLocations.sql" />
+    <Build Include="Tables\AsDataPL_Va_VacancyLocations_Rcrt.sql" />
     <Build Include="Tables\AsDataPL_Va_LegalEntity.sql" />
     <Build Include="Tables\AsDataPL_Va_LegalEntity_Rcrt.sql" />
     <Build Include="StoredProcedure\ImportVacanciesEmployer.sql" />
@@ -183,6 +184,7 @@
     <Build Include="StoredProcedure\ImportVacanciesLegalEntity_Rcrt.sql" />
     <Build Include="StoredProcedure\ImportVacancies.sql" />
     <Build Include="StoredProcedure\ImportVacancyLocations.sql" />
+    <Build Include="StoredProcedure\ImportVacancyLocations_Rcrt.sql" />
     <Build Include="StoredProcedure\ImportVacanciesCandidate.sql" />
     <Build Include="StoredProcedure\ImportVacanciesApplication.sql" />
     <Build Include="Tables\AsDataPL_Va_EducationLevel.sql" />
@@ -593,7 +595,15 @@
     <Build Include="StoredProcedure\ImportVacanciesApplication_Migration_MissingData.sql" />
     <Build Include="Tables\AsDataPL_Va_Application_Migration_MissingData.sql" />
     <Build Include="Tables\AsDataPL_Cpg_UserData.sql" />  
-    <Build Include="Tables\AsDataPL_FAT_ROATPV2_ProviderCourseForecast.sql" />
+    <Build Include="StoredProcedure\ImportVacanciesProvider_Rcrt.sql" />
+    <Build Include="Tables\AsDataPL_Va_Provider_Rcrt.sql" />
+    <Build Include="StoredProcedure\ImportVacancies_Rcrt.sql" />
+    <Build Include="Tables\AsDataPL_Va_Vacancy_Rcrt.sql" />
+    <Build Include="StoredProcedure\ImportVaAddInfoVacancyReviewsAutoQAoutcomeIDToPL _rcrt.sql" />
+    <Build Include="Tables\AsDataPL_Va_VacancyReviewsAutoQAOutcomeID _rcrt.sql" />
+    <Build Include="StoredProcedure\ImportVaAddInfoVacancyReviewsAutoQAoutcomeToPL_rcrt.sql" />
+    <Build Include="Tables\AsDataPL_Va_VacancyReviewsAutoQAOutcome_rcrt.sql" />
+    <Build Include="Tables\AsDataPL_FAT_ROATPV2_ProviderCourseForecast.sql" />     
     <Build Include="Views\ASData_PL_AssessorStaffReportsCertificateCount.sql" />
     <Build Include="Views\ASData_PL_AssessorStaffReportsMonthlySummary.sql" />
     <Build Include="Views\ASData_PL_AssessorStaffReportsWeeklySummary.sql" />

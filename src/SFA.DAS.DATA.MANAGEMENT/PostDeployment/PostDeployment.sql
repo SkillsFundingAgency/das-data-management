@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS [ASData_PL].[AR_Apprentice]
 UPDATE  [Mtd].[SourceToStageAudit]
 SET WatermarkValue='2000-03-24 12:24:48.1846476'
 WHERE SourceTableName IN ('CertificateLogs',
-'Certificates') AND LastUpdatedTimestamp<'2026-04-25 04:27:49.190'
+'Certificates')
 
 --EXEC [dbo].[ImportDimDate] 6
 

@@ -207,7 +207,7 @@ VALUES
 /* CRS Import Configurations */
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
 VALUES
-('CRS','ApprenticeshipFunding','dbo','[Id],[StandardUId],[EffectiveFrom],[EffectiveTo],[MaxEmployerLevyCap],[Duration]','','',1,0,'FAT2_ApprenticeshipFunding'),
+('CRS','ApprenticeshipFunding','dbo','[Id],[EffectiveFrom],[EffectiveTo],[MaxEmployerLevyCap],[Duration]','','',1,0,'FAT2_ApprenticeshipFunding'),
 ('CRS','Framework','dbo','[Id],[ProgType],[FrameworkCode],[PathwayCode],[Level],[TypicalLengthFrom],[TypicalLengthTo],[TypicalLengthUnit],[Duration],[CurrentFundingCap],[MaxFunding],[Ssa1],[Ssa2],[EffectiveFrom],[EffectiveTo],[IsActiveFramework],[ProgrammeType],[HasSubGroups],[ExtendedTitle]','','[Title],[FrameworkName],[PathwayName]',1,1,'FAT2_Framework'),
 ('CRS','FrameworkFundingPeriod','dbo','[Id],[FrameworkId],[EffectiveFrom],[EffectiveTo],[FundingCap]','','',1,0,'FAT2_FrameworkFundingPeriod'),
 ('CRS','LarsStandard','dbo','[LarsCode],[Version],[EffectiveFrom],[EffectiveTo],[LastDateStarts],[SectorSubjectAreaTier2],[OtherBodyApprovalRequired],[SectorCode],[SectorSubjectAreaTier1],[ApprenticeshipStandardTypeCode]','','',1,0,'FAT2_LarsStandard'),
@@ -551,6 +551,12 @@ VALUES
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
 VALUES
 ('Cpg','UserData','dbo','[Id],[FirstName],[LastName],[Email],[UkEmployerSize],[PrimaryIndustry],[PrimaryLocation],[AppsgovSignUpDate],[PersonOrigin],[IncludeInUR]','','',1,0,'CPG_UserData')
+,('Cpg','Campaigns','dbo','[Id],[ExternalId],[Name],[Type],[CreatedBy],[CreatedOn],[ModifiedBy],[ModifiedOn],[FirstSendDate],[LastSendDate],[FromEmailAddress],[FromName],[ReplyEmailAddress],[Subject],[SubStatus],[ContactCount],[Account]','','',1,0,'CPG_Campaigns')
+,('Cpg','CampaignImportMetadata','dbo','[Id],[CampaignId],[IsImportComplete],[ImportStartDate],[ImportEndDate]','','',1,0,'CPG_CampaignImportMetadata')
+,('Cpg','BouncedEmails','dbo','[Id],[ExternalId],[CampaignId],[ContactEmail],[BounceDate],[BounceReason],[BounceType],[ResponseText]','','',1,0,'CPG_BouncedEmails')
+,('Cpg','ClickedLinks','dbo','[Id],[ExternalId],[CampaignId],[ContactEmail],[ClickedDate],[FriendlyUrlName],[LinkId],[Url],[IsMonitored],[EmailFormat],[IsSuspectedBot],[Device],[ClientName],[Os],[OsFamily],[IpAddress],[ClientType],[ClientFamily]','','',1,0,'CPG_ClickedLinks')
+,('Cpg','DisplayedEmails','dbo','[Id],[ExternalId],[CampaignId],[ContactEmail],[DisplayedDate],[Format],[TimeDisplayed],[IsSuspectedBot],[Device],[ClientName],[Os],[OsFamily],[IpAddress],[ClientType],[ClientFamily]','','',1,0,'CPG_DisplayedEmails')
+,('Cpg','UnsubscribedContacts','dbo','[Id],[ExternalId],[CampaignId],[ContactEmail],[UnsubscribedDate],[IsGlobalUnscribe],[IsComplaint]','','',1,0,'CPG_UnsubscribedContacts')
 COMMIT TRANSACTION
 
 UPDATE Mgmt.Log_Execution_Results

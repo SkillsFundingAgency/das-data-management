@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Database.publish.xml" />
+    <None Include="PreDeployment\LarsCodeTypeMigration.sql" />
     <PostDeploy Include="PostDeployment\PostDeployment.sql" />
     <Build Include="Schemas\Mgmt.sql" />
     <PreDeploy Include="PreDeployment\PreDeploymentPrepScript.sql" />
@@ -594,6 +595,14 @@
     <Build Include="Tables\StgRAA_RAA_VacancyReviews.sql" />
     <Build Include="StoredProcedure\ImportVacanciesApplication_Migration_MissingData.sql" />
     <Build Include="Tables\AsDataPL_Va_Application_Migration_MissingData.sql" />
+    <Build Include="Tables\AsDataPL_Cpg_UserData.sql" />
+    <Build Include="Tables\AsDataPL_Cpg_Campaigns.sql" />
+    <Build Include="Tables\AsDataPL_Cpg_CampaignImportMetadata.sql" />
+    <Build Include="Tables\AsDataPL_Cpg_BouncedEmails.sql" />
+    <Build Include="Tables\AsDataPL_Cpg_ClickedLinks.sql" />
+    <Build Include="Tables\AsDataPL_Cpg_DisplayedEmails.sql" />
+    <Build Include="Tables\AsDataPL_Cpg_UnsubscribedContacts.sql" />
+    <Build Include="Tables\AsDataPL_FAT_ROATPV2_ProviderCourseForecast.sql" />     
     <Build Include="Tables\AsDataPL_Cpg_UserData.sql" />  
     <Build Include="StoredProcedure\ImportVacanciesProvider_Rcrt.sql" />
     <Build Include="Tables\AsDataPL_Va_Provider_Rcrt.sql" />

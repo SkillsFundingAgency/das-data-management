@@ -6,7 +6,7 @@
 	[InitialState] [nvarchar](max) NULL,
 	[UpdatedState] [nvarchar](max) NULL,
 	[UKPRN][int]								 NULL,
-	[LARSCode][int]						 NULL,
+	[LARSCode][varchar](8)				 NULL,
 	[ProviderId][int]						 NULL,
 	[IsApprovedByRegulator][nvarchar](256)  NULL,
 	[AsDm_UpdatedDateTime]  [datetime2](7)						DEFAULT (getdate())

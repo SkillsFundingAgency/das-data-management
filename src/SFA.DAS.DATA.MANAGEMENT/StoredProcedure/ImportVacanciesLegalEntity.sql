@@ -67,6 +67,8 @@ INSERT INTO [ASData_PL].[Va_LegalEntity]
 
 
 
+Exec [dbo].[ImportVacanciesLegalEntityToPL_Rcrt] @RunId
+
 
 
 

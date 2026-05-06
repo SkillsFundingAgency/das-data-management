@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [ASData_PL].[FAT2_StandardSector](
 	[StandardUId]									[varchar](20)		NOT NULL,
 	[IfateReferenceNumber]							[varchar](10)		NOT NULL,
-	[LarsCode]										[int]				NULL,
+	[LarsCode]										[varchar](8)		NULL,
 	[Status]										[varchar](100)		NOT NULL,
 	[VersionEarliestStartDate]						[datetime]			NULL,
 	[VersionLatestStartDate]						[datetime]			NULL,
@@ -17,6 +17,7 @@
 	[Route]											[varchar](500)		NOT NULL,
 	[AssessmentPlanUrl]								[varchar](500)		NULL,
 	[ApprovedForDelivery]							[datetime]			NULL,
+	[ApprenticeshipType]							[varchar](50)		NULL,
 	[TrailBlazerContact]							[varchar](200)		NULL,
 	[EqaProviderName]								[varchar](200)		NULL,
 	[EqaProviderContactName]						[varchar](200)		NULL,

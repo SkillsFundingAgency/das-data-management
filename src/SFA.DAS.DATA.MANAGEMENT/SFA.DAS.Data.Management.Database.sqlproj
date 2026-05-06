@@ -71,6 +71,7 @@
   <ItemGroup>
     <None Include="Database.publish.xml" />
     <None Include="PreDeployment\LarsCodeTypeMigration.sql" />
+    <None Include="PreDeployment\CpgSourceSchemaMigration.sql" />
     <PostDeploy Include="PostDeployment\PostDeployment.sql" />
     <Build Include="Schemas\Mgmt.sql" />
     <PreDeploy Include="PreDeployment\PreDeploymentPrepScript.sql" />

@@ -264,7 +264,8 @@ VALUES
 ('Roatpv2','ProviderAddress','dbo','[Id],[ProviderId],[Postcode],[Latitude],[Longitude],[AddressUpdateDate],[CoordinatesUpdateDate]','[AddressLine1],[AddressLine2],[AddressLine3],[AddressLine4],[Town]','',1,0,'FAT_ROATPV2_ProviderAddress'),
 ('Roatpv2','Standard','dbo','[StandardUId],[LarsCode],[IfateReferenceNumber],[Level],[Version],[ApprovalBody],[SectorSubjectArea],[SectorSubjectAreaTier1]','','[Title]',1,0,'FAT_ROATPV2_Standard'),
 ('Roatpv2','ProviderCourseForecast','dbo','[ID], [Ukprn],[LarsCode], [TimePeriod], [Quarter],[EstimatedLearners], [CreatedDate], [UpdatedDate]','','',1,0,'FAT_ROATPV2_ProviderCourseForecast'),
-('Roatpv2','ProviderAllowedCourse','dbo','[Id],[Ukprn],[LarsCode]','','',1,0,'FAT_ROATPV2_ProviderAllowedCourse')
+('Roatpv2','ProviderAllowedCourse','dbo','[Id],[Ukprn],[LarsCode]','','',1,0,'FAT_ROATPV2_ProviderAllowedCourse'),
+('Roatpv2','ProviderCourseType','dbo','[Id],[Ukprn],[CourseType]','','',1,0,'FAT_ROATPV2_ProviderCourseType')
 
 /* Roatp Import Configuration */
 

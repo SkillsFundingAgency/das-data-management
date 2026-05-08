@@ -65,8 +65,7 @@ INSERT INTO [ASData_PL].[Va_Employer_Rcrt]
 	   LEFT JOIN Stg.Avms_EmployerTrainingProviderStatus ETPS
 	     ON E.EmployerStatusTypeId=ETPS.EmployerTrainingProviderStatusId
 	  UNION ALL
-	 SELECT DISTINCT
-	        TradingName              as EmployerFullName
+	 SELECT TradingName              as EmployerFullName
 	       ,TradingName              as TradingName
 		   ,-1                       as SourceEmployerId_v1
 		   ,AccountId       		 as DasAccountId_v2
@@ -75,8 +74,13 @@ INSERT INTO [ASData_PL].[Va_Employer_Rcrt]
 		   ,-1                       as EdsUrn_v1
 		   ,-1                       as EmployerStatusTypeId_v1
 		   ,'N/A'                    as EmployerStatusTypeDesc_v1
-		   ,'RCRT'                  as SourceDb
-	   FROM Stg.RCRT_EmployerProfile v
+		   ,'RCRT'                   as SourceDb
+	   FROM (SELECT DISTINCT AccountId
+	                       ,TradingName
+						   ,ROW_NUMBER() OVER (PARTITION BY AccountId
+							                       ORDER BY TradingName DESC) rn
+			   FROM Stg.RCRT_EmployerProfile) v
+	  WHERE rn=1
 	  
 
 

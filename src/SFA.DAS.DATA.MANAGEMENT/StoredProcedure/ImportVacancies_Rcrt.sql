@@ -532,7 +532,7 @@ JSON_VALUE(EmployerLocations, '$[0].addressLine4')  end                         
 		  ,CASE WHEN v.[LiveDate] is null then 0
 		        ELSE 1
 				END                                                  as HasHadLiveStatus
-		  ,CASE WHEN v.DeletedDate   IS NULL THEN 0 ELSE 1 END                                             as IsDeleted
+		  ,CASE WHEN v.DeletedDate   IS NULL THEN 'FALSE' ELSE 'TRUE' END                                             as IsDeleted
 		  ,V.DeletedDate as DeletedDateTime
 		  ,V.SubmittedDate as SubmittedDateTime
       ,V.ClosedDate as ClosedDateTimeStamp

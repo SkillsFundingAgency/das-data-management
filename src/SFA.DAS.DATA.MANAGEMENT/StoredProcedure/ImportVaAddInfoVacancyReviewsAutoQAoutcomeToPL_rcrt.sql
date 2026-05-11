@@ -46,7 +46,7 @@ SELECT
       r.details
 
 FROM stg.RCRT_VacancyReview e
-LEFT JOIN ASData_PL.Va_Vacancy_Rcrt v
+LEFT JOIN ASData_PL.Va_Vacancy v
        ON v.VacancyReferenceNumber = e.VacancyReference
 CROSS APPLY OPENJSON(e.AutomatedQaOutcome, '$.ruleOutcomes')
 WITH (

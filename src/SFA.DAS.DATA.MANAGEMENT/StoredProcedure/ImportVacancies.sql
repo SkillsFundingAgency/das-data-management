@@ -318,7 +318,7 @@ from
 
 
 
-/* Load RAAv2 */
+/* Load RCRT */
 
 INSERT INTO [ASData_PL].[Va_Vacancy]
            ([VacancyGuid]
@@ -422,25 +422,40 @@ select  vv.*
   ,ROW_NUMBER() OVER (PARTITION BY VacancyTitle, NumberofPositions,EmployerFullName,EducationLevel,datepart(year,DatePosted), datepart(month,DatePosted) ORDER BY VacancyReference) as RowNumber from
   
   (
-SELECT  cast(v.BinaryId as varchar(256))                        as VacancyGuid
-	      ,cast(VacancyReference as bigint)                           as VacancyReference
-		  ,cast(VacancyStatus as varchar(100))                     as VacancyStatus
-		  ,REPLACE(REPLACE(VacancyTitle, CHAR(13), ''), CHAR(10), ' ') as VacancyTitle
-		  ,CASE WHEN len(EmployerPostCode)>8 
-		        THEN CASE WHEN Mgmt.fn_ExtractPostCodeUKFromAddress(EmployerPostCode)='ZZ99 9ZZ'
-				          THEN CASE WHEN Mgmt.fn_ExtractPostCodeUKFromAddress(ISNULL(EmployerAddressLine1,'')+','+ISNULL(EmployerAddressLine2,'')+','+ISNULL(EmployerAddressLine3,'')+','+ISNULL(EmployerAddressLine4,'')) ='ZZ99 9ZZ'
-						            THEN EmployerPostCode
-									ELSE Mgmt.fn_ExtractPostCodeUKFromAddress(ISNULL(EmployerAddressLine1,'')+','+ISNULL(EmployerAddressLine2,'')+','+ISNULL(EmployerAddressLine3,'')+','+ISNULL(EmployerAddressLine4,''))
+
+
+ SELECT  
+ cast(dbo.Fn_ConvertGuidToBase64(v.Id)as varchar(256))                        as VacancyGuid
+	     , cast(v.VacancyReference as bigint)                           as VacancyReference
+		  ,cast([Status] as varchar(100))                     as VacancyStatus
+		  ,REPLACE(REPLACE(V.Title, CHAR(13), ''), CHAR(10), ' ') as VacancyTitle
+		  ,CASE WHEN len(case when EmployerLocations='' THEN NULL ELSE 
+JSON_VALUE(EmployerLocations, '$[0].postcode') END )>8 
+		        THEN CASE WHEN Mgmt.fn_ExtractPostCodeUKFromAddress(JSON_VALUE(EmployerLocations, '$[0].postcode'))='ZZ99 9ZZ'
+				          THEN CASE WHEN Mgmt.fn_ExtractPostCodeUKFromAddress(ISNULL(JSON_VALUE(EmployerLocations, '$[0].addressLine1'),'')+','+ISNULL(JSON_VALUE(EmployerLocations, '$[0].addressLine2'),'')+','+ISNULL(JSON_VALUE(EmployerLocations, '$[0].addressLine3'),'')+','+ISNULL(JSON_VALUE(EmployerLocations, '$[0].addressLine4'),'')) ='ZZ99 9ZZ'
+						            THEN JSON_VALUE(EmployerLocations, '$[0].postcode')
+									ELSE Mgmt.fn_ExtractPostCodeUKFromAddress(ISNULL(JSON_VALUE(EmployerLocations, '$[0].addressLine1'),'')+','+ISNULL(JSON_VALUE(EmployerLocations, '$[0].addressLine2'),'')+','+ISNULL(JSON_VALUE(EmployerLocations, '$[0].addressLine3'),'')+','+ISNULL(JSON_VALUE(EmployerLocations, '$[0].addressLine4'),''))
 							   END
-						  ELSE Mgmt.fn_ExtractPostCodeUKFromAddress(EmployerPostCode)
+						  ELSE Mgmt.fn_ExtractPostCodeUKFromAddress(case when EmployerLocations='' THEN NULL ELSE 
+JSON_VALUE(EmployerLocations, '$[0].postcode') END)
 					  END
-				ELSE EmployerPostCode
-			END                                                    as VacancyPostCode
-          ,EmployerAddressLine1                                    as VacancyAddressLine1
-          ,EmployerAddressLine2                                    as VacancyAddressLine2
-          ,EmployerAddressLine3                                    as VacancyAddressLine3
-          ,EmployerAddressLine4                                    as VacancyAddressLine4
-          ,COALESCE(EmployerAddressLine4,EmployerAddressLine3,EmployerAddressLine2) as VacancyTown
+				ELSE case when EmployerLocations='' THEN NULL ELSE 
+JSON_VALUE(EmployerLocations, '$[0].postcode') END
+			END                                                    as VacancyPostCode 
+           
+              ,case when EmployerLocations='' THEN NULL ELSE 
+JSON_VALUE(EmployerLocations, '$[0].addressLine1')  end                                  as VacancyAddressLine1
+          ,case when EmployerLocations='' THEN NULL ELSE 
+JSON_VALUE(EmployerLocations, '$[0].addressLine2')  end                                     as VacancyAddressLine2
+          ,case when EmployerLocations='' THEN NULL ELSE 
+JSON_VALUE(EmployerLocations, '$[0].addressLine3')  end                                     as VacancyAddressLine3
+          ,case when EmployerLocations='' THEN NULL ELSE 
+JSON_VALUE(EmployerLocations, '$[0].addressLine4')  end                                     as VacancyAddressLine4
+          ,
+		  case when EmployerLocations='' THEN NULL ELSE 
+
+		  
+		  COALESCE(JSON_VALUE(EmployerLocations, '$[0].addressLine4'),JSON_VALUE(EmployerLocations, '$[0].addressLine3'),JSON_VALUE(EmployerLocations, '$[0].addressLine2')) end  as VacancyTown
           ,EmployerLocationOption                                  as EmployerLocationOption 
           ,dbo.Fn_CleanseJSONText([Skills])  as SkillsRequired
           ,dbo.Fn_CleanseJSONText([Qualifications]) as QualificationsRequired
@@ -448,15 +463,16 @@ SELECT  cast(v.BinaryId as varchar(256))                        as VacancyGuid
 		  ,E.EmployerId                                            as EmployerId
 		  ,V.EmployerName                                          as EmployerFullName
 		  ,LE.LegalEntityId                                        as LegalEntityId
-      ,V.LegalEntityName
+
+            ,V.LegalEntityName
 		  --,LE.LegalEntityName                                      as LegalEntityName
 		  ,P.ProviderID                                            as ProviderId
-		  ,cast(v.TrainingProviderUkprn as int)                    as ProviderUkprn
-	      ,v.TrainingProviderName                                  as ProviderName
-		  ,v.TrainingProviderName                                  as ProviderTradingName
-		  ,EL.EducationLevelFullName +' Level Apprenticeship'      as ApprenticeshipType
-          ,dbo.Fn_CleanseHTMLText([VacancyDescription])             as VacancyShortDesc
-          ,dbo.Fn_CleanseHTMLText([VacancyDescription])             as VacancyDesc
+		  ,cast(v.Ukprn as int)                    as ProviderUkprn
+	      ,v.TrainingProvider_Name                                  as ProviderName
+		  ,v.TrainingProvider_Name                                  as ProviderTradingName
+		  ,CONCAT(EL.EducationLevelFullName ,' Level Apprenticeship')      as ApprenticeshipType
+          ,dbo.Fn_CleanseHTMLText(V.[Description])             as VacancyShortDesc
+          ,dbo.Fn_CleanseHTMLText(V.[Description])             as VacancyDesc
 		  ,cast(v.NumberOfPositions as int)                        as NumberOfPositions
 	      ,CASE WHEN AP.ApprenticeshipType='Standard' THEN ST.StandardSectorName
                 WHEN AP.ApprenticeshipType='Framework' then AF.ApprenticehipOccupationFullName
@@ -467,82 +483,85 @@ SELECT  cast(v.BinaryId as varchar(256))                        as VacancyGuid
                 ELSE -1 
             END                                                    as [Framework/StandardId] 
           ,V.ProgrammeId                                           as LarsCode
-          , CASE WHEN ApprenticeshipType='Framework'  
+          , CASE WHEN AP.ApprenticeshipType='Framework'  
                  then AF.FrameWorkFullName 
-                 WHEN ApprenticeshipType='Standard' 
+                 WHEN AP.ApprenticeshipType='Standard' 
 			     then ST.StandardFullName 
                  ELSE '' 
              END                                                   as [Framework/Standard Name] 
           ,EL.EducationLevelFullName+' '+EL.EducationLevelNamev2   as EducationLevel
-		  ,v.[WageType]                                            as WageType
-          ,isnull((CASE WHEN v.WageType='NationalMinimumWageForApprentices'
-		                THEN CAST(AMW.WageRateInPounds*52*v.WeeklyHours as varchar)
-			            WHEN v.WageType='NationalMinimumWage'
-			            THEN CAST(NMR.MinWage*52*v.WeeklyHours as varchar) + '-' + CAST(NMR.MaxWage*52*v.WeeklyHours as Varchar)
-			            ELSE v.FixedWageYearlyAmount 
+            ,v.[Wage_WageType]                                            as WageType
+          ,isnull((CASE WHEN v.Wage_WageType='NationalMinimumWageForApprentices'
+		                THEN CAST(AMW.WageRateInPounds*52*v.Wage_WeeklyHours as varchar)
+			            WHEN v.Wage_WageType='NationalMinimumWage'
+			            THEN CAST(NMR.MinWage*52*v.Wage_WeeklyHours as varchar) + '-' + CAST(NMR.MaxWage*52*v.Wage_WeeklyHours as Varchar)
+			            ELSE CAST(v.Wage_FixedWageYearlyAmount  as varchar)
 	                     END) ,'') 
 						 +' '
-						 +ISNULL(v.WageAdditionalInformation,'')   as WageText
-          -- ,[WageUnitId]
+						 +ISNULL(v.Wage_WageAdditionalInformation,'')   
+                         
+                         as WageText
+        --   ,[WageUnitId]
           ,'Annually'                                              as WageUnitDesc
-          ,v.WorkingWeekDescription                                as WorkingWeek
-          ,cast(v.WeeklyHours as decimal(10,2))                    as HoursPerWeek
-         --  ,[DurationTypeId]
-          ,cast(v.WageDuration as int)                             as DurationTypeDesc
-	      ,dbo.Fn_ConvertTimeStampToDateTime(v.ClosingDateTimeStamp) as ClosingDateTime
+          ,v.Wage_WorkingWeekDescription                                as WorkingWeek
+          ,cast(v.Wage_WeeklyHours as decimal(10,2))                    as HoursPerWeek
+        --   ,[DurationTypeId]
+          ,cast(v.Wage_Duration as int)                             as DurationTypeDesc
+	      ,V.ClosingDate as ClosingDateTime
          --  ,[InterviewsFromDate]
-          ,dbo.Fn_ConvertTimeStampToDateTime(v.StartDateTimeStamp) as ExpectedStartDate
-          ,v.WageDuration+ ' '+v.WageDurationUnit + CASE WHEN v.WageDuration<>1 then 's' ELSE '' END 
+          ,V.StartDate ExpectedStartDate
+          ,cast(v.Wage_Duration as varchar)+ ' '+v.Wage_DurationUnit + CASE WHEN v.Wage_Duration<>1 then 's' ELSE '' END 
 		                                                           as ExpectedDuration
 		  ,CASE WHEN AP.ApprenticeshipType='Framework' THEN 1
                 WHEN AP.ApprenticeshipType='Standard' THEN 2
                 ELSE 0
               END                                                  as TrainingTypeId
 	      ,ISNULL(AP.ApprenticeshipType,'Unknown')                 as TrainingTypeFullName
-	      ,CASE WHEN AP.EducationLevelNumber=8 THEN 2
-	            WHEN AP.EducationLevelNumber IN (2,3,4,6) THEN 1
+	      ,CASE WHEN AP.EducationLevelNumber='8' THEN 2
+	            WHEN AP.EducationLevelNumber IN ('2','3','4','6') THEN 1
 			    ELSE 0
 			END                                                    as VacancyTypeId
-	      ,CASE WHEN AP.EducationLevelNumber=8 THEN 'Traineeship'
-	            WHEN AP.EducationLevelNumber IN (2,3,4,6) THEN 'Apprenticeship'
+	      ,CASE WHEN AP.EducationLevelNumber='8' THEN 'Traineeship'
+	            WHEN AP.EducationLevelNumber IN ('2','3','4','6') THEN 'Apprenticeship'
 			    ELSE 'Unknown'
 			END                                                    as VacancyTypeDesc
-          ,dbo.Fn_ConvertTimeStampToDateTime(v.LastUpdatedTimeStamp) as UpdateDateTime
+          ,V.LastUpdatedDate   AS  UpdateDateTime
           ,v.SourceOrigin                                            as VacancySource
-          ,dbo.Fn_ConvertTimeStampToDateTime(v.CreatedDateTimeStamp) as CreatedDateTime
-		  ,dbo.Fn_ConvertTimeStampToDateTime(v.[LiveDateTimeStamp])  as DatePosted
-		  ,CASE WHEN v.[LiveDateTimeStamp] is null then 0
+          ,V.CreatedDate CreatedDateTime
+		  ,V.LiveDate  as DatePosted
+		  ,CASE WHEN v.[LiveDate] is null then 0
 		        ELSE 1
 				END                                                  as HasHadLiveStatus
-		  ,v.IsDeleted                                               as IsDeleted
-		  ,dbo.Fn_ConvertTimeStampToDateTime(v.DeletedDateTimeStamp) as DeletedDateTime
-		  ,dbo.Fn_ConvertTimeStampToDateTime(v.SubmittedDateTimeStamp) as SubmittedDateTime
-      ,dbo.Fn_ConvertTimeStampToDateTime(v.ClosedDateTimeStamp) as ClosedDateTimeStamp
-		  ,v.SourseSK                                                as SourceVacancyId
+		  ,CASE WHEN v.DeletedDate   IS NULL THEN 'FALSE' ELSE 'TRUE' END                                             as IsDeleted
+		  ,V.DeletedDate as DeletedDateTime
+		  ,V.SubmittedDate as SubmittedDateTime
+      ,V.ClosedDate as ClosedDateTimeStamp
+		  ,V.SourceVacancyReference                                                as SourceVacancyId
 		  ,'RAAv2'                                                   as SourceDb
       ,ThingsToConsider 
       ,TrainingDescription 
       ,EmployerDescription 
       ,OutcomeDescription 
       ,ApplicationInstructions
-	  FROM Stg.RAA_Vacancies V
+
+             FROM Stg.RCRT_Vacancy V
 	  LEFT
-	  JOIN ASData_PL.Va_Employer E
-	    ON E.DasAccountId_v2=V.EmployerAccountId
-	   and E.SourceDb='RAAv2'
+	  JOIN ASData_PL.Va_Employer_Rcrt E
+	    ON E.DasAccountId_v2=V.AccountId
+	   and E.SourceDb='RCRT'
 	  LEFT
-	  JOIN ASData_PL.Va_LegalEntity LE
-	    ON LE.SourceLegalEntityId=V.LegalEntityId
-	   AND LE.EmployerAccountId=v.EmployerAccountId
+	  JOIN ASData_PL.Va_LegalEntity LE  --- This need to be updated to RCRT table once the development is done
+	    ON LE.SourceLegalEntityId=V.AccountLegalEntityId
+	   AND LE.EmployerAccountId=cast(E.DasAccountId_v2 as nvarchar(200))
 	   AND LE.SourceDb='RAAv2'
 	  LEFT
 	  JOIN (SELECT providerid ,UKPRN
               FROM 
            (SELECT providerid,Ukprn,row_number() over (partition by ukprn order by providerstatustypeid asc) rn -- ToSelectOnlyActivatedProviders
-	          FROM ASData_PL.Va_Provider) Provider
+	          FROM ASData_PL.Va_Provider_Rcrt) Provider
              WHERE rn=1) P
-	    ON P.UKPRN=V.TrainingProviderUkprn
-	 --  AND P.SourceDb='RAAv2'
+	    ON P.UKPRN=V.Ukprn
+	--   AND P.SourceDb='RAAv2'
 	  LEFT
 	  JOIN Stg.RAA_ReferenceDataApprenticeshipProgrammes ap
 	    on V.ProgrammeId=ap.ProgrammeId
@@ -565,13 +584,14 @@ SELECT  cast(v.BinaryId as varchar(256))                        as VacancyGuid
 	  JOIN (SELECT StartDate,EndDate,WageRateInPounds
              FROM  Mtd.NationalMinimumWageRates
             WHERE AgeGroup='Apprentice') AMW  -- ApprenticeMinimumWage
-		ON dbo.Fn_ConvertTimeStampToDateTime(v.LiveDateTimeStamp) >= AMW.StartDate AND dbo.Fn_ConvertTimeStampToDateTime(v.LiveDateTimeStamp) <= AMW.EndDate
+		ON v.LiveDate >= AMW.StartDate AND V.LiveDate <= AMW.EndDate
 	  LEFT
 	  JOIN (SELECT StartDate,EndDate, MIN(WageRateInPounds) MinWage,MAX(WageRateInPounds) MaxWage
               FROM  Mtd.NationalMinimumWageRates
              WHERE AgeGroup<>'Apprentice'
           GROUP BY StartDate,EndDate) NMR
-		ON dbo.Fn_ConvertTimeStampToDateTime(v.LiveDateTimeStamp) >= NMR.StartDate AND dbo.Fn_ConvertTimeStampToDateTime(v.LiveDateTimeStamp) <= NMR.EndDate) vv)vd
+		ON V.LiveDate >= NMR.StartDate AND V.LiveDate<= NMR.EndDate
+) vv)vd
 
 
 EXEC [dbo].[ImportVacanciesCandidateToPL] @RunId;

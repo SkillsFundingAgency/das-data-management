@@ -1,10 +1,11 @@
 CREATE TABLE [AsData_PL].[CPG_CampaignImportMetadata]
 (
-	[Id] int NOT NULL,
-	[CampaignId] int NOT NULL,
+	[Id] bigint NOT NULL,
+	[SendId] int NULL,
+	[CampaignId] bigint NULL,
 	[IsImportComplete] bit NULL,
-	[ImportStartDate] datetime NULL,
-	[ImportEndDate] datetime NULL,
+	[ImportStartDate] datetime2(7) NULL,
+	[ImportEndDate] datetime2(7) NULL,
 	[Asdm_UpdatedDateTime] datetime2 DEFAULT getdate(),
     CONSTRAINT [PK_CPG_CampaignImportMetadata] PRIMARY KEY CLUSTERED ([Id])
 )

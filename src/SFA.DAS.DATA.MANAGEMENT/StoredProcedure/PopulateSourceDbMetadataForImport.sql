@@ -254,16 +254,18 @@ VALUES
 /* RoatpV2 Import Configurations */
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
 VALUES
-('Roatpv2','NationalAchievementRate','dbo','[Id],[Age],[ApprenticeshipLevel],[OverallCohort],[OverallAchievementRate],[SectorSubjectAreaTier1],[Ukprn]','[ProviderId],[SectorSubjectArea]','',1,0,'FAT_ROATPV2_NationalAchievementRate'),
-('Roatpv2','NationalAchievementRateOverall','dbo','[Id],[Age],[ApprenticeshipLevel],[OverallCohort],[OverallAchievementRate],[SectorSubjectAreaTier1]','[SectorSubjectArea]','',1,0,'FAT_ROATPV2_NationalAchievementRateOverall'),
+--('Roatpv2','NationalAchievementRate','dbo','[Id],[Age],[ApprenticeshipLevel],[OverallCohort],[OverallAchievementRate],[SectorSubjectAreaTier1],[Ukprn]','[ProviderId],[SectorSubjectArea]','',1,0,'FAT_ROATPV2_NationalAchievementRate'),
+--('Roatpv2','NationalAchievementRateOverall','dbo','[Id],[Age],[ApprenticeshipLevel],[OverallCohort],[OverallAchievementRate],[SectorSubjectAreaTier1]','[SectorSubjectArea]','',1,0,'FAT_ROATPV2_NationalAchievementRateOverall'),
 ('Roatpv2','Provider','dbo','[Id],[TradingName],[EmployerSatisfaction],[LearnerSatisfaction]','[Phone],[Website],[MarketingInfo],[IsImported]','[Ukprn],[LegalName],[Email]',1,1,'FAT_ROATPV2_Provider'),
 ('Roatpv2','ProviderCourse','dbo','[Id],[ProviderId],[LarsCode],[StandardInfoUrl],[IsApprovedByRegulator],[IsImported],[HasPortableFlexiJobOption],[CreatedDate]','[ContactUsPhoneNumber],[ContactUsPageUrl]','[ContactUsEmail]',1,0,'FAT_ROATPV2_ProviderCourse'),
 ('Roatpv2','ProviderCourseLocation','dbo','[Id],[NavigationId],[ProviderCourseId],[ProviderLocationId],[HasDayReleaseDeliveryOption],[HasBlockReleaseDeliveryOption],[IsImported]','','',1,0,'FAT_ROATPV2_ProviderCourseLocation'),
 ('Roatpv2','ProviderLocation','dbo','[Id],[ImportedLocationId],[NavigationId],[ProviderId],[RegionId],[Postcode],[Latitude],[Longitude],[IsImported],[LocationType]','[AddressLine1],[AddressLine2],[Town],[County]','[LocationName]',1,0,'FAT_ROATPV2_ProviderLocation'),
 ('Roatpv2','ProviderRegistrationDetail','dbo','[LegalName],[StatusId],[StatusDate],[OrganisationTypeId],[ProviderTypeId],[Town]','[AddressLine1],[AddressLine2],[AddressLine3],[AddressLine4],[Latitude],[Longitude],[Postcode]','[Ukprn]',1,0,'FAT_ROATPV2_ProviderRegistrationDetail'),
 ('Roatpv2','ProviderAddress','dbo','[Id],[ProviderId],[Postcode],[Latitude],[Longitude],[AddressUpdateDate],[CoordinatesUpdateDate]','[AddressLine1],[AddressLine2],[AddressLine3],[AddressLine4],[Town]','',1,0,'FAT_ROATPV2_ProviderAddress'),
-('Roatpv2','Standard','dbo','[StandardUId],[LarsCode],[IfateReferenceNumber],[Level],[Version],[ApprovalBody],[SectorSubjectArea],[SectorSubjectAreaTier1]','','[Title]',1,0,'FAT_ROATPV2_Standard'),
-('Roatpv2','ProviderCourseForecast','dbo','[ID], [Ukprn],[LarsCode], [TimePeriod], [Quarter],[EstimatedLearners], [CreatedDate], [UpdatedDate]','','',1,0,'FAT_ROATPV2_ProviderCourseForecast')
+('Roatpv2','Standard','dbo','[StandardUId],[LarsCode],[IfateReferenceNumber],[Level],[Title],[Version],[ApprovalBody],[IsRegulatedForProvider],[Duration],[DurationUnits],[Route],[ApprenticeshipType],[CourseType],[IsActiveAvailable]','','',1,0,'FAT_ROATPV2_Standard'),
+('Roatpv2','ProviderCourseForecast','dbo','[ID], [Ukprn],[LarsCode], [TimePeriod], [Quarter],[EstimatedLearners], [CreatedDate], [UpdatedDate]','','',1,0,'FAT_ROATPV2_ProviderCourseForecast'),
+('Roatpv2','ProviderAllowedCourse','dbo','[Id],[Ukprn],[LarsCode]','','',1,0,'FAT_ROATPV2_ProviderAllowedCourse'),
+('Roatpv2','ProviderCourseType','dbo','[Id],[Ukprn],[CourseType]','','',1,0,'FAT_ROATPV2_ProviderCourseType')
 
 /* Roatp Import Configuration */
 
@@ -551,8 +553,8 @@ VALUES
 INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,FullCopyToPL,ModelDataToPL,PLTableName)
 VALUES
 ('Cpg','UserData','dbo','[Id],[FirstName],[LastName],[Email],[UkEmployerSize],[PrimaryIndustry],[PrimaryLocation],[AppsgovSignUpDate],[PersonOrigin],[IncludeInUR]','','',1,0,'CPG_UserData')
-,('Cpg','Campaigns','dbo','[Id],[ExternalId],[Name],[Type],[CreatedBy],[CreatedOn],[ModifiedBy],[ModifiedOn],[FirstSendDate],[LastSendDate],[FromEmailAddress],[FromName],[ReplyEmailAddress],[Subject],[SubStatus],[ContactCount],[Account]','','',1,0,'CPG_Campaigns')
-,('Cpg','CampaignImportMetadata','dbo','[Id],[CampaignId],[IsImportComplete],[ImportStartDate],[ImportEndDate]','','',1,0,'CPG_CampaignImportMetadata')
+,('Cpg','Campaigns','dbo','[Id],[ExternalId],[CampaignId],[CampaignName],[Name],[Type],[CreatedBy],[CreatedOn],[ModifiedBy],[ModifiedOn],[FirstSendDate],[LastSendDate],[FromEmailAddress],[FromName],[ReplyEmailAddress],[Subject],[SubStatus],[ContactCount],[Account]','','',1,0,'CPG_Campaigns')
+,('Cpg','CampaignImportMetadata','dbo','[Id],[SendId],[CampaignId],[IsImportComplete],[ImportStartDate],[ImportEndDate]','','',1,0,'CPG_CampaignImportMetadata')
 ,('Cpg','BouncedEmails','dbo','[Id],[ExternalId],[CampaignId],[ContactEmail],[BounceDate],[BounceReason],[BounceType],[ResponseText]','','',1,0,'CPG_BouncedEmails')
 ,('Cpg','ClickedLinks','dbo','[Id],[ExternalId],[CampaignId],[ContactEmail],[ClickedDate],[FriendlyUrlName],[LinkId],[Url],[IsMonitored],[EmailFormat],[IsSuspectedBot],[Device],[ClientName],[Os],[OsFamily],[IpAddress],[ClientType],[ClientFamily]','','',1,0,'CPG_ClickedLinks')
 ,('Cpg','DisplayedEmails','dbo','[Id],[ExternalId],[CampaignId],[ContactEmail],[DisplayedDate],[Format],[TimeDisplayed],[IsSuspectedBot],[Device],[ClientName],[Os],[OsFamily],[IpAddress],[ClientType],[ClientFamily]','','',1,0,'CPG_DisplayedEmails')

@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS [ASData_PL].[AR_Apprentice]
 UPDATE  [Mtd].[SourceToStageAudit]
 SET WatermarkValue='2000-03-24 12:24:48.1846476'
 WHERE SourceTableName IN ('CertificateLogs',
-'Certificates')  and  NOT EXISTS (select 1 from [ASData_PL].[Assessor_CertificateLogs] where len([Type])>0)
+'Certificates')  AND  NOT EXISTS (select 1 from [ASData_PL].[Assessor_Certificates] where len([Type])>0)
 
 --EXEC [dbo].[ImportDimDate] 6
 

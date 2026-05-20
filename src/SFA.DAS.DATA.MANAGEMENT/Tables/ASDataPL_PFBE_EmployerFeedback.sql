@@ -10,6 +10,7 @@
 	FeedbackValue							[Smallint]								NULL,
 	ProviderRating							[NVarchar](10)							NULL,
 	FeedbackSource                          [Int]                                   NULL,
+	UserRef									[uniqueidentifier]						NULL,
 	AsDm_CreatedDate						[datetime2](7)							DEFAULT (getdate()),
 	AsDm_UpdatedDate					    [datetime2](7)							DEFAULT (getdate())
 )

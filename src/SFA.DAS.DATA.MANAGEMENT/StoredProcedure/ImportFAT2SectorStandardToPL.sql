@@ -58,6 +58,7 @@ BEGIN TRY
 								,[Route]
 								,[AssessmentPlanUrl]
 								,[ApprovedForDelivery]
+								,[ApprenticeshipType]
 								,[TrailBlazerContact]
 								,[EqaProviderName]
 								,[EqaProviderContactName]
@@ -85,7 +86,7 @@ BEGIN TRY
 								,[VersionMajor]
 								,[VersionMinor]
 								,[IsLatestVersion]								
-								,[Old_Options]
+							
 								,[EPAChanged]
 								,[CoronationEmblem]
 								,[EpaoMustBeApprovedByRegulatorBody]
@@ -109,6 +110,7 @@ BEGIN TRY
 					  ,tblRoute.[Name]
 					  ,[AssessmentPlanUrl]
 					  ,[ApprovedForDelivery]
+					  ,CASE WHEN CAST(std.LarsCode AS varchar(8)) in (''819'',''820'',''821'',''822'') THEN ''ShorterByDesign'' else std.[ApprenticeshipType] END as ApprenticeshipType 					  
 					  ,[TrailBlazerContact]
 					  ,[EqaProviderName]
 					  ,[EqaProviderContactName]
@@ -119,9 +121,9 @@ BEGIN TRY
 					  ,std.[StandardPageUrl]
 					  ,std.[Version]
 					  ,[RegulatedBody]
-					  ,[Skills]
-					  ,[Knowledge]
-					  ,[Behaviours]
+					  ,NULL AS [Skills]
+					  ,NULL AS [Knowledge]
+					  ,NULL AS [Behaviours]
 					  ,[Duties]
 					  ,[CoreAndOptions]
 					  ,[IntegratedApprenticeship]
@@ -136,14 +138,14 @@ BEGIN TRY
 					  ,ComtStandard.VersionMajor
 					  ,ComtStandard.VersionMinor
 					  ,ComtStandard.IsLatestVersion
-					  ,std.[Old_Options]
+				
 					  ,std.[EPAChanged]
 					  ,std.[CoronationEmblem]	
 					  ,std.[EpaoMustBeApprovedByRegulatorBody]		 
 					FROM [Stg].[FAT2_Standard] std JOIN [Stg].[FAT2_Route] tblRoute 
-					ON std.[RouteCode] =  tblRoute.[Id]	LEFT JOIN [ASData_PL].[Va_ApprenticeshipStandard] AppStandard ON std.LarsCode = AppStandard.LarsCode AND std.Title = AppStandard.StandardFullName
-					LEFT JOIN [stg].[Assessor_Standards] AssessorStandard ON std.LarsCode = AssessorStandard.LarsCode AND std.StandardUId = AssessorStandard.StandardUId
-					LEFT JOIN [AsData_PL].[Comt_Standard] ComtStandard ON std.LarsCode = ComtStandard.LarsCode AND std.StandardUId = ComtStandard.StandardUId'
+					ON std.[RouteCode] =  tblRoute.[Id]	LEFT JOIN [ASData_PL].[Va_ApprenticeshipStandard] AppStandard ON CAST(std.LarsCode AS varchar(8)) = CAST(AppStandard.LarsCode AS varchar(8)) AND std.Title = AppStandard.StandardFullName
+					LEFT JOIN [stg].[Assessor_Standards] AssessorStandard ON CAST(std.LarsCode AS varchar(8)) = CAST(AssessorStandard.LarsCode AS varchar(8)) AND std.StandardUId = AssessorStandard.StandardUId
+					LEFT JOIN [AsData_PL].[Comt_Standard] ComtStandard ON CAST(std.LarsCode AS varchar(8)) = CAST(ComtStandard.LarsCode AS varchar(8)) AND std.StandardUId = ComtStandard.StandardUId'
 
 					 exec SP_EXECUTESQL @DynSQL
 

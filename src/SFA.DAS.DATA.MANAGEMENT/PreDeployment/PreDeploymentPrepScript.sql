@@ -701,3 +701,6 @@ DROP SCHEMA IF EXISTS [Fin]
 DROP SCHEMA IF EXISTS [Pmts]
 DROP SCHEMA IF EXISTS [Resv]
 DROP SCHEMA IF EXISTS [Swap]
+
+
+:r .\CpgSourceSchemaMigration.sql

@@ -683,7 +683,8 @@ DROP TABLE IF EXISTS [StgPmts].[Pst_LookupGOR]
 DROP TABLE IF EXISTS [StgPmts].[Pst_LookupLocalAuthority] 
 DROP TABLE IF EXISTS [ASDATA_PL].[RAT_Status]
 
-
+;TRUNCATE TABLE [AsData_PL].[Assessor_CertificateLogs]
+;TRUNCATE TABLE [ASData_PL].[Assessor_Certificates]
 --DROP TABLE IF EXISTS [lkp].[Pst_LocalAuthority]
 --DROP TABLE IF EXISTS [lkp].[Pst_GOR]
 --DROP TABLE IF EXISTS [lkp].[Pst_COUNTRY]

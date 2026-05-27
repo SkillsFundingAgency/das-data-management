@@ -12,7 +12,7 @@ CREATE TABLE [AsData_PL].[CPG_DisplayedEmails]
 	[ClientName] varchar(255) NULL,
 	[Os] varchar(255) NULL,
 	[OsFamily] varchar(255) NULL,
-	[IpAddress] varchar(15) NULL,
+	[IpAddress] varchar(60) NULL,
 	[ClientType] varchar(255) NULL,
 	[ClientFamily] varchar(255) NULL,
 	[Asdm_UpdatedDateTime] datetime2 DEFAULT getdate(),

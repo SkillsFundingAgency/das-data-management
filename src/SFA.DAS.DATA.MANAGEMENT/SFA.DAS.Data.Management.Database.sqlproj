@@ -613,6 +613,8 @@
     <Build Include="Tables\AsDataPL_Va_VacancyReviewsAutoQAOutcomeID _rcrt.sql" />
     <Build Include="StoredProcedure\ImportVaAddInfoVacancyReviewsAutoQAoutcomeToPL_rcrt.sql" />
     <Build Include="Tables\AsDataPL_Va_VacancyReviewsAutoQAOutcome_rcrt.sql" />
-    <Build Include="Tables\AsDataPL_FAT_ROATPV2_ProviderCourseForecast.sql" />     
+    <Build Include="Tables\AsDataPL_FAT_ROATPV2_ProviderCourseForecast.sql" />   
+    <Build Include="Tables\ASDataPL_APAR_ROATP_OrganisationTypes.sql" />    
+    
   </ItemGroup>
 </Project>

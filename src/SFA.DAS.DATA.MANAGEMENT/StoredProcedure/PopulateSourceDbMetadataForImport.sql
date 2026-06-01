@@ -273,7 +273,11 @@ INSERT INTO Mtd.SourceConfigForImport (SourceDatabaseName,SourceTableName,Source
 VALUES
 --('Roatp','Organisations','dbo','[Id], [CreatedAt], [UpdatedAt], [StatusId], [ProviderTypeId],[OrganisationTypeId], [UKPRN],[LegalName],[TradingName],[OrganisationData],[StatusDate],JSON_VALUE([OrganisationData], ''''$.CompanyNumber'''') AS CompanyNumber','[CreatedBy],[UpdatedBy]','',1,0,'APAR_ROATP_Organisations'),
 ('Roatp','OrganisationStatus','dbo','[Id], [Status], [CreatedAt], [UpdatedAt], [EventDescription]','[CreatedBy],[UpdatedBy]','',1,0,'APAR_ROATP_OrganisationStatus'),
-('Roatp','ProviderTypes','dbo','[Id], [ProviderType], [Status]','[Description], [CreatedAt], [CreatedBy], [UpdatedAt], [UpdatedBy]','',1,0,'APAR_ROATP_ProviderTypes')
+('Roatp','ProviderTypes','dbo','[Id], [ProviderType], [Status]','[Description], [CreatedAt], [CreatedBy], [UpdatedAt], [UpdatedBy]','',1,0,'APAR_ROATP_ProviderTypes'),
+('Roatp','OrganisationTypes','dbo','[Id], [Type],[Description],[CreatedAt], [UpdatedAt],[Status] ',' [UpdatedBy]','',1,0,'APAR_ROATP_OrganisationTypes')
+
+
+
 INSERT INTO Mtd.SourceConfigForImport
 (SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)
 VALUES

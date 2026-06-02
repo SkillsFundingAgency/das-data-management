@@ -36,4 +36,7 @@
 		 ,CollectionPeriodYear			nvarchar(10) null
 		 ,LearningAimFundingLineType    nvarchar(100) null
 		 ,SenderAccountId				bigint null
+		 ,LearningType					tinyint null
+		 ,CourseType					tinyint null
+		 ,CourseCode					nvarchar(50) null
  )

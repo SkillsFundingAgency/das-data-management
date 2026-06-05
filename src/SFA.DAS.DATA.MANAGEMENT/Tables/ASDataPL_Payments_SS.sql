@@ -7,7 +7,7 @@
 		 ,EmployerAccountID				nvarchar(100) null
 		 ,DasAccountId					nvarchar(100) null
 		 ,CommitmentID					bigint not null
-		 ,DeliveryMonth					int not null
+		 ,DeliveryMonth					int null
 		 ,DeliveryYear					int not null
 		 ,CollectionMonth				int not null
 		 ,CollectionYear				int not null

@@ -10,7 +10,6 @@ CREATE TABLE [ASData_PL].[FAT_ROATPV2_Standard]
       [Duration]                int                 NULL,
       [DurationUnits]           varchar(6)          NULL,
       [Route]                   varchar(500)        NULL,
-      [ApprenticeshipType]      varchar(50)         NULL,
       [CourseType]              nvarchar(50)        NULL,
       [IsActiveAvailable]       bit                 NULL,
       [SectorSubjectArea]       varchar(1000)       NULL,

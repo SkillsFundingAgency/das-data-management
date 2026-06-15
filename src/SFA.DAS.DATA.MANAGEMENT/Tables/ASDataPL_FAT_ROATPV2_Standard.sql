@@ -5,7 +5,6 @@ CREATE TABLE [ASData_PL].[FAT_ROATPV2_Standard]
       [IfateReferenceNumber]    varchar(10)         NULL,
       [Level]                   int                 NULL,
       [Title]                   varchar(1000)       NULL,
-      [Version]                 varchar(10)         NULL,
       [ApprovalBody]            varchar(1000)       NULL,
       [IsRegulatedForProvider]  bit                 NULL,
       [Duration]                int                 NULL,

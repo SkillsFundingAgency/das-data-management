@@ -71,7 +71,7 @@ USING (
 ON Target.[Id] = Source.[Id]
 
 WHEN MATCHED 
-     AND Source.[EventTime] >= Target.[EventTime]
+
 THEN 
     UPDATE SET
         [Action] = Source.[Action],

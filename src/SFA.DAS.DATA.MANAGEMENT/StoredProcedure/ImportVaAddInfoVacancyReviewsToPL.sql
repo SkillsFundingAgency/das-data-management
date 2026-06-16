@@ -166,4 +166,5 @@ UPDATE Mgmt.Log_Execution_Results
 
   END CATCH
 
+EXEC [dbo].[ImportVaAddInfoVacancyReviewsToPL_Rcrt];
 GO

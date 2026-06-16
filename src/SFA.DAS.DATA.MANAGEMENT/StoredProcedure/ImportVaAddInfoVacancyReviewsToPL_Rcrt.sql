@@ -32,11 +32,11 @@ DEClARE @quote varchar(5) = ''''
 
 BEGIN TRANSACTION
 
-TRUNCATE TABLE ASData_PL.va_VacancyReviews
+TRUNCATE TABLE ASData_PL.Va_VacancyReviews_Rcrt
 
 /* Insert all the unsuccessful outcomes first with a reason */
 
-INSERT INTO ASData_PL.va_VacancyReviews
+INSERT INTO ASData_PL.Va_VacancyReviews_Rcrt
 (EmployerAccountId 
   ,CandidateId 
   ,CreatedDateTime 
@@ -75,7 +75,7 @@ SELECT
     ,rvr.Status
 	  ,RVR.BinaryId
 	  ,'RAAv2'
-  FROM Stg.RAA_VacancyReviews RVR
+  FROM Stg.RCRT_VacancyReviews RVR
   LEFT
   JOIN ASData_PL.Va_Vacancy vv
     on vv.VacancyReferenceNumber=RVR.VacancyReference

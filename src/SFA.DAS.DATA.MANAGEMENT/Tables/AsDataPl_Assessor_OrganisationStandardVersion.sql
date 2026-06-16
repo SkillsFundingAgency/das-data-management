@@ -7,7 +7,7 @@
 	[EffectiveFrom]					 [datetime]			NULL,
 	[EffectiveTo]					 [datetime]			NULL,
 	[DateVersionApproved]			 [datetime]			NULL,
-	[Comments]					     [nvarchar](5000)	NULL,
+	[Comments]					     [nvarchar](max) 	NULL,
 	[Status]					     [nvarchar](10)		NULL,
 	[AsDm_UpdatedDateTime]		     [Datetime2](7)		default getdate()
 )

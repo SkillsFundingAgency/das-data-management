@@ -12,7 +12,7 @@
 	[StandardLevel]				[Int]				NULL,
 	[StandardPublicationDate]	[DateTime2](7)		NULL,
 	[ContactOrganisation]		[NVarchar](300)		NULL,
-	[ContactPostcode]			[NVarchar](50)		NULL,
+	[ContactPostcode]			[NVarchar](500)		NULL,
 	[Registration]				[NVarchar](300)		NULL,
 	[LearningStartDate]			[DateTime2](7)		NULL,
 	[AchievementDate]			[DateTime2](7)		NULL,

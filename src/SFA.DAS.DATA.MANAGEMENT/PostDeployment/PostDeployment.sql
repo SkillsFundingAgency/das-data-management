@@ -14,13 +14,20 @@ WHERE SourceTableName IN ('CertificateLogs',
 'Certificates')  
 AND  NOT EXISTS (select 1 from [ASData_PL].[Assessor_CertificateLogs] where len([Username])>0)
 
+
+
+
+IF NOT EXISTS (
+    SELECT 1
+    FROM ASData_PL.Assessor_CertificateLogs
+    WHERE LEN([Username]) > 0
+)
+BEGIN
+    TRUNCATE TABLE ASData_PL.Assessor_Certificates;
+    TRUNCATE TABLE [ASData_PL].[Assessor_CertificateLogs];
+END
+
 --EXEC [dbo].[ImportDimDate] 6
-TRUNCATE TABLE ASData_PL.Assessor_Certificates
-IF NOT EXISTS (select 1 from [ASData_PL].[Assessor_CertificateLogs] where len([Username])>0)
-
-TRUNCATE TABLE ASData_PL.Assessor_Certificates
-IF NOT EXISTS ( select 1 from [ASData_PL].[Assessor_CertificateLogs] where len([Username])>0)
-
  /* Ryan's Power BI dashboard still pointing towards to these outdated tables.
  The tables will be removed once Ryan repoint his dashboard */
 
@@ -36,4 +43,3 @@ IF NOT EXISTS ( select 1 from [ASData_PL].[Assessor_CertificateLogs] where len([
 --DROP TABLE IF EXISTS [ASData_PL].[Provider]
 
 --DROP VIEW IF EXISTS [Pds_AI].[PT_E]
-

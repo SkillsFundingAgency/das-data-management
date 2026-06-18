@@ -11,12 +11,13 @@ DROP TABLE IF EXISTS [ASData_PL].[AR_Apprentice]
 UPDATE  [Mtd].[SourceToStageAudit]
 SET WatermarkValue='2000-03-24 12:24:48.1846476'
 WHERE SourceTableName IN ('CertificateLogs',
-'Certificates')  AND  NOT EXISTS (select 1 from [ASData_PL].[Assessor_CertificateLogs] where len([Username])>0)
+'Certificates')  
+---AND  NOT EXISTS (select 1 from [ASData_PL].[Assessor_CertificateLogs] where len([Username])>0)
 
 --EXEC [dbo].[ImportDimDate] 6
-
+TRUNCATE TABLE ASData_PL.Assessor_Certificates
  
-
+TRUNCATE TABLE ASData_PL.Assessor_CertificateLogs 
  /* Ryan's Power BI dashboard still pointing towards to these outdated tables.
  The tables will be removed once Ryan repoint his dashboard */
 

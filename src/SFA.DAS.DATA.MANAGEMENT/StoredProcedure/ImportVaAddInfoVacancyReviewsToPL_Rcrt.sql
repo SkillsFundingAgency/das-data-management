@@ -22,12 +22,12 @@ DEClARE @quote varchar(5) = ''''
   SELECT 
         @RunId
 	   ,'Step-6'
-	   ,'ImportVaAddInfoVacancyReviewsToPL'
+	   ,'ImportVaAddInfoVacancyReviewsToPL_Rcrt'
 	   ,getdate()
 	   ,0
 
   SELECT @LogID=MAX(LogId) FROM Mgmt.Log_Execution_Results
-   WHERE StoredProcedureName='ImportVaAddInfoVacancyReviewsToPL'
+   WHERE StoredProcedureName='ImportVaAddInfoVacancyReviewsToPL_Rcrt'
      AND RunId=@RunID
 
 BEGIN TRANSACTION
@@ -58,7 +58,7 @@ INSERT INTO ASData_PL.Va_VacancyReviews_Rcrt
   )
 SELECT 
 	RVR.EmployerAccountId
-      ,vc.CandidateId
+    ,vc.CandidateId
 	  ,dbo.Fn_ConvertTimeStampToDateTime(rvr.CreatedTimeStamp)
 	  ,dbo.Fn_ConvertTimeStampToDateTime(rvr.SubmittedTimeStamp)
 	  ,rvr.VacancyReference
@@ -75,7 +75,7 @@ SELECT
     ,rvr.Status
 	  ,RVR.BinaryId
 	  ,'RAAv2'
-  FROM Stg.RCRT_VacancyReviews RVR
+  FROM Stg.RAA_VacancyReviews RVR
   LEFT
   JOIN ASData_PL.Va_Vacancy vv
     on vv.VacancyReferenceNumber=RVR.VacancyReference
@@ -86,33 +86,31 @@ where ManualQaFieldChangeRequested='true'
 
   UNION all
   SELECT 
-    DISTINCT 
+  DISTINCT 
     rvr.AccountId
-    ,vv.VacancyId
-    ,JSON_VALUE(RVR.VacancySnapshot, '$.SubmittedByUser.UserId') AS CandidateId
-    ,rvr.CreatedDate
-    ,JSON_VALUE(VacancySnapshot, '$.SubmittedDate') AS SubmittedDate
+    ,vc.CandidateId
+    ,dbo.Fn_ConvertTimeStampToDateTime(rvr.CreatedDate)
+    ,dbo.Fn_ConvertTimeStampToDateTime(JSON_VALUE(rvr.VacancySnapshot, '$.SubmittedDate'))
     ,rvr.VacancyReference
     ,vv.VacancyId
     ,rvr.ManualOutcome
     ,NULL 
-	,NULL 
-	,NULL
+	  ,NULL 
+	  ,NULL
     ,rvr.SubmissionCount
-    ,rvr.ReviewedDate
-    ,rvr.ClosedDate  
+    ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ReviewedDate)
+    ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ClosedDate)
     ,rvr.ReviewedByUserEmail
-    ,rvr.SlaDeadLine  
+    ,dbo.Fn_ConvertTimeStampToDateTime(rvr.SlaDeadLine)
     ,rvr.Status
-    ,RVR.Id
+    ,rvr.Id
     ,'RAAv2'
     FROM [Stg].[RCRT_VacancyReview] rvr
     LEFT JOIN ASData_PL.Va_Vacancy vv
-        on vv.VacancyReferenceNumber=RVR.VacancyReference
+        on vv.VacancyReferenceNumber=rvr.VacancyReference
     LEFT
     JOIN ASData_PL.Va_Candidate vc
-        on vc.CandidateGuid=JSON_VALUE(RVR.VacancySnapshot, '$.SubmittedByUser.UserId') 
-Where not exists (select 1 from (select Id from Stg.RCRT_VacancyReviews where ManualQaFieldChangeRequested='true') vr where vr.Id=rvr.Id )
+        on vc.CandidateGuid=JSON_VALUE(rvr.VacancySnapshot, '$.SubmittedByUser.UserId') 
 
 COMMIT TRANSACTION
 
@@ -148,7 +146,7 @@ BEGIN CATCH
 	    ERROR_STATE(),
 	    ERROR_SEVERITY(),
 	    ERROR_LINE(),
-	    'ImportVaAddInfoVacancyReviewsToPL',
+	    'ImportVaAddInfoVacancyReviewsToPL_Rcrt',
 	    ERROR_MESSAGE(),
 	    GETDATE(),
 		@RunId as RunId; 
@@ -165,5 +163,7 @@ UPDATE Mgmt.Log_Execution_Results
    AND RunID=@RunId
 
   END CATCH
+
+EXEC [dbo].[ImportVaAddInfoVacancyReviewsToPL_Rcrt];
 
 GO

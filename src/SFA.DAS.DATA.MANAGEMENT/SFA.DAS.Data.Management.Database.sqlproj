@@ -117,7 +117,9 @@
     <Build Include="Tables\StgPmts_JobProviderEarnings.sql" />
     <Build Include="Tables\StgPmts_JobStatus.sql" />
     <Build Include="Tables\StgPmts_JobType.sql" />
+    <Build Include="Tables\StgPmts_LearningType.sql" />
     <Build Include="Tables\StgPmts_LevyAccount.sql" />
+    <Build Include="Tables\StgPmts_CourseType.sql" />
     <Build Include="Tables\StgPmts_Payment.sql" />
     <Build Include="Tables\StgPmts_ProviderAdjustmentPayments.sql" />
     <Build Include="Tables\StgPmts_RequiredPaymentEvent.sql" />

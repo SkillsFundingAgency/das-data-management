@@ -75,13 +75,16 @@ BEGIN TRANSACTION
            [ToBePrinted],
            [Uln],
            [UpdatedAt],
-           [Version]
+           [Version],
+           [Type],
+           [LatestEpaOutcome],
+           [FullName]
     FROM [stg].[Assessor_Certificates]
 ) AS Source
 ON Target.[Id] = Source.[Id]
 
 -- Perform an UPDATE if the record already exists and the source has newer data
-WHEN MATCHED AND Source.[UpdatedAt] > Target.[UpdatedAt]
+WHEN MATCHED 
 THEN
 UPDATE
 SET 
@@ -117,6 +120,9 @@ SET
     [Uln] = Source.[Uln],
     [UpdatedAt] = Source.[UpdatedAt],
     [Version] = Source.[Version],
+    [Type]  = Source.[Type],
+    [LatestEpaOutcome]=Source.[LatestEpaOutcome],
+    [FullName]=Source.[FullName],
     [AsDm_UpdatedDateTime] = GETDATE()
 
 -- Perform an INSERT if the record does not exist in the target table
@@ -156,6 +162,10 @@ INSERT (
     [Uln],
     [UpdatedAt],
     [Version],
+    [Type],
+  
+    [LatestEpaOutcome],
+    [FullName],
     [AsDm_UpdatedDateTime]
 )
 VALUES (
@@ -192,6 +202,9 @@ VALUES (
     Source.[Uln],
     Source.[UpdatedAt],
     Source.[Version],
+    Source.[Type],
+    Source.[LatestEpaOutcome],
+    Source.[FullName],
     GETDATE()
 );'
 
@@ -213,8 +226,8 @@ UPDATE Mgmt.Log_Execution_Results
    AND RunId=@RunId
 
 			   
- IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Assessor_Certificates' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
-		       DROP TABLE [Stg].[Assessor_Certificates]
+--  IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Assessor_Certificates' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+-- 		       DROP TABLE [Stg].[Assessor_Certificates]
 
 
 END TRY

@@ -64,13 +64,14 @@ USING (
         [AchievementDate],
         [CourseOption],
         [OverallGrade],
-        [Department]
+        [Department],
+        [Username]
     FROM [Stg].[Assessor_CertificateLogs]
 ) AS Source
 ON Target.[Id] = Source.[Id]
 
 WHEN MATCHED 
-     AND Source.[EventTime] >= Target.[EventTime]
+
 THEN 
     UPDATE SET
         [Action] = Source.[Action],
@@ -91,6 +92,7 @@ THEN
         [CourseOption] = Source.[CourseOption],
         [OverallGrade] = Source.[OverallGrade],
         [Department] = Source.[Department],
+        [Username]   = Source.[Username],
         [AsDm_UpdatedDateTime] = Getdate()
 
 WHEN NOT MATCHED THEN
@@ -114,6 +116,7 @@ WHEN NOT MATCHED THEN
         [CourseOption],
         [OverallGrade],
         [Department],
+        [Username],
         [AsDm_UpdatedDateTime]
     )
     VALUES (
@@ -136,6 +139,7 @@ WHEN NOT MATCHED THEN
         Source.[CourseOption],
         Source.[OverallGrade],
         Source.[Department],
+        Source.[Username],
         Getdate()
     );'
 
@@ -154,8 +158,8 @@ UPDATE Mgmt.Log_Execution_Results
  WHERE LogId=@LogID
    AND RunId=@RunId
 
- IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Assessor_CertificateLogs' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
-		       DROP TABLE [Stg].[Assessor_CertificateLogs]
+ --IF  EXISTS (select * from INFORMATION_SCHEMA.TABLES  where table_name ='Assessor_CertificateLogs' AND TABLE_SCHEMA='Stg' AND TABLE_TYPE='BASE TABLE')
+	--	       DROP TABLE [Stg].[Assessor_CertificateLogs]
 
 END TRY
 BEGIN CATCH

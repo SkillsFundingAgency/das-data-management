@@ -110,14 +110,14 @@ Union
 
 select 
 
-VacancyPostCode
+VacancyId
+,EmployerId
+,VacancyPostCode
 ,VacancyAddressLine1
 ,VacancyAddressLine2
 ,VacancyAddressLine3
 ,VacancyAddressLine4
 ,VacancyTown
-,EmployerId
-,VacancyId
 ,SourceVacancyId as SourceVacancyLocationsId
 ,'RCRT'                                                    as SourceDb
 
@@ -157,6 +157,7 @@ from (
                        ,EPA.AddressLine4
                        ,'NA')<>'NA'
        ) a
+) a
 
 COMMIT TRANSACTION
 

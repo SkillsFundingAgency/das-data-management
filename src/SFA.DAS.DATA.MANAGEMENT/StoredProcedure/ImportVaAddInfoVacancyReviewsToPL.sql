@@ -57,62 +57,28 @@ INSERT INTO ASData_PL.va_VacancyReviews
   ,SourceDb 
   )
 SELECT 
-	RVR.EmployerAccountId
-      ,vc.CandidateId
-	  ,dbo.Fn_ConvertTimeStampToDateTime(rvr.CreatedTimeStamp)
-	  ,dbo.Fn_ConvertTimeStampToDateTime(rvr.SubmittedTimeStamp)
-	  ,rvr.VacancyReference
+	RVR.AccountId
+      ,NULL as CandidateId
+	  ,RVR.CreatedDate
+	  ,RVR.SubmittedDate
+	  ,RVR.VacancyReference
 	  ,vv.VacancyId
-	  ,rvr.ManualOutcome
-	  ,CASE WHEN ManualQaFieldChangeRequested='true' THEN rvr.ManualQaFieldIndicator ELSE NULL END
-	  ,CASE WHEN ManualQaFieldChangeRequested='true' THEN rvr.ManualQaFieldChangeRequested ELSE NULL END
-	  ,CASE WHEN ManualQaFieldChangeRequested='true' THEN rvr.ManualQaComment ELSE NULL END	
-	  ,rvr.SubmissionCount
-    ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ReviewedDate)
-	  ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ClosedDate)	 
-	  ,rvr.ReviewedByUserEmail
-    ,dbo.Fn_ConvertTimeStampToDateTime(rvr.SlaDeadline)   
-    ,rvr.Status
-	  ,RVR.BinaryId
-	  ,'RAAv2'
-  FROM Stg.RAA_VacancyReviews RVR
+	  ,RVR.ManualOutcome
+	  ,RVR.ManualQaFieldIndicators
+	  ,CASE WHEN RVR.ManualQaFieldIndicators IS NOT NULL THEN 'true' ELSE 'false' END
+	  ,RVR.ManualQaComment	
+	  ,RVR.SubmissionCount
+    ,RVR.ReviewedDate
+	  ,RVR.ClosedDate	 
+	  ,RVR.ReviewedByUserEmail
+    ,RVR.SlaDeadline   
+    ,RVR.Status
+	  ,RVR.Id as SourceVacancyReviewId
+	  ,'RCRT'
+  FROM Stg.RCRT_VacancyReview RVR
   LEFT
   JOIN ASData_PL.Va_Vacancy vv
     on vv.VacancyReferenceNumber=RVR.VacancyReference
-  LEFT
-  JOIN ASData_PL.Va_Candidate vc
-    on vc.CandidateGuid=RVR.UserId
-where ManualQaFieldChangeRequested='true'
-
-  UNION all
-  SELECT 
-  DISTINCT
-	RVR.EmployerAccountId
-      ,vc.CandidateId
-	  ,dbo.Fn_ConvertTimeStampToDateTime(rvr.CreatedTimeStamp)
-	  ,dbo.Fn_ConvertTimeStampToDateTime(rvr.SubmittedTimeStamp)
-	  ,rvr.VacancyReference
-	  ,vv.VacancyId
-	  ,rvr.ManualOutcome
-	  ,NULL 
-	  ,NULL 
-	  ,NULL 	
-	  ,rvr.SubmissionCount
-    ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ReviewedDate)
-	  ,dbo.Fn_ConvertTimeStampToDateTime(rvr.ClosedDate)	 
-	  ,rvr.ReviewedByUserEmail
-    ,dbo.Fn_ConvertTimeStampToDateTime(rvr.SlaDeadline)   
-    ,rvr.Status
-	  ,RVR.BinaryId
-	  ,'RAAv2'
-  FROM Stg.RAA_VacancyReviews RVR
-  LEFT
-  JOIN ASData_PL.Va_Vacancy vv
-    on vv.VacancyReferenceNumber=RVR.VacancyReference
-  LEFT
-  JOIN ASData_PL.Va_Candidate vc
-    on vc.CandidateGuid=RVR.UserId  
-Where not exists (select 1 from (select BinaryId from Stg.RAA_VacancyReviews where ManualQaFieldChangeRequested='true') vr where vr.BinaryId=rvr.BinaryId )
 
 COMMIT TRANSACTION
 

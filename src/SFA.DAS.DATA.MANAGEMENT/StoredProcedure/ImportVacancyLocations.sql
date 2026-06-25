@@ -37,9 +37,9 @@ DEClARE @quote varchar(5) = ''''
 
 BEGIN TRANSACTION
 
-DELETE FROM ASData_PL.Va_VacancyLocations
+TRUNCATE TABLE ASData_PL.Va_VacancyLocations
 
-/* Load RAAv1 */
+/* Load RCRT */
 
 INSERT INTO [ASData_PL].[Va_VacancyLocations]
            (
@@ -71,34 +71,39 @@ select
 from (
 
 SELECT  
-		  CASE WHEN len(EmployerPostCode)>8 
-		        THEN CASE WHEN Mgmt.fn_ExtractPostCodeUKFromAddress(EmployerPostCode)='ZZ99 9ZZ'
-				          THEN CASE WHEN Mgmt.fn_ExtractPostCodeUKFromAddress(ISNULL(EmployerAddressLine1,'')+','+ISNULL(EmployerAddressLine2,'')+','+ISNULL(EmployerAddressLine3,'')+','+ISNULL(EmployerAddressLine4,'')) ='ZZ99 9ZZ'
-						            THEN EmployerPostCode
-									ELSE Mgmt.fn_ExtractPostCodeUKFromAddress(ISNULL(EmployerAddressLine1,'')+','+ISNULL(EmployerAddressLine2,'')+','+ISNULL(EmployerAddressLine3,'')+','+ISNULL(EmployerAddressLine4,''))
-							   END
-						  ELSE Mgmt.fn_ExtractPostCodeUKFromAddress(EmployerPostCode)
-					  END
-				ELSE EmployerPostCode
-			END                                                          as VacancyPostCode
-          ,EmployerAddressLine1                                    as VacancyAddressLine1
-          ,EmployerAddressLine2                                    as VacancyAddressLine2
-          ,EmployerAddressLine3                                    as VacancyAddressLine3
-          ,EmployerAddressLine4                                    as VacancyAddressLine4
-          ,COALESCE(EmployerAddressLine4,EmployerAddressLine3,EmployerAddressLine2) as VacancyTown
-          ,E.EmployerId                                            as EmployerId
-          ,V.VacancyId                                             as VacancyId
-          ,EL.SourseSK                                                as SourceVacancyLocationsId
-          ,'RAAv2'                                                    as SourceDb
-	 FROM Stg.[RAA_EmployerLocations] EL
+		  VV.VacancyId
+      ,E.EmployerId
+      ,EPA.Postcode as VacancyPostCode
+      ,EPA.AddressLine1 as VacancyAddressLine1
+      ,EPA.AddressLine2 as VacancyAddressLine2
+      ,EPA.AddressLine3 as VacancyAddressLine3
+      ,EPA.AddressLine4 as VacancyAddressLine4
+      ,COALESCE(EPA.AddressLine4,EPA.AddressLine3,EPA.AddressLine2) as VacancyTown
+      ,CAST(EPA.Id as varchar(256)) as SourceVacancyLocationsId
+      ,'RCRT'                                                    as SourceDb
+	 FROM (
+        SELECT DISTINCT
+               VacancyReference
+              ,AccountId
+              ,AccountLegalEntityId
+          FROM Stg.RCRT_Vacancy
+       ) V
 	  LEFT
-	  JOIN ASData_PL.Va_Employer E
-	    ON E.DasAccountId_v2=EL.EmployerAccountId
-	   and E.SourceDb='RAAv2'
-
-	  LEFT JOIN [ASData_PL].[Va_Vacancy] V ON EL.BinaryId=V.VacancyGuid
-	  and V.SourceDb='RAAv2'
-	 
+	  JOIN Stg.RCRT_EmployerProfileAddress EPA
+	    ON EPA.AccountLegalEntityId=V.AccountLegalEntityId
+	  LEFT
+	  JOIN ASData_PL.Va_Employer_Rcrt E
+	    ON E.DasAccountId_v2=V.AccountId
+	   AND E.SourceDb='RCRT'
+	  LEFT
+	  JOIN ASData_PL.Va_Vacancy VV
+	    ON VV.VacancyReferenceNumber=TRY_CAST(V.VacancyReference as bigint)
+	 WHERE COALESCE(EPA.Postcode
+	               ,EPA.AddressLine1
+	               ,EPA.AddressLine2
+	               ,EPA.AddressLine3
+	               ,EPA.AddressLine4
+	               ,'NA')<>'NA'
 
 Union
 
@@ -114,19 +119,44 @@ VacancyPostCode
 ,EmployerId
 ,VacancyId
 ,SourceVacancyId as SourceVacancyLocationsId
-,'RAAv2'                                                    as SourceDb
+,'RCRT'                                                    as SourceDb
 
-from ASData_PL.Va_Vacancy where SourceDb='RAAv2'
- AND COALESCE( VacancyPostCode
-,VacancyAddressLine1
-,VacancyAddressLine2
-,VacancyAddressLine3
-,VacancyAddressLine4
-,VacancyTown,'NA')<>'NA'
-
-)a
-
-EXEC [dbo].[ImportVacancyLocationsToPL_Rcrt] @RunId;
+from (
+        SELECT DISTINCT
+               V.VacancyId
+              ,E.EmployerId
+              ,EPA.Postcode as VacancyPostCode
+              ,EPA.AddressLine1 as VacancyAddressLine1
+              ,EPA.AddressLine2 as VacancyAddressLine2
+              ,EPA.AddressLine3 as VacancyAddressLine3
+              ,EPA.AddressLine4 as VacancyAddressLine4
+              ,COALESCE(EPA.AddressLine4,EPA.AddressLine3,EPA.AddressLine2) as VacancyTown
+              ,CAST(EPA.Id as varchar(256)) as SourceVacancyId
+              ,'RCRT' as SourceDb
+          FROM (
+                SELECT DISTINCT
+                       VacancyReference
+                      ,AccountId
+                      ,AccountLegalEntityId
+                  FROM Stg.RCRT_Vacancy
+               ) VR
+          LEFT
+          JOIN Stg.RCRT_EmployerProfileAddress EPA
+            ON EPA.AccountLegalEntityId=VR.AccountLegalEntityId
+          LEFT
+          JOIN ASData_PL.Va_Employer_Rcrt E
+            ON E.DasAccountId_v2=VR.AccountId
+           AND E.SourceDb='RCRT'
+          LEFT
+          JOIN ASData_PL.Va_Vacancy V
+            ON V.VacancyReferenceNumber=TRY_CAST(VR.VacancyReference as bigint)
+         WHERE COALESCE(EPA.Postcode
+                       ,EPA.AddressLine1
+                       ,EPA.AddressLine2
+                       ,EPA.AddressLine3
+                       ,EPA.AddressLine4
+                       ,'NA')<>'NA'
+       ) a
 
 COMMIT TRANSACTION
 

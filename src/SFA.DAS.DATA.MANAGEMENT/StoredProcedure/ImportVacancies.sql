@@ -604,8 +604,6 @@ EXEC [dbo].[ImportVaAddInfoApprenticeshipsToPL] @RunId;
 
 EXEC [dbo].[ImportVaAddInfoVacancyReviewsToPL] @RunId
 
-EXEC [dbo].[ImportVaAddInfoApprenticeshipsToPL_Rcrt] @RunId;
-
 COMMIT TRANSACTION
 
 

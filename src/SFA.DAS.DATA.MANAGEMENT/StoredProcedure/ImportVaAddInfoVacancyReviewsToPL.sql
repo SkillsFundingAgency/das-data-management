@@ -58,9 +58,9 @@ INSERT INTO ASData_PL.va_VacancyReviews
   )
 SELECT 
 	RVR.AccountId
-      ,NULL as CandidateId
+	  ,NULL as CandidateId
 	  ,RVR.CreatedDate
-	  ,RVR.SubmittedDate
+	  ,NULL as SubmittedDateTime
 	  ,RVR.VacancyReference
 	  ,vv.VacancyId
 	  ,RVR.ManualOutcome

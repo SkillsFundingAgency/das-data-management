@@ -1,4 +1,4 @@
-﻿CREATE TABLE [ASData_PL].[Digc_UserActions]
+﻿CREATE TABLE [ASData_PL].[Digc_UserAuthorisation]
 (
 	[Id] [uniqueidentifier] NULL,
 	[UserId] [uniqueidentifier]NULL,

@@ -1,4 +1,4 @@
-﻿CREATE TABLE [ASData_PL].[Digc_SharingAccess]
+﻿CREATE TABLE [ASData_PL].[Digc_SharingEmailAccess]
 (
 	[Id] [uniqueidentifier] NULL,
 	[SharingEmailId] [uniqueidentifier] NULL,

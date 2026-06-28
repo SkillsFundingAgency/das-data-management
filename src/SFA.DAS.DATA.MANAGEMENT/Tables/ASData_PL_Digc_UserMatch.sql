@@ -1,4 +1,4 @@
-﻿CREATE TABLE [ASData_PL].[Digc_UserIdentity]
+﻿CREATE TABLE [ASData_PL].[Digc_UserMatch]
 (
 	[Id] [uniqueidentifier] NULL,
 	[UserId] [uniqueidentifier] NULL,

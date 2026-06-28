@@ -1,4 +1,4 @@
-﻿CREATE TABLE [ASData_PL].[Digc_SharingAccess]
+﻿CREATE TABLE [ASData_PL].[Digc_User]
 (
     [Id] [uniqueidentifier] NULL,
 	[GovUkIdentifier] [varchar](100) NULL,

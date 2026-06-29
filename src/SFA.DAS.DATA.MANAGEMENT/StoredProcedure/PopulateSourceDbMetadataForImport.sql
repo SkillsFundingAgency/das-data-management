@@ -577,7 +577,7 @@ VALUES
 	,('Digc','User','dbo','[Id]  ,[LastLoginAt] ,[IsLocked] ,[CreatedAt]','','[GovUkIdentifier] ,[EmailAddress] ,[PhoneNumber]',0,1,'SELECT   [Id] ,[GovUkIdentifier] ,[EmailAddress] ,[PhoneNumber] ,[LastLoginAt] ,[IsLocked] ,[CreatedAt] FROM [dbo].[User]','Digc_User')
 	,('Digc','UserActions','dbo','[Id],[UserId],[ActionType],[ActionCode],[ActionTime],[CertificateId],[CertificateType],[CourseName]','','[FamilyName],[GivenNames]',0,1,'SELECT  [Id],[UserId],[ActionType],[ActionCode],[ActionTime],[FamilyName],[GivenNames],[CertificateId],[CertificateType],[CourseName] FROM [dbo].[UserActions]','Digc_UserActions')
 	,('Digc','UserAuthorisation','dbo','[Id],[Description]','','',0,1,'SELECT  [Id],[UserId],[ULN],[AuthorisedAt] FROM [dbo].[UserAuthorisation]','Digc_UserAuthorisation')
-	,('Digc','UserIdentity]','dbo','[Id],[UserId],[ValidSince],[ValidUntil]','','[FamilyName],[DateOfBirth],[GivenNames]',0,1,'SELECT  [Id],[UserId],[FamilyName],[DateOfBirth],[GivenNames],[ValidSince],[ValidUntil] FROM [dbo].[UserIdentity]','Digc_UserIdentity]')
+	,('Digc','UserIdentity','dbo','[Id],[UserId],[ValidSince],[ValidUntil]','','[FamilyName],[DateOfBirth],[GivenNames]',0,1,'SELECT  [Id],[UserId],[FamilyName],[DateOfBirth],[GivenNames],[ValidSince],[ValidUntil] FROM [dbo].[UserIdentity]','Digc_UserIdentity]')
 	,('Digc','UserMatch','dbo','[Id],[UserId],[Uln],[EventTime],[CertificateType],[CourseCode],[CourseName],[CourseLevel],[YearAwarded],[ProviderName],[Ukprn],[IsMatched],[IsFailed]','','[FamilyName],[DateOfBirth]',0,1,'SELECT [Id],[UserId],[Uln],[FamilyName],[DateOfBirth],[EventTime],[CertificateType],[CourseCode],[CourseName],[CourseLevel],[YearAwarded],[ProviderName],[Ukprn],[IsMatched],[IsFailed] FROM [dbo].[UserMatch]','Digc_UserMatch')
 
 

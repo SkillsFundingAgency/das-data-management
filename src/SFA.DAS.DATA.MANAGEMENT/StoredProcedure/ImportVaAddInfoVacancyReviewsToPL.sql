@@ -64,8 +64,8 @@ SELECT
 	  ,RVR.VacancyReference
 	  ,vv.VacancyId
 	  ,RVR.ManualOutcome
-	  ,RVR.ManualQaFieldIndicators
-	  ,CASE WHEN RVR.ManualQaFieldIndicators IS NOT NULL THEN 'true' ELSE 'false' END
+	  ,CAST(jsonexplod.value AS varchar(256)) as ManualQaFieldIndicator
+	  ,CASE WHEN jsonexplod.value IS NOT NULL THEN 'true' ELSE 'false' END
 	  ,RVR.ManualQaComment	
 	  ,RVR.SubmissionCount
     ,RVR.ReviewedDate
@@ -79,6 +79,14 @@ SELECT
   LEFT
   JOIN ASData_PL.Va_Vacancy vv
     on vv.VacancyReferenceNumber=RVR.VacancyReference
+  OUTER APPLY OPENJSON(
+      CASE 
+          WHEN RVR.ManualQaFieldIndicators IS NULL
+            OR LTRIM(RTRIM(RVR.ManualQaFieldIndicators)) IN ('', '[]', 'null')
+            OR ISJSON(RVR.ManualQaFieldIndicators)<>1 THEN NULL
+          ELSE RVR.ManualQaFieldIndicators
+      END
+  ) jsonexplod
 
 COMMIT TRANSACTION
 

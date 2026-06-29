@@ -6,6 +6,7 @@
 	[PhoneNumber] [varchar](20) NULL,
 	[LastLoginAt] [datetime2](7) NULL,
 	[IsLocked] [bit] NULL,
+	[CreatedAt] [datetime2](7) NULL,
 	[AsDm_UpdatedDateTime] datetime2 default getdate()
 
 )

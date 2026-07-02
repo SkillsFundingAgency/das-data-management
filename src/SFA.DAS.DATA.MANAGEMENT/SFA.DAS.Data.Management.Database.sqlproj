@@ -627,7 +627,16 @@
     <Build Include="Views\ASDATA_PL_AssessorStaffReportsByProviderAndGrade.sql" />
     <Build Include="Views\ASData_PL_AssessorStaffReportsByByStandard.sql" />  
     <Build Include="Views\ASData_PL_AssessorStaffReportsDetailedExtract.sql" />    
-    
-                
+    <Build Include="Tables\ASData_PL_Digc_ActionType.sql" />    
+    <Build Include="Tables\ASData_PL_Digc_AdminActions.sql" />    
+    <Build Include="Tables\ASData_PL_Digc_Sharing.sql" />    
+    <Build Include="Tables\ASData_PL_Digc_SharingAccess.sql" />    
+    <Build Include="Tables\ASData_PL_Digc_SharingEmail.sql" />    
+    <Build Include="Tables\ASData_PL_Digc_SharingEmailAccess.sql" />    
+    <Build Include="Tables\ASData_PL_Digc_User.sql" />    
+    <Build Include="Tables\ASData_PL_Digc_UserActions.sql" />    
+    <Build Include="Tables\ASData_PL_Digc_UserAuthorisation.sql" />    
+    <Build Include="Tables\ASData_PL_Digc_UserIdentity.sql" />    
+    <Build Include="Tables\ASData_PL_Digc_UserMatch.sql" />                   
   </ItemGroup>
 </Project>

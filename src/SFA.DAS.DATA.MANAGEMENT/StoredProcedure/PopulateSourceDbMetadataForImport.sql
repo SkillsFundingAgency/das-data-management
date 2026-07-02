@@ -570,7 +570,7 @@ INSERT INTO Mtd.SourceConfigForImport
 VALUES
    	 ('Digc','ActionType','dbo','[Id],[Description]','','',0,1,'SELECT [Id],[Description] FROM [dbo].[ActionType]','Digc_ActionType')
     ,('Digc','AdminActions','dbo','[Id],[ActionTime],[Action],[UserActionId]','','[Username]',0,1,'SELECT [Id],[Username],[ActionTime],[Action],[UserActionId] FROM [dbo].[AdminActions]','Digc_AdminActions')
-    ,('Digc','Sharing','dbo','[Id],[UserId],[CertificateId],[CertificateType],[CourseName],[LinkCode],[CreatedAt],[ExpiryTime],[Status]','','',1,1,'SELECT  [Id],[UserId],[CertificateId],[CertificateType],[CourseName],[LinkCode],[CreatedAt],[ExpiryTime],[Status] FROM [dbo].[Sharing]','Digc_Sharing')
+    ,('Digc','Sharing','dbo','[Id],[UserId],[CertificateId],[CertificateType],[CourseName],[LinkCode],[CreatedAt],[ExpiryTime],[Status]','','',0,1,'SELECT  [Id],[UserId],[CertificateId],[CertificateType],[CourseName],[LinkCode],[CreatedAt],[ExpiryTime],[Status] FROM [dbo].[Sharing]','Digc_Sharing')
     ,('Digc','SharingAccess','dbo','[Id],[SharingId],[AccessedAt]','','',0,1,'SELECT  [Id],[SharingId],[AccessedAt] FROM [dbo].[SharingAccess]','Digc_SharingAccess')
 	,('Digc','SharingEmail','dbo','[Id],[SharingId],[EmailLinkCode],[SentTime]','','[EmailAddress]',0,1,'SELECT  [Id],[SharingId],[EmailAddress],[EmailLinkCode],[SentTime] FROM [dbo].[SharingEmail]','Digc_SharingEmail')
 	,('Digc','SharingEmailAccess','dbo','[Id],[SharingEmailId],[AccessedAt]','','',0,1,'SELECT  [Id],[SharingEmailId],[AccessedAt] FROM [dbo].[SharingEmailAccess]','Digc_SharingEmailAccess')

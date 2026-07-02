@@ -563,6 +563,25 @@ VALUES
 ,('Cpg','ClickedLinks','dbo','[Id],[ExternalId],[CampaignId],[ContactEmail],[ClickedDate],[FriendlyUrlName],[LinkId],[Url],[IsMonitored],[EmailFormat],[IsSuspectedBot],[Device],[ClientName],[Os],[OsFamily],[IpAddress],[ClientType],[ClientFamily]','','',1,0,'CPG_ClickedLinks')
 ,('Cpg','DisplayedEmails','dbo','[Id],[ExternalId],[CampaignId],[ContactEmail],[DisplayedDate],[Format],[TimeDisplayed],[IsSuspectedBot],[Device],[ClientName],[Os],[OsFamily],[IpAddress],[ClientType],[ClientFamily]','','',1,0,'CPG_DisplayedEmails')
 ,('Cpg','UnsubscribedContacts','dbo','[Id],[ExternalId],[CampaignId],[ContactEmail],[UnsubscribedDate],[IsGlobalUnscribe],[IsComplaint]','','',1,0,'CPG_UnsubscribedContacts')
+
+-- Digital certificates import
+INSERT INTO Mtd.SourceConfigForImport
+(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)
+VALUES
+   	 ('Digc','ActionType','dbo','[Id],[Description]','','',0,1,'SELECT [Id],[Description] FROM [dbo].[ActionType]','Digc_ActionType')
+    ,('Digc','AdminActions','dbo','[Id],[ActionTime],[Action],[UserActionId]','','[Username]',0,1,'SELECT [Id],[Username],[ActionTime],[Action],[UserActionId] FROM [dbo].[AdminActions]','Digc_AdminActions')
+    ,('Digc','Sharing','dbo','[Id],[UserId],[CertificateId],[CertificateType],[CourseName],[LinkCode],[CreatedAt],[ExpiryTime],[Status]','','',0,1,'SELECT  [Id],[UserId],[CertificateId],[CertificateType],[CourseName],[LinkCode],[CreatedAt],[ExpiryTime],[Status] FROM [dbo].[Sharing]','Digc_Sharing')
+    ,('Digc','SharingAccess','dbo','[Id],[SharingId],[AccessedAt]','','',0,1,'SELECT  [Id],[SharingId],[AccessedAt] FROM [dbo].[SharingAccess]','Digc_SharingAccess')
+	,('Digc','SharingEmail','dbo','[Id],[SharingId],[EmailLinkCode],[SentTime]','','[EmailAddress]',0,1,'SELECT  [Id],[SharingId],[EmailAddress],[EmailLinkCode],[SentTime] FROM [dbo].[SharingEmail]','Digc_SharingEmail')
+	,('Digc','SharingEmailAccess','dbo','[Id],[SharingEmailId],[AccessedAt]','','',0,1,'SELECT  [Id],[SharingEmailId],[AccessedAt] FROM [dbo].[SharingEmailAccess]','Digc_SharingEmailAccess')
+	,('Digc','User','dbo','[Id]  ,[LastLoginAt] ,[IsLocked] ,[CreatedAt]','','[GovUkIdentifier],[EmailAddress],[PhoneNumber]',0,1,'SELECT   [Id] ,[GovUkIdentifier] ,[EmailAddress] ,[PhoneNumber] ,[LastLoginAt] ,[IsLocked] ,[CreatedAt] FROM [dbo].[User]','Digc_User')
+	,('Digc','UserActions','dbo','[Id],[UserId],[ActionType],[ActionCode],[ActionTime],[CertificateId],[CertificateType],[CourseName]','','[FamilyName],[GivenNames]',0,1,'SELECT  [Id],[UserId],[ActionType],[ActionCode],[ActionTime],[FamilyName],[GivenNames],[CertificateId],[CertificateType],[CourseName] FROM [dbo].[UserActions]','Digc_UserActions')
+	,('Digc','UserAuthorisation','dbo','[Id],[UserId],[ULN],[AuthorisedAt]','','',0,1,'SELECT  [Id],[UserId],[ULN],[AuthorisedAt] FROM [dbo].[UserAuthorisation]','Digc_UserAuthorisation')
+	,('Digc','UserIdentity','dbo','[Id],[UserId],[ValidSince],[ValidUntil]','','[FamilyName],[DateOfBirth],[GivenNames]',0,1,'SELECT  [Id],[UserId],[FamilyName],[DateOfBirth],[GivenNames],[ValidSince],[ValidUntil] FROM [dbo].[UserIdentity]','Digc_UserIdentity')
+	,('Digc','UserMatch','dbo','[Id],[UserId],[Uln],[EventTime],[CertificateType],[CourseCode],[CourseName],[CourseLevel],[YearAwarded],[ProviderName],[Ukprn],[IsMatched],[IsFailed]','','[FamilyName],[DateOfBirth]',0,1,'SELECT [Id],[UserId],[Uln],[FamilyName],[DateOfBirth],[EventTime],[CertificateType],[CourseCode],[CourseName],[CourseLevel],[YearAwarded],[ProviderName],[Ukprn],[IsMatched],[IsFailed] FROM [dbo].[UserMatch]','Digc_UserMatch')
+
+
+
 COMMIT TRANSACTION
 
 UPDATE Mgmt.Log_Execution_Results

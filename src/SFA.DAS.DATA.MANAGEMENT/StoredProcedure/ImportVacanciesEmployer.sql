@@ -54,7 +54,7 @@ INSERT INTO [ASData_PL].[Va_Employer]
  SELECT     E.FullName               as EmployerFullName
            ,E.TradingName            as TradingName
            ,EmployerId               as SourceEmployerId_v1
-	       ,'N/A'                    as DasAccountId_v2
+	       ,CAST('N/A' AS varchar(8)) as DasAccountId_v2
 		   ,-1                       as LocalAuthorityId
 		   ,OwnerOrgnistaion         as OwnerOrganisation
 		   ,-1                       as EdsUrn_v1
@@ -69,7 +69,7 @@ INSERT INTO [ASData_PL].[Va_Employer]
 	 SELECT TradingName              as EmployerFullName
 	       ,TradingName              as TradingName
 		   ,-1                       as SourceEmployerId_v1
-		   ,AccountId       		 as DasAccountId_v2
+		   ,CAST(AccountId AS varchar(8)) as DasAccountId_v2
 		   ,-1                       as LocalAuthorityId
 		   ,'N/A'                    as OwnerOrganisation
 		   ,-1                       as EdsUrn_v1

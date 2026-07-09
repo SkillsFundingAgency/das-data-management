@@ -85,7 +85,7 @@ INSERT INTO [ASData_PL].[Va_Provider]
 	   ,'N/A'                           as ProviderStatusDesc
 	   ,NULL                            as IsNASProvider
 	   ,-1                              as ProviderToUseFAA
-	   ,'RAAv2'                         as SourceDb
+	   ,'RCRT'                         as SourceDb
    FROM  (SELECT DISTINCT [Ukprn]
                          ,[TrainingProvider_Name]
 						 ,Row_Number() Over (Partition by [Ukprn] 

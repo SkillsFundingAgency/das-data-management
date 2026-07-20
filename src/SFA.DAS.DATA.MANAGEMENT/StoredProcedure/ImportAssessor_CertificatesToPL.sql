@@ -78,7 +78,9 @@ BEGIN TRANSACTION
            [Version],
            [Type],
            [LatestEpaOutcome],
-           [FullName]
+           [FullName],
+           [PrintRequestedAt],
+           [PrintRequestedBy]
     FROM [stg].[Assessor_Certificates]
 ) AS Source
 ON Target.[Id] = Source.[Id]
@@ -123,6 +125,8 @@ SET
     [Type]  = Source.[Type],
     [LatestEpaOutcome]=Source.[LatestEpaOutcome],
     [FullName]=Source.[FullName],
+    [PrintRequestedAt]=Source.[PrintRequestedAt],
+    [PrintRequestedBy]=Source.[PrintRequestedBy],
     [AsDm_UpdatedDateTime] = GETDATE()
 
 -- Perform an INSERT if the record does not exist in the target table
@@ -166,6 +170,9 @@ INSERT (
   
     [LatestEpaOutcome],
     [FullName],
+    [PrintRequestedAt],
+    [PrintRequestedBy],
+
     [AsDm_UpdatedDateTime]
 )
 VALUES (
@@ -205,6 +212,8 @@ VALUES (
     Source.[Type],
     Source.[LatestEpaOutcome],
     Source.[FullName],
+    Source.[PrintRequestedAt],
+    Source.[PrintRequestedBy],
     GETDATE()
 );'
 

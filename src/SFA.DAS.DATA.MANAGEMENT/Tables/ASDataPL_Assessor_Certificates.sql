@@ -36,6 +36,8 @@
 [Type]										    [Varchar](10)			NULL,
 [LatestEpaOutcome]                              [Varchar](15)			NULL,
 [FullName]                                      [Varchar](255)			NULL,
+[PrintRequestedAt]                              [DateTime2](7)			NULL,
+[PrintRequestedBy]                              [Varchar](255)			NULL,
 [AsDm_UpdatedDateTime]							[Datetime2](7)			default getdate()
 )
 

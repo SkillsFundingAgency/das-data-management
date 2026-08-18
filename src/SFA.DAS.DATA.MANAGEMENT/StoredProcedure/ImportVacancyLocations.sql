@@ -74,6 +74,16 @@ SELECT
        VV.VacancyId
       ,E.EmployerId
       ,d.Postcode as VacancyPostCode
+	  CASE WHEN len(d.Postcode)>8 
+            THEN CASE WHEN Mgmt.fn_ExtractPostCodeUKFromAddress(d.Postcode)='ZZ99 9ZZ'
+                  THEN CASE WHEN Mgmt.fn_ExtractPostCodeUKFromAddress(ISNULL(d.AddressLine1,'')+','+ISNULL(d.AddressLine2,'')+','+ISNULL(d.AddressLine3,'')+','+ISNULL(d.AddressLine4,'')) ='ZZ99 9ZZ'
+                        THEN d.Postcode
+                  ELSE Mgmt.fn_ExtractPostCodeUKFromAddress(ISNULL(d.AddressLine1,'')+','+ISNULL(d.AddressLine2,'')+','+ISNULL(d.AddressLine3,'')+','+ISNULL(d.AddressLine4,''))
+                 END
+              ELSE Mgmt.fn_ExtractPostCodeUKFromAddress(d.Postcode)
+			END
+        ELSE EmployerPostCode
+      END                                                          as VacancyPostCode
       ,d.AddressLine1 as VacancyAddressLine1
       ,d.AddressLine2 as VacancyAddressLine2
       ,d.AddressLine3 as VacancyAddressLine3

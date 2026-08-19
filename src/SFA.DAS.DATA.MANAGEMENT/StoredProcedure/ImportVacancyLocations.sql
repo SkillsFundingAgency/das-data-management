@@ -42,33 +42,19 @@ TRUNCATE TABLE ASData_PL.Va_VacancyLocations
 /* Load RCRT */
 
 INSERT INTO [ASData_PL].[Va_VacancyLocations]
-           (
-[VacancyId]
-,[EmployerId]
-,[VacancyPostcode]
-,[VacancyAddressLine1]
-,[VacancyAddressLine2] 
-,[VacancyAddressLine3] 
-,[VacancyAddressLine4] 
-,[VacancyTown] 
-,[SourceVacancyLocationsId] 
-,[SourceDb]
+	(
+	[VacancyId]
+	,[EmployerId]
+	,[VacancyPostcode]
+	,[VacancyAddressLine1]
+	,[VacancyAddressLine2] 
+	,[VacancyAddressLine3] 
+	,[VacancyAddressLine4] 
+	,[VacancyTown] 
+	,[SourceVacancyLocationsId] 
+	,[SourceDb]
+	)
 
-        )
-
-
-select 
-[VacancyId]
-,[EmployerId]
-,[VacancyPostcode]
-,[VacancyAddressLine1]
-,[VacancyAddressLine2] 
-,[VacancyAddressLine3] 
-,[VacancyAddressLine4] 
-,[VacancyTown] 
-,[SourceVacancyLocationsId] 
-,[SourceDb]
-from (
 
 	SELECT
 		VV.VacancyId
@@ -123,9 +109,8 @@ from (
 			d.AddressLine3,
 			d.AddressLine4,
 			'NA'
-		) <> 'NA';
+		) <> 'NA'
 
-)a
 COMMIT TRANSACTION
 
 

@@ -70,56 +70,61 @@ select
 ,[SourceDb]
 from (
 
-SELECT
-       VV.VacancyId
-      ,E.EmployerId
-      ,d.Postcode as VacancyPostCode
-	  CASE WHEN len(d.Postcode)>8 
-            THEN CASE WHEN Mgmt.fn_ExtractPostCodeUKFromAddress(d.Postcode)='ZZ99 9ZZ'
-                  THEN CASE WHEN Mgmt.fn_ExtractPostCodeUKFromAddress(ISNULL(d.AddressLine1,'')+','+ISNULL(d.AddressLine2,'')+','+ISNULL(d.AddressLine3,'')+','+ISNULL(d.AddressLine4,'')) ='ZZ99 9ZZ'
-                        THEN d.Postcode
-                  ELSE Mgmt.fn_ExtractPostCodeUKFromAddress(ISNULL(d.AddressLine1,'')+','+ISNULL(d.AddressLine2,'')+','+ISNULL(d.AddressLine3,'')+','+ISNULL(d.AddressLine4,''))
-                 END
-              ELSE Mgmt.fn_ExtractPostCodeUKFromAddress(d.Postcode)
-			END
-        ELSE EmployerPostCode
-      END                                                          as VacancyPostCode
-      ,d.AddressLine1 as VacancyAddressLine1
-      ,d.AddressLine2 as VacancyAddressLine2
-      ,d.AddressLine3 as VacancyAddressLine3
-      ,d.AddressLine4 as VacancyAddressLine4
-      ,COALESCE(d.AddressLine4, d.AddressLine3, d.AddressLine2) as VacancyTown
-      ,V.SourceVacancyReference
-      ,'RCRT' as SourceDb
-FROM Stg.RCRT_Vacancy V
+	SELECT
+		VV.VacancyId
+		,E.EmployerId
+		,CASE 
+			WHEN LEN(d.Postcode) > 8 
+			THEN 
+				CASE 
+					WHEN Mgmt.fn_ExtractPostCodeUKFromAddress(d.Postcode) = 'ZZ99 9ZZ'
+					THEN 
+						CASE 
+							WHEN Mgmt.fn_ExtractPostCodeUKFromAddress(ISNULL(d.AddressLine1, '') + ',' +ISNULL(d.AddressLine2, '') + ',' +ISNULL(d.AddressLine3, '') + ',' +ISNULL(d.AddressLine4, '')) = 'ZZ99 9ZZ'
+							THEN d.Postcode
+							ELSE Mgmt.fn_ExtractPostCodeUKFromAddress(ISNULL(d.AddressLine1, '') + ',' +ISNULL(d.AddressLine2, '') + ',' +ISNULL(d.AddressLine3, '') + ',' +ISNULL(d.AddressLine4, ''))
+						END
+					ELSE Mgmt.fn_ExtractPostCodeUKFromAddress(d.Postcode)
+				END
+			ELSE d.Postcode
+		END AS VacancyPostCode
+		,d.AddressLine1 AS VacancyAddressLine1
+		,d.AddressLine2 AS VacancyAddressLine2
+		,d.AddressLine3 AS VacancyAddressLine3
+		,d.AddressLine4 AS VacancyAddressLine4
+		,COALESCE(d.AddressLine4,d.AddressLine3,d.AddressLine2) AS VacancyTown
+		,V.SourceVacancyReference AS SourceVacancyLocationsId
+		,'RCRT' AS SourceDb
 
-CROSS APPLY OPENJSON(V.EmployerLocations)
-WITH
-(
-    AddressLine1 NVARCHAR(100) '$.addressLine1',
-    AddressLine2 NVARCHAR(100) '$.addressLine2',
-    AddressLine3 NVARCHAR(100) '$.addressLine3',
-    AddressLine4 NVARCHAR(100) '$.addressLine4',
-    Postcode     NVARCHAR(50)  '$.postcode'
-) d
+	FROM Stg.RCRT_Vacancy V
 
-LEFT JOIN ASData_PL.Va_Employer E
-    ON E.DasAccountId_v2 = V.AccountId
-   AND E.SourceDb = 'RCRT'
+	CROSS APPLY OPENJSON(V.EmployerLocations)
+	WITH
+	(
+		AddressLine1 NVARCHAR(100) '$.addressLine1',
+		AddressLine2 NVARCHAR(100) '$.addressLine2',
+		AddressLine3 NVARCHAR(100) '$.addressLine3',
+		AddressLine4 NVARCHAR(100) '$.addressLine4',
+		Postcode     NVARCHAR(50)  '$.postcode'
+	) d
 
-LEFT JOIN ASData_PL.Va_Vacancy VV
-    ON VV.VacancyReferenceNumber =
-       TRY_CAST(V.SourceVacancyReference AS bigint)
+	LEFT JOIN ASData_PL.Va_Employer E
+		ON E.DasAccountId_v2 = V.AccountId
+	AND E.SourceDb = 'RCRT'
 
-WHERE ISJSON(V.EmployerLocations) = 1
-  AND COALESCE(
-        d.Postcode,
-        d.AddressLine1,
-        d.AddressLine2,
-        d.AddressLine3,
-        d.AddressLine4,
-        'NA'
-      ) <> 'NA'
+	LEFT JOIN ASData_PL.Va_Vacancy VV
+		ON VV.VacancyReferenceNumber = TRY_CAST(V.SourceVacancyReference AS bigint)
+
+	WHERE ISJSON(V.EmployerLocations) = 1
+	AND COALESCE(
+			d.Postcode,
+			d.AddressLine1,
+			d.AddressLine2,
+			d.AddressLine3,
+			d.AddressLine4,
+			'NA'
+		) <> 'NA';
+
 )a
 COMMIT TRANSACTION
 

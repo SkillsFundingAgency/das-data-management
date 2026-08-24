@@ -589,7 +589,7 @@ VALUES
 
    	('Appsi','Vendor','dbo','[Id],[Name]','','',0,1,'SELECT [Id],[Name] FROM [dbo].[Vendor]','Appsi_Vendor'),
     ('Appsi','App','dbo','[Id],[Name],[AppleAppId],[GoogleAppId],[CreatedAt]','','',0,1,'SELECT [Id],[Name],[AppleAppId],[GoogleAppId],[CreatedAt] FROM [dbo].[App]','Appsi_App'),
-    ('Appsi','Vendor','dbo','[Id],[AppId],[VendorId],[ExternalId],[ReviewerName],[Rating],[Title],[Comment],[ReviewDate],[DeviceInfo],[IsNegative],[ZendeskTicketId],[CreatedAt],[ProcessedAt],[UpdatedAt],[AsDm_UpdatedDateTime]','','',0,1,'SELECT [Id],[AppId],[VendorId],[ExternalId],[ReviewerName],[Rating],[Title],[Comment],[ReviewDate],[DeviceInfo],[IsNegative],[ZendeskTicketId],[CreatedAt],[ProcessedAt],[UpdatedAt],[AsDm_UpdatedDateTime] FROM [dbo].[Review]','Appsi_Review')
+    ('Appsi','Review','dbo','[Id],[AppId],[VendorId],[ExternalId],[ReviewerName],[Rating],[Title],[Comment],[ReviewDate],[DeviceInfo],[IsNegative],[ZendeskTicketId],[CreatedAt],[ProcessedAt],[UpdatedAt],[AsDm_UpdatedDateTime]','','',0,1,'SELECT [Id],[AppId],[VendorId],[ExternalId],[ReviewerName],[Rating],[Title],[Comment],[ReviewDate],[DeviceInfo],[IsNegative],[ZendeskTicketId],[CreatedAt],[ProcessedAt],[UpdatedAt],[AsDm_UpdatedDateTime] FROM [dbo].[Review]','Appsi_Review')
 
 COMMIT TRANSACTION
 

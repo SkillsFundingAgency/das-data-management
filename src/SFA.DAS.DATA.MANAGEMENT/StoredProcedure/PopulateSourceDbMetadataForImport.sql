@@ -581,6 +581,15 @@ VALUES
 	,('Digc','UserMatch','dbo','[Id],[UserId],[Uln],[EventTime],[CertificateType],[CourseCode],[CourseName],[CourseLevel],[YearAwarded],[ProviderName],[Ukprn],[IsMatched],[IsFailed]','','[FamilyName],[DateOfBirth]',0,1,'SELECT [Id],[UserId],[Uln],[FamilyName],[DateOfBirth],[EventTime],[CertificateType],[CourseCode],[CourseName],[CourseLevel],[YearAwarded],[ProviderName],[Ukprn],[IsMatched],[IsFailed] FROM [dbo].[UserMatch]','Digc_UserMatch')
 
 
+-- App store Insights import
+INSERT INTO Mtd.SourceConfigForImport
+(SourceDatabaseName,SourceTableName,SourceSchemaName,ColumnNamesToInclude,ColumnNamesToExclude,ColumnNamesToMask,ModelDataToPL,IsQueryBasedImport,SourceQuery,StagingTableName)
+VALUES
+
+
+   	('Appsi','Vendor','dbo','[Id],[Name]','','',0,1,'SELECT [Id],[Name] FROM [dbo].[Vendor]','Appsi_Vendor'),
+    ('Appsi','App','dbo','[Id],[Name],[AppleAppId],[GoogleAppId],[CreatedAt]','','',0,1,'SELECT [Id],[Name],[AppleAppId],[GoogleAppId],[CreatedAt] FROM [dbo].[App]','Appsi_App'),
+    ('Appsi','Vendor','dbo','[Id],[AppId],[VendorId],[ExternalId],[ReviewerName],[Rating],[Title],[Comment],[ReviewDate],[DeviceInfo],[IsNegative],[ZendeskTicketId],[CreatedAt],[ProcessedAt],[UpdatedAt],[AsDm_UpdatedDateTime]','','',0,1,'SELECT [Id],[AppId],[VendorId],[ExternalId],[ReviewerName],[Rating],[Title],[Comment],[ReviewDate],[DeviceInfo],[IsNegative],[ZendeskTicketId],[CreatedAt],[ProcessedAt],[UpdatedAt],[AsDm_UpdatedDateTime] FROM [dbo].[Review]','Appsi_Review')
 
 COMMIT TRANSACTION
 

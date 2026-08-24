@@ -48,7 +48,7 @@ INSERT INTO [Mgmt].[Pipeline]
 ,(10,'ImportApplyToDM')
 ,(11,'ImportAssessorToDM')
 ,(12,'ImportPublicSectorToDM')
-,(13,'ImportEmpDemandToDM')
+--,(13,'ImportEmpDemandToDM')
 ,(14,'ImportPasToDM')
 ,(15,'ImportAppacToDM')
 ,(16,'ImportECommitmentToDM')
@@ -97,7 +97,7 @@ VALUES
 --,(1 ,11 ,1 ,1) ImportAssessorToDM pipeline full load
 --2023-01-30 ImportPublicSectorToDM seperated to be an individual pipeline
 --,(1	,12	,1	,12)
-,(1	,13	,1	,14)
+--,(1	,13	,1	,14)
 ,(1	,14	,1	,15)
 ,(1	,15	,1	,18)
 ,(1	,16	,1	,12)

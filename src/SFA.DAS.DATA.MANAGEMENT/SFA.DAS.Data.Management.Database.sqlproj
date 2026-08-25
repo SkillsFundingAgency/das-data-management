@@ -637,6 +637,9 @@
     <Build Include="Tables\ASData_PL_Digc_UserActions.sql" />    
     <Build Include="Tables\ASData_PL_Digc_UserAuthorisation.sql" />    
     <Build Include="Tables\ASData_PL_Digc_UserIdentity.sql" />    
-    <Build Include="Tables\ASData_PL_Digc_UserMatch.sql" />                   
+    <Build Include="Tables\ASData_PL_Digc_UserMatch.sql" />
+    <Build Include="Tables\ASData_PL_Appsi_App.sql" />
+    <Build Include="Tables\ASData_PL_Appsi_Review.sql" />
+    <Build Include="Tables\ASData_PL_Appsi_Vendor.sql" />                               
   </ItemGroup>
 </Project>

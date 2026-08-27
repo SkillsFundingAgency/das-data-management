@@ -2,46 +2,17 @@ trigger:
   batch: true
   branches:
     include:
-      - "*"
+      - "master"
 
-pr: none
+resources:
+  repositories:
+  - repository: das-platform-building-blocks
+    type: github
+    name: SkillsFundingAgency/das-platform-building-blocks
+    ref: refs/tags/0.4.37
+    endpoint: SkillsFundingAgency
 
-workspace:
-    clean: all
-
-variables:
-  buildConfiguration: 'release'
-  buildPlatform: 'anycpu'
-
-pool:
-  name: 'DAS - Continuous Integration'
-  demands: Agent.OS -equals Windows_NT
-
-steps:
-- task: UseGitVersion@5
-  displayName: GitVersion
-  inputs:
-    versionSpec: 5.x
-    mode: Mainline
-
-- task: VSBuild@1
-  displayName: 'Build DACPAC'
-  inputs:
-    solution: 'src\**\*.sqlproj'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-    msbuildArgs: '/p:PackageLocation="$(build.artifactstagingdirectory)/publish"'
-
-- task: CopyFiles@2
-  displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
-  inputs:
-    Contents: |
-     azure\**
-     src\**\*.dacpac
-    TargetFolder: '$(build.artifactstagingdirectory)/publish'
-    OverWrite: true
-
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact'
-  inputs:
-    PathtoPublish: '$(build.artifactstagingdirectory)/publish'
+stages:
+- stage: Build
+  jobs:
+  - template: pipeline-templates/job/code-build.yml

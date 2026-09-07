@@ -54,7 +54,7 @@ INSERT INTO [ASData_PL].[Va_Employer]
  SELECT     E.FullName               as EmployerFullName
            ,E.TradingName            as TradingName
            ,EmployerId               as SourceEmployerId_v1
-	       ,'N/A'                    as DasAccountId_v2
+	       ,CAST('N/A' AS varchar(8)) as DasAccountId_v2
 		   ,-1                       as LocalAuthorityId
 		   ,OwnerOrgnistaion         as OwnerOrganisation
 		   ,-1                       as EdsUrn_v1
@@ -65,25 +65,23 @@ INSERT INTO [ASData_PL].[Va_Employer]
 	   LEFT
 	   JOIN Stg.Avms_EmployerTrainingProviderStatus ETPS
 	     ON E.EmployerStatusTypeId=ETPS.EmployerTrainingProviderStatusId
-	  UNION
-	 SELECT DISTINCT
-	        EmployerName             as EmployerFullName
-	       ,EmployerName             as TradingName
+	  UNION ALL
+	 SELECT TradingName              as EmployerFullName
+	       ,TradingName              as TradingName
 		   ,-1                       as SourceEmployerId_v1
-		   ,EmployerAccountId        as DasAccountId_v2
+		   ,CAST(AccountId AS varchar(8)) as DasAccountId_v2
 		   ,-1                       as LocalAuthorityId
 		   ,'N/A'                    as OwnerOrganisation
 		   ,-1                       as EdsUrn_v1
 		   ,-1                       as EmployerStatusTypeId_v1
 		   ,'N/A'                    as EmployerStatusTypeDesc_v1
-		   ,'RAAv2'                  as SourceDb
-	   FROM (SELECT DISTINCT EmployerAccountId,EmployerName,row_number() over (Partition by EmployerAccountId order by EmployerName Desc) rn
-	           from Stg.RAA_Vacancies) v
-	  where rn=1
-
-
-
-
+		   ,'RCRT'                   as SourceDb
+	   FROM (SELECT DISTINCT AccountId
+	                       ,TradingName
+						   ,ROW_NUMBER() OVER (PARTITION BY AccountId
+							                       ORDER BY TradingName DESC) rn
+			   FROM Stg.RCRT_EmployerProfile) v
+	  WHERE rn=1
 
 
 COMMIT TRANSACTION

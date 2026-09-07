@@ -43,21 +43,20 @@ INSERT INTO ASData_PL.va_VacancyReviewsAutoQAOutcomeID
   ,SourceVacancyReviewId 
   ,SourceDb 
   )
-SELECT 
-	   RVR.VacancyReference
-	  ,vv.VacancyId
-	  ,RVR.Ruleoutcome_BinaryID
-      ,RVR.AutoQAfieldisReferred
-	  ,RVR.BinaryId
-	  ,'RAAv2'
-  FROM Stg.RAA_VacancyReviews_AutoQAoutcomeID  RVR
-  LEFT
-  JOIN ASData_PL.Va_Vacancy vv
-    on vv.VacancyReferenceNumber=RVR.VacancyReference
-  LEFT
-  JOIN ASData_PL.Va_Candidate vc
-    on vc.CandidateGuid=RVR.UserId
 
+
+SELECT 
+         E. VacancyReference
+		,E.VacancyId
+        ,dbo.Fn_ConvertGuidToBase64(E.id_1)  AS Ruleoutcome_BinaryID
+        ,COALESCE(AutomatedQaOutcomeIndicators,'False') as AutoQAfieldisReferred
+        ,dbo.Fn_ConvertGuidToBase64(E.VacancyReviewId)  as BinaryID
+        ,'RAAv2'
+
+ FROM stg.RCRT_RuleOutcomes E
+
+--join ASData_PL.Va_Vacancy_Rcrt v on E.VacancyReference=v.VacancyReference
+ 
 COMMIT TRANSACTION
 
 UPDATE Mgmt.Log_Execution_Results
@@ -110,5 +109,6 @@ UPDATE Mgmt.Log_Execution_Results
 
   END CATCH
 GO
+
 
 

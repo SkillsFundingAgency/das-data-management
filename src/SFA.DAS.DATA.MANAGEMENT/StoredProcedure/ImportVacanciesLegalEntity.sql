@@ -46,27 +46,27 @@ INSERT INTO [ASData_PL].[Va_LegalEntity]
            ,[LegalEntityName]
            ,[SourceLegalEntityId]
            ,[SourceDb])
-     SELECT AccountLegalEntityPublicHashedId as LegalEntityPublicHashedId
-		   ,E.EmployerId                     as EmployerId
-		   ,EmployerAccountId                as EmployerAccountId
-		   ,LegalEntityName                  as LegalEntityName
-		   ,LegalEntityId                    as SourceLegalEntityId
-		   ,'RAAv2'                          as SourceDb
-	   FROM (SELECT DISTINCT LegalEntityId
-	                        ,AccountLegalEntityPublicHashedId
-							,EmployerAccountId
+     SELECT ALE.HashedLegalEntityId              as LegalEntityPublicHashedId
+		   ,E.EmployerId                         as EmployerId
+		   ,V.AccountId                          as EmployerAccountId
+		   ,V.LegalEntityName                    as LegalEntityName
+		   ,V.AccountLegalEntityId               as SourceLegalEntityId
+		   ,'RCRT'                               as SourceDb
+	   FROM (SELECT DISTINCT AccountId
+	                        ,AccountLegalEntityId
 							,LegalEntityName
-			                ,ROW_NUMBER() OVER (PARTITION BY EmployerAccountId,LegalEntityId
+			                ,ROW_NUMBER() OVER (PARTITION BY AccountId,AccountLegalEntityId
 							                        ORDER BY LegalEntityName Desc) rn
-			   FROM Stg.RAA_Vacancies) v
+			   FROM Stg.RCRT_Vacancy) V
 	   LEFT
-	   JOIN ASData_PL.Va_Employer E
-	     ON E.DasAccountId_v2=V.EmployerAccountId
-		AND E.SourceDb='RAAv2'
+	   JOIN ASData_PL.Va_Employer_Rcrt E
+	     ON E.DasAccountId_v2=V.AccountId
+		AND E.SourceDb='RCRT'
+	   LEFT
+	   JOIN ASData_PL.Acc_AccountLegalEntity ALE
+	     ON ALE.Id=V.AccountLegalEntityId
+		AND ALE.AccountId=V.AccountId
 	  WHERE V.rn=1
-
-
-
 
 
 

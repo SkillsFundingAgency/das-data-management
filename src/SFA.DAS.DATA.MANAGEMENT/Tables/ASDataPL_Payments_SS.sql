@@ -7,7 +7,7 @@
 		 ,EmployerAccountID				nvarchar(100) null
 		 ,DasAccountId					nvarchar(100) null
 		 ,CommitmentID					bigint not null
-		 ,DeliveryMonth					int not null
+		 ,DeliveryMonth					int null
 		 ,DeliveryYear					int not null
 		 ,CollectionMonth				int not null
 		 ,CollectionYear				int not null
@@ -36,4 +36,7 @@
 		 ,CollectionPeriodYear			nvarchar(10) null
 		 ,LearningAimFundingLineType    nvarchar(100) null
 		 ,SenderAccountId				bigint null
+		 ,LearningType					varchar(255) null
+		 ,CourseType					varchar(255) null
+		 ,CourseCode					nvarchar(50) null
  )

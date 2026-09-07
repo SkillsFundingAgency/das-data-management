@@ -640,6 +640,20 @@
     <Build Include="Tables\ASData_PL_Digc_UserMatch.sql" />
     <Build Include="Tables\ASData_PL_Appsi_App.sql" />
     <Build Include="Tables\ASData_PL_Appsi_Review.sql" />
-    <Build Include="Tables\ASData_PL_Appsi_Vendor.sql" />                               
+    <Build Include="Tables\ASData_PL_Appsi_Vendor.sql" />
+
+    <Build Include="Tables\ASData_PL_DAS_EmailIntegration_Provider.sql" />
+    <Build Include="Tables\ASData_PL_DAS_EmailIntegration.sql" />
+    <Build Include="Tables\ASData_PL_DAS_RegistrationStages.sql" />  
+
+    <Build Include="StoredProcedure\ImportDASEmailIntegration.sql" />
+    <Build Include="StoredProcedure\ImportDASEmailIntegrationProvider.sql" />
+    <Build Include="StoredProcedure\ImportDASRegistrationStages.sql" />
+    <Build Include="StoredProcedure\ImportDASOrchestrateEmailIntegration.sql" />
+    
+    <Build Include="Views\ASDataPL_vw_DAS_EmailIntegration_Provider.sql" />  
+    <Build Include="Views\ASDataPL_vw_DAS_EmailIntegration.sql" />  
+    <Build Include="Views\ASDataPL_vw_DAS_RegistrationStages.sql" />  
+
   </ItemGroup>
 </Project>

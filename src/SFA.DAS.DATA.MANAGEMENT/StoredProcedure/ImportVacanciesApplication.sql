@@ -40,12 +40,15 @@ BEGIN TRANSACTION
 
 TRUNCATE TABLE ASData_PL.Va_Application
 
+
+
+
 INSERT INTO [ASData_PL].[Va_Application]
            ([CandidateId]
            ,[VacancyId]
            ,[ApplicationStatusTypeId]
            ,[ApplicationStatusDesc]
-		   ,[CandidateAgeAtApplication]
+		       ,[CandidateAgeAtApplication]
            ,[BeingSupportedBy]
            ,[LockedForSupportUntil]
            ,[IsWithdrawn]
@@ -53,7 +56,10 @@ INSERT INTO [ASData_PL].[Va_Application]
            ,[CreatedDateTime]
            ,[SourceDb]
            ,[SourceApplicationId])
-    SELECT  c.CandidateId                  as CandidateId
+
+
+
+   SELECT  c.CandidateId                  as CandidateId
            ,v.[VacancyId]                  as VacancyId
            ,AA.[ApplicationStatusTypeId]   as ApplicationStatusTypeId
 	       ,AST.FullName                   as ApplicationStatusDesc
@@ -86,43 +92,69 @@ INSERT INTO [ASData_PL].[Va_Application]
   left
   join Stg.Avms_AgeAtApplication SAA
     on SAA.ApplicationId=AA.ApplicationId
- UNION
- SELECT
+    
+ UNION 
+
+   SELECT
       CASE WHEN C.CandidateId IS NULL THEN C2.CandidateId ELSE c.CandidateId END AS CandidateId 
 	   ,v.VacancyId                         as VacancyId
 	   ,-1                                  as ApplicationStatusTypeId       
-	   ,AR.ApplicationStatus                as ApplicationStatusDesc
+	   ,AR.Status                as ApplicationStatusDesc
 	   ,CASE WHEN [FCD].[DateOfBirth] IS NULL	THEN - 1
-		      WHEN DATEPART([M], dbo.Fn_ConvertTimeStampToDateTime([FCD].[DateOfBirth])) > DATEPART([M], dbo.Fn_ConvertTimeStampToDateTime(ar.CreatedDateTimeStamp))
-			    OR DATEPART([M], dbo.Fn_ConvertTimeStampToDateTime([FCD].[DateOfBirth])) = DATEPART([M], dbo.Fn_ConvertTimeStampToDateTime(ar.CreatedDateTimeStamp))
-			   AND DATEPART([DD],dbo.Fn_ConvertTimeStampToDateTime([FCD].[DateOfBirth])) > DATEPART([DD], dbo.Fn_ConvertTimeStampToDateTime(ar.CreatedDateTimeStamp))
-			  THEN DATEDIFF(YEAR,dbo.Fn_ConvertTimeStampToDateTime([FCD].[DateOfBirth]), dbo.Fn_ConvertTimeStampToDateTime(ar.CreatedDateTimeStamp)) - 1
-		      ELSE DATEDIFF(YEAR,dbo.Fn_ConvertTimeStampToDateTime([FCD].[DateOfBirth]), dbo.Fn_ConvertTimeStampToDateTime(ar.CreatedDateTimeStamp))
+		      WHEN DATEPART([M], dbo.Fn_ConvertTimeStampToDateTime([FCD].[DateOfBirth])) > DATEPART([M], ar.CreatedDate)
+			    OR DATEPART([M], dbo.Fn_ConvertTimeStampToDateTime([FCD].[DateOfBirth])) = DATEPART([M], ar.CreatedDate)
+			   AND DATEPART([DD],dbo.Fn_ConvertTimeStampToDateTime([FCD].[DateOfBirth])) > DATEPART([DD], ar.CreatedDate)
+			  THEN DATEDIFF(YEAR,dbo.Fn_ConvertTimeStampToDateTime([FCD].[DateOfBirth]), ar.CreatedDate) - 1
+		      ELSE DATEDIFF(YEAR,dbo.Fn_ConvertTimeStampToDateTime([FCD].[DateOfBirth]), ar.CreatedDate)
 		END                                 as CandidateAgeAtApplication
 	   ,'N/A'                               as BeingSupportedBy 
 	   ,''                                  as LockedForSupportUntil
-	   ,CASE WHEN AR.IsWithDrawn='False' then 0
-	         WHEN AR.IsWithDrawn='True' then 1
+	   ,CASE WHEN AR.WithdrawnDate is not null  then 1
+	         else 0
 		 END                                as IsWithdrawn
-	   ,CAST(AR.BinaryId as varchar(256))   as ApplicationGuid
-	   ,dbo.Fn_ConvertTimeStampToDateTime(ar.CreatedDateTimeStamp) as CreatedDateTime
+	   ,[dbo].[Fn_ConvertGuidToBase64](AR.Id)   as ApplicationGuid
+	   ,ar.CreatedDate as CreatedDateTime
 	   ,'RAAv2'                             as SourceDb
-	   ,AR.SourseSK                         as SourceApplicationId
- from Stg.RAA_ApplicationReviews AR
+	   ,-1                       as SourceApplicationId
+ from Stg.RCRT_ApplicationReview AR
  left
  join ASData_PL.Va_Vacancy V   
    ON V.VacancyReferenceNumber=ar.VacancyReference
   and v.SourceDb='RAAv2'
  left
  join AsData_PL.Va_Candidate C
-   on C.SourceCandidateId_v2=CAST(AR.CandidateId as Varchar(256))
+   on C.SourceCandidateId_v2=[dbo].[Fn_ConvertGuidToBase64](AR.CandidateId)  
  left 
  join AsData_PL.Va_Candidate C2
-   on C2.SourceCandidateId_v3=CAST(AR.CandidateId_UI as Varchar(256))
+   on C2.SourceCandidateId_v3=CAST(AR.CandidateId AS varchar(256))  
  left
  join Stg.FAA_CandidateDob FCD
-   ON FCD.CandidateId=AR.CandidateId
---  and C.SourceDb='RAAv2'
+   ON FCD.CandidateId=[dbo].[Fn_ConvertGuidToBase64](AR.CandidateId)  
+
+ UNION ALL 
+ SELECT
+       c.CandidateId AS CandidateId 
+      ,v.VacancyId                         as VacancyId
+      ,AR.[ApplicationStatusTypeId]
+      ,AR.[ApplicationStatusDesc]
+      ,AR.[CandidateAgeAtApplication]
+      ,AR.[BeingSupportedBy]
+      ,AR.[LockedForSupportUntil]
+      ,AR.[IsWithdrawn]
+      ,AR.[ApplicationGuid]
+      ,AR.[CreatedDateTime]
+      ,AR.[SourceDb]
+      ,-1
+ from [AsData_PL].[Va_Application_Migration_MissingData] AR
+ left
+ join ASData_PL.Va_Vacancy V   
+   ON V.VacancyReferenceNumber=ar.[VacancyReference]
+  and v.SourceDb='RAAv2'
+ left
+ join AsData_PL.Va_Candidate C
+   on (C.SourceCandidateId_v2=AR.[SourceCandidateId])  or (C.SourceCandidateId_v3=AR.[SourceCandidateId])
+
+
 
 
 

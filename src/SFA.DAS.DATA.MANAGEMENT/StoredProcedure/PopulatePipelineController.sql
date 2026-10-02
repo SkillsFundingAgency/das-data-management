@@ -48,7 +48,7 @@ INSERT INTO [Mgmt].[Pipeline]
 ,(10,'ImportApplyToDM')
 ,(11,'ImportAssessorToDM')
 ,(12,'ImportPublicSectorToDM')
-,(13,'ImportEmpDemandToDM')
+--,(13,'ImportEmpDemandToDM')
 ,(14,'ImportPasToDM')
 ,(15,'ImportAppacToDM')
 ,(16,'ImportECommitmentToDM')
@@ -63,14 +63,19 @@ INSERT INTO [Mgmt].[Pipeline]
 ,(25,'ImportAprogToDM')
 ,(26,'ImportAssessorToDMINC')
 ,(27,'ImportFinanceToDMINC')
+,(28,'ImportAODPToDM')
 ,(100,'Master-ImportVacanciesToDataMart')
-,(101,'ImportRAAToDataMart')
-,(102,'ImportAvmsToDataMart')
-,(103,'ImportAvmsCandidateToDataMart')
-,(104,'ImportFAACandidateToDataMart')
-,(105,'ImportFAAToDataMart')
+--,(101,'ImportRAAToDataMart')
+--,(102,'ImportAvmsToDataMart')
+--,(103,'ImportAvmsCandidateToDataMart')
+-- ,(104,'ImportFAACandidateToDataMart')
+--,(105,'ImportFAAToDataMart')
 ,(106,'ImportFAAV2ToDataMart')
+--,(107,'ImportRCRTToDM')
+,(110,'ImportDIGCToDM')
 
+--Appstore insights Pipeline
+,(115,'ImportAppsInsightsToDM')
 
 DELETE FROM [Mgmt].[Config_PipelineController]
 
@@ -81,6 +86,7 @@ VALUES
 ,(1	,3	,1	,5)
 ,(1	,4	,1	,3)
 --,(1	,5	,1	,2)
+,(1	,27	,1	,2)
 ,(1	,6	,1	,13)
 --2023-10-26  ImportAppRedundancyToDM pipeline retired 
 --,(1	,7	,1	,7)
@@ -91,7 +97,7 @@ VALUES
 --,(1 ,11 ,1 ,1) ImportAssessorToDM pipeline full load
 --2023-01-30 ImportPublicSectorToDM seperated to be an individual pipeline
 --,(1	,12	,1	,12)
-,(1	,13	,1	,14)
+--,(1	,13	,1	,14)
 ,(1	,14	,1	,15)
 ,(1	,15	,1	,18)
 ,(1	,16	,1	,12)
@@ -102,15 +108,19 @@ VALUES
 ,(1 ,21 ,1  ,6)
 ,(1 ,22 ,1  ,17)
 ,(1 ,23 ,1  ,20)
+,(1 ,107 ,1  ,20)
 ,(1 ,24 ,1  ,21)
 ,(1 ,25 ,1  ,22)
 ,(1 ,26 ,1  ,23)
-,(1 ,27 ,1  ,24)
+--,(1 ,27 ,1  ,2)
+,(1 ,28 ,1  ,25)
+,(1 ,110 ,1  ,27)
+,(1 ,115 ,1  ,29)
 ,(100,101,1	,2)
-,(100,102,1	,3)
-,(100,103,1	,5)
-,(100,104,1	,4)
-,(100,105,1	,1)
+--,(100,102,1	,3)
+--,(100,103,1	,5)
+-- ,(100,104,1	,4)
+--,(100,105,1	,1)
 ,(100,106,1	,6)
 
 

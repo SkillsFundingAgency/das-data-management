@@ -31,59 +31,85 @@ DEClARE @quote varchar(5) = ''''
      AND RunId=@RunID
 
 BEGIN TRANSACTION
+; DROP TABLE IF EXISTS stg.RCRT_RuleOutcomes
+;TRUNCATE TABLE ASData_PL.va_VacancyReviewsAutoQAOutcome
+-- ;WITH CTE_RuleOutcomes AS (
 
-TRUNCATE TABLE ASData_PL.va_VacancyReviewsAutoQAOutcome
-
-/* Insert all the unsuccessful outcomes first with a reason */
+SELECT
+      e.Id AS VacancyReviewId,
+      e.VacancyReference,
+      v.VacancyId,
+      r.id_1,
+      r.ruleId,
+      r.score,
+      r.narrative,
+      NULLIF(r.target, '') AS target,
+      r.details
+      ,AutomatedQaOutcomeIndicators
+  
+INTO stg.RCRT_RuleOutcomes
+FROM stg.RCRT_VacancyReview e
+LEFT JOIN ASData_PL.Va_Vacancy v
+       ON v.VacancyReferenceNumber = e.VacancyReference
+CROSS APPLY OPENJSON(e.AutomatedQaOutcome, '$.ruleOutcomes')
+WITH (
+        id_1         UNIQUEIDENTIFIER '$.id',
+        ruleId       INT             '$.ruleId',
+        score        INT             '$.score',
+        narrative    NVARCHAR(MAX)   '$.narrative',
+        target       NVARCHAR(256)   '$.target',
+        details      NVARCHAR(MAX)   '$.details' AS JSON
+     ) r
+WHERE e.AutomatedQaOutcome like '{%'
 
 INSERT INTO ASData_PL.va_VacancyReviewsAutoQAOutcome
-( VacancyReference 
-  ,VacancyId
-  ,RuleoutcomeID 
-  ,Rule_RuleId 
-  ,Rule_Score 
-  ,Rule_Narrative 
-  ,Rule_Target 
-  ,Details_BinaryID 
-  ,Details_RuleID 
-  ,Details_score 
-  ,Details_narrative 
-  ,Details_data 
-  ,Details_target 
-  ,SourceVacancyReviewId 
-  ,SourceDb 
-  )
-SELECT 
-	     RVRA.VacancyReference
-	    ,vv.VacancyId
-	    ,RVRA.RuleoutcomeID 
-      ,RVRA.Rule_RuleId 
-      ,RVRA.Rule_Score 
-      ,RVRA.Rule_Narrative 
-      ,CASE WHEN RVRA.Rule_Target = ''
-        THEN NULL
-       ELSE RVRA.Rule_Target
-       END AS Rule_Target
-      ,RVRA.Details_BinaryID 
-      ,RVRA.Details_RuleID 
-      ,RVRA.Details_score 
-      ,RVRA.Details_narrative 
-      ,RVRA.Details_data 
-      ,RVRA.Details_target 
-	    ,RVRA.BinaryId
-	    ,'RAAv2'
-  FROM Stg.RAA_VacancyReviews_AutoQAoutcome RVRA
-  LEFT 
-  JOIN ASData_PL.Va_Vacancy vv
-    on vv.VacancyReferenceNumber=RVRA.VacancyReference
-  LEFT
-  JOIN ASData_PL.Va_Candidate vc
-    on vc.CandidateGuid=RVRA.UserId
+(
+    VacancyReference,
+    VacancyId,
+    RuleoutcomeID,
+    Rule_RuleId,
+    Rule_Score,
+    Rule_Narrative,
+    Rule_Target,
+    Details_BinaryID,
+    Details_RuleID,
+    Details_score,
+    Details_narrative,
+    Details_data,
+    Details_target,
+    SourceVacancyReviewId,
+    SourceDb
+)
+SELECT
+      r.VacancyReference,
+      r.VacancyId,
+      dbo.Fn_ConvertGuidToBase64(r.id_1),
+      r.ruleId,
+      r.score,
+      r.narrative,
+      r.target,
+
+      dbo.Fn_ConvertGuidToBase64(d.details_id),
+      d.details_ruleId,
+      d.details_score,
+      d.details_narrative,
+      d.details_data,
+      d.details_target,
+
+      dbo.Fn_ConvertGuidToBase64(r.VacancyReviewId),
+      'RAAv2'
+FROM stg.RCRT_RuleOutcomes r
+OUTER APPLY OPENJSON(r.details)
+WITH (
+        details_id         UNIQUEIDENTIFIER '$.id',
+        details_ruleId     INT             '$.ruleId',
+        details_score      INT             '$.score',
+        details_narrative  NVARCHAR(MAX)   '$.narrative',
+        details_target     NVARCHAR(256)   '$.target',
+        details_data       NVARCHAR(MAX)   '$.data'
+     ) d;
 
 
-TRUNCATE TABLE stg.RAA_VacancyReviews_AutoQARuleoutcome
-TRUNCATE TABLE stg.RAA_VacancyReviews_AutoQAoutcomedetails
-TRUNCATE TABLE stg.RAA_VacancyReviews_AutoQAoutcome
 
 COMMIT TRANSACTION
 

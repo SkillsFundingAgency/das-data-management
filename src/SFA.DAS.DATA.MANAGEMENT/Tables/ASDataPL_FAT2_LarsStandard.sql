@@ -7,6 +7,7 @@
 	[SectorSubjectAreaTier2]	[decimal](10, 4)	NOT NULL,
 	[SectorSubjectAreaTier1]	[int]				NULL,
 	[OtherBodyApprovalRequired] [bit]				NOT NULL,
+	[ApprenticeshipStandardTypeCode] [varchar](15)	NULL,
 	[SectorCode]				[int]				NULL,
 	[AsDm_UpdatedDateTime]		[datetime2](7) DEFAULT (getdate())
 )

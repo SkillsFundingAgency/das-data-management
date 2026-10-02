@@ -85,6 +85,9 @@ BEGIN TRANSACTION
 					   ,CollectionPeriodYear
 					   ,LearningAimFundingLineType
 					   ,SenderAccountID
+					   ,LearningType
+					   ,CourseType
+					   ,CourseCode
 				  )
 				  select 
 						P.[PaymentID], 
@@ -121,7 +124,10 @@ BEGIN TRANSACTION
 						[CollectionPeriodMonth], 
 						[CollectionPeriodYear],
 						[LearningAimFundingLineType],
-						paym.[SenderAccountId]
+						paym.[SenderAccountId],
+						P.[LearningType],
+						P.[CourseType],
+						P.[CourseCode]
 				From	[Data_Pub].[DAS_Payments_V2]  P		
 				JOIN 	( 				
 						select  distinct [TransferSenderAccountId] As SenderAccountID,
@@ -183,3 +189,4 @@ BEGIN CATCH
 
   END CATCH
   GO
+

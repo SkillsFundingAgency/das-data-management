@@ -55,8 +55,6 @@ SELECT
 
  FROM stg.RCRT_RuleOutcomes E
 
---join ASData_PL.Va_Vacancy_Rcrt v on E.VacancyReference=v.VacancyReference
- 
 COMMIT TRANSACTION
 
 UPDATE Mgmt.Log_Execution_Results

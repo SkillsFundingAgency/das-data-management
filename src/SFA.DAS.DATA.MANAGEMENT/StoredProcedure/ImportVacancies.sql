@@ -44,8 +44,6 @@ TRUNCATE TABLE ASData_PL.Va_Application  -- Delete Application First to be able 
 
 TRUNCATE TABLE ASData_PL.Va_Apprenticeships -- Delete Apprenticeships First to be able to resolve Foreign key conflicts */
 
-TRUNCATE TABLE ASData_PL.Va_Apprenticeships_Rcrt -- Delete Apprenticeships First to be able to resolve Foreign key conflicts */
-
 TRUNCATE TABLE ASData_PL.va_VacancyReviews -- Delete VacancyReviews First to be able to resolve Foreign key conflicts */
 
 TRUNCATE TABLE ASData_PL.Va_Vacancy
@@ -546,7 +544,7 @@ JSON_VALUE(EmployerLocations, '$[0].addressLine4')  end                         
 
              FROM Stg.RCRT_Vacancy V
 	  LEFT
-	  JOIN ASData_PL.Va_Employer_Rcrt E
+	  JOIN ASData_PL.Va_Employer E
 	    ON E.DasAccountId_v2=V.AccountId
 	   and E.SourceDb='RCRT'
 	  LEFT
@@ -558,7 +556,7 @@ JSON_VALUE(EmployerLocations, '$[0].addressLine4')  end                         
 	  JOIN (SELECT providerid ,UKPRN
               FROM 
            (SELECT providerid,Ukprn,row_number() over (partition by ukprn order by providerstatustypeid asc) rn -- ToSelectOnlyActivatedProviders
-	          FROM ASData_PL.Va_Provider_Rcrt) Provider
+	          FROM ASData_PL.Va_Provider) Provider
              WHERE rn=1) P
 	    ON P.UKPRN=V.Ukprn
 	--   AND P.SourceDb='RAAv2'

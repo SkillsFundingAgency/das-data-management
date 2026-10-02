@@ -59,7 +59,7 @@ INSERT INTO [ASData_PL].[Va_LegalEntity]
 							                        ORDER BY LegalEntityName Desc) rn
 			   FROM Stg.RCRT_Vacancy) V
 	   LEFT
-	   JOIN ASData_PL.Va_Employer_Rcrt E
+	   JOIN ASData_PL.Va_Employer E
 	     ON E.DasAccountId_v2=V.AccountId
 		AND E.SourceDb='RCRT'
 	   LEFT

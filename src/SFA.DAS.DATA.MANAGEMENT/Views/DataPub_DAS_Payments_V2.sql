@@ -64,6 +64,9 @@
 			, P.IlrSubmissionDateTime											AS EvidenceSubmittedOn
 			, P.LearningAimFundingLineType                                      AS LearningAimFundingLineType
 			, P.TransferSenderAccountId											AS TransferSenderAccountId
+			, P.LearningType													AS LearningTypeId
+			, P.CourseType														AS CourseTypeId
+			, P.CourseCode														AS CourseCode
 			, CAST( CASE WHEN P.CollectionPeriod <=12 THEN 
 				  Cast(CalCP.CalendarYear AS varchar)+ '-'
 				  + RIGHT('0' + RTRIM(cast(CalCP.CalendarMonthNumber AS varchar)), 2)
@@ -151,6 +154,9 @@
 		  , Convert(bit,Comt.ApprenticeshipEmployerTypeOnApproval)  as ApprenticeshipEmployerTypeOnApproval
 		  , P.LearningAimFundingLineType                            as LearningAimFundingLineType	
 		  , P.TransferSenderAccountId									       AS TransferSenderAccountId	  
+		  , LT.Description												       AS LearningType
+		  , CRT.Description													   AS CourseType
+		  , P.CourseCode													   AS CourseCode
 		FROM cte_Payment P 
 		LEFT JOIN [ASData_PL].[Acc_Account] Acct ON Acct.Id = P.AccountId
 		LEFT JOIN [ASData_PL].[Comt_Apprenticeship] C
@@ -189,5 +195,9 @@
 		  ON CT.FieldValue=P.ContractType
 			AND CT.FieldName='ContractType'
 			AND CT.Category='Payments'
+		LEFT JOIN StgPmts.LearningType LT
+		  ON LT.Id = P.LearningTypeId
+		LEFT JOIN StgPmts.CourseType CRT
+		  ON CRT.Id = P.CourseTypeId
 		GO
 

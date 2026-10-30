@@ -67,3 +67,7 @@ End
 /* Proc to Materialize Eshot Views */
 
  Exec [dbo].[ImportDASOrchestrateEmailIntegration] @RunId
+
+ 
+/* Proc to Materialize RiskAssessmentTool_Incentive_PAYE View */
+Exec [dbo].[ImportRiskAssessmentTool_Incentive_PAYE]

@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [ASData_PL].[FAT2_ApprenticeshipFunding](
 	[Id]					[uniqueidentifier]	PRIMARY KEY NOT NULL,
-	[StandardUId]			[varchar](20)					NOT NULL,
+	[StandardUId]			[varchar](20)					NULL,
 	[EffectiveFrom]			[datetime]						NOT NULL,
 	[EffectiveTo]			[datetime]						NULL,
 	[MaxEmployerLevyCap]	[int]							NOT NULL,

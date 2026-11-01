@@ -70,4 +70,4 @@ End
 
  
 /* Proc to Materialize RiskAssessmentTool_Incentive_PAYE View */
-Exec [dbo].[ImportRiskAssessmentTool_Incentive_PAYE]
+Exec [dbo].[ImportRiskAssessmentTool_Incentive_PAYE] @RunId

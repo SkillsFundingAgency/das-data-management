@@ -51,7 +51,7 @@ BEGIN TRY
                ) rn
         FROM ASData_PL.Acc_AccountHistory
     )
-    INSERT INTO dbo.RiskAssessmentTool_Incentive_PAYE
+    INSERT INTO [ASData_PL].[RiskAssessmentTool_Incentive_PAYE]
     (
         EmpRef,
         LiveEmployeeCount,

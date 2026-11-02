@@ -639,5 +639,9 @@
     <Build Include="Views\ASDataPL_vw_DAS_EmailIntegration.sql" />  
     <Build Include="Views\ASDataPL_vw_DAS_RegistrationStages.sql" />  
 
+
+    <Build Include="Tables\AsDataPL_RiskAssessmentTool_Incentive_PAYE.sql" />
+    <Build Include="StoredProcedure\ImportRiskAssessmentTool_Incentive_PAYE.sql" />
+
   </ItemGroup>
 </Project>

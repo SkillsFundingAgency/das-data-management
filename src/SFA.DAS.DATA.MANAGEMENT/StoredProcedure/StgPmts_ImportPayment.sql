@@ -83,7 +83,10 @@ BEGIN
             [ReportingAimFundingLineType],
             [NonPaymentReason],
             [DuplicateNumber],
-            [AgeAtStartOfLearning]
+            [AgeAtStartOfLearning],
+            [LearningType],
+            [CourseType],
+            [CourseCode]
         )
         SELECT 
             [Id],
@@ -130,7 +133,10 @@ BEGIN
             [ReportingAimFundingLineType],
             [NonPaymentReason],
             [DuplicateNumber],
-            [AgeAtStartOfLearning]
+            [AgeAtStartOfLearning],
+            [LearningType],
+            [CourseType],
+            [CourseCode]
         FROM [StgPmts].[stg_Payment]
         WHERE [AcademicYear] = @AcademicYear
           AND [CollectionPeriod] = @CollectionPeriod;
@@ -185,3 +191,4 @@ BEGIN
           AND RunID = @RunId;
     END CATCH
 END;
+

@@ -5,7 +5,7 @@
       ,[CandidateStatusTypeDesc] Varchar(255)
       ,[CountyId] Int
       ,[CountyName] Varchar(255)
-      ,[PostCode] nvarchar(10)
+      ,[PostCode] nvarchar(255)
       ,[LocalAuthorityId] int
       ,[LocalAuthorityName] Varchar(255)
       ,[UniqueLearnerNumber] Bigint

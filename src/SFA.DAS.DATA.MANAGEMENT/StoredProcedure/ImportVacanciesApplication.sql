@@ -55,7 +55,9 @@ INSERT INTO [ASData_PL].[Va_Application]
            ,[ApplicationGuid]
            ,[CreatedDateTime]
            ,[SourceDb]
-           ,[SourceApplicationId])
+           ,[SourceApplicationId]
+           ,[EmployerFeedback]
+           ,[CandidateFeedback])
 
 
 
@@ -73,6 +75,8 @@ INSERT INTO [ASData_PL].[Va_Application]
 		  ,AH.HistoryDate                  as CreatedDateTime
 		  ,'RAAv1'                         as SourceDb
 		  ,AA.ApplicationId                as SourceApplicationId
+      ,NULL                            as EmployerFeedback
+      ,NULL                            as CandidateFeedback
   FROM [Stg].[Avms_Application] AA
   LEFT
   JOIN ASData_PL.Va_Vacancy v
@@ -115,7 +119,9 @@ INSERT INTO [ASData_PL].[Va_Application]
 	   ,[dbo].[Fn_ConvertGuidToBase64](AR.Id)   as ApplicationGuid
 	   ,ar.CreatedDate as CreatedDateTime
 	   ,'RAAv2'                             as SourceDb
-	   ,-1                       as SourceApplicationId
+     ,-1                       as SourceApplicationId
+     ,AR.EmployerFeedback
+     ,AR.CandidateFeedback
  from Stg.RCRT_ApplicationReview AR
  left
  join ASData_PL.Va_Vacancy V   
@@ -145,6 +151,8 @@ INSERT INTO [ASData_PL].[Va_Application]
       ,AR.[CreatedDateTime]
       ,AR.[SourceDb]
       ,-1
+      ,NULL
+      ,NULL
  from [AsData_PL].[Va_Application_Migration_MissingData] AR
  left
  join ASData_PL.Va_Vacancy V   

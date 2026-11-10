@@ -13,6 +13,8 @@
 	  ,[CreatedDateTime] DateTime
 	  ,[SourceDb] Varchar(100)
 	  ,[SourceApplicationId] INT
+	  ,[EmployerFeedback] VARCHAR(MAX)
+	  ,[CandidateFeedback] VARCHAR(MAX)
 	  ,[AsDm_UpdatedDateTime]  [datetime2](7)						DEFAULT (getdate())
 	  ,Foreign Key (CandidateId)  References [AsData_PL].[Va_Candidate](CandidateId)
  

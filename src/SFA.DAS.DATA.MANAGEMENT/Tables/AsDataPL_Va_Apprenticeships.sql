@@ -18,6 +18,11 @@
       ,UnsuccessfulReason nvarchar(max)
       ,DateProviderSharedApplicationWithEmployer datetime2
       ,ApplicationStatusRecruitmentView nvarchar(max)
+     ,Ukprn int
+     ,StatusUpdatedDate datetime2
+     ,VacancyTitle nvarchar(500)
+     ,ReviewedDate datetime2
+     ,HasEverBeenEmployerInterviewing bit
       ,SourceApprenticeshipId varchar(256)
       ,SourceDb varchar(100)
       ,MigrationDate datetime2

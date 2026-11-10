@@ -58,6 +58,11 @@ INSERT INTO [ASData_PL].[Va_Apprenticeships]
            ,SourceApprenticeshipId
            ,DateProviderSharedApplicationWithEmployer 
            ,ApplicationStatusRecruitmentView
+           ,Ukprn
+           ,StatusUpdatedDate
+           ,VacancyTitle
+           ,ReviewedDate
+           ,HasEverBeenEmployerInterviewing
            ,[Status]
            ,SourceDb
            ,MigrationDate
@@ -89,6 +94,11 @@ SELECT vc.CandidateId                                                   as Candi
 	    ,'N/A'                                                           as SourceApprenticeshipId
       ,RAR.DateSharedWithEmployer   as dateSharedWithEmployer
       ,RAR.Status                                           as ApplicationStatusRecruitmentView
+      ,RAR.Ukprn
+      ,RAR.StatusUpdatedDate
+      ,RAR.VacancyTitle
+      ,RAR.ReviewedDate
+      ,RAR.HasEverBeenEmployerInterviewing
       ,CASE  
         WHEN A.Status = 0 THEN 'Draft'
         WHEN A.Status = 1 THEN 'Submitted'

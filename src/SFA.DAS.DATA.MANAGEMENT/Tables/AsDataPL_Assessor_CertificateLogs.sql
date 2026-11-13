@@ -12,13 +12,14 @@
 	[StandardLevel]				[Int]				NULL,
 	[StandardPublicationDate]	[DateTime2](7)		NULL,
 	[ContactOrganisation]		[NVarchar](300)		NULL,
-	[ContactPostcode]			[NVarchar](50)		NULL,
+	[ContactPostcode]			[NVarchar](500)		NULL,
 	[Registration]				[NVarchar](300)		NULL,
 	[LearningStartDate]			[DateTime2](7)		NULL,
 	[AchievementDate]			[DateTime2](7)		NULL,
 	[CourseOption]				[NVarchar](300)		NULL,
 	[OverallGrade]				[NVarchar](300)		NULL,
 	[Department]				[NVarchar](300)		NULL,
+	[Username]					[NVarchar](300)		NULL,
 	[AsDm_UpdatedDateTime]		[Datetime2](7)		default getdate()
 )
 

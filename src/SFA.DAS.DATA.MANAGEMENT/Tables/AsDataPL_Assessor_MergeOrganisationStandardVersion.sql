@@ -7,7 +7,7 @@
 	[EffectiveFrom]					[datetime]		NULL,
 	[EffectiveTo]					[datetime]		NULL,
 	[DateVersionApproved]			[datetime]		NULL,
-	[Comments]						[nvarchar](500) NULL,
+	[Comments]						[nvarchar](max) NULL,
 	[Status]						[nvarchar](10)	NOT NULL,
 	[MergeOrganisationId]			[int]			NOT NULL,
 	[Replicates]					[nvarchar](6)	NOT NULL,

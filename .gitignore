@@ -396,3 +396,12 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+.dotnet/9.0.312.dotnetFirstUseSentinel
+.dotnet/9.0.312_IsDockerContainer.dotnetUserLevelCache
+.dotnet/9.0.312_MachineId.dotnetUserLevelCache
+.dotnet/9.0.312.aspNetCertificateSentinel
+.dotnet/MachineId.v1.dotnetUserLevelCache
+.dotnet/9.0.312.toolpath.sentinel
+.dotnet/TelemetryStorageService/20260324200225_113118d53bac478fa27a94613dc8118b.trn
+.dotnet/TelemetryStorageService/20260324200225_2389241e276344aa9a4a01d4a29e2f78.trn
+.dotnet/TelemetryStorageService/20260324200225_f8eb05e9c9d341e585dadbb2d934e9ab.trn

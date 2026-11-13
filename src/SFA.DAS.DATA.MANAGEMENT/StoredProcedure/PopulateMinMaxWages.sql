@@ -37,6 +37,28 @@ BEGIN TRY
         AnnaualMinimumWage,
         AnnualMaximumWage
     )
+    SELECT VacancyId,
+           NumberOfPositions,
+           WageType,
+           [Annual Minimum wage],
+           [Annual Maximum wage]
+    FROM
+    (
+        SELECT VacancyWages.*,
+               ROW_NUMBER() OVER
+               (
+                   PARTITION BY VacancyId
+                   ORDER BY CASE WageType
+                                WHEN 'Unknown Wage' THEN 1
+                                WHEN 'Apprenticeship Minimum Wage' THEN 2
+                                WHEN 'Custom Wage' THEN 3
+                                WHEN 'Custom Wage Range' THEN 4
+                                WHEN 'National Minimum or Fixed Wage' THEN 5
+                                ELSE 6
+                            END
+               ) AS VacancyWageRank
+        FROM
+        (
     ----Unknown salary amounts
     SELECT distinct
         vacancyid,
@@ -49,7 +71,10 @@ BEGIN TRY
           and dateposted >= '01-Aug-2018'
           and VacancyTypeDesc NOT LIKE 'Traineeship%'
           and (
-                  wagetype in ( 'Competitive salary', 'To be agreed upon appointment', 'Unwaged','Unspecified' )
+                  wagetype is null
+                  or wagetype in ( 'Competitive salary', 'CompetitiveSalary', 'Legacy Text Wage',
+                                   'Legacy Weekly Wage', 'To be agreed upon appointment', 'Unwaged',
+                                   'Unspecified' )
                   or [WageText] like '%unknown%'
               )
     UNION ALL
@@ -276,7 +301,7 @@ BEGIN TRY
     -----------------------------National Minimum Wage,FixedWage,NationalMinimumWageForApprentices,NationalMinimumWage
    
         
-	select vacancyid,
+	select distinct vacancyid,
            NumberOfPositions,
            Wagetype,
            [Annual Minimum wage] = case
@@ -464,7 +489,8 @@ SELECT VacancyID,
                     FROM Mtd.NationalMinimumWageRates
                     WHERE AgeGroup = 'Apprentice'
                 ) AMW -- ApprenticeMinimumWage
-                    ON convert(date, Va.DatePosted) >= AMW.StartDate
+                    ON Va.WageType = 'NationalMinimumWageForApprentices'
+                       AND convert(date, Va.DatePosted) >= AMW.StartDate
                        AND convert(Date, Va.DatePosted) <= AMW.EndDate
                 LEFT JOIN
                 (
@@ -477,7 +503,8 @@ SELECT VacancyID,
                     GROUP BY StartDate,
                              EndDate
                 ) NMR
-                    ON convert(date, Va.DatePosted) >= NMR.StartDate
+                    ON Va.WageType = 'NationalMinimumWage'
+                       AND convert(date, Va.DatePosted) >= NMR.StartDate
                        AND convert(date, Va.DatePosted) <= NMR.EndDate
             where Va.HasHadLiveStatus = 1
                   and Va.dateposted >= '01-Aug-2018'
@@ -485,6 +512,9 @@ SELECT VacancyID,
                   and Va.wagetype in ( 'National Minimum Wage', 'FixedWage', 'NationalMinimumWageForApprentices',
                                     'NationalMinimumWage')
 								  )k)z
+        ) VacancyWages
+    ) RankedVacancyWages
+    WHERE VacancyWageRank = 1
 
 
 
